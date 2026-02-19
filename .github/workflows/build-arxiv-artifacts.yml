@@ -37,10 +37,13 @@ jobs:
       - name: Package arXiv bundle
         run: |
           mkdir -p submission/arxiv
+          rm -rf submission/arxiv/assets
           cp -r assets submission/arxiv/assets
           cp tot-hf-agents-llm.md submission/arxiv/tot-hf-agents-llm.md
           cp LICENSE submission/arxiv/
-          tar -czf submission/arxiv/arxiv-bundle.tgz -C submission/arxiv .
+          TMP_TGZ="$(mktemp)"
+          tar --exclude='arxiv-bundle.tgz' -czf "$TMP_TGZ" -C submission/arxiv .
+          mv "$TMP_TGZ" submission/arxiv/arxiv-bundle.tgz
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
