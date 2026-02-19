@@ -27,6 +27,15 @@ Deliver a publication-grade survey manuscript on Tree of Thoughts and Hugging Fa
    - PRISMA-style flow figure/checklist (adapted for CS survey use).
    - Cover letter template and venue-specific formatting pass.
 
+### Current Progress Snapshot (2026-02-19)
+1. Milestone 1: complete.
+2. Milestone 2: complete (frozen run `TOT-HF-SURVEY-2026-02-19`).
+3. Milestone 3: complete for survey scope (with evidence-boundary controls).
+4. Milestone 4: complete (citation audit, tone neutralization, claim-evidence mapping, snippet labeling).
+5. Milestone 5: in progress:
+   - completed: Word export, submission manifest, arXiv conversion scaffold.
+   - pending: artifact repository content publication/verification, arXiv source conversion, bibliography style normalization.
+
 ### Definition of Done (Track 1)
 1. Every factual/quantitative claim is traceable to a citation or removed.
 2. Survey method is transparent and reproducible.
