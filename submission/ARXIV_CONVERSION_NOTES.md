@@ -4,10 +4,10 @@
 Produce arXiv source output (`main.tex`) from the canonical HTML manuscript.
 
 ## Canonical Source
-- `/Users/quiznat/Desktop/Tree_of_Thought/Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html`
+- `../paper.html`
 
 ## Script
-- `/Users/quiznat/Desktop/Tree_of_Thought/submission/convert_to_arxiv.sh`
+- `./convert_to_arxiv.sh`
 
 ## Requirements
 1. `pandoc` installed locally.
@@ -18,7 +18,7 @@ bash submission/convert_to_arxiv.sh
 ```
 
 ## Output
-- `/Users/quiznat/Desktop/Tree_of_Thought/submission/arxiv/main.tex`
+- `./arxiv/main.tex`
 
 ## Post-Conversion Checklist
 1. Verify figure paths and captions in generated LaTeX.

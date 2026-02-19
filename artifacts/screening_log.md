@@ -1,8 +1,8 @@
-# SURVEY_SELECTION_LEDGER
+# Screening Log
 
 Run ID: `TOT-HF-SURVEY-2026-02-19`  
 Run date: 2026-02-19  
-Manuscript anchor: `/Users/quiznat/Desktop/Tree_of_Thought/Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html`
+Manuscript anchor: `paper.html`
 
 ## Purpose
 Provide a fixed, auditable selection ledger for the current survey manuscript version.

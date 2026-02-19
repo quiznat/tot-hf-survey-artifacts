@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-SRC_HTML="$ROOT_DIR/Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html"
+SRC_HTML="$ROOT_DIR/paper.html"
 OUT_DIR="$ROOT_DIR/submission/arxiv"
 
 mkdir -p "$OUT_DIR"
