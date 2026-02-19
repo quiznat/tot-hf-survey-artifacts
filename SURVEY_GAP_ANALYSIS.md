@@ -10,23 +10,17 @@ Date: 2026-02-19
 4. Synthetic case studies are explicitly labeled as non-benchmark examples.
 
 ## Gaps To Close For Publication-Grade Survey
-1. Missing formal survey method section:
-   - No explicit search protocol, query strings, screening process, or date cutoff.
-2. Missing study selection transparency:
-   - No included/excluded paper flow with reasons.
-3. Missing extraction artifact:
-   - No structured extraction table linking studies to taxonomy and claims.
-4. Partial citation granularity:
-   - Many narrative factual claims need inline citation anchors.
-5. Missing explicit threats-to-validity section:
-   - Needs survey-specific risk analysis (selection bias, benchmark heterogeneity, reporting bias).
+1. Citation-completeness gap (remaining):
+   - A first hardening pass is complete, but a full line-by-line citation sweep is still required.
+2. API drift risk:
+   - Implementation snippets need explicit validation against current Hugging Face docs.
+3. Optional corpus-expansion branch:
+   - If additional records are added, a new run ID and updated flow counts are required.
 
 ## Action Plan (Execution Order)
-1. Add Section: "Survey Methodology" (protocol + criteria + dates).
-2. Build and insert "Study Selection Flow" table/figure.
-3. Build "Study Extraction Matrix" appendix and cite it in synthesis sections.
-4. Run sentence-level claim-to-citation audit and patch unresolved claims.
-5. Add "Threats to Validity" and tighten conclusion language accordingly.
+1. Run sentence-level claim-to-citation audit and patch unresolved claims.
+2. Validate implementation snippets against current Hugging Face API docs.
+3. Finalize venue-format package (figures, cross-references, references consistency).
 
 ## Ready-to-Submit Check
 - Not ready yet for scholarly survey submission.

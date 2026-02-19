@@ -12,13 +12,17 @@ Split architecture completed:
 3. HTML manuscript received a framing/clarity edit pass (survey scope, claim boundaries, pseudo-code labeling, and citation typo fixes).
 4. Appendix C rewritten to report source-attributed benchmark evidence only, with explicit evidence boundaries.
 5. Unsourced quantitative comparative table removed and replaced with qualitative non-benchmark analysis.
+6. Survey methodology section added (RQs, search strategy, inclusion/exclusion, extraction protocol).
+7. Appendix D/E added as publication artifacts (selection-flow counts + exclusion ledger + row-level extraction matrix).
+8. Frozen core-corpus selection run completed with fixed counts and exclusion ledger (`TOT-HF-SURVEY-2026-02-19`).
+9. Appendix E expanded to full row-level extraction for all 22 included records.
+10. First-pass citation hardening completed for key factual sections (intro/background/frameworks/threats/appendices).
 
 ## Next Action
 Harden the manuscript to peer-review survey standards:
-1. Add explicit survey method section (search strategy, screening, inclusion/exclusion, quality criteria).
-2. Build study extraction table and claim-evidence audit log.
-3. Run citation-completeness pass on all factual statements.
-4. Create submission-ready package (figures, references, appendix artifacts).
+1. Run citation-completeness pass on all factual statements.
+2. Validate smolagents/agent API snippets against current official docs.
+3. Create submission-ready package (figures, references, appendix artifacts).
 
 ## Active Blockers
 None.
