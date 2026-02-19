@@ -20,4 +20,15 @@ pandoc \
   --standalone \
   --output="$OUT_DIR/main.tex"
 
+# Normalize symbols that frequently break CI LaTeX engines or default fonts.
+# Keep semantics while using ASCII-safe equivalents in generated source.
+perl -i -CS -pe '
+  s/₀/0/g; s/₁/1/g; s/₂/2/g; s/₃/3/g; s/₄/4/g;
+  s/₅/5/g; s/₆/6/g; s/₇/7/g; s/₈/8/g; s/₉/9/g;
+  s/ₖ/k/g;
+  s/←/<-/g; s/→/->/g;
+  s/∅/empty_set/g; s/∪/union/g;
+  s/├──/|--/g; s/└──/`--/g; s/│/|/g; s/─/-/g;
+' "$OUT_DIR/main.tex"
+
 echo "Generated: $OUT_DIR/main.tex"

@@ -777,8 +777,8 @@ Specification}\label{the-tot-algorithm-formal-specification}
 
 We can formally specify the ToT algorithm as follows:
 
-\textbf{Input:} Problem P, generation function G(P, s, k) → \{t₁, ...,
-tₖ\}, evaluation function E(P, s, t) → v on a 0-10 scale, search
+\textbf{Input:} Problem P, generation function G(P, s, k) -> \{t1, ...,
+tk\}, evaluation function E(P, s, t) -> v on a 0-10 scale, search
 algorithm A, beam width b, maximum depth d
 
 \textbf{Output:} Solution or best path found
@@ -786,22 +786,22 @@ algorithm A, beam width b, maximum depth d
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Algorithm ToT(P, G, E, A, b, d):}
-\NormalTok{    Initialize: S ← \{s₀\}  }\OperatorTok{//}\NormalTok{ Set of states, starting }\ControlFlowTok{with}\NormalTok{ initial state}
+\NormalTok{    Initialize: S <- \{s0\}  }\OperatorTok{//}\NormalTok{ Set of states, starting }\ControlFlowTok{with}\NormalTok{ initial state}
     
     \ControlFlowTok{for}\NormalTok{ depth }\OperatorTok{=} \DecValTok{1}\NormalTok{ to d:}
-\NormalTok{        candidates ← ∅}
+\NormalTok{        candidates <- empty_set}
         
         \ControlFlowTok{for}\NormalTok{ each state s }\KeywordTok{in}\NormalTok{ S:}
-\NormalTok{            thoughts ← G(P, s, k)  }\OperatorTok{//}\NormalTok{ Generate k candidates}
+\NormalTok{            thoughts <- G(P, s, k)  }\OperatorTok{//}\NormalTok{ Generate k candidates}
             \ControlFlowTok{for}\NormalTok{ each thought t }\KeywordTok{in}\NormalTok{ thoughts:}
-\NormalTok{                s}\StringTok{\textquotesingle{} ← s ∪ }\SpecialCharTok{\{t\}}\StringTok{  // Extend state with thought}
-\ErrorTok{                v ← E}\NormalTok{(P, s, t)  }\OperatorTok{//}\NormalTok{ Evaluate new state}
-\NormalTok{                candidates ← candidates ∪ \{(v, s}\StringTok{\textquotesingle{})\}}
+\NormalTok{                s}\StringTok{\textquotesingle{} <- s union }\SpecialCharTok{\{t\}}\StringTok{  // Extend state with thought}
+\ErrorTok{                v <- E}\NormalTok{(P, s, t)  }\OperatorTok{//}\NormalTok{ Evaluate new state}
+\NormalTok{                candidates <- candidates union \{(v, s}\StringTok{\textquotesingle{})\}}
 \ErrorTok{        }
         \ControlFlowTok{if}\NormalTok{ solution\_found(candidates):}
             \ControlFlowTok{return}\NormalTok{ extract\_solution(candidates)}
         
-\NormalTok{        S ← select\_top(candidates, b)  }\OperatorTok{//}\NormalTok{ Keep top b states}
+\NormalTok{        S <- select\_top(candidates, b)  }\OperatorTok{//}\NormalTok{ Keep top b states}
     
     \ControlFlowTok{return}\NormalTok{ best\_state(S)}
 \end{Highlighting}
@@ -1832,20 +1832,20 @@ Agent}\label{implementation-sketch-pseudo-code-tot-code-agent}
 \NormalTok{Task: "Compare Tesla and BYD stock performance over the last year"}
 
 \NormalTok{ToT Exploration:}
-\NormalTok{├── Path A: Search for both, then compare}
-\NormalTok{│   ├── Step 1: search("Tesla stock 2024")}
-\NormalTok{│   ├── Step 2: search("BYD stock 2024")}
-\NormalTok{│   └── Step 3: calculate(comparison\_metrics)}
-\NormalTok{│   └── Heuristic rating: medium (detailed but may miss real{-}time data)}
-\NormalTok{│}
-\NormalTok{├── Path B: Use stock API directly}
-\NormalTok{│   ├── Step 1: stock\_api("TSLA", period="1y")}
-\NormalTok{│   ├── Step 2: stock\_api("BYD", period="1y")}
-\NormalTok{│   └── Step 3: calculate\_performance\_comparison}
-\NormalTok{│   └── Heuristic rating: high (precise data, structured output)}
-\NormalTok{│}
-\NormalTok{└── Path C: Search for analysis articles}
-\NormalTok{    └── Heuristic rating: low (subjective, may be outdated)}
+\NormalTok{|-- Path A: Search for both, then compare}
+\NormalTok{|   |-- Step 1: search("Tesla stock 2024")}
+\NormalTok{|   |-- Step 2: search("BYD stock 2024")}
+\NormalTok{|   `-- Step 3: calculate(comparison\_metrics)}
+\NormalTok{|   `-- Heuristic rating: medium (detailed but may miss real{-}time data)}
+\NormalTok{|}
+\NormalTok{|-- Path B: Use stock API directly}
+\NormalTok{|   |-- Step 1: stock\_api("TSLA", period="1y")}
+\NormalTok{|   |-- Step 2: stock\_api("BYD", period="1y")}
+\NormalTok{|   `-- Step 3: calculate\_performance\_comparison}
+\NormalTok{|   `-- Heuristic rating: high (precise data, structured output)}
+\NormalTok{|}
+\NormalTok{`-- Path C: Search for analysis articles}
+\NormalTok{    `-- Heuristic rating: low (subjective, may be outdated)}
 
 \NormalTok{Selected: Path B for accuracy and reliability}
 \end{Highlighting}
@@ -1895,20 +1895,20 @@ produce incorrect results.
 \NormalTok{Task: "Prepare a market analysis report on electric vehicles"}
 
 \NormalTok{ToT Planning Tree:}
-\NormalTok{├── Research Phase}
-\NormalTok{│   ├── Branch A: Industry reports → Company filings → News}
-\NormalTok{│   ├── Branch B: Academic papers → Expert interviews → Data}
-\NormalTok{│   └── Branch C: News first → Trending topics → Deep dive}
-\NormalTok{│}
-\NormalTok{├── Analysis Phase}
-\NormalTok{│   ├── Option 1: Statistical analysis of collected data}
-\NormalTok{│   ├── Option 2: Comparative analysis across companies}
-\NormalTok{│   └── Option 3: Trend projection with forecasting}
-\NormalTok{│}
-\NormalTok{└── Synthesis Phase}
-\NormalTok{    ├── Format A: Executive summary + detailed appendix}
-\NormalTok{    ├── Format B: Structured SWOT analysis}
-\NormalTok{    └── Format C: Narrative with visualizations}
+\NormalTok{|-- Research Phase}
+\NormalTok{|   |-- Branch A: Industry reports -> Company filings -> News}
+\NormalTok{|   |-- Branch B: Academic papers -> Expert interviews -> Data}
+\NormalTok{|   `-- Branch C: News first -> Trending topics -> Deep dive}
+\NormalTok{|}
+\NormalTok{|-- Analysis Phase}
+\NormalTok{|   |-- Option 1: Statistical analysis of collected data}
+\NormalTok{|   |-- Option 2: Comparative analysis across companies}
+\NormalTok{|   `-- Option 3: Trend projection with forecasting}
+\NormalTok{|}
+\NormalTok{`-- Synthesis Phase}
+\NormalTok{    |-- Format A: Executive summary + detailed appendix}
+\NormalTok{    |-- Format B: Structured SWOT analysis}
+\NormalTok{    `-- Format C: Narrative with visualizations}
 
 \NormalTok{Evaluation selects:}
 \NormalTok{{-} Research: Branch A (most detailed)}
@@ -1916,11 +1916,11 @@ produce incorrect results.
 \NormalTok{{-} Format: Format C (most accessible)}
 
 \NormalTok{Execution Plan:}
-\NormalTok{├── Week 1: Filter development + testing}
-\NormalTok{├── Week 2{-}3: Soft launch with beta users}
-\NormalTok{├── Week 4: Full campaign launch}
-\NormalTok{├── Week 5{-}6: Monitor and optimize}
-\NormalTok{└── Week 7: Results analysis and report}
+\NormalTok{|-- Week 1: Filter development + testing}
+\NormalTok{|-- Week 2{-}3: Soft launch with beta users}
+\NormalTok{|-- Week 4: Full campaign launch}
+\NormalTok{|-- Week 5{-}6: Monitor and optimize}
+\NormalTok{`-- Week 7: Results analysis and report}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1952,27 +1952,27 @@ earnings.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Planning Phase (ToT):}
-\NormalTok{├── Strategy A: Quick summary from news articles}
-\NormalTok{│   └── Heuristic rating: low (fast but shallow)}
-\NormalTok{│}
-\NormalTok{├── Strategy B: Official SEC filings analysis}
-\NormalTok{│   ├── 10{-}Q form deep dive}
-\NormalTok{│   ├── Balance sheet analysis  }
-\NormalTok{│   └── Cash flow evaluation}
-\NormalTok{│   └── Heuristic rating: high (authoritative, detailed)}
-\NormalTok{│}
-\NormalTok{├── Strategy C: Aggregator platforms + social sentiment}
-\NormalTok{│   └── Heuristic rating: medium (good context but may lack details)}
-\NormalTok{│}
-\NormalTok{└── Selected: Strategy B with supplementary search}
+\NormalTok{|-- Strategy A: Quick summary from news articles}
+\NormalTok{|   `-- Heuristic rating: low (fast but shallow)}
+\NormalTok{|}
+\NormalTok{|-- Strategy B: Official SEC filings analysis}
+\NormalTok{|   |-- 10{-}Q form deep dive}
+\NormalTok{|   |-- Balance sheet analysis  }
+\NormalTok{|   `-- Cash flow evaluation}
+\NormalTok{|   `-- Heuristic rating: high (authoritative, detailed)}
+\NormalTok{|}
+\NormalTok{|-- Strategy C: Aggregator platforms + social sentiment}
+\NormalTok{|   `-- Heuristic rating: medium (good context but may lack details)}
+\NormalTok{|}
+\NormalTok{`-- Selected: Strategy B with supplementary search}
 
 \NormalTok{Execution:}
-\NormalTok{├── Step 1: Retrieve 10{-}Q filing}
-\NormalTok{├── Step 2: Extract key metrics (revenue, EPS, guidance)}
-\NormalTok{├── Step 3: Compare to analyst estimates}
-\NormalTok{├── Step 4: Analyze segment performance}
-\NormalTok{├── Step 5: Check cash position and debt}
-\NormalTok{└── Step 6: Search for management commentary}
+\NormalTok{|-- Step 1: Retrieve 10{-}Q filing}
+\NormalTok{|-- Step 2: Extract key metrics (revenue, EPS, guidance)}
+\NormalTok{|-- Step 3: Compare to analyst estimates}
+\NormalTok{|-- Step 4: Analyze segment performance}
+\NormalTok{|-- Step 5: Check cash position and debt}
+\NormalTok{`-- Step 6: Search for management commentary}
 
 \NormalTok{Result pattern: structured report with multiple evidence sources}
 \end{Highlighting}
@@ -2002,23 +2002,23 @@ Agent}\label{case-study-2-creative-content-agent}
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Creative Concepts:}
-\NormalTok{├── Concept A: Influencer partnerships}
-\NormalTok{│   ├── Micro{-}influencer strategy}
-\NormalTok{│   ├── Challenge campaign}
-\NormalTok{│   └── UGC incentives}
-\NormalTok{│   └── Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
-\NormalTok{│}
-\NormalTok{├── Concept B: Interactive AR filters}
-\NormalTok{│   ├── Branded filter creation}
-\NormalTok{│   ├── Sustainability quiz}
-\NormalTok{│   └── Share{-}to{-}plant initiative}
-\NormalTok{│   └── Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
-\NormalTok{│}
-\NormalTok{└── Concept C: Behind{-}the{-}scenes documentary}
-\NormalTok{    ├── Series of short videos}
-\NormalTok{    ├── Supply chain transparency}
-\NormalTok{    └── Employee stories}
-\NormalTok{    └── Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
+\NormalTok{|-- Concept A: Influencer partnerships}
+\NormalTok{|   |-- Micro{-}influencer strategy}
+\NormalTok{|   |-- Challenge campaign}
+\NormalTok{|   `-- UGC incentives}
+\NormalTok{|   `-- Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
+\NormalTok{|}
+\NormalTok{|-- Concept B: Interactive AR filters}
+\NormalTok{|   |-- Branded filter creation}
+\NormalTok{|   |-- Sustainability quiz}
+\NormalTok{|   `-- Share{-}to{-}plant initiative}
+\NormalTok{|   `-- Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
+\NormalTok{|}
+\NormalTok{`-- Concept C: Behind{-}the{-}scenes documentary}
+\NormalTok{    |-- Series of short videos}
+\NormalTok{    |-- Supply chain transparency}
+\NormalTok{    `-- Employee stories}
+\NormalTok{    `-- Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
 
 \NormalTok{Evaluation Criteria:}
 \NormalTok{{-} Budget fit (weight: 25\%)}
@@ -2029,11 +2029,11 @@ Agent}\label{case-study-2-creative-content-agent}
 \NormalTok{Selected: Concept B (best engagement/cost ratio)}
 
 \NormalTok{Execution Plan:}
-\NormalTok{├── Week 1: Filter development + testing}
-\NormalTok{├── Week 2{-}3: Soft launch with beta users}
-\NormalTok{├── Week 4: Full campaign launch}
-\NormalTok{├── Week 5{-}6: Monitor and optimize}
-\NormalTok{└── Week 7: Results analysis and report}
+\NormalTok{|-- Week 1: Filter development + testing}
+\NormalTok{|-- Week 2{-}3: Soft launch with beta users}
+\NormalTok{|-- Week 4: Full campaign launch}
+\NormalTok{|-- Week 5{-}6: Monitor and optimize}
+\NormalTok{`-- Week 7: Results analysis and report}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2050,17 +2050,17 @@ Assistant}\label{case-study-3-debugging-assistant}
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Hypothesis Generation:}
-\NormalTok{├── H1: Function returns None before .strip() is called}
-\NormalTok{│   └── Likelihood: High}
-\NormalTok{│}
-\NormalTok{├── H2: Variable overwritten with None somewhere}
-\NormalTok{│   └── Likelihood: Medium}
-\NormalTok{│}
-\NormalTok{├── H3: Conditional branch not handling None case}
-\NormalTok{│   └── Likelihood: High}
-\NormalTok{│}
-\NormalTok{└── H4: External API returning None unexpectedly}
-\NormalTok{    └── Likelihood: Low (no API calls in traceback)}
+\NormalTok{|-- H1: Function returns None before .strip() is called}
+\NormalTok{|   `-- Likelihood: High}
+\NormalTok{|}
+\NormalTok{|-- H2: Variable overwritten with None somewhere}
+\NormalTok{|   `-- Likelihood: Medium}
+\NormalTok{|}
+\NormalTok{|-- H3: Conditional branch not handling None case}
+\NormalTok{|   `-- Likelihood: High}
+\NormalTok{|}
+\NormalTok{`-- H4: External API returning None unexpectedly}
+\NormalTok{    `-- Likelihood: Low (no API calls in traceback)}
 
 \NormalTok{Investigation Plan:}
 \NormalTok{1. Check function return paths (test H1, H3)}
@@ -2068,11 +2068,11 @@ Assistant}\label{case-study-3-debugging-assistant}
 \NormalTok{3. Add defensive checks if needed}
 
 \NormalTok{Execution:}
-\NormalTok{├── Step 1: Insert print statements to identify None source}
-\NormalTok{├── Step 2: Discover regex match returning None}
-\NormalTok{├── Step 3: Add null check: \textasciigrave{}if match: result = match.group(1).strip()\textasciigrave{}}
-\NormalTok{├── Step 4: Test fix}
-\NormalTok{└── Step 5: Verify edge cases}
+\NormalTok{|-- Step 1: Insert print statements to identify None source}
+\NormalTok{|-- Step 2: Discover regex match returning None}
+\NormalTok{|-- Step 3: Add null check: \textasciigrave{}if match: result = match.group(1).strip()\textasciigrave{}}
+\NormalTok{|-- Step 4: Test fix}
+\NormalTok{`-- Step 5: Verify edge cases}
 
 \NormalTok{Resolution pattern: null{-}handling fix after hypothesis{-}driven tracing}
 \end{Highlighting}
@@ -2527,14 +2527,14 @@ Extend ToT to multi-modal reasoning:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Visual Thought Tree:}
-\NormalTok{├── Image understanding nodes}
-\NormalTok{├── Visual reasoning branches}
-\NormalTok{└── Cross{-}modal integration points}
+\NormalTok{|-- Image understanding nodes}
+\NormalTok{|-- Visual reasoning branches}
+\NormalTok{`-- Cross{-}modal integration points}
 
 \NormalTok{Example Task: "Design a logo based on these brand values"}
-\NormalTok{├── Generate visual concepts (image generation)}
-\NormalTok{├── Evaluate against brand guidelines (vision + text)}
-\NormalTok{└── Iterate on promising designs}
+\NormalTok{|-- Generate visual concepts (image generation)}
+\NormalTok{|-- Evaluate against brand guidelines (vision + text)}
+\NormalTok{`-- Iterate on promising designs}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2545,12 +2545,12 @@ Implement recursive tree structures:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{High{-}Level Tree:}
-\NormalTok{├── Phase 1: Research}
-\NormalTok{│   └── Low{-}Level Tree (research strategies)}
-\NormalTok{├── Phase 2: Analysis}
-\NormalTok{│   └── Low{-}Level Tree (analysis methods)}
-\NormalTok{└── Phase 3: Synthesis}
-\NormalTok{    └── Low{-}Level Tree (writing approaches)}
+\NormalTok{|-- Phase 1: Research}
+\NormalTok{|   `-- Low{-}Level Tree (research strategies)}
+\NormalTok{|-- Phase 2: Analysis}
+\NormalTok{|   `-- Low{-}Level Tree (analysis methods)}
+\NormalTok{`-- Phase 3: Synthesis}
+\NormalTok{    `-- Low{-}Level Tree (writing approaches)}
 \end{Highlighting}
 \end{Shaded}
 

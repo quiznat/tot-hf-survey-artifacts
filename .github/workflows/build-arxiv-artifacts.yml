@@ -34,24 +34,27 @@ jobs:
         run: |
           bash submission/convert_to_arxiv.sh
 
-      - name: Compile PDF from main.tex
-        working-directory: submission/arxiv
-        run: |
-          latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
-
       - name: Generate LLM-friendly Markdown
         run: |
           bash submission/build_llm_markdown.sh
 
-      - name: Package arXiv bundle
+      - name: Prepare arXiv workspace
         run: |
           mkdir -p submission/arxiv
           rm -rf submission/arxiv/assets
           cp -r assets submission/arxiv/assets
           cp tot-hf-agents-llm.md submission/arxiv/tot-hf-agents-llm.md
           cp LICENSE submission/arxiv/
+
+      - name: Compile PDF from main.tex
+        working-directory: submission/arxiv
+        run: |
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Package arXiv bundle
+        run: |
           TMP_TGZ="$(mktemp)"
-          tar --exclude='arxiv-bundle.tgz' -czf "$TMP_TGZ" -C submission/arxiv .
+          tar -czf "$TMP_TGZ" -C submission/arxiv main.tex main.pdf assets tot-hf-agents-llm.md LICENSE
           mv "$TMP_TGZ" submission/arxiv/arxiv-bundle.tgz
 
       - name: Upload artifacts
