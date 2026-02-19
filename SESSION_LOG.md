@@ -150,3 +150,11 @@
   - `SURVEY_GAP_ANALYSIS.md`
   - `SUBMISSION_PACKAGE_CHECKLIST.md`
   - `CLAIM_EVIDENCE_AUDIT.md`
+
+## 2026-02-19 (Track 1 publication mirror push)
+
+- Configured Git remote `origin`:
+  - `https://github.com/quiznat/tot-hf-survey-artifacts.git`
+- Reconciled remote bootstrap commit history (LICENSE) and pushed local `main`.
+- Repository now serves as an alternate public host for the manuscript package.
+- Remaining repo-side task: verify that all artifacts referenced in Section 0.4 are present in the public repo.

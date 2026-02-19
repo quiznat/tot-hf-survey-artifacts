@@ -4,6 +4,8 @@ Date: 2026-02-19
 Source manuscript: `/Users/quiznat/Desktop/Tree_of_Thought/Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html`
 
 ## Generated Artifacts
+- Public repository host (live):
+  - `https://github.com/quiznat/tot-hf-survey-artifacts`
 - Journal-friendly Word export:
   - `/Users/quiznat/Desktop/Tree_of_Thought/submission/tot_hf_agents_survey_2026-02-19.docx`
 - arXiv conversion scaffolding:

@@ -42,6 +42,8 @@ Split architecture completed:
 23. Added explicit snippet labels across all code blocks (`Runnable` vs `Illustrative / pseudo-code`).
 24. Reproducibility section now points to the configured public artifacts repository:
    - `https://github.com/quiznat/tot-hf-survey-artifacts`
+25. GitHub remote configured and pushed:
+   - repository now hosts the manuscript package as an alternate public paper endpoint.
 
 ## Next Action
 Harden the manuscript to peer-review survey standards:

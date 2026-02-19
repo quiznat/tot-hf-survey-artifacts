@@ -16,6 +16,8 @@ Date: 2026-02-19
 10. Appendix F claim-evidence mapping and Appendix G revision history are now included.
 11. All code snippets are explicitly labeled runnable vs illustrative/pseudo-code.
 12. Appendix C benchmark tables now include inline citations in each method row.
+13. Public repository endpoint is configured and live as an alternate manuscript host:
+    - `https://github.com/quiznat/tot-hf-survey-artifacts`
 
 ## Gaps To Close For Publication-Grade Survey
 1. Venue-format conversion gap (remaining):

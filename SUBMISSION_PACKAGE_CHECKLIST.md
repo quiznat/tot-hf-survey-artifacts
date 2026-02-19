@@ -24,6 +24,8 @@ Track: 1 (Scholarly Survey Publication)
 ## Artifact Bundle
 - [x] Main manuscript HTML:
   - `/Users/quiznat/Desktop/Tree_of_Thought/Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html`
+- [x] Public repository host:
+  - `https://github.com/quiznat/tot-hf-survey-artifacts`
 - [x] Journal-friendly manuscript export (Word):
   - `/Users/quiznat/Desktop/Tree_of_Thought/submission/tot_hf_agents_survey_2026-02-19.docx`
 - [x] Submission manifest:

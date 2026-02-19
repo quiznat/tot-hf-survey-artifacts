@@ -11,7 +11,7 @@
 | T1-07 | Survey | Add threats-to-validity and limitations section | Medium | done | Section 6.5 added with survey-specific validity threats |
 | T1-08 | Survey | Final format pass for target venues | Medium | in_progress | Content hardening complete (tone-neutral pass, Section 0.3/0.4, Appendix F/G, snippet labels, Appendix C inline citations); arXiv-source conversion + bibliography normalization pending |
 | T1-09 | Survey | Build submission package checklist | Medium | done | Added `SUBMISSION_PACKAGE_CHECKLIST.md` with gate/status matrix |
-| T1-10 | Survey | Finalize public artifacts link for reproducibility section | High | in_progress | URL set to `https://github.com/quiznat/tot-hf-survey-artifacts`; publish/verify referenced artifact files in repo |
+| T1-10 | Survey | Finalize public artifacts link for reproducibility section | High | in_progress | URL set and repo push complete (`https://github.com/quiznat/tot-hf-survey-artifacts`); verify full referenced artifact-file coverage |
 | T2-01 | Research | Define single testable research question | High | done | Captured in novel-work spec |
 | T2-02 | Research | Design benchmark and baselines | High | in_progress | Drafted protocol in novel-work spec |
 | T2-03 | Research | Build experiment harness | Medium | todo | Reproducibility first |
