@@ -26,9 +26,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pandoc
 
+      - name: Install LaTeX toolchain
+        run: |
+          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+
       - name: Generate arXiv LaTeX source
         run: |
           bash submission/convert_to_arxiv.sh
+
+      - name: Compile PDF from main.tex
+        working-directory: submission/arxiv
+        run: |
+          latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 
       - name: Generate LLM-friendly Markdown
         run: |
@@ -51,5 +60,6 @@ jobs:
           name: arxiv-artifacts
           path: |
             submission/arxiv/main.tex
+            submission/arxiv/main.pdf
             tot-hf-agents-llm.md
             submission/arxiv/arxiv-bundle.tgz

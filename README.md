@@ -16,7 +16,7 @@ Rendered paper hosting is the Pages URL above.
 
 ## Automated publishing/build
 - `.github/workflows/publish-site.yml`: deploys `index.html`, `paper.html`, and `assets/` to GitHub Pages.
-- `.github/workflows/build-arxiv-artifacts.yml`: builds `submission/arxiv/main.tex`, generates `tot-hf-agents-llm.md`, and uploads an `arxiv-bundle.tgz` artifact.
+- `.github/workflows/build-arxiv-artifacts.yml`: builds `submission/arxiv/main.tex`, compiles `submission/arxiv/main.pdf`, generates `tot-hf-agents-llm.md`, and uploads an `arxiv-bundle.tgz` artifact.
 
 ## One-time setup in GitHub
 1. Open repository `Settings` -> `Pages`.
