@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'paper.html'
+      - 'submission/build_llm_markdown.sh'
       - 'submission/convert_to_arxiv.sh'
       - 'submission/ARXIV_CONVERSION_NOTES.md'
       - '.github/workflows/build-arxiv-artifacts.yml'
@@ -29,10 +30,15 @@ jobs:
         run: |
           bash submission/convert_to_arxiv.sh
 
+      - name: Generate LLM-friendly Markdown
+        run: |
+          bash submission/build_llm_markdown.sh
+
       - name: Package arXiv bundle
         run: |
           mkdir -p submission/arxiv
           cp -r assets submission/arxiv/assets
+          cp tot-hf-agents-llm.md submission/arxiv/tot-hf-agents-llm.md
           cp LICENSE submission/arxiv/
           tar -czf submission/arxiv/arxiv-bundle.tgz -C submission/arxiv .
 
@@ -42,4 +48,5 @@ jobs:
           name: arxiv-artifacts
           path: |
             submission/arxiv/main.tex
+            tot-hf-agents-llm.md
             submission/arxiv/arxiv-bundle.tgz

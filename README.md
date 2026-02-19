@@ -11,11 +11,12 @@ Rendered paper hosting is the Pages URL above.
 
 ## Read the paper
 - Web manuscript: [`paper.html`](paper.html)
+- LLM-friendly Markdown (auto-generated in CI / Pages): [`tot-hf-agents-llm.md`](https://quiznat.github.io/tot-hf-survey-artifacts/tot-hf-agents-llm.md)
 - Word export: [`submission/paper-v1.1.docx`](submission/paper-v1.1.docx)
 
 ## Automated publishing/build
 - `.github/workflows/publish-site.yml`: deploys `index.html`, `paper.html`, and `assets/` to GitHub Pages.
-- `.github/workflows/build-arxiv-artifacts.yml`: builds `submission/arxiv/main.tex` and uploads an `arxiv-bundle.tgz` artifact.
+- `.github/workflows/build-arxiv-artifacts.yml`: builds `submission/arxiv/main.tex`, generates `tot-hf-agents-llm.md`, and uploads an `arxiv-bundle.tgz` artifact.
 
 ## One-time setup in GitHub
 1. Open repository `Settings` -> `Pages`.

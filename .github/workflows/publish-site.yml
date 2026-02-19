@@ -7,6 +7,7 @@ on:
       - 'index.html'
       - 'paper.html'
       - 'assets/**'
+      - 'submission/build_llm_markdown.sh'
       - '.github/workflows/publish-site.yml'
   workflow_dispatch:
 
@@ -29,11 +30,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Generate LLM-friendly Markdown
+        run: |
+          bash submission/build_llm_markdown.sh
+
       - name: Prepare site bundle
         run: |
           mkdir -p _site
           cp index.html _site/index.html
           cp paper.html _site/paper.html
+          cp tot-hf-agents-llm.md _site/tot-hf-agents-llm.md
           cp -r assets _site/assets
 
       - name: Upload Pages artifact
