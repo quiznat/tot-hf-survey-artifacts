@@ -1,0 +1,45 @@
+name: Build arXiv Artifacts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'paper.html'
+      - 'submission/convert_to_arxiv.sh'
+      - 'submission/ARXIV_CONVERSION_NOTES.md'
+      - '.github/workflows/build-arxiv-artifacts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Generate arXiv LaTeX source
+        run: |
+          bash submission/convert_to_arxiv.sh
+
+      - name: Package arXiv bundle
+        run: |
+          mkdir -p submission/arxiv
+          cp -r assets submission/arxiv/assets
+          cp LICENSE submission/arxiv/
+          tar -czf submission/arxiv/arxiv-bundle.tgz -C submission/arxiv .
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: arxiv-artifacts
+          path: |
+            submission/arxiv/main.tex
+            submission/arxiv/arxiv-bundle.tgz

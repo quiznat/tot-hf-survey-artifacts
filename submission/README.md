@@ -8,3 +8,6 @@
 - [`ARXIV_CONVERSION_NOTES.md`](ARXIV_CONVERSION_NOTES.md)
 
 The conversion helper expects `pandoc` to be installed locally.
+
+CI alternative:
+- The GitHub Actions workflow `build-arxiv-artifacts.yml` generates `main.tex` and an `arxiv-bundle.tgz` artifact on `main` pushes.
