@@ -1,13 +1,16 @@
 # Artifacts
 
-Reproducibility artifacts for frozen survey run `TOT-HF-SURVEY-2026-02-19`.
+This directory contains the reproducibility corpus for survey run `TOT-HF-SURVEY-2026-02-19`.
 
-## Included
-- [`screening_log.md`](screening_log.md): inclusion/exclusion ledger used for Appendix D.
-- [`Paper Inception/`](Paper%20Inception/): publication evidence scaffold, claim matrix, readiness checklist, and frozen/local validation records.
-- [`Paper Inception/EVIDENCE_INDEX.md`](Paper%20Inception/EVIDENCE_INDEX.md): quick index of evidence files and scope.
+## Contents
+- [`screening-log.md`](screening-log.md): auditable study-selection ledger used by Appendix D.
+- [`publication-evidence/`](publication-evidence/): claim-evidence mapping, authorship/disclosure records, readiness checks, and frozen evidence bundles.
+- [`publication-evidence/evidence-index.md`](publication-evidence/evidence-index.md): canonical index for evidence scope and traceability.
 
-## In-manuscript artifacts
-- Full extraction matrix: Appendix E in [`../paper.html`](../paper.html)
-- Claim-evidence mapping: Appendix F in [`../paper.html`](../paper.html)
-- Revision history: Appendix G in [`../paper.html`](../paper.html)
+## Manuscript Alignment
+- Appendix D (study selection) is anchored by `screening-log.md`.
+- Appendix F (claim-evidence mapping) is anchored by `publication-evidence/claim-evidence-matrix.csv`.
+- Appendix G (revision history) is anchored by [`../CHANGELOG.md`](../CHANGELOG.md).
+
+## Integrity Note
+The `publication-evidence/evidence_bundle_20260219T164814Z_v2/` subtree is treated as an immutable forensic snapshot for traceability.

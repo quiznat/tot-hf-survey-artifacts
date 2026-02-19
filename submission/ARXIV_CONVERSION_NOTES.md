@@ -1,18 +1,18 @@
 # arXiv Conversion Notes
 
-## Goal
-Produce arXiv source output (`main.tex`) from the canonical HTML manuscript.
+## Objective
+Generate archival LaTeX submission material from the canonical HTML manuscript.
 
-## Canonical Source
+## Canonical Input
 - `../paper.html`
 
-## Script
+## Conversion Script
 - `./convert_to_arxiv.sh`
 
 ## Requirements
-1. `pandoc` installed locally.
+1. `pandoc`
 
-## Run
+## Procedure
 ```bash
 bash submission/convert_to_arxiv.sh
 ```
@@ -20,7 +20,8 @@ bash submission/convert_to_arxiv.sh
 ## Output
 - `./arxiv/main.tex`
 
-## Post-Conversion Checklist
-1. Verify figure paths and captions in generated LaTeX.
-2. Confirm citation rendering and reference formatting.
-3. Normalize title/author/abstract metadata to arXiv template expectations.
+## Validation Checklist
+1. Verify all figure paths resolve from `submission/arxiv/`.
+2. Verify citation formatting and bibliography rendering.
+3. Verify author/title/abstract metadata satisfy target venue requirements.
+4. Compile PDF with XeLaTeX and confirm no fatal font or Unicode errors.

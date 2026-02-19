@@ -2207,7 +2207,7 @@ This appendix provides row-level extraction for every included record in run `TO
 | \[29\] | Wohlin et al. 2022 (DB Search + Snowballing) | E2 | Methodology evidence study | RQ4 | Empirical analysis of retrieval yield for combined search strategies | Search-strategy justification |
 | \[30\] | Petersen et al. 2008 (Systematic Mapping Studies) | E2 | Methodology guidance | RQ4 | Classification/mapping procedures for software-engineering evidence synthesis | Extraction and classification design grounding |
 
-*Scope note:* This table is the full row-level extraction matrix for the 22 included records in the frozen run. Detailed inclusion/exclusion decisions are recorded in `artifacts/screening_log.md`.
+*Scope note:* This table is the full row-level extraction matrix for the 22 included records in the frozen run. Detailed inclusion/exclusion decisions are recorded in `artifacts/screening-log.md`.
 
 ------------------------------------------------------------------------
 
@@ -2262,8 +2262,8 @@ Figure H.1 shows the monitoring TUI snapshot referenced in the authorship note. 
 
 This manuscript is accompanied by two evidence layers:
 
-- **Frozen forensic bundle (server scope):** immutable run/log/config evidence captured in `artifacts/Paper Inception/evidence_bundle_20260219T164814Z_v2/`.
-- **Local publication-readiness validation (local + collaboration scope):** commit timeline and collaboration transcript evidence in `artifacts/Paper Inception/LOCAL_PUBLICATION_READINESS_VALIDATION.md`.
+- **Frozen forensic bundle (server scope):** immutable run/log/config evidence captured in `artifacts/publication-evidence/evidence_bundle_20260219T164814Z_v2/`.
+- **Local publication-readiness validation (local + collaboration scope):** commit timeline and collaboration transcript evidence in `artifacts/publication-evidence/local-publication-readiness-validation.md`.
 
 Under the combined scope, manuscript readiness is supported by documented autonomous initiation/completion evidence and local human-Codex hardening records, with Grok input treated as advisory.
 
