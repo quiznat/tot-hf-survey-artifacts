@@ -1,0 +1,44 @@
+name: Build TMLR Submission Package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'paper.html'
+      - 'submission/build_tmlr_submission.sh'
+      - 'submission/tmlr/**'
+      - '.github/workflows/build-tmlr-submission.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-xetex lmodern
+
+      - name: Build anonymous TMLR package
+        run: |
+          bash submission/build_tmlr_submission.sh
+
+      - name: Upload TMLR artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmlr-submission-artifacts
+          path: |
+            submission/tmlr/anonymous/paper-anonymous.html
+            submission/tmlr/anonymous/paper-anonymous.md
+            submission/tmlr/anonymous/main.tex
+            submission/tmlr/anonymous/main.pdf
+            submission/tmlr/tmlr-submission-anonymous.tgz
+            submission/tmlr/TMLR_SUBMISSION_CHECKLIST.md
+            submission/tmlr/OPENREVIEW_METADATA_TEMPLATE.md
+            submission/tmlr/AI_USE_DISCLOSURE_TMLR.md

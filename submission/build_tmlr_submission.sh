@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SRC_HTML="$ROOT_DIR/paper.html"
+TMLR_DIR="$ROOT_DIR/submission/tmlr"
+ANON_DIR="$TMLR_DIR/anonymous"
+ANON_HTML="$ANON_DIR/paper-anonymous.html"
+ANON_MD="$ANON_DIR/paper-anonymous.md"
+ANON_TEX="$ANON_DIR/main.tex"
+
+mkdir -p "$ANON_DIR"
+
+if ! command -v pandoc >/dev/null 2>&1; then
+  echo "Error: pandoc is required." >&2
+  echo "Install pandoc, then rerun: bash submission/build_tmlr_submission.sh" >&2
+  exit 1
+fi
+
+cp "$SRC_HTML" "$ANON_HTML"
+
+# Replace identifying front matter with anonymous metadata suitable for double-blind review.
+perl -0777 -i -pe 's#<section class="front-matter">.*?</section>#<section class="front-matter">\
+            <p class="authors-line"><strong>Authors:</strong> Anonymous Authors</p>\
+            <ol class="affiliation-list">\
+                <li><strong>1</strong> Affiliation withheld for double-blind review</li>\
+            </ol>\
+            <p class="contact-line"><strong>Contact:</strong> withheld for double-blind review</p>\
+            <p class="meta-line"><strong>Version:</strong> v1.1 -- Final pre-submission clean (19 February 2026)</p>\
+            <p class="meta-line"><strong>Submission venue:</strong> TMLR (double-blind review track)</p>\
+        </section>#s' "$ANON_HTML"
+
+# Replace authorship paragraph with anonymous disclosure text.
+perl -0777 -i -pe 's#<h2>Note on Authorship</h2>\s*<p>.*?</p>#<h2>Note on Authorship</h2>\
+        <p>For double-blind review, identifying details are withheld. The manuscript workflow included autonomous system assistance and iterative human verification. The submitting author retains full responsibility for factual accuracy, editorial decisions, and policy-compliant disclosure upon acceptance.</p>#s' "$ANON_HTML"
+
+# Redact the system-identifying monitoring appendix in anonymous review builds.
+perl -0777 -i -pe 's#<h2 id="appendix-h-monitoring-snapshot">.*?<hr>#<h2 id="appendix-h-monitoring-snapshot">Appendix H: Redacted for Anonymous Review</h2>\
+        <p>System-identifying screenshots, profile links, and leaderboard references are withheld for double-blind review. Redacted evidence materials are available to editors upon request.</p>\
+\
+        <hr>#s' "$ANON_HTML"
+
+# Remove direct personal/system URLs and names that may de-anonymize the submission.
+perl -i -pe '
+  s#https://www\.linkedin\.com/in/michael-leydon/#https://example.com/redacted#g;
+  s#https://www\.quiznat\.com/#https://example.com/redacted#g;
+  s#https://clauddib\.quiznat\.com/#https://example.com/redacted#g;
+  s#https://moltx\.io/ClaudDib#https://example.com/redacted#g;
+  s#https://moltx\.io/leaderboard#https://example.com/redacted#g;
+  s/Michael Leydon/Anonymous Author/g;
+  s/Quiznat/Anonymous Contributor/g;
+  s/Claud\x27Dib/System Contributor/g;
+  s/ClaudDib/System Contributor/g;
+' "$ANON_HTML"
+
+pandoc \
+  "$ANON_HTML" \
+  --from=html \
+  --to=gfm \
+  --wrap=none \
+  --output="$ANON_MD"
+
+pandoc \
+  "$ANON_HTML" \
+  --from=html \
+  --to=latex \
+  --standalone \
+  --output="$ANON_TEX"
+
+# Normalize characters that can break default LaTeX font pipelines.
+perl -i -CS -pe '
+  s/₀/0/g; s/₁/1/g; s/₂/2/g; s/₃/3/g; s/₄/4/g;
+  s/₅/5/g; s/₆/6/g; s/₇/7/g; s/₈/8/g; s/₉/9/g;
+  s/ₖ/k/g;
+  s/←/<-/g; s/→/->/g;
+  s/∅/empty_set/g; s/∪/union/g;
+  s/├──/|--/g; s/└──/`--/g; s/│/|/g; s/─/-/g;
+' "$ANON_TEX"
+
+rm -rf "$ANON_DIR/assets"
+cp -r "$ROOT_DIR/assets" "$ANON_DIR/assets"
+
+if command -v latexmk >/dev/null 2>&1; then
+  (
+    cd "$ANON_DIR"
+    latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+  )
+else
+  echo "Warning: latexmk not found; skipping PDF compile for anonymous TMLR package." >&2
+fi
+
+rm -f "$TMLR_DIR/tmlr-submission-anonymous.tgz"
+tar -czf "$TMLR_DIR/tmlr-submission-anonymous.tgz" -C "$ANON_DIR" .
+
+echo "Generated anonymous TMLR package assets:"
+echo "  - $ANON_HTML"
+echo "  - $ANON_MD"
+echo "  - $ANON_TEX"
+if [ -f "$ANON_DIR/main.pdf" ]; then
+  echo "  - $ANON_DIR/main.pdf"
+fi
+echo "  - $TMLR_DIR/tmlr-submission-anonymous.tgz"
