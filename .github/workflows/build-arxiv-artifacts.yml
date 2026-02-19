@@ -28,7 +28,7 @@ jobs:
 
       - name: Install LaTeX toolchain
         run: |
-          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended lmodern
+          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-xetex lmodern
 
       - name: Generate arXiv LaTeX source
         run: |
@@ -37,7 +37,7 @@ jobs:
       - name: Compile PDF from main.tex
         working-directory: submission/arxiv
         run: |
-          latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+          latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
 
       - name: Generate LLM-friendly Markdown
         run: |

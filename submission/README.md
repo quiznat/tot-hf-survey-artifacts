@@ -12,3 +12,6 @@ The conversion helper expects `pandoc` to be installed locally.
 
 CI alternative:
 - The GitHub Actions workflow `build-arxiv-artifacts.yml` generates `main.tex`, compiles `main.pdf`, generates `tot-hf-agents-llm.md`, and uploads an `arxiv-bundle.tgz` artifact on `main` pushes.
+
+Local PDF compile tip:
+- Prefer `latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex` for Unicode-heavy manuscripts.
