@@ -13,14 +13,14 @@
 - Double-blind compliance check: completed
 
 ## Conflicts of Interest
-- Institutions: [Author to complete]
-- Collaborators (last 3-5 years): [Author to complete]
-- Advisor/advisee relationships: [Author to complete]
+- Institutions: oneZero
+- Collaborators (last 3-5 years): none declared
+- Advisor/advisee relationships: none declared
 
 ## Suggested Reviewers (Optional)
-- Reviewer 1: [Author to nominate]
-- Reviewer 2: [Author to nominate]
-- Reviewer 3: [Author to nominate]
+- Status: Suggested reviewers entered in OpenReview by author (4 total).
+- Selection rule used: domain fit + no conflicts + institution diversity.
+- Quick reference: `submission/tmlr/REVIEWER_SUGGESTION_GUIDE.md`
 
 ## Notes for Camera-Ready (if accepted)
 - Restore full author block and affiliation metadata.

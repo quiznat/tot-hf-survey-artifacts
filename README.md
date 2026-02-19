@@ -30,7 +30,7 @@ This repository hosts the canonical manuscript, submission derivatives, and repr
 ## Build and Release Workflows
 - `.github/workflows/publish-site.yml`: publishes `paper.html` and `assets/` to GitHub Pages.
 - `.github/workflows/build-arxiv-artifacts.yml`: generates `main.tex`, compiles `main.pdf`, regenerates `tot-hf-agents-llm.md`, and publishes `arxiv-bundle.tgz` as a workflow artifact.
-- `.github/workflows/build-tmlr-submission.yml`: generates and uploads an anonymous TMLR submission package from `paper.html`.
+- `.github/workflows/build-tmlr-submission.yml`: generates an anonymous TMLR package and compiles an official-style anonymous PDF using the current `tmlr.sty`.
 
 ## Repository Structure
 - `paper.html`: canonical manuscript source.

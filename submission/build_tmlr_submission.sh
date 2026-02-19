@@ -8,6 +8,9 @@ ANON_DIR="$TMLR_DIR/anonymous"
 ANON_HTML="$ANON_DIR/paper-anonymous.html"
 ANON_MD="$ANON_DIR/paper-anonymous.md"
 ANON_TEX="$ANON_DIR/main.tex"
+OFFICIAL_DIR="$TMLR_DIR/official-anonymous"
+OFFICIAL_TEX="$OFFICIAL_DIR/main-tmlr.tex"
+TMLR_STYLE="$TMLR_DIR/template/tmlr.sty"
 
 mkdir -p "$ANON_DIR"
 
@@ -89,6 +92,35 @@ else
   echo "Warning: latexmk not found; skipping PDF compile for anonymous TMLR package." >&2
 fi
 
+# Optional: build an official-style anonymous PDF if tmlr.sty is available.
+if [ -f "$TMLR_STYLE" ]; then
+  mkdir -p "$OFFICIAL_DIR"
+  cp "$ANON_TEX" "$OFFICIAL_TEX"
+  cp "$TMLR_STYLE" "$OFFICIAL_DIR/tmlr.sty"
+  rm -rf "$OFFICIAL_DIR/assets"
+  cp -r "$ROOT_DIR/assets" "$OFFICIAL_DIR/assets"
+
+  # Inject official style package and keep anonymous author block.
+  perl -0777 -i -pe '
+    s#\\documentclass\\[\\s*english,\\s*\\]\\{article\\}#\\documentclass{article}\\n\\usepackage{tmlr}#s;
+    s#\\title\\{[^}]*\\}#\\title{Tree of Thoughts Meets Hugging Face Agents: A Survey of Tree of Thoughts and Hugging Face Agent Frameworks}#s;
+    s#\\author\\{[^}]*\\}#\\author{Anonymous Authors}#s;
+    s#\\date\\{[^}]*\\}#\\date{}#s;
+    s#\\n\\textbf\\{Authors:\\}.*?\\textbf\\{Submission venue:\\} TMLR \\(double-blind review track\\)\\n\\n#\\n#s;
+  ' "$OFFICIAL_TEX"
+
+  if command -v latexmk >/dev/null 2>&1; then
+    (
+      cd "$OFFICIAL_DIR"
+      latexmk -xelatex -interaction=nonstopmode -halt-on-error main-tmlr.tex
+    )
+  else
+    echo "Warning: latexmk not found; skipping official-style TMLR PDF compile." >&2
+  fi
+else
+  echo "Info: $TMLR_STYLE not found; skipping official-style TMLR PDF build." >&2
+fi
+
 rm -f "$TMLR_DIR/tmlr-submission-anonymous.tgz"
 tar -czf "$TMLR_DIR/tmlr-submission-anonymous.tgz" -C "$ANON_DIR" .
 
@@ -98,5 +130,12 @@ echo "  - $ANON_MD"
 echo "  - $ANON_TEX"
 if [ -f "$ANON_DIR/main.pdf" ]; then
   echo "  - $ANON_DIR/main.pdf"
+fi
+echo "Optional official-style outputs (if style available):"
+if [ -f "$OFFICIAL_TEX" ]; then
+  echo "  - $OFFICIAL_TEX"
+fi
+if [ -f "$OFFICIAL_DIR/main-tmlr.pdf" ]; then
+  echo "  - $OFFICIAL_DIR/main-tmlr.pdf"
 fi
 echo "  - $TMLR_DIR/tmlr-submission-anonymous.tgz"

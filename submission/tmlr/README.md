@@ -18,12 +18,18 @@ bash submission/build_tmlr_submission.sh
 - `submission/tmlr/anonymous/main.tex`
 - `submission/tmlr/anonymous/main.pdf` (if `latexmk` is available)
 - `submission/tmlr/tmlr-submission-anonymous.tgz`
+- `submission/tmlr/official-anonymous/main-tmlr.tex` (if `tmlr.sty` is available)
+- `submission/tmlr/official-anonymous/main-tmlr.pdf` (if `tmlr.sty` + `latexmk` are available)
 
 ## Submission Metadata and Policy Docs
 - `submission/tmlr/TMLR_SUBMISSION_CHECKLIST.md`
 - `submission/tmlr/OPENREVIEW_METADATA_TEMPLATE.md`
 - `submission/tmlr/OPENREVIEW_ACCOUNT_SETUP.md`
 - `submission/tmlr/AI_USE_DISCLOSURE_TMLR.md`
+- `submission/tmlr/SUPPLEMENT_STRATEGY.md`
+- `submission/tmlr/REVIEWER_SUGGESTION_GUIDE.md`
 
 ## Important Constraint
-TMLR requires use of the official LaTeX stylefile/template for final submission formatting. The anonymous preflight build here is intended to accelerate review-readiness checks and anonymization, but final upload should still pass through the official template workflow.
+TMLR requires use of the official LaTeX stylefile/template for final submission formatting. This build supports:
+- preflight anonymous conversion from `paper.html`, and
+- optional official-style compile when `submission/tmlr/template/tmlr.sty` is present.

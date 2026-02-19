@@ -23,7 +23,14 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-xetex lmodern
+          sudo apt-get install -y pandoc latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-xetex lmodern curl unzip
+
+      - name: Fetch official TMLR stylefile
+        run: |
+          mkdir -p submission/tmlr/template
+          curl -L --fail https://github.com/JmlrOrg/tmlr-style-file/archive/refs/heads/main.zip -o /tmp/tmlr-style.zip
+          unzip -j /tmp/tmlr-style.zip '*/tmlr.sty' -d submission/tmlr/template
+          test -f submission/tmlr/template/tmlr.sty
 
       - name: Build anonymous TMLR package
         run: |
@@ -38,6 +45,8 @@ jobs:
             submission/tmlr/anonymous/paper-anonymous.md
             submission/tmlr/anonymous/main.tex
             submission/tmlr/anonymous/main.pdf
+            submission/tmlr/official-anonymous/main-tmlr.tex
+            submission/tmlr/official-anonymous/main-tmlr.pdf
             submission/tmlr/tmlr-submission-anonymous.tgz
             submission/tmlr/TMLR_SUBMISSION_CHECKLIST.md
             submission/tmlr/OPENREVIEW_METADATA_TEMPLATE.md

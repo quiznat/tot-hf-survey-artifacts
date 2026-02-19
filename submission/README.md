@@ -13,8 +13,8 @@ This directory contains manuscript export assets and venue-specific submission w
 - [`ARXIV_CONVERSION_NOTES.md`](ARXIV_CONVERSION_NOTES.md): procedural notes and validation checklist.
 
 ## TMLR Submission Utilities
-- [`build_tmlr_submission.sh`](build_tmlr_submission.sh): generates an anonymous double-blind package from `paper.html`.
-- [`tmlr/`](tmlr/): TMLR checklist, OpenReview metadata template, disclosure draft, and anonymous build outputs.
+- [`build_tmlr_submission.sh`](build_tmlr_submission.sh): generates an anonymous double-blind package from `paper.html` and optionally compiles an official-style anonymous PDF when `submission/tmlr/template/tmlr.sty` is available.
+- [`tmlr/`](tmlr/): TMLR checklist, OpenReview metadata template, reviewer suggestion guide, disclosure draft, supplement strategy, and anonymous build outputs.
 
 ## CI Workflows
 - `.github/workflows/build-arxiv-artifacts.yml`: builds arXiv-oriented artifacts.
