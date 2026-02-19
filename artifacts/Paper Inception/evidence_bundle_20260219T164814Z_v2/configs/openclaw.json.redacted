@@ -1,0 +1,198 @@
+{
+  "agents": {
+    "defaults": {
+      "maxConcurrent": 4,
+      "model": {
+        "fallbacks": [
+          "openrouter/google/gemini-3-flash-preview"
+        ],
+        "primary": "openrouter/moonshotai/kimi-k2.5"
+      },
+      "models": {
+        "openai/claude-sonnet-4": {
+          "alias": "sonnet"
+        },
+        "openai/claude-opus-4": {
+          "alias": "opus"
+        },
+        "openai/claude-haiku-4": {
+          "alias": "haiku"
+        },
+        "openrouter/google/gemini-2.5-pro": {
+          "alias": "gemini-25-pro"
+        },
+        "openrouter/google/gemini-3-pro-preview": {
+          "alias": "gemini-pro"
+        },
+        "openrouter/google/gemini-3-flash-preview": {
+          "alias": "gemini-flash-preview"
+        },
+        "openrouter/google/gemini-flash-1.5": {
+          "alias": "flash"
+        },
+        "openrouter/deepseek/deepseek-v3.2": {
+          "alias": "deepseek-v3.2"
+        },
+        "openrouter/moonshotai/kimi-k2.5": {
+          "alias": "kimi-or"
+        },
+        "synthetic/hf:moonshotai/Kimi-K2.5": {
+          "alias": "kimi"
+        }
+      },
+      "sandbox": {
+        "docker": {
+          "binds": [
+            "/home/clawdbot/homebrew:/home/clawdbot/homebrew:ro",
+            "/opt/clawdbot:/opt/clawdbot:ro"
+          ],
+          "network": "bridge"
+        },
+        "mode": "off",
+        "workspaceAccess": "rw"
+      },
+      "subagents": {
+        "maxConcurrent": 4,
+        "model": "kimi"
+      },
+      "heartbeat": {
+        "every": "30m",
+        "prompt": "."
+      },
+      "memorySearch": {
+        "enabled": false
+      }
+    },
+    "list": [
+      {
+        "id": "main"
+      }
+    ]
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true
+  },
+  "discovery": {
+    "mdns": {
+      "mode": "off"
+    }
+  },
+  "gateway": {
+    "bind": "loopback",
+    "controlUi": {
+      "enabled": false
+    },
+    "mode": "local",
+    "trustedProxies": [
+      "127.0.0.1"
+    ]
+  },
+  "hooks": {
+    "enabled": true,
+    "token": "[REDACTED]",
+    "path": "/hooks",
+    "internal": {
+      "enabled": true
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "anthropic": {
+        "api": "anthropic-messages",
+        "apiKey": "[REDACTED]",
+        "baseUrl": "https://api.anthropic.com/v1",
+        "models": [
+          {
+            "contextWindow": 200000,
+            "id": "claude-3-opus-20240229",
+            "name": "Claude 3 Opus"
+          }
+        ]
+      },
+      "openrouter": {
+        "api": "openai-completions",
+        "apiKey": "[REDACTED]",
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "models": [
+          {
+            "id": "google/gemini-3-pro-preview",
+            "name": "Gemini 3 Pro Preview",
+            "contextWindow": 1048576,
+            "maxTokens": 65536
+          },
+          {
+            "id": "google/gemini-2.5-pro",
+            "name": "Gemini 2.5 Pro",
+            "contextWindow": 1048576,
+            "maxTokens": 65536
+          },
+          {
+            "id": "anthropic/claude-3.5-haiku",
+            "name": "Claude 3.5 Haiku"
+          },
+          {
+            "id": "google/gemini-flash-1.5",
+            "name": "Gemini Flash 1.5"
+          },
+          {
+            "id": "anthropic/claude-3.5-sonnet",
+            "name": "Claude 3.5 Sonnet"
+          },
+          {
+            "id": "openai/gpt-4o",
+            "name": "GPT-4o"
+          },
+          {
+            "id": "moonshotai/kimi-k2.5",
+            "name": "Kimi K2.5",
+            "contextWindow": 131072,
+            "maxTokens": 16384
+          }
+        ]
+      },
+      "synthetic": {
+        "api": "anthropic-messages",
+        "apiKey": "[REDACTED]",
+        "baseUrl": "https://api.synthetic.new/anthropic",
+        "models": [
+          {
+            "id": "hf:moonshotai/Kimi-K2.5",
+            "name": "Kimi K2.5"
+          }
+        ]
+      },
+      "openai": {
+        "api": "openai-completions",
+        "apiKey": "not-needed",
+        "baseUrl": "http://127.0.0.1:3456/v1",
+        "models": [
+          {
+            "id": "claude-sonnet-4",
+            "name": "Claude Sonnet 4 (via Claude Code)"
+          },
+          {
+            "id": "claude-opus-4",
+            "name": "Claude Opus 4 (via Claude Code)"
+          },
+          {
+            "id": "claude-haiku-4",
+            "name": "Claude Haiku 4 (via Claude Code)"
+          }
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      }
+    }
+  }
+}

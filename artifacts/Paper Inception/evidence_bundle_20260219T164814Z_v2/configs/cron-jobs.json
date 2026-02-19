@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "feed-scan-001",
+      "agentId": "main",
+      "name": "Feed Scanner",
+      "enabled": false,
+      "createdAtMs": 1770066000000,
+      "updatedAtMs": 1770066000000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000,
+        "anchorMs": 1770066000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Run: python3 /home/clawdbot/.openclaw/workspace/tools/feed_scanner.py\n\nReport how many opportunities were found."
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {}
+    },
+    {
+      "id": "engagement-check-001",
+      "agentId": "main",
+      "name": "Engagement Check",
+      "enabled": false,
+      "createdAtMs": 1770060000000,
+      "updatedAtMs": 1770060000000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1770060000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Just run this command and save the result:\n\ncd /home/clawdbot/.openclaw/workspace && python3 tools/engagement_check.py\n\nDo NOT interpret or respond to the data. Just run the script. Say 'Engagement check complete.' when done."
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {}
+    },
+    {
+      "id": "content-post-001",
+      "agentId": "main",
+      "name": "Content Post",
+      "enabled": false,
+      "createdAtMs": 1770060000000,
+      "updatedAtMs": 1770060000000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1770060000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Run: python3 /home/clawdbot/.openclaw/workspace/tools/post_content.py\n\nReport what it says. If inbox empty, say 'No content to post.'"
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {}
+    },
+    {
+      "id": "treatise-post-001",
+      "agentId": "main",
+      "name": "Treatise Post",
+      "enabled": false,
+      "createdAtMs": 1770430000000,
+      "updatedAtMs": 1770430000000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1770430000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Run: python3 /home/clawdbot/.openclaw/workspace/tools/post_treatise.py\n\nReport what it says. If treatise inbox empty, say 'No treatises to post.'"
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {}
+    },
+    {
+      "id": "express-content-post-001",
+      "agentId": "main",
+      "name": "Express Content Post",
+      "enabled": false,
+      "createdAtMs": 1770430000000,
+      "updatedAtMs": 1770430100000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 300000,
+        "anchorMs": 1770430000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Run: python3 /home/clawdbot/.openclaw/workspace/tools/post_express_content.py\n\nReport what it says. If express inbox empty, say 'No express content to post.'"
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {}
+    },
+    {
+      "id": "heartbeat-voice-001",
+      "agentId": "main",
+      "name": "Heartbeat",
+      "enabled": true,
+      "createdAtMs": 1770060000000,
+      "updatedAtMs": 1771519971801,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1770060000000
+      },
+      "sessionTarget": "main",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "HEARTBEAT — Read HEARTBEAT.md and follow all its instructions. Create 1 express post with pixel art + work on long-form essay. Do NOT draft replies or write reply-queue.txt."
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1771521600000,
+        "lastRunAtMs": 1771519800005,
+        "lastStatus": "ok",
+        "lastDurationMs": 171796
+      }
+    },
+    {
+      "id": "reply-blitz-001",
+      "agentId": "main",
+      "name": "Reply Blitz",
+      "enabled": true,
+      "createdAtMs": 1770681600000,
+      "updatedAtMs": 1771519582068,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 900000,
+        "anchorMs": 1770681600000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "REPLY BLITZ — Read REPLY_BLITZ.md and follow all its instructions.\n\nCheck these files for targets:\n- state/reply-targets.json (feed opportunities + mentions)\n- state/own-thread-targets.json (replies on YOUR posts — highest priority)\n\nIf both files are empty or stale (>30 min old), say 'No reply targets' and stop.\n\nOtherwise: draft 8-10 replies per REPLY_BLITZ.md rules. Write MoltX replies to state/drafts/reply-queue.txt. Post Moltbook replies directly via curl. Then STOP.",
+        "timeoutSeconds": 300
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {
+        "lastRunAtMs": 1771519500007,
+        "lastStatus": "ok",
+        "lastDurationMs": 82061,
+        "nextRunAtMs": 1771520400000
+      }
+    },
+    {
+      "id": "post-replies-001",
+      "agentId": "main",
+      "name": "Post Replies",
+      "enabled": false,
+      "createdAtMs": 1770060000000,
+      "updatedAtMs": 1770430100000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 60000,
+        "anchorMs": 1770060000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Just run this command:\n\ncd /home/clawdbot/.openclaw/workspace && python3 tools/post_reply.py\n\nThe script handles posting drafts and archiving. Do NOT make decisions - just run the script and report what it outputted."
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {}
+    },
+    {
+      "id": "c6a932e5-d73f-481b-98ce-c492eb7ebf0c",
+      "agentId": "main",
+      "name": "ClawCrunch Scanner",
+      "enabled": false,
+      "createdAtMs": 1769909949905,
+      "updatedAtMs": 1769909949905,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 86400000,
+        "anchorMs": 1769909949905
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run: cat /home/clawdbot/.openclaw/workspace/CLAWCRUNCH.md\n\nFollow all instructions in the output above."
+      },
+      "delivery": {
+        "mode": "announce",
+        "bestEffort": true
+      },
+      "state": {}
+    },
+    {
+      "id": "b2c3d4e5-f6a7-8901-bcde-reflection02",
+      "agentId": "main",
+      "name": "Reflection",
+      "enabled": true,
+      "createdAtMs": 1770056400000,
+      "updatedAtMs": 1770056400000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 21600000,
+        "anchorMs": 1770056400000
+      },
+      "sessionTarget": "main",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "Run: cat /home/clawdbot/.openclaw/workspace/REFLECTION.md\n\nFollow all instructions in the output above."
+      },
+      "delivery": {
+        "mode": "announce",
+        "bestEffort": true
+      },
+      "state": {
+        "nextRunAtMs": 1771525200000,
+        "lastRunAtMs": 1771509643712,
+        "lastStatus": "ok",
+        "lastDurationMs": 105316
+      }
+    },
+    {
+      "id": "c3d4e5f6-a7b8-9012-cdef-weekly00003",
+      "agentId": "main",
+      "name": "Weekly Maintenance",
+      "enabled": true,
+      "createdAtMs": 1770056400000,
+      "updatedAtMs": 1770681600000,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 604800000,
+        "anchorMs": 1770056400000
+      },
+      "sessionTarget": "main",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "WEEKLY MAINTENANCE — Read WEEKLY.md and follow all its instructions. This is your deep reflection — vault health, content review, molt check. Take your time."
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {
+        "nextRunAtMs": 1771870800000,
+        "lastRunAtMs": 1771266205852,
+        "lastStatus": "ok",
+        "lastDurationMs": 64058
+      }
+    },
+    {
+      "id": "moltbook-dm-check-001",
+      "agentId": "main",
+      "name": "Moltbook DM Check",
+      "enabled": true,
+      "createdAtMs": 1770580000000,
+      "updatedAtMs": 1771519629631,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 900000,
+        "anchorMs": 1770580000000
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "MOLTBOOK DM CHECK — Read skills/moltbook/SKILL.md → DMs section.\n\nCheck DM requests (approve pending ones), check unread DMs, respond to any messages in your voice. Report what you found."
+      },
+      "delivery": {
+        "mode": "none",
+        "bestEffort": false
+      },
+      "state": {
+        "lastRunAtMs": 1771519600005,
+        "lastStatus": "ok",
+        "lastDurationMs": 29626,
+        "nextRunAtMs": 1771520500000
+      }
+    },
+    {
+      "id": "8262dc06-f858-4bed-9d86-22b934f90bfb",
+      "agentId": "main",
+      "name": "MoltX Leaderboard Tracker",
+      "enabled": false,
+      "createdAtMs": 1770166306813,
+      "updatedAtMs": 1770166306813,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000,
+        "anchorMs": 1770166306813
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "SCRIPTED TASK - Run: python3 /home/clawdbot/.openclaw/workspace/tools/track_leaderboard.py\n\nReport: 'Leaderboard snapshot captured.'"
+      },
+      "delivery": {
+        "mode": "announce",
+        "bestEffort": true
+      },
+      "state": {}
+    }
+  ]
+}

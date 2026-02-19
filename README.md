@@ -26,7 +26,8 @@ Rendered paper hosting is the Pages URL above.
 ## Reproducibility anchor
 - Frozen run ID: `TOT-HF-SURVEY-2026-02-19`
 - Artifact index: [`artifacts/`](artifacts/)
-- Path 2 / Part 2 / Plan 2 scaffold: [`artifacts/path2-plan2/`](artifacts/path2-plan2/)
+- Evidence scaffold and validation docs: [`artifacts/Paper Inception/`](artifacts/Paper%20Inception/)
+- Evidence index: [`artifacts/Paper Inception/EVIDENCE_INDEX.md`](artifacts/Paper%20Inception/EVIDENCE_INDEX.md)
 
 ## Repository layout
 - `paper.html`: canonical survey manuscript (v1.1 pre-submission clean)

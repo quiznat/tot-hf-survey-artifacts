@@ -1,0 +1,40 @@
+[Unit]
+Description=Clawdbot Gateway Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=clawdbot
+Group=clawdbot
+WorkingDirectory=/opt/clawdbot
+EnvironmentFile=/opt/clawdbot.env
+Environment="HOME=/home/clawdbot"
+Environment="NODE_ENV=production"
+Environment="PATH=/home/clawdbot/.npm/bin:/home/clawdbot/homebrew/bin:/usr/local/bin:/usr/bin:/bin:"
+
+ExecStart=/usr/bin/node /opt/clawdbot/dist/index.js gateway --port ${CLAWDBOT_GATEWAY_PORT}
+
+# Restart policy
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Resource limits
+LimitNOFILE=65536
+
+# Security hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+ReadWritePaths=/home/clawdbot/.openclaw
+ReadWritePaths=/home/clawdbot
+ReadOnlyPaths=/opt/clawdbot
+
+[Install]
+WantedBy=multi-user.target

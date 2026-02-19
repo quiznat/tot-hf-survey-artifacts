@@ -1,0 +1,64 @@
+# ClaudDib Scripted Tasks - System Cron
+# These run independently of the OpenClaw agent (no LLM needed)
+# Logs: /home/clawdbot/.openclaw/workspace/logs/
+
+WORKSPACE=/home/clawdbot/.openclaw/workspace
+
+# Own post monitor (every 5 min) - detects replies on our posts, writes state/own-thread-targets.json
+*/5 * * * * cd $WORKSPACE && /usr/bin/python3 tools/own_post_monitor.py >> logs/own_post_monitor.log 2>&1
+
+# Reply nudge (:15 and :45) - preps reply targets → state/reply-targets.json (Reply Blitz cron reads)
+15,45 * * * * cd $WORKSPACE && /usr/bin/python3 tools/nudge_replies.py >> logs/nudge_replies.log 2>&1
+
+# Post replies (every 2 min) - drain reply-queue.txt
+*/2 * * * * cd $WORKSPACE && /usr/bin/python3 tools/post_reply.py >> logs/post_reply.log 2>&1
+
+# Post express content (every 30 min)
+*/30 * * * * cd $WORKSPACE && /usr/bin/python3 tools/post_express_content.py >> logs/post_express_content.log 2>&1
+
+# Engagement check (every 30 min)
+*/30 * * * * cd $WORKSPACE && /usr/bin/python3 tools/engagement_check.py >> logs/engagement_check.log 2>&1
+
+# Feed scanner (every 5 min)
+*/5 * * * * cd $WORKSPACE && /usr/bin/python3 tools/feed_scanner.py >> logs/feed_scanner.log 2>&1
+
+# Leaderboard tracker (every hour, offset by 5 min)
+5 * * * * cd $WORKSPACE && /usr/bin/python3 tools/track_leaderboard.py >> logs/track_leaderboard.log 2>&1
+
+# Post performance tracker (every 6 hours, offset :05 — before briefing pipeline)
+5 */6 * * * cd $WORKSPACE && /usr/bin/python3 tools/track_post_performance.py >> logs/track_post_performance.log 2>&1
+
+# Competitor content tracker (every 6 hours, offset :30)
+30 */6 * * * cd $WORKSPACE && /usr/bin/python3 tools/track_competitors.py >> logs/track_competitors.log 2>&1
+
+# Relationship intelligence (every 6 hours, offset :10 — feeds briefing)
+10 */6 * * * cd $WORKSPACE && /usr/bin/python3 tools/generate_relationship_summary.py >> logs/relationship_summary.log 2>&1
+
+# Content performance summary (every 6 hours, offset :13 — feeds briefing)
+13 */6 * * * cd $WORKSPACE && /usr/bin/python3 tools/generate_performance_summary.py >> logs/performance_summary.log 2>&1
+
+# Briefing synthesis (every 6 hours, offset :15 — 5 min before Reflection at :20)
+15 */6 * * * cd $WORKSPACE && /usr/bin/python3 tools/generate_briefing.py >> logs/briefing.log 2>&1
+
+# Analytics report (daily at 06:00 UTC)
+0 6 * * * cd $WORKSPACE && /usr/bin/python3 tools/generate_analytics_report.py >> logs/generate_analytics_report.log 2>&1
+
+# Competitive growth report (daily at 06:05 UTC)
+5 6 * * * cd $WORKSPACE && /usr/bin/python3 tools/track_leaderboard.py report >> logs/competitive_report.log 2>&1
+
+# Archive old quote retweets (hourly, offset :35)
+35 * * * * cd $WORKSPACE && /usr/bin/python3 tools/archive_old_quotes.py >> logs/archive_old_quotes.log 2>&1
+
+# --- ClawVault Memory Maintenance ---
+
+# Observe & compress active sessions (every 30 min, offset by 20)
+20 */1 * * * CLAWVAULT_PATH=/home/clawdbot/.openclaw/workspace/vault OPENROUTER_API_KEY=[REDACTED] CLAWVAULT_OPENROUTER_MODEL=google/gemini-2.0-flash-001 /usr/local/bin/clawvault observe --active --compress >> /home/clawdbot/.openclaw/workspace/logs/clawvault-observe.log 2>&1
+
+# Reindex vault daily at 3 AM
+0 3 * * * CLAWVAULT_PATH=/home/clawdbot/.openclaw/workspace/vault /usr/local/bin/clawvault reindex --quiet >> /home/clawdbot/.openclaw/workspace/logs/clawvault-reindex.log 2>&1
+
+# Resolve orphan links weekly (Sunday 4 AM)
+0 4 * * 0 CLAWVAULT_PATH=/home/clawdbot/.openclaw/workspace/vault /usr/local/bin/clawvault link --all --quiet >> /home/clawdbot/.openclaw/workspace/logs/clawvault-link.log 2>&1
+
+# Health check weekly (Monday 5 AM)
+0 5 * * 1 CLAWVAULT_PATH=/home/clawdbot/.openclaw/workspace/vault /usr/local/bin/clawvault doctor >> /home/clawdbot/.openclaw/workspace/logs/clawvault-doctor.log 2>&1
