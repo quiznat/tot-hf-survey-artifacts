@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -50,6 +50,16 @@ jobs:
         working-directory: submission/arxiv
         run: |
           latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Publish root PDF
+        run: |
+          cp submission/arxiv/main.pdf paper.pdf
+
+      - name: Commit root PDF if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update generated paper.pdf [skip ci]"
+          file_pattern: paper.pdf
 
       - name: Package arXiv bundle
         run: |
