@@ -100,7 +100,12 @@ Selection-flow and extraction artifacts are provided in Appendix D and Appendix 
 
 <div class="mermaid">
 
-flowchart TD A\[Records identified\nn = 30\] --\> B\[Duplicates removed\nn = 0\] B --\> C\[Title/Abstract screened\nn = 30\] C --\> D\[Full-text assessed for eligibility\nn = 30\] D --\> E\[Studies included in synthesis\nn = 22\]
+flowchart TD A\["Records identified\
+n = 30"\] --\> B\["Duplicates removed\
+n = 0"\] B --\> C\["Title/Abstract screened\
+n = 30"\] C --\> D\["Full-text assessed for eligibility\
+n = 30"\] D --\> E\["Studies included in synthesis\
+n = 22"\]
 
 </div>
 
