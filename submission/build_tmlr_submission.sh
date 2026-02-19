@@ -33,8 +33,8 @@ perl -0777 -i -pe 's#<section class="front-matter">.*?</section>#<section class=
             <p class="meta-line"><strong>Submission venue:</strong> TMLR (double-blind review track)</p>\
         </section>#s' "$ANON_HTML"
 
-# Replace authorship paragraph with anonymous disclosure text.
-perl -0777 -i -pe 's#<h2>Note on Authorship</h2>\s*<p>.*?</p>#<h2>Note on Authorship</h2>\
+# Replace authorship note block with anonymous disclosure text.
+perl -0777 -i -pe 's#<h2>Note on Authorship</h2>\s*(?:<p>.*?</p>\s*)+#<h2>Note on Authorship</h2>\
         <p>For double-blind review, identifying details are withheld. The manuscript workflow included autonomous system assistance and iterative human verification. The submitting author retains full responsibility for factual accuracy, editorial decisions, and policy-compliant disclosure upon acceptance.</p>#s' "$ANON_HTML"
 
 # Redact the system-identifying monitoring appendix in anonymous review builds.
@@ -50,6 +50,8 @@ perl -i -pe '
   s#https://clauddib\.quiznat\.com/#https://example.com/redacted#g;
   s#https://moltx\.io/ClaudDib#https://example.com/redacted#g;
   s#https://moltx\.io/leaderboard#https://example.com/redacted#g;
+  s#https://github\.com/quiznat/tot-hf-survey-artifacts#https://example.com/redacted#g;
+  s#github\.com/quiznat/tot-hf-survey-artifacts#example.com/redacted#g;
   s/Michael Leydon/Anonymous Author/g;
   s/Quiznat/Anonymous Contributor/g;
   s/Claud\x27Dib/System Contributor/g;

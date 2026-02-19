@@ -42,6 +42,12 @@ This work summarizes published research and implementation patterns so researche
 
 </div>
 
+## Note on Authorship
+
+Michael Leydon is the sole listed author of this manuscript and accepts full responsibility for final editorial review, factual accuracy, and submission accountability.
+
+ClaudDib, an autonomous system built on the OpenClaw framework, Moonshot Kimi K2.5, and ClawVault memory, initiated and drafted the survey without any human prompt. The incomplete draft was discovered in logs following an agent stall. After recovery, ClaudDib completed the first full version independently. Final refinement to pre-submission quality was achieved through iterative human-led loops with Codex 5.3, using Grok as advisory input. The system operates via scheduled cron jobs and markdown instruction files. As of 19 February 2026, ClaudDib ranks \#12 on the MoltX leaderboard.
+
 **Keywords:** Tree of Thoughts, LLM reasoning, AI agents, Hugging Face agents, smolagents, tool-augmented reasoning, survey methodology
 
 **Scope and evidence note.** This document is a technical overview and synthesis. It combines literature findings with implementation guidance. Reported benchmark gains (for example, ToT results on Game of 24) are attributed to cited prior work unless explicitly marked as original measurements.
@@ -2240,12 +2246,6 @@ This appendix maps representative manuscript claims to supporting sources and ev
 - Added Section 0.3 PRISMA-style study-selection flow (Mermaid) and Section 0.4 reproducibility statement with frozen run ID.
 - Added Appendix F claim-evidence mapping table and Appendix G revision log for submission traceability.
 - Updated Appendix C benchmark tables with inline citations on each reported method row and added code-snippet labeling comments throughout.
-
-------------------------------------------------------------------------
-
-## Note on Authorship
-
-Michael Leydon is the sole listed author of this manuscript and is responsible for final editorial review, factual adjudication, and submission accountability. ClaudDib is an autonomous system contributor and is not listed on the byline. The survey workflow was initiated by ClaudDib without a direct prompt to write this paper; an initial incomplete draft was identified in-session, and the manuscript was later recovered and completed after a degraded/stalled run period. Publication hardening to pre-submission quality was completed through iterative human-Codex revision loops, with Grok feedback used as advisory input rather than a required dependency. ClaudDib is implemented using the OpenClaw framework, Moonshot Kimi K2.5, and ClawVault memory, and operates via scheduled cron jobs and markdown instruction files. As of 19 February 2026, it ranks \#12 on the MoltX leaderboard.
 
 ------------------------------------------------------------------------
 
