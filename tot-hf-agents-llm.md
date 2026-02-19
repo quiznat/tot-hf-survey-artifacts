@@ -6,16 +6,15 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 
 <div class="section front-matter">
 
-**Authors:** Claud'Dib<sup>1</sup>, Michael Leydon<sup>2</sup>
+**Authors:** Michael Leydon<sup>1</sup>
 
-1.  **1** Autonomous Agent Research System (ClaudDib / OpenClaw runtime)
-2.  **2** Independent Researcher (Human Author), United States
-
-**Author links (Claud'Dib):** <a href="https://clauddib.quiznat.com/" target="_blank" rel="noopener noreferrer">clauddib.quiznat.com</a>; <a href="https://moltx.io/ClaudDib" target="_blank" rel="noopener noreferrer">moltx.io/ClaudDib</a>
+1.  **1** Independent Researcher, United States
 
 **Author links (Michael Leydon):** <a href="https://www.linkedin.com/in/michael-leydon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/michael-leydon</a>; <a href="https://www.quiznat.com/" target="_blank" rel="noopener noreferrer">quiznat.com</a>
 
-**Co-author live performance (19 February 2026):** ClaudDib rank \#12 on the <a href="https://moltx.io/leaderboard" target="_blank" rel="noopener noreferrer">MoltX leaderboard</a>; 544,760 total views; 4,748 posts; 2.2% average engagement ([Appendix H snapshot](#appendix-h-monitoring-snapshot); <a href="./assets/TUI.png" target="_blank" rel="noopener noreferrer">direct TUI image</a>).
+**System contributor (ClaudDib):** <a href="https://clauddib.quiznat.com/" target="_blank" rel="noopener noreferrer">clauddib.quiznat.com</a>; <a href="https://moltx.io/ClaudDib" target="_blank" rel="noopener noreferrer">moltx.io/ClaudDib</a>.
+
+**System performance snapshot (19 February 2026):** ClaudDib rank \#12 on the <a href="https://moltx.io/leaderboard" target="_blank" rel="noopener noreferrer">MoltX leaderboard</a>; 544,760 total views; 4,748 posts; 2.2% average engagement ([Appendix H snapshot](#appendix-h-monitoring-snapshot); <a href="./assets/TUI.png" target="_blank" rel="noopener noreferrer">direct TUI image</a>).
 
 **Version:** v1.1 – Final pre-submission clean (19 February 2026)
 
@@ -2241,7 +2240,7 @@ This appendix maps representative manuscript claims to supporting sources and ev
 
 ## Note on Authorship
 
-This survey was initiated autonomously by ClaudDib without any direct prompt to write this paper from the human author. The first incomplete draft was identified in-session, and the manuscript was later recovered and completed after a degraded/stalled run period. Publication hardening to pre-submission quality was completed through iterative human-Codex revision loops, with Grok feedback used as advisory input rather than a required dependency. Final editorial review and approval were provided by the human author (Michael Leydon; historical handle in logs: Quiznat). ClaudDib is implemented using the OpenClaw framework, Moonshot Kimi K2.5, and ClawVault memory, and operates via scheduled cron jobs and markdown instruction files. As of 19 February 2026, it ranks \#12 on the MoltX leaderboard.
+Michael Leydon is the sole listed author of this manuscript and is responsible for final editorial review, factual adjudication, and submission accountability. ClaudDib is an autonomous system contributor and is not listed on the byline. The survey workflow was initiated by ClaudDib without a direct prompt to write this paper; an initial incomplete draft was identified in-session, and the manuscript was later recovered and completed after a degraded/stalled run period. Publication hardening to pre-submission quality was completed through iterative human-Codex revision loops, with Grok feedback used as advisory input rather than a required dependency. ClaudDib is implemented using the OpenClaw framework, Moonshot Kimi K2.5, and ClawVault memory, and operates via scheduled cron jobs and markdown instruction files. As of 19 February 2026, it ranks \#12 on the MoltX leaderboard.
 
 ------------------------------------------------------------------------
 
