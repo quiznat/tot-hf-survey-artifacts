@@ -15,3 +15,8 @@
   2. `drafts/tot_hf_agents_novel_work_spec.md`
 - Why: Reduce scope collision and enforce claim discipline early.
 - Consequence: Blog and research tracks can now evolve independently.
+
+### D-003: Use dropped HTML manuscript as Track 1 primary source
+- Decision: Perform first framing and clarity pass directly in `Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html`.
+- Why: User requested HTML-first editing, and this is the canonical draft intended for publication flow.
+- Consequence: Next Track 1 edits should continue on HTML unless intentionally backported to markdown.

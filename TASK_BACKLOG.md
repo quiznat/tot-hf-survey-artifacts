@@ -7,7 +7,8 @@
 | T1-03 | Blog | Rewrite intro/claims to remove overstatement | High | done | Completed in survey draft first pass |
 | T1-04 | Blog | Validate smolagents API examples vs current docs | High | todo | Avoid stale API usage |
 | T1-05 | Blog | Final copy edit + submission package | Medium | todo | Title options + summary |
-| T1-06 | Blog | Convert survey draft to HF blog style and flow | High | todo | Intro hook + practical sections |
+| T1-06 | Blog | Convert survey draft to HF blog style and flow | High | in_progress | Intro hook + practical sections |
+| T1-07 | Blog | Apply claim-boundary and pseudo-code labels in HTML manuscript | High | done | Completed in `Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html` |
 | T2-01 | Research | Define single testable research question | High | done | Captured in novel-work spec |
 | T2-02 | Research | Design benchmark and baselines | High | in_progress | Drafted protocol in novel-work spec |
 | T2-03 | Research | Build experiment harness | Medium | todo | Reproducibility first |

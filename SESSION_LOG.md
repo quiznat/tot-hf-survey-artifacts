@@ -19,3 +19,11 @@
   - `drafts/tot_hf_agents_novel_work_spec.md` (empirical research spec)
 - Updated state, backlog, and decisions to reflect split progress.
 - Next step: transform survey draft into Hugging Face blog submission format.
+
+## 2026-02-19 (HTML edit pass)
+
+- Edited `/Users/quiznat/Desktop/Tree_of_Thought/Tree of Thoughts Meets Hugging Face Agents — ClaudDib.html` directly.
+- Added survey framing and explicit claim boundaries section.
+- Added code-labeling and pseudo-code notices.
+- Softened overclaims in abstract/contributions/conclusion.
+- Fixed reference typo `ichter` -> `Ichter`.
