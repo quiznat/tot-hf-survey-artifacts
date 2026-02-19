@@ -297,7 +297,7 @@
             <p>Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks, yet their reasoning remains fundamentally linear—generating thoughts token-by-token without the ability to explore alternatives, backtrack from errors, or evaluate multiple solution paths. This limitation constrains their effectiveness on complex multi-step problems requiring deliberation and planning. Concurrently, the emergence of AI agent frameworks has enabled LLMs to interact with external tools and execute actions autonomously, but these systems often struggle with strategic reasoning and error recovery.</p>
             <p>This paper presents a comprehensive synthesis of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs.</p>
             <p>Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) comprehensive documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.</p>
-            <p>This work bridges the gap between cutting-edge research and practical application, providing both researchers and practitioners with the knowledge and tools necessary to build next-generation AI systems that combine the breadth of large language models with the depth of structured reasoning.</p>
+            <p>This work summarizes published research and implementation patterns so researchers and practitioners can evaluate structured-reasoning agent designs with clear evidence boundaries.</p>
         </div>
 
         <p class="note"><strong>Scope and evidence note.</strong> This document is a technical overview and synthesis. It combines literature findings with implementation guidance. Reported benchmark gains (for example, ToT results on Game of 24) are attributed to cited prior work unless explicitly marked as original measurements.</p>
@@ -309,21 +309,21 @@
             <li>This paper is primarily a survey-style synthesis rather than a standalone benchmark paper.</li>
             <li>Code snippets are mixed: some are runnable examples, while others are architectural sketches.</li>
             <li>Pseudo-code and illustrative snippets are labeled explicitly in relevant sections.</li>
-            <li>Illustrative comparison tables are included for intuition and should not be interpreted as new empirical measurements from this document.</li>
+            <li>Non-empirical examples are included only as synthetic walkthroughs and are labeled accordingly.</li>
         </ul>
 
         <h2>1. Introduction</h2>
 
         <h3>1.1 The Reasoning Challenge in Large Language Models</h3>
-        <p>The rapid advancement of Large Language Models over the past five years has fundamentally transformed artificial intelligence. Models such as GPT-4, Claude, Llama, and their successors demonstrate unprecedented capabilities in language understanding, generation, and increasingly, reasoning. Yet despite these advances, a fundamental limitation persists: the way these models reason remains essentially linear.</p>
+        <p>Large Language Models have advanced rapidly in language understanding and generation. However, many standard prompting workflows still follow mostly linear reasoning traces, which can limit systematic exploration and backtracking on complex tasks.</p>
         <p>When presented with a complex problem, standard LLMs generate a sequence of thoughts token-by-token, following the initial path that appears most probable at each step. This approach, while remarkably effective for many tasks, exhibits critical weaknesses when confronting problems requiring exploration, backtracking, or evaluation of multiple solution strategies. The model cannot pause to consider whether an alternative approach might be superior, cannot recognize when it has ventured down a suboptimal path, and cannot systematically explore the space of possible solutions.</p>
         <p>Consider the classic reasoning task known as "Game of 24," where the objective is to use four numbers and basic arithmetic operations to reach the value 24. A standard LLM might generate: "Let me try 4 × 6 = 24, so I need to make 4 and 6 from the numbers..." If this path proves unproductive, the model cannot backtrack to explore alternative initial combinations. It simply continues generating, potentially becoming trapped in unproductive reasoning paths.</p>
         <p>This limitation is not merely academic. As LLMs are increasingly deployed in high-stakes applications—from medical diagnosis support to financial analysis to autonomous software engineering—the ability to reason carefully, explore alternatives, and recover from errors becomes critical. The cost of a single reasoning failure can be substantial, whether measured in financial terms, safety implications, or user trust.</p>
 
         <h3>1.2 The Rise of AI Agents and Tool Augmentation</h3>
-        <p>Parallel to developments in reasoning, the AI community has witnessed explosive growth in agent frameworks—systems that enable LLMs to interact with external tools, execute code, search the web, and perform actions in the world. These agents extend LLMs from pure text generators to autonomous actors capable of accomplishing complex, multi-step tasks.</p>
-        <p>The ReAct framework demonstrated that interleaving reasoning and action could substantially improve performance on tasks requiring external knowledge. By generating thoughts about what to do, executing actions, and observing results, agents could solve problems inaccessible to pure text generation. Subsequent frameworks including AutoGPT, LangChain Agents, and Microsoft's Semantic Kernel built upon these foundations, creating increasingly sophisticated agent capabilities.</p>
-        <p>Hugging Face, the central platform of the open-source AI ecosystem, has emerged as a significant contributor to this space. Through their Agent Course and the smolagents library, they have democratized access to agent development, providing educational pathways and lightweight frameworks that lower barriers to entry while maintaining flexibility and power.</p>
+        <p>In parallel, agent frameworks have expanded quickly, enabling LLMs to call tools, execute code, and complete multi-step workflows.</p>
+        <p>Prior work such as ReAct reports that interleaving reasoning and action can improve task performance in tool-using settings [6]. Subsequent frameworks including AutoGPT, LangChain agents, and Microsoft's Semantic Kernel build on related ideas.</p>
+        <p>Hugging Face contributes to this ecosystem through public educational resources (Agents Course) and lightweight tooling (smolagents), which are directly documented in this survey [10, 11, 12].</p>
         <p>Yet even sophisticated agent systems face challenges. Tool selection is often heuristic rather than systematic. When a tool call fails or returns unexpected results, agents may struggle to recover. Multi-step planning remains difficult, with agents frequently losing track of overall objectives while executing individual steps. The combination of reasoning and action, while powerful, lacks the structured exploration that complex problems demand.</p>
 
         <h3>1.3 The Convergence: Structured Reasoning Meets Autonomous Agents</h3>
@@ -337,12 +337,12 @@
             <li><strong>Plan complex multi-step operations</strong> with lookahead evaluation</li>
             <li><strong>Maintain coherence</strong> across extended reasoning chains through systematic exploration</li>
         </ul>
-        <p>The synthesis is particularly powerful given the accessibility of Hugging Face's ecosystem. Where ToT implementations historically required substantial engineering investment, integration with smolagents enables practitioners to leverage structured reasoning through intuitive, well-documented APIs.</p>
+        <p>This synthesis is practically relevant because Hugging Face tooling lowers implementation overhead for experimenting with structured-reasoning agent patterns.</p>
 
         <h3>1.4 Contributions and Structure</h3>
         <p>This paper makes the following contributions:</p>
         <p><strong>Theoretical and Practical Foundation.</strong> We provide comprehensive coverage of Tree of Thoughts, from its theoretical foundations in search algorithms to practical implementation patterns. This includes detailed examination of generation strategies, evaluation functions, and search algorithms (BFS, DFS, beam search) with illustrative code templates and examples.</p>
-        <p><strong>Framework Documentation.</strong> We document Hugging Face's agent ecosystem with unprecedented depth, including the Agent Course curriculum, smolagents architecture, CodeAgent and MultiStepAgent implementations, and the complete tool ecosystem. This serves as both reference material for practitioners and technical context for researchers.</p>
+        <p><strong>Framework Documentation.</strong> We document Hugging Face's agent ecosystem, including the Agent Course curriculum, smolagents architecture, CodeAgent and MultiStepAgent implementations, and the surrounding tool ecosystem.</p>
         <p><strong>Architectural Synthesis.</strong> We present integration patterns for combining ToT reasoning with Hugging Face agents, including ToT-enhanced CodeAgent implementations, hybrid CoT-ToT agents that adapt strategy based on problem complexity, and multi-agent collaborative ToT concepts.</p>
         <p><strong>Case-Based Analysis.</strong> Through detailed case studies, we illustrate potential benefits of this synthesis across domains: financial analysis requiring systematic data gathering and calculation, creative content generation demanding exploration of alternatives, and software debugging requiring hypothesis testing and verification.</p>
         <p><strong>Implementation Guidance.</strong> We provide implementation templates, optimization strategies, testing frameworks, and deployment patterns. This includes caching strategies, early termination techniques, and observability integrations that can make ToT-enhanced agents practical for real-world deployment.</p>
@@ -354,7 +354,7 @@
         <h2>2. Tree of Thoughts: Background and Theory</h2>
 
         <h3>2.1 From Linear Reasoning to Tree Search</h3>
-        <p>The evolution of reasoning in language models reflects broader trends in artificial intelligence. Early approaches treated language generation as a single-step process: given input, produce output. The introduction of Chain of Thought (CoT) prompting represented a significant advance, demonstrating that instructing models to generate intermediate reasoning steps substantially improved performance on complex tasks.</p>
+        <p>The evolution of reasoning in language models reflects broader trends in AI. Early approaches treated generation as a direct input-to-output mapping. Chain-of-Thought prompting introduced explicit intermediate steps, with prior work reporting improved performance on several reasoning benchmarks [3, 4].</p>
         <p>Chain of Thought works by prompting the model to generate a sequence of thoughts leading to the final answer:</p>
         <pre><code class="language-python">Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
    Each can has 3 tennis balls. How many tennis balls does he have now?
@@ -546,17 +546,17 @@ Rating: """</code></pre>
         <h2>3. The Hugging Face Agent Ecosystem</h2>
 
         <h3>3.1 Overview: Democratizing Agent Development</h3>
-        <p>Hugging Face has established itself as the preeminent platform for open-source artificial intelligence, hosting over 500,000 models and 100,000 datasets across virtually every domain of machine learning. In recent years, they have extended this ecosystem to include comprehensive resources for building AI agents—autonomous systems that combine language models with tool use to accomplish complex tasks.</p>
+        <p>Hugging Face is a major platform in the open-source AI ecosystem, with large public model and dataset catalogs. In recent years, it has also expanded resources for building AI agents—systems that combine language models with tool use to accomplish multi-step tasks.</p>
         <p>The Hugging Face agent ecosystem comprises three interconnected components:</p>
         <ol>
             <li><strong>The Agent Course</strong>: A free, comprehensive educational resource teaching agent development from fundamentals to advanced techniques</li>
             <li><strong>The smolagents Library</strong>: A lightweight, flexible Python framework for building production-ready agents</li>
             <li><strong>The transformers Agents</strong>: Built-in agent capabilities within the core transformers library</li>
         </ol>
-        <p>Together, these resources provide a complete pathway from learning to deployment, embodying Hugging Face's mission to democratize AI.</p>
+        <p>Together, these resources provide a documented pathway from learning to implementation in the Hugging Face ecosystem.</p>
 
         <h3>3.2 The Hugging Face Agent Course</h3>
-        <p>Launched in 2024, the Hugging Face Agent Course represents a significant investment in AI education. The course is structured to take learners from basic concepts to sophisticated agent implementations through a combination of theoretical instruction and hands-on coding.</p>
+        <p>Launched in 2024, the Hugging Face Agent Course is a public educational resource for agent development, combining conceptual instruction with hands-on exercises.</p>
 
         <h4>3.2.1 Course Structure and Curriculum</h4>
         <p>The course is organized into progressive units:</p>
@@ -1006,7 +1006,7 @@ class InstrumentedAgent(CodeAgent):
         <h2>4. Synthesis: Enhancing Hugging Face Agents with Tree of Thoughts</h2>
 
         <h3>4.1 The Convergence of Reasoning and Action</h3>
-        <p>The integration of Tree of Thoughts with Hugging Face agents represents a significant advancement in autonomous AI systems. While Hugging Face agents excel at tool use and action execution, they traditionally rely on linear reasoning chains. By incorporating ToT, agents gain the ability to:</p>
+        <p>This section describes a design synthesis: combining Tree of Thoughts with Hugging Face agents. While Hugging Face agents provide strong tooling interfaces, many workflows still use linear reasoning traces. A ToT-style planner can introduce:</p>
         <ol>
             <li><strong>Explore multiple solution strategies</strong> before committing to actions</li>
             <li><strong>Evaluate tool sequences</strong> before execution</li>
@@ -1127,7 +1127,7 @@ Search for recent data, calculate key statistics,
 and summarize the findings.
 """)</code></pre>
 
-        <h3>4.3 Synergistic Benefits</h3>
+        <h3>4.3 Design-Level Benefits (Hypothesized)</h3>
 
         <h4>4.3.1 Improved Tool Selection</h4>
         <p><strong>Problem:</strong> Agents often select suboptimal tools or sequences.</p>
@@ -1160,16 +1160,16 @@ ToT Exploration:
 │   ├── Step 1: search("Tesla stock 2024")
 │   ├── Step 2: search("BYD stock 2024")
 │   └── Step 3: calculate(comparison_metrics)
-│   └── Score: 7/10 (comprehensive but may miss real-time data)
+│   └── Heuristic rating: medium (comprehensive but may miss real-time data)
 │
 ├── Path B: Use stock API directly
 │   ├── Step 1: stock_api("TSLA", period="1y")
 │   ├── Step 2: stock_api("BYD", period="1y")
 │   └── Step 3: calculate_performance_comparison
-│   └── Score: 9/10 (precise data, structured output)
+│   └── Heuristic rating: high (precise data, structured output)
 │
 └── Path C: Search for analysis articles
-    └── Score: 5/10 (subjective, may be outdated)
+    └── Heuristic rating: low (subjective, may be outdated)
 
 Selected: Path B for accuracy and reliability</code></pre>
 
@@ -1232,6 +1232,7 @@ Execution Plan:
 └── Week 7: Results analysis and report</code></pre>
 
         <h3>4.4 Case Studies</h3>
+        <p><em>Evidence note:</em> The case studies in this section are synthetic walkthroughs for design illustration. They are not reported benchmark experiments.</p>
 
         <h4>4.4.1 Case Study 1: Financial Analysis Agent</h4>
         <p><strong>Scenario:</strong> Analyze a company's quarterly earnings.</p>
@@ -1243,16 +1244,16 @@ Step 3: Calculate YoY growth
         <p><strong>ToT-Enhanced Agent:</strong></p>
         <pre><code class="language-text">Planning Phase (ToT):
 ├── Strategy A: Quick summary from news articles
-│   └── Score: 5/10 (fast but shallow)
+│   └── Heuristic rating: low (fast but shallow)
 │
 ├── Strategy B: Official SEC filings analysis
 │   ├── 10-Q form deep dive
 │   ├── Balance sheet analysis  
 │   └── Cash flow evaluation
-│   └── Score: 9/10 (authoritative, comprehensive)
+│   └── Heuristic rating: high (authoritative, comprehensive)
 │
 ├── Strategy C: Aggregator platforms + social sentiment
-│   └── Score: 6/10 (good context but may lack details)
+│   └── Heuristic rating: medium (good context but may lack details)
 │
 └── Selected: Strategy B with supplementary search
 
@@ -1264,7 +1265,7 @@ Execution:
 ├── Step 5: Check cash position and debt
 └── Step 6: Search for management commentary
 
-Result: Comprehensive report with multiple perspectives</code></pre>
+Result pattern: structured report with multiple evidence sources</code></pre>
 
         <h4>4.4.2 Case Study 2: Creative Content Agent</h4>
         <p><strong>Scenario:</strong> Write a marketing campaign with specific constraints.</p>
@@ -1281,19 +1282,19 @@ Result: Comprehensive report with multiple perspectives</code></pre>
 │   ├── Micro-influencer strategy
 │   ├── Challenge campaign
 │   └── UGC incentives
-│   └── Estimated reach: 500K
+│   └── Estimated reach: TBD (requires campaign model + historical data)
 │
 ├── Concept B: Interactive AR filters
 │   ├── Branded filter creation
 │   ├── Sustainability quiz
 │   └── Share-to-plant initiative
-│   └── Estimated reach: 1M
+│   └── Estimated reach: TBD (requires campaign model + historical data)
 │
 └── Concept C: Behind-the-scenes documentary
     ├── Series of short videos
     ├── Supply chain transparency
     └── Employee stories
-    └── Estimated reach: 300K
+    └── Estimated reach: TBD (requires campaign model + historical data)
 
 Evaluation Criteria:
 - Budget fit (weight: 25%)
@@ -1339,60 +1340,48 @@ Execution:
 ├── Step 4: Test fix
 └── Step 5: Verify edge cases
 
-Resolution: Fixed in 3 steps with systematic exploration</code></pre>
+Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pre>
 
-        <h3>4.5 Comparative Analysis</h3>
+        <h3>4.5 Comparative Analysis (Qualitative, Non-Benchmark)</h3>
         <table>
             <tbody><tr>
-                <th>Capability</th>
-                <th>Standard Agent</th>
-                <th>ToT Agent</th>
-                <th>Improvement</th>
+                <th>Dimension</th>
+                <th>Common Baseline Pattern</th>
+                <th>ToT-Style Pattern</th>
+                <th>Evidence Status</th>
             </tr>
             <tr>
-                <td>Tool Selection Accuracy</td>
-                <td>65%</td>
-                <td>85%</td>
-                <td>+20%</td>
+                <td>Action selection</td>
+                <td>Single-path next-step decision</td>
+                <td>Multi-candidate path exploration before commitment</td>
+                <td>Design pattern; integration-specific effect size requires experiment</td>
             </tr>
             <tr>
-                <td>Error Recovery Rate</td>
-                <td>30%</td>
-                <td>75%</td>
-                <td>+45%</td>
+                <td>Error handling</td>
+                <td>Retry or fail-forward</td>
+                <td>Backtracking to alternative branches</td>
+                <td>Design pattern; needs task-level measurement</td>
             </tr>
             <tr>
-                <td>Multi-step Task Success</td>
-                <td>55%</td>
-                <td>80%</td>
-                <td>+25%</td>
+                <td>Planning horizon</td>
+                <td>Short-horizon or reactive planning</td>
+                <td>Explicit lookahead over multiple candidate plans</td>
+                <td>Design pattern; benchmark protocol required for claims</td>
             </tr>
             <tr>
-                <td>Planning Quality Score</td>
-                <td>6.2/10</td>
-                <td>8.4/10</td>
-                <td>+35%</td>
+                <td>Compute and cost</td>
+                <td>Lower branching cost</td>
+                <td>Higher branching/evaluation overhead</td>
+                <td>Supported by prior ToT-family benchmark reporting [1, 26]</td>
             </tr>
             <tr>
-                <td>Execution Time</td>
-                <td>1x</td>
-                <td>1.5-2x</td>
-                <td>-50% slower</td>
-            </tr>
-            <tr>
-                <td>API Call Efficiency</td>
-                <td>1x</td>
-                <td>0.7x</td>
-                <td>+30% efficiency</td>
-            </tr>
-            <tr>
-                <td>User Satisfaction</td>
-                <td>7.1/10</td>
-                <td>8.6/10</td>
-                <td>+21%</td>
+                <td>Reproducibility requirements</td>
+                <td>Single-run outputs often sufficient for demos</td>
+                <td>Requires search config disclosure (branching, depth, evaluator, stopping)</td>
+                <td>Methodological requirement for publishable claims</td>
             </tr>
         </tbody></table>
-        <p><em>Note: Performance metrics are illustrative based on published benchmarks</em></p>
+        <p><em>Note:</em> This section does not report new experimental measurements. Quantitative benchmark values are consolidated in Appendix C with source attribution.</p>
 
         <hr>
 
@@ -1895,11 +1884,11 @@ Example Task: "Design a logo based on these brand values"
         <h2>7. Conclusion</h2>
 
         <h3>7.1 Key Findings</h3>
-        <p>This comprehensive analysis has demonstrated that:</p>
+        <p>Within the evidence and scope limits of this survey, the main takeaways are:</p>
         <ol>
-            <li><strong>Tree of Thoughts can significantly enhance LLM reasoning</strong> by enabling systematic exploration of solution spaces; prior literature reports large gains on tasks such as Game of 24.</li>
+            <li><strong>Tree of Thoughts can improve performance on specific reasoning tasks</strong>; cited literature reports strong gains on tasks such as Game of 24.</li>
             <li><strong>Hugging Face agents provide accessible frameworks</strong> for building autonomous AI systems, with smolagents offering particularly lightweight and flexible implementations.</li>
-            <li><strong>The synthesis of ToT and agent frameworks</strong> provides a promising design space for more robust, reliable systems on complex multi-step tasks.</li>
+            <li><strong>The synthesis of ToT and agent frameworks</strong> is a viable design space for complex multi-step tasks, but integration-specific gains require dedicated empirical evaluation.</li>
             <li><strong>Practical implementation</strong> requires careful consideration of search strategies, evaluation functions, API compatibility, and computational trade-offs.</li>
         </ol>
 
@@ -1914,7 +1903,7 @@ Example Task: "Design a logo based on these brand values"
         </ol>
 
         <h3>7.3 The Path Forward</h3>
-        <p>The integration of structured reasoning frameworks like Tree of Thoughts with accessible agent platforms like Hugging Face's smolagents represents a significant step toward more capable AI systems. As these technologies mature, we anticipate:</p>
+        <p>Structured reasoning frameworks and accessible agent platforms define a concrete research and engineering direction. Based on current literature and tooling trends, plausible near-term developments include:</p>
         <ul>
             <li><strong>Democratization</strong>: More developers will build sophisticated reasoning agents</li>
             <li><strong>Standardization</strong>: Common patterns and best practices will emerge</li>
@@ -1922,12 +1911,12 @@ Example Task: "Design a logo based on these brand values"
             <li><strong>Specialization</strong>: Domain-specific implementations for science, engineering, creative tasks</li>
             <li><strong>Efficiency</strong>: Optimized implementations reducing computational overhead</li>
         </ul>
-        <p>The future of AI agents lies not just in scale, but in structure—combining the generative power of LLMs with systematic reasoning and thoughtful exploration of possibilities.</p>
+        <p>A practical hypothesis from this survey is that agent capability depends on both model scale and reasoning structure.</p>
 
         <h3>7.4 Final Remarks</h3>
-        <p>This paper has provided a comprehensive examination of two transformative developments in AI: Tree of Thoughts reasoning and the Hugging Face Agent ecosystem. The synthesis of these approaches points toward a future where AI agents are not just reactive tools, but deliberate problem-solvers capable of exploring possibilities, learning from mistakes, and making informed decisions.</p>
-        <p>As researchers and practitioners, we stand at an exciting juncture. The frameworks and techniques explored here provide the foundation for building the next generation of AI systems—systems that combine the breadth of large language models with the depth of structured reasoning, the flexibility of autonomous action with the reliability of systematic exploration.</p>
-        <p>The tools are available. The patterns are emerging. The future is being built, one thought at a time.</p>
+        <p>This paper examines two developments in AI practice: Tree of Thoughts reasoning and the Hugging Face agent ecosystem. The synthesis provides an implementation-oriented map of what is currently supported by literature, what is engineering guidance, and what remains to be validated experimentally.</p>
+        <p>For practitioners, the immediate value is methodological: explicit search design, clear evaluator choices, and reproducible benchmark boundaries. For researchers, the primary open task is integration-specific benchmarking under controlled settings.</p>
+        <p>In short, the field has usable tools and clear open questions; progress now depends on reproducible experiments and careful claim discipline.</p>
 
         <hr>
 
@@ -1982,6 +1971,8 @@ Example Task: "Design a logo based on these brand values"
             <p>24. <strong>Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arber, S., von Arx, S., ... &amp; Liang, P. (2021).</strong> "On the Opportunities and Risks of Foundation Models." <em>arXiv preprint arXiv:2108.07258</em>.</p>
             
             <p>25. <strong>Hendrycks, D., Carlini, N., Schulman, J., &amp; Steinhardt, J. (2021).</strong> "Unsolved Problems in ML Safety." <em>arXiv preprint arXiv:2109.13916</em>.</p>
+
+            <p>26. <strong>Klein, P., Woo, M., Li, R., Chen, K., Choi, Y., Zettlemoyer, L., ... &amp; Yoran, O. (2025).</strong> "Fleet of Agents: Learning to Cooperate in Multi-Agent Workflows." <em>Proceedings of the 42nd International Conference on Machine Learning (ICML 2025)</em>. https://proceedings.mlr.press/v267/klein25a.html</p>
         </div>
 
         <hr>
@@ -2060,89 +2051,170 @@ agent = MinimalToTAgent(
 result = agent.tot_solve("Calculate compound interest on $1000 at 5% for 3 years")
 print("Solution path:", result)</code></pre>
 
-        <h2>Appendix C: Performance Benchmarks</h2>
+        <h2>Appendix C: Benchmark Evidence (Reported Results)</h2>
+        <p>This appendix reports values from cited papers. These are prior-work benchmark results, not new measurements from this document.</p>
 
-        <h3>Game of 24 Performance (from Yao et al., 2023)</h3>
+        <h3>C.1 Original Tree of Thoughts Results (Yao et al., 2023) [1]</h3>
+
+        <h4>Game of 24 (success rate)</h4>
         <table>
             <tbody><tr>
                 <th>Method</th>
                 <th>Success Rate</th>
-                <th>API Calls (Avg)</th>
             </tr>
             <tr>
-                <td>IO Prompting</td>
+                <td>IO prompt</td>
                 <td>7.3%</td>
-                <td>1</td>
             </tr>
             <tr>
-                <td>CoT</td>
+                <td>CoT prompt</td>
                 <td>4.0%</td>
-                <td>1</td>
             </tr>
             <tr>
-                <td>CoT-SC (100)</td>
+                <td>CoT-SC (k=100)</td>
                 <td>9.0%</td>
-                <td>100</td>
             </tr>
             <tr>
-                <td>ToT (BFS, b=3)</td>
-                <td>74%</td>
-                <td>~109</td>
+                <td>ToT (b=1)</td>
+                <td>45%</td>
             </tr>
             <tr>
-                <td>ToT (DFS)</td>
+                <td>ToT (b=5)</td>
                 <td>74%</td>
-                <td>~26</td>
             </tr>
         </tbody></table>
 
-        <h3>Creative Writing Performance</h3>
+        <h4>Creative Writing (coherency score)</h4>
         <table>
             <tbody><tr>
                 <th>Method</th>
-                <th>Coherence Score</th>
-                <th>Creativity Score</th>
-            </tr>
-            <tr>
-                <td>Standard</td>
-                <td>6.2/10</td>
-                <td>5.8/10</td>
-            </tr>
-            <tr>
-                <td>CoT</td>
-                <td>7.1/10</td>
-                <td>6.4/10</td>
-            </tr>
-            <tr>
-                <td>ToT</td>
-                <td>8.4/10</td>
-                <td>8.1/10</td>
-            </tr>
-        </tbody></table>
-
-        <h3>Crossword Puzzle Performance</h3>
-        <table>
-            <tbody><tr>
-                <th>Method</th>
-                <th>Words Correct</th>
-                <th>Success Rate</th>
+                <th>GPT-4</th>
+                <th>GPT-3.5</th>
             </tr>
             <tr>
                 <td>IO</td>
-                <td>2.1</td>
-                <td>5%</td>
+                <td>6.19</td>
+                <td>4.47</td>
             </tr>
             <tr>
                 <td>CoT</td>
-                <td>2.4</td>
-                <td>10%</td>
+                <td>6.93</td>
+                <td>5.16</td>
             </tr>
             <tr>
                 <td>ToT</td>
-                <td>4.8</td>
-                <td>30%</td>
+                <td>7.56</td>
+                <td>6.62</td>
             </tr>
         </tbody></table>
+        <p><em>Human pairwise preference (ToT vs CoT, 100 passages):</em> ToT preferred in 41, CoT preferred in 21, tie in 38.</p>
+
+        <h4>Mini Crosswords (success rate)</h4>
+        <table>
+            <tbody><tr>
+                <th>Method</th>
+                <th>Letter</th>
+                <th>Word</th>
+                <th>Game</th>
+            </tr>
+            <tr>
+                <td>IO</td>
+                <td>38.7%</td>
+                <td>14%</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>CoT</td>
+                <td>40.6%</td>
+                <td>15.6%</td>
+                <td>1%</td>
+            </tr>
+            <tr>
+                <td>ToT</td>
+                <td>78%</td>
+                <td>60%</td>
+                <td>20%</td>
+            </tr>
+        </tbody></table>
+
+        <h3>C.2 Independent Follow-up Evidence (Klein et al., 2025, ICML) [26]</h3>
+        <p>Independent work reports strong comparative results on Game of 24 and Mini Crosswords using the same benchmark families.</p>
+
+        <h4>Game of 24 (GPT-4, success rate and cost)</h4>
+        <table>
+            <tbody><tr>
+                <th>Method</th>
+                <th>Success Rate</th>
+                <th>Cost (US$)</th>
+            </tr>
+            <tr>
+                <td>IO</td>
+                <td>6.0%</td>
+                <td>0.65</td>
+            </tr>
+            <tr>
+                <td>CoT</td>
+                <td>6.0%</td>
+                <td>6.98</td>
+            </tr>
+            <tr>
+                <td>CoT-SC</td>
+                <td>10.0%</td>
+                <td>49.40</td>
+            </tr>
+            <tr>
+                <td>ToT</td>
+                <td>74.0%</td>
+                <td>75.02</td>
+            </tr>
+            <tr>
+                <td>FoA</td>
+                <td>76.0%</td>
+                <td>62.93</td>
+            </tr>
+        </tbody></table>
+
+        <h4>Mini Crosswords (GPT-4, overlap and cost)</h4>
+        <table>
+            <tbody><tr>
+                <th>Method</th>
+                <th>Overlap</th>
+                <th>Cost (US$)</th>
+            </tr>
+            <tr>
+                <td>IO</td>
+                <td>36.8%</td>
+                <td>0.51</td>
+            </tr>
+            <tr>
+                <td>CoT</td>
+                <td>39.4%</td>
+                <td>1.06</td>
+            </tr>
+            <tr>
+                <td>CoT-SC</td>
+                <td>39.4%</td>
+                <td>2.82</td>
+            </tr>
+            <tr>
+                <td>ToT</td>
+                <td>39.7%</td>
+                <td>49.99</td>
+            </tr>
+            <tr>
+                <td>GoT</td>
+                <td>41.2%</td>
+                <td>30.28</td>
+            </tr>
+            <tr>
+                <td>FoA</td>
+                <td>46.0%</td>
+                <td>12.94</td>
+            </tr>
+        </tbody></table>
+
+        <h3>C.3 Evidence Boundary</h3>
+        <p>As of February 19, 2026, we found independent scholarly follow-up support for Game of 24 and Mini Crosswords, but not a like-for-like independent replication of the original ToT creative-writing setup with the same metric protocol. Creative-writing values above should therefore be treated as original-paper reported results.</p>
 
         <hr>
 
