@@ -10,7 +10,10 @@ Last updated: 2026-02-20
 
 ## Required Pins (To Fill Before Benchmarks)
 - Agent framework package + version
-- Model/provider SDK + version
+- Model/provider adapter profile:
+  - Hugging Face Inference adapter implemented in `phase2/code/src/phase2_baselines/adapters.py`
+  - Default config profile in `phase2/code/configs/hf-default.json`
+  - Credential env var: `HF_TOKEN`
 - Supporting libraries (evaluation, parsing, logging)
 - Any external tool dependencies used by agents
 

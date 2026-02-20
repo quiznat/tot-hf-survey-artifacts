@@ -34,10 +34,14 @@ Status date: 2026-02-20
   - failure handling and structured search trace summary.
 - Added ToT demo run artifact:
   - `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-013700-a7df83.json`.
+- Added Hugging Face provider integration:
+  - adapter in `phase2/code/src/phase2_baselines/adapters.py`,
+  - pinned config in `phase2/code/configs/hf-default.json`,
+  - CLI support in baseline/toT run scripts (`--provider hf`).
 
 ## Next 3 Tasks
 1. Finalize benchmark task selection and scoring details in `phase2/benchmarks/benchmark-matrix.md`.
-2. Add at least one real model/provider adapter (beyond scripted adapter) with pinned config.
+2. Validate first live Hugging Face baseline and ToT runs, then archive manifests.
 3. Start P2-G3 fixed-protocol evaluation run sheet and aggregate metrics table generator.
 
 ## Risks / Dependencies
@@ -52,3 +56,4 @@ Status date: 2026-02-20
 - 2026-02-20: Chose Python-first implementation stack for baseline and evaluation harness.
 - 2026-02-20: Completed Gate P2-G1 with repeated-run baseline variance report generation.
 - 2026-02-20: Completed Gate P2-G2 with ToT prototype runner and traceable demo artifact.
+- 2026-02-20: Added Hugging Face provider adapter path for baseline and ToT scripts (live token validation pending).

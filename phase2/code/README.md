@@ -5,11 +5,13 @@ This directory will contain the executable implementation for baseline and ToT-i
 ## Current Layout
 - `src/phase2_baselines/runners/`: baseline runner implementations.
   - includes `ToTRunner` prototype with search-state tracing.
+- `src/phase2_baselines/adapters.py`: scripted and Hugging Face inference model adapters.
 - `src/phase2_baselines/tasks/`: benchmark task adapters.
 - `src/phase2_baselines/metrics.py`: unified metric and cost estimation helpers.
 - `src/phase2_baselines/manifest.py`: run manifest generation/validation/writing.
 - `src/phase2_baselines/pipeline.py`: shared baseline execution/recording pipeline.
 - `src/phase2_baselines/reporting.py`: condition-level variance summary utilities.
+- `configs/hf-default.json`: pinned default Hugging Face provider profile.
 - `scripts/run_baseline.py`: local baseline execution entry point.
 - `scripts/run_baseline_sweep.py`: repeated baseline execution + variance report generation.
 - `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
@@ -37,10 +39,39 @@ PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline_sweep.py --runs-per-condition 5
 ```
 
+## Hugging Face Baseline Run
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.py \
+  --runner single \
+  --provider hf \
+  --model-id Qwen/Qwen2.5-7B-Instruct
+```
+
+## Hugging Face Sweep
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline_sweep.py \
+  --provider hf \
+  --model-id Qwen/Qwen2.5-7B-Instruct \
+  --runs-per-condition 3
+```
+
 ## ToT Prototype Demo
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py
+```
+
+## ToT Prototype With Hugging Face
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py \
+  --provider hf \
+  --model-id Qwen/Qwen2.5-7B-Instruct
 ```
 
 ## Local Tests

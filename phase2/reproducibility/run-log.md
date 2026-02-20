@@ -21,3 +21,5 @@ All timestamps must be UTC. Add one entry per run.
 | BASELINE-REACT-20260220-013329-4c8cdb | 2026-02-20T01:33:29Z | game24-demo | baseline-react | success | react baseline execution |
 | BASELINE-SINGLE-PATH-20260220-013413-60217a | 2026-02-20T01:34:13Z | game24-demo | baseline-single-path | success | single-path baseline execution |
 | TOT-PROTOTYPE-20260220-013700-a7df83 | 2026-02-20T01:37:00Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-015346-307cf1 | 2026-02-20T01:53:46Z | game24-demo | baseline-single-path | success | single-path baseline execution |
+| TOT-PROTOTYPE-20260220-015346-3ceb65 | 2026-02-20T01:53:46Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |

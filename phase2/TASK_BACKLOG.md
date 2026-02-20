@@ -16,14 +16,16 @@ Status date: 2026-02-20
 - [x] Implement baseline runner B (ReAct-style tool loop).
 - [x] Add unified metrics collector (success, latency, token usage, cost estimate).
 - [x] Add repeated-run driver to generate baseline variance bands.
-- [ ] Add real model/provider adapter with pinned configuration profile.
+- [x] Add real model/provider adapter with pinned configuration profile (Hugging Face).
 - [x] Add manifest validation test for required-field/schema compliance.
+- [ ] Validate Hugging Face baseline runs with live token and archive first non-scripted manifests.
 
 ## P2 (After Baselines)
 - [x] Implement ToT runner with configurable breadth/depth.
 - [ ] Add evaluator strategy variants (self-eval and rule-based checks).
 - [x] Add pruning and early-stop policies.
-- [ ] Integrate ToT runner with at least one non-scripted model/provider adapter.
+- [x] Integrate ToT runner with at least one non-scripted model/provider adapter (Hugging Face path).
+- [ ] Validate ToT Hugging Face run and capture failure taxonomy notes.
 
 ## P3 (Analysis and Writing)
 - [ ] Build ablation report template.

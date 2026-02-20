@@ -62,6 +62,6 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Sprint 3)
 1. Finalize benchmark task panel and scoring rules.
-2. Integrate at least one real model/provider adapter under pinned configuration.
+2. Validate Hugging Face live runs (baseline + ToT) and archive manifests.
 3. Add evaluator strategy variants for ToT (self-eval and rule-based options).
 4. Start Evaluation v1 run plan (fixed protocol and metrics table generation).

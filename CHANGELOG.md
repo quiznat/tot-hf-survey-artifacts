@@ -19,6 +19,10 @@
   - `phase2/code/src/phase2_baselines/runners/tot.py`,
   - `phase2/code/scripts/run_tot_demo.py`,
   - search-state dataclasses and trace summary integration in run manifests.
+- Added Hugging Face model integration path:
+  - HTTP-based HF inference adapter in `phase2/code/src/phase2_baselines/adapters.py`,
+  - pinned provider config in `phase2/code/configs/hf-default.json`,
+  - `--provider hf` support in baseline and ToT run scripts.
 
 ## v1.1 - 2026-02-19
 
