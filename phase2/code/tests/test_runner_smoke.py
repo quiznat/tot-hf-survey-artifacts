@@ -52,6 +52,47 @@ class RunnerSmokeTests(unittest.TestCase):
         self.assertEqual(manifest["outcome"], "success")
         self.assertEqual(manifest["metrics"]["success"], 1)
 
+    def test_react_fallback_expression_parse(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "$\\\\frac{10*10-4}{4}$",
+            ]
+        )
+        runner = ReactRunner(model=model, model_name="test-react")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-react",
+                "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "max_steps_or_final"},
+                "tool_config": ["calc"],
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+                "max_steps": 2,
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "success")
+
+    def test_react_action_plus_numeric_final_recovers_expression(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "ACTION: calc (10*10-4)/4\nFINAL: 24",
+            ]
+        )
+        runner = ReactRunner(model=model, model_name="test-react")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-react",
+                "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "max_steps_or_final"},
+                "tool_config": ["calc"],
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+                "max_steps": 2,
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "success")
+        self.assertEqual(manifest["final_answer"], "(10*10-4)/4")
+
 
 if __name__ == "__main__":
     unittest.main()

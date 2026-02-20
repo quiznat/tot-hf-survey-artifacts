@@ -29,6 +29,11 @@ def parse_args() -> argparse.Namespace:
         help="Optional task_id filter (e.g., game24-demo)",
     )
     parser.add_argument(
+        "--provider",
+        default="",
+        help="Optional provider filter (e.g., huggingface-inference)",
+    )
+    parser.add_argument(
         "--out-md",
         default="/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/evaluation_v1_metrics.md",
         help="Markdown output path",
@@ -52,6 +57,7 @@ def _render_markdown(
         f"Total runs summarized: {total_runs}",
         f"Condition filter: {filters.get('conditions', 'all')}",
         f"Task filter: {filters.get('task_id', 'none')}",
+        f"Provider filter: {filters.get('provider', 'none')}",
         "",
         "| Condition | Runs | Success Rate | Latency Mean (ms) | Latency Std (ms) | Tokens In Mean | Tokens Out Mean | Cost Mean (USD) |",
         "|---|---:|---:|---:|---:|---:|---:|---:|",
@@ -90,6 +96,7 @@ def main() -> int:
 
     conditions = [item.strip() for item in args.conditions.split(",") if item.strip()]
     task_filter = args.task_id.strip()
+    provider_filter = args.provider.strip()
 
     manifests = load_manifests_from_dir(runs_dir)
     filtered: List[Dict[str, Any]] = []
@@ -97,9 +104,12 @@ def main() -> int:
     for manifest in manifests:
         condition_id = str(manifest.get("condition_id", ""))
         task_id = str(manifest.get("task_id", ""))
+        provider = str(manifest.get("provider", ""))
         if conditions and condition_id not in conditions:
             continue
         if task_filter and task_id != task_filter:
+            continue
+        if provider_filter and provider != provider_filter:
             continue
         filtered.append(manifest)
 
@@ -113,7 +123,11 @@ def main() -> int:
     markdown = _render_markdown(
         summaries=summaries,
         total_runs=len(filtered),
-        filters={"conditions": ", ".join(conditions), "task_id": task_filter or "none"},
+        filters={
+            "conditions": ", ".join(conditions),
+            "task_id": task_filter or "none",
+            "provider": provider_filter or "none",
+        },
     )
     out_md.write_text(markdown, encoding="utf-8")
 
@@ -121,7 +135,7 @@ def main() -> int:
         json.dumps(
             {
                 "total_runs": len(filtered),
-                "filters": {"conditions": conditions, "task_id": task_filter},
+                "filters": {"conditions": conditions, "task_id": task_filter, "provider": provider_filter},
                 "summaries": summaries,
             },
             indent=2,

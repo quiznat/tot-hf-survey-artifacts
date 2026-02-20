@@ -31,7 +31,7 @@ Status date: 2026-02-20
 
 ## P3 (Analysis and Writing)
 - [ ] Expand fixed-protocol run panel (increase balanced HF runs per condition).
-- [ ] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
+- [x] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
 - [ ] Build ablation report template.
 - [ ] Build failure taxonomy template with examples.
 - [ ] Draft Methods + Experiments sections for novel manuscript track.

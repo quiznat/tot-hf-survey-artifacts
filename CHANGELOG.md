@@ -32,6 +32,17 @@
   - `phase2/benchmarks/analysis/evaluation_v1_metrics.md`
   - `phase2/benchmarks/analysis/evaluation_v1_metrics.json`
 - Archived first live HF ToT success artifact (`TOT-PROTOTYPE-20260220-030557-6c91df.json`).
+- Added HF-filtered analysis outputs:
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics_hf.md/.json`,
+  - `phase2/benchmarks/analysis/failure_taxonomy_hf.md/.json`.
+- Hardened ReAct parsing and recovery:
+  - fixed `ACTION`/`FINAL` tag regex extraction,
+  - added fallback recovery path when model emits `ACTION` with underspecified `FINAL` value.
+- Hardened ToT candidate generation with duplicate filtering and retry prompts to reduce repeated-node stagnation.
+- Archived additional live HF success artifacts:
+  - `BASELINE-REACT-20260220-032336-d65d87`,
+  - `TOT-PROTOTYPE-20260220-032653-617ab6`.
+- Updated variance-report writer to support configurable report titles and context-specific notes.
 
 ## v1.1 - 2026-02-19
 

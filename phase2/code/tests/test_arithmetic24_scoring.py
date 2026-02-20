@@ -28,6 +28,9 @@ class Arithmetic24ScoringTests(unittest.TestCase):
         closer_score = self.task.score_candidate("(10+10)+4+4", self.numbers)
         self.assertGreater(closer_score, far_score)
 
+    def test_latex_fraction_candidate_is_parsed(self) -> None:
+        self.assertTrue(self.task.evaluate("$\\frac{10*10-4}{4}$", self.numbers))
+
 
 if __name__ == "__main__":
     unittest.main()

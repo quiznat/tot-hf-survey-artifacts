@@ -84,6 +84,11 @@ def main() -> int:
         manifests=manifests,
         report_md_path=Path(args.report_md),
         report_json_path=Path(args.report_json),
+        report_title="Baseline Variance Report",
+        note_lines=[
+            f"- Provider: {args.provider}",
+            "- Report includes all outcomes (success/failure/timeout) from this sweep invocation.",
+        ],
     )
 
     print(f"report={report_path}")

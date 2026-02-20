@@ -1,4 +1,4 @@
-"""Reporting helpers for baseline sweep summaries."""
+"""Reporting helpers for sweep summary reports."""
 
 from __future__ import annotations
 
@@ -61,15 +61,17 @@ def write_variance_report(
     manifests: List[Dict[str, Any]],
     report_md_path: Path,
     report_json_path: Path | None = None,
+    report_title: str = "Variance Report",
+    note_lines: List[str] | None = None,
 ) -> Path:
-    """Write markdown (and optional JSON) summary report for baseline sweep runs."""
+    """Write markdown (and optional JSON) summary report for sweep runs."""
     summaries = summarize_by_condition(manifests)
     generated_utc = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
     report_md_path.parent.mkdir(parents=True, exist_ok=True)
 
     lines = [
-        "# Baseline Variance Report",
+        f"# {report_title}",
         "",
         f"Generated UTC: {generated_utc}",
         f"Total runs summarized: {len(manifests)}",
@@ -96,14 +98,12 @@ def write_variance_report(
             )
         )
 
-    lines.extend(
-        [
-            "",
-            "## Notes",
-            "- Current sweep uses deterministic scripted adapters for harness validation.",
-            "- Non-zero variance is expected once real model/provider adapters are enabled.",
+    if note_lines is None:
+        note_lines = [
+            "- This report is generated directly from run manifests.",
+            "- Include both successes and failures when comparing variance across conditions.",
         ]
-    )
+    lines.extend(["", "## Notes", *note_lines])
 
     report_md_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 

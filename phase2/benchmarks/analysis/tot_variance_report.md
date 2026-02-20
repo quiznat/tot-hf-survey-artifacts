@@ -1,13 +1,13 @@
-# Baseline Variance Report
+# ToT Variance Report
 
-Generated UTC: 2026-02-20T03:15:20Z
-Total runs summarized: 4
+Generated UTC: 2026-02-20T03:17:28Z
+Total runs summarized: 2
 
 | Condition | Runs | Success Rate | Latency Mean (ms) | Latency Std (ms) | Tokens In Mean | Tokens In Std | Tokens Out Mean | Tokens Out Std | Cost Mean (USD) | Cost Std (USD) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| baseline-react | 2 | 0.000 | 26710.500 | 4982.981 | 1216.000 | 87.681 | 400.500 | 3.536 | 0.00000000 | 0.00000000 |
-| baseline-single-path | 2 | 0.000 | 1139.500 | 33.234 | 21.000 | 0.000 | 9.000 | 0.000 | 0.00000000 | 0.00000000 |
+| tot-prototype | 2 | 0.000 | 58733.500 | 8986.620 | 454.000 | 0.000 | 133.000 | 0.000 | 0.00000000 | 0.00000000 |
 
 ## Notes
 - Provider: hf
+- Evaluator mode: rule_based
 - Report includes all outcomes (success/failure/timeout) from this sweep invocation.

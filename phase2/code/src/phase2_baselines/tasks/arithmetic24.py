@@ -102,6 +102,25 @@ def _safe_expression(expr: str) -> bool:
 def _normalize_expression(raw: str) -> str:
     expr = raw.strip()
 
+    # Remove common markdown/LaTeX wrappers.
+    expr = expr.replace("$", "")
+    expr = expr.replace("\\left", "").replace("\\right", "")
+    expr = expr.replace("\\(", "(").replace("\\)", ")")
+
+    # Convert LaTeX-style operators to arithmetic symbols.
+    expr = expr.replace("\\times", "*")
+    expr = expr.replace("\\cdot", "*")
+    expr = expr.replace("\\div", "/")
+
+    # Convert simple LaTeX fractions: \frac{a}{b} -> (a)/(b)
+    # Repeat to handle multiple fractions in one expression.
+    frac_pattern = re.compile(r"\\frac\s*\{([^{}]+)\}\s*\{([^{}]+)\}")
+    while True:
+        updated = frac_pattern.sub(r"(\1)/(\2)", expr)
+        if updated == expr:
+            break
+        expr = updated
+
     # Normalize common Unicode math operators from model outputs.
     replacements = {
         "×": "*",
@@ -125,5 +144,9 @@ def _normalize_expression(raw: str) -> str:
 
     # Remove a final trailing period often emitted in natural language.
     expr = expr.rstrip(".")
+
+    # Remove leftover LaTeX command prefixes and braces.
+    expr = expr.replace("{", "(").replace("}", ")")
+    expr = expr.replace("\\", "")
 
     return expr

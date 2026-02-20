@@ -38,6 +38,7 @@ class ToTRunner(BaseRunner):
         )
 
         frontier: List[ThoughtNode] = [root]
+        seen_candidates: set[str] = set()
         trace: List[str] = []
         tokens_in = 0
         tokens_out = 0
@@ -67,6 +68,7 @@ class ToTRunner(BaseRunner):
                     input_data=input_data,
                     branch_factor=branch_factor,
                     generator=candidate_generator,
+                    disallowed=seen_candidates,
                 )
                 tokens_in += in_tokens
                 tokens_out += out_tokens
@@ -76,6 +78,11 @@ class ToTRunner(BaseRunner):
                     continue
 
                 for candidate in candidates[:branch_factor]:
+                    if candidate in seen_candidates:
+                        trace.append(f"NODE {node.node_id} duplicate_skipped candidate={candidate}")
+                        continue
+                    seen_candidates.add(candidate)
+
                     score, eval_in_tokens, eval_out_tokens = self._evaluate_candidate(
                         candidate,
                         input_data,
@@ -154,40 +161,49 @@ class ToTRunner(BaseRunner):
         input_data: Any,
         branch_factor: int,
         generator: CandidateGenerator | None,
+        disallowed: set[str],
     ) -> Tuple[List[str], int, int]:
         if callable(generator):
             candidates = [candidate.strip() for candidate in generator(node, input_data, branch_factor) if candidate.strip()]
-            return candidates[:branch_factor], 0, 0
+            return _unique_candidates(candidates, disallowed)[:branch_factor], 0, 0
 
         assert self.task is not None
-        prompt = (
-            self.task.build_prompt(input_data, scratchpad=node.candidate)
-            + "\n\nGenerate candidate arithmetic expressions that use each provided number exactly once."
-            + f"\nReturn up to {branch_factor} candidates, one per line."
-            + "\nOutput only raw expressions using + - * / and parentheses."
-            + "\nDo not include '=', explanations, or words."
-        )
-        output = self.model.generate(prompt)
+        total_tokens_in = 0
+        total_tokens_out = 0
+        collected: List[str] = []
 
-        candidates: List[str] = []
-        for raw_line in output.splitlines():
-            line = _clean_candidate_line(raw_line)
-            if not line:
-                continue
-            upper = line.upper()
-            if upper.startswith("CANDIDATE:"):
-                line = _clean_candidate_line(line.split(":", 1)[1])
-            elif upper.startswith("FINAL:"):
-                line = _clean_candidate_line(line.split(":", 1)[1])
-            if line:
-                candidates.append(line)
+        for attempt in range(2):
+            prompt = (
+                self.task.build_prompt(input_data, scratchpad=node.candidate)
+                + "\n\nGenerate candidate arithmetic expressions that use each provided number exactly once."
+                + f"\nReturn up to {branch_factor} candidates, one per line."
+                + "\nOutput only raw expressions using + - * / and parentheses."
+                + "\nDo not include '=', explanations, or words."
+            )
+            if node.candidate:
+                prompt += f"\nParent candidate to improve on (do not repeat): {node.candidate}"
 
-        if not candidates:
-            fallback = self.task.extract_final_answer(output)
-            if fallback:
-                candidates = [_clean_candidate_line(fallback)]
+            disallowed_preview = sorted(disallowed)[:20]
+            if disallowed_preview:
+                blocked = "\n".join(f"- {candidate}" for candidate in disallowed_preview)
+                prompt += "\nDo not repeat any of these previously explored candidates:\n" + blocked
+            if attempt == 1:
+                prompt += "\nPrevious candidates repeated; generate distinct alternatives."
 
-        return [candidate for candidate in candidates[:branch_factor] if candidate], estimate_tokens(prompt), estimate_tokens(output)
+            output = self.model.generate(prompt)
+            total_tokens_in += estimate_tokens(prompt)
+            total_tokens_out += estimate_tokens(output)
+
+            parsed = _parse_candidates(output, self.task.extract_final_answer)
+            for candidate in parsed:
+                if candidate:
+                    collected.append(candidate)
+
+            unique = _unique_candidates(collected, disallowed)
+            if len(unique) >= branch_factor:
+                return unique[:branch_factor], total_tokens_in, total_tokens_out
+
+        return _unique_candidates(collected, disallowed)[:branch_factor], total_tokens_in, total_tokens_out
 
     def _evaluate_candidate(
         self,
@@ -242,6 +258,42 @@ def _clean_candidate_line(raw_line: str) -> str:
     line = re.sub(r"^\d+\s*[\)\.\-:]\s*", "", line)
     line = re.sub(r"^[\-\*\•]\s*", "", line)
     return line.strip()
+
+
+def _parse_candidates(output: str, extract_final_answer: Callable[[str], str]) -> List[str]:
+    candidates: List[str] = []
+    for raw_line in output.splitlines():
+        line = _clean_candidate_line(raw_line)
+        if not line:
+            continue
+        upper = line.upper()
+        if upper.startswith("CANDIDATE:"):
+            line = _clean_candidate_line(line.split(":", 1)[1])
+        elif upper.startswith("FINAL:"):
+            line = _clean_candidate_line(line.split(":", 1)[1])
+        if line:
+            candidates.append(line)
+
+    if not candidates:
+        fallback = extract_final_answer(output)
+        if fallback:
+            fallback_line = _clean_candidate_line(fallback)
+            if fallback_line:
+                candidates.append(fallback_line)
+    return candidates
+
+
+def _unique_candidates(candidates: List[str], disallowed: set[str]) -> List[str]:
+    unique: List[str] = []
+    seen_local: set[str] = set()
+    for candidate in candidates:
+        if candidate in disallowed:
+            continue
+        if candidate in seen_local:
+            continue
+        seen_local.add(candidate)
+        unique.append(candidate)
+    return unique
 
 
 def _clamp_score(score: float) -> float:

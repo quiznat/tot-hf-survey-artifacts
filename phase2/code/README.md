@@ -15,7 +15,9 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_baseline.py`: local baseline execution entry point.
 - `scripts/run_baseline_sweep.py`: repeated baseline execution + variance report generation.
 - `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
+- `scripts/run_tot_sweep.py`: repeated ToT execution + variance report generation.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
+- `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
 - `tests/`: smoke tests for runner scaffolding.
 
 ## Interface Contract
@@ -38,6 +40,14 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline_sweep.py --runs-per-condition 5
+```
+
+## Repeated ToT Sweep
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_sweep.py \
+  --runs-per-condition 5 \
+  --evaluator-mode rule_based
 ```
 
 ## Hugging Face Baseline Run
@@ -87,5 +97,18 @@ python3 -m unittest discover /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_metrics_table.py \
-  --task-id game24-demo
+  --task-id game24-demo \
+  --provider huggingface-inference \
+  --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/evaluation_v1_metrics_hf.md \
+  --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/evaluation_v1_metrics_hf.json
+```
+
+## Build Failure Taxonomy
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_failure_taxonomy.py \
+  --task-id game24-demo \
+  --provider huggingface-inference \
+  --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_hf.md \
+  --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_hf.json
 ```

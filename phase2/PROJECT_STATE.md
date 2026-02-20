@@ -51,11 +51,21 @@ Status date: 2026-02-20
   - `phase2/code/scripts/build_metrics_table.py`,
   - `phase2/benchmarks/analysis/evaluation_v1_metrics.md`,
   - `phase2/benchmarks/analysis/evaluation_v1_metrics.json`.
+- Added HF-filtered analysis outputs:
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics_hf.md`,
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics_hf.json`,
+  - `phase2/benchmarks/analysis/failure_taxonomy_hf.md`,
+  - `phase2/benchmarks/analysis/failure_taxonomy_hf.json`.
+- Hardened `ReactRunner` parsing/recovery for mixed `ACTION` + underspecified `FINAL` outputs.
+- Hardened `ToTRunner` generation with duplicate filtering and retry prompts for candidate diversity.
+- Archived new live HF success artifacts:
+  - `phase2/benchmarks/runs/BASELINE-REACT-20260220-032336-d65d87.json`,
+  - `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-032653-617ab6.json`.
 
 ## Next 3 Tasks
-1. Finalize benchmark task selection and scoring details in `phase2/benchmarks/benchmark-matrix.md`.
-2. Expand balanced fixed-protocol HF runs across baseline and ToT conditions.
-3. Build failure taxonomy table from archived HF failure artifacts.
+1. Expand balanced fixed-protocol HF run counts across all conditions (target >=5 per condition, same model/provider settings).
+2. Add ablation slice for ToT candidate-evaluation/search settings (evaluator mode, depth/width, duplicate filtering impact).
+3. Draft Gate P2-G4 error-analysis section from HF failure taxonomy and representative manifests.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -73,3 +83,5 @@ Status date: 2026-02-20
 - 2026-02-20: Completed first live Hugging Face baseline/ToT runs; captured failure artifacts for taxonomy and evaluator-improvement work.
 - 2026-02-20: Added evaluator variants and achieved first live HF ToT success artifact.
 - 2026-02-20: Started P2-G3 with fixed protocol and aggregate metrics-table generation pipeline.
+- 2026-02-20: Hardened ReAct parser/recovery path; converted live HF ReAct run to success on same benchmark.
+- 2026-02-20: Added ToT duplicate-aware candidate generation and captured additional live HF ToT success artifact.

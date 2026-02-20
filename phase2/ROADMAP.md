@@ -61,7 +61,7 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Finalize benchmark task panel and scoring rules.
-2. Expand balanced Hugging Face fixed-protocol runs across all conditions.
-3. Build failure taxonomy from archived HF run artifacts.
-4. Iterate ToT evaluator strategy based on taxonomy findings.
+1. Expand balanced Hugging Face fixed-protocol runs across all conditions.
+2. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
+3. Select representative failure/success manifests and draft P2-G4 error-analysis tables.
+4. Iterate ToT evaluator strategy based on ablation and taxonomy findings.
