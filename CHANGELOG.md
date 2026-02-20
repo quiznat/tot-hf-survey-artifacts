@@ -11,6 +11,10 @@
   - unified metrics and manifest utilities,
   - arithmetic task adapter and scripted model adapter,
   - smoke tests and runnable baseline script.
+- Added repeated baseline sweep tooling and reporting:
+  - `phase2/code/scripts/run_baseline_sweep.py`,
+  - `phase2/benchmarks/analysis/baseline_variance_report.md`,
+  - `phase2/benchmarks/analysis/baseline_variance_report.json`.
 
 ## v1.1 - 2026-02-19
 

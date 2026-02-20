@@ -15,9 +15,9 @@ Status date: 2026-02-20
 - [x] Implement baseline runner A (single-path reasoning).
 - [x] Implement baseline runner B (ReAct-style tool loop).
 - [x] Add unified metrics collector (success, latency, token usage, cost estimate).
-- [ ] Add repeated-run driver to generate baseline variance bands.
+- [x] Add repeated-run driver to generate baseline variance bands.
 - [ ] Add real model/provider adapter with pinned configuration profile.
-- [ ] Add manifest validation test for required-field/schema compliance.
+- [x] Add manifest validation test for required-field/schema compliance.
 
 ## P2 (After Baselines)
 - [ ] Implement ToT runner with configurable breadth/depth.

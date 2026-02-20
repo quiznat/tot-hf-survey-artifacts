@@ -5,4 +5,6 @@ __all__ = [
     "manifest",
     "metrics",
     "models",
+    "pipeline",
+    "reporting",
 ]

@@ -22,7 +22,7 @@ Acceptance criteria:
 Acceptance criteria:
 - [x] Deterministic benchmark harness implemented.
 - [x] At least two baseline agents runnable end-to-end.
-- [ ] Repeated baseline runs show stable variance bands.
+- [x] Repeated baseline runs show stable variance bands.
 
 ### Gate P2-G2: ToT Integration Prototype
 Acceptance criteria:
