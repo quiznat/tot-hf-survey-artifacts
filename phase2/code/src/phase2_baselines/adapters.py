@@ -36,19 +36,18 @@ class HuggingFaceInferenceModel:
     max_new_tokens: int = 192
     temperature: float = 0.0
     top_p: float = 1.0
-    endpoint_base: str = "https://api-inference.huggingface.co/models"
+    endpoint_base: str = "https://router.huggingface.co/v1"
     request_function: RequestFunction | None = None
 
     def generate(self, prompt: str) -> str:
-        endpoint = f"{self.endpoint_base}/{self.model_id}"
+        endpoint = f"{self.endpoint_base}/chat/completions"
         payload = {
-            "inputs": prompt,
-            "parameters": {
-                "max_new_tokens": self.max_new_tokens,
-                "temperature": self.temperature,
-                "top_p": self.top_p,
-                "return_full_text": False,
-            },
+            "model": self.model_id,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": self.max_new_tokens,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "stream": False,
         }
         headers = {
             "Authorization": f"Bearer {self.api_token}",

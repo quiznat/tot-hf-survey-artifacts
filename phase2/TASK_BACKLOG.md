@@ -18,14 +18,16 @@ Status date: 2026-02-20
 - [x] Add repeated-run driver to generate baseline variance bands.
 - [x] Add real model/provider adapter with pinned configuration profile (Hugging Face).
 - [x] Add manifest validation test for required-field/schema compliance.
-- [ ] Validate Hugging Face baseline runs with live token and archive first non-scripted manifests.
+- [x] Validate Hugging Face baseline runs with live token and archive first non-scripted manifests.
+  Note: first live baseline artifact (`BASELINE-SINGLE-PATH-20260220-025629-9649ee.json`) is currently a failure case and retained for error analysis.
 
 ## P2 (After Baselines)
 - [x] Implement ToT runner with configurable breadth/depth.
 - [ ] Add evaluator strategy variants (self-eval and rule-based checks).
 - [x] Add pruning and early-stop policies.
 - [x] Integrate ToT runner with at least one non-scripted model/provider adapter (Hugging Face path).
-- [ ] Validate ToT Hugging Face run and capture failure taxonomy notes.
+- [x] Validate ToT Hugging Face run and capture failure taxonomy notes.
+  Note: live ToT artifacts (`TOT-PROTOTYPE-20260220-025520-892eed.json`, `TOT-PROTOTYPE-20260220-025614-869706.json`) reached depth limit with invalid candidate expressions.
 
 ## P3 (Analysis and Writing)
 - [ ] Build ablation report template.

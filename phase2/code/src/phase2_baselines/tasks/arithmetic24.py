@@ -26,7 +26,7 @@ class Arithmetic24Task(BaseTask):
 
     def evaluate(self, final_answer: str, input_data: Any) -> bool:
         numbers = [int(x) for x in input_data]
-        expr = final_answer.strip()
+        expr = _normalize_expression(final_answer)
         if not _safe_expression(expr):
             return False
         used = sorted(int(x) for x in re.findall(r"\d+", expr))
@@ -43,7 +43,7 @@ class Arithmetic24Task(BaseTask):
 
     def _tool_calc(self, tool_input: str, input_data: Any) -> str:
         del input_data
-        expr = tool_input.strip()
+        expr = _normalize_expression(tool_input)
         if not _safe_expression(expr):
             return "error: unsafe expression"
         try:
@@ -58,3 +58,30 @@ def _safe_expression(expr: str) -> bool:
         return False
     # Allow digits, arithmetic operators, decimal points, spaces, and parentheses.
     return bool(re.fullmatch(r"[\d\s\+\-\*/\(\)\.]+", expr))
+
+
+def _normalize_expression(raw: str) -> str:
+    expr = raw.strip()
+
+    # Normalize common Unicode math operators from model outputs.
+    replacements = {
+        "×": "*",
+        "÷": "/",
+        "−": "-",
+        "–": "-",
+        "—": "-",
+    }
+    for source, target in replacements.items():
+        expr = expr.replace(source, target)
+
+    # If model returns "expr = value", keep only the expression part.
+    if "=" in expr:
+        expr = expr.split("=", 1)[0].strip()
+
+    # Drop explanatory tails like "-> invalid".
+    if "->" in expr:
+        expr = expr.split("->", 1)[0].strip()
+    if "→" in expr:
+        expr = expr.split("→", 1)[0].strip()
+
+    return expr

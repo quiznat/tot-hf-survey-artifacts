@@ -23,6 +23,8 @@
   - HTTP-based HF inference adapter in `phase2/code/src/phase2_baselines/adapters.py`,
   - pinned provider config in `phase2/code/configs/hf-default.json`,
   - `--provider hf` support in baseline and ToT run scripts.
+- Updated HF adapter to Router chat-completions endpoint and improved arithmetic-expression normalization for live-model outputs.
+- Archived first live HF run artifacts (baseline + ToT) for error-analysis traceability.
 
 ## v1.1 - 2026-02-19
 
