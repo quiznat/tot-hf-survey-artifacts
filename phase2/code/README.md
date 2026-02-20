@@ -119,6 +119,22 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
 
 `--max-workers` controls parallel item execution. Use `1` for strict sequential execution.
 
+## Rebuild Lockset Report (No Reruns)
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lockset.py \
+  --report-only \
+  --provider hf \
+  --model-id Qwen/Qwen3-Coder-Next:novita \
+  --conditions single,react,tot \
+  --tot-evaluator-mode model_self_eval \
+  --limit 50 \
+  --confidence-level 0.95 \
+  --bootstrap-samples 10000 \
+  --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.md \
+  --report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.json
+```
+
 ## Local Tests
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \

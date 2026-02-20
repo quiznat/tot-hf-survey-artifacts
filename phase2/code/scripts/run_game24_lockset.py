@@ -8,7 +8,10 @@ import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+import math
 from pathlib import Path
+import random
+from statistics import NormalDist
 from typing import Any, Dict, Iterable, List, Tuple
 
 from phase2_baselines.adapters import HuggingFaceInferenceModel, ScriptedModel
@@ -49,6 +52,29 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=1,
         help="Parallel item workers. 1 keeps sequential execution.",
+    )
+    parser.add_argument(
+        "--confidence-level",
+        type=float,
+        default=0.95,
+        help="Confidence level for interval reporting.",
+    )
+    parser.add_argument(
+        "--bootstrap-samples",
+        type=int,
+        default=10000,
+        help="Bootstrap samples for paired-delta confidence intervals.",
+    )
+    parser.add_argument(
+        "--bootstrap-seed",
+        type=int,
+        default=20260220,
+        help="Seed for paired-delta bootstrap confidence intervals.",
+    )
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        help="Skip new runs and rebuild report from existing manifests in runs-dir.",
     )
     parser.add_argument(
         "--runs-dir",
@@ -109,6 +135,54 @@ def _slice_items(items: List[Dict[str, Any]], offset: int, limit: int) -> List[D
     if limit > 0:
         sliced = sliced[:limit]
     return sliced
+
+
+def _parse_utc(timestamp_utc: str) -> datetime:
+    return datetime.fromisoformat(timestamp_utc.replace("Z", "+00:00"))
+
+
+def _load_latest_existing_manifests(
+    runs_dir: Path,
+    panel_id: str,
+    selected_items: List[Dict[str, Any]],
+    conditions: List[str],
+) -> List[Dict[str, Any]]:
+    item_ids = {item["item_id"] for item in selected_items}
+    condition_map = {
+        "single": "baseline-single-path",
+        "react": "baseline-react",
+        "tot": "tot-prototype",
+    }
+    target_conditions = {condition_map[name] for name in conditions}
+
+    latest: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for path in sorted(runs_dir.glob("*.json")):
+        try:
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if str(manifest.get("panel_id", "")) != panel_id:
+            continue
+        item_id = str(manifest.get("item_id", ""))
+        condition_id = str(manifest.get("condition_id", ""))
+        if item_id not in item_ids or condition_id not in target_conditions:
+            continue
+        key = (item_id, condition_id)
+        current = latest.get(key)
+        if current is None or _parse_utc(str(manifest.get("timestamp_utc", ""))) > _parse_utc(
+            str(current.get("timestamp_utc", ""))
+        ):
+            latest[key] = manifest
+
+    manifests = list(latest.values())
+    expected = len(item_ids) * len(target_conditions)
+    if len(manifests) < expected:
+        missing = expected - len(manifests)
+        raise RuntimeError(
+            f"report-only mode found {len(manifests)}/{expected} required manifests "
+            f"(missing {missing})."
+        )
+    return manifests
 
 
 def _build_model(args: argparse.Namespace):
@@ -210,6 +284,57 @@ def _build_report(
     report_md: Path,
     report_json: Path,
 ) -> None:
+    confidence_level = float(args.confidence_level)
+    if confidence_level <= 0.0 or confidence_level >= 1.0:
+        raise RuntimeError("--confidence-level must be between 0 and 1 (exclusive)")
+
+    z_score = NormalDist().inv_cdf((1.0 + confidence_level) / 2.0)
+    alpha = 1.0 - confidence_level
+    lower_q = alpha / 2.0
+    upper_q = 1.0 - alpha / 2.0
+
+    def wilson_interval(successes: int, n: int) -> Tuple[float, float]:
+        if n <= 0:
+            return 0.0, 0.0
+        p_hat = successes / n
+        denom = 1.0 + (z_score * z_score) / n
+        center = (p_hat + (z_score * z_score) / (2.0 * n)) / denom
+        half = (
+            z_score
+            * math.sqrt((p_hat * (1.0 - p_hat) / n) + ((z_score * z_score) / (4.0 * n * n)))
+            / denom
+        )
+        return max(0.0, center - half), min(1.0, center + half)
+
+    def exact_mcnemar_p(a_better: int, b_better: int) -> float:
+        n = a_better + b_better
+        if n == 0:
+            return 1.0
+        k = min(a_better, b_better)
+        tail = sum(math.comb(n, i) for i in range(0, k + 1)) / (2**n)
+        return min(1.0, 2.0 * tail)
+
+    def percentile(sorted_values: List[float], q: float) -> float:
+        if not sorted_values:
+            return 0.0
+        if len(sorted_values) == 1:
+            return sorted_values[0]
+        pos = q * (len(sorted_values) - 1)
+        lo = int(math.floor(pos))
+        hi = int(math.ceil(pos))
+        if lo == hi:
+            return sorted_values[lo]
+        weight = pos - lo
+        return sorted_values[lo] * (1.0 - weight) + sorted_values[hi] * weight
+
+    by_condition_successes: Dict[str, int] = {}
+    by_condition_runs: Dict[str, int] = {}
+    for manifest in manifests:
+        condition_id = str(manifest.get("condition_id", ""))
+        success = int(manifest.get("metrics", {}).get("success", 0))
+        by_condition_runs[condition_id] = by_condition_runs.get(condition_id, 0) + 1
+        by_condition_successes[condition_id] = by_condition_successes.get(condition_id, 0) + success
+
     summaries = summarize_by_condition(manifests)
     generated_utc = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -224,24 +349,41 @@ def _build_report(
 
     paired_rows: List[Dict[str, Any]] = []
     condition_ids = sorted({str(manifest.get("condition_id", "")) for manifest in manifests})
+    rng = random.Random(int(args.bootstrap_seed))
     for i, c1 in enumerate(condition_ids):
         for c2 in condition_ids[i + 1 :]:
             matched = 0
             c1_better = 0
             c2_better = 0
             ties = 0
+            diffs: List[int] = []
             for item_id, values in by_item.items():
                 if c1 not in values or c2 not in values:
                     continue
                 matched += 1
                 v1 = values[c1]
                 v2 = values[c2]
+                diffs.append(v1 - v2)
                 if v1 > v2:
                     c1_better += 1
                 elif v2 > v1:
                     c2_better += 1
                 else:
                     ties += 1
+            delta = (c1_better - c2_better) / matched if matched else 0.0
+
+            boot_means: List[float] = []
+            if matched > 0 and int(args.bootstrap_samples) > 0:
+                for _ in range(int(args.bootstrap_samples)):
+                    sample_sum = 0
+                    for _ in range(matched):
+                        sample_sum += diffs[rng.randrange(matched)]
+                    boot_means.append(sample_sum / matched)
+            boot_means.sort()
+            delta_ci_low = percentile(boot_means, lower_q) if boot_means else 0.0
+            delta_ci_high = percentile(boot_means, upper_q) if boot_means else 0.0
+
+            p_value = exact_mcnemar_p(c1_better, c2_better)
             paired_rows.append(
                 {
                     "condition_a": c1,
@@ -250,9 +392,26 @@ def _build_report(
                     "a_better": c1_better,
                     "b_better": c2_better,
                     "ties": ties,
-                    "delta_success_rate": round((c1_better - c2_better) / matched, 6) if matched else 0.0,
+                    "discordant_pairs": c1_better + c2_better,
+                    "delta_success_rate": round(delta, 6),
+                    "delta_ci_low": round(delta_ci_low, 6),
+                    "delta_ci_high": round(delta_ci_high, 6),
+                    "mcnemar_p_value": p_value,
                 }
             )
+
+    # Holm-Bonferroni correction over pairwise tests.
+    order = sorted(range(len(paired_rows)), key=lambda idx: paired_rows[idx]["mcnemar_p_value"])
+    adjusted = [0.0] * len(paired_rows)
+    running_max = 0.0
+    m_tests = len(paired_rows)
+    for rank, idx in enumerate(order, start=1):
+        raw = float(paired_rows[idx]["mcnemar_p_value"])
+        corrected = min(1.0, raw * (m_tests - rank + 1))
+        running_max = max(running_max, corrected)
+        adjusted[idx] = running_max
+    for idx, value in enumerate(adjusted):
+        paired_rows[idx]["mcnemar_p_holm"] = value
 
     report_md.parent.mkdir(parents=True, exist_ok=True)
     report_json.parent.mkdir(parents=True, exist_ok=True)
@@ -267,18 +426,26 @@ def _build_report(
         f"ToT evaluator mode: {args.tot_evaluator_mode}",
         f"Items evaluated: {len(panel_items)}",
         f"Runs executed: {len(manifests)}",
+        f"Confidence level: {args.confidence_level:.2f}",
         "",
         "## Condition Summary",
         "",
-        "| Condition | Runs | Success Rate | Latency Mean (ms) | Tokens In Mean | Tokens Out Mean |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| Condition | Runs | Successes | Success Rate | Success CI | Latency Mean (ms) | Tokens In Mean | Tokens Out Mean |",
+        "|---|---:|---:|---:|---|---:|---:|---:|",
     ]
     for summary in summaries:
+        condition_id = summary["condition_id"]
+        runs = int(by_condition_runs.get(condition_id, summary["runs"]))
+        successes = int(by_condition_successes.get(condition_id, round(summary["success_rate"] * runs)))
+        ci_low, ci_high = wilson_interval(successes=successes, n=runs)
         md_lines.append(
-            "| {condition} | {runs} | {success:.3f} | {lat_mean:.1f} | {tin_mean:.1f} | {tout_mean:.1f} |".format(
-                condition=summary["condition_id"],
-                runs=summary["runs"],
+            "| {condition} | {runs} | {successes} | {success:.3f} | [{ci_low:.3f}, {ci_high:.3f}] | {lat_mean:.1f} | {tin_mean:.1f} | {tout_mean:.1f} |".format(
+                condition=condition_id,
+                runs=runs,
+                successes=successes,
                 success=summary["success_rate"],
+                ci_low=ci_low,
+                ci_high=ci_high,
                 lat_mean=summary["latency_ms_mean"],
                 tin_mean=summary["tokens_in_mean"],
                 tout_mean=summary["tokens_out_mean"],
@@ -290,13 +457,16 @@ def _build_report(
             "",
             "## Paired Success Comparison",
             "",
-            "| Condition A | Condition B | Matched Items | A Better | B Better | Ties | Delta (A-B)/N |",
-            "|---|---|---:|---:|---:|---:|---:|",
+            "| Condition A | Condition B | Matched Items | A Better | B Better | Ties | Delta (A-B)/N | Delta CI | McNemar p | Holm p |",
+            "|---|---|---:|---:|---:|---:|---:|---|---:|---:|",
         ]
     )
+    def fmt_p(p: float) -> str:
+        return f"{p:.2e}" if p < 1e-4 else f"{p:.6f}"
+
     for row in paired_rows:
         md_lines.append(
-            "| {a} | {b} | {n} | {ab} | {bb} | {t} | {d:.3f} |".format(
+            "| {a} | {b} | {n} | {ab} | {bb} | {t} | {d:.3f} | [{dl:.3f}, {dh:.3f}] | {p} | {ph} |".format(
                 a=row["condition_a"],
                 b=row["condition_b"],
                 n=row["matched_items"],
@@ -304,6 +474,10 @@ def _build_report(
                 bb=row["b_better"],
                 t=row["ties"],
                 d=row["delta_success_rate"],
+                dl=row["delta_ci_low"],
+                dh=row["delta_ci_high"],
+                p=fmt_p(float(row["mcnemar_p_value"])),
+                ph=fmt_p(float(row["mcnemar_p_holm"])),
             )
         )
 
@@ -325,6 +499,9 @@ def _build_report(
                 "provider": args.provider,
                 "model_id": args.model_id,
                 "tot_evaluator_mode": args.tot_evaluator_mode,
+                "confidence_level": args.confidence_level,
+                "bootstrap_samples": args.bootstrap_samples,
+                "bootstrap_seed": args.bootstrap_seed,
                 "items_evaluated": len(panel_items),
                 "runs_executed": len(manifests),
                 "condition_summaries": summaries,
@@ -359,6 +536,23 @@ def main() -> int:
     run_log = Path(args.run_log)
 
     manifests: List[Dict[str, Any]] = []
+    if args.report_only:
+        manifests = _load_latest_existing_manifests(
+            runs_dir=runs_dir,
+            panel_id=args.panel_id,
+            selected_items=selected,
+            conditions=conditions,
+        )
+        _build_report(
+            manifests=manifests,
+            args=args,
+            panel_items=selected,
+            report_md=Path(args.report_md),
+            report_json=Path(args.report_json),
+        )
+        print(f"report_md={args.report_md}")
+        print(f"report_json={args.report_json}")
+        return 0
 
     def _run_item(item_index: int, item: Dict[str, Any]) -> List[Dict[str, Any]]:
         item_manifests: List[Dict[str, Any]] = []
