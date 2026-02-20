@@ -94,7 +94,15 @@ class BaseRunner(ABC):
             manifest["input_data"] = self.config["input_data"]
         if "panel_id" in self.config:
             manifest["panel_id"] = self.config["panel_id"]
-        for key in ("evaluator_mode", "max_depth", "branch_factor", "frontier_width", "max_steps"):
+        for key in (
+            "evaluator_mode",
+            "max_depth",
+            "branch_factor",
+            "frontier_width",
+            "max_steps",
+            "hf_temperature",
+            "hf_top_p",
+        ):
             if key in self.config:
                 manifest[key] = self.config[key]
         if execution.extra:

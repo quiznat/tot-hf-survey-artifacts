@@ -1,10 +1,13 @@
 # Game24 Lockset Report
 
-Generated UTC: 2026-02-20T05:35:32Z
+Generated UTC: 2026-02-20T17:08:47Z
 Panel ID: game24-lockset-v1
 Provider: hf
 Model: Qwen/Qwen3-Coder-Next:novita
 ToT evaluator mode: model_self_eval
+Seed policy: item_hash
+HF temperature: 0.0
+HF top-p: 1.0
 Items evaluated: 50
 Runs executed: 150
 Confidence level: 0.95

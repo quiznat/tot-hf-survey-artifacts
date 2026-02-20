@@ -16,6 +16,11 @@ Deliver a reproducible implementation and empirical evaluation of Tree-of-Though
 - Arithmetic correctness checks for Game24 are offline verification metrics, not the primary in-chain decision mechanism.
 - All condition comparisons must be paired on identical item IDs.
 
+## Protocol Freeze (Approved)
+- Active protocol: `phase2/benchmarks/evaluation-protocol-v2.md`
+- Protocol ID: `TOT-HF-P2-EPV2-2026-02-20`
+- Primary gate/ablation model: `Qwen/Qwen3-Coder-Next:novita`
+
 ## Gate Model
 
 ### Gate P2-G0: Project Bootstrap
@@ -68,7 +73,7 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
-2. Add inferential statistics layer to paired lockset report (confidence intervals and significance tests).
-3. Parallelize future lockset batches with controlled worker settings and provider-rate-limit safeguards.
-4. Keep `phase2/manuscript/PREPAPER.md` in sync with every protocol/claim decision.
+1. Execute the primary 3-model matrix on `game24_lockset_v1` (`450` total paired runs) under protocol v2.
+2. Run evaluator ablations (`rule_based`, `hybrid`) on `Qwen/Qwen3-Coder-Next:novita` with `n=50` paired items each.
+3. Run search ablations (A1/A2 depth-width presets) on `Qwen/Qwen3-Coder-Next:novita`.
+4. Update failure taxonomy and manuscript claims strictly from executed evidence.

@@ -97,6 +97,8 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
   --model-id Qwen/Qwen3-Coder-Next:novita \
   --conditions single,react,tot \
   --tot-evaluator-mode model_self_eval \
+  --hf-temperature 0.0 \
+  --seed-policy item_hash \
   --limit 3 \
   --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_pilot.md \
   --report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_pilot.json
@@ -111,6 +113,8 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
   --model-id Qwen/Qwen3-Coder-Next:novita \
   --conditions single,react,tot \
   --tot-evaluator-mode model_self_eval \
+  --hf-temperature 0.0 \
+  --seed-policy item_hash \
   --max-workers 4 \
   --limit 50 \
   --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.md \
@@ -128,12 +132,17 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
   --model-id Qwen/Qwen3-Coder-Next:novita \
   --conditions single,react,tot \
   --tot-evaluator-mode model_self_eval \
+  --hf-temperature 0.0 \
+  --seed-policy item_hash \
   --limit 50 \
   --confidence-level 0.95 \
   --bootstrap-samples 10000 \
   --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.md \
   --report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.json
 ```
+
+Active protocol reference:
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v2.md`
 
 ## Local Tests
 ```bash

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -52,6 +53,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=1,
         help="Parallel item workers. 1 keeps sequential execution.",
+    )
+    parser.add_argument(
+        "--seed-policy",
+        choices=["item_index", "item_hash"],
+        default="item_hash",
+        help="Deterministic seed assignment policy per item.",
     )
     parser.add_argument(
         "--confidence-level",
@@ -135,6 +142,13 @@ def _slice_items(items: List[Dict[str, Any]], offset: int, limit: int) -> List[D
     if limit > 0:
         sliced = sliced[:limit]
     return sliced
+
+
+def _seed_for_item(item_id: str, item_index: int, seed_policy: str) -> int:
+    if seed_policy == "item_hash":
+        digest = hashlib.sha256(item_id.encode("utf-8")).digest()
+        return int.from_bytes(digest[:4], "big", signed=False)
+    return item_index
 
 
 def _parse_utc(timestamp_utc: str) -> datetime:
@@ -235,6 +249,8 @@ def _run_single_or_react(
     config["item_id"] = item["item_id"]
     config["input_data"] = item["numbers"]
     config["panel_id"] = args.panel_id
+    config["hf_temperature"] = args.hf_temperature
+    config["hf_top_p"] = args.hf_top_p
     runner.prepare(task=task, config=config)
     return runner.run(item["numbers"])
 
@@ -261,6 +277,8 @@ def _run_tot(item: Dict[str, Any], seed: int, args: argparse.Namespace) -> Dict[
             "branch_factor": args.tot_branch_factor,
             "frontier_width": args.tot_frontier_width,
             "evaluator_mode": args.tot_evaluator_mode,
+            "hf_temperature": args.hf_temperature,
+            "hf_top_p": args.hf_top_p,
             "item_id": item["item_id"],
             "input_data": item["numbers"],
             "panel_id": args.panel_id,
@@ -424,6 +442,9 @@ def _build_report(
         f"Provider: {args.provider}",
         f"Model: {args.model_id or 'default'}",
         f"ToT evaluator mode: {args.tot_evaluator_mode}",
+        f"Seed policy: {args.seed_policy}",
+        f"HF temperature: {args.hf_temperature}",
+        f"HF top-p: {args.hf_top_p}",
         f"Items evaluated: {len(panel_items)}",
         f"Runs executed: {len(manifests)}",
         f"Confidence level: {args.confidence_level:.2f}",
@@ -499,6 +520,9 @@ def _build_report(
                 "provider": args.provider,
                 "model_id": args.model_id,
                 "tot_evaluator_mode": args.tot_evaluator_mode,
+                "seed_policy": args.seed_policy,
+                "hf_temperature": args.hf_temperature,
+                "hf_top_p": args.hf_top_p,
                 "confidence_level": args.confidence_level,
                 "bootstrap_samples": args.bootstrap_samples,
                 "bootstrap_seed": args.bootstrap_seed,
@@ -555,12 +579,17 @@ def main() -> int:
         return 0
 
     def _run_item(item_index: int, item: Dict[str, Any]) -> List[Dict[str, Any]]:
+        seed = _seed_for_item(
+            item_id=str(item["item_id"]),
+            item_index=item_index,
+            seed_policy=str(args.seed_policy),
+        )
         item_manifests: List[Dict[str, Any]] = []
         for condition in conditions:
             if condition in {"single", "react"}:
-                manifest = _run_single_or_react(condition=condition, item=item, seed=item_index, args=args)
+                manifest = _run_single_or_react(condition=condition, item=item, seed=seed, args=args)
             else:
-                manifest = _run_tot(item=item, seed=item_index, args=args)
+                manifest = _run_tot(item=item, seed=seed, args=args)
             item_manifests.append(manifest)
         return item_manifests
 

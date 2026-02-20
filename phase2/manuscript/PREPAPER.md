@@ -9,6 +9,11 @@ Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluati
 ## Scope
 This prepaper is the canonical source for Phase 2 methodological decisions, frozen protocol settings, claim boundaries, and evolving manuscript text.
 
+## Protocol Freeze v2 (Approved)
+- Active protocol file: `phase2/benchmarks/evaluation-protocol-v2.md`
+- Protocol ID: `TOT-HF-P2-EPV2-2026-02-20`
+- Freeze date: 2026-02-20
+
 ## Methodology Decision Freeze (2026-02-20)
 - Primary ToT methodology uses LLM-based in-chain evaluation (`model_self_eval`).
 - `rule_based` and `hybrid` evaluator modes are retained for ablations/controls only.
@@ -34,13 +39,14 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - Identical item IDs evaluated across all conditions.
 
 ## Statistical Plan (Current)
-- Pilot lock set: 50 paired Game24 items per condition (150 total runs).
+- Fixed panel: 50 paired Game24 items per condition (150 total runs per model for primary 3-condition matrix).
 - Primary success analysis:
-  - paired condition comparisons on the same items,
-  - effect size + confidence intervals,
-  - p-values reported with multiple-comparison correction if >1 contrast.
+  - paired condition comparisons on identical item IDs,
+  - Wilson CIs for condition success rates,
+  - paired bootstrap percentile CIs for success-rate deltas,
+  - exact McNemar p-values with Holm correction.
 - Interpretation guardrail:
-  - 50 paired items is a pilot-scale panel; use for effect-size estimation and protocol validation.
+  - claim scope is panel/model-specific unless replicated across additional tasks/models.
 
 ## Executed Pilot Evidence (Current)
 - Paired 3-item smoke panel executed across `baseline-single-path`, `baseline-react`, and `tot-prototype`.
@@ -70,20 +76,24 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - `baseline-react` vs `baseline-single-path`: +0.320
   - `tot-prototype` vs `baseline-react`: +0.440 (reported as -0.440 in reverse direction)
   - `tot-prototype` vs `baseline-single-path`: +0.760 (reported as -0.760 in reverse direction)
+- Paired significance highlights:
+  - `baseline-react` vs `baseline-single-path`: p=0.00154 (Holm 0.00154)
+  - `tot-prototype` vs `baseline-react`: p=2.74e-05 (Holm 5.49e-05)
+  - `tot-prototype` vs `baseline-single-path`: p=7.28e-12 (Holm 2.18e-11)
 - Interpretation:
   - lockset execution confirms strong performance separation under this fixed model/panel,
-  - inferential statistics (CI/p-values) still needed before final claim language.
+  - ToT gains are accompanied by higher latency/token usage and must be discussed as an explicit tradeoff.
 
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
 
 ## Prepaper Build Plan
-1. Finalize protocol freeze block (task panel, budgets, thresholds, evaluator defaults).
-2. Run pilot lock set and generate paired-condition analysis tables.
-3. Draft Methods and Experimental Setup sections from executed protocol only.
-4. Draft Results and Failure Analysis from archived artifacts.
-5. Draft Limitations and Threats to Validity before any conclusion text.
+1. Execute the full protocol-v2 primary matrix across the 3-model set.
+2. Run evaluator/search ablations on the primary model and merge into unified analysis tables.
+3. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests.
+4. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
+5. Draft Limitations and Threats to Validity before conclusion text.
 
 ## Required Tables/Figures (Planned)
 - Table 1: Condition-level success/latency/token metrics (paired panel).
@@ -96,3 +106,5 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - 2026-02-20: Added fixed 50-item Game24 paired panel (`game24_lockset_v1`) and lockset runner script.
 - 2026-02-20: Completed 3-item paired smoke pilot; validated end-to-end artifact/report pipeline.
 - 2026-02-20: Completed full 50-item paired lockset execution and archived final report artifacts.
+- 2026-02-20: Added inferential statistics to lockset reporting (CI + exact McNemar + Holm correction).
+- 2026-02-20: Approved protocol freeze `TOT-HF-P2-EPV2-2026-02-20` and promoted `evaluation-protocol-v2.md` as active protocol.

@@ -2,6 +2,8 @@
 
 Last updated: 2026-02-20
 
+Status: superseded by `phase2/benchmarks/evaluation-protocol-v2.md` (approved freeze on 2026-02-20).
+
 ## Goal
 Establish a fixed, reproducible protocol for comparing baseline and ToT conditions in Phase 2.
 

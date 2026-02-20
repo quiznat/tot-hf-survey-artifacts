@@ -75,11 +75,23 @@ Status date: 2026-02-20
   - `baseline-single-path`: success 0.080,
   - `baseline-react`: success 0.400,
   - `tot-prototype (model_self_eval)`: success 0.840.
+- Extended lockset reporting with inferential statistics:
+  - Wilson success-rate CIs,
+  - paired bootstrap CIs for deltas,
+  - exact McNemar p-values with Holm correction.
+- Added `--report-only` mode to rebuild lockset reports from existing manifests.
+- Added lockset execution scaling and determinism controls:
+  - `--max-workers` for parallel item execution,
+  - `--seed-policy item_hash` for deterministic item-level seeds,
+  - manifest capture of `hf_temperature` and `hf_top_p`.
+- Drafted and approved protocol freeze:
+  - draft promoted to `phase2/benchmarks/evaluation-protocol-v2.md`,
+  - protocol ID: `TOT-HF-P2-EPV2-2026-02-20`.
 
 ## Next 3 Tasks
-1. Run ablations over evaluator mode and search parameters against the same fixed lockset.
-2. Extend paired report with confidence intervals and significance tests.
-3. Implement parallel lockset execution controls for faster future batch runs.
+1. Execute the primary 3-model lockset matrix (`450` paired runs) under protocol v2.
+2. Run evaluator and search ablations on the primary model (`Qwen/Qwen3-Coder-Next:novita`).
+3. Integrate ablation outcomes into failure taxonomy and prepaper results language.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -103,3 +115,6 @@ Status date: 2026-02-20
 - 2026-02-20: Created `phase2/manuscript/PREPAPER.md` as canonical living source of truth for protocol and manuscript decisions.
 - 2026-02-20: Added fixed paired Game24 lockset panel and paired-condition runner/report pipeline; completed 3-item pilot execution.
 - 2026-02-20: Completed full 50-item paired Game24 lockset run and marked Gate P2-G3 complete.
+- 2026-02-20: Added confidence intervals and paired significance testing to lockset report outputs.
+- 2026-02-20: Added deterministic item-hash seeding and manifest logging of sampling controls.
+- 2026-02-20: Approved and froze `phase2/benchmarks/evaluation-protocol-v2.md` as active evaluation protocol.
