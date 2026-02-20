@@ -40,6 +40,7 @@ This repository hosts the canonical manuscript, submission derivatives, and repr
 - `artifacts/`: reproducibility documentation and evidence package.
 - `submission/`: export scripts and submission-focused conversion assets.
   - Includes a TMLR path in `submission/tmlr/`.
+- `phase2/`: novel contribution workspace (ToT-HF implementation roadmap, project state, reproducibility templates, and benchmark planning).
 
 ## License
 Released under the MIT License. Third-party cited works and metadata remain under their original licenses and terms.

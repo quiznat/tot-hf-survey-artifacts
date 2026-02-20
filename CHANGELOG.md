@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Phase 2 Workspace
+- Added `phase2/` execution scaffold for the novel ToT-HF integration track.
+- Added long-term multi-session coordination files: `AGENT_CONTEXT.md`, `ROADMAP.md`, `PROJECT_STATE.md`, and `TASK_BACKLOG.md`.
+- Added benchmark and reproducibility templates (`benchmark-matrix.md`, `run-manifest-schema.md`, `templates/experiment_record.md`).
+
 ## v1.1 - 2026-02-19
 
 ### Manuscript and Claims
