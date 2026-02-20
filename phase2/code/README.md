@@ -111,10 +111,13 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
   --model-id Qwen/Qwen3-Coder-Next:novita \
   --conditions single,react,tot \
   --tot-evaluator-mode model_self_eval \
+  --max-workers 4 \
   --limit 50 \
   --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.md \
   --report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.json
 ```
+
+`--max-workers` controls parallel item execution. Use `1` for strict sequential execution.
 
 ## Local Tests
 ```bash

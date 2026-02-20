@@ -57,6 +57,23 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - confirms paired-run pipeline and reporting integrity,
   - insufficient sample for significance; full 50-item panel required.
 
+## Executed Lockset Evidence (50 Paired Items)
+- Full paired panel executed: 50 items x 3 conditions = 150 runs.
+- Full report artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_report.md`
+  - `phase2/benchmarks/analysis/game24_lockset_report.json`
+- Condition-level outcomes on `Qwen/Qwen3-Coder-Next:novita`:
+  - `baseline-single-path`: success 0.080, mean latency 6040.7 ms
+  - `baseline-react`: success 0.400, mean latency 21117.0 ms
+  - `tot-prototype (model_self_eval)`: success 0.840, mean latency 53823.3 ms
+- Paired deltas (A-B)/N:
+  - `baseline-react` vs `baseline-single-path`: +0.320
+  - `tot-prototype` vs `baseline-react`: +0.440 (reported as -0.440 in reverse direction)
+  - `tot-prototype` vs `baseline-single-path`: +0.760 (reported as -0.760 in reverse direction)
+- Interpretation:
+  - lockset execution confirms strong performance separation under this fixed model/panel,
+  - inferential statistics (CI/p-values) still needed before final claim language.
+
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
@@ -78,3 +95,4 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - 2026-02-20: Set LLM-based in-chain evaluation as primary methodology; moved rule-based scoring to ablation/control role.
 - 2026-02-20: Added fixed 50-item Game24 paired panel (`game24_lockset_v1`) and lockset runner script.
 - 2026-02-20: Completed 3-item paired smoke pilot; validated end-to-end artifact/report pipeline.
+- 2026-02-20: Completed full 50-item paired lockset execution and archived final report artifacts.

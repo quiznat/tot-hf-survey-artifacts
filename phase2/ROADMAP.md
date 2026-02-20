@@ -38,9 +38,9 @@ Acceptance criteria:
 
 ### Gate P2-G3: Evaluation v1
 Acceptance criteria:
-- [ ] Minimum benchmark panel executed with fixed protocol.
-- [ ] Metrics table produced: success, latency, token/cost footprint.
-- [ ] All run artifacts archived with reproducibility metadata.
+- [x] Minimum benchmark panel executed with fixed protocol.
+- [x] Metrics table produced: success, latency, token/cost footprint.
+- [x] All run artifacts archived with reproducibility metadata.
 
 ### Gate P2-G4: Ablation and Error Analysis
 Acceptance criteria:
@@ -68,7 +68,7 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Launch full lock set run: 50 paired Game24 items per condition on `Qwen/Qwen3-Coder-Next:novita`.
-2. Generate paired-condition analysis outputs (success, latency, token footprint, uncertainty bands) from full panel artifacts.
-3. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
+1. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
+2. Add inferential statistics layer to paired lockset report (confidence intervals and significance tests).
+3. Parallelize future lockset batches with controlled worker settings and provider-rate-limit safeguards.
 4. Keep `phase2/manuscript/PREPAPER.md` in sync with every protocol/claim decision.

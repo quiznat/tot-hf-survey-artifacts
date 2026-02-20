@@ -11,8 +11,8 @@ Status date: 2026-02-20
 - P2-G0 (Project Bootstrap): completed
 - P2-G1 (Baseline Harness): completed
 - P2-G2 (ToT Integration Prototype): completed
-- P2-G3 (Evaluation v1): in progress
-- P2-G4 (Ablation and Error Analysis): not started
+- P2-G3 (Evaluation v1): completed
+- P2-G4 (Ablation and Error Analysis): in progress
 - P2-G5 (Manuscript Draft): not started
 - P2-G6 (Submission Package): not started
 
@@ -67,11 +67,19 @@ Status date: 2026-02-20
   - runner: `phase2/code/scripts/run_game24_lockset.py`,
   - paired pilot report: `phase2/benchmarks/analysis/game24_lockset_report_pilot.md` (3-item smoke panel).
 - Added manifest panel metadata fields (`item_id`, `panel_id`, `input_data`) to preserve paired-evaluation traceability.
+- Completed full paired lockset execution (50 items x 3 conditions = 150 runs):
+  - report: `phase2/benchmarks/analysis/game24_lockset_report.md`,
+  - machine-readable summary: `phase2/benchmarks/analysis/game24_lockset_report.json`,
+  - archived run artifacts under `phase2/benchmarks/runs/` with panel-linked metadata.
+- Full lockset summary on `Qwen/Qwen3-Coder-Next:novita`:
+  - `baseline-single-path`: success 0.080,
+  - `baseline-react`: success 0.400,
+  - `tot-prototype (model_self_eval)`: success 0.840.
 
 ## Next 3 Tasks
-1. Execute full paired lock set: 50 Game24 items per condition (`single`, `react`, `tot model_self_eval`) on the same model/provider profile.
-2. Generate and archive final lockset analysis tables from full panel artifacts.
-3. Draft Methods/Protocol sections in `phase2/manuscript/PREPAPER.md` from executed full-panel runs only.
+1. Run ablations over evaluator mode and search parameters against the same fixed lockset.
+2. Extend paired report with confidence intervals and significance tests.
+3. Implement parallel lockset execution controls for faster future batch runs.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -94,3 +102,4 @@ Status date: 2026-02-20
 - 2026-02-20: Adopted LLM-based in-chain evaluation (`model_self_eval`) as primary Phase 2 methodology; relegated rule-based evaluation to ablation/control role.
 - 2026-02-20: Created `phase2/manuscript/PREPAPER.md` as canonical living source of truth for protocol and manuscript decisions.
 - 2026-02-20: Added fixed paired Game24 lockset panel and paired-condition runner/report pipeline; completed 3-item pilot execution.
+- 2026-02-20: Completed full 50-item paired Game24 lockset run and marked Gate P2-G3 complete.

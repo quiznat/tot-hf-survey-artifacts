@@ -62,3 +62,153 @@ All timestamps must be UTC. Add one entry per run.
 | BASELINE-SINGLE-PATH-20260220-040948-f5ff17 | 2026-02-20T04:09:48Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
 | BASELINE-REACT-20260220-040951-79f6b0 | 2026-02-20T04:09:51Z | game24-demo | baseline-react | failure | react baseline execution |
 | TOT-PROTOTYPE-20260220-041106-4c058e | 2026-02-20T04:11:06Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-041535-3e4c72 | 2026-02-20T04:15:35Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-041541-1212fe | 2026-02-20T04:15:41Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-041613-1c82f6 | 2026-02-20T04:16:13Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-041614-329df3 | 2026-02-20T04:16:14Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-041626-f89e1f | 2026-02-20T04:16:26Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-041650-34e382 | 2026-02-20T04:16:50Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-041655-ecf098 | 2026-02-20T04:16:55Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-041717-b2f679 | 2026-02-20T04:17:17Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-041802-f185f1 | 2026-02-20T04:18:02Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-041803-b6750f | 2026-02-20T04:18:03Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-041845-1c75a6 | 2026-02-20T04:18:45Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-042022-e241c0 | 2026-02-20T04:20:22Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042023-47af5f | 2026-02-20T04:20:23Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042026-591452 | 2026-02-20T04:20:26Z | game24-demo | baseline-react | success | react baseline execution (recovered from ACTION expression) |
+| TOT-PROTOTYPE-20260220-042045-34e8d2 | 2026-02-20T04:20:45Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042057-628608 | 2026-02-20T04:20:57Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042142-0b8781 | 2026-02-20T04:21:42Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-042347-3a7853 | 2026-02-20T04:23:47Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042348-cdbc5a | 2026-02-20T04:23:48Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042426-469c91 | 2026-02-20T04:24:26Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-042443-c70a0a | 2026-02-20T04:24:43Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042445-c07aa5 | 2026-02-20T04:24:45Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042457-c1e10b | 2026-02-20T04:24:57Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-042600-9879b9 | 2026-02-20T04:26:00Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042600-5940b0 | 2026-02-20T04:26:00Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042629-7e37d9 | 2026-02-20T04:26:29Z | game24-demo | baseline-react | success | react baseline execution (recovered from ACTION expression) |
+| TOT-PROTOTYPE-20260220-042835-6cb181 | 2026-02-20T04:28:35Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042842-81f52b | 2026-02-20T04:28:42Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042844-7c1082 | 2026-02-20T04:28:44Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-042922-4368f0 | 2026-02-20T04:29:22Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-042931-e8cdc2 | 2026-02-20T04:29:31Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-042954-8396ce | 2026-02-20T04:29:54Z | game24-demo | baseline-react | success | react baseline execution (recovered from ACTION expression) |
+| TOT-PROTOTYPE-20260220-043050-c369bf | 2026-02-20T04:30:50Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043053-e5a9ae | 2026-02-20T04:30:53Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043141-77f5b9 | 2026-02-20T04:31:41Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-043151-982d5a | 2026-02-20T04:31:51Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043157-59851c | 2026-02-20T04:31:57Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043235-120e49 | 2026-02-20T04:32:35Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-043303-73e5db | 2026-02-20T04:33:03Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043304-5c585b | 2026-02-20T04:33:04Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043351-e9d815 | 2026-02-20T04:33:51Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-043414-432982 | 2026-02-20T04:34:14Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043415-ba23d0 | 2026-02-20T04:34:15Z | game24-demo | baseline-single-path | success | single-path baseline execution |
+| BASELINE-REACT-20260220-043429-b4853e | 2026-02-20T04:34:29Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-043430-d5c4df | 2026-02-20T04:34:30Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043440-0a1c7a | 2026-02-20T04:34:40Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043455-6b0a8e | 2026-02-20T04:34:55Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-043559-5f4b68 | 2026-02-20T04:35:59Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043600-58fa16 | 2026-02-20T04:36:00Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043605-74d0a7 | 2026-02-20T04:36:05Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-043625-203dfa | 2026-02-20T04:36:25Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043626-28cb11 | 2026-02-20T04:36:26Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043704-8bfb51 | 2026-02-20T04:37:04Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-043736-5b1f92 | 2026-02-20T04:37:36Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043737-69d5c2 | 2026-02-20T04:37:37Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043741-1546fe | 2026-02-20T04:37:41Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-043745-a765c7 | 2026-02-20T04:37:45Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043748-bba0f3 | 2026-02-20T04:37:48Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043803-7d2626 | 2026-02-20T04:38:03Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-043906-25c840 | 2026-02-20T04:39:06Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043922-82ac67 | 2026-02-20T04:39:22Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-043931-1ba7ae | 2026-02-20T04:39:31Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-043934-2c9a96 | 2026-02-20T04:39:34Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-043940-70ebaa | 2026-02-20T04:39:40Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-044022-c54695 | 2026-02-20T04:40:22Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-044105-0be6eb | 2026-02-20T04:41:05Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-044127-cc4d91 | 2026-02-20T04:41:27Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-044138-5ae8aa | 2026-02-20T04:41:38Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-044430-d878ac | 2026-02-20T04:44:30Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-044431-1997ab | 2026-02-20T04:44:31Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-044434-2f524d | 2026-02-20T04:44:34Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-044625-7d42d1 | 2026-02-20T04:46:25Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-044631-377f68 | 2026-02-20T04:46:31Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-044656-2c33a8 | 2026-02-20T04:46:56Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-044757-0eef0f | 2026-02-20T04:47:57Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-044758-72ef4f | 2026-02-20T04:47:58Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-044821-b8a41d | 2026-02-20T04:48:21Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-044942-f1d14c | 2026-02-20T04:49:42Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-044956-3d5242 | 2026-02-20T04:49:56Z | game24-demo | baseline-single-path | success | single-path baseline execution |
+| BASELINE-REACT-20260220-045008-00b6f6 | 2026-02-20T04:50:08Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-045025-cfc413 | 2026-02-20T04:50:25Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045026-e8fe64 | 2026-02-20T04:50:26Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045034-93cf59 | 2026-02-20T04:50:34Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-045108-2288bb | 2026-02-20T04:51:08Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045109-aaf057 | 2026-02-20T04:51:09Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045204-e2e52b | 2026-02-20T04:52:04Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-045259-02e869 | 2026-02-20T04:52:59Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045321-3f4f39 | 2026-02-20T04:53:21Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045340-c63318 | 2026-02-20T04:53:40Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-045553-fc6491 | 2026-02-20T04:55:53Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045557-3023ac | 2026-02-20T04:55:57Z | game24-demo | baseline-single-path | success | single-path baseline execution |
+| BASELINE-REACT-20260220-045640-b5f7c2 | 2026-02-20T04:56:40Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-045642-a21152 | 2026-02-20T04:56:42Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045644-b8b202 | 2026-02-20T04:56:44Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045654-9bfb8b | 2026-02-20T04:56:54Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-045737-bd98cd | 2026-02-20T04:57:37Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045738-cb094d | 2026-02-20T04:57:38Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045741-66fe18 | 2026-02-20T04:57:41Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-045755-76855f | 2026-02-20T04:57:55Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045809-b03c0c | 2026-02-20T04:58:09Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045825-194ddd | 2026-02-20T04:58:25Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-045918-7ed2f9 | 2026-02-20T04:59:18Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-045920-939d31 | 2026-02-20T04:59:20Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-045923-e21e86 | 2026-02-20T04:59:23Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-050142-cbe0cc | 2026-02-20T05:01:42Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-050143-fd7770 | 2026-02-20T05:01:43Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-050148-3e01ee | 2026-02-20T05:01:48Z | game24-demo | baseline-react | success | react baseline execution (recovered from ACTION expression) |
+| TOT-PROTOTYPE-20260220-050201-256cf7 | 2026-02-20T05:02:01Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-050227-07e13f | 2026-02-20T05:02:27Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-050249-1474bc | 2026-02-20T05:02:49Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-050300-b69774 | 2026-02-20T05:03:00Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-050301-fde31d | 2026-02-20T05:03:01Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-050309-67b523 | 2026-02-20T05:03:09Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-050501-d799d3 | 2026-02-20T05:05:01Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-050502-041bdc | 2026-02-20T05:05:02Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-050522-c5ed8f | 2026-02-20T05:05:22Z | game24-demo | baseline-react | success | react baseline execution (recovered from ACTION expression) |
+| TOT-PROTOTYPE-20260220-050555-bd5280 | 2026-02-20T05:05:55Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-050623-2854a9 | 2026-02-20T05:06:23Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-050655-f412bb | 2026-02-20T05:06:55Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-050909-cd99b0 | 2026-02-20T05:09:09Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-050910-4a7d80 | 2026-02-20T05:09:10Z | game24-demo | baseline-single-path | success | single-path baseline execution |
+| BASELINE-REACT-20260220-050913-b60a8c | 2026-02-20T05:09:13Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-050954-9ee27d | 2026-02-20T05:09:54Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051011-476d7f | 2026-02-20T05:10:11Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051031-13ded2 | 2026-02-20T05:10:31Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-051053-ebaf4d | 2026-02-20T05:10:53Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051053-2da9cd | 2026-02-20T05:10:53Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051058-e49ec4 | 2026-02-20T05:10:58Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-051111-63a77a | 2026-02-20T05:11:11Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051116-1c7b8c | 2026-02-20T05:11:16Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051205-7a10b9 | 2026-02-20T05:12:05Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-051322-afd64d | 2026-02-20T05:13:22Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051324-bc2a41 | 2026-02-20T05:13:24Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051344-e25ebf | 2026-02-20T05:13:44Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-051536-98201f | 2026-02-20T05:15:36Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051546-65c5d5 | 2026-02-20T05:15:46Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051634-e19550 | 2026-02-20T05:16:34Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-051705-af997a | 2026-02-20T05:17:05Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051708-f549f1 | 2026-02-20T05:17:08Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051712-1f27b2 | 2026-02-20T05:17:12Z | game24-demo | baseline-react | success | react baseline execution (recovered from ACTION expression) |
+| TOT-PROTOTYPE-20260220-051754-055aae | 2026-02-20T05:17:54Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051817-a1af49 | 2026-02-20T05:18:17Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-051853-660d8a | 2026-02-20T05:18:53Z | game24-demo | baseline-react | timeout | react baseline execution reached max_steps without FINAL |
+| TOT-PROTOTYPE-20260220-051950-dbd4e6 | 2026-02-20T05:19:50Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-051951-6b24ea | 2026-02-20T05:19:51Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-052024-ce0393 | 2026-02-20T05:20:24Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260220-052150-b10700 | 2026-02-20T05:21:50Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-052151-1cf509 | 2026-02-20T05:21:51Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260220-052204-0449bd | 2026-02-20T05:22:04Z | game24-demo | baseline-react | success | react baseline execution (action expression solved task) |
+| TOT-PROTOTYPE-20260220-052303-9dae20 | 2026-02-20T05:23:03Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |

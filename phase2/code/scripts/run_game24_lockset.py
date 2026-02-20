@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
@@ -43,6 +44,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tot-frontier-width", type=int, default=3)
     parser.add_argument("--offset", type=int, default=0, help="Start index within panel items")
     parser.add_argument("--limit", type=int, default=0, help="Number of items from panel (0 = all)")
+    parser.add_argument(
+        "--max-workers",
+        type=int,
+        default=1,
+        help="Parallel item workers. 1 keeps sequential execution.",
+    )
     parser.add_argument(
         "--runs-dir",
         default="/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs",
@@ -305,7 +312,7 @@ def _build_report(
             "",
             "## Notes",
             "- This is a paired-condition report; each row compares outcomes on shared item IDs only.",
-            "- Use this pilot report for protocol validation and effect-size estimation before larger panels.",
+            "- Small item slices are for protocol validation; full locksets are the primary panel summary.",
         ]
     )
 
@@ -352,22 +359,52 @@ def main() -> int:
     run_log = Path(args.run_log)
 
     manifests: List[Dict[str, Any]] = []
-    for item_index, item in enumerate(selected):
+
+    def _run_item(item_index: int, item: Dict[str, Any]) -> List[Dict[str, Any]]:
+        item_manifests: List[Dict[str, Any]] = []
         for condition in conditions:
+            if condition in {"single", "react"}:
+                manifest = _run_single_or_react(condition=condition, item=item, seed=item_index, args=args)
+            else:
+                manifest = _run_tot(item=item, seed=item_index, args=args)
+            item_manifests.append(manifest)
+        return item_manifests
+
+    max_workers = max(1, int(args.max_workers))
+    if max_workers == 1:
+        for item_index, item in enumerate(selected):
             try:
-                if condition in {"single", "react"}:
-                    manifest = _run_single_or_react(condition=condition, item=item, seed=item_index, args=args)
-                else:
-                    manifest = _run_tot(item=item, seed=item_index, args=args)
-                out_path = _write_manifest_and_log(manifest, runs_dir, run_log)
-                manifests.append(manifest)
-                print(
-                    f"item={item['item_id']} condition={manifest['condition_id']} "
-                    f"run_id={manifest['run_id']} outcome={manifest['outcome']} path={out_path}"
-                )
+                for manifest in _run_item(item_index=item_index, item=item):
+                    out_path = _write_manifest_and_log(manifest, runs_dir, run_log)
+                    manifests.append(manifest)
+                    print(
+                        f"item={item['item_id']} condition={manifest['condition_id']} "
+                        f"run_id={manifest['run_id']} outcome={manifest['outcome']} path={out_path}"
+                    )
             except Exception as exc:
-                print(f"error: item={item['item_id']} condition={condition}: {exc}")
+                print(f"error: item={item['item_id']}: {exc}")
                 return 2
+    else:
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_map = {
+                executor.submit(_run_item, item_index, item): (item_index, item)
+                for item_index, item in enumerate(selected)
+            }
+            for future in as_completed(future_map):
+                item_index, item = future_map[future]
+                try:
+                    item_manifests = future.result()
+                except Exception as exc:
+                    print(f"error: item={item['item_id']} index={item_index}: {exc}")
+                    return 2
+
+                for manifest in item_manifests:
+                    out_path = _write_manifest_and_log(manifest, runs_dir, run_log)
+                    manifests.append(manifest)
+                    print(
+                        f"item={item['item_id']} condition={manifest['condition_id']} "
+                        f"run_id={manifest['run_id']} outcome={manifest['outcome']} path={out_path}"
+                    )
 
     _build_report(
         manifests=manifests,

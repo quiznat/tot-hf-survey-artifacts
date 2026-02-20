@@ -57,6 +57,11 @@
 - Extended manifests with panel metadata fields (`item_id`, `panel_id`, `input_data`) for paired analysis traceability.
 - Added paired lockset pilot artifacts:
   - `phase2/benchmarks/analysis/game24_lockset_report_pilot.md/.json`.
+- Executed full 50-item paired lockset panel (150 runs total) and archived:
+  - `phase2/benchmarks/analysis/game24_lockset_report.md/.json`,
+  - run manifests in `phase2/benchmarks/runs/` with panel metadata fields.
+- Added lockset runner parallelism control for future batches:
+  - `phase2/code/scripts/run_game24_lockset.py` now supports `--max-workers`.
 
 ## v1.1 - 2026-02-19
 

@@ -31,10 +31,11 @@ Status date: 2026-02-20
 
 ## P3 (Analysis and Writing)
 - [x] Build paired lockset infrastructure (`game24_lockset_v1` panel + runner + pilot report path).
-- [ ] Execute full lock set: 50 paired Game24 items per condition (`single`, `react`, `tot model_self_eval`).
+- [x] Execute full lock set: 50 paired Game24 items per condition (`single`, `react`, `tot model_self_eval`).
 - [ ] Expand fixed-protocol run panel beyond pilot if observed effect size is below publication-threshold confidence.
 - [x] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
 - [ ] Build ablation report template.
 - [ ] Build failure taxonomy template with examples.
 - [ ] Keep `phase2/manuscript/PREPAPER.md` updated after each protocol decision and evaluation run batch.
 - [ ] Draft Methods + Experiments sections for novel manuscript track from `phase2/manuscript/PREPAPER.md`.
+- [ ] Add lockset runner parallelization controls and provider-rate-limit-safe defaults for future large sweeps.
