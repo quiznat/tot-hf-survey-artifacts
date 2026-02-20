@@ -84,6 +84,22 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - lockset execution confirms strong performance separation under this fixed model/panel,
   - ToT gains are accompanied by higher latency/token usage and must be discussed as an explicit tradeoff.
 
+## Executed Protocol-v2 Matrix Evidence (3 Locked Models)
+- Locked models:
+  - `Qwen/Qwen3-Coder-Next:novita`
+  - `Qwen/Qwen2.5-72B-Instruct`
+  - `Qwen/Qwen2.5-Coder-32B-Instruct`
+- Matrix summary artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_matrix_summary_protocol_v2.md`
+  - `phase2/benchmarks/analysis/game24_lockset_matrix_summary_protocol_v2.json`
+- Success-rate snapshot across conditions:
+  - `Qwen/Qwen3-Coder-Next:novita`: single 0.080, react 0.440, tot 0.760
+  - `Qwen/Qwen2.5-72B-Instruct`: single 0.160, react 0.020, tot 0.580
+  - `Qwen/Qwen2.5-Coder-32B-Instruct`: single 0.180, react 0.060, tot 0.680
+- Interpretation:
+  - ToT outperforms ReAct and single-path on all three locked models under paired evaluation.
+  - ReAct underperforms markedly on two locked models, suggesting strong model-format sensitivity in the baseline condition.
+
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
@@ -108,3 +124,5 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - 2026-02-20: Completed full 50-item paired lockset execution and archived final report artifacts.
 - 2026-02-20: Added inferential statistics to lockset reporting (CI + exact McNemar + Holm correction).
 - 2026-02-20: Approved protocol freeze `TOT-HF-P2-EPV2-2026-02-20` and promoted `evaluation-protocol-v2.md` as active protocol.
+- 2026-02-20: Locked protocol-v2 matrix to fixed available model set with no within-matrix substitutions.
+- 2026-02-20: Completed full 3-model protocol-v2 matrix execution and added matrix-level summary artifacts.

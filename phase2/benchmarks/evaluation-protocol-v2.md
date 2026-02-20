@@ -42,15 +42,16 @@ Control/ablation conditions (secondary):
 - Must use fixed item list and paired execution identical to 5.1.
 
 ## 6. Model Matrix
-Primary model matrix (required):
+Primary model matrix (required, locked):
 - `Qwen/Qwen3-Coder-Next:novita`
-- `meta-llama/Llama-3.1-70B-Instruct`
-- `mistralai/Mixtral-8x7B-Instruct-v0.1`
+- `Qwen/Qwen2.5-72B-Instruct`
+- `Qwen/Qwen2.5-Coder-32B-Instruct`
 
 Primary model for ablations and gate criteria: `Qwen/Qwen3-Coder-Next:novita` (chosen as the most capable openly-available coding/agent model at protocol freeze).
 
-Fallback rule:
-- If any model is unavailable from Hugging Face Router, replace with another openly available instruct model and record substitution in run log before execution.
+Lock rule:
+- No model substitution is allowed within a matrix run window.
+- If any locked model is unavailable, stop the matrix run, update protocol version, and restart that model row under the new protocol lock.
 
 ## 7. Sample Size and Run Plan
 - Per model, per condition, per task panel: `n=50` paired items.

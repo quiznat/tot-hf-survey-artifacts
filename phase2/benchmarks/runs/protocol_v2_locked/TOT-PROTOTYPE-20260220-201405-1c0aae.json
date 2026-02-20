@@ -1,0 +1,85 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v2_locked/TOT-PROTOTYPE-20260220-201405-1c0aae.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "error_type": "depth_limit",
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 7,
+      "frontier_width": 3,
+      "generated_nodes": 17,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0
+    }
+  },
+  "final_answer": "(8 + 8) * 3 / 6",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    6,
+    8,
+    8
+  ],
+  "item_id": "g24-v1-022",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 40539,
+    "success": 0,
+    "tokens_in": 2850,
+    "tokens_out": 378
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "tot prototype reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260220-201405-1c0aae",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 656338875,
+  "task_id": "game24-demo",
+  "timestamp_utc": "2026-02-20T20:14:05Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(8 - 6) * (8 + 3)",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(8 * 3) - (8 - 6)",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(8 + 8) - (6 / 3)",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=1.0000 cum=2.0000 terminal=False candidate=8 * (6 - 3) + 8",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.5000 terminal=False candidate=(8 * 3) + (8 - 6)",
+    "NODE n0006 parent=n0002 score=0.7500 cum=1.7500 terminal=False candidate=8 * (3 + 6 / 8)",
+    "NODE n0007 parent=n0002 score=0.7500 cum=1.7500 terminal=False candidate=8 * (3 + (6 / 8))",
+    "NODE n0008 parent=n0003 score=1.0000 cum=2.0000 terminal=False candidate=(8 + 8) * (6 / 3)",
+    "NODE n0009 parent=n0003 score=0.5000 cum=1.5000 terminal=False candidate=(8 * 3) + (8 / 6)",
+    "NODE n0010 parent=n0003 score=0.7500 cum=1.7500 terminal=False candidate=(8 + 6) * (8 / 3)",
+    "DEPTH 3 frontier=3",
+    "NODE n0011 parent=n0004 score=1.0000 cum=3.0000 terminal=False candidate=(8 + 8) * 3 / 6",
+    "NODE n0012 parent=n0004 score=1.0000 cum=3.0000 terminal=False candidate=(8 + 8) * (6 - 3) / 3",
+    "NODE n0013 parent=n0004 score=0.5000 cum=2.5000 terminal=False candidate=8 * (6 + 3 - 8)",
+    "NODE n0014 parent=n0008 score=0.7500 cum=2.7500 terminal=False candidate=(8 * 6) / (8 - 3)",
+    "NODE n0015 parent=n0008 score=0.7500 cum=2.7500 terminal=False candidate=(8 + 6) * 3 / 8",
+    "NODE n0016 parent=n0006 score=1.0000 cum=2.7500 terminal=False candidate=(8 + 8) * 3 - 6",
+    "NODE n0017 parent=n0006 score=0.7500 cum=2.5000 terminal=False candidate=(8 + 8) * (3 - 6 / 8)"
+  ]
+}

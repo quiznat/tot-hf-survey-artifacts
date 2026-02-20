@@ -73,7 +73,7 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Execute the primary 3-model matrix on `game24_lockset_v1` (`450` total paired runs) under protocol v2.
-2. Run evaluator ablations (`rule_based`, `hybrid`) on `Qwen/Qwen3-Coder-Next:novita` with `n=50` paired items each.
-3. Run search ablations (A1/A2 depth-width presets) on `Qwen/Qwen3-Coder-Next:novita`.
-4. Update failure taxonomy and manuscript claims strictly from executed evidence.
+1. Run evaluator ablations (`rule_based`, `hybrid`) on `Qwen/Qwen3-Coder-Next:novita` with `n=50` paired items each.
+2. Run search ablations (A1/A2 depth-width presets) on `Qwen/Qwen3-Coder-Next:novita`.
+3. Update failure taxonomy from matrix + ablation evidence with representative run IDs.
+4. Update manuscript claims/limitations strictly from executed matrix+ablation artifacts.

@@ -87,11 +87,18 @@ Status date: 2026-02-20
 - Drafted and approved protocol freeze:
   - draft promoted to `phase2/benchmarks/evaluation-protocol-v2.md`,
   - protocol ID: `TOT-HF-P2-EPV2-2026-02-20`.
+- Locked and executed 3-model protocol-v2 matrix (all at `--max-workers 8`):
+  - `Qwen/Qwen3-Coder-Next:novita` report: `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext.md`,
+  - `Qwen/Qwen2.5-72B-Instruct` report: `phase2/benchmarks/analysis/game24_lockset_report_qwen25_72b.md`,
+  - `Qwen/Qwen2.5-Coder-32B-Instruct` report: `phase2/benchmarks/analysis/game24_lockset_report_qwen25_coder32b.md`.
+- Added matrix-level summary artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_matrix_summary_protocol_v2.md`,
+  - `phase2/benchmarks/analysis/game24_lockset_matrix_summary_protocol_v2.json`.
 
 ## Next 3 Tasks
-1. Execute the primary 3-model lockset matrix (`450` paired runs) under protocol v2.
-2. Run evaluator and search ablations on the primary model (`Qwen/Qwen3-Coder-Next:novita`).
-3. Integrate ablation outcomes into failure taxonomy and prepaper results language.
+1. Run evaluator ablations (`rule_based`, `hybrid`) on `Qwen/Qwen3-Coder-Next:novita` using the locked protocol settings.
+2. Run search-policy ablations (A1/A2) on `Qwen/Qwen3-Coder-Next:novita` and update paired analysis.
+3. Integrate matrix + ablation outcomes into failure taxonomy and manuscript results/limitations language.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -118,3 +125,5 @@ Status date: 2026-02-20
 - 2026-02-20: Added confidence intervals and paired significance testing to lockset report outputs.
 - 2026-02-20: Added deterministic item-hash seeding and manifest logging of sampling controls.
 - 2026-02-20: Approved and froze `phase2/benchmarks/evaluation-protocol-v2.md` as active evaluation protocol.
+- 2026-02-20: Locked protocol-v2 model matrix to fixed available models and disallowed within-matrix substitutions.
+- 2026-02-20: Completed protocol-v2 3-model lockset matrix execution with isolated run artifacts and matrix summary outputs.
