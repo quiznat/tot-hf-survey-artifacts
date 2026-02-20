@@ -87,6 +87,74 @@ class ToTRunnerTests(unittest.TestCase):
         self.assertEqual(manifest["outcome"], "failure")
         self.assertEqual(manifest["error_type"], "empty_frontier")
 
+    def test_rule_based_evaluator_selects_best_frontier_candidate(self) -> None:
+        model = ScriptedModel(responses=[])
+
+        def generator(node, input_data, k):
+            del node, input_data, k
+            # First candidate is much farther from 24 than second candidate.
+            return ["(10*10-4*4)", "(10+10)+4+4"]
+
+        runner = ToTRunner(model=model, model_name="tot-test")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "tot-prototype",
+                "search_config": {
+                    "depth": 1,
+                    "breadth": 2,
+                    "pruning": "topk_cumulative_score",
+                    "stop_policy": "depth_limit",
+                },
+                "tool_config": [],
+                "budget": {"token_budget": 1000, "time_budget_ms": 5000, "cost_budget_usd": 0.0},
+                "max_depth": 1,
+                "branch_factor": 2,
+                "frontier_width": 1,
+                "candidate_generator": generator,
+                "evaluator_mode": "rule_based",
+            },
+        )
+
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "failure")
+        self.assertEqual(manifest["error_type"], "depth_limit")
+        self.assertEqual(manifest["final_answer"], "(10+10)+4+4")
+
+    def test_model_self_eval_mode_uses_model_scores(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "CANDIDATE: (10+10)+4+4\nCANDIDATE: (10+10+4)-4",
+                "0.1",
+                "0.9",
+            ]
+        )
+
+        runner = ToTRunner(model=model, model_name="tot-test")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "tot-prototype",
+                "search_config": {
+                    "depth": 1,
+                    "breadth": 2,
+                    "pruning": "topk_cumulative_score",
+                    "stop_policy": "depth_limit",
+                },
+                "tool_config": [],
+                "budget": {"token_budget": 1000, "time_budget_ms": 5000, "cost_budget_usd": 0.0},
+                "max_depth": 1,
+                "branch_factor": 2,
+                "frontier_width": 1,
+                "evaluator_mode": "model_self_eval",
+            },
+        )
+
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "failure")
+        self.assertEqual(manifest["error_type"], "depth_limit")
+        self.assertEqual(manifest["final_answer"], "(10+10+4)-4")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -22,6 +22,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hf-max-new-tokens", type=int, default=192)
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
+    parser.add_argument(
+        "--evaluator-mode",
+        choices=["task_binary", "rule_based", "model_self_eval", "hybrid"],
+        default="rule_based",
+        help="Candidate evaluation strategy for ToT search",
+    )
     parser.add_argument("--numbers", default="4,4,10,10", help="Comma-separated integers")
     parser.add_argument(
         "--runs-dir",
@@ -48,7 +54,7 @@ def _build_model(args: argparse.Namespace):
             "local-scripted",
         )
 
-    model_id = args.model_id or "Qwen/Qwen2.5-7B-Instruct"
+    model_id = args.model_id or "Qwen/Qwen3-Coder-Next:novita"
     token = os.getenv(args.hf_token_env, "").strip()
     if not token:
         raise RuntimeError(
@@ -93,6 +99,7 @@ def main() -> int:
                 "max_depth": 3,
                 "branch_factor": 3,
                 "frontier_width": 3,
+                "evaluator_mode": args.evaluator_mode,
             },
         )
 

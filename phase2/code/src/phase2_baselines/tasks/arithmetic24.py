@@ -25,18 +25,57 @@ class Arithmetic24Task(BaseTask):
         return f"{base}\n\nScratchpad:\n{scratchpad}"
 
     def evaluate(self, final_answer: str, input_data: Any) -> bool:
+        analysis = self.analyze_candidate(final_answer, input_data)
+        return bool(analysis["is_exact"])
+
+    def score_candidate(self, candidate: str, input_data: Any) -> float:
+        """Rule-based score in [0, 1] for ToT pruning."""
+        analysis = self.analyze_candidate(candidate, input_data)
+        if analysis["is_exact"]:
+            return 1.0
+        if not analysis["parseable"]:
+            return 0.0
+        if not analysis["uses_required_numbers"]:
+            return 0.05
+
+        value = float(analysis["value"])
+        diff = abs(value - 24.0)
+        # 0 diff -> 1.0, 20+ diff -> near 0.2
+        closeness = max(0.0, 1.0 - min(diff, 20.0) / 25.0)
+        return round(0.2 + 0.8 * closeness, 6)
+
+    def analyze_candidate(self, candidate: str, input_data: Any) -> dict[str, Any]:
         numbers = [int(x) for x in input_data]
-        expr = _normalize_expression(final_answer)
+        expr = _normalize_expression(candidate)
         if not _safe_expression(expr):
-            return False
+            return {
+                "expression": expr,
+                "parseable": False,
+                "uses_required_numbers": False,
+                "value": None,
+                "is_exact": False,
+            }
         used = sorted(int(x) for x in re.findall(r"\d+", expr))
-        if used != sorted(numbers):
-            return False
+        uses_required_numbers = used == sorted(numbers)
         try:
             value = eval(expr, {"__builtins__": {}}, {})  # noqa: S307 - guarded by whitelist
         except Exception:
-            return False
-        return abs(float(value) - 24.0) < 1e-9
+            return {
+                "expression": expr,
+                "parseable": False,
+                "uses_required_numbers": uses_required_numbers,
+                "value": None,
+                "is_exact": False,
+            }
+
+        is_exact = uses_required_numbers and abs(float(value) - 24.0) < 1e-9
+        return {
+            "expression": expr,
+            "parseable": True,
+            "uses_required_numbers": uses_required_numbers,
+            "value": float(value),
+            "is_exact": is_exact,
+        }
 
     def available_tools(self) -> Mapping[str, Callable[[str, Any], str]]:
         return {"calc": self._tool_calc}
@@ -83,5 +122,8 @@ def _normalize_expression(raw: str) -> str:
         expr = expr.split("->", 1)[0].strip()
     if "→" in expr:
         expr = expr.split("→", 1)[0].strip()
+
+    # Remove a final trailing period often emitted in natural language.
+    expr = expr.rstrip(".")
 
     return expr

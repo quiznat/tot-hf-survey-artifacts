@@ -10,7 +10,7 @@ Status date: 2026-02-20
 - P2-G0 (Project Bootstrap): completed
 - P2-G1 (Baseline Harness): completed
 - P2-G2 (ToT Integration Prototype): completed
-- P2-G3 (Evaluation v1): not started
+- P2-G3 (Evaluation v1): in progress
 - P2-G4 (Ablation and Error Analysis): not started
 - P2-G5 (Manuscript Draft): not started
 - P2-G6 (Submission Package): not started
@@ -42,11 +42,20 @@ Status date: 2026-02-20
   - baseline: `phase2/benchmarks/runs/BASELINE-SINGLE-PATH-20260220-025629-9649ee.json`,
   - ToT: `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-025520-892eed.json`,
   - ToT: `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-025614-869706.json`.
+- Implemented ToT evaluator strategy variants:
+  - `task_binary`, `rule_based`, `model_self_eval`, `hybrid`.
+- Completed first live HF ToT success artifact after evaluator upgrades:
+  - `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-030557-6c91df.json`.
+- Added Evaluation v1 protocol and metrics aggregation tooling:
+  - `phase2/benchmarks/evaluation-protocol-v1.md`,
+  - `phase2/code/scripts/build_metrics_table.py`,
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics.md`,
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics.json`.
 
 ## Next 3 Tasks
 1. Finalize benchmark task selection and scoring details in `phase2/benchmarks/benchmark-matrix.md`.
-2. Add evaluator strategy variants for ToT (self-eval and rule-based checks) to reduce invalid candidate retention.
-3. Start P2-G3 fixed-protocol evaluation run sheet and aggregate metrics table generator.
+2. Expand balanced fixed-protocol HF runs across baseline and ToT conditions.
+3. Build failure taxonomy table from archived HF failure artifacts.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -62,3 +71,5 @@ Status date: 2026-02-20
 - 2026-02-20: Completed Gate P2-G2 with ToT prototype runner and traceable demo artifact.
 - 2026-02-20: Added Hugging Face provider adapter path for baseline and ToT scripts (live token validation pending).
 - 2026-02-20: Completed first live Hugging Face baseline/ToT runs; captured failure artifacts for taxonomy and evaluator-improvement work.
+- 2026-02-20: Added evaluator variants and achieved first live HF ToT success artifact.
+- 2026-02-20: Started P2-G3 with fixed protocol and aggregate metrics-table generation pipeline.

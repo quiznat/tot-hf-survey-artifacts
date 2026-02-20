@@ -15,6 +15,7 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_baseline.py`: local baseline execution entry point.
 - `scripts/run_baseline_sweep.py`: repeated baseline execution + variance report generation.
 - `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
+- `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `tests/`: smoke tests for runner scaffolding.
 
 ## Interface Contract
@@ -62,7 +63,8 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline_
 ## ToT Prototype Demo
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
-python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py \
+  --evaluator-mode rule_based
 ```
 
 ## ToT Prototype With Hugging Face
@@ -71,11 +73,19 @@ export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py \
   --provider hf \
-  --model-id Qwen/Qwen2.5-7B-Instruct
+  --model-id Qwen/Qwen3-Coder-Next:novita \
+  --evaluator-mode hybrid
 ```
 
 ## Local Tests
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 -m unittest discover /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/tests
+```
+
+## Build Evaluation Table
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_metrics_table.py \
+  --task-id game24-demo
 ```

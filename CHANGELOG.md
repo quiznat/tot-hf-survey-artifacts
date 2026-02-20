@@ -25,6 +25,13 @@
   - `--provider hf` support in baseline and ToT run scripts.
 - Updated HF adapter to Router chat-completions endpoint and improved arithmetic-expression normalization for live-model outputs.
 - Archived first live HF run artifacts (baseline + ToT) for error-analysis traceability.
+- Added ToT evaluator strategy variants (`task_binary`, `rule_based`, `model_self_eval`, `hybrid`) and candidate parsing hardening.
+- Added Evaluation v1 protocol/aggregation tooling:
+  - `phase2/benchmarks/evaluation-protocol-v1.md`
+  - `phase2/code/scripts/build_metrics_table.py`
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics.md`
+  - `phase2/benchmarks/analysis/evaluation_v1_metrics.json`
+- Archived first live HF ToT success artifact (`TOT-PROTOTYPE-20260220-030557-6c91df.json`).
 
 ## v1.1 - 2026-02-19
 

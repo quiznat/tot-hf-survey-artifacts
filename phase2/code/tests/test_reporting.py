@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import json
+import tempfile
+from pathlib import Path
 import unittest
 
-from phase2_baselines.reporting import summarize_by_condition
+from phase2_baselines.reporting import load_manifests_from_dir, summarize_by_condition
 
 
 class ReportingTests(unittest.TestCase):
@@ -30,6 +33,17 @@ class ReportingTests(unittest.TestCase):
         self.assertAlmostEqual(by_condition["baseline-single-path"]["success_rate"], 0.5)
         self.assertEqual(by_condition["baseline-single-path"]["runs"], 2)
         self.assertEqual(by_condition["baseline-react"]["runs"], 1)
+
+    def test_load_manifests_from_dir(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            (root / "valid-a.json").write_text(json.dumps({"condition_id": "a", "metrics": {}}), encoding="utf-8")
+            (root / "valid-b.json").write_text(json.dumps({"condition_id": "b", "metrics": {}}), encoding="utf-8")
+            (root / "invalid.json").write_text("{not-json", encoding="utf-8")
+            (root / "not-a-dict.json").write_text(json.dumps([1, 2, 3]), encoding="utf-8")
+
+            manifests = load_manifests_from_dir(root)
+            self.assertEqual(len(manifests), 2)
 
 
 if __name__ == "__main__":

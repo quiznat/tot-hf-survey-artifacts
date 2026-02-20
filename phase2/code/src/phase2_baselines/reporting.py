@@ -115,3 +115,16 @@ def write_variance_report(
         )
 
     return report_md_path
+
+
+def load_manifests_from_dir(runs_dir: Path) -> List[Dict[str, Any]]:
+    """Load all JSON run manifests from a runs directory."""
+    manifests: List[Dict[str, Any]] = []
+    for path in sorted(runs_dir.glob("*.json")):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if isinstance(payload, dict):
+            manifests.append(payload)
+    return manifests

@@ -26,3 +26,5 @@ All timestamps must be UTC. Add one entry per run.
 | TOT-PROTOTYPE-20260220-025520-892eed | 2026-02-20T02:55:20Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
 | TOT-PROTOTYPE-20260220-025614-869706 | 2026-02-20T02:56:14Z | game24-demo | tot-prototype | failure | tot prototype reached depth limit without terminal candidate |
 | BASELINE-SINGLE-PATH-20260220-025629-9649ee | 2026-02-20T02:56:29Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| TOT-PROTOTYPE-20260220-030557-6c91df | 2026-02-20T03:05:57Z | game24-demo | tot-prototype | success | tot prototype found terminal candidate |
+| BASELINE-SINGLE-PATH-20260220-030606-f5cac5 | 2026-02-20T03:06:06Z | game24-demo | baseline-single-path | failure | single-path baseline execution |

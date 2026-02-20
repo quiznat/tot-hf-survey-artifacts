@@ -63,7 +63,7 @@ def _resolve_model(
         raise ValueError(f"Unsupported runner_name: {runner_name}")
 
     if provider == "hf":
-        resolved_model_id = model_id or "Qwen/Qwen2.5-7B-Instruct"
+        resolved_model_id = model_id or "Qwen/Qwen3-Coder-Next:novita"
         token = os.getenv(hf_token_env, "").strip()
         if not token:
             raise RuntimeError(

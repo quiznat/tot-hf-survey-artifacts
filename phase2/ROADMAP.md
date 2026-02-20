@@ -62,6 +62,6 @@ Acceptance criteria:
 
 ## Immediate Next Actions (Sprint 3)
 1. Finalize benchmark task panel and scoring rules.
-2. Validate Hugging Face live runs (baseline + ToT) and archive manifests.
-3. Add evaluator strategy variants for ToT (self-eval and rule-based options).
-4. Start Evaluation v1 run plan (fixed protocol and metrics table generation).
+2. Expand balanced Hugging Face fixed-protocol runs across all conditions.
+3. Build failure taxonomy from archived HF run artifacts.
+4. Iterate ToT evaluator strategy based on taxonomy findings.

@@ -23,13 +23,15 @@ Status date: 2026-02-20
 
 ## P2 (After Baselines)
 - [x] Implement ToT runner with configurable breadth/depth.
-- [ ] Add evaluator strategy variants (self-eval and rule-based checks).
+- [x] Add evaluator strategy variants (self-eval and rule-based checks).
 - [x] Add pruning and early-stop policies.
 - [x] Integrate ToT runner with at least one non-scripted model/provider adapter (Hugging Face path).
 - [x] Validate ToT Hugging Face run and capture failure taxonomy notes.
   Note: live ToT artifacts (`TOT-PROTOTYPE-20260220-025520-892eed.json`, `TOT-PROTOTYPE-20260220-025614-869706.json`) reached depth limit with invalid candidate expressions.
 
 ## P3 (Analysis and Writing)
+- [ ] Expand fixed-protocol run panel (increase balanced HF runs per condition).
+- [ ] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
 - [ ] Build ablation report template.
 - [ ] Build failure taxonomy template with examples.
 - [ ] Draft Methods + Experiments sections for novel manuscript track.

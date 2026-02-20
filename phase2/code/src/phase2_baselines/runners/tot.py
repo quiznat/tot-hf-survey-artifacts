@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+import re
 from typing import Any, Callable, List, Tuple
 
 from ..metrics import estimate_tokens
@@ -24,6 +25,7 @@ class ToTRunner(BaseRunner):
         max_depth = int(self.config.get("max_depth", 3))
         branch_factor = int(self.config.get("branch_factor", 3))
         frontier_width = int(self.config.get("frontier_width", 3))
+        evaluator_mode = str(self.config.get("evaluator_mode", "task_binary"))
 
         root = ThoughtNode(
             node_id="root",
@@ -74,7 +76,14 @@ class ToTRunner(BaseRunner):
                     continue
 
                 for candidate in candidates[:branch_factor]:
-                    score = self._evaluate_candidate(candidate, input_data, evaluator=candidate_evaluator)
+                    score, eval_in_tokens, eval_out_tokens = self._evaluate_candidate(
+                        candidate,
+                        input_data,
+                        evaluator=candidate_evaluator,
+                        evaluator_mode=evaluator_mode,
+                    )
+                    tokens_in += eval_in_tokens
+                    tokens_out += eval_out_tokens
                     terminal = self.task.evaluate(candidate, input_data)
                     child = ThoughtNode(
                         node_id=f"n{next_index:04d}",
@@ -153,36 +162,91 @@ class ToTRunner(BaseRunner):
         assert self.task is not None
         prompt = (
             self.task.build_prompt(input_data, scratchpad=node.candidate)
-            + f"\n\nGenerate up to {branch_factor} candidate final answers. One per line."
+            + "\n\nGenerate candidate arithmetic expressions that use each provided number exactly once."
+            + f"\nReturn up to {branch_factor} candidates, one per line."
+            + "\nOutput only raw expressions using + - * / and parentheses."
+            + "\nDo not include '=', explanations, or words."
         )
         output = self.model.generate(prompt)
 
         candidates: List[str] = []
         for raw_line in output.splitlines():
-            line = raw_line.strip()
+            line = _clean_candidate_line(raw_line)
             if not line:
                 continue
             upper = line.upper()
             if upper.startswith("CANDIDATE:"):
-                line = line.split(":", 1)[1].strip()
+                line = _clean_candidate_line(line.split(":", 1)[1])
             elif upper.startswith("FINAL:"):
-                line = line.split(":", 1)[1].strip()
-            candidates.append(line)
+                line = _clean_candidate_line(line.split(":", 1)[1])
+            if line:
+                candidates.append(line)
 
         if not candidates:
             fallback = self.task.extract_final_answer(output)
             if fallback:
-                candidates = [fallback]
+                candidates = [_clean_candidate_line(fallback)]
 
-        return candidates[:branch_factor], estimate_tokens(prompt), estimate_tokens(output)
+        return [candidate for candidate in candidates[:branch_factor] if candidate], estimate_tokens(prompt), estimate_tokens(output)
 
     def _evaluate_candidate(
         self,
         candidate: str,
         input_data: Any,
         evaluator: CandidateEvaluator | None,
-    ) -> float:
+        evaluator_mode: str,
+    ) -> Tuple[float, int, int]:
         if callable(evaluator):
-            return float(evaluator(candidate, input_data))
+            return _clamp_score(float(evaluator(candidate, input_data))), 0, 0
+
+        mode = evaluator_mode.strip().lower()
+        if mode == "rule_based":
+            return self._rule_based_score(candidate, input_data), 0, 0
+        if mode == "model_self_eval":
+            return self._model_self_eval_score(candidate, input_data)
+        if mode == "hybrid":
+            rule_score = self._rule_based_score(candidate, input_data)
+            model_score, in_tokens, out_tokens = self._model_self_eval_score(candidate, input_data)
+            return _clamp_score(0.6 * rule_score + 0.4 * model_score), in_tokens, out_tokens
+
         assert self.task is not None
+        return (1.0, 0, 0) if self.task.evaluate(candidate, input_data) else (0.0, 0, 0)
+
+    def _rule_based_score(self, candidate: str, input_data: Any) -> float:
+        assert self.task is not None
+        scorer = getattr(self.task, "score_candidate", None)
+        if callable(scorer):
+            return _clamp_score(float(scorer(candidate, input_data)))
         return 1.0 if self.task.evaluate(candidate, input_data) else 0.0
+
+    def _model_self_eval_score(self, candidate: str, input_data: Any) -> Tuple[float, int, int]:
+        assert self.task is not None
+        prompt = (
+            "Score the following candidate solution for the task on a scale from 0 to 1.\n"
+            "0 means invalid/wrong; 1 means fully correct and compliant.\n"
+            "Return only one numeric value between 0 and 1.\n\n"
+            f"Task input: {input_data}\n"
+            f"Candidate: {candidate}\n"
+            "Score:"
+        )
+        output = self.model.generate(prompt).strip()
+        match = re.search(r"[-+]?\d*\.?\d+", output)
+        if not match:
+            return 0.0, estimate_tokens(prompt), estimate_tokens(output)
+        return _clamp_score(float(match.group(0))), estimate_tokens(prompt), estimate_tokens(output)
+
+
+def _clean_candidate_line(raw_line: str) -> str:
+    line = raw_line.strip()
+    line = line.strip("`")
+    line = re.sub(r"^\d+\s*[\)\.\-:]\s*", "", line)
+    line = re.sub(r"^[\-\*\•]\s*", "", line)
+    return line.strip()
+
+
+def _clamp_score(score: float) -> float:
+    if score < 0.0:
+        return 0.0
+    if score > 1.0:
+        return 1.0
+    return score
