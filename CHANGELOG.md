@@ -43,6 +43,14 @@
   - `BASELINE-REACT-20260220-032336-d65d87`,
   - `TOT-PROTOTYPE-20260220-032653-617ab6`.
 - Updated variance-report writer to support configurable report titles and context-specific notes.
+- Set ToT CLI defaults to `model_self_eval` for in-chain evaluation:
+  - `phase2/code/scripts/run_tot_demo.py`
+  - `phase2/code/scripts/run_tot_sweep.py`
+- Added canonical Phase 2 living manuscript source:
+  - `phase2/manuscript/PREPAPER.md`
+- Updated Phase 2 governance docs to freeze methodology stance:
+  - LLM in-chain evaluation as primary condition,
+  - rule-based evaluation as control/ablation only.
 
 ## v1.1 - 2026-02-19
 

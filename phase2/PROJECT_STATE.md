@@ -5,6 +5,7 @@ Status date: 2026-02-20
 ## Current Phase
 - Phase 1 (survey): submission-ready and awaiting external review process.
 - Phase 2 (novel implementation): baseline harness and ToT prototype completed.
+- Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
 - P2-G0 (Project Bootstrap): completed
@@ -63,9 +64,9 @@ Status date: 2026-02-20
   - `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-032653-617ab6.json`.
 
 ## Next 3 Tasks
-1. Expand balanced fixed-protocol HF run counts across all conditions (target >=5 per condition, same model/provider settings).
-2. Add ablation slice for ToT candidate-evaluation/search settings (evaluator mode, depth/width, duplicate filtering impact).
-3. Draft Gate P2-G4 error-analysis section from HF failure taxonomy and representative manifests.
+1. Execute the first fixed paired lock set: 50 Game24 items per condition (`single`, `react`, `tot model_self_eval`) on the same model/provider profile.
+2. Generate and archive paired-condition pilot analysis tables from the lock set.
+3. Draft Methods/Protocol sections in `phase2/manuscript/PREPAPER.md` from executed runs only.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -85,3 +86,5 @@ Status date: 2026-02-20
 - 2026-02-20: Started P2-G3 with fixed protocol and aggregate metrics-table generation pipeline.
 - 2026-02-20: Hardened ReAct parser/recovery path; converted live HF ReAct run to success on same benchmark.
 - 2026-02-20: Added ToT duplicate-aware candidate generation and captured additional live HF ToT success artifact.
+- 2026-02-20: Adopted LLM-based in-chain evaluation (`model_self_eval`) as primary Phase 2 methodology; relegated rule-based evaluation to ablation/control role.
+- 2026-02-20: Created `phase2/manuscript/PREPAPER.md` as canonical living source of truth for protocol and manuscript decisions.

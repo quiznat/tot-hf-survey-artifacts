@@ -10,6 +10,12 @@ Deliver a reproducible implementation and empirical evaluation of Tree-of-Though
 - RQ2: What are the compute, latency, and cost tradeoffs of ToT integration under controlled settings?
 - RQ3: Which ToT components (generator, evaluator, search policy, pruning) drive gains in this integration?
 
+## Methodology Baseline (Frozen)
+- Primary ToT methodology uses LLM-based in-chain evaluation (`model_self_eval`).
+- `rule_based` evaluator mode is diagnostic/control only and must not be treated as the main claim condition.
+- Arithmetic correctness checks for Game24 are offline verification metrics, not the primary in-chain decision mechanism.
+- All condition comparisons must be paired on identical item IDs.
+
 ## Gate Model
 
 ### Gate P2-G0: Project Bootstrap
@@ -47,6 +53,7 @@ Acceptance criteria:
 - [ ] Methods, experiments, and limitations sections drafted.
 - [ ] Figures/tables generated from source data.
 - [ ] Reproducibility appendix complete.
+- [ ] `phase2/manuscript/PREPAPER.md` updated as the canonical source before manuscript export.
 
 ### Gate P2-G6: Submission Package
 Acceptance criteria:
@@ -61,7 +68,7 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Expand balanced Hugging Face fixed-protocol runs across all conditions.
-2. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
-3. Select representative failure/success manifests and draft P2-G4 error-analysis tables.
-4. Iterate ToT evaluator strategy based on ablation and taxonomy findings.
+1. Execute pilot lock set: 50 paired Game24 items per condition on `Qwen/Qwen3-Coder-Next:novita`.
+2. Generate paired-condition analysis outputs (success, latency, token footprint, uncertainty bands).
+3. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
+4. Keep `phase2/manuscript/PREPAPER.md` in sync with every protocol/claim decision.

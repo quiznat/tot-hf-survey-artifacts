@@ -12,6 +12,7 @@ This directory is the execution workspace for the novel contribution track: impl
 - `ROADMAP.md`: milestones, gates, and deliverables.
 - `PROJECT_STATE.md`: current status snapshot.
 - `TASK_BACKLOG.md`: prioritized implementation and research tasks.
+- `manuscript/PREPAPER.md`: living manuscript source of truth for methods, decisions, and claim boundaries.
 - `benchmarks/`: benchmark design and run outputs.
 - `reproducibility/`: environment and run logging standards.
 - `templates/`: reusable templates for experiments and reporting.

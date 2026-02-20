@@ -25,7 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--evaluator-mode",
         choices=["task_binary", "rule_based", "model_self_eval", "hybrid"],
-        default="rule_based",
+        default="model_self_eval",
         help="Candidate evaluation strategy for ToT search",
     )
     parser.add_argument("--numbers", default="4,4,10,10", help="Comma-separated integers")

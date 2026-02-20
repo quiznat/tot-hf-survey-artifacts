@@ -14,6 +14,7 @@ Build a publication-grade, reproducible implementation and evaluation of Tree of
   - conceptual diagrams.
 - Keep human-only byline for venue submissions unless venue policy explicitly permits otherwise.
 - Preserve anonymization-safe and camera-ready variants separately.
+- Primary ToT claim condition must use LLM in-chain evaluation (`model_self_eval`); treat `rule_based` as control/ablation only.
 
 ## Canonical Inputs (Phase 1 Dependencies)
 - Survey manuscript: `/Users/quiznat/Desktop/Tree_of_Thought/paper.html`
@@ -24,13 +25,15 @@ Build a publication-grade, reproducible implementation and evaluation of Tree of
 - Implementation code (to be added under `/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/`)
 - Benchmark definitions and results under `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/`
 - Reproducibility logs under `/Users/quiznat/Desktop/Tree_of_Thought/phase2/reproducibility/`
-- Draft manuscript updates for novel contribution track (separate from survey-only release)
+- Draft manuscript updates for novel contribution track under `/Users/quiznat/Desktop/Tree_of_Thought/phase2/manuscript/`
+- Canonical living manuscript source: `/Users/quiznat/Desktop/Tree_of_Thought/phase2/manuscript/PREPAPER.md`
 
 ## Session Protocol
 1. Review `PROJECT_STATE.md` and top `TASK_BACKLOG.md` items.
 2. Execute one bounded unit of work.
 3. Record outcomes, artifacts, and unresolved issues.
-4. Update gate status in `ROADMAP.md` only when acceptance criteria are met.
+4. Update `manuscript/PREPAPER.md` with protocol/claim decisions from the session.
+5. Update gate status in `ROADMAP.md` only when acceptance criteria are met.
 
 ## Evidence and Logging Rules
 - Every experiment run gets a unique run ID.
