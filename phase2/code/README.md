@@ -2,14 +2,15 @@
 
 This directory will contain the executable implementation for baseline and ToT-integrated agent runners.
 
-## Planned Layout
-- `runners/`: baseline and ToT runner implementations.
-- `tasks/`: benchmark task adapters.
-- `metrics/`: result collection and aggregation.
-- `configs/`: experiment configs.
-- `scripts/`: run orchestration entry points.
+## Current Layout
+- `src/phase2_baselines/runners/`: baseline runner implementations.
+- `src/phase2_baselines/tasks/`: benchmark task adapters.
+- `src/phase2_baselines/metrics.py`: unified metric and cost estimation helpers.
+- `src/phase2_baselines/manifest.py`: run manifest generation/validation/writing.
+- `scripts/run_baseline.py`: local baseline execution entry point.
+- `tests/`: smoke tests for runner scaffolding.
 
-## Interface Contract (Initial)
+## Interface Contract
 Each runner should support:
 - `prepare(task, config)`
 - `run()`
@@ -18,3 +19,15 @@ Each runner should support:
 ## Output Contract
 Runner output must map directly to the manifest fields defined in:
 - `/Users/quiznat/Desktop/Tree_of_Thought/phase2/reproducibility/run-manifest-schema.md`
+
+## Local Smoke Run
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.py --runner single
+```
+
+## Local Tests
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 -m unittest discover /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/tests
+```

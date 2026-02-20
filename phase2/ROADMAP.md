@@ -20,8 +20,8 @@ Acceptance criteria:
 
 ### Gate P2-G1: Baseline Harness
 Acceptance criteria:
-- [ ] Deterministic benchmark harness implemented.
-- [ ] At least two baseline agents runnable end-to-end.
+- [x] Deterministic benchmark harness implemented.
+- [x] At least two baseline agents runnable end-to-end.
 - [ ] Repeated baseline runs show stable variance bands.
 
 ### Gate P2-G2: ToT Integration Prototype
@@ -60,8 +60,8 @@ Acceptance criteria:
 3. Reproducibility: protocol freeze, run logging, artifact packaging.
 4. Writing: manuscript updates grounded in measured results.
 
-## Immediate Next Actions (Sprint 1)
-1. Define benchmark task panel and scoring rules.
-2. Scaffold evaluation harness with run manifest format.
-3. Implement baseline runner interfaces.
-4. Define ToT integration interface contract.
+## Immediate Next Actions (Sprint 2)
+1. Finalize benchmark task panel and scoring rules.
+2. Add repeated-run orchestration and variance reporting for baseline conditions.
+3. Integrate at least one real model/provider adapter under pinned configuration.
+4. Define ToT integration interface contract for P2-G2.

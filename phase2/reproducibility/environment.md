@@ -4,8 +4,9 @@ Last updated: 2026-02-20
 
 ## Runtime Targets
 - OS: macOS (local development) + Ubuntu (CI target)
-- Python: TBD
-- Node.js: TBD
+- Stack decision: Python-first baseline/evaluation harness
+- Python: 3.9.6 (local reference runtime)
+- Node.js: not required for current baseline scaffold
 
 ## Required Pins (To Fill Before Benchmarks)
 - Agent framework package + version

@@ -6,6 +6,11 @@
 - Added `phase2/` execution scaffold for the novel ToT-HF integration track.
 - Added long-term multi-session coordination files: `AGENT_CONTEXT.md`, `ROADMAP.md`, `PROJECT_STATE.md`, and `TASK_BACKLOG.md`.
 - Added benchmark and reproducibility templates (`benchmark-matrix.md`, `run-manifest-schema.md`, `templates/experiment_record.md`).
+- Added Python baseline harness scaffold (`phase2/code/src/phase2_baselines/`) with:
+  - single-path and ReAct baseline runners,
+  - unified metrics and manifest utilities,
+  - arithmetic task adapter and scripted model adapter,
+  - smoke tests and runnable baseline script.
 
 ## v1.1 - 2026-02-19
 

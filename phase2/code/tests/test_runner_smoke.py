@@ -1,0 +1,57 @@
+"""Smoke tests for baseline runner scaffolding."""
+
+from __future__ import annotations
+
+import unittest
+
+from phase2_baselines.adapters import ScriptedModel
+from phase2_baselines.runners import ReactRunner, SinglePathRunner
+from phase2_baselines.tasks import Arithmetic24Task
+
+
+class RunnerSmokeTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.task = Arithmetic24Task()
+        self.numbers = [4, 4, 10, 10]
+
+    def test_single_path_success(self) -> None:
+        model = ScriptedModel(responses=["(10*10-4)/4"])
+        runner = SinglePathRunner(model=model, model_name="test-single")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-single-path",
+                "search_config": {"depth": 0, "breadth": 0, "pruning": "none", "stop_policy": "single-pass"},
+                "tool_config": [],
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "success")
+        self.assertEqual(manifest["metrics"]["success"], 1)
+
+    def test_react_success(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "ACTION: calc (10*10-4)/4",
+                "FINAL: (10*10-4)/4",
+            ]
+        )
+        runner = ReactRunner(model=model, model_name="test-react")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-react",
+                "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "max_steps_or_final"},
+                "tool_config": ["calc"],
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+                "max_steps": 5,
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "success")
+        self.assertEqual(manifest["metrics"]["success"], 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
