@@ -5,6 +5,7 @@ Use this directory for benchmark definitions, run results, and analysis summarie
 ## Planned Files
 - `benchmark-matrix.md`: task panel, baselines, and primary metrics.
 - `runs/`: run-level output artifacts.
+  - includes baseline and `tot-prototype` demo manifests.
 - `analysis/`: aggregate tables and plots.
   - `analysis/baseline_variance_report.md`: repeated baseline-run stability summary.
   - `analysis/baseline_variance_report.json`: machine-readable summary.

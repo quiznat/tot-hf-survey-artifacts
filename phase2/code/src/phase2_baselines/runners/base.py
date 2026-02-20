@@ -88,6 +88,8 @@ class BaseRunner(ABC):
             "final_answer": execution.final_answer,
             "trace": execution.trace,
         }
+        if execution.extra:
+            manifest["extra"] = execution.extra
         if execution.error_type:
             manifest["error_type"] = execution.error_type
 

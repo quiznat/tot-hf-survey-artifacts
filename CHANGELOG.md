@@ -15,6 +15,10 @@
   - `phase2/code/scripts/run_baseline_sweep.py`,
   - `phase2/benchmarks/analysis/baseline_variance_report.md`,
   - `phase2/benchmarks/analysis/baseline_variance_report.json`.
+- Added ToT integration prototype components:
+  - `phase2/code/src/phase2_baselines/runners/tot.py`,
+  - `phase2/code/scripts/run_tot_demo.py`,
+  - search-state dataclasses and trace summary integration in run manifests.
 
 ## v1.1 - 2026-02-19
 

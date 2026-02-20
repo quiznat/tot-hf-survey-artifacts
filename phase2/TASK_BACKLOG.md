@@ -20,9 +20,10 @@ Status date: 2026-02-20
 - [x] Add manifest validation test for required-field/schema compliance.
 
 ## P2 (After Baselines)
-- [ ] Implement ToT runner with configurable breadth/depth.
+- [x] Implement ToT runner with configurable breadth/depth.
 - [ ] Add evaluator strategy variants (self-eval and rule-based checks).
-- [ ] Add pruning and early-stop policies.
+- [x] Add pruning and early-stop policies.
+- [ ] Integrate ToT runner with at least one non-scripted model/provider adapter.
 
 ## P3 (Analysis and Writing)
 - [ ] Build ablation report template.

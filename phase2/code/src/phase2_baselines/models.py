@@ -56,3 +56,30 @@ class RunnerExecution:
     tokens_out: int = 0
     error_type: str | None = None
     extra: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class ThoughtNode:
+    """Node in the ToT search tree."""
+
+    node_id: str
+    parent_id: str | None
+    depth: int
+    candidate: str
+    score: float
+    cumulative_score: float
+    is_terminal: bool = False
+
+
+@dataclass
+class SearchSummary:
+    """Compact summary of a ToT search run."""
+
+    max_depth: int
+    branch_factor: int
+    frontier_width: int
+    expanded_nodes: int = 0
+    generated_nodes: int = 0
+    terminal_nodes: int = 0
+    peak_frontier_size: int = 0
+    stop_reason: str = ""

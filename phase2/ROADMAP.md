@@ -26,9 +26,9 @@ Acceptance criteria:
 
 ### Gate P2-G2: ToT Integration Prototype
 Acceptance criteria:
-- [ ] ToT loop integrated (generation, evaluation, search, stop policy).
-- [ ] Configurable branching depth/width and pruning.
-- [ ] Failure handling and trace logging implemented.
+- [x] ToT loop integrated (generation, evaluation, search, stop policy).
+- [x] Configurable branching depth/width and pruning.
+- [x] Failure handling and trace logging implemented.
 
 ### Gate P2-G3: Evaluation v1
 Acceptance criteria:
@@ -60,8 +60,8 @@ Acceptance criteria:
 3. Reproducibility: protocol freeze, run logging, artifact packaging.
 4. Writing: manuscript updates grounded in measured results.
 
-## Immediate Next Actions (Sprint 2)
+## Immediate Next Actions (Sprint 3)
 1. Finalize benchmark task panel and scoring rules.
-2. Add repeated-run orchestration and variance reporting for baseline conditions.
-3. Integrate at least one real model/provider adapter under pinned configuration.
-4. Define ToT integration interface contract for P2-G2.
+2. Integrate at least one real model/provider adapter under pinned configuration.
+3. Add evaluator strategy variants for ToT (self-eval and rule-based options).
+4. Start Evaluation v1 run plan (fixed protocol and metrics table generation).

@@ -4,6 +4,7 @@ This directory will contain the executable implementation for baseline and ToT-i
 
 ## Current Layout
 - `src/phase2_baselines/runners/`: baseline runner implementations.
+  - includes `ToTRunner` prototype with search-state tracing.
 - `src/phase2_baselines/tasks/`: benchmark task adapters.
 - `src/phase2_baselines/metrics.py`: unified metric and cost estimation helpers.
 - `src/phase2_baselines/manifest.py`: run manifest generation/validation/writing.
@@ -11,6 +12,7 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `src/phase2_baselines/reporting.py`: condition-level variance summary utilities.
 - `scripts/run_baseline.py`: local baseline execution entry point.
 - `scripts/run_baseline_sweep.py`: repeated baseline execution + variance report generation.
+- `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
 - `tests/`: smoke tests for runner scaffolding.
 
 ## Interface Contract
@@ -33,6 +35,12 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline_sweep.py --runs-per-condition 5
+```
+
+## ToT Prototype Demo
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py
 ```
 
 ## Local Tests
