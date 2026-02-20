@@ -88,6 +88,15 @@ class BaseRunner(ABC):
             "final_answer": execution.final_answer,
             "trace": execution.trace,
         }
+        if "item_id" in self.config:
+            manifest["item_id"] = self.config["item_id"]
+        if "input_data" in self.config:
+            manifest["input_data"] = self.config["input_data"]
+        if "panel_id" in self.config:
+            manifest["panel_id"] = self.config["panel_id"]
+        for key in ("evaluator_mode", "max_depth", "branch_factor", "frontier_width", "max_steps"):
+            if key in self.config:
+                manifest[key] = self.config[key]
         if execution.extra:
             manifest["extra"] = execution.extra
         if execution.error_type:

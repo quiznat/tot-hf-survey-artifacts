@@ -51,6 +51,12 @@
 - Updated Phase 2 governance docs to freeze methodology stance:
   - LLM in-chain evaluation as primary condition,
   - rule-based evaluation as control/ablation only.
+- Added paired Game24 lockset evaluation infrastructure:
+  - `phase2/benchmarks/panels/game24_lockset_v1.json` (fixed 50-item panel),
+  - `phase2/code/scripts/run_game24_lockset.py` (paired condition runner + report generation).
+- Extended manifests with panel metadata fields (`item_id`, `panel_id`, `input_data`) for paired analysis traceability.
+- Added paired lockset pilot artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_report_pilot.md/.json`.
 
 ## v1.1 - 2026-02-19
 

@@ -62,11 +62,16 @@ Status date: 2026-02-20
 - Archived new live HF success artifacts:
   - `phase2/benchmarks/runs/BASELINE-REACT-20260220-032336-d65d87.json`,
   - `phase2/benchmarks/runs/TOT-PROTOTYPE-20260220-032653-617ab6.json`.
+- Added paired lockset infrastructure for publication-style panel execution:
+  - panel file: `phase2/benchmarks/panels/game24_lockset_v1.json` (50 fixed solvable items),
+  - runner: `phase2/code/scripts/run_game24_lockset.py`,
+  - paired pilot report: `phase2/benchmarks/analysis/game24_lockset_report_pilot.md` (3-item smoke panel).
+- Added manifest panel metadata fields (`item_id`, `panel_id`, `input_data`) to preserve paired-evaluation traceability.
 
 ## Next 3 Tasks
-1. Execute the first fixed paired lock set: 50 Game24 items per condition (`single`, `react`, `tot model_self_eval`) on the same model/provider profile.
-2. Generate and archive paired-condition pilot analysis tables from the lock set.
-3. Draft Methods/Protocol sections in `phase2/manuscript/PREPAPER.md` from executed runs only.
+1. Execute full paired lock set: 50 Game24 items per condition (`single`, `react`, `tot model_self_eval`) on the same model/provider profile.
+2. Generate and archive final lockset analysis tables from full panel artifacts.
+3. Draft Methods/Protocol sections in `phase2/manuscript/PREPAPER.md` from executed full-panel runs only.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -88,3 +93,4 @@ Status date: 2026-02-20
 - 2026-02-20: Added ToT duplicate-aware candidate generation and captured additional live HF ToT success artifact.
 - 2026-02-20: Adopted LLM-based in-chain evaluation (`model_self_eval`) as primary Phase 2 methodology; relegated rule-based evaluation to ablation/control role.
 - 2026-02-20: Created `phase2/manuscript/PREPAPER.md` as canonical living source of truth for protocol and manuscript decisions.
+- 2026-02-20: Added fixed paired Game24 lockset panel and paired-condition runner/report pipeline; completed 3-item pilot execution.

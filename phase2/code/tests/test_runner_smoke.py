@@ -24,11 +24,17 @@ class RunnerSmokeTests(unittest.TestCase):
                 "search_config": {"depth": 0, "breadth": 0, "pruning": "none", "stop_policy": "single-pass"},
                 "tool_config": [],
                 "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+                "item_id": "test-item-001",
+                "panel_id": "test-panel-v1",
+                "input_data": self.numbers,
             },
         )
         manifest = runner.run(self.numbers)
         self.assertEqual(manifest["outcome"], "success")
         self.assertEqual(manifest["metrics"]["success"], 1)
+        self.assertEqual(manifest["item_id"], "test-item-001")
+        self.assertEqual(manifest["panel_id"], "test-panel-v1")
+        self.assertEqual(manifest["input_data"], self.numbers)
 
     def test_react_success(self) -> None:
         model = ScriptedModel(

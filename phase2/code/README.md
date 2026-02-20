@@ -16,6 +16,7 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_baseline_sweep.py`: repeated baseline execution + variance report generation.
 - `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
 - `scripts/run_tot_sweep.py`: repeated ToT execution + variance report generation.
+- `scripts/run_game24_lockset.py`: paired Game24 panel runner across `single`, `react`, and `tot` conditions.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
 - `tests/`: smoke tests for runner scaffolding.
@@ -84,7 +85,35 @@ PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py \
   --provider hf \
   --model-id Qwen/Qwen3-Coder-Next:novita \
-  --evaluator-mode hybrid
+  --evaluator-mode model_self_eval
+```
+
+## Paired Game24 Lockset Pilot (3 Items)
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lockset.py \
+  --provider hf \
+  --model-id Qwen/Qwen3-Coder-Next:novita \
+  --conditions single,react,tot \
+  --tot-evaluator-mode model_self_eval \
+  --limit 3 \
+  --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_pilot.md \
+  --report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_pilot.json
+```
+
+## Paired Game24 Lockset Full Run (50 Items)
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lockset.py \
+  --provider hf \
+  --model-id Qwen/Qwen3-Coder-Next:novita \
+  --conditions single,react,tot \
+  --tot-evaluator-mode model_self_eval \
+  --limit 50 \
+  --report-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.md \
+  --report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report.json
 ```
 
 ## Local Tests

@@ -68,7 +68,7 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Execute pilot lock set: 50 paired Game24 items per condition on `Qwen/Qwen3-Coder-Next:novita`.
-2. Generate paired-condition analysis outputs (success, latency, token footprint, uncertainty bands).
+1. Launch full lock set run: 50 paired Game24 items per condition on `Qwen/Qwen3-Coder-Next:novita`.
+2. Generate paired-condition analysis outputs (success, latency, token footprint, uncertainty bands) from full panel artifacts.
 3. Run ablations for evaluator mode and search settings (depth/width/duplicate filtering).
 4. Keep `phase2/manuscript/PREPAPER.md` in sync with every protocol/claim decision.

@@ -5,6 +5,7 @@ Use this directory for benchmark definitions, run results, and analysis summarie
 ## Planned Files
 - `benchmark-matrix.md`: task panel, baselines, and primary metrics.
 - `evaluation-protocol-v1.md`: fixed protocol settings for Evaluation v1 runs.
+- `panels/game24_lockset_v1.json`: fixed 50-item paired Game24 panel for lockset evaluation.
 - `runs/`: run-level output artifacts.
   - includes baseline and `tot-prototype` demo manifests.
 - `analysis/`: aggregate tables and plots.
@@ -20,5 +21,9 @@ Use this directory for benchmark definitions, run results, and analysis summarie
   - `analysis/failure_taxonomy.json`: machine-readable failure taxonomy.
   - `analysis/failure_taxonomy_hf.md`: HF-filtered failure-category summary.
   - `analysis/failure_taxonomy_hf.json`: machine-readable HF-filtered failure taxonomy.
+  - `analysis/game24_lockset_report.md`: paired lockset run summary for publication-style panel reporting.
+  - `analysis/game24_lockset_report.json`: machine-readable paired lockset summary.
+  - `analysis/game24_lockset_report_pilot.md`: paired pilot smoke report (small-N pipeline validation).
+  - `analysis/game24_lockset_report_pilot.json`: machine-readable paired pilot report.
 
 All benchmark claims in manuscript drafts must trace back to files in this directory.

@@ -42,6 +42,21 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - Interpretation guardrail:
   - 50 paired items is a pilot-scale panel; use for effect-size estimation and protocol validation.
 
+## Executed Pilot Evidence (Current)
+- Paired 3-item smoke panel executed across `baseline-single-path`, `baseline-react`, and `tot-prototype`.
+- Run settings:
+  - provider/model: Hugging Face Router, `Qwen/Qwen3-Coder-Next:novita`
+  - ToT evaluator mode: `model_self_eval`
+- Pilot artifact:
+  - `phase2/benchmarks/analysis/game24_lockset_report_pilot.md`
+- Pilot summary (exploratory only, not for final claims):
+  - `baseline-single-path`: 0/3
+  - `baseline-react`: 1/3
+  - `tot-prototype`: 2/3
+- Interpretation:
+  - confirms paired-run pipeline and reporting integrity,
+  - insufficient sample for significance; full 50-item panel required.
+
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
@@ -61,3 +76,5 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 
 ## Protocol Changes Log
 - 2026-02-20: Set LLM-based in-chain evaluation as primary methodology; moved rule-based scoring to ablation/control role.
+- 2026-02-20: Added fixed 50-item Game24 paired panel (`game24_lockset_v1`) and lockset runner script.
+- 2026-02-20: Completed 3-item paired smoke pilot; validated end-to-end artifact/report pipeline.

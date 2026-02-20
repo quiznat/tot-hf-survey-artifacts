@@ -30,7 +30,8 @@ Status date: 2026-02-20
   Note: live ToT artifacts (`TOT-PROTOTYPE-20260220-025520-892eed.json`, `TOT-PROTOTYPE-20260220-025614-869706.json`) reached depth limit with invalid candidate expressions.
 
 ## P3 (Analysis and Writing)
-- [ ] Execute pilot lock set: 50 paired Game24 items per condition (`single`, `react`, `tot model_self_eval`).
+- [x] Build paired lockset infrastructure (`game24_lockset_v1` panel + runner + pilot report path).
+- [ ] Execute full lock set: 50 paired Game24 items per condition (`single`, `react`, `tot model_self_eval`).
 - [ ] Expand fixed-protocol run panel beyond pilot if observed effect size is below publication-threshold confidence.
 - [x] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
 - [ ] Build ablation report template.
