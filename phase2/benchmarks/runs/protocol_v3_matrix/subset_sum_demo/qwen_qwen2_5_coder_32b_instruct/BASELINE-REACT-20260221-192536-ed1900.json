@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260221-192536-ed1900.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[6, 6, 15]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      6,
+      8,
+      11,
+      12,
+      15
+    ],
+    "target": 27
+  },
+  "item_id": "ss-v1-036",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9974,
+    "success": 1,
+    "tokens_in": 497,
+    "tokens_out": 302
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-192536-ed1900",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 715699043,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:25:36Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the given list that sum to the target value of 27. Let me think about this systematically.\n\nThe available tools are:\n1. check_target - likely verifies if a sum equals the target\n2. sum_list - likely sums a list of numbers\n\nI should try different combinations of the numbers [6, 6, 8, 11, 12, 15] to see which ones add up to 27.\n\nLet me start by trying some combinations:\n- 6 + 6 + 8 + 11 = 31 (too high)\n- 6 + 6 + 8 + 12 = 32 (too high)\n- 6 + 6 + 11 + 12 = 35 (too high)\n- 6 + 8 + 11 + 12 =",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically with the combinations. I need to find which subset of [6, 6, 8, 11, 12, 15] sums to 27.\n\nLet me try:\n- 6 + 8 + 11 + 12 = 37 (too high)\n- 6 + 6 + 8 + 11 = 31 (too high)\n- 6 + 6 + 8 + 12 = 32 (too high)\n- 6 + 6 + 11 + 12 = 35 (too high)\n- 6 + 8 + 11 + 15 = 40 (too high)\n- 6 + 8 + 12 + 15 = 41 (too high)\n- 6 + 11 + 12 +",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: I need to continue systematically checking combinations. Let me try smaller subsets and be more methodical.\n\nLet me try combinations of 3 numbers first:\n- 6 + 6 + 15 = 27 \u2713 This works!\n\nLet me verify: 6 + 6 + 15 = 27\nThis uses three numbers from the list [6, 6, 8, 11, 12, 15] and sums to the target of 27.\n\nACTION: check_target [6, 6, 15]",
+    "STEP 3 OBSERVATION: match"
+  ]
+}

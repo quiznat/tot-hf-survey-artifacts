@@ -1,7 +1,7 @@
 # Phase 2 Prepaper (Living Source of Truth)
 
 Status: active draft (build-as-we-go)
-Last updated: 2026-02-21 (protocol-v3 scaffold integrated)
+Last updated: 2026-02-21 (protocol-v3 matrix complete; postprocessing integrated)
 
 ## Working Title
 Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluation with LLM-Based In-Chain Judging
@@ -17,7 +17,7 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 ## Protocol v3 Expansion Track (Active)
 - Active protocol file: `phase2/benchmarks/evaluation-protocol-v3.md`
 - Protocol ID: `TOT-HF-P2-EPV3-2026-02-21`
-- Status: scaffolding complete; multi-task matrix execution pending.
+- Status: matrix execution complete; consolidation and manuscript integration active.
 - Additional task panels prepared:
   - `phase2/benchmarks/panels/subset_sum_lockset_v1.json`
   - `phase2/benchmarks/panels/linear2_lockset_v1.json`
@@ -203,27 +203,57 @@ Finally, this phase emphasizes internal reproducibility and controlled paired in
   - A2 currently yields the strongest accuracy (0.920) with markedly lower observed latency than the earlier `primary` execution window; this should be treated as observed run behavior under provider conditions, not a universal latency law.
   - Search policy materially affects both outcome quality and compute profile, and must remain explicitly reported in all claims.
 
+## Executed Protocol-v3 Matrix Evidence (4 Tasks x 3 Models)
+- Matrix completion:
+  - 4 tasks x 3 models x 3 conditions x 50 paired items = 1800 runs.
+  - Consolidated outputs:
+    - `phase2/benchmarks/analysis/protocol_v3_matrix_summary.md`
+    - `phase2/benchmarks/analysis/protocol_v3_matrix_summary.json`
+- Directionality snapshot:
+  - ToT vs ReAct: positive delta in 4/12 task-model blocks; negative delta in 8/12 blocks.
+  - ToT vs Single-path: positive delta in 12/12 task-model blocks.
+  - Holm-adjusted significance counts:
+    - ToT vs ReAct: 9/12 blocks with p<0.05.
+    - ToT vs Single-path: 10/12 blocks with p<0.05.
+- Task-level mean delta (ToT minus ReAct):
+  - `game24-demo`: +0.573
+  - `subset-sum-demo`: +0.027
+  - `digit-permutation-demo`: -0.287
+  - `linear2-demo`: -0.587
+- Interpretation:
+  - The protocol-v2 Game24 finding (ToT > ReAct) replicates in `game24-demo` across all three locked models.
+  - Under this v3 configuration, ReAct is stronger than ToT on `linear2-demo` and `digit-permutation-demo` across all three locked models.
+  - Under this v3 configuration, ToT remains consistently stronger than single-path across all tasks/models.
+  - Claim scope remains task- and model-scoped; v3 evidence does not support a universal "ToT > ReAct" statement.
+
 ## Claim Boundary
-- Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
-- Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
+- Allowed claim pattern: "On fixed paired item sets for task T and model M, condition A outperformed condition B by X absolute success points under protocol Y."
+- Allowed claim pattern: "Across this protocol-v3 matrix, ToT outperformed single-path in all evaluated blocks while ToT-vs-ReAct direction varied by task/model."
+- Disallowed claim pattern: universal ordering claims (for example, "ToT always outperforms ReAct") without additional cross-task replication and sensitivity analysis.
 
 ## Prepaper Build Plan
 1. Keep v2 Methods/Results text as frozen baseline evidence. (completed in v0.1 section above)
-2. Execute protocol-v3 core matrix and generate consolidated v3 summary artifacts.
-3. Add a dedicated v3 results section with task-scoped contrasts and correction policy details.
-4. Draft reproducibility appendix with v3 command blocks, panel manifests, and artifact index.
+2. Execute protocol-v3 core matrix and generate consolidated v3 summary artifacts. (completed)
+3. Add a dedicated v3 results section with task-scoped contrasts and correction policy details. (completed)
+4. Draft reproducibility appendix with v3 command blocks, panel manifests, and artifact index. (completed: `phase2/manuscript/APPENDIX_REPRO_V3.md`)
 5. Build anonymous manuscript package after v3 evidence integration.
 
 Canonical execution commands for search ablations are archived in:
 - `phase2/benchmarks/protocol-v2-search-ablation-execution.md`
 
-## Required Tables/Figures (Planned)
+## Required Tables/Figures
 - Table 1: Condition-level success/latency/token metrics (paired panel).
 - Table 2: Multi-task matrix summary (task x model x condition).
 - Table 3: Ablation summary (evaluator mode and search presets).
 - Table 4: Failure taxonomy with representative run IDs.
 - Figure 1: ToT search-state trace diagram with stop-policy points.
 - Figure 2: Protocol-v3 effect-size forest plot (ToT vs ReAct by task/model).
+- Generated v3 table/figure-data artifacts:
+  - `phase2/benchmarks/analysis/protocol_v3_submission_tables.md`
+  - `phase2/benchmarks/analysis/protocol_v3_table_matrix.csv`
+  - `phase2/benchmarks/analysis/protocol_v3_table_task_aggregate.csv`
+  - `phase2/benchmarks/analysis/protocol_v3_figure_effect_tot_vs_react.csv`
+  - `phase2/benchmarks/analysis/protocol_v3_figure_effect_tot_vs_single.csv`
 
 ## Protocol Changes Log
 - 2026-02-20: Set LLM-based in-chain evaluation as primary methodology; moved rule-based scoring to ablation/control role.
@@ -242,3 +272,6 @@ Canonical execution commands for search ablations are archived in:
 - 2026-02-21: Drafted manuscript-ready Results and Limitations text from frozen matrix, ablation, and taxonomy artifacts.
 - 2026-02-21: Added protocol-v3 multi-task scaffold (new task adapters, deterministic panels, generic lockset runner, matrix orchestration, and matrix summary tooling).
 - 2026-02-21: Activated protocol-v3 as the current deepening track while preserving v2 as frozen baseline evidence.
+- 2026-02-21: Completed full locked protocol-v3 matrix execution (1800 runs) across 4 tasks and 3 models.
+- 2026-02-21: Generated consolidated v3 matrix summary, task-scoped and pooled v3 failure taxonomies, and report-only determinism parity checks.
+- 2026-02-21: Added v3 submission table/figure-data generator and reproducibility appendix draft (`APPENDIX_REPRO_V3.md`).

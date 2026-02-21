@@ -4,7 +4,7 @@ Status date: 2026-02-21
 
 ## Current Phase
 - Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
-- Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 multi-task expansion scaffold is complete and ready for execution.
+- Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 locked matrix execution is complete with consolidated analysis artifacts.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -13,10 +13,29 @@ Status date: 2026-02-21
 - P2-G2 (ToT Integration Prototype): completed
 - P2-G3 (Evaluation v1): completed
 - P2-G4 (Ablation and Error Analysis): completed
-- P2-G5 (Manuscript Draft): in progress (now tracking protocol-v3 deepening path)
+- P2-G5 (Manuscript Draft): in progress (protocol-v3 results integrated; packaging in progress)
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
+- Executed the full locked protocol-v3 matrix (`4 tasks x 3 models x 3 conditions x 50`) and completed 1800 manifested runs with no model substitution.
+- Backfilled transient timeout-interrupted segments and validated full 50x3 coverage for every task-model block.
+- Rebuilt all 12 protocol-v3 lockset reports and consolidated outputs:
+  - `phase2/benchmarks/analysis/protocol_v3_matrix_summary.md`
+  - `phase2/benchmarks/analysis/protocol_v3_matrix_summary.json`
+- Refreshed protocol-v3 failure taxonomies (task-scoped + pooled):
+  - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v3_*.{md,json}`
+  - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v3_pooled.{md,json}`
+- Added recursive manifest loading to taxonomy tooling:
+  - `phase2/code/scripts/build_failure_taxonomy.py`
+- Ran sampled two-pass `--report-only` determinism parity checks:
+  - `phase2/benchmarks/analysis/protocol_v3_report_only_parity_check.md`
+  - `phase2/benchmarks/analysis/protocol_v3_report_only_parity_check.json`
+- Added v3 submission table/figure-data generation and produced outputs:
+  - script: `phase2/code/scripts/build_protocol_v3_submission_tables.py`
+  - artifacts under `phase2/benchmarks/analysis/protocol_v3_submission_*` and `protocol_v3_figure_effect_*`.
+- Added reproducibility appendix draft and integrated protocol-v3 evidence framing updates:
+  - `phase2/manuscript/APPENDIX_REPRO_V3.md`
+  - `phase2/manuscript/PREPAPER.md`
 - Added protocol-v3 task adapters and task registry support:
   - `phase2/code/src/phase2_baselines/tasks/subset_sum.py`
   - `phase2/code/src/phase2_baselines/tasks/linear2.py`
@@ -154,15 +173,14 @@ Status date: 2026-02-21
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Execute the first full protocol-v3 task-model block (`game24-demo` on `Qwen/Qwen3-Coder-Next:novita`) with 50 paired items and publish report artifacts.
-2. Run the remaining protocol-v3 matrix blocks (4 tasks x 3 models) with fixed model set and no substitutions.
-3. Build and validate consolidated v3 matrix summary artifacts, then fold task-scoped findings into `phase2/manuscript/PREPAPER.md`.
+1. Convert `phase2/manuscript/PREPAPER.md` into venue-targeted manuscript sections (Intro, Related Work positioning, Discussion, Conclusion) using the now-frozen v3 artifact set.
+2. Build anonymous and camera-ready packaging variants for submission (`PDF`, artifact appendix, and blinded metadata handling).
+3. Prepare reviewer-oriented artifact index with direct pointers to panel files, run logs, matrix reports, taxonomy files, and parity checks.
 
 ## Risks / Dependencies
-- Scope expansion can increase runtime/cost without proportional insight if not controlled by the locked matrix.
-- Model/API variability affecting reproducibility.
-- Need stable HF model availability across the full 1800-run matrix window.
-- Ongoing provider-side behavior drift between run windows may affect latency comparability.
+- Provider/model behavior can drift over time; additional reruns may change latency and timeout rates even with locked settings.
+- Protocol-v3 evidence shows task-dependent ToT-vs-ReAct directionality, so overgeneralized claims remain a publication risk.
+- Manuscript framing must keep claims strictly evidence-bounded to avoid rejection on scope overreach.
 
 ## Decision Log
 - 2026-02-20: Adopted gate-based roadmap for Phase 2 execution.

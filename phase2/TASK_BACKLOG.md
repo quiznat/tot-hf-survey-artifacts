@@ -18,14 +18,14 @@ Status date: 2026-02-21
 - [x] Add protocol-v3 run-log scaffold and unit coverage for new tasks.
 
 ## P2 (Active Execution Queue)
-- [ ] Execute protocol-v3 block 1: `game24-demo` x `Qwen/Qwen3-Coder-Next:novita` (50 paired items x 3 conditions).
-- [ ] Execute remaining protocol-v3 matrix blocks without substitutions (4 tasks x 3 models total).
-- [ ] Rebuild consolidated v3 matrix summary from generated `*_v3.json` reports.
-- [ ] Refresh failure taxonomy artifacts from protocol-v3 manifests (task-scoped + pooled views).
-- [ ] Validate rerun determinism on a sampled subset using `--report-only` parity checks.
+- [x] Execute protocol-v3 block 1: `game24-demo` x `Qwen/Qwen3-Coder-Next:novita` (50 paired items x 3 conditions).
+- [x] Execute remaining protocol-v3 matrix blocks without substitutions (4 tasks x 3 models total).
+- [x] Rebuild consolidated v3 matrix summary from generated `*_v3.json` reports.
+- [x] Refresh failure taxonomy artifacts from protocol-v3 manifests (task-scoped + pooled views).
+- [x] Validate rerun determinism on a sampled subset using `--report-only` parity checks.
 
 ## P3 (Manuscript and Packaging)
-- [ ] Update `phase2/manuscript/PREPAPER.md` with protocol-v3 design, status, and evidence-bound claim scope.
-- [ ] Generate v3-backed submission tables/figures directly from matrix summary JSON.
-- [ ] Draft reproducibility appendix text for v3 commands, panels, and artifact map.
+- [x] Update `phase2/manuscript/PREPAPER.md` with protocol-v3 design, status, and evidence-bound claim scope.
+- [x] Generate v3-backed submission tables/figures directly from matrix summary JSON.
+- [x] Draft reproducibility appendix text for v3 commands, panels, and artifact map.
 - [ ] Prepare anonymous vs camera-ready package variants once v3 evidence is complete.

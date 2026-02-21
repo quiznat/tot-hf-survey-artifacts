@@ -20,6 +20,11 @@ def parse_args() -> argparse.Namespace:
         help="Directory containing run manifest JSON files",
     )
     parser.add_argument(
+        "--recursive",
+        action="store_true",
+        help="Recursively load JSON manifests under runs-dir",
+    )
+    parser.add_argument(
         "--conditions",
         default="baseline-single-path,baseline-react,tot-prototype",
         help="Comma-separated condition IDs to include",
@@ -45,6 +50,21 @@ def parse_args() -> argparse.Namespace:
         help="JSON taxonomy output",
     )
     return parser.parse_args()
+
+
+def load_manifests(runs_dir: Path, recursive: bool) -> List[Dict[str, Any]]:
+    if not recursive:
+        return load_manifests_from_dir(runs_dir)
+
+    manifests: List[Dict[str, Any]] = []
+    for path in sorted(runs_dir.rglob("*.json")):
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if isinstance(payload, dict):
+            manifests.append(payload)
+    return manifests
 
 
 def classify_failure(manifest: Dict[str, Any]) -> str:
@@ -80,7 +100,7 @@ def main() -> int:
     task_filter = args.task_id.strip()
     provider_filter = args.provider.strip()
 
-    manifests = load_manifests_from_dir(runs_dir)
+    manifests = load_manifests(runs_dir, recursive=args.recursive)
 
     failures: List[Dict[str, Any]] = []
     for manifest in manifests:

@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260221-191532-944e2b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[15, 11, 9]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      9,
+      9,
+      9,
+      11,
+      13,
+      15
+    ],
+    "target": 35
+  },
+  "item_id": "ss-v1-041",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4723,
+    "success": 1,
+    "tokens_in": 464,
+    "tokens_out": 215
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-191532-944e2b",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2534701565,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:15:32Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the numbers [5, 9, 9, 9, 11, 13, 15] that sums to the target 35. I need to use the tools to check subsets. First, I can try summing some combinations manually or use the tools to verify. Let me try a promising combination: 5 + 9 + 11 + 10? Wait, no 10. Try 5 + 9 + 9 + 11 = 34, close. 5 + 9 + 9 + 13 = 36, too high. 5 + 9 + 11 + 13 = 38. 9 + 9 + 11 + 13 = 42. Try including 15: 15 + 11 +",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue reasoning systematically. The numbers are [5, 9, 9, 9, 11, 13, 15], target = 35. Try combinations with 15:  \n- 15 + 13 = 28 \u2192 need 7 more (no 7)  \n- 15 + 11 = 26 \u2192 need 9 \u2192 26 + 9 = 35! Yes: 15 + 11 + 9 = 35. There are three 9s, so that's valid.  \nSo subset [15, 11, 9] sums to 35. I should verify using the tools. First, sum the list [15, 11, 9] to confirm, then check if it matches the target.  \nI'll use sum_list first to",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: ACTION: sum_list [15, 11, 9]",
+    "STEP 3 OBSERVATION: 35"
+  ]
+}

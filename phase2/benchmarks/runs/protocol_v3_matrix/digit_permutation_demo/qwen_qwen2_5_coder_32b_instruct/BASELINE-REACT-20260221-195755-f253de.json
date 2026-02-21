@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/digit_permutation_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260221-195755-f253de.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "5816",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      5,
+      8,
+      1,
+      6
+    ],
+    "divisor": 8,
+    "oracle_max": 5816
+  },
+  "item_id": "perm-v1-029",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6462,
+    "success": 1,
+    "tokens_in": 488,
+    "tokens_out": 216
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-195755-f253de",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2723037641,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-21T19:57:55Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find the largest number that can be formed using the digits [5, 8, 1, 6] that is divisible by 8. The oracle_max of 5816 suggests there's an upper bound, but I should first determine what the largest possible number is using these digits, then check divisibility.\n\nLet me think about this systematically:\n1. To get the largest number, I should arrange the digits in descending order: 8651\n2. However, I need to ensure this number is divisible by 8\n3. A number is divisible by 8 if its last three digits form a number divisible by 8\n4. I should try different arrangements and check divisibility\n\nLet me start by checking if 8651 is divisible by 8, and if not, work with other arrangements.\n\nACTION: is_divisible 8651 8\n\nWait",
+    "STEP 1 OBSERVATION: no",
+    "STEP 2 MODEL: THINK: The number 8651 is not divisible by 8. I need to try different arrangements of the digits [5, 8, 1, 6] to find the largest one that is divisible by 8. Since I want the largest number, I should start by trying arrangements close to 8651 and work my way down, checking divisibility.\n\nLet me try arranging the digits in descending order and then systematically check permutations to find the largest valid number.\n\nACTION: best_divisible 5 8 1 6 8",
+    "STEP 2 OBSERVATION: 5816",
+    "STEP 3 MODEL: FINAL: 5816"
+  ]
+}

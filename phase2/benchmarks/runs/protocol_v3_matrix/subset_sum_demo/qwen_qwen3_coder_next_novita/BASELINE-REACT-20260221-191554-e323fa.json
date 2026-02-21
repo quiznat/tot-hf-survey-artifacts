@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260221-191554-e323fa.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[11, 6]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      2,
+      6,
+      11,
+      14
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v1-049",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3733,
+    "success": 1,
+    "tokens_in": 402,
+    "tokens_out": 153
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-191554-e323fa",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2779031279,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:15:54Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the numbers [2, 2, 6, 11, 14] that sums to the target 17. I can use the `sum_list` tool to check sums of candidate subsets, and `check_target` to verify if a subset sums to the target. Let me try some combinations.\n\nFirst, try the largest number: 14. 17 - 14 = 3. Is there a subset that sums to 3? We have 2 and 2 \u2014 2 + 2 = 4, too big; single 2 is 2, not enough. So 14 alone won\u2019t work.\n\nTry 11: 17 - 11 = 6. We have a 6! So 11 + 6 = 17. That\u2019s a valid subset: [11,",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The reasoning identified that 11 + 6 = 17, which matches the target. The subset [11, 6] is valid. I should now verify this using the `check_target` tool to confirm correctness before concluding.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: ACTION: check_target [11, 6]",
+    "STEP 3 OBSERVATION: match"
+  ]
+}

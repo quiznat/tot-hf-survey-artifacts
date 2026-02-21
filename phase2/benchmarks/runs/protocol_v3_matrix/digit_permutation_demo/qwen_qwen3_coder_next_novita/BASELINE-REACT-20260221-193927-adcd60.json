@@ -1,0 +1,58 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260221-193927-adcd60.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "9750",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      9,
+      0,
+      7,
+      5
+    ],
+    "divisor": 6,
+    "oracle_max": 9750
+  },
+  "item_id": "perm-v1-011",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3497,
+    "success": 1,
+    "tokens_in": 210,
+    "tokens_out": 186
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-193927-adcd60",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1715937780,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-21T19:39:27Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [9, 0, 7, 5] (each used exactly once) that is divisible by 6, and the oracle says the maximum is 9750. Let's verify if 9750 is divisible by 6. A number is divisible by 6 iff it's divisible by both 2 and 3.  \n- Divisible by 2: last digit is 0 \u2192 yes.  \n- Divisible by 3: sum of digits = 9 + 7 + 5 + 0 = 21, and 21 is divisible by 3 \u2192 yes.  \nSo 9750 is divisible by 6. Since the oracle says it's the maximum, and it's valid, the answer should be 9750. But to be thorough, maybe I should confirm",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The oracle claims the maximum is 9750. I verified that 9750 uses all digits [9,0,7,5] exactly once, ends in 0 (so divisible by 2), and digit sum is 21 (divisible by 3), hence divisible by 6. Since it's the largest possible permutation (9750 > 9705 > 9570, etc.) and satisfies divisibility, it must be the answer. No further checks needed.\nFINAL: 9750"
+  ]
+}

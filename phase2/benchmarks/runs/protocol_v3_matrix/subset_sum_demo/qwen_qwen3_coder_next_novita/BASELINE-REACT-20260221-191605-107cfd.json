@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260221-191605-107cfd.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[6, 8, 16, 18]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      6,
+      8,
+      16,
+      18,
+      20
+    ],
+    "target": 48
+  },
+  "item_id": "ss-v1-048",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15271,
+    "success": 1,
+    "tokens_in": 198,
+    "tokens_out": 177
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-191605-107cfd",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2707430067,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:16:05Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to reach the target value of 48 using the numbers [4, 6, 8, 16, 18, 20] and the available tools: `sum_list` and `check_target`. I need to find a subset or combination of these numbers that sum to 48. Let me first try summing all numbers to see how close we are: 4 + 6 + 8 + 16 + 18 + 20 = 72. That's too high. Let me try some subsets. For example, 20 + 18 + 10 would be 48, but 10 isn\u2019t available. Try 20 + 16 + 12 \u2014 no 12. Try 18 + 16 + 8 + 6 = 48? Let's compute:",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me verify the sum of 18 + 16 + 8 + 6: 18 + 16 = 34, 34 + 8 = 42, 42 + 6 = 48. Yes! That equals the target. So the subset [6, 8, 16, 18] sums to 48. I should now use `sum_list` to confirm this combination, then `check_target` to verify it matches 48.\nACTION: sum_list [6, 8, 16, 18]",
+    "STEP 2 OBSERVATION: 48"
+  ]
+}

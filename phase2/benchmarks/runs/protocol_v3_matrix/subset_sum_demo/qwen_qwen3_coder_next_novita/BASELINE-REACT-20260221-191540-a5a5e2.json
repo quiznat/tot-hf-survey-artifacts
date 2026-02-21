@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260221-191540-a5a5e2.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[6, 7, 15, 15]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      15,
+      15,
+      17,
+      17,
+      19
+    ],
+    "target": 43
+  },
+  "item_id": "ss-v1-043",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4974,
+    "success": 1,
+    "tokens_in": 387,
+    "tokens_out": 196
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-191540-a5a5e2",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1548160437,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:15:40Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers [6, 7, 15, 15, 17, 17, 19] that sums to the target 43. I need to use the ReAct loop: think, then possibly call tools (sum_list to verify a candidate subset, or check_target to see if a subset sums to target). Let me first try to reason about possible combinations.\n\nLet\u2019s consider the numbers: 6, 7, 15, 15, 17, 17, 19.\n\nTotal sum = 6+7+15+15+17+17+19 = let's compute: 6+7=13, +15=28, +15=43, +17=60, +17=77, +1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The total sum is 13 + 15 = 28, +15 = 43, +17 = 60, +17 = 77, +19 = 96. So total sum = 96. Target is 43, which is exactly half of 86, but not directly helpful. However, note that the partial sum up to the second 15 is already 43: 6 + 7 + 15 + 15 = 43. Let me verify this candidate subset using sum_list.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: The candidate subset [6, 7, 15, 15] sums to 6 + 7 + 15 + 15 = 43, which matches the target. I should verify this using the sum_list tool to confirm.\nACTION: sum_list [6, 7, 15, 15]",
+    "STEP 3 OBSERVATION: 43"
+  ]
+}

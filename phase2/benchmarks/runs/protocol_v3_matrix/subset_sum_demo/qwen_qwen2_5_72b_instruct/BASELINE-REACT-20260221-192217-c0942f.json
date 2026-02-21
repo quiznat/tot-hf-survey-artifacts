@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen2_5_72b_instruct/BASELINE-REACT-20260221-192217-c0942f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[6, 11]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      2,
+      6,
+      11,
+      14
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v1-049",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 18507,
+    "success": 1,
+    "tokens_in": 349,
+    "tokens_out": 168
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-192217-c0942f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2779031279,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:22:17Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The target is 17 and the numbers given are [2, 2, 6, 11, 14]. To achieve the target, I need to find if any combination of these numbers sums up to 17. I will start by checking if any single number matches the target.\n\nACTION: check_target {\"numbers\": [2, 2, 6, 11, 14], \"target\": 17}",
+    "STEP 1 OBSERVATION: invalid: number usage exceeds provided list",
+    "STEP 2 MODEL: THINK: It seems there was an error because the tool `check_target` expects a single number to be checked against the target, not a list. Since no single number in the list equals the target, I should now try to sum combinations of the numbers to see if they can match the target. I'll start with pairs.\n\nACTION: sum_list {\"numbers\": [2, 2], \"target\": 17}\nACTION: sum_list {\"numbers\": [2, 6], \"target\": 17}\nACTION: sum_list {\"numbers\": [2, 11], \"target\": 17}\nACTION: sum_list {\"numbers\": [2, 14], \"target\": 17}\nACTION: sum_list {\"numbers\": [6, 11], \"target\": 17}",
+    "STEP 2 OBSERVATION: 21",
+    "STEP 3 MODEL: THINK: The sum of 6 and 11 is 17, which matches the target. I have found a valid combination.\n\nFINAL: [6, 11]"
+  ]
+}

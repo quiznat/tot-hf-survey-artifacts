@@ -1,6 +1,6 @@
 # Protocol v3 Execution Guide
 
-Status: ready  
+Status: executed and reproducible  
 Protocol ID: `TOT-HF-P2-EPV3-2026-02-21`
 
 ## 1. Build Panels
@@ -58,3 +58,25 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_
 - Do not mix fallback models within a locked matrix run.
 - Keep run-log updates in `phase2/reproducibility/run-log-protocol-v3.md`.
 - If provider/model availability changes mid-run, stop and version protocol before resuming.
+
+## 7. Post-Run Artifact Refresh
+Build pooled v3 summary:
+```bash
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_matrix_summary.py
+```
+
+Build pooled and task-scoped v3 failure taxonomy:
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_failure_taxonomy.py \
+  --runs-dir /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix \
+  --recursive \
+  --provider huggingface-inference \
+  --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_protocol_v3_pooled.md \
+  --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_protocol_v3_pooled.json
+```
+
+Build submission-facing tables and figure-data CSVs:
+```bash
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_submission_tables.py
+```

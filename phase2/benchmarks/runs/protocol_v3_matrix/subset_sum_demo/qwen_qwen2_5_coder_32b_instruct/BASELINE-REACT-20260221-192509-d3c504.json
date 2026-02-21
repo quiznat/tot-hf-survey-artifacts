@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260221-192509-d3c504.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[15, 17, 3]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      8,
+      15,
+      15,
+      17
+    ],
+    "target": 35
+  },
+  "item_id": "ss-v1-028",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6019,
+    "success": 1,
+    "tokens_in": 490,
+    "tokens_out": 237
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-192509-d3c504",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2312447138,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:25:09Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the list [3, 8, 15, 15, 17] that sum to the target value 35.\n\nLet me think about this systematically. I could try different combinations or use the available tools.\n\nFirst, let me check if the sum of all numbers equals the target:\nACTION: sum_list [3, 8, 15, 15, 17]\n\nTHINK: Let me calculate what the sum of all numbers is first to see if that's our answer, or if we need to find a subset.\n\nACTION: sum_list [3, 8, 15, 15, 17]\n- Sum = 3 + 8 + 15 + 15 + 17 = 58\n\nSince 58 \u2260 35, I need to find a subset that sums",
+    "STEP 1 OBSERVATION: 58",
+    "STEP 2 MODEL: THINK: Since the sum of all numbers (58) is greater than the target (35), I need to find a subset of the numbers that sum to exactly 35. Let me try different combinations systematically.\n\nLooking at the numbers [3, 8, 15, 15, 17], I can try:\n- 15 + 15 + 3 + 8 = 41 (too high)\n- 15 + 15 + 3 + 17 = 50 (too high)  \n- 15 + 15 + 8 + 17 = 55 (too high)\n- 15 + 17 + 3 = 35 (this works!)\n\nLet me verify: 15 + 17 + 3 = 35 \u2713\n\nI should also check if there are other combinations that work:",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: [15, 17, 3]"
+  ]
+}

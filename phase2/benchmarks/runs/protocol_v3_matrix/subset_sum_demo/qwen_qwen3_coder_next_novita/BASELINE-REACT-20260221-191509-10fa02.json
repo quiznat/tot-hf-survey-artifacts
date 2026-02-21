@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v3_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260221-191509-10fa02.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      13,
+      15,
+      15,
+      16,
+      17,
+      19,
+      19
+    ],
+    "target": 64
+  },
+  "item_id": "ss-v1-005",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 53769,
+    "success": 0,
+    "tokens_in": 1042,
+    "tokens_out": 373
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260221-191509-10fa02",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3888869458,
+  "task_id": "subset-sum-demo",
+  "timestamp_utc": "2026-02-21T19:15:09Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers [13, 15, 15, 16, 17, 19, 19] that sums to the target 64. I need to use the ReAct loop: think, then possibly call tools like `sum_list` to verify sums or `check_target` to see if a candidate subset meets the target. Let me first try to reason about possible combinations.\n\nTotal sum of all numbers: 13 + 15 + 15 + 16 + 17 + 19 + 19 = let's compute:  \n13+15=28, +15=43, +16=59, +17=76, +19=95, +19=114. So total is 114. Target",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The total sum is 114, and the target is 64, so we need a subset summing to 64 (i.e., exclude numbers summing to 114\u221264=50). Let\u2019s consider possible subsets. Since there are duplicates (15,15 and 19,19), we can treat them as distinct but equal. Try greedy or systematic search: largest numbers first: 19+19=38, 38+17=55, 55+16=71 >64, too big. Try 19+19+15=53, +13=66, too big; 53+? 53+15=68, too big; 53+? only 13 or 16 left \u2014 53+1",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue reasoning. We need a subset summing to 64. Try combinations with two 19s: 19+19=38. Remaining needed: 64\u221238=26. Can we make 26 from [13,15,15,16,17]? Try 13+13? Only one 13. 13+15=28 too big; 13+15 (other) same. 15+15=30 too big. 16+13=29. 17+13=30. None give 26. Try one 19: 64\u221219=45. Need 45 from [13,15,15,16,17,19] (remaining numbers",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me continue the systematic search. Try subset with one 19: need 45 from remaining [13,15,15,16,17,19]. Try including the other 19: 19+19=38, already tried. Try no 19s: need 64 from [13,15,15,16,17]. Max sum without 19s: 13+15+15+16+17=76. Try 17+16+15+15=63, +13=76 too big; 17+16+15+13=61, need 3 more \u2014 no 3. 17+15+15+13=60, need 4 \u2014 no.",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Let me try a more structured approach. Since brute-force reasoning is taking time, I should use the `sum_list` tool to verify candidate subsets. Let me try a promising combination: 19 + 19 + 17 + 13 = 68 (too high). 19 + 19 + 15 + 13 = 66. 19 + 19 + 15 + 15 = 68. 19 + 17 + 16 + 13 = 65. Close! 19 + 17 + 15 + 13 = 64? Let's compute: 19+17=36, +15=51, +13=64 \u2014 yes! That's exactly 64. The numbers used are 19, 1",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}
