@@ -28,7 +28,7 @@ Abstract
 
 </div>
 
-Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks, yet their reasoning remains fundamentally linear—generating thoughts token-by-token without the ability to explore alternatives, backtrack from errors, or evaluate multiple solution paths. This limitation constrains their effectiveness on complex multi-step problems requiring deliberation and planning. Concurrently, the emergence of AI agent frameworks has enabled LLMs to interact with external tools and execute actions autonomously, but these systems often struggle with strategic reasoning and error recovery \[1, 3, 4, 6, 8, 9\].
+Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks, yet standard autoregressive decoding is left-to-right and often commits to a single trajectory per sample, without explicit mechanisms for alternative-path exploration, backtracking, or branch-level comparison. This can constrain effectiveness on complex multi-step problems requiring deliberation and planning. Concurrently, the emergence of AI agent frameworks has enabled LLMs to interact with external tools and execute actions autonomously, but these systems often struggle with strategic reasoning and error recovery \[1, 3, 4, 6, 8, 9\].
 
 This paper presents a systematic synthesis of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs \[1, 2, 10, 11, 12, 26\].
 
@@ -73,6 +73,8 @@ We follow a transparent evidence-synthesis workflow adapted from PRISMA-style re
 **Protocol scope (this version):** This manuscript freezes a core-corpus selection run (Run ID: TOT-HF-SURVEY-2026-02-19) anchored by the records listed in Section 8. Fixed selection counts and exclusion reasons are reported in Appendix D, and the corresponding extraction schema is reported in Appendix E.
 
 Because this survey targets a narrow synthesis question (ToT-style reasoning integrated with Hugging Face agent frameworks), the frozen run begins from an explicitly pre-curated candidate set before full-text screening. Query families, screening decisions, and extraction fields are documented in Appendix D and Appendix E so this scope choice is transparent and auditable.
+
+**Seeded-corpus clarification:** the title/abstract stage has zero exclusions in this run because the initial candidate set was pre-filtered for in-scope ToT/agent works and framework documentation prior to full-text eligibility and extraction.
 
 #### 0.2.1 Sources and Search Strategy
 
@@ -208,8 +210,8 @@ What ToT contributes is the application of these algorithms to the space of natu
 
 This mapping from search algorithms to reasoning has several implications \[1\]:
 
-- **Completeness**: Given sufficient time and breadth, ToT can explore all reasonable solution paths, while CoT commits to a single trajectory.
-- **Optimality**: By evaluating and comparing paths, ToT can find superior solutions that CoT might miss due to early commitment to suboptimal directions.
+- **Completeness (in principle):** Under exhaustive search with sufficient depth/budget and reliable evaluation, ToT can cover far more candidate paths than single-trajectory prompting.
+- **Optimality (conditional):** With effective branch evaluation, ToT can reduce early-commitment failures and recover stronger solutions than a single committed path.
 - **Recovery**: When a path proves unproductive, ToT can backtrack and explore alternatives, while CoT must continue down the initial path regardless of quality.
 
 #### 2.2.2 Cognitive Architecture
@@ -312,7 +314,7 @@ The evaluation function determines search direction. A poor evaluator can lead t
 
 With generation and evaluation in place, ToT employs search algorithms to explore the thought tree \[1, 2\]:
 
-**Breadth-First Search (BFS):**
+**Breadth-wise Search with Pruning (Beam-Style BFS):**
 
 - Maintains a fixed-width set of most promising partial solutions
 - At each level, generates k candidates for each current state
@@ -329,15 +331,15 @@ With generation and evaluation in place, ToT employs search algorithms to explor
 
 **Beam Search:**
 
-- Hybrid approach maintaining top-b candidates at each depth
+- A common fixed-width instantiation of breadth-wise pruned search
 - Balances exploration breadth with computational cost
-- Most commonly used in practice
+- Most commonly used in practical ToT-style implementations
 
 **Monte Carlo Tree Search (MCTS):**
 
 - Balances exploration (trying new paths) with exploitation (deepening promising paths)
 - Uses rollout simulations to estimate value
-- More complex but potentially more effective for large search spaces
+- More complex; treated here as an extension pattern rather than a core ToT default
 
 ### 2.4 The ToT Algorithm: Formal Specification
 
@@ -503,6 +505,8 @@ The Agent Course embodies several pedagogical principles \[11\]:
 
 At the core of Hugging Face's agent ecosystem is smolagents—a Python library designed for compact agent implementations and ecosystem integration \[10, 12\].
 
+**Stability note:** The smolagents reference documentation labels the API as experimental and subject to change; accordingly, examples in this manuscript are tied to the frozen run context and should be revalidated against current docs before production use \[10, 12\].
+
 #### 3.3.1 Design Philosophy
 
 The name "smolagents" reflects a low-boilerplate design philosophy documented in official materials \[10, 12\]. This is achieved through:
@@ -540,16 +544,13 @@ smolagents is built around several key abstractions \[10, 12\]:
 # Basic installation
 pip install smolagents
 
-# With Hugging Face Hub integration
-pip install smolagents[huggingface]
-
-# With specific model providers
-pip install smolagents[litellm]      # Multi-provider support
-pip install smolagents[openai]       # OpenAI models
-pip install smolagents[anthropic]    # Claude models
-
-# Development installation
-pip install smolagents[dev]
+# Common extras from official installation docs
+pip install "smolagents[toolkit]"       # Default tools
+pip install "smolagents[transformers]"  # Local Hugging Face models
+pip install "smolagents[litellm]"       # Multi-provider routing
+pip install "smolagents[openai]"        # OpenAI API models
+pip install "smolagents[gradio]"        # Gradio UI
+pip install "smolagents[all]"           # All optional extras
 ```
 
 ### 3.4 CodeAgent: Code as Action
@@ -642,7 +643,7 @@ print(result)
 
 #### 3.4.3 Configuration and Customization
 
-CodeAgent configuration options in current docs include model/tool binding, step limits, optional planning, authorized imports, grammar, and executor settings \[10, 12\]:
+CodeAgent configuration options in current docs include model/tool binding, step limits, optional planning, authorized imports, and executor settings \[10, 12\]. Grammar-constrained generation is a model-side capability rather than a CodeAgent constructor parameter \[10, 12\].
 
 ``` python
 from smolagents import CodeAgent, InferenceClientModel
@@ -654,7 +655,6 @@ agent = CodeAgent(
     max_steps=10,
     planning_interval=3,
     additional_authorized_imports=["math", "random"],
-    grammar=None,
     executor_type="local",
     executor_kwargs=None
 )
@@ -984,6 +984,8 @@ class InstrumentedAgent(CodeAgent):
 
 This section describes a design synthesis: combining Tree of Thoughts with Hugging Face agents. While Hugging Face agents provide strong tooling interfaces, many workflows still use linear reasoning traces. A ToT-style planner can introduce \[1, 10, 12\]:
 
+**Hypothesis framing:** We treat the following as design-level hypotheses derived from ToT search structure and agent-tool loop abstractions; integration-specific effect sizes require controlled experiments (outside this survey's scope).
+
 1.  **Explore multiple solution strategies** before committing to actions
 2.  **Evaluate tool sequences** before execution
 3.  **Backtrack from unsuccessful tool calls**
@@ -1000,112 +1002,49 @@ This section describes a design synthesis: combining Tree of Thoughts with Huggi
 
 </div>
 
-#### 4.2.2 Implementation Sketch (Pseudo-code): ToT Code Agent
+#### 4.2.2 Interface-Level Integration Sketch (Pseudo-code)
+
+*Scope note:* This is an integration sketch, not a faithful reimplementation of the canonical ToT algorithm in \[1\]. It highlights where planning hooks into a tool-using agent runtime.
+
+- Uses abstract planner interfaces instead of canonical ToT state serialization details.
+- Omits rollout/simulation specifics and evaluator calibration design.
+- Focuses on orchestration seams (planner → execution) rather than new algorithmic claims.
 
 ``` python
 from smolagents import CodeAgent, InferenceClientModel
-from typing import List, Dict, Any
-import heapq
 
-class TreeOfThoughtsCodeAgent(CodeAgent):
-    """Agent that uses Tree of Thoughts for planning before execution."""
-    
-    def __init__(self, *args, beam_width=3, max_depth=5, **kwargs):
+class ToTPlanner:
+    """Planner interface for candidate generation, scoring, and selection."""
+
+    def propose(self, task: str) -> list[str]:
+        ...
+
+    def evaluate(self, task: str, candidates: list[str]) -> list[float]:
+        ...
+
+    def select(self, candidates: list[str], scores: list[float]) -> str:
+        ...
+
+class ToTEnabledCodeAgent(CodeAgent):
+    def __init__(self, *args, planner: ToTPlanner, **kwargs):
         super().__init__(*args, **kwargs)
-        self.beam_width = beam_width
-        self.max_depth = max_depth
-    
-    def generate_thoughts(self, task: str, current_state: str, k: int) -> List[str]:
-        """Generate k candidate next steps."""
-        prompt = f"""
-Given the task: {task}
-And current progress: {current_state}
+        self.planner = planner
 
-Generate {k} different possible next actions. Each action should be 
-a concrete step toward solving the problem. Be diverse in your approaches.
-
-Format as a numbered list:
-1. [First approach]
-2. [Second approach]
-...
-"""
-        response = self.model.generate(prompt)
-        thoughts = self._parse_numbered_list(response, k)
-        return thoughts
-    
-    def evaluate_thought(self, task: str, thought: str, history: List[str]) -> float:
-        """Score a thought's promise (0-10)."""
-        prompt = f"""
-Task: {task}
-Proposed action: {thought}
-History so far: {' -> '.join(history)}
-
-Rate how promising this action is on a scale of 0-10:
-- 0-3: Likely incorrect or counterproductive
-- 4-6: Might help but uncertain
-- 7-10: Clearly advances toward solution
-
-Return ONLY a number between 0 and 10.
-"""
-        try:
-            score_text = self.model.generate(prompt).strip()
-            return float(score_text.split()[0])
-        except:
-            return 5.0  # Default to uncertain
-    
-    def beam_search_planning(self, task: str) -> List[str]:
-        """Use beam search to find best action sequence."""
-        # Initialize: [(score, actions, state)]
-        beams = [(0.0, [], "Initial state")]
-        
-        for depth in range(self.max_depth):
-            candidates = []
-            
-            for score, actions, state in beams:
-                # Generate next thoughts
-                thoughts = self.generate_thoughts(task, state, self.beam_width)
-                
-                for thought in thoughts:
-                    # Simulate action (lightweight evaluation)
-                    new_state = f"{state} -> {thought}"
-                    new_actions = actions + [thought]
-                    
-                    # Evaluate
-                    value = self.evaluate_thought(task, thought, actions)
-                    total_score = score + value
-                    
-                    candidates.append((total_score, new_actions, new_state))
-            
-            # Keep top beams
-            beams = heapq.nlargest(self.beam_width, candidates, key=lambda x: x[0])
-        
-        # Return best action sequence
-        return beams[0][1] if beams else []
-    
     def run(self, task: str, **kwargs):
-        """Execute with ToT planning."""
-        # Phase 1: Plan with ToT
-        print("Planning with Tree of Thoughts...")
-        action_plan = self.beam_search_planning(task)
-        print(f"Selected plan: {action_plan}")
-        
-        # Phase 2: Execute planned actions
-        # (simplified - full implementation would integrate with CodeAgent execution)
-        return self.execute_plan(task, action_plan)
+        # Plan first, then execute via the standard CodeAgent runtime.
+        candidates = self.planner.propose(task)
+        scores = self.planner.evaluate(task, candidates)
+        high_level_plan = self.planner.select(candidates, scores)
+        return super().run(
+            f"Task: {task}\nUse this vetted high-level plan:\n{high_level_plan}",
+            **kwargs,
+        )
 
-# Usage
-agent = TreeOfThoughtsCodeAgent(
+agent = ToTEnabledCodeAgent(
     tools=[search_tool, calculator_tool],
     model=InferenceClientModel("meta-llama/Llama-3.3-70B-Instruct"),
-    beam_width=3,
-    max_depth=4
+    planner=ToTPlanner(),
 )
-
-result = agent.run("""
-Analyze the economic impact of AI on job markets. 
-Search for recent data, calculate key statistics, 
-and summarize the findings.
-""")
 ```
 
 ### 4.3 Design-Level Benefits (Hypothesized)
@@ -1142,26 +1081,28 @@ def tot_agent(task):
 **Example - Complex Query:**
 
 ``` text
-Task: "Compare Tesla and BYD stock performance over the last year"
+Task: "Compare two open-source vector databases for a production RAG stack"
 
 ToT Exploration:
-├── Path A: Search for both, then compare
-│   ├── Step 1: search("Tesla stock 2024")
-│   ├── Step 2: search("BYD stock 2024")
-│   └── Step 3: calculate(comparison_metrics)
-│   └── Heuristic rating: medium (detailed but may miss real-time data)
+├── Path A: Blog-post-first comparison
+│   ├── Step 1: search("vector database A vs B blog comparison")
+│   ├── Step 2: extract claims and benchmark snippets
+│   └── Step 3: summarize trade-offs
+│   └── Heuristic rating: medium (fast but potentially opinionated)
 │
-├── Path B: Use stock API directly
-│   ├── Step 1: stock_api("TSLA", period="1y")
-│   ├── Step 2: stock_api("BYD", period="1y")
-│   └── Step 3: calculate_performance_comparison
-│   └── Heuristic rating: high (precise data, structured output)
+├── Path B: Docs + repository evidence
+│   ├── Step 1: parse official docs for indexing/query/security features
+│   ├── Step 2: collect GitHub activity + release cadence
+│   └── Step 3: build capability/reliability matrix
+│   └── Heuristic rating: high (auditable sources, structured comparison)
 │
-└── Path C: Search for analysis articles
-    └── Heuristic rating: low (subjective, may be outdated)
+└── Path C: Community sentiment sweep
+    └── Heuristic rating: low (anecdotal and noisy)
 
-Selected: Path B for accuracy and reliability
+Selected: Path B for source quality and reproducibility
 ```
+
+*Illustrative note:* No live external data is fetched in this walkthrough.
 
 #### 4.3.2 Error Recovery and Backtracking
 
@@ -1223,16 +1164,19 @@ Evaluation selects:
 - Format: Format C (most accessible)
 
 Execution Plan:
-├── Week 1: Filter development + testing
-├── Week 2-3: Soft launch with beta users
-├── Week 4: Full campaign launch
-├── Week 5-6: Monitor and optimize
-└── Week 7: Results analysis and report
+├── Week 1: Source acquisition (reports, filings, policy updates)
+├── Week 2: Data extraction and normalization
+├── Week 3: Comparative analysis across manufacturers and regions
+├── Week 4: Draft report with claim-level citations
+├── Week 5: Validation pass (fact checks + consistency review)
+└── Week 6: Final report and appendix packaging
 ```
 
 ### 4.4 Case Studies
 
 *Evidence note:* The case studies in this section are synthetic walkthroughs for design illustration. They are not reported benchmark experiments.
+
+*Structure note:* Each walkthrough follows the same pattern (task, branch options, evaluator rationale, execution sketch, and recovery cues) to keep these examples as synthesis artifacts rather than empirical claims.
 
 #### 4.4.1 Case Study 1: Financial Analysis Agent
 
@@ -1398,7 +1342,7 @@ Table 4.6-1 presents the integration design space synthesized in this survey.
 
 ## 5. Practical Implementation Strategies
 
-**Pseudo-code notice.** Most snippets in this section are design templates for adaptation, not drop-in production code. Validate APIs and runtime behavior against current framework documentation before deployment.
+**Pseudo-code notice.** Most snippets in this section are design templates for adaptation, not drop-in production code. Unless explicitly tied to cited API documentation, patterns here should be treated as E2 design templates (with E3 references for API alignment). Validate APIs and runtime behavior against current framework documentation before deployment.
 
 ### 5.1 Getting Started
 
@@ -1565,6 +1509,8 @@ in a text file, handling case insensitivity and ignoring punctuation.
 
 #### 5.2.1 Hybrid CoT-ToT Agent
 
+**Status:** Heuristic design pattern (E2). Not empirically validated in this paper; failure modes include miscalibrated complexity scoring and prompt sensitivity.
+
 ``` python
 class HybridReasoningAgent(CodeAgent):
     """Switches between CoT and ToT based on problem complexity."""
@@ -1604,6 +1550,8 @@ Complexity (1-10):"""
 ```
 
 #### 5.2.2 Adaptive ToT Agent
+
+**Status:** Heuristic design pattern (E2). Not empirically validated in this paper; adaptive parameter inference can drift and should be bounded by explicit compute/latency budgets.
 
 ``` python
 class AdaptiveToTAgent(CodeAgent):
@@ -1700,10 +1648,10 @@ class EarlyTerminationAgent(CodeAgent):
         
         best = max(beams, key=lambda n: n.score)
         
-        # Normalize score to probability
-        confidence = best.score / 10.0
+        # Normalize score to a 0-1 heuristic confidence signal (not calibrated probability)
+        heuristic_confidence = best.score / 10.0
         
-        return confidence >= self.confidence_threshold
+        return heuristic_confidence >= self.confidence_threshold
 ```
 
 ### 5.4 Testing and Validation
@@ -2171,7 +2119,9 @@ This appendix reports values from cited papers. These are prior-work benchmark r
 
 Independent work reports strong comparative results on Game of 24 and Mini Crosswords using the same benchmark families \[26\].
 
-#### Game of 24 (GPT-4, success rate and cost)
+*Selection note:* The tables below report selected rows (IO, CoT, CoT-SC, ToT, and FoA) to maintain direct comparability with the baseline families emphasized in this survey and Appendix C.1. See \[26\] for full method coverage.
+
+#### Game of 24 (GPT-4, success rate and cost; selected rows)
 
 |               |              |             |
 |---------------|--------------|-------------|
@@ -2182,7 +2132,9 @@ Independent work reports strong comparative results on Game of 24 and Mini Cross
 | ToT \[26\]    | 74.0%        | 75.02       |
 | FoA \[26\]    | 76.0%        | 62.93       |
 
-#### Mini Crosswords (GPT-4, overlap and cost)
+*Transcription note:* Values in this subsection are transcribed from the main comparison tables in \[26\] (Table 1 and Table 2).
+
+#### Mini Crosswords (GPT-4, overlap and cost; selected rows)
 
 |               |         |             |
 |---------------|---------|-------------|
@@ -2190,8 +2142,7 @@ Independent work reports strong comparative results on Game of 24 and Mini Cross
 | IO \[26\]     | 36.8%   | 0.51        |
 | CoT \[26\]    | 39.4%   | 1.06        |
 | CoT-SC \[26\] | 39.4%   | 2.82        |
-| ToT \[26\]    | 39.7%   | 49.99       |
-| GoT \[26\]    | 41.2%   | 30.28       |
+| ToT \[26\]    | 39.7%   | 48.99       |
 | FoA \[26\]    | 46.0%   | 12.94       |
 
 ### C.3 Evidence Boundary
@@ -2294,6 +2245,7 @@ Table F.1 summarizes representative claim-to-evidence mappings used in this manu
 - Added Appendix F claim-evidence mapping table and Appendix G revision log for submission traceability.
 - Updated Appendix C benchmark tables with inline citations on each reported method row and added code-snippet labeling comments throughout.
 - Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated transformers agents, added migration note, and upgraded key synthesis tables with explicit captions and textual references.
+- Version 1.1.1 (post-review hardening): corrected Appendix C.2 FoA transcription value, clarified selected-row policy, tightened Section 4 hypothesis framing, and reduced pseudo-code overclaim surface in Sections 4-5.
 
 ------------------------------------------------------------------------
 

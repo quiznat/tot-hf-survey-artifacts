@@ -156,15 +156,15 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 Abstract
 
 Large Language Models (LLMs) have demonstrated remarkable capabilities
-across diverse tasks, yet their reasoning remains fundamentally
-linear---generating thoughts token-by-token without the ability to
-explore alternatives, backtrack from errors, or evaluate multiple
-solution paths. This limitation constrains their effectiveness on
-complex multi-step problems requiring deliberation and planning.
-Concurrently, the emergence of AI agent frameworks has enabled LLMs to
-interact with external tools and execute actions autonomously, but these
-systems often struggle with strategic reasoning and error recovery {[}1,
-3, 4, 6, 8, 9{]}.
+across diverse tasks, yet standard autoregressive decoding is
+left-to-right and often commits to a single trajectory per sample,
+without explicit mechanisms for alternative-path exploration,
+backtracking, or branch-level comparison. This can constrain
+effectiveness on complex multi-step problems requiring deliberation and
+planning. Concurrently, the emergence of AI agent frameworks has enabled
+LLMs to interact with external tools and execute actions autonomously,
+but these systems often struggle with strategic reasoning and error
+recovery {[}1, 3, 4, 6, 8, 9{]}.
 
 This paper presents a systematic synthesis of two developments in
 artificial intelligence: Tree of Thoughts (ToT) reasoning and the
@@ -278,6 +278,11 @@ begins from an explicitly pre-curated candidate set before full-text
 screening. Query families, screening decisions, and extraction fields
 are documented in Appendix D and Appendix E so this scope choice is
 transparent and auditable.
+
+\textbf{Seeded-corpus clarification:} the title/abstract stage has zero
+exclusions in this run because the initial candidate set was
+pre-filtered for in-scope ToT/agent works and framework documentation
+prior to full-text eligibility and extraction.
 
 \paragraph{0.2.1 Sources and Search
 Strategy}\label{sources-and-search-strategy}
@@ -578,13 +583,13 @@ implications {[}1{]}:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Completeness}: Given sufficient time and breadth, ToT can
-  explore all reasonable solution paths, while CoT commits to a single
-  trajectory.
+  \textbf{Completeness (in principle):} Under exhaustive search with
+  sufficient depth/budget and reliable evaluation, ToT can cover far
+  more candidate paths than single-trajectory prompting.
 \item
-  \textbf{Optimality}: By evaluating and comparing paths, ToT can find
-  superior solutions that CoT might miss due to early commitment to
-  suboptimal directions.
+  \textbf{Optimality (conditional):} With effective branch evaluation,
+  ToT can reduce early-commitment failures and recover stronger
+  solutions than a single committed path.
 \item
   \textbf{Recovery}: When a path proves unproductive, ToT can backtrack
   and explore alternatives, while CoT must continue down the initial
@@ -735,7 +740,7 @@ promising ones {[}1, 2{]}.
 With generation and evaluation in place, ToT employs search algorithms
 to explore the thought tree {[}1, 2{]}:
 
-\textbf{Breadth-First Search (BFS):}
+\textbf{Breadth-wise Search with Pruning (Beam-Style BFS):}
 
 \begin{itemize}
 \tightlist
@@ -770,11 +775,11 @@ to explore the thought tree {[}1, 2{]}:
 \begin{itemize}
 \tightlist
 \item
-  Hybrid approach maintaining top-b candidates at each depth
+  A common fixed-width instantiation of breadth-wise pruned search
 \item
   Balances exploration breadth with computational cost
 \item
-  Most commonly used in practice
+  Most commonly used in practical ToT-style implementations
 \end{itemize}
 
 \textbf{Monte Carlo Tree Search (MCTS):}
@@ -787,7 +792,8 @@ to explore the thought tree {[}1, 2{]}:
 \item
   Uses rollout simulations to estimate value
 \item
-  More complex but potentially more effective for large search spaces
+  More complex; treated here as an extension pattern rather than a core
+  ToT default
 \end{itemize}
 
 \subsubsection{2.4 The ToT Algorithm: Formal
@@ -1080,6 +1086,11 @@ At the core of Hugging Face\textquotesingle s agent ecosystem is
 smolagents---a Python library designed for compact agent implementations
 and ecosystem integration {[}10, 12{]}.
 
+\textbf{Stability note:} The smolagents reference documentation labels
+the API as experimental and subject to change; accordingly, examples in
+this manuscript are tied to the frozen run context and should be
+revalidated against current docs before production use {[}10, 12{]}.
+
 \paragraph{3.3.1 Design Philosophy}\label{design-philosophy}
 
 The name "smolagents" reflects a low-boilerplate design philosophy
@@ -1127,16 +1138,13 @@ smolagents is built around several key abstractions {[}10, 12{]}:
 \CommentTok{\# Basic installation}
 \ExtensionTok{pip}\NormalTok{ install smolagents}
 
-\CommentTok{\# With Hugging Face Hub integration}
-\ExtensionTok{pip}\NormalTok{ install smolagents}\PreprocessorTok{[}\SpecialStringTok{huggingface}\PreprocessorTok{]}
-
-\CommentTok{\# With specific model providers}
-\ExtensionTok{pip}\NormalTok{ install smolagents}\PreprocessorTok{[}\SpecialStringTok{litellm}\PreprocessorTok{]}      \CommentTok{\# Multi{-}provider support}
-\ExtensionTok{pip}\NormalTok{ install smolagents}\PreprocessorTok{[}\SpecialStringTok{openai}\PreprocessorTok{]}       \CommentTok{\# OpenAI models}
-\ExtensionTok{pip}\NormalTok{ install smolagents}\PreprocessorTok{[}\SpecialStringTok{anthropic}\PreprocessorTok{]}    \CommentTok{\# Claude models}
-
-\CommentTok{\# Development installation}
-\ExtensionTok{pip}\NormalTok{ install smolagents}\PreprocessorTok{[}\SpecialStringTok{dev}\PreprocessorTok{]}
+\CommentTok{\# Common extras from official installation docs}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[toolkit]"}       \CommentTok{\# Default tools}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[transformers]"}  \CommentTok{\# Local Hugging Face models}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[litellm]"}       \CommentTok{\# Multi{-}provider routing}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[openai]"}        \CommentTok{\# OpenAI API models}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[gradio]"}        \CommentTok{\# Gradio UI}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[all]"}           \CommentTok{\# All optional extras}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1265,8 +1273,10 @@ The agent might generate:
 Customization}\label{configuration-and-customization}
 
 CodeAgent configuration options in current docs include model/tool
-binding, step limits, optional planning, authorized imports, grammar,
-and executor settings {[}10, 12{]}:
+binding, step limits, optional planning, authorized imports, and
+executor settings {[}10, 12{]}. Grammar-constrained generation is a
+model-side capability rather than a CodeAgent constructor parameter
+{[}10, 12{]}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1279,7 +1289,6 @@ and executor settings {[}10, 12{]}:
 \NormalTok{    max\_steps}\OperatorTok{=}\DecValTok{10}\NormalTok{,}
 \NormalTok{    planning\_interval}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
 \NormalTok{    additional\_authorized\_imports}\OperatorTok{=}\NormalTok{[}\StringTok{"math"}\NormalTok{, }\StringTok{"random"}\NormalTok{],}
-\NormalTok{    grammar}\OperatorTok{=}\VariableTok{None}\NormalTok{,}
 \NormalTok{    executor\_type}\OperatorTok{=}\StringTok{"local"}\NormalTok{,}
 \NormalTok{    executor\_kwargs}\OperatorTok{=}\VariableTok{None}
 \NormalTok{)}
@@ -1687,6 +1696,11 @@ with Hugging Face agents. While Hugging Face agents provide strong
 tooling interfaces, many workflows still use linear reasoning traces. A
 ToT-style planner can introduce {[}1, 10, 12{]}:
 
+\textbf{Hypothesis framing:} We treat the following as design-level
+hypotheses derived from ToT search structure and agent-tool loop
+abstractions; integration-specific effect sizes require controlled
+experiments (outside this survey\textquotesingle s scope).
+
 \begin{enumerate}
 \tightlist
 \item
@@ -1710,114 +1724,61 @@ Architecture}\label{tot-enhanced-agent-architecture}
 
 \pandocbounded{\includegraphics[keepaspectratio,alt={ToT-Enhanced Agent Architecture Diagram}]{./assets/diagram_tot_agent.png}}
 
-\paragraph{4.2.2 Implementation Sketch (Pseudo-code): ToT Code
-Agent}\label{implementation-sketch-pseudo-code-tot-code-agent}
+\paragraph{4.2.2 Interface-Level Integration Sketch
+(Pseudo-code)}\label{interface-level-integration-sketch-pseudo-code}
+
+\emph{Scope note:} This is an integration sketch, not a faithful
+reimplementation of the canonical ToT algorithm in {[}1{]}. It
+highlights where planning hooks into a tool-using agent runtime.
+
+\begin{itemize}
+\tightlist
+\item
+  Uses abstract planner interfaces instead of canonical ToT state
+  serialization details.
+\item
+  Omits rollout/simulation specifics and evaluator calibration design.
+\item
+  Focuses on orchestration seams (planner -> execution) rather than new
+  algorithmic claims.
+\end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
-\ImportTok{from}\NormalTok{ typing }\ImportTok{import}\NormalTok{ List, Dict, Any}
-\ImportTok{import}\NormalTok{ heapq}
 
-\KeywordTok{class}\NormalTok{ TreeOfThoughtsCodeAgent(CodeAgent):}
-    \CommentTok{"""Agent that uses Tree of Thoughts for planning before execution."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, }\OperatorTok{*}\NormalTok{args, beam\_width}\OperatorTok{=}\DecValTok{3}\NormalTok{, max\_depth}\OperatorTok{=}\DecValTok{5}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
+\KeywordTok{class}\NormalTok{ ToTPlanner:}
+    \CommentTok{"""Planner interface for candidate generation, scoring, and selection."""}
+
+    \KeywordTok{def}\NormalTok{ propose(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{]:}
+\NormalTok{        ...}
+
+    \KeywordTok{def}\NormalTok{ evaluate(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, candidates: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{list}\NormalTok{[}\BuiltInTok{float}\NormalTok{]:}
+\NormalTok{        ...}
+
+    \KeywordTok{def}\NormalTok{ select(}\VariableTok{self}\NormalTok{, candidates: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{], scores: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{float}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+\NormalTok{        ...}
+
+\KeywordTok{class}\NormalTok{ ToTEnabledCodeAgent(CodeAgent):}
+    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, }\OperatorTok{*}\NormalTok{args, planner: ToTPlanner, }\OperatorTok{**}\NormalTok{kwargs):}
         \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{*}\NormalTok{args, }\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.beam\_width }\OperatorTok{=}\NormalTok{ beam\_width}
-        \VariableTok{self}\NormalTok{.max\_depth }\OperatorTok{=}\NormalTok{ max\_depth}
-    
-    \KeywordTok{def}\NormalTok{ generate\_thoughts(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, current\_state: }\BuiltInTok{str}\NormalTok{, k: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ List[}\BuiltInTok{str}\NormalTok{]:}
-        \CommentTok{"""Generate k candidate next steps."""}
-\NormalTok{        prompt }\OperatorTok{=} \SpecialStringTok{f"""}
-\SpecialStringTok{Given the task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
-\SpecialStringTok{And current progress: }\SpecialCharTok{\{}\NormalTok{current\_state}\SpecialCharTok{\}}
+        \VariableTok{self}\NormalTok{.planner }\OperatorTok{=}\NormalTok{ planner}
 
-\SpecialStringTok{Generate }\SpecialCharTok{\{}\NormalTok{k}\SpecialCharTok{\}}\SpecialStringTok{ different possible next actions. Each action should be }
-\SpecialStringTok{a concrete step toward solving the problem. Be diverse in your approaches.}
-
-\SpecialStringTok{Format as a numbered list:}
-\SpecialStringTok{1. [First approach]}
-\SpecialStringTok{2. [Second approach]}
-\SpecialStringTok{...}
-\SpecialStringTok{"""}
-\NormalTok{        response }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt)}
-\NormalTok{        thoughts }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_parse\_numbered\_list(response, k)}
-        \ControlFlowTok{return}\NormalTok{ thoughts}
-    
-    \KeywordTok{def}\NormalTok{ evaluate\_thought(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, thought: }\BuiltInTok{str}\NormalTok{, history: List[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Score a thought\textquotesingle{}s promise (0{-}10)."""}
-\NormalTok{        prompt }\OperatorTok{=} \SpecialStringTok{f"""}
-\SpecialStringTok{Task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
-\SpecialStringTok{Proposed action: }\SpecialCharTok{\{}\NormalTok{thought}\SpecialCharTok{\}}
-\SpecialStringTok{History so far: }\SpecialCharTok{\{}\StringTok{\textquotesingle{} {-}\textgreater{} \textquotesingle{}}\SpecialCharTok{.}\NormalTok{join(history)}\SpecialCharTok{\}}
-
-\SpecialStringTok{Rate how promising this action is on a scale of 0{-}10:}
-\SpecialStringTok{{-} 0{-}3: Likely incorrect or counterproductive}
-\SpecialStringTok{{-} 4{-}6: Might help but uncertain}
-\SpecialStringTok{{-} 7{-}10: Clearly advances toward solution}
-
-\SpecialStringTok{Return ONLY a number between 0 and 10.}
-\SpecialStringTok{"""}
-        \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{            score\_text }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt).strip()}
-            \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(score\_text.split()[}\DecValTok{0}\NormalTok{])}
-        \ControlFlowTok{except}\NormalTok{:}
-            \ControlFlowTok{return} \FloatTok{5.0}  \CommentTok{\# Default to uncertain}
-    
-    \KeywordTok{def}\NormalTok{ beam\_search\_planning(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ List[}\BuiltInTok{str}\NormalTok{]:}
-        \CommentTok{"""Use beam search to find best action sequence."""}
-        \CommentTok{\# Initialize: [(score, actions, state)]}
-\NormalTok{        beams }\OperatorTok{=}\NormalTok{ [(}\FloatTok{0.0}\NormalTok{, [], }\StringTok{"Initial state"}\NormalTok{)]}
-        
-        \ControlFlowTok{for}\NormalTok{ depth }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\VariableTok{self}\NormalTok{.max\_depth):}
-\NormalTok{            candidates }\OperatorTok{=}\NormalTok{ []}
-            
-            \ControlFlowTok{for}\NormalTok{ score, actions, state }\KeywordTok{in}\NormalTok{ beams:}
-                \CommentTok{\# Generate next thoughts}
-\NormalTok{                thoughts }\OperatorTok{=} \VariableTok{self}\NormalTok{.generate\_thoughts(task, state, }\VariableTok{self}\NormalTok{.beam\_width)}
-                
-                \ControlFlowTok{for}\NormalTok{ thought }\KeywordTok{in}\NormalTok{ thoughts:}
-                    \CommentTok{\# Simulate action (lightweight evaluation)}
-\NormalTok{                    new\_state }\OperatorTok{=} \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{state}\SpecialCharTok{\}}\SpecialStringTok{ {-}\textgreater{} }\SpecialCharTok{\{}\NormalTok{thought}\SpecialCharTok{\}}\SpecialStringTok{"}
-\NormalTok{                    new\_actions }\OperatorTok{=}\NormalTok{ actions }\OperatorTok{+}\NormalTok{ [thought]}
-                    
-                    \CommentTok{\# Evaluate}
-\NormalTok{                    value }\OperatorTok{=} \VariableTok{self}\NormalTok{.evaluate\_thought(task, thought, actions)}
-\NormalTok{                    total\_score }\OperatorTok{=}\NormalTok{ score }\OperatorTok{+}\NormalTok{ value}
-                    
-\NormalTok{                    candidates.append((total\_score, new\_actions, new\_state))}
-            
-            \CommentTok{\# Keep top beams}
-\NormalTok{            beams }\OperatorTok{=}\NormalTok{ heapq.nlargest(}\VariableTok{self}\NormalTok{.beam\_width, candidates, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ x: x[}\DecValTok{0}\NormalTok{])}
-        
-        \CommentTok{\# Return best action sequence}
-        \ControlFlowTok{return}\NormalTok{ beams[}\DecValTok{0}\NormalTok{][}\DecValTok{1}\NormalTok{] }\ControlFlowTok{if}\NormalTok{ beams }\ControlFlowTok{else}\NormalTok{ []}
-    
     \KeywordTok{def}\NormalTok{ run(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \CommentTok{"""Execute with ToT planning."""}
-        \CommentTok{\# Phase 1: Plan with ToT}
-        \BuiltInTok{print}\NormalTok{(}\StringTok{"Planning with Tree of Thoughts..."}\NormalTok{)}
-\NormalTok{        action\_plan }\OperatorTok{=} \VariableTok{self}\NormalTok{.beam\_search\_planning(task)}
-        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Selected plan: }\SpecialCharTok{\{}\NormalTok{action\_plan}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
-        
-        \CommentTok{\# Phase 2: Execute planned actions}
-        \CommentTok{\# (simplified {-} full implementation would integrate with CodeAgent execution)}
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.execute\_plan(task, action\_plan)}
+        \CommentTok{\# Plan first, then execute via the standard CodeAgent runtime.}
+\NormalTok{        candidates }\OperatorTok{=} \VariableTok{self}\NormalTok{.planner.propose(task)}
+\NormalTok{        scores }\OperatorTok{=} \VariableTok{self}\NormalTok{.planner.evaluate(task, candidates)}
+\NormalTok{        high\_level\_plan }\OperatorTok{=} \VariableTok{self}\NormalTok{.planner.select(candidates, scores)}
+        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{().run(}
+            \SpecialStringTok{f"Task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\CharTok{\textbackslash{}n}\SpecialStringTok{Use this vetted high{-}level plan:}\CharTok{\textbackslash{}n}\SpecialCharTok{\{}\NormalTok{high\_level\_plan}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{,}
+            \OperatorTok{**}\NormalTok{kwargs,}
+\NormalTok{        )}
 
-\CommentTok{\# Usage}
-\NormalTok{agent }\OperatorTok{=}\NormalTok{ TreeOfThoughtsCodeAgent(}
+\NormalTok{agent }\OperatorTok{=}\NormalTok{ ToTEnabledCodeAgent(}
 \NormalTok{    tools}\OperatorTok{=}\NormalTok{[search\_tool, calculator\_tool],}
 \NormalTok{    model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"meta{-}llama/Llama{-}3.3{-}70B{-}Instruct"}\NormalTok{),}
-\NormalTok{    beam\_width}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
-\NormalTok{    max\_depth}\OperatorTok{=}\DecValTok{4}
+\NormalTok{    planner}\OperatorTok{=}\NormalTok{ToTPlanner(),}
 \NormalTok{)}
-
-\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.run(}\StringTok{"""}
-\StringTok{Analyze the economic impact of AI on job markets. }
-\StringTok{Search for recent data, calculate key statistics, }
-\StringTok{and summarize the findings.}
-\StringTok{"""}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1859,27 +1820,30 @@ Agent}\label{implementation-sketch-pseudo-code-tot-code-agent}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Task: "Compare Tesla and BYD stock performance over the last year"}
+\NormalTok{Task: "Compare two open{-}source vector databases for a production RAG stack"}
 
 \NormalTok{ToT Exploration:}
-\NormalTok{|-- Path A: Search for both, then compare}
-\NormalTok{|   |-- Step 1: search("Tesla stock 2024")}
-\NormalTok{|   |-- Step 2: search("BYD stock 2024")}
-\NormalTok{|   `-- Step 3: calculate(comparison\_metrics)}
-\NormalTok{|   `-- Heuristic rating: medium (detailed but may miss real{-}time data)}
+\NormalTok{|-- Path A: Blog{-}post{-}first comparison}
+\NormalTok{|   |-- Step 1: search("vector database A vs B blog comparison")}
+\NormalTok{|   |-- Step 2: extract claims and benchmark snippets}
+\NormalTok{|   `-- Step 3: summarize trade{-}offs}
+\NormalTok{|   `-- Heuristic rating: medium (fast but potentially opinionated)}
 \NormalTok{|}
-\NormalTok{|-- Path B: Use stock API directly}
-\NormalTok{|   |-- Step 1: stock\_api("TSLA", period="1y")}
-\NormalTok{|   |-- Step 2: stock\_api("BYD", period="1y")}
-\NormalTok{|   `-- Step 3: calculate\_performance\_comparison}
-\NormalTok{|   `-- Heuristic rating: high (precise data, structured output)}
+\NormalTok{|-- Path B: Docs + repository evidence}
+\NormalTok{|   |-- Step 1: parse official docs for indexing/query/security features}
+\NormalTok{|   |-- Step 2: collect GitHub activity + release cadence}
+\NormalTok{|   `-- Step 3: build capability/reliability matrix}
+\NormalTok{|   `-- Heuristic rating: high (auditable sources, structured comparison)}
 \NormalTok{|}
-\NormalTok{`-- Path C: Search for analysis articles}
-\NormalTok{    `-- Heuristic rating: low (subjective, may be outdated)}
+\NormalTok{`-- Path C: Community sentiment sweep}
+\NormalTok{    `-- Heuristic rating: low (anecdotal and noisy)}
 
-\NormalTok{Selected: Path B for accuracy and reliability}
+\NormalTok{Selected: Path B for source quality and reproducibility}
 \end{Highlighting}
 \end{Shaded}
+
+\emph{Illustrative note:} No live external data is fetched in this
+walkthrough.
 
 \paragraph{4.3.2 Error Recovery and
 Backtracking}\label{error-recovery-and-backtracking}
@@ -1946,11 +1910,12 @@ produce incorrect results.
 \NormalTok{{-} Format: Format C (most accessible)}
 
 \NormalTok{Execution Plan:}
-\NormalTok{|-- Week 1: Filter development + testing}
-\NormalTok{|-- Week 2{-}3: Soft launch with beta users}
-\NormalTok{|-- Week 4: Full campaign launch}
-\NormalTok{|-- Week 5{-}6: Monitor and optimize}
-\NormalTok{`-- Week 7: Results analysis and report}
+\NormalTok{|-- Week 1: Source acquisition (reports, filings, policy updates)}
+\NormalTok{|-- Week 2: Data extraction and normalization}
+\NormalTok{|-- Week 3: Comparative analysis across manufacturers and regions}
+\NormalTok{|-- Week 4: Draft report with claim{-}level citations}
+\NormalTok{|-- Week 5: Validation pass (fact checks + consistency review)}
+\NormalTok{`-- Week 6: Final report and appendix packaging}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1959,6 +1924,11 @@ produce incorrect results.
 \emph{Evidence note:} The case studies in this section are synthetic
 walkthroughs for design illustration. They are not reported benchmark
 experiments.
+
+\emph{Structure note:} Each walkthrough follows the same pattern (task,
+branch options, evaluator rationale, execution sketch, and recovery
+cues) to keep these examples as synthesis artifacts rather than
+empirical claims.
 
 \paragraph{4.4.1 Case Study 1: Financial Analysis
 Agent}\label{case-study-1-financial-analysis-agent}
@@ -2197,8 +2167,10 @@ versions & Survey protocol controls in this manuscript {[}27, 28, 29,
 Strategies}\label{practical-implementation-strategies}
 
 \textbf{Pseudo-code notice.} Most snippets in this section are design
-templates for adaptation, not drop-in production code. Validate APIs and
-runtime behavior against current framework documentation before
+templates for adaptation, not drop-in production code. Unless explicitly
+tied to cited API documentation, patterns here should be treated as E2
+design templates (with E3 references for API alignment). Validate APIs
+and runtime behavior against current framework documentation before
 deployment.
 
 \subsubsection{5.1 Getting Started}\label{getting-started}
@@ -2372,6 +2344,10 @@ Patterns}\label{advanced-implementation-patterns}
 
 \paragraph{5.2.1 Hybrid CoT-ToT Agent}\label{hybrid-cot-tot-agent}
 
+\textbf{Status:} Heuristic design pattern (E2). Not empirically
+validated in this paper; failure modes include miscalibrated complexity
+scoring and prompt sensitivity.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{class}\NormalTok{ HybridReasoningAgent(CodeAgent):}
@@ -2413,6 +2389,10 @@ Patterns}\label{advanced-implementation-patterns}
 \end{Shaded}
 
 \paragraph{5.2.2 Adaptive ToT Agent}\label{adaptive-tot-agent}
+
+\textbf{Status:} Heuristic design pattern (E2). Not empirically
+validated in this paper; adaptive parameter inference can drift and
+should be bounded by explicit compute/latency budgets.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2515,10 +2495,10 @@ Techniques}\label{optimization-techniques}
         
 \NormalTok{        best }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(beams, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ n: n.score)}
         
-        \CommentTok{\# Normalize score to probability}
-\NormalTok{        confidence }\OperatorTok{=}\NormalTok{ best.score }\OperatorTok{/} \FloatTok{10.0}
+        \CommentTok{\# Normalize score to a 0{-}1 heuristic confidence signal (not calibrated probability)}
+\NormalTok{        heuristic\_confidence }\OperatorTok{=}\NormalTok{ best.score }\OperatorTok{/} \FloatTok{10.0}
         
-        \ControlFlowTok{return}\NormalTok{ confidence }\OperatorTok{\textgreater{}=} \VariableTok{self}\NormalTok{.confidence\_threshold}
+        \ControlFlowTok{return}\NormalTok{ heuristic\_confidence }\OperatorTok{\textgreater{}=} \VariableTok{self}\NormalTok{.confidence\_threshold}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3285,8 +3265,13 @@ ICML)
 Independent work reports strong comparative results on Game of 24 and
 Mini Crosswords using the same benchmark families {[}26{]}.
 
-\paragraph{Game of 24 (GPT-4, success rate and
-cost)}\label{game-of-24-gpt-4-success-rate-and-cost}
+\emph{Selection note:} The tables below report selected rows (IO, CoT,
+CoT-SC, ToT, and FoA) to maintain direct comparability with the baseline
+families emphasized in this survey and Appendix C.1. See {[}26{]} for
+full method coverage.
+
+\paragraph{Game of 24 (GPT-4, success rate and cost; selected
+rows)}\label{game-of-24-gpt-4-success-rate-and-cost-selected-rows}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
@@ -3303,8 +3288,11 @@ FoA {[}26{]} & 76.0\% & 62.93 \\
 \end{longtable}
 }
 
-\paragraph{Mini Crosswords (GPT-4, overlap and
-cost)}\label{mini-crosswords-gpt-4-overlap-and-cost}
+\emph{Transcription note:} Values in this subsection are transcribed
+from the main comparison tables in {[}26{]} (Table 1 and Table 2).
+
+\paragraph{Mini Crosswords (GPT-4, overlap and cost; selected
+rows)}\label{mini-crosswords-gpt-4-overlap-and-cost-selected-rows}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
@@ -3316,8 +3304,7 @@ Method & Overlap & Cost (US\$) \\
 IO {[}26{]} & 36.8\% & 0.51 \\
 CoT {[}26{]} & 39.4\% & 1.06 \\
 CoT-SC {[}26{]} & 39.4\% & 2.82 \\
-ToT {[}26{]} & 39.7\% & 49.99 \\
-GoT {[}26{]} & 41.2\% & 30.28 \\
+ToT {[}26{]} & 39.7\% & 48.99 \\
 FoA {[}26{]} & 46.0\% & 12.94 \\
 \end{longtable}
 }
@@ -3573,6 +3560,11 @@ History}\label{appendix-g-revision-history}
   Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated
   transformers agents, added migration note, and upgraded key synthesis
   tables with explicit captions and textual references.
+\item
+  Version 1.1.1 (post-review hardening): corrected Appendix C.2 FoA
+  transcription value, clarified selected-row policy, tightened Section
+  4 hypothesis framing, and reduced pseudo-code overclaim surface in
+  Sections 4-5.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
