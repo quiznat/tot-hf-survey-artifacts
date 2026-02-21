@@ -1,6 +1,6 @@
 # Phase 2 Task Backlog
 
-Status date: 2026-02-20
+Status date: 2026-02-21
 
 ## P0 (Do Now)
 - [x] Create `phase2/benchmarks/benchmark-matrix.md` with tasks, datasets, metrics, and baseline mapping.
@@ -32,10 +32,11 @@ Status date: 2026-02-20
 ## P3 (Analysis and Writing)
 - [x] Build paired lockset infrastructure (`game24_lockset_v1` panel + runner + pilot report path).
 - [x] Execute full lock set: 50 paired Game24 items per condition (`single`, `react`, `tot model_self_eval`).
-- [ ] Expand fixed-protocol run panel beyond pilot if observed effect size is below publication-threshold confidence.
+- [x] Expand fixed-protocol run panel beyond pilot if observed effect size is below publication-threshold confidence.
+  Note: criterion satisfied by full 50-item paired panel execution; no emergency panel expansion was required for protocol-v2.
 - [x] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
 - [x] Build ablation report template.
 - [x] Build failure taxonomy template with examples.
-- [ ] Keep `phase2/manuscript/PREPAPER.md` updated after each protocol decision and evaluation run batch.
+- [x] Keep `phase2/manuscript/PREPAPER.md` updated after each protocol decision and evaluation run batch.
 - [ ] Draft Methods + Experiments sections for novel manuscript track from `phase2/manuscript/PREPAPER.md`.
 - [x] Add lockset runner parallelization controls and provider-rate-limit-safe defaults for future large sweeps.

@@ -1,6 +1,6 @@
 # Protocol v2 Search Ablation Execution
 
-Status: ready to execute  
+Status: executed (2026-02-21)  
 Protocol ID: `TOT-HF-P2-EPV2-2026-02-20`  
 Primary model: `Qwen/Qwen3-Coder-Next:novita`
 
@@ -87,3 +87,18 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_search_
 - Update `phase2/PROJECT_STATE.md` Gate P2-G4 status and completed-items list.
 - Update `phase2/manuscript/PREPAPER.md` with search-ablation outcomes and revised claim boundaries.
 - Rebuild failure taxonomy using the new ablation manifests.
+
+## Completed Outputs (2026-02-21)
+- Run artifacts:
+  - `phase2/benchmarks/runs/protocol_v2_locked_search_ablations/A1` (150 paired-condition manifests)
+  - `phase2/benchmarks/runs/protocol_v2_locked_search_ablations/A2` (150 paired-condition manifests)
+  - `phase2/benchmarks/runs/protocol_v2_locked_search_ablations/A1_smoke` (3-run smoke precheck retained separately)
+- A1 report:
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a1.md`
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a1.json`
+- A2 report:
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a2.md`
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a2.json`
+- Consolidated summary:
+  - `phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.md`
+  - `phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.json`

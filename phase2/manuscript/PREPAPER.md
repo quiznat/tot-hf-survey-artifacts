@@ -117,23 +117,45 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - ToT remains superior to both baselines under all evaluator modes on this fixed panel.
   - `model_self_eval` remains the primary methodology; `rule_based`/`hybrid` remain ablation/control conditions.
 
+## Executed Search Ablation Evidence (Primary Model)
+- Primary model: `Qwen/Qwen3-Coder-Next:novita`
+- Search presets executed on identical 50-item paired panel:
+  - `primary` (`depth=3, branch=3, frontier=3`): single 0.080, react 0.440, tot 0.760
+  - `A1` (`depth=2, branch=3, frontier=3`): single 0.060, react 0.360, tot 0.720
+  - `A2` (`depth=3, branch=4, frontier=4`): single 0.080, react 0.420, tot 0.920
+- Consolidated artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.md`
+  - `phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.json`
+- Significance snapshot (ToT vs ReAct, paired McNemar):
+  - `primary`: p=8.55e-04 (Holm 8.55e-04)
+  - `A1`: p=1.21e-04 (Holm 2.42e-04)
+  - `A2`: p=5.96e-08 (Holm 1.19e-07)
+- ToT latency/token snapshot by preset:
+  - `primary`: 58213.6 ms, tokens_in 978.3, tokens_out 107.0
+  - `A1`: 9050.9 ms, tokens_in 636.7, tokens_out 70.8
+  - `A2`: 11262.8 ms, tokens_in 955.9, tokens_out 121.9
+- Interpretation:
+  - ToT remains superior to ReAct under all three search presets on this panel/model.
+  - A2 currently yields the strongest accuracy (0.920) with markedly lower observed latency than the earlier `primary` execution window; this should be treated as observed run behavior under provider conditions, not a universal latency law.
+  - Search policy materially affects both outcome quality and compute profile, and must remain explicitly reported in all claims.
+
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
 
 ## Prepaper Build Plan
-1. Execute search/policy ablations on the primary model and merge with evaluator ablation tables.
-2. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests.
-3. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
-4. Draft Limitations and Threats to Validity before conclusion text.
-5. Prepare reproducibility appendix with final command blocks and artifact index.
+1. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests.
+2. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
+3. Draft Limitations and Threats to Validity before conclusion text.
+4. Prepare reproducibility appendix with final command blocks and artifact index.
+5. Build anonymous manuscript package for first submission cycle.
 
-Canonical execution commands for pending search ablations (A1/A2) are frozen in:
+Canonical execution commands for search ablations are archived in:
 - `phase2/benchmarks/protocol-v2-search-ablation-execution.md`
 
 ## Required Tables/Figures (Planned)
 - Table 1: Condition-level success/latency/token metrics (paired panel).
-- Table 2: Ablation summary (evaluator mode, depth/width, duplicate filtering).
+- Table 2: Ablation summary (evaluator mode and search presets).
 - Table 3: Failure taxonomy with representative run IDs.
 - Figure 1: ToT search-state trace diagram with stop-policy points.
 
@@ -147,4 +169,6 @@ Canonical execution commands for pending search ablations (A1/A2) are frozen in:
 - 2026-02-20: Locked protocol-v2 matrix to fixed available model set with no within-matrix substitutions.
 - 2026-02-20: Completed full 3-model protocol-v2 matrix execution and added matrix-level summary artifacts.
 - 2026-02-21: Completed evaluator ablation runs (`rule_based`, `hybrid`) on primary model and added consolidated evaluator-ablation summary artifacts.
-- 2026-02-21: Added search-ablation execution playbook and summary tooling (`build_search_ablation_summary.py`) to standardize A1/A2 reporting once live runs are executed.
+- 2026-02-21: Added search-ablation execution playbook and summary tooling (`build_search_ablation_summary.py`).
+- 2026-02-21: Completed A1/A2 search-policy ablation runs on primary model and archived consolidated search-ablation summary artifacts.
+- 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face manifests.

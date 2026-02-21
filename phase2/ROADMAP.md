@@ -50,9 +50,9 @@ Acceptance criteria:
 ### Gate P2-G4: Ablation and Error Analysis
 Acceptance criteria:
 - [x] Evaluator ablations complete (`model_self_eval`, `rule_based`, `hybrid`) on primary model.
-- [ ] Search/policy ablations complete (depth, breadth, pruning presets).
-- [ ] Error taxonomy and representative failure cases documented.
-- [ ] Claims updated to match observed evidence only.
+- [x] Search/policy ablations complete (depth, breadth, pruning presets).
+- [x] Error taxonomy and representative failure cases documented.
+- [x] Claims updated to match observed evidence only.
 
 ### Gate P2-G5: Manuscript Draft (Novel Work)
 Acceptance criteria:
@@ -73,7 +73,7 @@ Acceptance criteria:
 3. Reproducibility: protocol freeze, run logging, artifact packaging.
 4. Writing: manuscript updates grounded in measured results.
 
-## Immediate Next Actions (Sprint 3)
-1. Run search ablations (A1/A2 depth-width presets) on `Qwen/Qwen3-Coder-Next:novita`.
-2. Update failure taxonomy from matrix + evaluator/search ablation evidence with representative run IDs.
-3. Update manuscript claims/limitations strictly from executed matrix+ablation artifacts.
+## Immediate Next Actions (Sprint 4)
+1. Draft Methods and Experimental Setup sections for Phase 2 manuscript text from frozen protocol and executed artifacts.
+2. Draft Results/Limitations with explicit panel/model scope and cost-latency tradeoff reporting.
+3. Build first anonymous submission package and reproducibility artifact index.

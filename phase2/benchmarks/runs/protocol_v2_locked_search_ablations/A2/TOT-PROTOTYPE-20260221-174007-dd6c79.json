@@ -1,0 +1,96 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v2_locked_search_ablations/A2/TOT-PROTOTYPE-20260221-174007-dd6c79.json"
+  ],
+  "branch_factor": 4,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "error_type": "depth_limit",
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 4,
+      "expanded_nodes": 9,
+      "frontier_width": 4,
+      "generated_nodes": 27,
+      "max_depth": 3,
+      "peak_frontier_size": 4,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0
+    }
+  },
+  "final_answer": "(7 - 1) * (10 - 2)",
+  "frontier_width": 4,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    2,
+    7,
+    10
+  ],
+  "item_id": "g24-v1-030",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 45748,
+    "success": 0,
+    "tokens_in": 5075,
+    "tokens_out": 673
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot prototype reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260221-174007-dd6c79",
+  "search_config": {
+    "breadth": 4,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 729579932,
+  "task_id": "game24-demo",
+  "timestamp_utc": "2026-02-21T17:40:07Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(10 - 7) * (2 + 1)",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(7 - 1) * (10 / 2)",
+    "NODE n0003 parent=root score=0.0000 cum=0.0000 terminal=False candidate=(10 + 2) * (7 - 1) / 3",
+    "NODE n0004 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(10 * 2) + (7 - 1)",
+    "DEPTH 2 frontier=4",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.5000 terminal=False candidate=(10 + 1) * 2 - 7",
+    "NODE n0006 parent=n0001 score=1.0000 cum=2.0000 terminal=False candidate=(7 * 2) + (10 - 1)",
+    "NODE n0007 parent=n0001 score=0.0000 cum=1.0000 terminal=False candidate=(10 * 1) + (7 + 2) + 5",
+    "NODE n0008 parent=n0001 score=1.0000 cum=2.0000 terminal=False candidate=(10 + 7 + 2 + 1)",
+    "NODE n0009 parent=n0002 score=0.0000 cum=1.0000 terminal=False candidate=(10 - 7 + 1) * 2 * 3",
+    "NODE n0010 parent=n0002 score=0.0000 cum=1.0000 terminal=False candidate=Wait\u20143 not in list. Invalid.",
+    "NODE n0011 parent=n0002 score=0.0000 cum=1.0000 terminal=False candidate=Let\u2019s systematically find valid expressions using only [1, 2, 7, 10], each exactly once.",
+    "NODE n0012 parent=n0002 score=0.0000 cum=1.0000 terminal=False candidate=We know (7 - 1) * (10 / 2) = 6 * 5 = 30 \u2192 no, that\u2019s 30, not 24. Wait! 10 / 2 = 5, 7 - 1 = 6, 6 * 5 = 30. So that\u2019s *not* 24. But the prompt says \u201cproduce 24\u201d and lists it as parent candidate\u2014maybe a mistake? Let\u2019s verify target: 24.",
+    "NODE n0013 parent=n0004 score=0.0000 cum=1.0000 terminal=False candidate=Wait\u20143 not in list. Invalid. Let's correct.",
+    "NODE n0014 parent=n0004 score=0.0000 cum=1.0000 terminal=False candidate=Valid expressions using only [1, 2, 7, 10] exactly once to make 24:",
+    "NODE n0015 parent=n0004 score=0.0000 cum=1.0000 terminal=False candidate=(10 + 2) * (7 - 1) / 3 \u2192 again, 3 not allowed.",
+    "NODE n0016 parent=n0004 score=0.0000 cum=1.0000 terminal=False candidate=Let\u2019s compute correctly.",
+    "NODE n0017 parent=n0003 score=0.0000 cum=0.0000 terminal=False candidate=(10 - 7) * (2 + 1) * 8",
+    "NODE n0018 parent=n0003 score=0.5000 cum=0.5000 terminal=False candidate=10 + 7 + 2 + 1",
+    "NODE n0019 parent=n0003 score=0.0000 cum=0.0000 terminal=False candidate=(10 + 2) * (7 - 1)",
+    "NODE n0020 parent=n0003 score=0.5000 cum=0.5000 terminal=False candidate=(7 * 2) + (10 + 1)",
+    "DEPTH 3 frontier=4",
+    "NODE n0021 parent=n0006 score=1.0000 cum=3.0000 terminal=False candidate=(7 - 1) * (10 - 2)",
+    "NODE n0022 parent=n0006 score=0.0000 cum=2.0000 terminal=False candidate=Wait\u20148 not allowed. Discard.",
+    "NODE n0023 parent=n0006 score=0.0000 cum=2.0000 terminal=False candidate=Let\u2019s recompute valid ones:",
+    "NODE n0024 parent=n0006 score=0.0000 cum=2.0000 terminal=False candidate=Try: (10 + 2) * (7 - 1) = 12 * 6 = 72 \u2192 too big.",
+    "NODE n0008 generated no candidates",
+    "NODE n0025 parent=n0005 score=1.0000 cum=2.5000 terminal=False candidate=(10 - 2) * (7 - 1)",
+    "NODE n0026 parent=n0007 score=1.0000 cum=2.0000 terminal=False candidate=(10 + 7) * (2 - 1)",
+    "NODE n0027 parent=n0007 score=1.0000 cum=2.0000 terminal=False candidate=(7 * (10 - 2)) / 1"
+  ]
+}

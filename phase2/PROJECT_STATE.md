@@ -12,7 +12,7 @@ Status date: 2026-02-21
 - P2-G1 (Baseline Harness): completed
 - P2-G2 (ToT Integration Prototype): completed
 - P2-G3 (Evaluation v1): completed
-- P2-G4 (Ablation and Error Analysis): in progress
+- P2-G4 (Ablation and Error Analysis): completed
 - P2-G5 (Manuscript Draft): not started
 - P2-G6 (Submission Package): not started
 
@@ -113,19 +113,26 @@ Status date: 2026-02-21
   - `phase2/templates/failure_taxonomy_template.md`.
 - Initialized isolated run log for search-policy ablations:
   - `phase2/reproducibility/run-log-protocol-v2-search-ablations.md`.
-- Runtime blocker observed in current Codex environment:
-  - `HF_TOKEN` is not present for this process, so live A1/A2 HF runs cannot start until token is exported in-session.
+- Completed protocol-v2 search-policy ablations on locked primary model (`Qwen/Qwen3-Coder-Next:novita`):
+  - A1 (`depth=2, branch=3, frontier=3`): `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a1.md`,
+  - A2 (`depth=3, branch=4, frontier=4`): `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a2.md`.
+- Added consolidated search-ablation artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.md`,
+  - `phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.json`.
+- Refreshed protocol-v2 failure taxonomy artifacts:
+  - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v2.md`,
+  - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v2.json`.
 
 ## Next 3 Tasks
-1. Export `HF_TOKEN` in this Codex runtime and execute A1/A2 search-policy ablations from `phase2/benchmarks/protocol-v2-search-ablation-execution.md`.
-2. Build consolidated search-ablation summary (`game24_lockset_search_ablation_summary.{md,json}`) and refresh failure taxonomy with representative run IDs.
-3. Integrate search/evaluator ablation outcomes into `phase2/manuscript/PREPAPER.md` methods/results/limitations language.
+1. Draft Phase 2 Methods and Experimental Setup sections in `phase2/manuscript/PREPAPER.md` from frozen protocol and executed matrix+ablation artifacts.
+2. Draft Results and Limitations text with explicit panel/model scoping and compute-performance tradeoff framing.
+3. Prepare anonymized manuscript package and artifact index for first external submission cycle.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
 - Model/API variability affecting reproducibility.
 - Need consistent environment pinning before evaluation runs.
-- Current Codex runtime may not inherit shell-exported secrets unless explicitly set for this session.
+- Ongoing provider-side behavior drift between run windows may affect latency comparability.
 
 ## Decision Log
 - 2026-02-20: Adopted gate-based roadmap for Phase 2 execution.
@@ -150,4 +157,6 @@ Status date: 2026-02-21
 - 2026-02-20: Locked protocol-v2 model matrix to fixed available models and disallowed within-matrix substitutions.
 - 2026-02-20: Completed protocol-v2 3-model lockset matrix execution with isolated run artifacts and matrix summary outputs.
 - 2026-02-21: Completed evaluator-mode ablations (`rule_based`, `hybrid`) on locked primary model and archived consolidated ablation summary artifacts.
-- 2026-02-21: Added protocol-v2 search-ablation execution playbook, summary script, and reusable ablation/taxonomy templates; awaiting `HF_TOKEN` in current runtime to execute A1/A2 runs.
+- 2026-02-21: Added protocol-v2 search-ablation execution playbook, summary script, and reusable ablation/taxonomy templates.
+- 2026-02-21: Completed protocol-v2 search-policy ablations (A1/A2) on the locked primary model and generated consolidated search-ablation summary artifacts.
+- 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face run manifests.
