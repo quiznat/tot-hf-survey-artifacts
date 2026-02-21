@@ -145,7 +145,8 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 \href{https://www.linkedin.com/in/michael-leydon/}{linkedin.com/in/michael-leydon};
 \href{https://www.quiznat.com/}{quiznat.com}
 
-\textbf{Version:} v1.1 -- Final pre-submission clean (19 February 2026)
+\textbf{Version:} v1.1.1 -- Pre-submission corrections (21 February
+2026)
 
 \textbf{Submission date:} TBD
 
@@ -181,10 +182,10 @@ implementation strategy; (2) detailed documentation of Hugging
 Face\textquotesingle s agent frameworks, including the Agent Course
 educational pathway and the smolagents library; (3) architectural
 patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent
-implementations; (4) case-study walkthroughs across financial analysis,
-creative content generation, and software engineering; and (5) practical
-implementation strategies, optimization techniques, and deployment
-patterns.
+implementations; (4) synthetic case-study walkthroughs across financial
+analysis, creative content generation, and software engineering; and (5)
+practical implementation strategies, optimization techniques, and
+deployment patterns.
 
 This work summarizes published research and implementation patterns so
 researchers and practitioners can evaluate structured-reasoning agent
@@ -924,8 +925,9 @@ Hugging Face provides public resources for building AI agents, including
 framework documentation, course material, and reference implementations
 {[}10, 11, 12, 13{]}.
 
-The Hugging Face agent ecosystem comprises three interconnected
-components {[}10, 11, 12, 13{]}:
+The Hugging Face agent ecosystem currently centers on two active
+components, with one legacy documentation surface retained for migration
+context {[}10, 11, 12, 13{]}:
 
 \begin{enumerate}
 \tightlist
@@ -936,17 +938,23 @@ components {[}10, 11, 12, 13{]}:
   \textbf{The smolagents Library}: A compact, extensible Python
   framework for building production-ready agents
 \item
-  \textbf{The transformers Agents}: Built-in agent capabilities within
-  the core transformers library
+  \textbf{Legacy transformers agents documentation}: deprecated API
+  documentation kept for historical context and migration guidance
 \end{enumerate}
+
+\textbf{Migration note:} The \texttt{transformers} agents API is
+deprecated; Hugging Face moved agents/tools to \texttt{smolagents} and
+removed them from stable \texttt{transformers} releases starting with
+v4.52 {[}13{]}.
 
 \textbf{Disambiguation:} this manuscript uses \texttt{CodeAgent}
 examples from \texttt{smolagents} unless explicitly stated otherwise.
-The similarly named \texttt{transformers} agents API is referenced
-separately in documentation context {[}10, 12, 13{]}.
+References to \texttt{transformers} agents are historical and included
+only for migration/deprecation context {[}10, 12, 13{]}.
 
 Together, these resources provide a documented pathway from learning to
-implementation in the Hugging Face ecosystem {[}10, 11, 12, 13{]}.
+current implementation, with explicit migration context for deprecated
+APIs {[}10, 11, 12, 13{]}.
 
 \subsubsection{3.2 The Hugging Face Agent
 Course}\label{the-hugging-face-agent-course}
@@ -2103,8 +2111,17 @@ Assistant}\label{case-study-3-debugging-assistant}
 \subsubsection{4.5 Comparative Analysis (Qualitative,
 Non-Benchmark)}\label{comparative-analysis-qualitative-non-benchmark}
 
-{\def\LTcaptype{none} % do not increment counter
+Table 4.5-1 summarizes qualitative differences between common baseline
+agent patterns and ToT-style integration patterns.
+
 \begin{longtable}[]{@{}llll@{}}
+\caption{\textbf{Table 4.5-1.} Qualitative comparison of baseline agent
+patterns and ToT-style patterns (non-benchmark).}\tabularnewline
+\toprule\noalign{}
+Dimension & Common Baseline Pattern & ToT-Style Pattern & Evidence
+Status \\
+\midrule\noalign{}
+\endfirsthead
 \toprule\noalign{}
 Dimension & Common Baseline Pattern & ToT-Style Pattern & Evidence
 Status \\
@@ -2127,7 +2144,6 @@ Reproducibility requirements & Single-run outputs often sufficient for
 demos & Requires search config disclosure (branching, depth, evaluator,
 stopping) & Methodological requirement for publishable claims \\
 \end{longtable}
-}
 
 \emph{Note:} This section does not report new experimental measurements.
 Quantitative benchmark values are consolidated in Appendix C with source
@@ -2139,8 +2155,17 @@ Artifact)}\label{integration-design-space-synthesis-artifact}
 This summary consolidates the core integration choices, typical failure
 modes, and evidence levels discussed across RQ1-RQ4.
 
-{\def\LTcaptype{none} % do not increment counter
+Table 4.6-1 presents the integration design space synthesized in this
+survey.
+
 \begin{longtable}[]{@{}llll@{}}
+\caption{\textbf{Table 4.6-1.} Integration design surfaces, common
+options, failure modes, and evidence basis.}\tabularnewline
+\toprule\noalign{}
+Integration Surface & Common Options & Primary Failure Modes & Evidence
+Basis \\
+\midrule\noalign{}
+\endfirsthead
 \toprule\noalign{}
 Integration Surface & Common Options & Primary Failure Modes & Evidence
 Basis \\
@@ -2165,7 +2190,6 @@ pseudo-code labels & Unverifiable claims, undocumented drift across
 versions & Survey protocol controls in this manuscript {[}27, 28, 29,
 30{]} \\
 \end{longtable}
-}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2704,8 +2728,16 @@ Gradually}\label{start-simple-scale-gradually}
 \paragraph{6.3.2 Hybrid Approach
 Guidelines}\label{hybrid-approach-guidelines}
 
-{\def\LTcaptype{none} % do not increment counter
+Table 6.3-1 provides a practical hybrid strategy mapping from task type
+to reasoning approach.
+
 \begin{longtable}[]{@{}lll@{}}
+\caption{\textbf{Table 6.3-1.} Hybrid approach guidelines for selecting
+prompting or search strategy by task type.}\tabularnewline
+\toprule\noalign{}
+Task Type & Recommended Approach & Rationale \\
+\midrule\noalign{}
+\endfirsthead
 \toprule\noalign{}
 Task Type & Recommended Approach & Rationale \\
 \midrule\noalign{}
@@ -2718,7 +2750,6 @@ Creative tasks & ToT with wide beam & Need exploration \\
 Debugging & ToT with DFS & Deep exploration needed \\
 Planning & ToT with beam search & Balance exploration/exploitation \\
 \end{longtable}
-}
 
 \paragraph{6.3.3 Monitoring and Metrics}\label{monitoring-and-metrics}
 
@@ -2967,9 +2998,9 @@ Thakur, A., \& Patil, S. (2024).} "smolagents: a minimal library for
 agents." https://github.com/huggingface/smolagents
 
 13. \textbf{Hugging Face. (2026).} "Transformers Documentation (main
-branch): Agents."
-https://huggingface.co/docs/transformers/main/en/agents (main-branch
-documentation; accessed 2026-02-21)
+branch): Agents (deprecated; migration to smolagents)."
+https://huggingface.co/docs/transformers/main/en/agents (deprecation and
+migration notice; accessed 2026-02-21)
 
 14. \textbf{Le Scao, T., Fan, A., Akiki, C., Pavlick, E., Ilić, S.,
 Hesslow, D., ... \& Wolf, T. (2022).} "BLOOM: A 176B-Parameter
@@ -3426,9 +3457,10 @@ Framework learning-path documentation \\
 {[}12{]} & smolagents Repository & E3 & Reference implementation & RQ3 &
 Package structure, examples, practical integration constraints &
 Implementation-level cross-check \\
-{[}13{]} & Transformers Agents and Tools Docs & E3 & Official
-documentation & RQ3 & Built-in agent/tool interfaces and compatibility
-assumptions & Framework/API grounding \\
+{[}13{]} & Transformers Agents and Tools Docs & E3 &
+Historical/deprecation documentation & RQ3 & Deprecation state,
+migration guidance to smolagents, and legacy API context & Historical
+context and migration note for framework evolution \\
 {[}18{]} & Reflexion & E1 & Empirical agent method paper & RQ3, RQ4 &
 Self-reflection loop design; task-evaluation reporting structure & Agent
 self-correction context \\
@@ -3474,13 +3506,22 @@ Mapping}\label{appendix-f-claim-evidence-mapping}
 This appendix maps representative manuscript claims to supporting
 sources and evidence levels.
 
-{\def\LTcaptype{none} % do not increment counter
+Table F.1 summarizes representative claim-to-evidence mappings used in
+this manuscript.
+
 \begin{longtable}[]{@{}lllll@{}}
+\caption{\textbf{Table F.1.} Representative claim-to-evidence mapping
+across core manuscript assertions.}\tabularnewline
 \toprule\noalign{}
+Claim & Section & Supporting Reference & Evidence Level & Notes \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Claim & Section & Supporting Reference & Evidence Level & Notes \\
+\midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Claim & Section & Supporting Reference & Evidence Level & Notes \\
 ToT reports strong Game of 24 gains versus single-path prompting
 baselines. & 2.6; Appendix C.1 & {[}1{]} & E1 & Original benchmark table
 values are reproduced in Appendix C.1. \\
@@ -3507,7 +3548,6 @@ software-engineering evidence-synthesis guidance. & 0.2; Appendix D &
 {[}27{]}, {[}28{]}, {[}29{]}, {[}30{]} & E2 & Methodology standards
 adapted for computer-science survey context. \\
 \end{longtable}
-}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3520,8 +3560,8 @@ History}\label{appendix-g-revision-history}
   Version 1.1: neutralized promotional tone and standardized
   conservative scholarly phrasing across abstract, body, and conclusion.
 \item
-  Added Section 0.3 PRISMA-style study-selection flow (Mermaid) and
-  Section 0.4 reproducibility statement with frozen run ID.
+  Added Section 0.3 PRISMA-style study-selection count table and Section
+  0.4 reproducibility statement with frozen run ID.
 \item
   Added Appendix F claim-evidence mapping table and Appendix G revision
   log for submission traceability.
@@ -3529,6 +3569,10 @@ History}\label{appendix-g-revision-history}
   Updated Appendix C benchmark tables with inline citations on each
   reported method row and added code-snippet labeling comments
   throughout.
+\item
+  Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated
+  transformers agents, added migration note, and upgraded key synthesis
+  tables with explicit captions and textual references.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -3543,9 +3587,9 @@ the tools and frameworks discussed.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\emph{Document Version: 1.1 -- Final pre-submission clean (19 February
+\emph{Document Version: 1.1.1 -- Pre-submission corrections (21 February
 2026)}\\
-\emph{Last Updated: 19 February 2026}\\
+\emph{Last Updated: 21 February 2026}\\
 \emph{License: This document is provided for educational and research
 purposes}
 

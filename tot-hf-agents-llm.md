@@ -12,7 +12,7 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 
 **Author links (Michael Leydon):** <a href="https://www.linkedin.com/in/michael-leydon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/michael-leydon</a>; <a href="https://www.quiznat.com/" target="_blank" rel="noopener noreferrer">quiznat.com</a>
 
-**Version:** v1.1 – Final pre-submission clean (19 February 2026)
+**Version:** v1.1.1 – Pre-submission corrections (21 February 2026)
 
 **Submission date:** TBD
 
@@ -32,7 +32,7 @@ Large Language Models (LLMs) have demonstrated remarkable capabilities across di
 
 This paper presents a systematic synthesis of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs \[1, 2, 10, 11, 12, 26\].
 
-Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) detailed documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.
+Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) detailed documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) synthetic case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.
 
 This work summarizes published research and implementation patterns so researchers and practitioners can evaluate structured-reasoning agent designs with clear evidence boundaries.
 
@@ -424,15 +424,17 @@ ToT is not without limitations that practitioners must understand \[1, 26\]:
 
 Hugging Face provides public resources for building AI agents, including framework documentation, course material, and reference implementations \[10, 11, 12, 13\].
 
-The Hugging Face agent ecosystem comprises three interconnected components \[10, 11, 12, 13\]:
+The Hugging Face agent ecosystem currently centers on two active components, with one legacy documentation surface retained for migration context \[10, 11, 12, 13\]:
 
 1.  **The Agent Course**: An open, detailed educational resource teaching agent development from fundamentals to advanced techniques
 2.  **The smolagents Library**: A compact, extensible Python framework for building production-ready agents
-3.  **The transformers Agents**: Built-in agent capabilities within the core transformers library
+3.  **Legacy transformers agents documentation**: deprecated API documentation kept for historical context and migration guidance
 
-**Disambiguation:** this manuscript uses `CodeAgent` examples from `smolagents` unless explicitly stated otherwise. The similarly named `transformers` agents API is referenced separately in documentation context \[10, 12, 13\].
+**Migration note:** The `transformers` agents API is deprecated; Hugging Face moved agents/tools to `smolagents` and removed them from stable `transformers` releases starting with v4.52 \[13\].
 
-Together, these resources provide a documented pathway from learning to implementation in the Hugging Face ecosystem \[10, 11, 12, 13\].
+**Disambiguation:** this manuscript uses `CodeAgent` examples from `smolagents` unless explicitly stated otherwise. References to `transformers` agents are historical and included only for migration/deprecation context \[10, 12, 13\].
+
+Together, these resources provide a documented pathway from learning to current implementation, with explicit migration context for deprecated APIs \[10, 11, 12, 13\].
 
 ### 3.2 The Hugging Face Agent Course
 
@@ -1362,6 +1364,8 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing
 
 ### 4.5 Comparative Analysis (Qualitative, Non-Benchmark)
 
+Table 4.5-1 summarizes qualitative differences between common baseline agent patterns and ToT-style integration patterns.
+
 | Dimension | Common Baseline Pattern | ToT-Style Pattern | Evidence Status |
 |----|----|----|----|
 | Action selection | Single-path next-step decision | Multi-candidate path exploration before commitment | Design pattern; integration-specific effect size requires experiment |
@@ -1370,11 +1374,15 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing
 | Compute and cost | Lower branching cost | Higher branching/evaluation overhead | Supported by prior ToT-family benchmark reporting \[1, 26\] |
 | Reproducibility requirements | Single-run outputs often sufficient for demos | Requires search config disclosure (branching, depth, evaluator, stopping) | Methodological requirement for publishable claims |
 
+**Table 4.5-1.** Qualitative comparison of baseline agent patterns and ToT-style patterns (non-benchmark).
+
 *Note:* This section does not report new experimental measurements. Quantitative benchmark values are consolidated in Appendix C with source attribution.
 
 ### 4.6 Integration Design Space (Synthesis Artifact)
 
 This summary consolidates the core integration choices, typical failure modes, and evidence levels discussed across RQ1-RQ4.
+
+Table 4.6-1 presents the integration design space synthesized in this survey.
 
 | Integration Surface | Common Options | Primary Failure Modes | Evidence Basis |
 |----|----|----|----|
@@ -1383,6 +1391,8 @@ This summary consolidates the core integration choices, typical failure modes, a
 | Stopping policy | Fixed depth, confidence threshold, budget-based termination | Premature stopping or excessive latency/cost | E2 method guidance \[1, 2\]; E3 implementation docs \[10, 12\] |
 | Tool interaction loop | Reactive tool calls vs deliberative pre-tool search | Tool misuse, cascading retries, weak recovery behavior | E1 agent evidence \[6\]; E2/E3 framework patterns \[8, 9, 10, 12\] |
 | Reproducibility controls | Run IDs, config manifests, explicit pseudo-code labels | Unverifiable claims, undocumented drift across versions | Survey protocol controls in this manuscript \[27, 28, 29, 30\] |
+
+**Table 4.6-1.** Integration design surfaces, common options, failure modes, and evidence basis.
 
 ------------------------------------------------------------------------
 
@@ -1843,6 +1853,8 @@ As a forward-looking hypothesis, ToT-enhanced agents could accelerate research w
 
 #### 6.3.2 Hybrid Approach Guidelines
 
+Table 6.3-1 provides a practical hybrid strategy mapping from task type to reasoning approach.
+
 | Task Type        | Recommended Approach | Rationale                        |
 |------------------|----------------------|----------------------------------|
 | Simple Q&A       | Direct prompting     | Overhead not justified           |
@@ -1850,6 +1862,8 @@ As a forward-looking hypothesis, ToT-enhanced agents could accelerate research w
 | Creative tasks   | ToT with wide beam   | Need exploration                 |
 | Debugging        | ToT with DFS         | Deep exploration needed          |
 | Planning         | ToT with beam search | Balance exploration/exploitation |
+
+**Table 6.3-1.** Hybrid approach guidelines for selecting prompting or search strategy by task type.
 
 #### 6.3.3 Monitoring and Metrics
 
@@ -1977,7 +1991,7 @@ In short, the field has usable tools and clear open questions; progress now depe
 
 12\. **von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thakur, A., & Patil, S. (2024).** "smolagents: a minimal library for agents." https://github.com/huggingface/smolagents
 
-13\. **Hugging Face. (2026).** "Transformers Documentation (main branch): Agents." https://huggingface.co/docs/transformers/main/en/agents (main-branch documentation; accessed 2026-02-21)
+13\. **Hugging Face. (2026).** "Transformers Documentation (main branch): Agents (deprecated; migration to smolagents)." https://huggingface.co/docs/transformers/main/en/agents (deprecation and migration notice; accessed 2026-02-21)
 
 14\. **Le Scao, T., Fan, A., Akiki, C., Pavlick, E., Ilić, S., Hesslow, D., ... & Wolf, T. (2022).** "BLOOM: A 176B-Parameter Open-Access Multilingual Language Model." https://arxiv.org/abs/2211.05100
 
@@ -2237,7 +2251,7 @@ This appendix provides row-level extraction for every included record in run `TO
 | \[10\] | smolagents Documentation | E3 | Official documentation | RQ3 | Agent abstractions, tool API patterns, runtime usage constraints | Framework/API grounding |
 | \[11\] | Hugging Face Agents Course | E3 | Official educational docs | RQ3 | Canonical agent workflow pedagogy and implementation sequence | Framework learning-path documentation |
 | \[12\] | smolagents Repository | E3 | Reference implementation | RQ3 | Package structure, examples, practical integration constraints | Implementation-level cross-check |
-| \[13\] | Transformers Agents and Tools Docs | E3 | Official documentation | RQ3 | Built-in agent/tool interfaces and compatibility assumptions | Framework/API grounding |
+| \[13\] | Transformers Agents and Tools Docs | E3 | Historical/deprecation documentation | RQ3 | Deprecation state, migration guidance to smolagents, and legacy API context | Historical context and migration note for framework evolution |
 | \[18\] | Reflexion | E1 | Empirical agent method paper | RQ3, RQ4 | Self-reflection loop design; task-evaluation reporting structure | Agent self-correction context |
 | \[20\] | Toolformer | E1 | Empirical tool-use method paper | RQ3, RQ4 | Tool-call self-supervision mechanism; performance reporting across tasks | Tool-use learning context |
 | \[21\] | ToolLLM | E1 | Empirical tool-use method paper | RQ3, RQ4 | Large-API interaction framing; benchmark and evaluation protocol description | API-tooling benchmark context |
@@ -2256,9 +2270,10 @@ This appendix provides row-level extraction for every included record in run `TO
 
 This appendix maps representative manuscript claims to supporting sources and evidence levels.
 
-|  |  |  |  |  |
-|----|----|----|----|----|
+Table F.1 summarizes representative claim-to-evidence mappings used in this manuscript.
+
 | Claim | Section | Supporting Reference | Evidence Level | Notes |
+|----|----|----|----|----|
 | ToT reports strong Game of 24 gains versus single-path prompting baselines. | 2.6; Appendix C.1 | \[1\] | E1 | Original benchmark table values are reproduced in Appendix C.1. |
 | ToT reports improved mini-crossword success metrics versus IO/CoT baselines. | 2.6; Appendix C.1 | \[1\] | E1 | Reported prior-work metrics only; no new measurements in this survey. |
 | Creative-writing coherency and preference outcomes are reported in the original ToT paper. | Appendix C.1 | \[1\] | E1 | Independent like-for-like replication was not identified in frozen corpus. |
@@ -2268,14 +2283,17 @@ This appendix maps representative manuscript claims to supporting sources and ev
 | Agent-survey literature reports recurring planning, reliability, and evaluation challenges. | 1.2; 6.5 | \[8\], \[9\] | E2 | Used for landscape-level synthesis and validity caveats. |
 | Survey protocol transparency and flow reporting follow PRISMA-style and software-engineering evidence-synthesis guidance. | 0.2; Appendix D | \[27\], \[28\], \[29\], \[30\] | E2 | Methodology standards adapted for computer-science survey context. |
 
+**Table F.1.** Representative claim-to-evidence mapping across core manuscript assertions.
+
 ------------------------------------------------------------------------
 
 ## Appendix G: Revision History
 
 - Version 1.1: neutralized promotional tone and standardized conservative scholarly phrasing across abstract, body, and conclusion.
-- Added Section 0.3 PRISMA-style study-selection flow (Mermaid) and Section 0.4 reproducibility statement with frozen run ID.
+- Added Section 0.3 PRISMA-style study-selection count table and Section 0.4 reproducibility statement with frozen run ID.
 - Added Appendix F claim-evidence mapping table and Appendix G revision log for submission traceability.
 - Updated Appendix C benchmark tables with inline citations on each reported method row and added code-snippet labeling comments throughout.
+- Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated transformers agents, added migration note, and upgraded key synthesis tables with explicit captions and textual references.
 
 ------------------------------------------------------------------------
 
@@ -2285,8 +2303,8 @@ This research was conducted with reference to the foundational work of Shunyu Ya
 
 ------------------------------------------------------------------------
 
-*Document Version: 1.1 – Final pre-submission clean (19 February 2026)*\
-*Last Updated: 19 February 2026*\
+*Document Version: 1.1.1 – Pre-submission corrections (21 February 2026)*\
+*Last Updated: 21 February 2026*\
 *License: This document is provided for educational and research purposes*
 
 <div style="background: #fdf6e3; padding: 1.5rem; border: 1px solid #eee8d5; border-radius: 4px; margin: 2rem 0; font-family: 'Inter', sans-serif; font-size: 0.95rem;">

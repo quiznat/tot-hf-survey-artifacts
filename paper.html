@@ -253,6 +253,15 @@
       font-size: 0.95rem;
     }
 
+    caption {
+      caption-side: top;
+      text-align: left;
+      margin-bottom: 0.6rem;
+      font-size: 0.92rem;
+      font-style: italic;
+      color: #4a4a4a;
+    }
+
     th {
       background: #f0f0f0;
       font-weight: 600;
@@ -336,7 +345,7 @@
                 <li><strong>1</strong> Independent Researcher, United States</li>
             </ol>
             <p class="contact-line"><strong>Author links (Michael Leydon):</strong> <a href="https://www.linkedin.com/in/michael-leydon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/michael-leydon</a>; <a href="https://www.quiznat.com/" target="_blank" rel="noopener noreferrer">quiznat.com</a></p>
-            <p class="meta-line"><strong>Version:</strong> v1.1 &ndash; Final pre-submission clean (19 February 2026)</p>
+            <p class="meta-line"><strong>Version:</strong> v1.1.1 &ndash; Pre-submission corrections (21 February 2026)</p>
             <p class="meta-line"><strong>Submission date:</strong> TBD</p>
             <p class="meta-line"><strong>arXiv categories:</strong> cs.AI (primary); cs.CL (cross-list), cs.LG (optional cross-list)</p>
         </section>
@@ -344,7 +353,7 @@
             <div class="abstract-title">Abstract</div>
             <p>Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks, yet their reasoning remains fundamentally linear—generating thoughts token-by-token without the ability to explore alternatives, backtrack from errors, or evaluate multiple solution paths. This limitation constrains their effectiveness on complex multi-step problems requiring deliberation and planning. Concurrently, the emergence of AI agent frameworks has enabled LLMs to interact with external tools and execute actions autonomously, but these systems often struggle with strategic reasoning and error recovery [1, 3, 4, 6, 8, 9].</p>
             <p>This paper presents a systematic synthesis of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs [1, 2, 10, 11, 12, 26].</p>
-            <p>Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) detailed documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.</p>
+            <p>Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) detailed documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) synthetic case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.</p>
             <p>This work summarizes published research and implementation patterns so researchers and practitioners can evaluate structured-reasoning agent designs with clear evidence boundaries.</p>
         </div>
 
@@ -678,14 +687,15 @@ Rating: """</code></pre>
 
         <h3>3.1 Overview: Accessible Open-Source Agent Development</h3>
         <p>Hugging Face provides public resources for building AI agents, including framework documentation, course material, and reference implementations [10, 11, 12, 13].</p>
-        <p>The Hugging Face agent ecosystem comprises three interconnected components [10, 11, 12, 13]:</p>
+        <p>The Hugging Face agent ecosystem currently centers on two active components, with one legacy documentation surface retained for migration context [10, 11, 12, 13]:</p>
         <ol>
             <li><strong>The Agent Course</strong>: An open, detailed educational resource teaching agent development from fundamentals to advanced techniques</li>
             <li><strong>The smolagents Library</strong>: A compact, extensible Python framework for building production-ready agents</li>
-            <li><strong>The transformers Agents</strong>: Built-in agent capabilities within the core transformers library</li>
+            <li><strong>Legacy transformers agents documentation</strong>: deprecated API documentation kept for historical context and migration guidance</li>
         </ol>
-        <p><strong>Disambiguation:</strong> this manuscript uses <code>CodeAgent</code> examples from <code>smolagents</code> unless explicitly stated otherwise. The similarly named <code>transformers</code> agents API is referenced separately in documentation context [10, 12, 13].</p>
-        <p>Together, these resources provide a documented pathway from learning to implementation in the Hugging Face ecosystem [10, 11, 12, 13].</p>
+        <p><strong>Migration note:</strong> The <code>transformers</code> agents API is deprecated; Hugging Face moved agents/tools to <code>smolagents</code> and removed them from stable <code>transformers</code> releases starting with v4.52 [13].</p>
+        <p><strong>Disambiguation:</strong> this manuscript uses <code>CodeAgent</code> examples from <code>smolagents</code> unless explicitly stated otherwise. References to <code>transformers</code> agents are historical and included only for migration/deprecation context [10, 12, 13].</p>
+        <p>Together, these resources provide a documented pathway from learning to current implementation, with explicit migration context for deprecated APIs [10, 11, 12, 13].</p>
 
         <h3>3.2 The Hugging Face Agent Course</h3>
         <p>Launched in 2024, the Hugging Face Agent Course is a public educational resource for agent development, combining conceptual instruction with hands-on exercises [11].</p>
@@ -1478,7 +1488,9 @@ Execution:
 Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pre>
 
         <h3>4.5 Comparative Analysis (Qualitative, Non-Benchmark)</h3>
+        <p>Table 4.5-1 summarizes qualitative differences between common baseline agent patterns and ToT-style integration patterns.</p>
         <table>
+            <caption><strong>Table 4.5-1.</strong> Qualitative comparison of baseline agent patterns and ToT-style patterns (non-benchmark).</caption>
             <thead>
                 <tr>
                     <th>Dimension</th>
@@ -1524,7 +1536,9 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pr
 
         <h3>4.6 Integration Design Space (Synthesis Artifact)</h3>
         <p>This summary consolidates the core integration choices, typical failure modes, and evidence levels discussed across RQ1-RQ4.</p>
+        <p>Table 4.6-1 presents the integration design space synthesized in this survey.</p>
         <table>
+            <caption><strong>Table 4.6-1.</strong> Integration design surfaces, common options, failure modes, and evidence basis.</caption>
             <thead>
                 <tr>
                     <th>Integration Surface</th>
@@ -2002,7 +2016,9 @@ Example Task: "Design a logo based on these brand values"
         </ol>
 
         <h4>6.3.2 Hybrid Approach Guidelines</h4>
+        <p>Table 6.3-1 provides a practical hybrid strategy mapping from task type to reasoning approach.</p>
         <table>
+            <caption><strong>Table 6.3-1.</strong> Hybrid approach guidelines for selecting prompting or search strategy by task type.</caption>
             <thead>
                 <tr>
                     <th>Task Type</th>
@@ -2152,7 +2168,7 @@ Example Task: "Design a logo based on these brand values"
             
             <p>12. <strong>von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thakur, A., &amp; Patil, S. (2024).</strong> "smolagents: a minimal library for agents." https://github.com/huggingface/smolagents</p>
             
-            <p>13. <strong>Hugging Face. (2026).</strong> "Transformers Documentation (main branch): Agents." https://huggingface.co/docs/transformers/main/en/agents (main-branch documentation; accessed 2026-02-21)</p>
+            <p>13. <strong>Hugging Face. (2026).</strong> "Transformers Documentation (main branch): Agents (deprecated; migration to smolagents)." https://huggingface.co/docs/transformers/main/en/agents (deprecation and migration notice; accessed 2026-02-21)</p>
             
             <p>14. <strong>Le Scao, T., Fan, A., Akiki, C., Pavlick, E., Ilić, S., Hesslow, D., ... &amp; Wolf, T. (2022).</strong> "BLOOM: A 176B-Parameter Open-Access Multilingual Language Model." https://arxiv.org/abs/2211.05100</p>
             
@@ -2680,10 +2696,10 @@ print("Solution path:", result)</code></pre>
                 <td>[13]</td>
                 <td>Transformers Agents and Tools Docs</td>
                 <td>E3</td>
-                <td>Official documentation</td>
+                <td>Historical/deprecation documentation</td>
                 <td>RQ3</td>
-                <td>Built-in agent/tool interfaces and compatibility assumptions</td>
-                <td>Framework/API grounding</td>
+                <td>Deprecation state, migration guidance to smolagents, and legacy API context</td>
+                <td>Historical context and migration note for framework evolution</td>
             </tr>
             <tr>
                 <td>[18]</td>
@@ -2773,14 +2789,19 @@ print("Solution path:", result)</code></pre>
 
         <h2>Appendix F: Claim-Evidence Mapping</h2>
         <p>This appendix maps representative manuscript claims to supporting sources and evidence levels.</p>
+        <p>Table F.1 summarizes representative claim-to-evidence mappings used in this manuscript.</p>
         <table>
-            <tbody><tr>
-                <th>Claim</th>
-                <th>Section</th>
-                <th>Supporting Reference</th>
-                <th>Evidence Level</th>
-                <th>Notes</th>
-            </tr>
+            <caption><strong>Table F.1.</strong> Representative claim-to-evidence mapping across core manuscript assertions.</caption>
+            <thead>
+                <tr>
+                    <th>Claim</th>
+                    <th>Section</th>
+                    <th>Supporting Reference</th>
+                    <th>Evidence Level</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>ToT reports strong Game of 24 gains versus single-path prompting baselines.</td>
                 <td>2.6; Appendix C.1</td>
@@ -2837,16 +2858,18 @@ print("Solution path:", result)</code></pre>
                 <td>E2</td>
                 <td>Methodology standards adapted for computer-science survey context.</td>
             </tr>
-        </tbody></table>
+            </tbody>
+        </table>
 
         <hr>
 
         <h2>Appendix G: Revision History</h2>
         <ul>
             <li>Version 1.1: neutralized promotional tone and standardized conservative scholarly phrasing across abstract, body, and conclusion.</li>
-            <li>Added Section 0.3 PRISMA-style study-selection flow (Mermaid) and Section 0.4 reproducibility statement with frozen run ID.</li>
+            <li>Added Section 0.3 PRISMA-style study-selection count table and Section 0.4 reproducibility statement with frozen run ID.</li>
             <li>Added Appendix F claim-evidence mapping table and Appendix G revision log for submission traceability.</li>
             <li>Updated Appendix C benchmark tables with inline citations on each reported method row and added code-snippet labeling comments throughout.</li>
+            <li>Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated transformers agents, added migration note, and upgraded key synthesis tables with explicit captions and textual references.</li>
         </ul>
 
         <hr>
@@ -2856,8 +2879,8 @@ print("Solution path:", result)</code></pre>
 
         <hr>
 
-        <p><em>Document Version: 1.1 &ndash; Final pre-submission clean (19 February 2026)</em><br>
-        <em>Last Updated: 19 February 2026</em><br>
+        <p><em>Document Version: 1.1.1 &ndash; Pre-submission corrections (21 February 2026)</em><br>
+        <em>Last Updated: 21 February 2026</em><br>
         <em>License: This document is provided for educational and research purposes</em></p>
 
         <div style="background: #fdf6e3; padding: 1.5rem; border: 1px solid #eee8d5; border-radius: 4px; margin: 2rem 0; font-family: &#39;Inter&#39;, sans-serif; font-size: 0.95rem;">

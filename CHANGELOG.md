@@ -63,6 +63,19 @@
 - Added lockset runner parallelism control for future batches:
   - `phase2/code/scripts/run_game24_lockset.py` now supports `--max-workers`.
 
+## v1.1.1 - 2026-02-21
+
+### Manuscript Corrections
+- Updated Hugging Face ecosystem framing in `paper.html` Section 3.1 to reflect transformers agents deprecation and smolagents migration context.
+- Added explicit migration note that transformers agents/tools were moved to smolagents and removed from stable transformers releases starting with v4.52.
+- Updated abstract contribution wording to label Section 4.4 examples as synthetic case-study walkthroughs.
+- Added explicit captions and textual references for key synthesis tables (Sections 4.5, 4.6, 6.3.2, and Appendix F).
+- Corrected Appendix G revision-history wording from "Mermaid" flow to PRISMA-style count table.
+- Updated version metadata to `v1.1.1` with `Last Updated: 21 February 2026`.
+
+### Submission Pipeline
+- Updated `submission/build_tmlr_submission.sh` anonymous front-matter version string to `v1.1.1 -- Pre-submission corrections (21 February 2026)`.
+
 ## v1.1 - 2026-02-19
 
 ### Manuscript and Claims

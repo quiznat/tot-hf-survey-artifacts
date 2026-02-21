@@ -56,7 +56,7 @@ perl -0777 -i -pe 's#<section class="front-matter">.*?</section>#<section class=
                 <li><strong>1</strong> Affiliation withheld for double-blind review</li>\
             </ol>\
             <p class="contact-line"><strong>Contact:</strong> withheld for double-blind review</p>\
-            <p class="meta-line"><strong>Version:</strong> v1.1 -- Final pre-submission clean (19 February 2026)</p>\
+            <p class="meta-line"><strong>Version:</strong> v1.1.1 -- Pre-submission corrections (21 February 2026)</p>\
             <p class="meta-line"><strong>Submission venue:</strong> TMLR (double-blind review track)</p>\
         </section>#s' "$ANON_HTML"
 
