@@ -982,9 +982,7 @@ class InstrumentedAgent(CodeAgent):
 
 ### 4.1 The Convergence of Reasoning and Action
 
-This section describes a design synthesis: combining Tree of Thoughts with Hugging Face agents. While Hugging Face agents provide strong tooling interfaces, many workflows still use linear reasoning traces. A ToT-style planner can introduce \[1, 10, 12\]:
-
-**Hypothesis framing:** We treat the following as design-level hypotheses derived from ToT search structure and agent-tool loop abstractions; integration-specific effect sizes require controlled experiments (outside this survey's scope).
+This section describes a design synthesis: combining Tree of Thoughts with Hugging Face agents. While Hugging Face agents provide strong tooling interfaces, many workflows still use linear reasoning traces. As a design-level hypothesis derived from ToT search structure and agent-tool loop abstractions, a ToT-style planner can introduce the following patterns \[1, 10, 12\]; integration-specific effect sizes still require controlled experiments (outside this survey's scope):
 
 1.  **Explore multiple solution strategies** before committing to actions
 2.  **Evaluate tool sequences** before execution
