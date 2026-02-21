@@ -1,6 +1,6 @@
 # Phase 2 Project State
 
-Status date: 2026-02-20
+Status date: 2026-02-21
 
 ## Current Phase
 - Phase 1 (survey): submission-ready and awaiting external review process.
@@ -94,11 +94,21 @@ Status date: 2026-02-20
 - Added matrix-level summary artifacts:
   - `phase2/benchmarks/analysis/game24_lockset_matrix_summary_protocol_v2.md`,
   - `phase2/benchmarks/analysis/game24_lockset_matrix_summary_protocol_v2.json`.
+- Completed evaluator-mode ablations on locked primary model (`Qwen/Qwen3-Coder-Next:novita`) with locked protocol settings:
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_rulebased.md`,
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_rulebased.json`,
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_hybrid.md`,
+  - `phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_hybrid.json`.
+- Added consolidated evaluator ablation artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_evaluator_ablation_summary.md`,
+  - `phase2/benchmarks/analysis/game24_lockset_evaluator_ablation_summary.json`.
+- Logged ablation execution traces in:
+  - `phase2/reproducibility/run-log-protocol-v2-ablations.md`.
 
 ## Next 3 Tasks
-1. Run evaluator ablations (`rule_based`, `hybrid`) on `Qwen/Qwen3-Coder-Next:novita` using the locked protocol settings.
-2. Run search-policy ablations (A1/A2) on `Qwen/Qwen3-Coder-Next:novita` and update paired analysis.
-3. Integrate matrix + ablation outcomes into failure taxonomy and manuscript results/limitations language.
+1. Run search-policy ablations (A1/A2 depth/width presets) on `Qwen/Qwen3-Coder-Next:novita`.
+2. Build updated failure taxonomy from matrix + evaluator/search ablations with representative run IDs.
+3. Integrate ablation outcomes into `phase2/manuscript/PREPAPER.md` methods/results/limitations language.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -127,3 +137,4 @@ Status date: 2026-02-20
 - 2026-02-20: Approved and froze `phase2/benchmarks/evaluation-protocol-v2.md` as active evaluation protocol.
 - 2026-02-20: Locked protocol-v2 model matrix to fixed available models and disallowed within-matrix substitutions.
 - 2026-02-20: Completed protocol-v2 3-model lockset matrix execution with isolated run artifacts and matrix summary outputs.
+- 2026-02-21: Completed evaluator-mode ablations (`rule_based`, `hybrid`) on locked primary model and archived consolidated ablation summary artifacts.

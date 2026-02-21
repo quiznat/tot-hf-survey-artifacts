@@ -1,6 +1,6 @@
 # Phase 2 Roadmap: Novel ToT-HF Contribution
 
-Last updated: 2026-02-20
+Last updated: 2026-02-21
 
 ## Objective
 Deliver a reproducible implementation and empirical evaluation of Tree-of-Thought-style reasoning integrated with Hugging Face agent frameworks.
@@ -49,7 +49,8 @@ Acceptance criteria:
 
 ### Gate P2-G4: Ablation and Error Analysis
 Acceptance criteria:
-- [ ] Component ablations complete (search depth, evaluator strategy, pruning).
+- [x] Evaluator ablations complete (`model_self_eval`, `rule_based`, `hybrid`) on primary model.
+- [ ] Search/policy ablations complete (depth, breadth, pruning presets).
 - [ ] Error taxonomy and representative failure cases documented.
 - [ ] Claims updated to match observed evidence only.
 
@@ -73,7 +74,6 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 3)
-1. Run evaluator ablations (`rule_based`, `hybrid`) on `Qwen/Qwen3-Coder-Next:novita` with `n=50` paired items each.
-2. Run search ablations (A1/A2 depth-width presets) on `Qwen/Qwen3-Coder-Next:novita`.
-3. Update failure taxonomy from matrix + ablation evidence with representative run IDs.
-4. Update manuscript claims/limitations strictly from executed matrix+ablation artifacts.
+1. Run search ablations (A1/A2 depth-width presets) on `Qwen/Qwen3-Coder-Next:novita`.
+2. Update failure taxonomy from matrix + evaluator/search ablation evidence with representative run IDs.
+3. Update manuscript claims/limitations strictly from executed matrix+ablation artifacts.

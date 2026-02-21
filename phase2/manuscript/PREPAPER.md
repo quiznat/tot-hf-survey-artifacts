@@ -1,7 +1,7 @@
 # Phase 2 Prepaper (Living Source of Truth)
 
 Status: active draft (build-as-we-go)
-Last updated: 2026-02-20
+Last updated: 2026-02-21
 
 ## Working Title
 Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluation with LLM-Based In-Chain Judging
@@ -100,16 +100,33 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - ToT outperforms ReAct and single-path on all three locked models under paired evaluation.
   - ReAct underperforms markedly on two locked models, suggesting strong model-format sensitivity in the baseline condition.
 
+## Executed Evaluator Ablation Evidence (Primary Model)
+- Primary model: `Qwen/Qwen3-Coder-Next:novita`
+- Evaluator modes executed on identical 50-item paired panel:
+  - `model_self_eval`: single 0.080, react 0.440, tot 0.760
+  - `rule_based`: single 0.080, react 0.420, tot 0.860
+  - `hybrid`: single 0.080, react 0.420, tot 0.780
+- Consolidated artifacts:
+  - `phase2/benchmarks/analysis/game24_lockset_evaluator_ablation_summary.md`
+  - `phase2/benchmarks/analysis/game24_lockset_evaluator_ablation_summary.json`
+- Significance snapshot (ToT vs ReAct, paired McNemar):
+  - `model_self_eval`: p=8.55e-04
+  - `rule_based`: p=2.74e-05
+  - `hybrid`: p=4.01e-05
+- Interpretation:
+  - ToT remains superior to both baselines under all evaluator modes on this fixed panel.
+  - `model_self_eval` remains the primary methodology; `rule_based`/`hybrid` remain ablation/control conditions.
+
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired Game24 items, condition A outperformed condition B by X absolute success points under protocol Y."
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
 
 ## Prepaper Build Plan
-1. Execute the full protocol-v2 primary matrix across the 3-model set.
-2. Run evaluator/search ablations on the primary model and merge into unified analysis tables.
-3. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests.
-4. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
-5. Draft Limitations and Threats to Validity before conclusion text.
+1. Execute search/policy ablations on the primary model and merge with evaluator ablation tables.
+2. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests.
+3. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
+4. Draft Limitations and Threats to Validity before conclusion text.
+5. Prepare reproducibility appendix with final command blocks and artifact index.
 
 ## Required Tables/Figures (Planned)
 - Table 1: Condition-level success/latency/token metrics (paired panel).
@@ -126,3 +143,4 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - 2026-02-20: Approved protocol freeze `TOT-HF-P2-EPV2-2026-02-20` and promoted `evaluation-protocol-v2.md` as active protocol.
 - 2026-02-20: Locked protocol-v2 matrix to fixed available model set with no within-matrix substitutions.
 - 2026-02-20: Completed full 3-model protocol-v2 matrix execution and added matrix-level summary artifacts.
+- 2026-02-21: Completed evaluator ablation runs (`rule_based`, `hybrid`) on primary model and added consolidated evaluator-ablation summary artifacts.

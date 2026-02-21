@@ -1,0 +1,85 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v2_locked_ablations/TOT-PROTOTYPE-20260221-025754-ccf30e.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "error_type": "depth_limit",
+  "evaluator_mode": "hybrid",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 7,
+      "frontier_width": 3,
+      "generated_nodes": 16,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0
+    }
+  },
+  "final_answer": "(6 + 10) + (7 - 3)",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    6,
+    7,
+    10
+  ],
+  "item_id": "g24-v1-045",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 32509,
+    "success": 0,
+    "tokens_in": 2606,
+    "tokens_out": 263
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot prototype reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260221-025754-ccf30e",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 1134813790,
+  "task_id": "game24-demo",
+  "timestamp_utc": "2026-02-21T02:57:54Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.9424 cum=0.9424 terminal=False candidate=(10 - 7) * (6 + 3)",
+    "NODE n0002 parent=root score=0.0300 cum=0.0300 terminal=False candidate=(7 - 3) * 6 + 10 - 10",
+    "NODE n0003 parent=root score=0.0300 cum=0.0300 terminal=False candidate=(6 / (10 - 7)) * 3 + 6",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=0.2300 cum=1.1724 terminal=False candidate=(10 + 6) * (7 - 3) / 2",
+    "NODE n0005 parent=n0001 score=0.9808 cum=1.9232 terminal=False candidate=(7 * 3) + (10 - 6)",
+    "NODE n0006 parent=n0001 score=0.9424 cum=1.8848 terminal=False candidate=(6 * 3) + (10 - 7)",
+    "NODE n0007 parent=n0002 score=0.0300 cum=0.0600 terminal=False candidate=(10 - 6) * (7 + 3 - 4)",
+    "NODE n0008 parent=n0002 score=0.7040 cum=0.7340 terminal=False candidate=(6 * 7) - (10 + 3)",
+    "NODE n0009 parent=n0002 score=0.2300 cum=0.2600 terminal=False candidate=(6 + 10) * (7 - 3) / 2",
+    "NODE n0003 generated no candidates",
+    "DEPTH 3 frontier=3",
+    "NODE n0010 parent=n0005 score=0.8464 cum=2.7696 terminal=False candidate=(10 - 6) * (7 - 3)",
+    "NODE n0011 parent=n0005 score=0.9232 cum=2.8464 terminal=False candidate=(6 + 10) + (7 - 3)",
+    "NODE n0012 parent=n0005 score=0.8080 cum=2.7312 terminal=False candidate=(7 + 3) + (10 - 6)",
+    "NODE n0013 parent=n0006 score=0.8464 cum=2.7312 terminal=False candidate=(7 - 3) * (10 - 6)",
+    "NODE n0014 parent=n0004 score=0.8656 cum=2.0380 terminal=False candidate=(10 * 3) - (7 + 6)",
+    "NODE n0015 parent=n0004 score=0.7040 cum=1.8764 terminal=False candidate=(7 * 6) - (10 + 3)",
+    "NODE n0016 parent=n0004 score=0.9616 cum=2.1340 terminal=False candidate=(10 + 7 + 6) + 3"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v2_locked_ablations/TOT-PROTOTYPE-20260221-013613-41d22d.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 6,
+      "frontier_width": 3,
+      "generated_nodes": 15,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1
+    }
+  },
+  "final_answer": "(9 + 7) * 2 - 8",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    2,
+    7,
+    8,
+    9
+  ],
+  "item_id": "g24-v1-035",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 33027,
+    "success": 1,
+    "tokens_in": 1580,
+    "tokens_out": 545
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot prototype found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260221-013613-41d22d",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 429939213,
+  "task_id": "game24-demo",
+  "timestamp_utc": "2026-02-21T01:36:13Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.0500 cum=0.0500 terminal=False candidate=(9 - 7) * (8 + 4)",
+    "NODE n0002 parent=root score=0.0000 cum=0.0000 terminal=False candidate=Wait, 4 is not in the list. Let's correct.",
+    "NODE n0003 parent=root score=0.0000 cum=0.0000 terminal=False candidate=Try: (8 - 2) * (9 - 7) = 6 * 2 = 12 \u2014 no.",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=0.8080 cum=0.8580 terminal=False candidate=(8 * 2) + (9 - 7)",
+    "NODE n0005 parent=n0001 score=0.9360 cum=0.9860 terminal=False candidate=(9 + 7) + (8 - 2)",
+    "NODE n0006 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=(9 - 7) * (8 + 4) is invalid since 4 isn't in the list. Let's find valid expressions using [2, 7, 8, 9].",
+    "NODE n0007 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=Valid candidates:",
+    "NODE n0008 parent=n0002 score=0.0500 cum=0.0500 terminal=False candidate=(9 - 7) * (8 + 4) \u2192 invalid (4 not in list)",
+    "NODE n0009 parent=n0003 score=0.0000 cum=0.0000 terminal=False candidate=(9 - 7) * (8 + 4) is invalid \u2014 4 not in list.",
+    "NODE n0010 parent=n0003 score=0.0000 cum=0.0000 terminal=False candidate=Let\u2019s find valid ones:",
+    "NODE n0011 parent=n0003 score=0.8080 cum=0.8080 terminal=False candidate=(8 * 2) + (9 - 7) = 16 + 2 = 18 \u2014 no.",
+    "DEPTH 3 frontier=3",
+    "NODE n0012 parent=n0005 score=0.8720 cum=1.8580 terminal=False candidate=(9 - 7) * (8 + 2)",
+    "NODE n0013 parent=n0005 score=0.8400 cum=1.8260 terminal=False candidate=(9 * 2) + (8 - 7)",
+    "NODE n0014 parent=n0004 score=0.8080 cum=1.6660 terminal=False candidate=(8 * (9 - 7)) + 2",
+    "NODE n0015 parent=n0004 score=1.0000 cum=1.8580 terminal=True candidate=(9 + 7) * 2 - 8"
+  ]
+}
