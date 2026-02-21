@@ -8,17 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script defer>
     window.addEventListener('DOMContentLoaded', function () {
       if (window.hljs) {
         document.querySelectorAll('pre code').forEach(function (block) {
           window.hljs.highlightElement(block);
         });
-      }
-      if (window.mermaid) {
-        window.mermaid.initialize({ startOnLoad: false, theme: 'default' });
-        window.mermaid.run({ querySelector: '.mermaid' });
       }
     });
   </script>
@@ -294,15 +289,6 @@
       font-size: 0.95rem;
     }
 
-    .mermaid {
-      margin: 1.5rem 0;
-      padding: 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      background: #faf8f2;
-      text-align: center;
-    }
-
     .references {
       font-size: 0.95rem;
     }
@@ -392,6 +378,7 @@
         <h3>0.2 Survey Methodology and Protocol</h3>
         <p>We follow a transparent evidence-synthesis workflow adapted from PRISMA-style reporting [27] and software-engineering evidence synthesis guidance [28, 29, 30]. Because this is a computer-science technical survey rather than a medical meta-analysis, we apply the reporting principles (search transparency, screening traceability, and extraction reproducibility) without imposing clinical effect-size assumptions.</p>
         <p><strong>Protocol scope (this version):</strong> This manuscript freezes a core-corpus selection run (Run ID: TOT-HF-SURVEY-2026-02-19) anchored by the records listed in Section 8. Fixed selection counts and exclusion reasons are reported in Appendix D, and the corresponding extraction schema is reported in Appendix E.</p>
+        <p>Because this survey targets a narrow synthesis question (ToT-style reasoning integrated with Hugging Face agent frameworks), the frozen run begins from an explicitly pre-curated candidate set before full-text screening. Query families, screening decisions, and extraction fields are documented in Appendix D and Appendix E so this scope choice is transparent and auditable.</p>
 
         <h4>0.2.1 Sources and Search Strategy</h4>
         <p>Primary sources for the final frozen search protocol are: arXiv, ACL Anthology (where applicable), major ML conference proceedings (NeurIPS/ICLR/ICML), ACM Digital Library, IEEE Xplore, and official framework documentation for implementation-level claims [10, 11, 13].</p>
@@ -416,13 +403,36 @@
         <p>Selection-flow and extraction artifacts are provided in Appendix D and Appendix E to support reproducibility and peer-review traceability.</p>
 
         <h3>0.3 Study Selection Flow</h3>
-        <div class="mermaid">
-flowchart TD
-    A["Records identified<br/>n = 30"] --> B["Duplicates removed<br/>n = 0"]
-    B --> C["Title/Abstract screened<br/>n = 30"]
-    C --> D["Full-text assessed for eligibility<br/>n = 30"]
-    D --> E["Studies included in synthesis<br/>n = 22"]
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Records identified</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Duplicates removed</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Title/abstract screened</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Full-text assessed for eligibility</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Studies included in synthesis</td>
+                    <td>22</td>
+                </tr>
+            </tbody>
+        </table>
 
         <h3>0.4 Reproducibility</h3>
         <p>This survey was conducted under frozen protocol Run ID: TOT-HF-SURVEY-2026-02-19. The screening log and extraction artifacts are archived at <a href="https://github.com/quiznat/tot-hf-survey-artifacts" target="_blank" rel="noopener noreferrer">github.com/quiznat/tot-hf-survey-artifacts</a>. All code examples are labeled runnable or illustrative.</p>
@@ -674,6 +684,7 @@ Rating: """</code></pre>
             <li><strong>The smolagents Library</strong>: A compact, extensible Python framework for building production-ready agents</li>
             <li><strong>The transformers Agents</strong>: Built-in agent capabilities within the core transformers library</li>
         </ol>
+        <p><strong>Disambiguation:</strong> this manuscript uses <code>CodeAgent</code> examples from <code>smolagents</code> unless explicitly stated otherwise. The similarly named <code>transformers</code> agents API is referenced separately in documentation context [10, 12, 13].</p>
         <p>Together, these resources provide a documented pathway from learning to implementation in the Hugging Face ecosystem [10, 11, 12, 13].</p>
 
         <h3>3.2 The Hugging Face Agent Course</h3>
@@ -1468,12 +1479,15 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pr
 
         <h3>4.5 Comparative Analysis (Qualitative, Non-Benchmark)</h3>
         <table>
-            <tbody><tr>
-                <th>Dimension</th>
-                <th>Common Baseline Pattern</th>
-                <th>ToT-Style Pattern</th>
-                <th>Evidence Status</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Common Baseline Pattern</th>
+                    <th>ToT-Style Pattern</th>
+                    <th>Evidence Status</th>
+                </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>Action selection</td>
                 <td>Single-path next-step decision</td>
@@ -1504,8 +1518,54 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pr
                 <td>Requires search config disclosure (branching, depth, evaluator, stopping)</td>
                 <td>Methodological requirement for publishable claims</td>
             </tr>
-        </tbody></table>
+            </tbody>
+        </table>
         <p><em>Note:</em> This section does not report new experimental measurements. Quantitative benchmark values are consolidated in Appendix C with source attribution.</p>
+
+        <h3>4.6 Integration Design Space (Synthesis Artifact)</h3>
+        <p>This summary consolidates the core integration choices, typical failure modes, and evidence levels discussed across RQ1-RQ4.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Integration Surface</th>
+                    <th>Common Options</th>
+                    <th>Primary Failure Modes</th>
+                    <th>Evidence Basis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Planning strategy</td>
+                    <td>Single-path, CoT, ToT beam/DFS</td>
+                    <td>Early commitment to weak paths; branch explosion</td>
+                    <td>E1 for ToT-family benchmark trends [1, 26]; E2 for integration patterns [2]</td>
+                </tr>
+                <tr>
+                    <td>Evaluator design</td>
+                    <td>Self-evaluation prompts, rule-based checks, learned evaluators (future)</td>
+                    <td>Miscalibrated scoring; unstable branch ranking</td>
+                    <td>E1/E2 mixed [1, 2, 5, 26]</td>
+                </tr>
+                <tr>
+                    <td>Stopping policy</td>
+                    <td>Fixed depth, confidence threshold, budget-based termination</td>
+                    <td>Premature stopping or excessive latency/cost</td>
+                    <td>E2 method guidance [1, 2]; E3 implementation docs [10, 12]</td>
+                </tr>
+                <tr>
+                    <td>Tool interaction loop</td>
+                    <td>Reactive tool calls vs deliberative pre-tool search</td>
+                    <td>Tool misuse, cascading retries, weak recovery behavior</td>
+                    <td>E1 agent evidence [6]; E2/E3 framework patterns [8, 9, 10, 12]</td>
+                </tr>
+                <tr>
+                    <td>Reproducibility controls</td>
+                    <td>Run IDs, config manifests, explicit pseudo-code labels</td>
+                    <td>Unverifiable claims, undocumented drift across versions</td>
+                    <td>Survey protocol controls in this manuscript [27, 28, 29, 30]</td>
+                </tr>
+            </tbody>
+        </table>
 
         <hr>
 
@@ -1943,11 +2003,14 @@ Example Task: "Design a logo based on these brand values"
 
         <h4>6.3.2 Hybrid Approach Guidelines</h4>
         <table>
-            <tbody><tr>
-                <th>Task Type</th>
-                <th>Recommended Approach</th>
-                <th>Rationale</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Task Type</th>
+                    <th>Recommended Approach</th>
+                    <th>Rationale</th>
+                </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>Simple Q&amp;A</td>
                 <td>Direct prompting</td>
@@ -1973,7 +2036,8 @@ Example Task: "Design a logo based on these brand values"
                 <td>ToT with beam search</td>
                 <td>Balance exploration/exploitation</td>
             </tr>
-        </tbody></table>
+            </tbody>
+        </table>
 
         <h4>6.3.3 Monitoring and Metrics</h4>
         <p>Track these metrics for ToT agents:</p>
@@ -2047,11 +2111,11 @@ Example Task: "Design a logo based on these brand values"
         <h3>7.3 The Path Forward</h3>
         <p>Structured reasoning frameworks and accessible agent platforms define a concrete research and engineering direction. Based on current literature and tooling trends, this survey proposes the following near-term hypotheses [1, 8, 9, 10, 12, 26]:</p>
         <ul>
-            <li><strong>Accessible open-source adoption</strong>: More developers will build sophisticated reasoning agents</li>
-            <li><strong>Standardization</strong>: Common patterns and best practices will emerge</li>
-            <li><strong>Integration</strong>: ToT will become a standard feature in agent frameworks</li>
-            <li><strong>Specialization</strong>: Domain-specific implementations for science, engineering, creative tasks</li>
-            <li><strong>Efficiency</strong>: Optimized implementations reducing computational overhead</li>
+            <li><strong>Accessible open-source adoption</strong>: More developers may build sophisticated reasoning agents</li>
+            <li><strong>Standardization</strong>: Common patterns and best practices may continue to emerge</li>
+            <li><strong>Integration</strong>: ToT-style modules may become a standard feature in some agent frameworks</li>
+            <li><strong>Specialization</strong>: Domain-specific implementations may expand across science, engineering, and creative tasks</li>
+            <li><strong>Efficiency</strong>: Optimized implementations may reduce computational overhead</li>
         </ul>
         <p>A practical hypothesis from this survey is that agent capability depends on both model scale and reasoning structure [1, 26].</p>
 
@@ -2088,7 +2152,7 @@ Example Task: "Design a logo based on these brand values"
             
             <p>12. <strong>von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thakur, A., &amp; Patil, S. (2024).</strong> "smolagents: a minimal library for agents." https://github.com/huggingface/smolagents</p>
             
-            <p>13. <strong>Hugging Face. (2024).</strong> "Transformers Documentation: Agents and Tools." https://huggingface.co/docs/transformers/main_classes/agent</p>
+            <p>13. <strong>Hugging Face. (2026).</strong> "Transformers Documentation (main branch): Agents." https://huggingface.co/docs/transformers/main/en/agents (main-branch documentation; accessed 2026-02-21)</p>
             
             <p>14. <strong>Le Scao, T., Fan, A., Akiki, C., Pavlick, E., Ilić, S., Hesslow, D., ... &amp; Wolf, T. (2022).</strong> "BLOOM: A 176B-Parameter Open-Access Multilingual Language Model." https://arxiv.org/abs/2211.05100</p>
             
@@ -2114,7 +2178,7 @@ Example Task: "Design a logo based on these brand values"
             
             <p>25. <strong>Hendrycks, D., Carlini, N., Schulman, J., &amp; Steinhardt, J. (2021).</strong> "Unsolved Problems in ML Safety." <em>arXiv preprint arXiv:2109.13916</em>.</p>
 
-            <p>26. <strong>Klein, P., Woo, M., Li, R., Chen, K., Choi, Y., Zettlemoyer, L., ... &amp; Yoran, O. (2025).</strong> "Fleet of Agents: Learning to Cooperate in Multi-Agent Workflows." <em>Proceedings of the 42nd International Conference on Machine Learning (ICML 2025)</em>. https://proceedings.mlr.press/v267/klein25a.html</p>
+            <p>26. <strong>Klein, L. H., Potamitis, N., Aydin, R., West, R., Gulcehre, C., &amp; Arora, A. (2025).</strong> "Fleet of Agents: Coordinated Problem Solving with Large Language Models." <em>Proceedings of the 42nd International Conference on Machine Learning</em>, <em>Proceedings of Machine Learning Research</em>, 267, 30986-31019. https://proceedings.mlr.press/v267/klein25a.html</p>
 
             <p>27. <strong>Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I., Hoffmann, T. C., Mulrow, C. D., ... &amp; Moher, D. (2021).</strong> "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews." <em>BMJ</em>, 372:n71. https://www.bmj.com/content/372/bmj.n71</p>
 
@@ -2154,12 +2218,35 @@ This minimal example demonstrates ToT integration with Hugging Face agents.
 
 from smolagents import CodeAgent, InferenceClientModel, tool
 import heapq
+import ast
+import operator as op
 from typing import List
 
 @tool
 def evaluate_math(expression: str) -&gt; float:
-    """Evaluate a mathematical expression."""
-    return eval(expression)
+    """Evaluate basic arithmetic safely (demo scope)."""
+    # Avoid raw eval(): restrict execution to a small arithmetic AST subset.
+    operators = {
+        ast.Add: op.add,
+        ast.Sub: op.sub,
+        ast.Mult: op.mul,
+        ast.Div: op.truediv,
+        ast.Pow: op.pow,
+        ast.USub: op.neg,
+        ast.UAdd: op.pos,
+    }
+
+    def _eval(node):
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp):
+            return operators[type(node.op)](_eval(node.left), _eval(node.right))
+        if isinstance(node, ast.UnaryOp):
+            return operators[type(node.op)](_eval(node.operand))
+        raise ValueError("Unsupported expression")
+
+    parsed = ast.parse(expression, mode="eval")
+    return float(_eval(parsed.body))
 
 class MinimalToTAgent(CodeAgent):
     """Minimal ToT implementation for demonstration."""

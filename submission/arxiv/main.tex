@@ -271,6 +271,13 @@ the records listed in Section 8. Fixed selection counts and exclusion
 reasons are reported in Appendix D, and the corresponding extraction
 schema is reported in Appendix E.
 
+Because this survey targets a narrow synthesis question (ToT-style
+reasoning integrated with Hugging Face agent frameworks), the frozen run
+begins from an explicitly pre-curated candidate set before full-text
+screening. Query families, screening decisions, and extraction fields
+are documented in Appendix D and Appendix E so this scope choice is
+transparent and auditable.
+
 \paragraph{0.2.1 Sources and Search
 Strategy}\label{sources-and-search-strategy}
 
@@ -335,13 +342,21 @@ Appendix E to support reproducibility and peer-review traceability.
 
 \subsubsection{0.3 Study Selection Flow}\label{study-selection-flow}
 
-flowchart TD A{[}"Records identified\\
-n = 30"{]} -\/-\textgreater{} B{[}"Duplicates removed\\
-n = 0"{]} B -\/-\textgreater{} C{[}"Title/Abstract screened\\
-n = 30"{]} C -\/-\textgreater{} D{[}"Full-text assessed for
-eligibility\\
-n = 30"{]} D -\/-\textgreater{} E{[}"Studies included in synthesis\\
-n = 22"{]}
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Stage & Count \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Records identified & 30 \\
+Duplicates removed & 0 \\
+Title/abstract screened & 30 \\
+Full-text assessed for eligibility & 30 \\
+Studies included in synthesis & 22 \\
+\end{longtable}
+}
 
 \subsubsection{0.4 Reproducibility}\label{reproducibility}
 
@@ -924,6 +939,11 @@ components {[}10, 11, 12, 13{]}:
   \textbf{The transformers Agents}: Built-in agent capabilities within
   the core transformers library
 \end{enumerate}
+
+\textbf{Disambiguation:} this manuscript uses \texttt{CodeAgent}
+examples from \texttt{smolagents} unless explicitly stated otherwise.
+The similarly named \texttt{transformers} agents API is referenced
+separately in documentation context {[}10, 12, 13{]}.
 
 Together, these resources provide a documented pathway from learning to
 implementation in the Hugging Face ecosystem {[}10, 11, 12, 13{]}.
@@ -2086,11 +2106,12 @@ Non-Benchmark)}\label{comparative-analysis-qualitative-non-benchmark}
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llll@{}}
 \toprule\noalign{}
+Dimension & Common Baseline Pattern & ToT-Style Pattern & Evidence
+Status \\
+\midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Dimension & Common Baseline Pattern & ToT-Style Pattern & Evidence
-Status \\
 Action selection & Single-path next-step decision & Multi-candidate path
 exploration before commitment & Design pattern; integration-specific
 effect size requires experiment \\
@@ -2111,6 +2132,40 @@ stopping) & Methodological requirement for publishable claims \\
 \emph{Note:} This section does not report new experimental measurements.
 Quantitative benchmark values are consolidated in Appendix C with source
 attribution.
+
+\subsubsection{4.6 Integration Design Space (Synthesis
+Artifact)}\label{integration-design-space-synthesis-artifact}
+
+This summary consolidates the core integration choices, typical failure
+modes, and evidence levels discussed across RQ1-RQ4.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Integration Surface & Common Options & Primary Failure Modes & Evidence
+Basis \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Planning strategy & Single-path, CoT, ToT beam/DFS & Early commitment to
+weak paths; branch explosion & E1 for ToT-family benchmark trends {[}1,
+26{]}; E2 for integration patterns {[}2{]} \\
+Evaluator design & Self-evaluation prompts, rule-based checks, learned
+evaluators (future) & Miscalibrated scoring; unstable branch ranking &
+E1/E2 mixed {[}1, 2, 5, 26{]} \\
+Stopping policy & Fixed depth, confidence threshold, budget-based
+termination & Premature stopping or excessive latency/cost & E2 method
+guidance {[}1, 2{]}; E3 implementation docs {[}10, 12{]} \\
+Tool interaction loop & Reactive tool calls vs deliberative pre-tool
+search & Tool misuse, cascading retries, weak recovery behavior & E1
+agent evidence {[}6{]}; E2/E3 framework patterns {[}8, 9, 10, 12{]} \\
+Reproducibility controls & Run IDs, config manifests, explicit
+pseudo-code labels & Unverifiable claims, undocumented drift across
+versions & Survey protocol controls in this manuscript {[}27, 28, 29,
+30{]} \\
+\end{longtable}
+}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2652,10 +2707,11 @@ Guidelines}\label{hybrid-approach-guidelines}
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
+Task Type & Recommended Approach & Rationale \\
+\midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Task Type & Recommended Approach & Rationale \\
 Simple Q\&A & Direct prompting & Overhead not justified \\
 Multi-step tasks & Chain of Thought & Clear sequential structure \\
 Creative tasks & ToT with wide beam & Need exploration \\
@@ -2812,20 +2868,20 @@ hypotheses {[}1, 8, 9, 10, 12, 26{]}:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Accessible open-source adoption}: More developers will build
+  \textbf{Accessible open-source adoption}: More developers may build
   sophisticated reasoning agents
 \item
-  \textbf{Standardization}: Common patterns and best practices will
-  emerge
+  \textbf{Standardization}: Common patterns and best practices may
+  continue to emerge
 \item
-  \textbf{Integration}: ToT will become a standard feature in agent
-  frameworks
+  \textbf{Integration}: ToT-style modules may become a standard feature
+  in some agent frameworks
 \item
-  \textbf{Specialization}: Domain-specific implementations for science,
-  engineering, creative tasks
+  \textbf{Specialization}: Domain-specific implementations may expand
+  across science, engineering, and creative tasks
 \item
-  \textbf{Efficiency}: Optimized implementations reducing computational
-  overhead
+  \textbf{Efficiency}: Optimized implementations may reduce
+  computational overhead
 \end{itemize}
 
 A practical hypothesis from this survey is that agent capability depends
@@ -2910,8 +2966,10 @@ https://huggingface.co/learn/agents-course
 Thakur, A., \& Patil, S. (2024).} "smolagents: a minimal library for
 agents." https://github.com/huggingface/smolagents
 
-13. \textbf{Hugging Face. (2024).} "Transformers Documentation: Agents
-and Tools." https://huggingface.co/docs/transformers/main\_classes/agent
+13. \textbf{Hugging Face. (2026).} "Transformers Documentation (main
+branch): Agents."
+https://huggingface.co/docs/transformers/main/en/agents (main-branch
+documentation; accessed 2026-02-21)
 
 14. \textbf{Le Scao, T., Fan, A., Akiki, C., Pavlick, E., Ilić, S.,
 Hesslow, D., ... \& Wolf, T. (2022).} "BLOOM: A 176B-Parameter
@@ -2966,10 +3024,11 @@ Risks of Foundation Models." \emph{arXiv preprint arXiv:2108.07258}.
 (2021).} "Unsolved Problems in ML Safety." \emph{arXiv preprint
 arXiv:2109.13916}.
 
-26. \textbf{Klein, P., Woo, M., Li, R., Chen, K., Choi, Y., Zettlemoyer,
-L., ... \& Yoran, O. (2025).} "Fleet of Agents: Learning to Cooperate in
-Multi-Agent Workflows." \emph{Proceedings of the 42nd International
-Conference on Machine Learning (ICML 2025)}.
+26. \textbf{Klein, L. H., Potamitis, N., Aydin, R., West, R., Gulcehre,
+C., \& Arora, A. (2025).} "Fleet of Agents: Coordinated Problem Solving
+with Large Language Models." \emph{Proceedings of the 42nd International
+Conference on Machine Learning}, \emph{Proceedings of Machine Learning
+Research}, 267, 30986-31019.
 https://proceedings.mlr.press/v267/klein25a.html
 
 27. \textbf{Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I.,
@@ -3054,12 +3113,35 @@ Implementation}\label{appendix-b-quick-reference-implementation}
 
 \ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel, tool}
 \ImportTok{import}\NormalTok{ heapq}
+\ImportTok{import}\NormalTok{ ast}
+\ImportTok{import}\NormalTok{ operator }\ImportTok{as}\NormalTok{ op}
 \ImportTok{from}\NormalTok{ typing }\ImportTok{import}\NormalTok{ List}
 
 \AttributeTok{@tool}
 \KeywordTok{def}\NormalTok{ evaluate\_math(expression: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-    \CommentTok{"""Evaluate a mathematical expression."""}
-    \ControlFlowTok{return} \BuiltInTok{eval}\NormalTok{(expression)}
+    \CommentTok{"""Evaluate basic arithmetic safely (demo scope)."""}
+    \CommentTok{\# Avoid raw eval(): restrict execution to a small arithmetic AST subset.}
+\NormalTok{    operators }\OperatorTok{=}\NormalTok{ \{}
+\NormalTok{        ast.Add: op.add,}
+\NormalTok{        ast.Sub: op.sub,}
+\NormalTok{        ast.Mult: op.mul,}
+\NormalTok{        ast.Div: op.truediv,}
+\NormalTok{        ast.Pow: op.}\BuiltInTok{pow}\NormalTok{,}
+\NormalTok{        ast.USub: op.neg,}
+\NormalTok{        ast.UAdd: op.pos,}
+\NormalTok{    \}}
+
+    \KeywordTok{def}\NormalTok{ \_eval(node):}
+        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(node, ast.Constant) }\KeywordTok{and} \BuiltInTok{isinstance}\NormalTok{(node.value, (}\BuiltInTok{int}\NormalTok{, }\BuiltInTok{float}\NormalTok{)):}
+            \ControlFlowTok{return}\NormalTok{ node.value}
+        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(node, ast.BinOp):}
+            \ControlFlowTok{return}\NormalTok{ operators[}\BuiltInTok{type}\NormalTok{(node.op)](\_eval(node.left), \_eval(node.right))}
+        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(node, ast.UnaryOp):}
+            \ControlFlowTok{return}\NormalTok{ operators[}\BuiltInTok{type}\NormalTok{(node.op)](\_eval(node.operand))}
+        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"Unsupported expression"}\NormalTok{)}
+
+\NormalTok{    parsed }\OperatorTok{=}\NormalTok{ ast.parse(expression, mode}\OperatorTok{=}\StringTok{"eval"}\NormalTok{)}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(\_eval(parsed.body))}
 
 \KeywordTok{class}\NormalTok{ MinimalToTAgent(CodeAgent):}
     \CommentTok{"""Minimal ToT implementation for demonstration."""}

@@ -72,6 +72,8 @@ We follow a transparent evidence-synthesis workflow adapted from PRISMA-style re
 
 **Protocol scope (this version):** This manuscript freezes a core-corpus selection run (Run ID: TOT-HF-SURVEY-2026-02-19) anchored by the records listed in Section 8. Fixed selection counts and exclusion reasons are reported in Appendix D, and the corresponding extraction schema is reported in Appendix E.
 
+Because this survey targets a narrow synthesis question (ToT-style reasoning integrated with Hugging Face agent frameworks), the frozen run begins from an explicitly pre-curated candidate set before full-text screening. Query families, screening decisions, and extraction fields are documented in Appendix D and Appendix E so this scope choice is transparent and auditable.
+
 #### 0.2.1 Sources and Search Strategy
 
 Primary sources for the final frozen search protocol are: arXiv, ACL Anthology (where applicable), major ML conference proceedings (NeurIPS/ICLR/ICML), ACM Digital Library, IEEE Xplore, and official framework documentation for implementation-level claims \[10, 11, 13\].
@@ -100,16 +102,13 @@ Selection-flow and extraction artifacts are provided in Appendix D and Appendix 
 
 ### 0.3 Study Selection Flow
 
-<div class="mermaid">
-
-flowchart TD A\["Records identified\
-n = 30"\] --\> B\["Duplicates removed\
-n = 0"\] B --\> C\["Title/Abstract screened\
-n = 30"\] C --\> D\["Full-text assessed for eligibility\
-n = 30"\] D --\> E\["Studies included in synthesis\
-n = 22"\]
-
-</div>
+| Stage                              | Count |
+|------------------------------------|-------|
+| Records identified                 | 30    |
+| Duplicates removed                 | 0     |
+| Title/abstract screened            | 30    |
+| Full-text assessed for eligibility | 30    |
+| Studies included in synthesis      | 22    |
 
 ### 0.4 Reproducibility
 
@@ -430,6 +429,8 @@ The Hugging Face agent ecosystem comprises three interconnected components \[10,
 1.  **The Agent Course**: An open, detailed educational resource teaching agent development from fundamentals to advanced techniques
 2.  **The smolagents Library**: A compact, extensible Python framework for building production-ready agents
 3.  **The transformers Agents**: Built-in agent capabilities within the core transformers library
+
+**Disambiguation:** this manuscript uses `CodeAgent` examples from `smolagents` unless explicitly stated otherwise. The similarly named `transformers` agents API is referenced separately in documentation context \[10, 12, 13\].
 
 Together, these resources provide a documented pathway from learning to implementation in the Hugging Face ecosystem \[10, 11, 12, 13\].
 
@@ -1361,9 +1362,8 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing
 
 ### 4.5 Comparative Analysis (Qualitative, Non-Benchmark)
 
-|  |  |  |  |
-|----|----|----|----|
 | Dimension | Common Baseline Pattern | ToT-Style Pattern | Evidence Status |
+|----|----|----|----|
 | Action selection | Single-path next-step decision | Multi-candidate path exploration before commitment | Design pattern; integration-specific effect size requires experiment |
 | Error handling | Retry or fail-forward | Backtracking to alternative branches | Design pattern; needs task-level measurement |
 | Planning horizon | Short-horizon or reactive planning | Explicit lookahead over multiple candidate plans | Design pattern; benchmark protocol required for claims |
@@ -1371,6 +1371,18 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing
 | Reproducibility requirements | Single-run outputs often sufficient for demos | Requires search config disclosure (branching, depth, evaluator, stopping) | Methodological requirement for publishable claims |
 
 *Note:* This section does not report new experimental measurements. Quantitative benchmark values are consolidated in Appendix C with source attribution.
+
+### 4.6 Integration Design Space (Synthesis Artifact)
+
+This summary consolidates the core integration choices, typical failure modes, and evidence levels discussed across RQ1-RQ4.
+
+| Integration Surface | Common Options | Primary Failure Modes | Evidence Basis |
+|----|----|----|----|
+| Planning strategy | Single-path, CoT, ToT beam/DFS | Early commitment to weak paths; branch explosion | E1 for ToT-family benchmark trends \[1, 26\]; E2 for integration patterns \[2\] |
+| Evaluator design | Self-evaluation prompts, rule-based checks, learned evaluators (future) | Miscalibrated scoring; unstable branch ranking | E1/E2 mixed \[1, 2, 5, 26\] |
+| Stopping policy | Fixed depth, confidence threshold, budget-based termination | Premature stopping or excessive latency/cost | E2 method guidance \[1, 2\]; E3 implementation docs \[10, 12\] |
+| Tool interaction loop | Reactive tool calls vs deliberative pre-tool search | Tool misuse, cascading retries, weak recovery behavior | E1 agent evidence \[6\]; E2/E3 framework patterns \[8, 9, 10, 12\] |
+| Reproducibility controls | Run IDs, config manifests, explicit pseudo-code labels | Unverifiable claims, undocumented drift across versions | Survey protocol controls in this manuscript \[27, 28, 29, 30\] |
 
 ------------------------------------------------------------------------
 
@@ -1831,9 +1843,8 @@ As a forward-looking hypothesis, ToT-enhanced agents could accelerate research w
 
 #### 6.3.2 Hybrid Approach Guidelines
 
-|                  |                      |                                  |
-|------------------|----------------------|----------------------------------|
 | Task Type        | Recommended Approach | Rationale                        |
+|------------------|----------------------|----------------------------------|
 | Simple Q&A       | Direct prompting     | Overhead not justified           |
 | Multi-step tasks | Chain of Thought     | Clear sequential structure       |
 | Creative tasks   | ToT with wide beam   | Need exploration                 |
@@ -1920,11 +1931,11 @@ This paper makes several contributions:
 
 Structured reasoning frameworks and accessible agent platforms define a concrete research and engineering direction. Based on current literature and tooling trends, this survey proposes the following near-term hypotheses \[1, 8, 9, 10, 12, 26\]:
 
-- **Accessible open-source adoption**: More developers will build sophisticated reasoning agents
-- **Standardization**: Common patterns and best practices will emerge
-- **Integration**: ToT will become a standard feature in agent frameworks
-- **Specialization**: Domain-specific implementations for science, engineering, creative tasks
-- **Efficiency**: Optimized implementations reducing computational overhead
+- **Accessible open-source adoption**: More developers may build sophisticated reasoning agents
+- **Standardization**: Common patterns and best practices may continue to emerge
+- **Integration**: ToT-style modules may become a standard feature in some agent frameworks
+- **Specialization**: Domain-specific implementations may expand across science, engineering, and creative tasks
+- **Efficiency**: Optimized implementations may reduce computational overhead
 
 A practical hypothesis from this survey is that agent capability depends on both model scale and reasoning structure \[1, 26\].
 
@@ -1966,7 +1977,7 @@ In short, the field has usable tools and clear open questions; progress now depe
 
 12\. **von Werra, L., Belkada, Y., Tunstall, L., Beeching, E., Thakur, A., & Patil, S. (2024).** "smolagents: a minimal library for agents." https://github.com/huggingface/smolagents
 
-13\. **Hugging Face. (2024).** "Transformers Documentation: Agents and Tools." https://huggingface.co/docs/transformers/main_classes/agent
+13\. **Hugging Face. (2026).** "Transformers Documentation (main branch): Agents." https://huggingface.co/docs/transformers/main/en/agents (main-branch documentation; accessed 2026-02-21)
 
 14\. **Le Scao, T., Fan, A., Akiki, C., Pavlick, E., Ilić, S., Hesslow, D., ... & Wolf, T. (2022).** "BLOOM: A 176B-Parameter Open-Access Multilingual Language Model." https://arxiv.org/abs/2211.05100
 
@@ -1992,7 +2003,7 @@ In short, the field has usable tools and clear open questions; progress now depe
 
 25\. **Hendrycks, D., Carlini, N., Schulman, J., & Steinhardt, J. (2021).** "Unsolved Problems in ML Safety." *arXiv preprint arXiv:2109.13916*.
 
-26\. **Klein, P., Woo, M., Li, R., Chen, K., Choi, Y., Zettlemoyer, L., ... & Yoran, O. (2025).** "Fleet of Agents: Learning to Cooperate in Multi-Agent Workflows." *Proceedings of the 42nd International Conference on Machine Learning (ICML 2025)*. https://proceedings.mlr.press/v267/klein25a.html
+26\. **Klein, L. H., Potamitis, N., Aydin, R., West, R., Gulcehre, C., & Arora, A. (2025).** "Fleet of Agents: Coordinated Problem Solving with Large Language Models." *Proceedings of the 42nd International Conference on Machine Learning*, *Proceedings of Machine Learning Research*, 267, 30986-31019. https://proceedings.mlr.press/v267/klein25a.html
 
 27\. **Page, M. J., McKenzie, J. E., Bossuyt, P. M., Boutron, I., Hoffmann, T. C., Mulrow, C. D., ... & Moher, D. (2021).** "The PRISMA 2020 statement: an updated guideline for reporting systematic reviews." *BMJ*, 372:n71. https://www.bmj.com/content/372/bmj.n71
 
@@ -2033,12 +2044,35 @@ This minimal example demonstrates ToT integration with Hugging Face agents.
 
 from smolagents import CodeAgent, InferenceClientModel, tool
 import heapq
+import ast
+import operator as op
 from typing import List
 
 @tool
 def evaluate_math(expression: str) -> float:
-    """Evaluate a mathematical expression."""
-    return eval(expression)
+    """Evaluate basic arithmetic safely (demo scope)."""
+    # Avoid raw eval(): restrict execution to a small arithmetic AST subset.
+    operators = {
+        ast.Add: op.add,
+        ast.Sub: op.sub,
+        ast.Mult: op.mul,
+        ast.Div: op.truediv,
+        ast.Pow: op.pow,
+        ast.USub: op.neg,
+        ast.UAdd: op.pos,
+    }
+
+    def _eval(node):
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp):
+            return operators[type(node.op)](_eval(node.left), _eval(node.right))
+        if isinstance(node, ast.UnaryOp):
+            return operators[type(node.op)](_eval(node.operand))
+        raise ValueError("Unsupported expression")
+
+    parsed = ast.parse(expression, mode="eval")
+    return float(_eval(parsed.body))
 
 class MinimalToTAgent(CodeAgent):
     """Minimal ToT implementation for demonstration."""
