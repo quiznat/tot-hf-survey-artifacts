@@ -429,7 +429,7 @@ Hugging Face provides public resources for building AI agents, including framewo
 The Hugging Face agent ecosystem currently centers on two active components, with one legacy documentation surface retained for migration context \[10, 11, 12, 13\]:
 
 1.  **The Agent Course**: An open, detailed educational resource teaching agent development from fundamentals to advanced techniques
-2.  **The smolagents Library**: A compact, extensible Python framework for building production-ready agents
+2.  **The smolagents Library**: A compact, extensible Python framework for building deployment-oriented agents
 3.  **Legacy transformers agents documentation**: deprecated API documentation kept for historical context and migration guidance
 
 **Migration note:** The `transformers` agents API is deprecated; Hugging Face moved agents/tools to `smolagents` and removed them from stable `transformers` releases starting with v4.52 \[13\].
@@ -1109,7 +1109,7 @@ Selected: Path B for source quality and reproducibility
 **ToT Solution:** Maintain alternative paths for backtracking.
 
 ``` python
-class RecoverableAgent(TreeOfThoughtsCodeAgent):
+class RecoverableAgent(ToTEnabledCodeAgent):
     def execute_with_recovery(self, action_plan):
         for i, action in enumerate(action_plan):
             try:
@@ -1172,7 +1172,7 @@ Execution Plan:
 
 ### 4.4 Case Studies
 
-The case studies in this section are synthetic design walkthroughs intended to illustrate integration patterns (task framing, branching logic, evaluator rationale, execution sketch, and recovery behavior), not reported benchmark experiments.
+The case studies in this section are synthetic design walkthroughs intended to illustrate integration patterns (task framing, branching logic, evaluator rationale, execution sketch, and recovery behavior), not reported benchmark experiments. They are not presented as evidence of performance improvement; they are included to concretize integration seams and failure modes.
 
 #### 4.4.1 Case Study 1: Financial Analysis Agent
 
@@ -1334,11 +1334,15 @@ Table 4.6-1 presents the integration design space synthesized in this survey.
 
 **Table 4.6-1.** Integration design surfaces, common options, failure modes, and evidence basis.
 
+**Design takeaways:** (1) planning strategy, evaluator quality, and stopping policy should be tuned together rather than independently; (2) reproducibility controls are part of the method, not post-hoc reporting extras; (3) tool-loop robustness depends on explicit recovery logic rather than retries alone; and (4) stronger search generally trades off against higher latency/cost.
+
 ------------------------------------------------------------------------
 
 ## 5. Practical Implementation Strategies
 
 **Pseudo-code notice.** Most snippets in this section are design templates for adaptation, not drop-in production code. Unless explicitly tied to cited API documentation, patterns here should be treated as E2 design templates (with E3 references for API alignment). Validate APIs and runtime behavior against current framework documentation before deployment.
+
+This section is included as a reproducibility-oriented bridge from ToT components (Section 2) to concrete agent-framework integration seams (Section 3). The intent is to capture recurring implementation choices and failure modes observed in the surveyed corpus, not to introduce new algorithmic claims.
 
 ### 5.1 Getting Started
 
@@ -1349,12 +1353,14 @@ Table 4.6-1 presents the integration design space synthesized in this survey.
 python -m venv agent_env
 source agent_env/bin/activate
 
-# Install dependencies
-pip install smolagents transformers
-pip install torch accelerate
+# Install dependencies (aligned with Section 3.3.3)
+pip install smolagents
+pip install "smolagents[transformers]"  # Local Hugging Face models
+pip install "smolagents[openai]"        # OpenAI API models
+pip install "smolagents[litellm]"       # Multi-provider routing
 
-# Optional: for specific model providers
-pip install openai anthropic
+# Optional: local runtime acceleration
+pip install torch accelerate
 ```
 
 #### 5.1.2 Basic ToT Agent Template (Pseudo-code)
@@ -1990,18 +1996,21 @@ In short, the field has usable tools and clear open questions; progress now depe
 - **ToT (Tree of Thoughts)**: Reasoning framework modeling problem-solving as tree search over thoughts
 - **Tool-Augmented LLM**: Language model extended with external tool capabilities
 
-## Appendix B: Quick Reference Implementation
+## Appendix B: Reference Pseudo-code Implementation
+
+*Pseudo-code scope:* this appendix provides an intentionally minimal sketch for adaptation. It is not presented as a fully runnable benchmark harness.
 
 ``` python
 """
-Quick Start: Tree of Thoughts with smolagents
-============================================
+Reference Sketch: Tree of Thoughts with smolagents
+==================================================
 
-This minimal example demonstrates ToT integration with Hugging Face agents.
+Pseudo-code example for architecture illustration.
 """
 
 from smolagents import CodeAgent, InferenceClientModel, tool
 import heapq
+import re
 import ast
 import operator as op
 from typing import List
@@ -2034,6 +2043,26 @@ def evaluate_math(expression: str) -> float:
 
 class MinimalToTAgent(CodeAgent):
     """Minimal ToT implementation for demonstration."""
+
+    def _parse_score(self, raw: str, default: float = 5.0) -> float:
+        match = re.search(r"-?\d+(?:\.\d+)?", raw)
+        return float(match.group(0)) if match else default
+
+    def _tool_signal(self, thought: str) -> float:
+        """
+        Lightweight tool-grounded signal: reward arithmetic thoughts that
+        pass safe parsing; penalize malformed arithmetic-like thoughts.
+        """
+        cleaned = thought.strip()
+        if not any(ch.isdigit() for ch in cleaned):
+            return 0.0
+        if not any(op_symbol in cleaned for op_symbol in "+-*/()"):
+            return 0.0
+        try:
+            evaluate_math(cleaned)
+            return 0.5
+        except Exception:
+            return -0.5
     
     def tot_solve(self, task: str, beam_width: int = 3, max_depth: int = 4):
         # Initialize beams with starting thought
@@ -2049,12 +2078,10 @@ class MinimalToTAgent(CodeAgent):
                 
                 for thought in thoughts:
                     new_path = path + [thought]
-                    # Simple evaluation (could be more sophisticated)
+                    # Heuristic model score + lightweight tool-grounded signal
                     eval_prompt = f"Rate quality 0-10: {new_path}"
-                    try:
-                        new_score = float(self.model.generate(eval_prompt)[:2])
-                    except:
-                        new_score = 5.0
+                    new_score = self._parse_score(self.model.generate(eval_prompt))
+                    new_score += self._tool_signal(thought)
                     
                     candidates.append((new_score, new_path))
             
@@ -2241,7 +2268,7 @@ Table F.1 summarizes representative claim-to-evidence mappings used in this manu
 - Added Appendix F claim-evidence mapping table and Appendix G revision log for submission traceability.
 - Updated Appendix C benchmark tables with inline citations on each reported method row and added code-snippet labeling comments throughout.
 - Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated transformers agents, added migration note, and upgraded key synthesis tables with explicit captions and textual references.
-- Version 1.1.1 (post-review hardening): corrected Appendix C.2 FoA transcription value, clarified selected-row policy, tightened Section 4 hypothesis framing, and reduced pseudo-code overclaim surface in Sections 4-5.
+- Version 1.1.1 (post-review hardening): corrected Appendix C.2 FoA transcription value, clarified selected-row policy, tightened Section 4 hypothesis framing, aligned Section 5 install guidance with smolagents extras, and hardened Appendix B pseudo-code labeling and parsing robustness.
 
 ------------------------------------------------------------------------
 

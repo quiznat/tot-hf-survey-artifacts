@@ -942,7 +942,7 @@ context {[}10, 11, 12, 13{]}:
   teaching agent development from fundamentals to advanced techniques
 \item
   \textbf{The smolagents Library}: A compact, extensible Python
-  framework for building production-ready agents
+  framework for building deployment-oriented agents
 \item
   \textbf{Legacy transformers agents documentation}: deprecated API
   documentation kept for historical context and migration guidance
@@ -1854,7 +1854,7 @@ produce incorrect results.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{ RecoverableAgent(TreeOfThoughtsCodeAgent):}
+\KeywordTok{class}\NormalTok{ RecoverableAgent(ToTEnabledCodeAgent):}
     \KeywordTok{def}\NormalTok{ execute\_with\_recovery(}\VariableTok{self}\NormalTok{, action\_plan):}
         \ControlFlowTok{for}\NormalTok{ i, action }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(action\_plan):}
             \ControlFlowTok{try}\NormalTok{:}
@@ -1923,7 +1923,9 @@ produce incorrect results.
 The case studies in this section are synthetic design walkthroughs
 intended to illustrate integration patterns (task framing, branching
 logic, evaluator rationale, execution sketch, and recovery behavior),
-not reported benchmark experiments.
+not reported benchmark experiments. They are not presented as evidence
+of performance improvement; they are included to concretize integration
+seams and failure modes.
 
 \paragraph{4.4.1 Case Study 1: Financial Analysis
 Agent}\label{case-study-1-financial-analysis-agent}
@@ -2156,6 +2158,13 @@ versions & Survey protocol controls in this manuscript {[}27, 28, 29,
 30{]} \\
 \end{longtable}
 
+\textbf{Design takeaways:} (1) planning strategy, evaluator quality, and
+stopping policy should be tuned together rather than independently; (2)
+reproducibility controls are part of the method, not post-hoc reporting
+extras; (3) tool-loop robustness depends on explicit recovery logic
+rather than retries alone; and (4) stronger search generally trades off
+against higher latency/cost.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{5. Practical Implementation
@@ -2168,6 +2177,12 @@ design templates (with E3 references for API alignment). Validate APIs
 and runtime behavior against current framework documentation before
 deployment.
 
+This section is included as a reproducibility-oriented bridge from ToT
+components (Section 2) to concrete agent-framework integration seams
+(Section 3). The intent is to capture recurring implementation choices
+and failure modes observed in the surveyed corpus, not to introduce new
+algorithmic claims.
+
 \subsubsection{5.1 Getting Started}\label{getting-started}
 
 \paragraph{5.1.1 Environment Setup}\label{environment-setup}
@@ -2178,12 +2193,14 @@ deployment.
 \ExtensionTok{python} \AttributeTok{{-}m}\NormalTok{ venv agent\_env}
 \BuiltInTok{source}\NormalTok{ agent\_env/bin/activate}
 
-\CommentTok{\# Install dependencies}
-\ExtensionTok{pip}\NormalTok{ install smolagents transformers}
-\ExtensionTok{pip}\NormalTok{ install torch accelerate}
+\CommentTok{\# Install dependencies (aligned with Section 3.3.3)}
+\ExtensionTok{pip}\NormalTok{ install smolagents}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[transformers]"}  \CommentTok{\# Local Hugging Face models}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[openai]"}        \CommentTok{\# OpenAI API models}
+\ExtensionTok{pip}\NormalTok{ install }\StringTok{"smolagents[litellm]"}       \CommentTok{\# Multi{-}provider routing}
 
-\CommentTok{\# Optional: for specific model providers}
-\ExtensionTok{pip}\NormalTok{ install openai anthropic}
+\CommentTok{\# Optional: local runtime acceleration}
+\ExtensionTok{pip}\NormalTok{ install torch accelerate}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3105,20 +3122,25 @@ Terms}\label{appendix-a-glossary-of-terms}
   tool capabilities
 \end{itemize}
 
-\subsection{Appendix B: Quick Reference
-Implementation}\label{appendix-b-quick-reference-implementation}
+\subsection{Appendix B: Reference Pseudo-code
+Implementation}\label{appendix-b-reference-pseudo-code-implementation}
+
+\emph{Pseudo-code scope:} this appendix provides an intentionally
+minimal sketch for adaptation. It is not presented as a fully runnable
+benchmark harness.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{"""}
-\CommentTok{Quick Start: Tree of Thoughts with smolagents}
-\CommentTok{============================================}
+\CommentTok{Reference Sketch: Tree of Thoughts with smolagents}
+\CommentTok{==================================================}
 
-\CommentTok{This minimal example demonstrates ToT integration with Hugging Face agents.}
+\CommentTok{Pseudo{-}code example for architecture illustration.}
 \CommentTok{"""}
 
 \ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel, tool}
 \ImportTok{import}\NormalTok{ heapq}
+\ImportTok{import}\NormalTok{ re}
 \ImportTok{import}\NormalTok{ ast}
 \ImportTok{import}\NormalTok{ operator }\ImportTok{as}\NormalTok{ op}
 \ImportTok{from}\NormalTok{ typing }\ImportTok{import}\NormalTok{ List}
@@ -3151,6 +3173,26 @@ Implementation}\label{appendix-b-quick-reference-implementation}
 
 \KeywordTok{class}\NormalTok{ MinimalToTAgent(CodeAgent):}
     \CommentTok{"""Minimal ToT implementation for demonstration."""}
+
+    \KeywordTok{def}\NormalTok{ \_parse\_score(}\VariableTok{self}\NormalTok{, raw: }\BuiltInTok{str}\NormalTok{, default: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{5.0}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
+\NormalTok{        match }\OperatorTok{=}\NormalTok{ re.search(}\VerbatimStringTok{r"{-}}\OperatorTok{?}\DecValTok{\textbackslash{}d}\OperatorTok{+}\NormalTok{(?:}\CharTok{\textbackslash{}.}\DecValTok{\textbackslash{}d}\OperatorTok{+}\NormalTok{)}\OperatorTok{?}\VerbatimStringTok{"}\NormalTok{, raw)}
+        \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(match.group(}\DecValTok{0}\NormalTok{)) }\ControlFlowTok{if}\NormalTok{ match }\ControlFlowTok{else}\NormalTok{ default}
+
+    \KeywordTok{def}\NormalTok{ \_tool\_signal(}\VariableTok{self}\NormalTok{, thought: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
+        \CommentTok{"""}
+\CommentTok{        Lightweight tool{-}grounded signal: reward arithmetic thoughts that}
+\CommentTok{        pass safe parsing; penalize malformed arithmetic{-}like thoughts.}
+\CommentTok{        """}
+\NormalTok{        cleaned }\OperatorTok{=}\NormalTok{ thought.strip()}
+        \ControlFlowTok{if} \KeywordTok{not} \BuiltInTok{any}\NormalTok{(ch.isdigit() }\ControlFlowTok{for}\NormalTok{ ch }\KeywordTok{in}\NormalTok{ cleaned):}
+            \ControlFlowTok{return} \FloatTok{0.0}
+        \ControlFlowTok{if} \KeywordTok{not} \BuiltInTok{any}\NormalTok{(op\_symbol }\KeywordTok{in}\NormalTok{ cleaned }\ControlFlowTok{for}\NormalTok{ op\_symbol }\KeywordTok{in} \StringTok{"+{-}*/()"}\NormalTok{):}
+            \ControlFlowTok{return} \FloatTok{0.0}
+        \ControlFlowTok{try}\NormalTok{:}
+\NormalTok{            evaluate\_math(cleaned)}
+            \ControlFlowTok{return} \FloatTok{0.5}
+        \ControlFlowTok{except} \PreprocessorTok{Exception}\NormalTok{:}
+            \ControlFlowTok{return} \OperatorTok{{-}}\FloatTok{0.5}
     
     \KeywordTok{def}\NormalTok{ tot\_solve(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, beam\_width: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{3}\NormalTok{, max\_depth: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{4}\NormalTok{):}
         \CommentTok{\# Initialize beams with starting thought}
@@ -3166,12 +3208,10 @@ Implementation}\label{appendix-b-quick-reference-implementation}
                 
                 \ControlFlowTok{for}\NormalTok{ thought }\KeywordTok{in}\NormalTok{ thoughts:}
 \NormalTok{                    new\_path }\OperatorTok{=}\NormalTok{ path }\OperatorTok{+}\NormalTok{ [thought]}
-                    \CommentTok{\# Simple evaluation (could be more sophisticated)}
+                    \CommentTok{\# Heuristic model score + lightweight tool{-}grounded signal}
 \NormalTok{                    eval\_prompt }\OperatorTok{=} \SpecialStringTok{f"Rate quality 0{-}10: }\SpecialCharTok{\{}\NormalTok{new\_path}\SpecialCharTok{\}}\SpecialStringTok{"}
-                    \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{                        new\_score }\OperatorTok{=} \BuiltInTok{float}\NormalTok{(}\VariableTok{self}\NormalTok{.model.generate(eval\_prompt)[:}\DecValTok{2}\NormalTok{])}
-                    \ControlFlowTok{except}\NormalTok{:}
-\NormalTok{                        new\_score }\OperatorTok{=} \FloatTok{5.0}
+\NormalTok{                    new\_score }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_parse\_score(}\VariableTok{self}\NormalTok{.model.generate(eval\_prompt))}
+\NormalTok{                    new\_score }\OperatorTok{+=} \VariableTok{self}\NormalTok{.\_tool\_signal(thought)}
                     
 \NormalTok{                    candidates.append((new\_score, new\_path))}
             
@@ -3558,8 +3598,9 @@ History}\label{appendix-g-revision-history}
 \item
   Version 1.1.1 (post-review hardening): corrected Appendix C.2 FoA
   transcription value, clarified selected-row policy, tightened Section
-  4 hypothesis framing, and reduced pseudo-code overclaim surface in
-  Sections 4-5.
+  4 hypothesis framing, aligned Section 5 install guidance with
+  smolagents extras, and hardened Appendix B pseudo-code labeling and
+  parsing robustness.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
