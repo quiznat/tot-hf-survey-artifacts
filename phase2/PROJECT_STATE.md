@@ -3,8 +3,8 @@
 Status date: 2026-02-21
 
 ## Current Phase
-- Phase 1 (survey): submission-ready and awaiting external review process.
-- Phase 2 (novel implementation): baseline harness and ToT prototype completed.
+- Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
+- Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 multi-task expansion scaffold is complete and ready for execution.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -13,10 +13,36 @@ Status date: 2026-02-21
 - P2-G2 (ToT Integration Prototype): completed
 - P2-G3 (Evaluation v1): completed
 - P2-G4 (Ablation and Error Analysis): completed
-- P2-G5 (Manuscript Draft): in progress
+- P2-G5 (Manuscript Draft): in progress (now tracking protocol-v3 deepening path)
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
+- Added protocol-v3 task adapters and task registry support:
+  - `phase2/code/src/phase2_baselines/tasks/subset_sum.py`
+  - `phase2/code/src/phase2_baselines/tasks/linear2.py`
+  - `phase2/code/src/phase2_baselines/tasks/digit_permutation.py`
+  - `phase2/code/src/phase2_baselines/tasks/registry.py`
+  - `phase2/code/src/phase2_baselines/tasks/__init__.py`
+- Generalized pipeline task selection and input typing in:
+  - `phase2/code/src/phase2_baselines/pipeline.py`
+- Added protocol-v3 execution tooling:
+  - `phase2/code/scripts/build_protocol_v3_panels.py`
+  - `phase2/code/scripts/run_structured_lockset.py`
+  - `phase2/code/scripts/run_protocol_v3_matrix.py`
+  - `phase2/code/scripts/build_protocol_v3_matrix_summary.py`
+- Generated deterministic protocol-v3 lockset panels (50 items each):
+  - `phase2/benchmarks/panels/subset_sum_lockset_v1.json`
+  - `phase2/benchmarks/panels/linear2_lockset_v1.json`
+  - `phase2/benchmarks/panels/digit_permutation_lockset_v1.json`
+- Added protocol-v3 benchmark and execution documentation:
+  - `phase2/benchmarks/evaluation-protocol-v3.md`
+  - `phase2/benchmarks/benchmark-matrix-v3.md`
+  - `phase2/benchmarks/protocol-v3-execution.md`
+- Added protocol-v3 run-log scaffold:
+  - `phase2/reproducibility/run-log-protocol-v3.md`
+- Extended tests for v3 task adapters:
+  - `phase2/code/tests/test_tasks_v3.py`
+- Verified the full Phase 2 unit test suite remains green (`29` tests passing).
 - Established Phase 2 planning and operating framework (`phase2/`).
 - Drafted benchmark matrix and run manifest schema for evaluation protocol.
 - Added reproducibility run log and first dry-run manifest artifact.
@@ -128,14 +154,14 @@ Status date: 2026-02-21
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Prepare anonymized manuscript package and artifact index for first external submission cycle.
-2. Build submission-ready figures/tables directly from archived matrix and ablation artifacts.
-3. Draft concise reproducibility appendix text aligned to protocol-v2 manifests and commands.
+1. Execute the first full protocol-v3 task-model block (`game24-demo` on `Qwen/Qwen3-Coder-Next:novita`) with 50 paired items and publish report artifacts.
+2. Run the remaining protocol-v3 matrix blocks (4 tasks x 3 models) with fixed model set and no substitutions.
+3. Build and validate consolidated v3 matrix summary artifacts, then fold task-scoped findings into `phase2/manuscript/PREPAPER.md`.
 
 ## Risks / Dependencies
-- Benchmark selection scope creep.
+- Scope expansion can increase runtime/cost without proportional insight if not controlled by the locked matrix.
 - Model/API variability affecting reproducibility.
-- Need consistent environment pinning before evaluation runs.
+- Need stable HF model availability across the full 1800-run matrix window.
 - Ongoing provider-side behavior drift between run windows may affect latency comparability.
 
 ## Decision Log
@@ -165,3 +191,6 @@ Status date: 2026-02-21
 - 2026-02-21: Completed protocol-v2 search-policy ablations (A1/A2) on the locked primary model and generated consolidated search-ablation summary artifacts.
 - 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face run manifests.
 - 2026-02-21: Drafted manuscript-ready Results and Limitations text from frozen matrix, ablation, and failure-taxonomy artifacts.
+- 2026-02-21: Pivoted active execution track to protocol-v3 multi-task deepening while retaining protocol-v2 as frozen baseline evidence.
+- 2026-02-21: Implemented protocol-v3 task adapters, generic lockset runner, matrix orchestrator, and matrix summary tooling.
+- 2026-02-21: Generated deterministic v3 lockset panels for subset-sum, linear2, and digit-permutation tasks.

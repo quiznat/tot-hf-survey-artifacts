@@ -7,6 +7,7 @@ This directory will contain the executable implementation for baseline and ToT-i
   - includes `ToTRunner` prototype with search-state tracing.
 - `src/phase2_baselines/adapters.py`: scripted and Hugging Face inference model adapters.
 - `src/phase2_baselines/tasks/`: benchmark task adapters.
+  - includes `subset-sum`, `linear2`, and `digit-permutation` tasks for protocol-v3.
 - `src/phase2_baselines/metrics.py`: unified metric and cost estimation helpers.
 - `src/phase2_baselines/manifest.py`: run manifest generation/validation/writing.
 - `src/phase2_baselines/pipeline.py`: shared baseline execution/recording pipeline.
@@ -17,6 +18,10 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
 - `scripts/run_tot_sweep.py`: repeated ToT execution + variance report generation.
 - `scripts/run_game24_lockset.py`: paired Game24 panel runner across `single`, `react`, and `tot` conditions.
+- `scripts/run_structured_lockset.py`: generic paired lockset runner for registered tasks.
+- `scripts/build_protocol_v3_panels.py`: deterministic panel generator for protocol-v3 tasks.
+- `scripts/run_protocol_v3_matrix.py`: task x model matrix orchestrator for protocol-v3.
+- `scripts/build_protocol_v3_matrix_summary.py`: consolidated summary across protocol-v3 reports.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
 - `scripts/build_search_ablation_summary.py`: consolidate primary + A1 + A2 lockset reports into one search-ablation summary.
@@ -180,4 +185,36 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_search_
   --a2-report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a2.json \
   --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.md \
   --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.json
+```
+
+## Build Protocol-v3 Panels
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_panels.py
+```
+
+## Run Generic Structured Lockset (Any Registered Task)
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_structured_lockset.py \
+  --task-id subset-sum-demo \
+  --panel-file /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/panels/subset_sum_lockset_v1.json \
+  --provider hf \
+  --model-id Qwen/Qwen3-Coder-Next:novita \
+  --conditions single,react,tot \
+  --limit 50 \
+  --max-workers 8
+```
+
+## Run Protocol-v3 Matrix
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_v3_matrix.py
+```
+
+## Build Protocol-v3 Matrix Summary
+```bash
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_matrix_summary.py
 ```

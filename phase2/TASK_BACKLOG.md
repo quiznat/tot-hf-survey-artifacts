@@ -2,42 +2,30 @@
 
 Status date: 2026-02-21
 
-## P0 (Do Now)
-- [x] Create `phase2/benchmarks/benchmark-matrix.md` with tasks, datasets, metrics, and baseline mapping.
-- [x] Create `phase2/reproducibility/run-manifest-schema.md` for mandatory run metadata.
-- [x] Create `phase2/code/README.md` with interface contract for baseline and ToT runners.
-- [x] Create `phase2/reproducibility/run-log.md` for chronological run tracking.
-- [x] Add first dry-run manifest example under `phase2/benchmarks/runs/`.
-- [x] Create `phase2/reproducibility/environment.md` for dependency pinning policy.
-- [x] Finalize implementation stack decision for `phase2/code/` (Python-first vs mixed stack).
+## P0 (Locked Foundations)
+- [x] Build deterministic baseline + ToT harness with manifested run outputs.
+- [x] Freeze protocol-v2 and complete 3-model paired Game24 matrix.
+- [x] Complete evaluator/search ablations and failure taxonomy on the primary model.
+- [x] Draft manuscript-ready Methods/Results/Limitations text from frozen v2 artifacts.
 
-## P1 (Next)
-- [x] Implement baseline runner A (single-path reasoning).
-- [x] Implement baseline runner B (ReAct-style tool loop).
-- [x] Add unified metrics collector (success, latency, token usage, cost estimate).
-- [x] Add repeated-run driver to generate baseline variance bands.
-- [x] Add real model/provider adapter with pinned configuration profile (Hugging Face).
-- [x] Add manifest validation test for required-field/schema compliance.
-- [x] Validate Hugging Face baseline runs with live token and archive first non-scripted manifests.
-  Note: first live baseline artifact (`BASELINE-SINGLE-PATH-20260220-025629-9649ee.json`) is currently a failure case and retained for error analysis.
+## P1 (Protocol-v3 Scaffolding)
+- [x] Add multi-task adapters (`subset-sum`, `linear2`, `digit-permutation`) with objective validators.
+- [x] Add task registry and pipeline task-selection support.
+- [x] Add deterministic panel generator for protocol-v3 locksets (50 items each).
+- [x] Add generic paired lockset runner (`run_structured_lockset.py`) for registered tasks.
+- [x] Add protocol-v3 matrix orchestrator and summary builder scripts.
+- [x] Add protocol-v3 benchmark/protocol/execution documentation.
+- [x] Add protocol-v3 run-log scaffold and unit coverage for new tasks.
 
-## P2 (After Baselines)
-- [x] Implement ToT runner with configurable breadth/depth.
-- [x] Add evaluator strategy variants (self-eval and rule-based checks).
-- [x] Add pruning and early-stop policies.
-- [x] Integrate ToT runner with at least one non-scripted model/provider adapter (Hugging Face path).
-- [x] Validate ToT Hugging Face run and capture failure taxonomy notes.
-  Note: live ToT artifacts (`TOT-PROTOTYPE-20260220-025520-892eed.json`, `TOT-PROTOTYPE-20260220-025614-869706.json`) reached depth limit with invalid candidate expressions.
+## P2 (Active Execution Queue)
+- [ ] Execute protocol-v3 block 1: `game24-demo` x `Qwen/Qwen3-Coder-Next:novita` (50 paired items x 3 conditions).
+- [ ] Execute remaining protocol-v3 matrix blocks without substitutions (4 tasks x 3 models total).
+- [ ] Rebuild consolidated v3 matrix summary from generated `*_v3.json` reports.
+- [ ] Refresh failure taxonomy artifacts from protocol-v3 manifests (task-scoped + pooled views).
+- [ ] Validate rerun determinism on a sampled subset using `--report-only` parity checks.
 
-## P3 (Analysis and Writing)
-- [x] Build paired lockset infrastructure (`game24_lockset_v1` panel + runner + pilot report path).
-- [x] Execute full lock set: 50 paired Game24 items per condition (`single`, `react`, `tot model_self_eval`).
-- [x] Expand fixed-protocol run panel beyond pilot if observed effect size is below publication-threshold confidence.
-  Note: criterion satisfied by full 50-item paired panel execution; no emergency panel expansion was required for protocol-v2.
-- [x] Add failure taxonomy table from live HF artifacts (formatting, operator, number-usage, depth-limit).
-- [x] Build ablation report template.
-- [x] Build failure taxonomy template with examples.
-- [x] Keep `phase2/manuscript/PREPAPER.md` updated after each protocol decision and evaluation run batch.
-- [x] Draft Methods + Experiments sections for novel manuscript track from `phase2/manuscript/PREPAPER.md`.
-- [x] Draft Results + Limitations sections for novel manuscript track from `phase2/manuscript/PREPAPER.md`.
-- [x] Add lockset runner parallelization controls and provider-rate-limit-safe defaults for future large sweeps.
+## P3 (Manuscript and Packaging)
+- [ ] Update `phase2/manuscript/PREPAPER.md` with protocol-v3 design, status, and evidence-bound claim scope.
+- [ ] Generate v3-backed submission tables/figures directly from matrix summary JSON.
+- [ ] Draft reproducibility appendix text for v3 commands, panels, and artifact map.
+- [ ] Prepare anonymous vs camera-ready package variants once v3 evidence is complete.

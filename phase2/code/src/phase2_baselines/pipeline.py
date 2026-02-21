@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Tuple
 
 from .adapters import HuggingFaceInferenceModel, ScriptedModel
 from .manifest import append_run_log, write_manifest
 from .runners import ReactRunner, SinglePathRunner
-from .tasks import Arithmetic24Task
+from .tasks import create_task, resolve_task_id
 
 
 def _build_baseline_config(runner_name: str, seed: int) -> Dict[str, Any]:
@@ -86,15 +86,17 @@ def create_baseline_setup(
     runner_name: str,
     seed: int = 0,
     provider: str = "scripted",
+    task_name: str = "game24",
     model_id: str | None = None,
     hf_token_env: str = "HF_TOKEN",
     hf_timeout_seconds: int = 120,
     hf_max_new_tokens: int = 192,
     hf_temperature: float = 0.0,
     hf_top_p: float = 1.0,
-) -> Tuple[Any, Arithmetic24Task, Dict[str, Any]]:
+) -> Tuple[Any, Any, Dict[str, Any]]:
     """Create runner, task, and config for a named baseline condition."""
-    task = Arithmetic24Task()
+    task = create_task(task_name)
+    task_id = resolve_task_id(task_name)
     model, resolved_model_id, resolved_provider = _resolve_model(
         provider=provider,
         runner_name=runner_name,
@@ -106,6 +108,7 @@ def create_baseline_setup(
         hf_top_p=hf_top_p,
     )
     config = _build_baseline_config(runner_name=runner_name, seed=seed)
+    config["task_id"] = task_id
 
     if runner_name == "single":
         runner = SinglePathRunner(model=model, model_name=resolved_model_id, provider=resolved_provider)
@@ -120,11 +123,12 @@ def create_baseline_setup(
 
 def execute_and_record(
     runner_name: str,
-    input_numbers: List[int],
+    input_data: Any,
     runs_dir: Path,
     run_log: Path,
     seed: int = 0,
     provider: str = "scripted",
+    task_name: str = "game24",
     model_id: str | None = None,
     hf_token_env: str = "HF_TOKEN",
     hf_timeout_seconds: int = 120,
@@ -137,6 +141,7 @@ def execute_and_record(
         runner_name=runner_name,
         seed=seed,
         provider=provider,
+        task_name=task_name,
         model_id=model_id,
         hf_token_env=hf_token_env,
         hf_timeout_seconds=hf_timeout_seconds,
@@ -145,7 +150,7 @@ def execute_and_record(
         hf_top_p=hf_top_p,
     )
     runner.prepare(task=task, config=config)
-    manifest = runner.run(input_numbers)
+    manifest = runner.run(input_data)
 
     out_path = runs_dir / f"{manifest['run_id']}.json"
     manifest["artifact_paths"].append(str(out_path))

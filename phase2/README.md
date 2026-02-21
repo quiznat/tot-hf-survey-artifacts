@@ -7,6 +7,13 @@ This directory is the execution workspace for the novel contribution track: impl
 - Source markdown: `phase2/manuscript/PREPAPER.md`
 - Build command: `bash phase2/manuscript/build_phase2_html.sh`
 
+## Current Evaluation Track
+- Frozen v2 evidence remains archived and reportable.
+- Expanded v3 multi-task matrix is now scaffolded for deeper pre-publication validation:
+  - protocol: `phase2/benchmarks/evaluation-protocol-v3.md`
+  - matrix: `phase2/benchmarks/benchmark-matrix-v3.md`
+  - execution guide: `phase2/benchmarks/protocol-v3-execution.md`
+
 ## Purpose
 - Keep long-running project state stable across sessions.
 - Separate planning and implementation artifacts from the survey manuscript workflow.

@@ -16,10 +16,12 @@ Deliver a reproducible implementation and empirical evaluation of Tree-of-Though
 - Arithmetic correctness checks for Game24 are offline verification metrics, not the primary in-chain decision mechanism.
 - All condition comparisons must be paired on identical item IDs.
 
-## Protocol Freeze (Approved)
-- Active protocol: `phase2/benchmarks/evaluation-protocol-v2.md`
+## Protocol Status
+- Frozen baseline protocol: `phase2/benchmarks/evaluation-protocol-v2.md`
 - Protocol ID: `TOT-HF-P2-EPV2-2026-02-20`
 - Primary gate/ablation model: `Qwen/Qwen3-Coder-Next:novita`
+- Active expansion protocol: `phase2/benchmarks/evaluation-protocol-v3.md`
+- Expansion protocol ID: `TOT-HF-P2-EPV3-2026-02-21`
 
 ## Gate Model
 
@@ -56,7 +58,8 @@ Acceptance criteria:
 
 ### Gate P2-G5: Manuscript Draft (Novel Work)
 Acceptance criteria:
-- [x] Methods, experiments, and limitations sections drafted.
+- [x] Methods, experiments, and limitations sections drafted from protocol-v2 evidence.
+- [ ] Protocol-v3 core matrix evidence integrated into manuscript claims.
 - [ ] Figures/tables generated from source data.
 - [ ] Reproducibility appendix complete.
 - [ ] `phase2/manuscript/PREPAPER.md` updated as the canonical source before manuscript export.
@@ -74,6 +77,6 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 4)
-1. Build first anonymous submission package and reproducibility artifact index.
-2. Generate submission-ready tables/figures from archived matrix and ablation artifacts.
-3. Finalize reproducibility appendix text and cross-link all claimed metrics to artifact files.
+1. Execute protocol-v3 matrix blocks with locked tasks/models (`4 x 3 x 50 x 3 = 1800` runs).
+2. Generate consolidated protocol-v3 matrix summary and task-wise failure taxonomy refresh.
+3. Update manuscript claims/tables to use task-scoped v3 evidence before any submission packaging.

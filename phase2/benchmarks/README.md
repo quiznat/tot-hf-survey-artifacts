@@ -4,8 +4,15 @@ Use this directory for benchmark definitions, run results, and analysis summarie
 
 ## Planned Files
 - `benchmark-matrix.md`: task panel, baselines, and primary metrics.
+- `benchmark-matrix-v3.md`: expanded multi-task matrix (protocol-v3 scope).
 - `evaluation-protocol-v1.md`: fixed protocol settings for Evaluation v1 runs.
+- `evaluation-protocol-v2.md`: frozen protocol for v2 matrix and ablations.
+- `evaluation-protocol-v3.md`: expanded multi-task protocol for deeper pre-publication evidence.
+- `protocol-v3-execution.md`: canonical matrix execution and summary commands.
 - `panels/game24_lockset_v1.json`: fixed 50-item paired Game24 panel for lockset evaluation.
+- `panels/subset_sum_lockset_v1.json`: fixed 50-item paired subset-sum panel.
+- `panels/linear2_lockset_v1.json`: fixed 50-item paired 2x2 linear-system panel.
+- `panels/digit_permutation_lockset_v1.json`: fixed 50-item paired digit-permutation optimization panel.
 - `runs/`: run-level output artifacts.
   - includes baseline and `tot-prototype` demo manifests.
 - `analysis/`: aggregate tables and plots.

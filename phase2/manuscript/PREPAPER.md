@@ -1,7 +1,7 @@
 # Phase 2 Prepaper (Living Source of Truth)
 
 Status: active draft (build-as-we-go)
-Last updated: 2026-02-21
+Last updated: 2026-02-21 (protocol-v3 scaffold integrated)
 
 ## Working Title
 Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluation with LLM-Based In-Chain Judging
@@ -14,6 +14,19 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - Protocol ID: `TOT-HF-P2-EPV2-2026-02-20`
 - Freeze date: 2026-02-20
 
+## Protocol v3 Expansion Track (Active)
+- Active protocol file: `phase2/benchmarks/evaluation-protocol-v3.md`
+- Protocol ID: `TOT-HF-P2-EPV3-2026-02-21`
+- Status: scaffolding complete; multi-task matrix execution pending.
+- Additional task panels prepared:
+  - `phase2/benchmarks/panels/subset_sum_lockset_v1.json`
+  - `phase2/benchmarks/panels/linear2_lockset_v1.json`
+  - `phase2/benchmarks/panels/digit_permutation_lockset_v1.json`
+- Canonical execution tooling:
+  - `phase2/code/scripts/run_structured_lockset.py`
+  - `phase2/code/scripts/run_protocol_v3_matrix.py`
+  - `phase2/code/scripts/build_protocol_v3_matrix_summary.py`
+
 ## Methodology Decision Freeze (2026-02-20)
 - Primary ToT methodology uses LLM-based in-chain evaluation (`model_self_eval`).
 - `rule_based` and `hybrid` evaluator modes are retained for ablations/controls only.
@@ -25,7 +38,7 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - RQ2: What are latency/token tradeoffs of ToT under fixed budget constraints?
 - RQ3: How sensitive are outcomes to evaluator mode and search policy choices?
 
-## Experimental Design (Current)
+## Experimental Design (Current Evidence Baseline)
 - Conditions:
   - `baseline-single-path`
   - `baseline-react`
@@ -38,7 +51,7 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - Pairing policy:
   - Identical item IDs evaluated across all conditions.
 
-## Statistical Plan (Current)
+## Statistical Plan (Current Evidence Baseline)
 - Fixed panel: 50 paired Game24 items per condition (150 total runs per model for primary 3-condition matrix).
 - Primary success analysis:
   - paired condition comparisons on identical item IDs,
@@ -47,6 +60,18 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - exact McNemar p-values with Holm correction.
 - Interpretation guardrail:
   - claim scope is panel/model-specific unless replicated across additional tasks/models.
+
+## Protocol-v3 Statistical Plan (Active Expansion)
+- Fixed panel size remains `n=50` paired items per condition for every task/model block.
+- Core matrix volume: `4 tasks x 3 models x 3 conditions x 50 = 1800` runs.
+- Per block reporting:
+  - Wilson confidence intervals for success rates,
+  - paired bootstrap confidence intervals for deltas (`bootstrap_samples=10000`),
+  - exact two-sided McNemar tests for paired contrasts.
+- Correction policy:
+  - Holm correction within each task/model block report;
+  - any pooled cross-task analysis must declare its own second-stage correction scope.
+- Claim boundary remains task- and model-scoped unless replicated across blocks.
 
 ## Draft Manuscript Text: Methods and Experimental Setup (v0.1)
 
@@ -183,20 +208,22 @@ Finally, this phase emphasizes internal reproducibility and controlled paired in
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
 
 ## Prepaper Build Plan
-1. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests. (completed in v0.1 section above)
-2. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only. (completed in v0.1 section above)
-3. Draft Limitations and Threats to Validity before conclusion text. (limitations completed in v0.1 section above; dedicated threats-to-validity consolidation remains in final polish)
-4. Prepare reproducibility appendix with final command blocks and artifact index.
-5. Build anonymous manuscript package for first submission cycle.
+1. Keep v2 Methods/Results text as frozen baseline evidence. (completed in v0.1 section above)
+2. Execute protocol-v3 core matrix and generate consolidated v3 summary artifacts.
+3. Add a dedicated v3 results section with task-scoped contrasts and correction policy details.
+4. Draft reproducibility appendix with v3 command blocks, panel manifests, and artifact index.
+5. Build anonymous manuscript package after v3 evidence integration.
 
 Canonical execution commands for search ablations are archived in:
 - `phase2/benchmarks/protocol-v2-search-ablation-execution.md`
 
 ## Required Tables/Figures (Planned)
 - Table 1: Condition-level success/latency/token metrics (paired panel).
-- Table 2: Ablation summary (evaluator mode and search presets).
-- Table 3: Failure taxonomy with representative run IDs.
+- Table 2: Multi-task matrix summary (task x model x condition).
+- Table 3: Ablation summary (evaluator mode and search presets).
+- Table 4: Failure taxonomy with representative run IDs.
 - Figure 1: ToT search-state trace diagram with stop-policy points.
+- Figure 2: Protocol-v3 effect-size forest plot (ToT vs ReAct by task/model).
 
 ## Protocol Changes Log
 - 2026-02-20: Set LLM-based in-chain evaluation as primary methodology; moved rule-based scoring to ablation/control role.
@@ -213,3 +240,5 @@ Canonical execution commands for search ablations are archived in:
 - 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face manifests.
 - 2026-02-21: Drafted manuscript-ready Methods and Experimental Setup text from frozen protocol artifacts.
 - 2026-02-21: Drafted manuscript-ready Results and Limitations text from frozen matrix, ablation, and taxonomy artifacts.
+- 2026-02-21: Added protocol-v3 multi-task scaffold (new task adapters, deterministic panels, generic lockset runner, matrix orchestration, and matrix summary tooling).
+- 2026-02-21: Activated protocol-v3 as the current deepening track while preserving v2 as frozen baseline evidence.
