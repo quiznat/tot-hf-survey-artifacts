@@ -7,6 +7,10 @@ on:
       - 'index.html'
       - 'paper.html'
       - 'assets/**'
+      - 'phase2/index.html'
+      - 'phase2/manuscript/PREPAPER.md'
+      - 'phase2/manuscript/build_phase2_html.sh'
+      - 'phase2/manuscript/phase2-paper.css'
       - 'submission/build_llm_markdown.sh'
       - '.github/workflows/publish-site.yml'
   workflow_dispatch:
@@ -39,12 +43,20 @@ jobs:
         run: |
           bash submission/build_llm_markdown.sh
 
+      - name: Generate Phase 2 Rendered HTML
+        run: |
+          bash phase2/manuscript/build_phase2_html.sh
+
       - name: Prepare site bundle
         run: |
           mkdir -p _site
+          mkdir -p _site/phase2/manuscript
           cp index.html _site/index.html
           cp paper.html _site/paper.html
           cp tot-hf-agents-llm.md _site/tot-hf-agents-llm.md
+          cp phase2/index.html _site/phase2/index.html
+          cp phase2/paper.html _site/phase2/paper.html
+          cp phase2/manuscript/phase2-paper.css _site/phase2/manuscript/phase2-paper.css
           cp -r assets _site/assets
 
       - name: Upload Pages artifact

@@ -2,6 +2,11 @@
 
 This directory is the execution workspace for the novel contribution track: implementing and evaluating Tree-of-Thought-style reasoning in Hugging Face agent workflows with reproducible empirical results.
 
+## Rendered Draft
+- GitHub Pages (Phase 2 paper): `https://quiznat.github.io/tot-hf-survey-artifacts/phase2/paper.html`
+- Source markdown: `phase2/manuscript/PREPAPER.md`
+- Build command: `bash phase2/manuscript/build_phase2_html.sh`
+
 ## Purpose
 - Keep long-running project state stable across sessions.
 - Separate planning and implementation artifacts from the survey manuscript workflow.
