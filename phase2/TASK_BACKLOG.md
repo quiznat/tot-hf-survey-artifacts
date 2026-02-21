@@ -38,5 +38,5 @@ Status date: 2026-02-21
 - [x] Build ablation report template.
 - [x] Build failure taxonomy template with examples.
 - [x] Keep `phase2/manuscript/PREPAPER.md` updated after each protocol decision and evaluation run batch.
-- [ ] Draft Methods + Experiments sections for novel manuscript track from `phase2/manuscript/PREPAPER.md`.
+- [x] Draft Methods + Experiments sections for novel manuscript track from `phase2/manuscript/PREPAPER.md`.
 - [x] Add lockset runner parallelization controls and provider-rate-limit-safe defaults for future large sweeps.

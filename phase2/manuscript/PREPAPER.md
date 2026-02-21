@@ -48,6 +48,27 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - Interpretation guardrail:
   - claim scope is panel/model-specific unless replicated across additional tasks/models.
 
+## Draft Manuscript Text: Methods and Experimental Setup (v0.1)
+
+### 4. Methods
+We evaluate Tree-of-Thought (ToT) search in a controlled agent harness with three conditions implemented under a shared execution stack: `baseline-single-path`, `baseline-react`, and `tot-prototype`. The single-path baseline performs one forward generation pass and is scored on the final extracted expression. The ReAct baseline runs an iterative loop (`max_steps=5`) with a `calc` tool and returns either a tagged `FINAL` answer or a recovered action expression when valid. The ToT prototype maintains an explicit frontier of thought nodes. At each depth, it generates candidate expressions, evaluates each candidate, accumulates scores along parent-child paths, prunes to a fixed frontier width by cumulative score, and stops on the first terminal solution or at depth limit.
+
+The primary ToT evaluator is `model_self_eval`, where the same model assigns a scalar score in `[0,1]` to each candidate via an in-chain scoring prompt. `rule_based` and `hybrid` evaluators are retained as control/ablation modes only and are not used for primary claims. Default primary search settings are `max_depth=3`, `branch_factor=3`, and `frontier_width=3`, with frozen ablation presets A1 (`2/3/3`) and A2 (`3/4/4`).
+
+All runs use the Hugging Face Inference Router with fixed execution controls from the frozen protocol (`TOT-HF-P2-EPV2-2026-02-20`): deterministic item-level seeding via `seed_policy=item_hash`, sampling controls logged per run (`hf_temperature=0.0`, `hf_top_p=1.0`), and no within-matrix model substitution. Each run emits a structured manifest with run metadata (`run_id`, timestamp, condition, provider/model, panel/item IDs, input), configuration fields (search and evaluator settings), and outcome/trace metrics (success, latency, tokens, notes, error type where applicable).
+
+### 5. Experimental Setup
+The primary task is Game24 expression synthesis on a fixed paired panel (`game24_lockset_v1`) containing 50 solvable items (`selection_seed=20260220`, number range 1-10). Each item is defined by four integers and an oracle solution string used for panel provenance; agent execution receives only the four-number input. Success is binary and requires an expression that uses each provided number exactly once and evaluates to 24 under the task validator.
+
+The locked model matrix is:
+- `Qwen/Qwen3-Coder-Next:novita`
+- `Qwen/Qwen2.5-72B-Instruct`
+- `Qwen/Qwen2.5-Coder-32B-Instruct`
+
+For each model, we run all three primary conditions on the identical 50-item panel (`3 x 50 = 150` runs/model; `450` runs total for the matrix). Additional ablations are executed on the primary model (`Qwen/Qwen3-Coder-Next:novita`) using the same paired panel design: evaluator-mode ablations (`model_self_eval`, `rule_based`, `hybrid`) and search-policy ablations (primary, A1, A2). These executed batches contribute an additional `600` runs, yielding `1050` protocol-v2 matrix+ablation runs in total (excluding smoke prechecks).
+
+Primary endpoint is success rate by condition. Secondary endpoints are latency (ms) and token usage (`tokens_in`, `tokens_out`). Statistical reporting is pre-registered in the protocol and implemented by the lockset report pipeline: Wilson confidence intervals for condition success rates, paired bootstrap percentile confidence intervals for success-rate deltas (`bootstrap_samples=10000`, fixed seed), and exact two-sided McNemar tests for paired contrasts with Holm correction across reported pairwise tests. All claims are restricted to panel/model-scoped observations under this protocol.
+
 ## Executed Pilot Evidence (Current)
 - Paired 3-item smoke panel executed across `baseline-single-path`, `baseline-react`, and `tot-prototype`.
 - Run settings:
@@ -144,7 +165,7 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - Disallowed claim pattern: broad generalization to arbitrary tasks or models from single-task pilot results.
 
 ## Prepaper Build Plan
-1. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests.
+1. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests. (completed in v0.1 section above)
 2. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
 3. Draft Limitations and Threats to Validity before conclusion text.
 4. Prepare reproducibility appendix with final command blocks and artifact index.
@@ -172,3 +193,4 @@ Canonical execution commands for search ablations are archived in:
 - 2026-02-21: Added search-ablation execution playbook and summary tooling (`build_search_ablation_summary.py`).
 - 2026-02-21: Completed A1/A2 search-policy ablation runs on primary model and archived consolidated search-ablation summary artifacts.
 - 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face manifests.
+- 2026-02-21: Drafted manuscript-ready Methods and Experimental Setup text from frozen protocol artifacts.

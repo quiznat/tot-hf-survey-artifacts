@@ -122,11 +122,13 @@ Status date: 2026-02-21
 - Refreshed protocol-v2 failure taxonomy artifacts:
   - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v2.md`,
   - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v2.json`.
+- Drafted manuscript-ready Methods and Experimental Setup text from frozen protocol artifacts in:
+  - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Methods and Experimental Setup (v0.1)`).
 
 ## Next 3 Tasks
-1. Draft Phase 2 Methods and Experimental Setup sections in `phase2/manuscript/PREPAPER.md` from frozen protocol and executed matrix+ablation artifacts.
-2. Draft Results and Limitations text with explicit panel/model scoping and compute-performance tradeoff framing.
-3. Prepare anonymized manuscript package and artifact index for first external submission cycle.
+1. Draft Results and Limitations text with explicit panel/model scoping and compute-performance tradeoff framing.
+2. Prepare anonymized manuscript package and artifact index for first external submission cycle.
+3. Build submission-ready figures/tables directly from archived matrix and ablation artifacts.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.

@@ -74,6 +74,6 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 4)
-1. Draft Methods and Experimental Setup sections for Phase 2 manuscript text from frozen protocol and executed artifacts.
-2. Draft Results/Limitations with explicit panel/model scope and cost-latency tradeoff reporting.
-3. Build first anonymous submission package and reproducibility artifact index.
+1. Draft Results/Limitations with explicit panel/model scope and cost-latency tradeoff reporting.
+2. Build first anonymous submission package and reproducibility artifact index.
+3. Generate submission-ready tables/figures from archived matrix and ablation artifacts.
