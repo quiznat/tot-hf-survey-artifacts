@@ -1172,9 +1172,7 @@ Execution Plan:
 
 ### 4.4 Case Studies
 
-*Evidence note:* The case studies in this section are synthetic walkthroughs for design illustration. They are not reported benchmark experiments.
-
-*Structure note:* Each walkthrough follows the same pattern (task, branch options, evaluator rationale, execution sketch, and recovery cues) to keep these examples as synthesis artifacts rather than empirical claims.
+The case studies in this section are synthetic design walkthroughs intended to illustrate integration patterns (task framing, branching logic, evaluator rationale, execution sketch, and recovery behavior), not reported benchmark experiments.
 
 #### 4.4.1 Case Study 1: Financial Analysis Agent
 
