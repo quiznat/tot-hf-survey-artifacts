@@ -2245,17 +2245,6 @@ This appendix maps representative manuscript claims to supporting sources and ev
 
 ------------------------------------------------------------------------
 
-## Appendix H: Evidence Scope and Validation
-
-This manuscript is accompanied by two evidence layers:
-
-- **Frozen forensic bundle (server scope):** immutable run/log/config evidence captured in `artifacts/publication-evidence/evidence_bundle_20260219T164814Z_v2/`.
-- **Local publication-readiness validation (local + collaboration scope):** commit timeline and collaboration transcript evidence in `artifacts/publication-evidence/local-publication-readiness-validation.md`.
-
-Under the combined scope, manuscript readiness is supported by documented autonomous initiation/completion evidence and local human-Codex hardening records, with Grok input treated as advisory.
-
-------------------------------------------------------------------------
-
 ## Acknowledgments
 
 This research was conducted with reference to the foundational work of Shunyu Yao and colleagues on Tree of Thoughts, and the educational resources provided by Hugging Face's Agent Course. We acknowledge the contributions of the open-source community in developing the tools and frameworks discussed.

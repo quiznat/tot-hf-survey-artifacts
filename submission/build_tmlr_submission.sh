@@ -12,6 +12,33 @@ OFFICIAL_DIR="$TMLR_DIR/official-anonymous"
 OFFICIAL_TEX="$OFFICIAL_DIR/main-tmlr.tex"
 TMLR_STYLE="$TMLR_DIR/template/tmlr.sty"
 
+copy_referenced_assets() {
+  local html_file="$1"
+  local source_assets_dir="$2"
+  local target_assets_dir="$3"
+
+  rm -rf "$target_assets_dir"
+  mkdir -p "$target_assets_dir"
+
+  local asset_paths
+  asset_paths="$(
+    perl -nE '
+      while (/(?:src|href)=["\x27]\.\/assets\/([^"\x27?#]+)/g) { print "$1\n"; }
+      while (/url\(["\x27]?\.\/assets\/([^)"\x27?#]+)/g) { print "$1\n"; }
+    ' "$html_file" | sort -u
+  )"
+
+  while IFS= read -r rel_path; do
+    [ -z "$rel_path" ] && continue
+    if [ -f "$source_assets_dir/$rel_path" ]; then
+      mkdir -p "$target_assets_dir/$(dirname "$rel_path")"
+      cp "$source_assets_dir/$rel_path" "$target_assets_dir/$rel_path"
+    else
+      echo "Warning: referenced asset not found: $source_assets_dir/$rel_path" >&2
+    fi
+  done <<< "$asset_paths"
+}
+
 mkdir -p "$ANON_DIR"
 
 if ! command -v pandoc >/dev/null 2>&1; then
@@ -82,8 +109,7 @@ perl -i -CS -pe '
   s/├──/|--/g; s/└──/`--/g; s/│/|/g; s/─/-/g;
 ' "$ANON_TEX"
 
-rm -rf "$ANON_DIR/assets"
-cp -r "$ROOT_DIR/assets" "$ANON_DIR/assets"
+copy_referenced_assets "$ANON_HTML" "$ROOT_DIR/assets" "$ANON_DIR/assets"
 
 if command -v latexmk >/dev/null 2>&1; then
   (
@@ -100,7 +126,9 @@ if [ -f "$TMLR_STYLE" ]; then
   cp "$ANON_TEX" "$OFFICIAL_TEX"
   cp "$TMLR_STYLE" "$OFFICIAL_DIR/tmlr.sty"
   rm -rf "$OFFICIAL_DIR/assets"
-  cp -r "$ROOT_DIR/assets" "$OFFICIAL_DIR/assets"
+  if [ -d "$ANON_DIR/assets" ]; then
+    cp -r "$ANON_DIR/assets" "$OFFICIAL_DIR/assets"
+  fi
 
   # Inject official style package and keep anonymous author block.
   perl -0777 -i -pe '
