@@ -6,11 +6,11 @@ Scope: local workspace evidence and collaboration transcript excerpts.
 ## Finding 1: Publication hardening occurred through sustained local revision
 
 Evidence:
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:5`
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:10`
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:14`
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:15`
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:22`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:5`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:10`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:14`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:15`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:22`
 
 Interpretation:
 - The commit timeline shows sequential work on survey framing, claim calibration, appendices, and publication packaging.
@@ -19,7 +19,7 @@ Interpretation:
 ## Finding 2: Grok feedback is present but non-blocking
 
 Evidence:
-- `artifacts/publication-evidence/ingest/local-collab-transcript-excerpts-20260219.txt:6`
+- `story/publication-evidence/ingest/local-collab-transcript-excerpts-20260219.txt:6`
 
 Interpretation:
 - A Codex + Grok review loop is documented.
@@ -39,9 +39,9 @@ Interpretation:
 ## Finding 4: Public distribution and reproducibility workflows are operational
 
 Evidence:
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:14`
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:36`
-- `artifacts/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:38`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:14`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:36`
+- `story/publication-evidence/ingest/local-repo-publication-timeline-20260219.txt:38`
 
 Interpretation:
 - GitHub Pages and arXiv artifact workflows were implemented and validated during the hardening sequence.

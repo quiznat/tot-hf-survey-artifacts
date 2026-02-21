@@ -23,9 +23,8 @@ This repository hosts the canonical manuscript, submission derivatives, and repr
 ## Reproducibility Anchor
 - Frozen protocol run ID: `TOT-HF-SURVEY-2026-02-19`
 - Artifact index: [`artifacts/`](artifacts/)
-- Publication evidence package: [`artifacts/publication-evidence/`](artifacts/publication-evidence/)
-- Evidence index: [`artifacts/publication-evidence/evidence-index.md`](artifacts/publication-evidence/evidence-index.md)
 - Screening log: [`artifacts/screening-log.md`](artifacts/screening-log.md)
+- Project narrative and provenance (non-manuscript): [`story/`](story/)
 
 ## Build and Release Workflows
 - `.github/workflows/publish-site.yml`: publishes `paper.html` and `assets/` to GitHub Pages.
@@ -37,7 +36,8 @@ This repository hosts the canonical manuscript, submission derivatives, and repr
 - `paper.pdf`: CI-published rendered PDF.
 - `tot-hf-agents-llm.md`: machine-readable manuscript derivative.
 - `assets/`: figures and static assets used in the manuscript.
-- `artifacts/`: reproducibility documentation and evidence package.
+- `artifacts/`: manuscript-facing reproducibility artifacts.
+- `story/`: project narrative, provenance notes, and forensic evidence package.
 - `submission/`: export scripts and submission-focused conversion assets.
   - Includes a TMLR path in `submission/tmlr/`.
 - `phase2/`: novel contribution workspace (ToT-HF implementation roadmap, project state, reproducibility templates, and benchmark planning).
