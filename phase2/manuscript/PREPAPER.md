@@ -128,6 +128,9 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 4. Draft Limitations and Threats to Validity before conclusion text.
 5. Prepare reproducibility appendix with final command blocks and artifact index.
 
+Canonical execution commands for pending search ablations (A1/A2) are frozen in:
+- `phase2/benchmarks/protocol-v2-search-ablation-execution.md`
+
 ## Required Tables/Figures (Planned)
 - Table 1: Condition-level success/latency/token metrics (paired panel).
 - Table 2: Ablation summary (evaluator mode, depth/width, duplicate filtering).
@@ -144,3 +147,4 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 - 2026-02-20: Locked protocol-v2 matrix to fixed available model set with no within-matrix substitutions.
 - 2026-02-20: Completed full 3-model protocol-v2 matrix execution and added matrix-level summary artifacts.
 - 2026-02-21: Completed evaluator ablation runs (`rule_based`, `hybrid`) on primary model and added consolidated evaluator-ablation summary artifacts.
+- 2026-02-21: Added search-ablation execution playbook and summary tooling (`build_search_ablation_summary.py`) to standardize A1/A2 reporting once live runs are executed.

@@ -14,6 +14,7 @@ This directory is the execution workspace for the novel contribution track: impl
 - `TASK_BACKLOG.md`: prioritized implementation and research tasks.
 - `manuscript/PREPAPER.md`: living manuscript source of truth for methods, decisions, and claim boundaries.
 - `benchmarks/`: benchmark design and run outputs.
+  - `benchmarks/protocol-v2-search-ablation-execution.md`: canonical A1/A2 execution commands and artifact paths.
 - `reproducibility/`: environment and run logging standards.
 - `templates/`: reusable templates for experiments and reporting.
 

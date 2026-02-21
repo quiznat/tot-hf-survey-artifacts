@@ -104,16 +104,28 @@ Status date: 2026-02-21
   - `phase2/benchmarks/analysis/game24_lockset_evaluator_ablation_summary.json`.
 - Logged ablation execution traces in:
   - `phase2/reproducibility/run-log-protocol-v2-ablations.md`.
+- Added search-ablation execution/summary tooling:
+  - execution playbook: `phase2/benchmarks/protocol-v2-search-ablation-execution.md`,
+  - summary script: `phase2/code/scripts/build_search_ablation_summary.py`,
+  - report metadata now includes ToT search settings (`tot_max_depth`, `tot_branch_factor`, `tot_frontier_width`) in `run_game24_lockset.py`.
+- Added reusable writing templates:
+  - `phase2/templates/ablation_report_template.md`,
+  - `phase2/templates/failure_taxonomy_template.md`.
+- Initialized isolated run log for search-policy ablations:
+  - `phase2/reproducibility/run-log-protocol-v2-search-ablations.md`.
+- Runtime blocker observed in current Codex environment:
+  - `HF_TOKEN` is not present for this process, so live A1/A2 HF runs cannot start until token is exported in-session.
 
 ## Next 3 Tasks
-1. Run search-policy ablations (A1/A2 depth/width presets) on `Qwen/Qwen3-Coder-Next:novita`.
-2. Build updated failure taxonomy from matrix + evaluator/search ablations with representative run IDs.
-3. Integrate ablation outcomes into `phase2/manuscript/PREPAPER.md` methods/results/limitations language.
+1. Export `HF_TOKEN` in this Codex runtime and execute A1/A2 search-policy ablations from `phase2/benchmarks/protocol-v2-search-ablation-execution.md`.
+2. Build consolidated search-ablation summary (`game24_lockset_search_ablation_summary.{md,json}`) and refresh failure taxonomy with representative run IDs.
+3. Integrate search/evaluator ablation outcomes into `phase2/manuscript/PREPAPER.md` methods/results/limitations language.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
 - Model/API variability affecting reproducibility.
 - Need consistent environment pinning before evaluation runs.
+- Current Codex runtime may not inherit shell-exported secrets unless explicitly set for this session.
 
 ## Decision Log
 - 2026-02-20: Adopted gate-based roadmap for Phase 2 execution.
@@ -138,3 +150,4 @@ Status date: 2026-02-21
 - 2026-02-20: Locked protocol-v2 model matrix to fixed available models and disallowed within-matrix substitutions.
 - 2026-02-20: Completed protocol-v2 3-model lockset matrix execution with isolated run artifacts and matrix summary outputs.
 - 2026-02-21: Completed evaluator-mode ablations (`rule_based`, `hybrid`) on locked primary model and archived consolidated ablation summary artifacts.
+- 2026-02-21: Added protocol-v2 search-ablation execution playbook, summary script, and reusable ablation/taxonomy templates; awaiting `HF_TOKEN` in current runtime to execute A1/A2 runs.

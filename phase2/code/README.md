@@ -19,6 +19,7 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_game24_lockset.py`: paired Game24 panel runner across `single`, `react`, and `tot` conditions.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
+- `scripts/build_search_ablation_summary.py`: consolidate primary + A1 + A2 lockset reports into one search-ablation summary.
 - `tests/`: smoke tests for runner scaffolding.
 
 ## Interface Contract
@@ -143,6 +144,7 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
 
 Active protocol reference:
 - `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v2.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/protocol-v2-search-ablation-execution.md`
 
 ## Local Tests
 ```bash
@@ -168,4 +170,14 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_failure
   --provider huggingface-inference \
   --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_hf.md \
   --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_hf.json
+```
+
+## Build Search Ablation Summary
+```bash
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_search_ablation_summary.py \
+  --primary-report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext.json \
+  --a1-report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a1.json \
+  --a2-report-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_report_qwen3codernext_search_a2.json \
+  --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.md \
+  --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/game24_lockset_search_ablation_summary.json
 ```
