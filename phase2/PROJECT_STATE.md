@@ -13,7 +13,7 @@ Status date: 2026-02-21
 - P2-G2 (ToT Integration Prototype): completed
 - P2-G3 (Evaluation v1): completed
 - P2-G4 (Ablation and Error Analysis): completed
-- P2-G5 (Manuscript Draft): not started
+- P2-G5 (Manuscript Draft): in progress
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
@@ -124,11 +124,13 @@ Status date: 2026-02-21
   - `phase2/benchmarks/analysis/failure_taxonomy_protocol_v2.json`.
 - Drafted manuscript-ready Methods and Experimental Setup text from frozen protocol artifacts in:
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Methods and Experimental Setup (v0.1)`).
+- Drafted manuscript-ready Results and Limitations text from frozen matrix, ablation, and taxonomy artifacts in:
+  - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Draft Results and Limitations text with explicit panel/model scoping and compute-performance tradeoff framing.
-2. Prepare anonymized manuscript package and artifact index for first external submission cycle.
-3. Build submission-ready figures/tables directly from archived matrix and ablation artifacts.
+1. Prepare anonymized manuscript package and artifact index for first external submission cycle.
+2. Build submission-ready figures/tables directly from archived matrix and ablation artifacts.
+3. Draft concise reproducibility appendix text aligned to protocol-v2 manifests and commands.
 
 ## Risks / Dependencies
 - Benchmark selection scope creep.
@@ -162,3 +164,4 @@ Status date: 2026-02-21
 - 2026-02-21: Added protocol-v2 search-ablation execution playbook, summary script, and reusable ablation/taxonomy templates.
 - 2026-02-21: Completed protocol-v2 search-policy ablations (A1/A2) on the locked primary model and generated consolidated search-ablation summary artifacts.
 - 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face run manifests.
+- 2026-02-21: Drafted manuscript-ready Results and Limitations text from frozen matrix, ablation, and failure-taxonomy artifacts.

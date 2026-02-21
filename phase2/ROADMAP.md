@@ -56,7 +56,7 @@ Acceptance criteria:
 
 ### Gate P2-G5: Manuscript Draft (Novel Work)
 Acceptance criteria:
-- [ ] Methods, experiments, and limitations sections drafted.
+- [x] Methods, experiments, and limitations sections drafted.
 - [ ] Figures/tables generated from source data.
 - [ ] Reproducibility appendix complete.
 - [ ] `phase2/manuscript/PREPAPER.md` updated as the canonical source before manuscript export.
@@ -74,6 +74,6 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 4)
-1. Draft Results/Limitations with explicit panel/model scope and cost-latency tradeoff reporting.
-2. Build first anonymous submission package and reproducibility artifact index.
-3. Generate submission-ready tables/figures from archived matrix and ablation artifacts.
+1. Build first anonymous submission package and reproducibility artifact index.
+2. Generate submission-ready tables/figures from archived matrix and ablation artifacts.
+3. Finalize reproducibility appendix text and cross-link all claimed metrics to artifact files.

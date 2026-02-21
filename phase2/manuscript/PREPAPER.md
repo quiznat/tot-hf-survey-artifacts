@@ -69,6 +69,24 @@ For each model, we run all three primary conditions on the identical 50-item pan
 
 Primary endpoint is success rate by condition. Secondary endpoints are latency (ms) and token usage (`tokens_in`, `tokens_out`). Statistical reporting is pre-registered in the protocol and implemented by the lockset report pipeline: Wilson confidence intervals for condition success rates, paired bootstrap percentile confidence intervals for success-rate deltas (`bootstrap_samples=10000`, fixed seed), and exact two-sided McNemar tests for paired contrasts with Holm correction across reported pairwise tests. All claims are restricted to panel/model-scoped observations under this protocol.
 
+## Draft Manuscript Text: Results and Limitations (v0.1)
+
+### 6. Results
+Under the frozen protocol (`TOT-HF-P2-EPV2-2026-02-20`), ToT with `model_self_eval` outperformed both baseline conditions on all three locked models in paired 50-item Game24 evaluations. Success rates for `tot-prototype` were `0.760` (`Qwen3-Coder-Next`), `0.580` (`Qwen2.5-72B-Instruct`), and `0.680` (`Qwen2.5-Coder-32B-Instruct`). Corresponding absolute deltas versus ReAct were `+0.320`, `+0.560`, and `+0.620`, with Holm-corrected McNemar p-values `8.55e-04`, `2.24e-08`, and `2.79e-09`, respectively. Deltas versus single-path were `+0.680`, `+0.420`, and `+0.500`, each with corrected p-values below `1e-04`.
+
+Latency and token footprints indicate a cost-performance tradeoff rather than uniform dominance. In the matrix reports, ToT latency exceeds single-path latency on all models and usually exceeds ReAct latency; however, magnitude varies by model and run window (for example, near parity between ToT and ReAct on `Qwen2.5-Coder-32B-Instruct`). This supports a scoped claim: paired success gains are robust on the fixed panel, while compute overhead is model- and configuration-dependent.
+
+Evaluator ablations on the primary model (`Qwen3-Coder-Next`) show that ToT remains superior to ReAct across all tested evaluator modes: `model_self_eval` (`0.760`), `rule_based` (`0.860`), and `hybrid` (`0.780`) ToT success rates, each with corrected paired significance. Because `rule_based` uses task-structured heuristics, it is treated as a diagnostic control and not the primary claim path. Search-policy ablations further show sensitivity to depth/width settings: A1 (`2/3/3`) achieved `0.720` ToT success, primary (`3/3/3`) `0.760`, and A2 (`3/4/4`) `0.920`, with ToT-vs-ReAct paired significance preserved in all presets.
+
+Failure taxonomy analysis across archived protocol runs (`n=202` failures) identifies dominant error classes: `format_or_notation_mismatch` (`109`), `other_failure` (`66`), and `depth_limit_no_solution` (`24`), plus infrequent `invalid_candidate_retained` (`2`) and `unsafe_expression_filtered` (`1`). These patterns are consistent with parser/normalization fragility and residual search termination failures, and motivate targeted robustness work in output normalization and candidate filtering.
+
+### 7. Limitations
+First, the current evidence is task-specific: all primary claims are derived from a fixed Game24 panel and do not establish generalization to broader tool-use or open-domain planning tasks. Second, the model set is intentionally locked and relatively narrow; conclusions are limited to the three evaluated models and the execution windows in which they were run. Third, provider-side effects (routing, transient latency variance, serving updates) may influence latency comparisons across batches even when protocol controls are held fixed.
+
+Fourth, the primary in-chain evaluator (`model_self_eval`) uses the same model family for generation and scoring, which may introduce correlated biases in branch selection. The offline arithmetic validator provides an external correctness check for reporting, but does not remove all possible in-chain evaluator biases. Fifth, some ablation outcomes (for example, strong `rule_based` performance) may reflect task-structured advantages and should not be interpreted as a general recommendation for unconstrained domains.
+
+Finally, this phase emphasizes internal reproducibility and controlled paired inference rather than deployment realism: no external human preference judgments, end-to-end agent productivity tasks, or production cost audits are included yet. These omissions are intentional and define the boundary of current claims.
+
 ## Executed Pilot Evidence (Current)
 - Paired 3-item smoke panel executed across `baseline-single-path`, `baseline-react`, and `tot-prototype`.
 - Run settings:
@@ -166,8 +184,8 @@ Primary endpoint is success rate by condition. Secondary endpoints are latency (
 
 ## Prepaper Build Plan
 1. Draft Methods and Experimental Setup directly from frozen protocol and executed manifests. (completed in v0.1 section above)
-2. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only.
-3. Draft Limitations and Threats to Validity before conclusion text.
+2. Draft Results, Failure Analysis, and Tradeoff analysis from archived artifacts only. (completed in v0.1 section above)
+3. Draft Limitations and Threats to Validity before conclusion text. (limitations completed in v0.1 section above; dedicated threats-to-validity consolidation remains in final polish)
 4. Prepare reproducibility appendix with final command blocks and artifact index.
 5. Build anonymous manuscript package for first submission cycle.
 
@@ -194,3 +212,4 @@ Canonical execution commands for search ablations are archived in:
 - 2026-02-21: Completed A1/A2 search-policy ablation runs on primary model and archived consolidated search-ablation summary artifacts.
 - 2026-02-21: Refreshed protocol-v2 failure taxonomy artifacts from archived Hugging Face manifests.
 - 2026-02-21: Drafted manuscript-ready Methods and Experimental Setup text from frozen protocol artifacts.
+- 2026-02-21: Drafted manuscript-ready Results and Limitations text from frozen matrix, ablation, and taxonomy artifacts.
