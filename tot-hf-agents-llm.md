@@ -10,7 +10,7 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 
 1.  **1** Independent Researcher, United States
 
-**Author links (Michael Leydon):** <a href="https://www.linkedin.com/in/michael-leydon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/michael-leydon</a>; <a href="https://www.quiznat.com/" target="_blank" rel="noopener noreferrer">quiznat.com</a>
+**Author links (Michael Leydon):** <a href="https://www.linkedin.com/in/michael-leydon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/michael-leydon</a>; <a href="https://orcid.org/0009-0003-4550-275X" target="_blank" rel="noopener noreferrer">orcid.org/0009-0003-4550-275X</a>
 
 **Version:** v1.1.1 – Pre-submission corrections (21 February 2026)
 
