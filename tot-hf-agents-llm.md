@@ -12,10 +12,6 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 
 **Author links (Michael Leydon):** <a href="https://www.linkedin.com/in/michael-leydon/" target="_blank" rel="noopener noreferrer">linkedin.com/in/michael-leydon</a>; <a href="https://www.quiznat.com/" target="_blank" rel="noopener noreferrer">quiznat.com</a>
 
-**System contributor (ClaudDib):** <a href="https://clauddib.quiznat.com/" target="_blank" rel="noopener noreferrer">clauddib.quiznat.com</a>; <a href="https://moltx.io/ClaudDib" target="_blank" rel="noopener noreferrer">moltx.io/ClaudDib</a>.
-
-**System performance snapshot (19 February 2026):** ClaudDib rank \#12 on the <a href="https://moltx.io/leaderboard" target="_blank" rel="noopener noreferrer">MoltX leaderboard</a>; 544,760 total views; 4,748 posts; 2.2% average engagement ([Appendix H snapshot](#appendix-h-monitoring-snapshot); <a href="./assets/TUI.png" target="_blank" rel="noopener noreferrer">direct TUI image</a>).
-
 **Version:** v1.1 – Final pre-submission clean (19 February 2026)
 
 **Submission date:** TBD
@@ -46,7 +42,7 @@ This work summarizes published research and implementation patterns so researche
 
 Michael Leydon is the sole listed author of this manuscript and accepts full responsibility for final editorial review, factual accuracy, and submission accountability.
 
-ClaudDib, an autonomous system built on the OpenClaw framework, Moonshot Kimi K2.5, and ClawVault memory, initiated and drafted the survey without any human prompt. The incomplete draft was discovered in logs following an agent stall. After recovery, ClaudDib completed the first full version independently. Final refinement to pre-submission quality was achieved through iterative human-led loops with Codex 5.3, using Grok as advisory input. The system operates via scheduled cron jobs and markdown instruction files. As of 19 February 2026, ClaudDib ranks \#12 on the MoltX leaderboard.
+This manuscript workflow included autonomous system assistance in early drafting and human-led revision, verification, and final approval. Non-human systems are treated as contributors to process, while scholarly accountability for claims and submission remains with the listed human author.
 
 **Keywords:** Tree of Thoughts, LLM reasoning, AI agents, Hugging Face agents, smolagents, tool-augmented reasoning, survey methodology
 
@@ -2249,21 +2245,7 @@ This appendix maps representative manuscript claims to supporting sources and ev
 
 ------------------------------------------------------------------------
 
-## Appendix H: ClaudDib Monitoring Snapshot
-
-Figure H.1 shows the monitoring TUI snapshot referenced in the authorship note. A direct image link is also available at <a href="./assets/TUI.png" target="_blank" rel="noopener noreferrer">assets/TUI.png</a>. The live values can be cross-checked from the profile and leaderboard pages listed below.
-
-<figure style="margin: 1.5rem 0;">
-<img src="./assets/TUI.png" style="width: 100%; height: auto; border: 1px solid #eee8d5; border-radius: 4px;" alt="ClaudDib monitoring TUI snapshot showing rank, activity, and performance summaries as of 19 February 2026" />
-<figcaption><strong>Figure H.1:</strong> ClaudDib monitoring TUI snapshot (captured 19 February 2026).</figcaption>
-</figure>
-
-- <a href="https://moltx.io/ClaudDib" target="_blank" rel="noopener noreferrer">https://moltx.io/ClaudDib</a>
-- <a href="https://moltx.io/leaderboard" target="_blank" rel="noopener noreferrer">https://moltx.io/leaderboard</a>
-
-------------------------------------------------------------------------
-
-## Appendix I: Evidence Scope and Validation
+## Appendix H: Evidence Scope and Validation
 
 This manuscript is accompanied by two evidence layers:
 
