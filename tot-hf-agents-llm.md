@@ -540,7 +540,7 @@ smolagents is built around several key abstractions \[10, 12\]:
 
 #### 3.3.3 Installation and Setup
 
-**Runnable example.** The following install commands are intended to be executable as written (subject to environment differences).
+**Runnable example.** The following install commands are intended to be executable as written (subject to environment differences). Verified script: `examples/paper_snippets/install_smolagents.sh`.
 
 ``` bash
 # Basic installation
@@ -557,7 +557,7 @@ pip install "smolagents[all]"           # All optional extras
 
 ### 3.4 CodeAgent: Code as Action
 
-**Code labeling.** In Sections 3-6, snippets fall into two categories: *runnable examples* (intended to run with adaptation) and *pseudo-code* (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 \[10, 12\].
+**Code labeling.** In Sections 3-6, snippets fall into two categories: *runnable examples* (intended to run with adaptation) and *pseudo-code* (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. Runnable snippets map to tested sample files under `examples/paper_snippets/` (tests: `tests/test_paper_snippets.py`). API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 \[10, 12\].
 
 The flagship agent in smolagents is CodeAgent, which uses generated Python code to invoke tools directly rather than relying only on structured function-call objects \[10, 12\].
 
@@ -628,6 +628,8 @@ This creates an agent that can:
 - Return the result
 
 The agent might generate:
+
+**Runnable example.** Verified implementation: `examples/paper_snippets/fibonacci_example.py`.
 
 ``` python
 # Calculate Fibonacci sequence
@@ -763,6 +765,8 @@ result = python_tool("sum(range(100))")
 
 Tools are defined using Python decorators \[10, 12\]:
 
+**Runnable examples.** The following are runnable excerpts; full helper/import context is provided and tested in `examples/paper_snippets/tool_examples.py`.
+
 ``` python
 from smolagents import tool
 from typing import Optional
@@ -783,11 +787,17 @@ def fetch_stock_price(
     Returns:
         The stock price as a string with currency.
     """
-    # Implementation would call financial API
-    # For demonstration:
-    if ticker == "AAPL":
-        return "$175.50"
-    return "Price data not available"
+    current = {
+        "AAPL": "$175.50",
+        "MSFT": "$412.20",
+        "GOOGL": "$188.10",
+    }
+    historical = {
+        ("AAPL", "2025-01-15"): "$184.63",
+    }
+    if date is not None:
+        return historical.get((ticker.upper(), date), "Price data not available")
+    return current.get(ticker.upper(), "Price data not available")
 ```
 
 The `@tool` decorator (conceptually):
@@ -807,6 +817,7 @@ Tools can be combined in sophisticated ways:
 @tool
 def analyze_website(url: str) -> str:
     """Analyze a website and return key information."""
+    # Helper functions are defined in tool_examples.py
     # Step 1: Fetch content
     content = fetch_url(url)
     
@@ -834,21 +845,40 @@ def smart_search(query: str, require_recent: bool = False) -> str:
 **Stateful Tools:**
 
 ``` python
+import sqlite3
+
 class DatabaseTool:
     def __init__(self):
         self.connection = None
+
+    def connect(self):
+        self.connection = sqlite3.connect(":memory:")
+        self.connection.execute(
+            "CREATE TABLE IF NOT EXISTS sample (id INTEGER PRIMARY KEY, name TEXT)"
+        )
+        self.connection.execute(
+            "INSERT INTO sample (name) VALUES ('alice'), ('bob')"
+        )
+        self.connection.commit()
     
     @tool
     def query(self, sql: str) -> str:
         """Execute SQL query on connected database."""
         if not self.connection:
             self.connect()
-        return self.connection.execute(sql).fetchall()
+        rows = self.connection.execute(sql).fetchall()
+        return str(rows)
     
     @tool
     def schema(self) -> str:
         """Return database schema."""
         return self.get_schema()
+
+    def get_schema(self):
+        row = self.connection.execute(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name='sample'"
+        ).fetchone()
+        return row[0] if row else ""
 ```
 
 #### 3.6.4 Tool Schemas and Validation
@@ -946,7 +976,7 @@ async def chat(request: ChatRequest):
 
 **Containerized Deployment:**
 
-**Runnable example.** This Dockerfile block is intended to be executable with standard Python service scaffolding.
+**Runnable example.** This Dockerfile block is intended to be executable with standard Python service scaffolding. Verified file: `examples/paper_snippets/Dockerfile`.
 
 ``` dockerfile
 FROM python:3.11-slim
@@ -1352,7 +1382,7 @@ This section is included as a reproducibility-oriented bridge from ToT component
 
 #### 5.1.1 Environment Setup
 
-**Runnable example.** This environment setup is intended to run as written in a fresh virtual environment.
+**Runnable example.** This environment setup is intended to run as written in a fresh virtual environment. Verified script: `examples/paper_snippets/setup_env.sh`.
 
 ``` bash
 # Create virtual environment

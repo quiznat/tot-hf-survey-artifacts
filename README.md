@@ -43,9 +43,15 @@ This repository hosts the canonical manuscript, submission derivatives, and repr
 - `story/`: project narrative, provenance notes, and forensic evidence package.
 - `submission/`: export scripts and submission-focused conversion assets.
   - Includes a TMLR path in `submission/tmlr/`.
+- `examples/paper_snippets/`: runnable, tested sample code mapped to runnable manuscript snippets.
+- `tests/test_paper_snippets.py`: unit checks for runnable snippet examples and shell/docker sample validation.
 - `phase2/`: novel contribution workspace (ToT-HF implementation roadmap, project state, reproducibility templates, and benchmark planning).
   - Rendered draft source: `phase2/manuscript/PREPAPER.md`
   - Render script: `phase2/manuscript/build_phase2_html.sh`
+
+## Snippet Validation
+- Run runnable-snippet checks:
+  - `python3 -m unittest tests/test_paper_snippets.py`
 
 ## License
 Released under the MIT License. Third-party cited works and metadata remain under their original licenses and terms.

@@ -1135,6 +1135,8 @@ smolagents is built around several key abstractions {[}10, 12{]}:
 
 \textbf{Runnable example.} The following install commands are intended
 to be executable as written (subject to environment differences).
+Verified script:
+\texttt{examples/paper\_snippets/install\_smolagents.sh}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1158,9 +1160,11 @@ Action}\label{codeagent-code-as-action}
 categories: \emph{runnable examples} (intended to run with adaptation)
 and \emph{pseudo-code} (architectural sketches). By default, snippets
 are illustrative pseudo-code unless the surrounding text explicitly
-marks them as a runnable example. API-facing examples were aligned to
-public smolagents docs/repository references as of February 19, 2026
-{[}10, 12{]}.
+marks them as a runnable example. Runnable snippets map to tested sample
+files under \texttt{examples/paper\_snippets/} (tests:
+\texttt{tests/test\_paper\_snippets.py}). API-facing examples were
+aligned to public smolagents docs/repository references as of February
+19, 2026 {[}10, 12{]}.
 
 The flagship agent in smolagents is CodeAgent, which uses generated
 Python code to invoke tools directly rather than relying only on
@@ -1256,6 +1260,9 @@ This creates an agent that can:
 \end{itemize}
 
 The agent might generate:
+
+\textbf{Runnable example.} Verified implementation:
+\texttt{examples/paper\_snippets/fibonacci\_example.py}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1420,6 +1427,10 @@ doc-aligned) {[}10, 12{]}:
 
 Tools are defined using Python decorators {[}10, 12{]}:
 
+\textbf{Runnable examples.} The following are runnable excerpts; full
+helper/import context is provided and tested in
+\texttt{examples/paper\_snippets/tool\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ tool}
@@ -1441,11 +1452,17 @@ Tools are defined using Python decorators {[}10, 12{]}:
 \CommentTok{    Returns:}
 \CommentTok{        The stock price as a string with currency.}
 \CommentTok{    """}
-    \CommentTok{\# Implementation would call financial API}
-    \CommentTok{\# For demonstration:}
-    \ControlFlowTok{if}\NormalTok{ ticker }\OperatorTok{==} \StringTok{"AAPL"}\NormalTok{:}
-        \ControlFlowTok{return} \StringTok{"$175.50"}
-    \ControlFlowTok{return} \StringTok{"Price data not available"}
+\NormalTok{    current }\OperatorTok{=}\NormalTok{ \{}
+        \StringTok{"AAPL"}\NormalTok{: }\StringTok{"$175.50"}\NormalTok{,}
+        \StringTok{"MSFT"}\NormalTok{: }\StringTok{"$412.20"}\NormalTok{,}
+        \StringTok{"GOOGL"}\NormalTok{: }\StringTok{"$188.10"}\NormalTok{,}
+\NormalTok{    \}}
+\NormalTok{    historical }\OperatorTok{=}\NormalTok{ \{}
+\NormalTok{        (}\StringTok{"AAPL"}\NormalTok{, }\StringTok{"2025{-}01{-}15"}\NormalTok{): }\StringTok{"$184.63"}\NormalTok{,}
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{ date }\KeywordTok{is} \KeywordTok{not} \VariableTok{None}\NormalTok{:}
+        \ControlFlowTok{return}\NormalTok{ historical.get((ticker.upper(), date), }\StringTok{"Price data not available"}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ current.get(ticker.upper(), }\StringTok{"Price data not available"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1475,6 +1492,7 @@ Tools can be combined in sophisticated ways:
 \AttributeTok{@tool}
 \KeywordTok{def}\NormalTok{ analyze\_website(url: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
     \CommentTok{"""Analyze a website and return key information."""}
+    \CommentTok{\# Helper functions are defined in tool\_examples.py}
     \CommentTok{\# Step 1: Fetch content}
 \NormalTok{    content }\OperatorTok{=}\NormalTok{ fetch\_url(url)}
     
@@ -1506,21 +1524,40 @@ Tools can be combined in sophisticated ways:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ sqlite3}
+
 \KeywordTok{class}\NormalTok{ DatabaseTool:}
     \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{):}
         \VariableTok{self}\NormalTok{.connection }\OperatorTok{=} \VariableTok{None}
+
+    \KeywordTok{def} \ExtensionTok{connect}\NormalTok{(}\VariableTok{self}\NormalTok{):}
+        \VariableTok{self}\NormalTok{.connection }\OperatorTok{=}\NormalTok{ sqlite3.}\ExtensionTok{connect}\NormalTok{(}\StringTok{":memory:"}\NormalTok{)}
+        \VariableTok{self}\NormalTok{.connection.execute(}
+            \StringTok{"CREATE TABLE IF NOT EXISTS sample (id INTEGER PRIMARY KEY, name TEXT)"}
+\NormalTok{        )}
+        \VariableTok{self}\NormalTok{.connection.execute(}
+            \StringTok{"INSERT INTO sample (name) VALUES (\textquotesingle{}alice\textquotesingle{}), (\textquotesingle{}bob\textquotesingle{})"}
+\NormalTok{        )}
+        \VariableTok{self}\NormalTok{.connection.commit()}
     
     \AttributeTok{@tool}
     \KeywordTok{def}\NormalTok{ query(}\VariableTok{self}\NormalTok{, sql: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
         \CommentTok{"""Execute SQL query on connected database."""}
         \ControlFlowTok{if} \KeywordTok{not} \VariableTok{self}\NormalTok{.connection:}
             \VariableTok{self}\NormalTok{.}\ExtensionTok{connect}\NormalTok{()}
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.connection.execute(sql).fetchall()}
+\NormalTok{        rows }\OperatorTok{=} \VariableTok{self}\NormalTok{.connection.execute(sql).fetchall()}
+        \ControlFlowTok{return} \BuiltInTok{str}\NormalTok{(rows)}
     
     \AttributeTok{@tool}
     \KeywordTok{def}\NormalTok{ schema(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
         \CommentTok{"""Return database schema."""}
         \ControlFlowTok{return} \VariableTok{self}\NormalTok{.get\_schema()}
+
+    \KeywordTok{def}\NormalTok{ get\_schema(}\VariableTok{self}\NormalTok{):}
+\NormalTok{        row }\OperatorTok{=} \VariableTok{self}\NormalTok{.connection.execute(}
+            \StringTok{"SELECT sql FROM sqlite\_master WHERE type=\textquotesingle{}table\textquotesingle{} AND name=\textquotesingle{}sample\textquotesingle{}"}
+\NormalTok{        ).fetchone()}
+        \ControlFlowTok{return}\NormalTok{ row[}\DecValTok{0}\NormalTok{] }\ControlFlowTok{if}\NormalTok{ row }\ControlFlowTok{else} \StringTok{""}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1651,7 +1688,8 @@ Production}\label{deployment-and-production}
 \textbf{Containerized Deployment:}
 
 \textbf{Runnable example.} This Dockerfile block is intended to be
-executable with standard Python service scaffolding.
+executable with standard Python service scaffolding. Verified file:
+\texttt{examples/paper\_snippets/Dockerfile}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2195,7 +2233,8 @@ algorithmic claims.
 \paragraph{5.1.1 Environment Setup}\label{environment-setup}
 
 \textbf{Runnable example.} This environment setup is intended to run as
-written in a fresh virtual environment.
+written in a fresh virtual environment. Verified script:
+\texttt{examples/paper\_snippets/setup\_env.sh}.
 
 \begin{Shaded}
 \begin{Highlighting}[]

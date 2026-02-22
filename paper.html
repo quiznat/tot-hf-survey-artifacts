@@ -779,7 +779,7 @@ Rating: """</code></pre>
         <p><strong>Execution</strong> runs tool code safely [10, 12].</p>
 
         <h4>3.3.3 Installation and Setup</h4>
-        <p><strong>Runnable example.</strong> The following install commands are intended to be executable as written (subject to environment differences).</p>
+        <p><strong>Runnable example.</strong> The following install commands are intended to be executable as written (subject to environment differences). Verified script: <code>examples/paper_snippets/install_smolagents.sh</code>.</p>
         <!-- Runnable example -->
         <pre><code class="language-bash"># Basic installation
 pip install smolagents
@@ -793,7 +793,7 @@ pip install "smolagents[gradio]"        # Gradio UI
 pip install "smolagents[all]"           # All optional extras</code></pre>
 
         <h3>3.4 CodeAgent: Code as Action</h3>
-        <p class="note"><strong>Code labeling.</strong> In Sections 3-6, snippets fall into two categories: <em>runnable examples</em> (intended to run with adaptation) and <em>pseudo-code</em> (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 [10, 12].</p>
+        <p class="note"><strong>Code labeling.</strong> In Sections 3-6, snippets fall into two categories: <em>runnable examples</em> (intended to run with adaptation) and <em>pseudo-code</em> (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. Runnable snippets map to tested sample files under <code>examples/paper_snippets/</code> (tests: <code>tests/test_paper_snippets.py</code>). API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 [10, 12].</p>
         <p>The flagship agent in smolagents is CodeAgent, which uses generated Python code to invoke tools directly rather than relying only on structured function-call objects [10, 12].</p>
 
         <h4>3.4.1 Code as Action Paradigm</h4>
@@ -844,7 +844,8 @@ result = agent.run("What is the 15th Fibonacci number?")</code></pre>
             <li>Return the result</li>
         </ul>
         <p>The agent might generate:</p>
-        <!-- Illustrative / pseudo-code -->
+        <p><strong>Runnable example.</strong> Verified implementation: <code>examples/paper_snippets/fibonacci_example.py</code>.</p>
+        <!-- Runnable example -->
         <pre><code class="language-python"># Calculate Fibonacci sequence
 def fibonacci(n):
     if n &lt;= 1:
@@ -953,7 +954,8 @@ result = python_tool("sum(range(100))")</code></pre>
 
         <h4>3.6.2 Custom Tool Definition</h4>
         <p>Tools are defined using Python decorators [10, 12]:</p>
-        <!-- Illustrative / pseudo-code -->
+        <p><strong>Runnable examples.</strong> The following are runnable excerpts; full helper/import context is provided and tested in <code>examples/paper_snippets/tool_examples.py</code>.</p>
+        <!-- Runnable example -->
         <pre><code class="language-python">from smolagents import tool
 from typing import Optional
 
@@ -973,11 +975,17 @@ def fetch_stock_price(
     Returns:
         The stock price as a string with currency.
     """
-    # Implementation would call financial API
-    # For demonstration:
-    if ticker == "AAPL":
-        return "$175.50"
-    return "Price data not available"</code></pre>
+    current = {
+        "AAPL": "$175.50",
+        "MSFT": "$412.20",
+        "GOOGL": "$188.10",
+    }
+    historical = {
+        ("AAPL", "2025-01-15"): "$184.63",
+    }
+    if date is not None:
+        return historical.get((ticker.upper(), date), "Price data not available")
+    return current.get(ticker.upper(), "Price data not available")</code></pre>
         <p>The <code>@tool</code> decorator (conceptually):</p>
         <ul>
             <li>Parses the docstring for tool description</li>
@@ -989,10 +997,11 @@ def fetch_stock_price(
         <h4>3.6.3 Tool Integration Patterns</h4>
         <p>Tools can be combined in sophisticated ways:</p>
         <p><strong>Chained Tools:</strong></p>
-        <!-- Illustrative / pseudo-code -->
+        <!-- Runnable example -->
         <pre><code class="language-python">@tool
 def analyze_website(url: str) -&gt; str:
     """Analyze a website and return key information."""
+    # Helper functions are defined in tool_examples.py
     # Step 1: Fetch content
     content = fetch_url(url)
     
@@ -1004,7 +1013,7 @@ def analyze_website(url: str) -&gt; str:
     
     return summary</code></pre>
         <p><strong>Conditional Tools:</strong></p>
-        <!-- Illustrative / pseudo-code -->
+        <!-- Runnable example -->
         <pre><code class="language-python">@tool
 def smart_search(query: str, require_recent: bool = False) -&gt; str:
     """Search with conditional logic."""
@@ -1013,26 +1022,45 @@ def smart_search(query: str, require_recent: bool = False) -&gt; str:
     else:
         return web_search(query)</code></pre>
         <p><strong>Stateful Tools:</strong></p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">class DatabaseTool:
+        <!-- Runnable example -->
+        <pre><code class="language-python">import sqlite3
+
+class DatabaseTool:
     def __init__(self):
         self.connection = None
+
+    def connect(self):
+        self.connection = sqlite3.connect(":memory:")
+        self.connection.execute(
+            "CREATE TABLE IF NOT EXISTS sample (id INTEGER PRIMARY KEY, name TEXT)"
+        )
+        self.connection.execute(
+            "INSERT INTO sample (name) VALUES ('alice'), ('bob')"
+        )
+        self.connection.commit()
     
     @tool
     def query(self, sql: str) -&gt; str:
         """Execute SQL query on connected database."""
         if not self.connection:
             self.connect()
-        return self.connection.execute(sql).fetchall()
+        rows = self.connection.execute(sql).fetchall()
+        return str(rows)
     
     @tool
     def schema(self) -&gt; str:
         """Return database schema."""
-        return self.get_schema()</code></pre>
+        return self.get_schema()
+
+    def get_schema(self):
+        row = self.connection.execute(
+            "SELECT sql FROM sqlite_master WHERE type='table' AND name='sample'"
+        ).fetchone()
+        return row[0] if row else ""</code></pre>
 
         <h4>3.6.4 Tool Schemas and Validation</h4>
         <p>smolagents supports tool schema generation/serialization for callable interfaces [10, 12]:</p>
-        <!-- Illustrative / pseudo-code -->
+        <!-- Runnable example -->
         <pre><code class="language-python"># For the fetch_stock_price tool above, the schema is:
 {
     "name": "fetch_stock_price",
@@ -1107,7 +1135,7 @@ async def chat(request: ChatRequest):
     response = agent.run(request.message)
     return {"response": response}</code></pre>
         <p><strong>Containerized Deployment:</strong></p>
-        <p><strong>Runnable example.</strong> This Dockerfile block is intended to be executable with standard Python service scaffolding.</p>
+        <p><strong>Runnable example.</strong> This Dockerfile block is intended to be executable with standard Python service scaffolding. Verified file: <code>examples/paper_snippets/Dockerfile</code>.</p>
         <!-- Runnable example -->
         <pre><code class="language-dockerfile">FROM python:3.11-slim
 WORKDIR /app
@@ -1530,7 +1558,7 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pr
         <h3>5.1 Getting Started</h3>
 
         <h4>5.1.1 Environment Setup</h4>
-        <p><strong>Runnable example.</strong> This environment setup is intended to run as written in a fresh virtual environment.</p>
+        <p><strong>Runnable example.</strong> This environment setup is intended to run as written in a fresh virtual environment. Verified script: <code>examples/paper_snippets/setup_env.sh</code>.</p>
         <!-- Runnable example -->
         <pre><code class="language-bash"># Create virtual environment
 python -m venv agent_env
