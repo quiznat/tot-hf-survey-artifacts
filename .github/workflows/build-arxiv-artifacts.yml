@@ -7,6 +7,7 @@ on:
       - 'paper.html'
       - 'submission/build_llm_markdown.sh'
       - 'submission/convert_to_arxiv.sh'
+      - 'submission/check_no_pseudo_listings.sh'
       - 'submission/ARXIV_CONVERSION_NOTES.md'
       - '.github/workflows/build-arxiv-artifacts.yml'
   workflow_dispatch:
@@ -29,6 +30,10 @@ jobs:
       - name: Install LaTeX toolchain
         run: |
           sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-xetex lmodern
+
+      - name: Guard against pseudo-code listings
+        run: |
+          bash submission/check_no_pseudo_listings.sh
 
       - name: Generate arXiv LaTeX source
         run: |

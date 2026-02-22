@@ -6,6 +6,7 @@ on:
     paths:
       - 'paper.html'
       - 'submission/build_tmlr_submission.sh'
+      - 'submission/check_no_pseudo_listings.sh'
       - 'submission/tmlr/**'
       - '.github/workflows/build-tmlr-submission.yml'
   workflow_dispatch:
@@ -31,6 +32,10 @@ jobs:
           curl -L --fail https://github.com/JmlrOrg/tmlr-style-file/archive/refs/heads/main.zip -o /tmp/tmlr-style.zip
           unzip -j /tmp/tmlr-style.zip '*/tmlr.sty' -d submission/tmlr/template
           test -f submission/tmlr/template/tmlr.sty
+
+      - name: Guard against pseudo-code listings
+        run: |
+          bash submission/check_no_pseudo_listings.sh
 
       - name: Build anonymous TMLR package
         run: |

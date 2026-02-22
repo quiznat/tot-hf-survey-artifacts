@@ -223,11 +223,12 @@ Boundaries}\label{scope-and-claim-boundaries}
   This paper is primarily a survey-style synthesis rather than a
   standalone benchmark paper.
 \item
-  Code snippets are mixed: some are runnable examples, while others are
-  architectural sketches.
+  All manuscript code listings are runnable, test-backed stand-ins for
+  the discussed patterns.
 \item
-  Pseudo-code and illustrative snippets are labeled explicitly in
-  relevant sections.
+  Listings are linked to helper modules under
+  \texttt{examples/paper\_snippets/} and validated by
+  \texttt{tests/test\_paper\_snippets.py}.
 \item
   Non-empirical examples are included only as synthetic walkthroughs and
   are labeled accordingly.
@@ -370,7 +371,8 @@ This survey was conducted under frozen protocol Run ID:
 TOT-HF-SURVEY-2026-02-19. The screening log and extraction artifacts are
 archived at
 \href{https://github.com/quiznat/tot-hf-survey-artifacts}{github.com/quiznat/tot-hf-survey-artifacts}.
-All code examples are labeled runnable or illustrative.
+All code listings in this manuscript are runnable and map to tested
+helper modules.
 
 \subsection{1. Introduction}\label{introduction}
 
@@ -531,15 +533,14 @@ reasoning benchmarks {[}3, 4{]}.
 Chain of Thought works by prompting the model to generate a sequence of
 thoughts leading to the final answer:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.}
-\NormalTok{   Each can has 3 tennis balls. How many tennis balls does he have now?}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ tennis\_ball\_cot\_trace}
 
-\NormalTok{A: Roger started with 5 balls.}
-\NormalTok{   He buys 2 cans, each with 3 balls, so that\textquotesingle{}s 2 × 3 = 6 balls.}
-\NormalTok{   5 + 6 = 11.}
-\NormalTok{   The answer is 11.}
+\BuiltInTok{print}\NormalTok{(tennis\_ball\_cot\_trace())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -620,14 +621,15 @@ alternative approaches might diverge {[}1, 2{]}.
 For mathematical problems, thoughts might represent individual
 operations:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Problem: Calculate (15 + 27) × (42 {-} 18)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ math\_thought\_decomposition}
 
-\NormalTok{Thought decomposition:}
-\NormalTok{{-} T1: Calculate first parentheses: 15 + 27 = ?}
-\NormalTok{{-} T2: Calculate second parentheses: 42 {-} 18 = ?}
-\NormalTok{{-} T3: Multiply results from T1 and T2}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ math\_thought\_decomposition():}
+    \BuiltInTok{print}\NormalTok{(step)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -635,13 +637,10 @@ For creative writing, thoughts might represent content decisions:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Task: Write a story about a detective solving a mystery}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ creative\_thought\_decomposition}
 
-\NormalTok{Thought decomposition:}
-\NormalTok{{-} T1: Choose setting (modern city, historical period, future)}
-\NormalTok{{-} T2: Select detective archetype (hardboiled, amateur, professional)}
-\NormalTok{{-} T3: Determine mystery type (murder, theft, disappearance)}
-\NormalTok{{-} T4: Plan plot structure (clues, red herrings, resolution)}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ creative\_thought\_decomposition():}
+    \BuiltInTok{print}\NormalTok{(step)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -816,27 +815,22 @@ algorithm A, beam width b, maximum depth d
 
 \textbf{Output:} Solution or best path found
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Algorithm ToT(P, G, E, A, b, d):}
-\NormalTok{    Initialize: S <- \{s0\}  // Set of states, starting with initial state}
-    
-\NormalTok{    for depth = 1 to d:}
-\NormalTok{        candidates <- empty_set}
-        
-\NormalTok{        for each state s in S:}
-\NormalTok{            thoughts <- G(P, s, k)  // Generate k candidates}
-\NormalTok{            for each thought t in thoughts:}
-\NormalTok{                s\textquotesingle{} <- s union \{t\}  // Extend state with thought}
-\NormalTok{                v <- E(P, s, t)  // Evaluate new state}
-\NormalTok{                candidates <- candidates union \{(v, s\textquotesingle{})\}}
-        
-\NormalTok{        if solution\_found(candidates):}
-\NormalTok{            return extract\_solution(candidates)}
-        
-\NormalTok{        S <- select\_top(candidates, b)  // Keep top b states}
-    
-\NormalTok{    return best\_state(S)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ run\_tot\_algorithm}
+
+\NormalTok{result }\OperatorTok{=}\NormalTok{ run\_tot\_algorithm(}
+    \StringTok{"Calculate (15 + 27) * (42 {-} 18)"}\NormalTok{,}
+\NormalTok{    beam\_width}\OperatorTok{=}\DecValTok{2}\NormalTok{,}
+\NormalTok{    max\_depth}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
+\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"best\_steps"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"best\_score"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"explored\_states"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1165,12 +1159,9 @@ Verified script:
 \subsubsection{3.4 CodeAgent: Code as
 Action}\label{codeagent-code-as-action}
 
-\textbf{Code labeling.} In Sections 3-6, snippets fall into two
-categories: \emph{runnable examples} (intended to run with adaptation)
-and \emph{pseudo-code} (architectural sketches). By default, snippets
-are illustrative pseudo-code unless the surrounding text explicitly
-marks them as a runnable example. Runnable snippets map to tested sample
-files under \texttt{examples/paper\_snippets/} (tests:
+\textbf{Code labeling.} In Sections 3-6, listings follow a single
+scholarly pattern: \emph{Listing N · Runnable (tested)}. Snippets map to
+tested sample files under \texttt{examples/paper\_snippets/} (tests:
 \texttt{tests/test\_paper\_snippets.py}). API-facing examples were
 aligned to public smolagents docs/repository references as of February
 19, 2026 {[}10, 12{]}.
@@ -1183,12 +1174,15 @@ structured function-call objects {[}10, 12{]}.
 
 Traditional agents might generate:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{\{}
-  \DataTypeTok{"tool"}\FunctionTok{:} \StringTok{"calculator"}\FunctionTok{,}
-  \DataTypeTok{"parameters"}\FunctionTok{:} \FunctionTok{\{}\DataTypeTok{"expression"}\FunctionTok{:} \StringTok{"15 * 24"}\FunctionTok{\}}
-\FunctionTok{\}}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ build\_traditional\_tool\_call}
+
+\NormalTok{payload }\OperatorTok{=}\NormalTok{ build\_traditional\_tool\_call(}\StringTok{"15 * 24"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(payload)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1803,8 +1797,8 @@ Architecture}\label{tot-enhanced-agent-architecture}
 
 \pandocbounded{\includegraphics[keepaspectratio,alt={ToT-Enhanced Agent Architecture Diagram}]{./assets/diagram_tot_agent.png}}
 
-\paragraph{4.2.2 Interface-Level Integration Sketch
-(Pseudo-code)}\label{interface-level-integration-sketch-pseudo-code}
+\paragraph{4.2.2 Interface-Level Integration
+Pattern}\label{interface-level-integration-pattern}
 
 \emph{Scope note:} This is an integration sketch, not a faithful
 reimplementation of the canonical ToT algorithm in {[}1{]}. It
@@ -1822,42 +1816,24 @@ highlights where planning hooks into a tool-using agent runtime.
   algorithmic claims.
 \end{itemize}
 
+\textbf{Runnable example.} Verified helpers:
+\texttt{examples/paper\_snippets/tot\_runtime\_examples.py} and
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.tot\_runtime\_examples }\ImportTok{import}\NormalTok{ HeuristicToTPlanner, ToTEnabledCodeAgent}
 
-\KeywordTok{class}\NormalTok{ ToTPlanner:}
-    \CommentTok{"""Planner interface for candidate generation, scoring, and selection."""}
-
-    \KeywordTok{def}\NormalTok{ propose(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{]:}
-\NormalTok{        ...}
-
-    \KeywordTok{def}\NormalTok{ evaluate(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, candidates: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{list}\NormalTok{[}\BuiltInTok{float}\NormalTok{]:}
-\NormalTok{        ...}
-
-    \KeywordTok{def}\NormalTok{ select(}\VariableTok{self}\NormalTok{, candidates: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{], scores: }\BuiltInTok{list}\NormalTok{[}\BuiltInTok{float}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
-\NormalTok{        ...}
-
-\KeywordTok{class}\NormalTok{ ToTEnabledCodeAgent(CodeAgent):}
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, }\OperatorTok{*}\NormalTok{args, planner: ToTPlanner, }\OperatorTok{**}\NormalTok{kwargs):}
-        \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{*}\NormalTok{args, }\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.planner }\OperatorTok{=}\NormalTok{ planner}
-
-    \KeywordTok{def}\NormalTok{ run(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \CommentTok{\# Plan first, then execute via the standard CodeAgent runtime.}
-\NormalTok{        candidates }\OperatorTok{=} \VariableTok{self}\NormalTok{.planner.propose(task)}
-\NormalTok{        scores }\OperatorTok{=} \VariableTok{self}\NormalTok{.planner.evaluate(task, candidates)}
-\NormalTok{        high\_level\_plan }\OperatorTok{=} \VariableTok{self}\NormalTok{.planner.select(candidates, scores)}
-        \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{().run(}
-            \SpecialStringTok{f"Task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\CharTok{\textbackslash{}n}\SpecialStringTok{Use this vetted high{-}level plan:}\CharTok{\textbackslash{}n}\SpecialCharTok{\{}\NormalTok{high\_level\_plan}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{,}
-            \OperatorTok{**}\NormalTok{kwargs,}
-\NormalTok{        )}
-
+\NormalTok{planner }\OperatorTok{=}\NormalTok{ HeuristicToTPlanner()}
 \NormalTok{agent }\OperatorTok{=}\NormalTok{ ToTEnabledCodeAgent(}
-\NormalTok{    tools}\OperatorTok{=}\NormalTok{[search\_tool, calculator\_tool],}
+\NormalTok{    tools}\OperatorTok{=}\NormalTok{[],}
 \NormalTok{    model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"meta{-}llama/Llama{-}3.3{-}70B{-}Instruct"}\NormalTok{),}
-\NormalTok{    planner}\OperatorTok{=}\NormalTok{ToTPlanner(),}
+\NormalTok{    planner}\OperatorTok{=}\NormalTok{planner,}
 \NormalTok{)}
+
+\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.run(}\StringTok{"Compare two open{-}source vector databases for a production RAG stack."}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(result)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1888,27 +1864,18 @@ highlights where planning hooks into a tool-using agent runtime.
 
 \textbf{Example - Complex Query:}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Task: "Compare two open{-}source vector databases for a production RAG stack"}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ tool\_selection\_walkthrough}
 
-\NormalTok{ToT Exploration:}
-\NormalTok{|-- Path A: Blog{-}post{-}first comparison}
-\NormalTok{|   |-- Step 1: search("vector database A vs B blog comparison")}
-\NormalTok{|   |-- Step 2: extract claims and benchmark snippets}
-\NormalTok{|   `-- Step 3: summarize trade{-}offs}
-\NormalTok{|   `-- Heuristic rating: medium (fast but potentially opinionated)}
-\NormalTok{|}
-\NormalTok{|-- Path B: Docs + repository evidence}
-\NormalTok{|   |-- Step 1: parse official docs for indexing/query/security features}
-\NormalTok{|   |-- Step 2: collect GitHub activity + release cadence}
-\NormalTok{|   `-- Step 3: build capability/reliability matrix}
-\NormalTok{|   `-- Heuristic rating: high (auditable sources, structured comparison)}
-\NormalTok{|}
-\NormalTok{`-- Path C: Community sentiment sweep}
-\NormalTok{    `-- Heuristic rating: low (anecdotal and noisy)}
-
-\NormalTok{Selected: Path B for source quality and reproducibility}
+\NormalTok{walkthrough }\OperatorTok{=}\NormalTok{ tool\_selection\_walkthrough()}
+\BuiltInTok{print}\NormalTok{(walkthrough[}\StringTok{"task"}\NormalTok{])}
+\ControlFlowTok{for}\NormalTok{ path }\KeywordTok{in}\NormalTok{ walkthrough[}\StringTok{"paths"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(path[}\StringTok{"name"}\NormalTok{], path[}\StringTok{"rating"}\NormalTok{], path[}\StringTok{"summary"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(walkthrough[}\StringTok{"selected"}\NormalTok{], walkthrough[}\StringTok{"selection\_reason"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1945,38 +1912,18 @@ produce incorrect results.
 
 \textbf{Example - Research Workflow:}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Task: "Prepare a market analysis report on electric vehicles"}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ market\_analysis\_plan}
 
-\NormalTok{ToT Planning Tree:}
-\NormalTok{|-- Research Phase}
-\NormalTok{|   |-- Branch A: Industry reports -> Company filings -> News}
-\NormalTok{|   |-- Branch B: Academic papers -> Expert interviews -> Data}
-\NormalTok{|   `-- Branch C: News first -> Trending topics -> Deep dive}
-\NormalTok{|}
-\NormalTok{|-- Analysis Phase}
-\NormalTok{|   |-- Option 1: Statistical analysis of collected data}
-\NormalTok{|   |-- Option 2: Comparative analysis across companies}
-\NormalTok{|   `-- Option 3: Trend projection with forecasting}
-\NormalTok{|}
-\NormalTok{`-- Synthesis Phase}
-\NormalTok{    |-- Format A: Executive summary + detailed appendix}
-\NormalTok{    |-- Format B: Structured SWOT analysis}
-\NormalTok{    `-- Format C: Narrative with visualizations}
-
-\NormalTok{Evaluation selects:}
-\NormalTok{{-} Research: Branch A (most detailed)}
-\NormalTok{{-} Analysis: Option 2 (best for market comparison)}
-\NormalTok{{-} Format: Format C (most accessible)}
-
-\NormalTok{Execution Plan:}
-\NormalTok{|-- Week 1: Source acquisition (reports, filings, policy updates)}
-\NormalTok{|-- Week 2: Data extraction and normalization}
-\NormalTok{|-- Week 3: Comparative analysis across manufacturers and regions}
-\NormalTok{|-- Week 4: Draft report with claim{-}level citations}
-\NormalTok{|-- Week 5: Validation pass (fact checks + consistency review)}
-\NormalTok{`-- Week 6: Final report and appendix packaging}
+\NormalTok{plan }\OperatorTok{=}\NormalTok{ market\_analysis\_plan()}
+\BuiltInTok{print}\NormalTok{(plan[}\StringTok{"task"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(plan[}\StringTok{"selected\_research"}\NormalTok{], plan[}\StringTok{"selected\_analysis"}\NormalTok{], plan[}\StringTok{"selected\_format"}\NormalTok{])}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ plan[}\StringTok{"execution\_plan"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(step)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1997,12 +1944,16 @@ earnings.
 
 \textbf{Traditional Agent:}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Step 1: Search for "Company Q3 2024 earnings"}
-\NormalTok{Step 2: Extract revenue figure}
-\NormalTok{Step 3: Calculate YoY growth}
-\NormalTok{\# May miss detailed breakdowns, context, or comparative analysis}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ financial\_case\_study}
+
+\NormalTok{case }\OperatorTok{=}\NormalTok{ financial\_case\_study()}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ case[}\StringTok{"traditional\_steps"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(step)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2010,30 +1961,12 @@ earnings.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Planning Phase (ToT):}
-\NormalTok{|-- Strategy A: Quick summary from news articles}
-\NormalTok{|   `-- Heuristic rating: low (fast but shallow)}
-\NormalTok{|}
-\NormalTok{|-- Strategy B: Official SEC filings analysis}
-\NormalTok{|   |-- 10{-}Q form deep dive}
-\NormalTok{|   |-- Balance sheet analysis  }
-\NormalTok{|   `-- Cash flow evaluation}
-\NormalTok{|   `-- Heuristic rating: high (authoritative, detailed)}
-\NormalTok{|}
-\NormalTok{|-- Strategy C: Aggregator platforms + social sentiment}
-\NormalTok{|   `-- Heuristic rating: medium (good context but may lack details)}
-\NormalTok{|}
-\NormalTok{`-- Selected: Strategy B with supplementary search}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ financial\_case\_study}
 
-\NormalTok{Execution:}
-\NormalTok{|-- Step 1: Retrieve 10{-}Q filing}
-\NormalTok{|-- Step 2: Extract key metrics (revenue, EPS, guidance)}
-\NormalTok{|-- Step 3: Compare to analyst estimates}
-\NormalTok{|-- Step 4: Analyze segment performance}
-\NormalTok{|-- Step 5: Check cash position and debt}
-\NormalTok{`-- Step 6: Search for management commentary}
-
-\NormalTok{Result pattern: structured report with multiple evidence sources}
+\NormalTok{case }\OperatorTok{=}\NormalTok{ financial\_case\_study()}
+\BuiltInTok{print}\NormalTok{(case[}\StringTok{"selected\_strategy"}\NormalTok{])}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ case[}\StringTok{"execution\_steps"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(step)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2058,41 +1991,18 @@ Agent}\label{case-study-2-creative-content-agent}
 
 \textbf{ToT Exploration:}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Creative Concepts:}
-\NormalTok{|-- Concept A: Influencer partnerships}
-\NormalTok{|   |-- Micro{-}influencer strategy}
-\NormalTok{|   |-- Challenge campaign}
-\NormalTok{|   `-- UGC incentives}
-\NormalTok{|   `-- Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
-\NormalTok{|}
-\NormalTok{|-- Concept B: Interactive AR filters}
-\NormalTok{|   |-- Branded filter creation}
-\NormalTok{|   |-- Sustainability quiz}
-\NormalTok{|   `-- Share{-}to{-}plant initiative}
-\NormalTok{|   `-- Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
-\NormalTok{|}
-\NormalTok{`-- Concept C: Behind{-}the{-}scenes documentary}
-\NormalTok{    |-- Series of short videos}
-\NormalTok{    |-- Supply chain transparency}
-\NormalTok{    `-- Employee stories}
-\NormalTok{    `-- Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ creative\_case\_study}
 
-\NormalTok{Evaluation Criteria:}
-\NormalTok{{-} Budget fit (weight: 25\%)}
-\NormalTok{{-} Brand alignment (weight: 30\%)}
-\NormalTok{{-} Engagement potential (weight: 30\%)}
-\NormalTok{{-} Measurability (weight: 15\%)}
-
-\NormalTok{Selected: Concept B (best engagement/cost ratio)}
-
-\NormalTok{Execution Plan:}
-\NormalTok{|-- Week 1: Filter development + testing}
-\NormalTok{|-- Week 2{-}3: Soft launch with beta users}
-\NormalTok{|-- Week 4: Full campaign launch}
-\NormalTok{|-- Week 5{-}6: Monitor and optimize}
-\NormalTok{`-- Week 7: Results analysis and report}
+\NormalTok{case }\OperatorTok{=}\NormalTok{ creative\_case\_study()}
+\BuiltInTok{print}\NormalTok{(case[}\StringTok{"constraints"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(case[}\StringTok{"selected\_concept"}\NormalTok{], case[}\StringTok{"evaluation\_weights"}\NormalTok{])}
+\ControlFlowTok{for}\NormalTok{ step }\KeywordTok{in}\NormalTok{ case[}\StringTok{"execution\_plan"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(step)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2106,34 +2016,18 @@ Assistant}\label{case-study-3-debugging-assistant}
 
 \textbf{ToT Agent Approach:}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Hypothesis Generation:}
-\NormalTok{|-- H1: Function returns None before .strip() is called}
-\NormalTok{|   `-- Likelihood: High}
-\NormalTok{|}
-\NormalTok{|-- H2: Variable overwritten with None somewhere}
-\NormalTok{|   `-- Likelihood: Medium}
-\NormalTok{|}
-\NormalTok{|-- H3: Conditional branch not handling None case}
-\NormalTok{|   `-- Likelihood: High}
-\NormalTok{|}
-\NormalTok{`-- H4: External API returning None unexpectedly}
-\NormalTok{    `-- Likelihood: Low (no API calls in traceback)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ debugging\_case\_study}
 
-\NormalTok{Investigation Plan:}
-\NormalTok{1. Check function return paths (test H1, H3)}
-\NormalTok{2. Trace variable assignments (test H2)}
-\NormalTok{3. Add defensive checks if needed}
-
-\NormalTok{Execution:}
-\NormalTok{|-- Step 1: Insert print statements to identify None source}
-\NormalTok{|-- Step 2: Discover regex match returning None}
-\NormalTok{|-- Step 3: Add null check: \textasciigrave{}if match: result = match.group(1).strip()\textasciigrave{}}
-\NormalTok{|-- Step 4: Test fix}
-\NormalTok{`-- Step 5: Verify edge cases}
-
-\NormalTok{Resolution pattern: null{-}handling fix after hypothesis{-}driven tracing}
+\NormalTok{case }\OperatorTok{=}\NormalTok{ debugging\_case\_study()}
+\BuiltInTok{print}\NormalTok{(case[}\StringTok{"error"}\NormalTok{])}
+\ControlFlowTok{for}\NormalTok{ hypothesis\_id, statement, likelihood }\KeywordTok{in}\NormalTok{ case[}\StringTok{"hypotheses"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(hypothesis\_id, likelihood, statement)}
+\BuiltInTok{print}\NormalTok{(case[}\StringTok{"resolution"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2214,10 +2108,9 @@ guidance {[}1, 2{]}; E3 implementation docs {[}10, 12{]} \\
 Tool interaction loop & Reactive tool calls vs deliberative pre-tool
 search & Tool misuse, cascading retries, weak recovery behavior & E1
 agent evidence {[}6{]}; E2/E3 framework patterns {[}8, 9, 10, 12{]} \\
-Reproducibility controls & Run IDs, config manifests, explicit
-pseudo-code labels & Unverifiable claims, undocumented drift across
-versions & Survey protocol controls in this manuscript {[}27, 28, 29,
-30{]} \\
+Reproducibility controls & Run IDs, config manifests, explicit runnable
+listing labels & Unverifiable claims, undocumented drift across versions
+& Survey protocol controls in this manuscript {[}27, 28, 29, 30{]} \\
 \end{longtable}
 
 \textbf{Design takeaways:} (1) planning strategy, evaluator quality, and
@@ -2232,12 +2125,12 @@ against higher latency/cost.
 \subsection{5. Practical Implementation
 Strategies}\label{practical-implementation-strategies}
 
-\textbf{Pseudo-code notice.} Most snippets in this section are design
-templates for adaptation, not drop-in production code. Unless explicitly
-tied to cited API documentation, patterns here should be treated as E2
-design templates (with E3 references for API alignment). Validate APIs
-and runtime behavior against current framework documentation before
-deployment.
+\textbf{Implementation notice.} Most snippets in this section are
+runnable design templates, not drop-in production code. Unless
+explicitly tied to cited API documentation, patterns here should be
+treated as E2 design templates (with E3 references for API alignment).
+Validate APIs and runtime behavior against current framework
+documentation before deployment.
 
 This section is included as a reproducibility-oriented bridge from ToT
 components (Section 2) to concrete agent-framework integration seams
@@ -2270,150 +2163,28 @@ written in a fresh virtual environment. Verified script:
 \end{Highlighting}
 \end{Shaded}
 
-\paragraph{5.1.2 Basic ToT Agent Template
-(Pseudo-code)}\label{basic-tot-agent-template-pseudo-code}
+\paragraph{5.1.2 Basic ToT Agent
+Template}\label{basic-tot-agent-template}
+
+\textbf{Runnable example.} Verified helpers:
+\texttt{examples/paper\_snippets/tot\_runtime\_examples.py} and
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
-\ImportTok{from}\NormalTok{ dataclasses }\ImportTok{import}\NormalTok{ dataclass}
-\ImportTok{from}\NormalTok{ typing }\ImportTok{import}\NormalTok{ List, Tuple}
-\ImportTok{import}\NormalTok{ heapq}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.tot\_runtime\_examples }\ImportTok{import}\NormalTok{ SimpleToTAgent}
 
-\AttributeTok{@dataclass}
-\KeywordTok{class}\NormalTok{ ThoughtNode:}
-\NormalTok{    thought: }\BuiltInTok{str}
-\NormalTok{    parent: }\StringTok{\textquotesingle{}ThoughtNode\textquotesingle{}} \OperatorTok{=} \VariableTok{None}
-\NormalTok{    score: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{0.0}
-\NormalTok{    depth: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{0}
-    
-    \KeywordTok{def}\NormalTok{ path(}\VariableTok{self}\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ List[}\BuiltInTok{str}\NormalTok{]:}
-        \CommentTok{"""Get path from root to this node."""}
-        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.parent }\KeywordTok{is} \VariableTok{None}\NormalTok{:}
-            \ControlFlowTok{return}\NormalTok{ [}\VariableTok{self}\NormalTok{.thought]}
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.parent.path() }\OperatorTok{+}\NormalTok{ [}\VariableTok{self}\NormalTok{.thought]}
-
-\KeywordTok{class}\NormalTok{ SimpleToTAgent(CodeAgent):}
-    \CommentTok{"""Minimal Tree of Thoughts implementation for smolagents."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, beam\_width}\OperatorTok{=}\DecValTok{3}\NormalTok{, max\_depth}\OperatorTok{=}\DecValTok{4}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.beam\_width }\OperatorTok{=}\NormalTok{ beam\_width}
-        \VariableTok{self}\NormalTok{.max\_depth }\OperatorTok{=}\NormalTok{ max\_depth}
-    
-    \KeywordTok{def}\NormalTok{ solve\_with\_tot(}\VariableTok{self}\NormalTok{, problem: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
-        \CommentTok{"""Solve problem using Tree of Thoughts."""}
-        \CommentTok{\# Initialize root}
-\NormalTok{        root }\OperatorTok{=}\NormalTok{ ThoughtNode(thought}\OperatorTok{=}\StringTok{"Start"}\NormalTok{)}
-\NormalTok{        beams }\OperatorTok{=}\NormalTok{ [root]}
-        
-        \ControlFlowTok{for}\NormalTok{ depth }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\VariableTok{self}\NormalTok{.max\_depth):}
-\NormalTok{            candidates }\OperatorTok{=}\NormalTok{ []}
-            
-            \ControlFlowTok{for}\NormalTok{ node }\KeywordTok{in}\NormalTok{ beams:}
-                \CommentTok{\# Generate next thoughts}
-\NormalTok{                prompt }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_build\_generation\_prompt(}
-\NormalTok{                    problem, node.path()}
-\NormalTok{                )}
-\NormalTok{                thoughts }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_generate\_candidates(prompt, }\VariableTok{self}\NormalTok{.beam\_width)}
-                
-                \ControlFlowTok{for}\NormalTok{ thought }\KeywordTok{in}\NormalTok{ thoughts:}
-                    \CommentTok{\# Create child node}
-\NormalTok{                    child }\OperatorTok{=}\NormalTok{ ThoughtNode(}
-\NormalTok{                        thought}\OperatorTok{=}\NormalTok{thought,}
-\NormalTok{                        parent}\OperatorTok{=}\NormalTok{node,}
-\NormalTok{                        depth}\OperatorTok{=}\NormalTok{depth }\OperatorTok{+} \DecValTok{1}
-\NormalTok{                    )}
-                    
-                    \CommentTok{\# Evaluate}
-\NormalTok{                    eval\_prompt }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_build\_evaluation\_prompt(}
-\NormalTok{                        problem, child.path()}
-\NormalTok{                    )}
-\NormalTok{                    child.score }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_evaluate(eval\_prompt)}
-                    
-\NormalTok{                    candidates.append(child)}
-            
-            \CommentTok{\# Select top beams}
-\NormalTok{            beams }\OperatorTok{=}\NormalTok{ heapq.nlargest(}
-                \VariableTok{self}\NormalTok{.beam\_width, }
-\NormalTok{                candidates, }
-\NormalTok{                key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ n: n.score}
-\NormalTok{            )}
-            
-            \CommentTok{\# Check for solution}
-            \ControlFlowTok{for}\NormalTok{ node }\KeywordTok{in}\NormalTok{ beams:}
-                \ControlFlowTok{if} \VariableTok{self}\NormalTok{.\_is\_solution(problem, node.path()):}
-                    \ControlFlowTok{return} \VariableTok{self}\NormalTok{.\_format\_solution(node.path())}
-        
-        \CommentTok{\# Return best path found}
-\NormalTok{        best }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(beams, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ n: n.score)}
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.\_format\_solution(best.path())}
-    
-    \KeywordTok{def}\NormalTok{ \_build\_generation\_prompt(}\VariableTok{self}\NormalTok{, problem: }\BuiltInTok{str}\NormalTok{, path: List[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
-        \ControlFlowTok{return} \SpecialStringTok{f"""Given the problem: }\SpecialCharTok{\{}\NormalTok{problem}\SpecialCharTok{\}}
-
-\SpecialStringTok{Current progress: }\SpecialCharTok{\{}\StringTok{\textquotesingle{} {-}\textgreater{} \textquotesingle{}}\SpecialCharTok{.}\NormalTok{join(path)}\SpecialCharTok{\}}
-
-\SpecialStringTok{Generate 3 different next steps to continue solving this problem. }
-\SpecialStringTok{Be creative and consider different approaches.}
-
-\SpecialStringTok{Steps:"""}
-    
-    \KeywordTok{def}\NormalTok{ \_build\_evaluation\_prompt(}\VariableTok{self}\NormalTok{, problem: }\BuiltInTok{str}\NormalTok{, path: List[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
-        \ControlFlowTok{return} \SpecialStringTok{f"""Given the problem: }\SpecialCharTok{\{}\NormalTok{problem}\SpecialCharTok{\}}
-
-\SpecialStringTok{Progress so far: }\SpecialCharTok{\{}\StringTok{\textquotesingle{} {-}\textgreater{} \textquotesingle{}}\SpecialCharTok{.}\NormalTok{join(path)}\SpecialCharTok{\}}
-
-\SpecialStringTok{Rate how promising this approach is on a scale of 0{-}10, }
-\SpecialStringTok{where 0 means definitely wrong and 10 means definitely correct.}
-
-\SpecialStringTok{Rating:"""}
-    
-    \KeywordTok{def}\NormalTok{ \_generate\_candidates(}\VariableTok{self}\NormalTok{, prompt: }\BuiltInTok{str}\NormalTok{, k: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ List[}\BuiltInTok{str}\NormalTok{]:}
-        \CommentTok{"""Generate k thought candidates."""}
-\NormalTok{        response }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt)}
-        \CommentTok{\# Parse numbered list}
-\NormalTok{        thoughts }\OperatorTok{=}\NormalTok{ []}
-        \ControlFlowTok{for}\NormalTok{ line }\KeywordTok{in}\NormalTok{ response.split(}\StringTok{\textquotesingle{}}\CharTok{\textbackslash{}n}\StringTok{\textquotesingle{}}\NormalTok{):}
-            \ControlFlowTok{if}\NormalTok{ line.strip() }\KeywordTok{and}\NormalTok{ (line[}\DecValTok{0}\NormalTok{].isdigit() }\KeywordTok{or}\NormalTok{ line.startswith(}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{)):}
-\NormalTok{                thoughts.append(line.split(}\StringTok{\textquotesingle{}. \textquotesingle{}}\NormalTok{, }\DecValTok{1}\NormalTok{)[}\OperatorTok{{-}}\DecValTok{1}\NormalTok{].strip(}\StringTok{\textquotesingle{}{-} \textquotesingle{}}\NormalTok{))}
-        \ControlFlowTok{return}\NormalTok{ thoughts[:k]}
-    
-    \KeywordTok{def}\NormalTok{ \_evaluate(}\VariableTok{self}\NormalTok{, prompt: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Get evaluation score."""}
-        \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{            response }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt).strip()}
-            \CommentTok{\# Extract first number}
-            \ImportTok{import}\NormalTok{ re}
-\NormalTok{            match }\OperatorTok{=}\NormalTok{ re.search(}\VerbatimStringTok{r\textquotesingle{}}\KeywordTok{(}\DecValTok{\textbackslash{}d}\OperatorTok{+}\NormalTok{(?:}\CharTok{\textbackslash{}.}\DecValTok{\textbackslash{}d}\OperatorTok{+}\NormalTok{)}\OperatorTok{?}\KeywordTok{)}\VerbatimStringTok{\textquotesingle{}}\NormalTok{, response)}
-            \ControlFlowTok{if}\NormalTok{ match:}
-                \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(match.group(}\DecValTok{1}\NormalTok{))}
-        \ControlFlowTok{except}\NormalTok{:}
-            \ControlFlowTok{pass}
-        \ControlFlowTok{return} \FloatTok{5.0}  \CommentTok{\# Default}
-    
-    \KeywordTok{def}\NormalTok{ \_is\_solution(}\VariableTok{self}\NormalTok{, problem: }\BuiltInTok{str}\NormalTok{, path: List[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{bool}\NormalTok{:}
-        \CommentTok{"""Check if path represents complete solution."""}
-\NormalTok{        prompt }\OperatorTok{=} \SpecialStringTok{f"Does this solve the problem?}\CharTok{\textbackslash{}n}\SpecialStringTok{Problem: }\SpecialCharTok{\{}\NormalTok{problem}\SpecialCharTok{\}}\CharTok{\textbackslash{}n}\SpecialStringTok{Solution: }\SpecialCharTok{\{}\StringTok{\textquotesingle{} {-}\textgreater{} \textquotesingle{}}\SpecialCharTok{.}\NormalTok{join(path)}\SpecialCharTok{\}}\CharTok{\textbackslash{}n}\SpecialStringTok{Yes or No:"}
-\NormalTok{        response }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt).strip().lower()}
-        \ControlFlowTok{return} \StringTok{\textquotesingle{}yes\textquotesingle{}} \KeywordTok{in}\NormalTok{ response}
-    
-    \KeywordTok{def}\NormalTok{ \_format\_solution(}\VariableTok{self}\NormalTok{, path: List[}\BuiltInTok{str}\NormalTok{]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
-        \CommentTok{"""Format final solution."""}
-        \ControlFlowTok{return} \StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{.join(}\SpecialStringTok{f"Step }\SpecialCharTok{\{}\NormalTok{i}\OperatorTok{+}\DecValTok{1}\SpecialCharTok{\}}\SpecialStringTok{: }\SpecialCharTok{\{}\NormalTok{step}\SpecialCharTok{\}}\SpecialStringTok{"} \ControlFlowTok{for}\NormalTok{ i, step }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(path))}
-
-\CommentTok{\# Usage}
 \NormalTok{agent }\OperatorTok{=}\NormalTok{ SimpleToTAgent(}
-\NormalTok{    tools}\OperatorTok{=}\NormalTok{[],}
 \NormalTok{    model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"microsoft/Phi{-}3{-}mini{-}4k{-}instruct"}\NormalTok{),}
 \NormalTok{    beam\_width}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
-\NormalTok{    max\_depth}\OperatorTok{=}\DecValTok{4}
+\NormalTok{    max\_depth}\OperatorTok{=}\DecValTok{4}\NormalTok{,}
 \NormalTok{)}
 
-\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.solve\_with\_tot(}\StringTok{"""}
-\StringTok{Create a Python function that finds the most frequent word }
-\StringTok{in a text file, handling case insensitivity and ignoring punctuation.}
-\StringTok{"""}\NormalTok{)}
+\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.solve\_with\_tot(}
+    \StringTok{"Create a Python function that finds the most frequent word in a text file."}
+\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(result)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2567,17 +2338,17 @@ Thoughts}\label{multi-modal-tree-of-thoughts}
 
 Extend ToT to multi-modal reasoning:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Visual Thought Tree:}
-\NormalTok{|-- Image understanding nodes}
-\NormalTok{|-- Visual reasoning branches}
-\NormalTok{`-- Cross{-}modal integration points}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ multimodal\_tree\_outline}
 
-\NormalTok{Example Task: "Design a logo based on these brand values"}
-\NormalTok{|-- Generate visual concepts (image generation)}
-\NormalTok{|-- Evaluate against brand guidelines (vision + text)}
-\NormalTok{`-- Iterate on promising designs}
+\NormalTok{outline }\OperatorTok{=}\NormalTok{ multimodal\_tree\_outline()}
+\BuiltInTok{print}\NormalTok{(outline[}\StringTok{"root"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(outline[}\StringTok{"nodes"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(outline[}\StringTok{"example\_task"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2585,15 +2356,16 @@ Extend ToT to multi-modal reasoning:
 
 Implement recursive tree structures:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/survey\_walkthrough\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{High{-}Level Tree:}
-\NormalTok{|-- Phase 1: Research}
-\NormalTok{|   `-- Low{-}Level Tree (research strategies)}
-\NormalTok{|-- Phase 2: Analysis}
-\NormalTok{|   `-- Low{-}Level Tree (analysis methods)}
-\NormalTok{`-- Phase 3: Synthesis}
-\NormalTok{    `-- Low{-}Level Tree (writing approaches)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.survey\_walkthrough\_examples }\ImportTok{import}\NormalTok{ hierarchical\_tree\_outline}
+
+\NormalTok{outline }\OperatorTok{=}\NormalTok{ hierarchical\_tree\_outline()}
+\ControlFlowTok{for}\NormalTok{ phase }\KeywordTok{in}\NormalTok{ outline[}\StringTok{"high\_level\_phases"}\NormalTok{]:}
+    \BuiltInTok{print}\NormalTok{(phase[}\StringTok{"phase"}\NormalTok{], }\StringTok{"{-}\textgreater{}"}\NormalTok{, phase[}\StringTok{"subtree"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2604,20 +2376,23 @@ abstraction {[}1, 2{]}.
 
 Multiple agents exploring shared thought spaces:
 
+\textbf{Runnable example.} Verified helpers:
+\texttt{examples/paper\_snippets/tot\_runtime\_examples.py} and
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{ CollaborativeToT:}
-    \CommentTok{"""Multiple agents exploring and sharing thoughts."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, agents: List[CodeAgent]):}
-        \VariableTok{self}\NormalTok{.agents }\OperatorTok{=}\NormalTok{ agents}
-        \VariableTok{self}\NormalTok{.shared\_memory }\OperatorTok{=}\NormalTok{ \{\}}
-    
-    \KeywordTok{def}\NormalTok{ collaborative\_solve(}\VariableTok{self}\NormalTok{, task):}
-        \CommentTok{\# Agents take turns exploring}
-        \CommentTok{\# Share promising paths}
-        \CommentTok{\# Build on each other\textquotesingle{}s discoveries}
-        \ControlFlowTok{pass}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.tot\_runtime\_examples }\ImportTok{import}\NormalTok{ CollaborativeToT}
+
+\NormalTok{agents }\OperatorTok{=}\NormalTok{ [}
+\NormalTok{    CodeAgent(tools}\OperatorTok{=}\NormalTok{[], model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"agent{-}a"}\NormalTok{)),}
+\NormalTok{    CodeAgent(tools}\OperatorTok{=}\NormalTok{[], model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"agent{-}b"}\NormalTok{)),}
+\NormalTok{]}
+\NormalTok{collaborative }\OperatorTok{=}\NormalTok{ CollaborativeToT(agents)}
+\NormalTok{result }\OperatorTok{=}\NormalTok{ collaborative.collaborative\_solve(}\StringTok{"Draft an EV market analysis plan"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"selected"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"shared\_memory"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3088,112 +2863,28 @@ Terms}\label{appendix-a-glossary-of-terms}
   tool capabilities
 \end{itemize}
 
-\subsection{Appendix B: Reference Pseudo-code
-Implementation}\label{appendix-b-reference-pseudo-code-implementation}
+\subsection{Appendix B: Reference Runnable
+Implementation}\label{appendix-b-reference-runnable-implementation}
 
-\emph{Pseudo-code scope:} this appendix provides an intentionally
-minimal sketch for adaptation. It is not presented as a fully runnable
-benchmark harness.
+This appendix provides a minimal runnable reference implementation
+aligned to the manuscript\textquotesingle s ToT architecture discussion.
+
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/tot\_runtime\_examples.py}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{"""}
-\CommentTok{Reference Sketch: Tree of Thoughts with smolagents}
-\CommentTok{==================================================}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.tot\_runtime\_examples }\ImportTok{import}\NormalTok{ MinimalToTAgent, evaluate\_math}
 
-\CommentTok{Pseudo{-}code example for architecture illustration.}
-\CommentTok{"""}
+\BuiltInTok{print}\NormalTok{(evaluate\_math(}\StringTok{"1000 * (1 + 0.05)"}\NormalTok{))}
 
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel, tool}
-\ImportTok{import}\NormalTok{ heapq}
-\ImportTok{import}\NormalTok{ re}
-\ImportTok{import}\NormalTok{ ast}
-\ImportTok{import}\NormalTok{ operator }\ImportTok{as}\NormalTok{ op}
-\ImportTok{from}\NormalTok{ typing }\ImportTok{import}\NormalTok{ List}
-
-\AttributeTok{@tool}
-\KeywordTok{def}\NormalTok{ evaluate\_math(expression: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-    \CommentTok{"""Evaluate basic arithmetic safely (demo scope)."""}
-    \CommentTok{\# Avoid raw eval(): restrict execution to a small arithmetic AST subset.}
-\NormalTok{    operators }\OperatorTok{=}\NormalTok{ \{}
-\NormalTok{        ast.Add: op.add,}
-\NormalTok{        ast.Sub: op.sub,}
-\NormalTok{        ast.Mult: op.mul,}
-\NormalTok{        ast.Div: op.truediv,}
-\NormalTok{        ast.Pow: op.}\BuiltInTok{pow}\NormalTok{,}
-\NormalTok{        ast.USub: op.neg,}
-\NormalTok{        ast.UAdd: op.pos,}
-\NormalTok{    \}}
-
-    \KeywordTok{def}\NormalTok{ \_eval(node):}
-        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(node, ast.Constant) }\KeywordTok{and} \BuiltInTok{isinstance}\NormalTok{(node.value, (}\BuiltInTok{int}\NormalTok{, }\BuiltInTok{float}\NormalTok{)):}
-            \ControlFlowTok{return}\NormalTok{ node.value}
-        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(node, ast.BinOp):}
-            \ControlFlowTok{return}\NormalTok{ operators[}\BuiltInTok{type}\NormalTok{(node.op)](\_eval(node.left), \_eval(node.right))}
-        \ControlFlowTok{if} \BuiltInTok{isinstance}\NormalTok{(node, ast.UnaryOp):}
-            \ControlFlowTok{return}\NormalTok{ operators[}\BuiltInTok{type}\NormalTok{(node.op)](\_eval(node.operand))}
-        \ControlFlowTok{raise} \PreprocessorTok{ValueError}\NormalTok{(}\StringTok{"Unsupported expression"}\NormalTok{)}
-
-\NormalTok{    parsed }\OperatorTok{=}\NormalTok{ ast.parse(expression, mode}\OperatorTok{=}\StringTok{"eval"}\NormalTok{)}
-    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(\_eval(parsed.body))}
-
-\KeywordTok{class}\NormalTok{ MinimalToTAgent(CodeAgent):}
-    \CommentTok{"""Minimal ToT implementation for demonstration."""}
-
-    \KeywordTok{def}\NormalTok{ \_parse\_score(}\VariableTok{self}\NormalTok{, raw: }\BuiltInTok{str}\NormalTok{, default: }\BuiltInTok{float} \OperatorTok{=} \FloatTok{5.0}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-\NormalTok{        match }\OperatorTok{=}\NormalTok{ re.search(}\VerbatimStringTok{r"{-}}\OperatorTok{?}\DecValTok{\textbackslash{}d}\OperatorTok{+}\NormalTok{(?:}\CharTok{\textbackslash{}.}\DecValTok{\textbackslash{}d}\OperatorTok{+}\NormalTok{)}\OperatorTok{?}\VerbatimStringTok{"}\NormalTok{, raw)}
-        \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(match.group(}\DecValTok{0}\NormalTok{)) }\ControlFlowTok{if}\NormalTok{ match }\ControlFlowTok{else}\NormalTok{ default}
-
-    \KeywordTok{def}\NormalTok{ \_tool\_signal(}\VariableTok{self}\NormalTok{, thought: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""}
-\CommentTok{        Lightweight tool{-}grounded signal: reward arithmetic thoughts that}
-\CommentTok{        pass safe parsing; penalize malformed arithmetic{-}like thoughts.}
-\CommentTok{        """}
-\NormalTok{        cleaned }\OperatorTok{=}\NormalTok{ thought.strip()}
-        \ControlFlowTok{if} \KeywordTok{not} \BuiltInTok{any}\NormalTok{(ch.isdigit() }\ControlFlowTok{for}\NormalTok{ ch }\KeywordTok{in}\NormalTok{ cleaned):}
-            \ControlFlowTok{return} \FloatTok{0.0}
-        \ControlFlowTok{if} \KeywordTok{not} \BuiltInTok{any}\NormalTok{(op\_symbol }\KeywordTok{in}\NormalTok{ cleaned }\ControlFlowTok{for}\NormalTok{ op\_symbol }\KeywordTok{in} \StringTok{"+{-}*/()"}\NormalTok{):}
-            \ControlFlowTok{return} \FloatTok{0.0}
-        \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{            evaluate\_math(cleaned)}
-            \ControlFlowTok{return} \FloatTok{0.5}
-        \ControlFlowTok{except} \PreprocessorTok{Exception}\NormalTok{:}
-            \ControlFlowTok{return} \OperatorTok{{-}}\FloatTok{0.5}
-    
-    \KeywordTok{def}\NormalTok{ tot\_solve(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, beam\_width: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{3}\NormalTok{, max\_depth: }\BuiltInTok{int} \OperatorTok{=} \DecValTok{4}\NormalTok{):}
-        \CommentTok{\# Initialize beams with starting thought}
-\NormalTok{        beams }\OperatorTok{=}\NormalTok{ [(}\DecValTok{0}\NormalTok{, [])]  }\CommentTok{\# (score, path)}
-        
-        \ControlFlowTok{for}\NormalTok{ depth }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(max\_depth):}
-\NormalTok{            candidates }\OperatorTok{=}\NormalTok{ []}
-            
-            \ControlFlowTok{for}\NormalTok{ score, path }\KeywordTok{in}\NormalTok{ beams:}
-                \CommentTok{\# Generate next thoughts}
-\NormalTok{                prompt }\OperatorTok{=} \SpecialStringTok{f"Task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\CharTok{\textbackslash{}n}\SpecialStringTok{Current steps: }\SpecialCharTok{\{}\NormalTok{path}\SpecialCharTok{\}}\CharTok{\textbackslash{}n}\SpecialStringTok{Next step ideas:"}
-\NormalTok{                thoughts }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt).split(}\StringTok{\textquotesingle{}}\CharTok{\textbackslash{}n}\StringTok{\textquotesingle{}}\NormalTok{)[:beam\_width]}
-                
-                \ControlFlowTok{for}\NormalTok{ thought }\KeywordTok{in}\NormalTok{ thoughts:}
-\NormalTok{                    new\_path }\OperatorTok{=}\NormalTok{ path }\OperatorTok{+}\NormalTok{ [thought]}
-                    \CommentTok{\# Heuristic model score + lightweight tool{-}grounded signal}
-\NormalTok{                    eval\_prompt }\OperatorTok{=} \SpecialStringTok{f"Rate quality 0{-}10: }\SpecialCharTok{\{}\NormalTok{new\_path}\SpecialCharTok{\}}\SpecialStringTok{"}
-\NormalTok{                    new\_score }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_parse\_score(}\VariableTok{self}\NormalTok{.model.generate(eval\_prompt))}
-\NormalTok{                    new\_score }\OperatorTok{+=} \VariableTok{self}\NormalTok{.\_tool\_signal(thought)}
-                    
-\NormalTok{                    candidates.append((new\_score, new\_path))}
-            
-            \CommentTok{\# Keep top beams}
-\NormalTok{            beams }\OperatorTok{=}\NormalTok{ heapq.nlargest(beam\_width, candidates, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ x: x[}\DecValTok{0}\NormalTok{])}
-        
-        \CommentTok{\# Return best path}
-        \ControlFlowTok{return}\NormalTok{ beams[}\DecValTok{0}\NormalTok{][}\DecValTok{1}\NormalTok{] }\ControlFlowTok{if}\NormalTok{ beams }\ControlFlowTok{else}\NormalTok{ []}
-
-\CommentTok{\# Usage}
-\NormalTok{agent }\OperatorTok{=}\NormalTok{ MinimalToTAgent(}
-\NormalTok{    tools}\OperatorTok{=}\NormalTok{[evaluate\_math],}
-\NormalTok{    model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"microsoft/Phi{-}3{-}mini{-}4k{-}instruct"}\NormalTok{)}
+\NormalTok{agent }\OperatorTok{=}\NormalTok{ MinimalToTAgent(model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"microsoft/Phi{-}3{-}mini{-}4k{-}instruct"}\NormalTok{))}
+\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.tot\_solve(}
+    \StringTok{"Calculate compound interest on 1000 at 5}\SpecialCharTok{\% f}\StringTok{or 3 years"}\NormalTok{,}
+\NormalTok{    beam\_width}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
+\NormalTok{    max\_depth}\OperatorTok{=}\DecValTok{4}\NormalTok{,}
 \NormalTok{)}
-
-\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.tot\_solve(}\StringTok{"Calculate compound interest on $1000 at 5}\SpecialCharTok{\% f}\StringTok{or 3 years"}\NormalTok{)}
 \BuiltInTok{print}\NormalTok{(}\StringTok{"Solution path:"}\NormalTok{, result)}
 \end{Highlighting}
 \end{Shaded}

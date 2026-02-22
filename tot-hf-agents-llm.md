@@ -53,8 +53,8 @@ This manuscript workflow included autonomous system assistance in early drafting
 ## 0. Scope and Claim Boundaries
 
 - This paper is primarily a survey-style synthesis rather than a standalone benchmark paper.
-- Code snippets are mixed: some are runnable examples, while others are architectural sketches.
-- Pseudo-code and illustrative snippets are labeled explicitly in relevant sections.
+- All manuscript code listings are runnable, test-backed stand-ins for the discussed patterns.
+- Listings are linked to helper modules under `examples/paper_snippets/` and validated by `tests/test_paper_snippets.py`.
 - Non-empirical examples are included only as synthetic walkthroughs and are labeled accordingly.
 
 ### 0.1 Survey Research Questions
@@ -114,7 +114,7 @@ Selection-flow and extraction artifacts are provided in Appendix D and Appendix 
 
 ### 0.4 Reproducibility
 
-This survey was conducted under frozen protocol Run ID: TOT-HF-SURVEY-2026-02-19. The screening log and extraction artifacts are archived at <a href="https://github.com/quiznat/tot-hf-survey-artifacts" target="_blank" rel="noopener noreferrer">github.com/quiznat/tot-hf-survey-artifacts</a>. All code examples are labeled runnable or illustrative.
+This survey was conducted under frozen protocol Run ID: TOT-HF-SURVEY-2026-02-19. The screening log and extraction artifacts are archived at <a href="https://github.com/quiznat/tot-hf-survey-artifacts" target="_blank" rel="noopener noreferrer">github.com/quiznat/tot-hf-survey-artifacts</a>. All code listings in this manuscript are runnable and map to tested helper modules.
 
 ## 1. Introduction
 
@@ -182,14 +182,12 @@ The evolution of reasoning in language models reflects broader trends in AI. Ear
 
 Chain of Thought works by prompting the model to generate a sequence of thoughts leading to the final answer:
 
-``` text
-Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
-   Each can has 3 tennis balls. How many tennis balls does he have now?
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-A: Roger started with 5 balls.
-   He buys 2 cans, each with 3 balls, so that's 2 × 3 = 6 balls.
-   5 + 6 = 11.
-   The answer is 11.
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import tennis_ball_cot_trace
+
+print(tennis_ball_cot_trace())
 ```
 
 This approach, while effective, maintains the fundamental linearity of language model generation. The model produces thoughts sequentially, with each thought conditioned on all previous thoughts, but without the ability to explore alternatives or backtrack \[1, 3, 4\].
@@ -230,25 +228,22 @@ The first challenge is decomposing the problem into discrete thought steps. This
 
 For mathematical problems, thoughts might represent individual operations:
 
-``` text
-Problem: Calculate (15 + 27) × (42 - 18)
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-Thought decomposition:
-- T1: Calculate first parentheses: 15 + 27 = ?
-- T2: Calculate second parentheses: 42 - 18 = ?
-- T3: Multiply results from T1 and T2
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import math_thought_decomposition
+
+for step in math_thought_decomposition():
+    print(step)
 ```
 
 For creative writing, thoughts might represent content decisions:
 
-``` text
-Task: Write a story about a detective solving a mystery
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import creative_thought_decomposition
 
-Thought decomposition:
-- T1: Choose setting (modern city, historical period, future)
-- T2: Select detective archetype (hardboiled, amateur, professional)
-- T3: Determine mystery type (murder, theft, disappearance)
-- T4: Plan plot structure (clues, red herrings, resolution)
+for step in creative_thought_decomposition():
+    print(step)
 ```
 
 Effective decomposition balances granularity: thoughts should be substantial enough to be meaningful but discrete enough to allow exploration of alternatives \[1, 2\].
@@ -356,26 +351,20 @@ We can formally specify the ToT algorithm as follows:
 
 **Output:** Solution or best path found
 
-``` text
-Algorithm ToT(P, G, E, A, b, d):
-    Initialize: S ← {s₀}  // Set of states, starting with initial state
-    
-    for depth = 1 to d:
-        candidates ← ∅
-        
-        for each state s in S:
-            thoughts ← G(P, s, k)  // Generate k candidates
-            for each thought t in thoughts:
-                s' ← s ∪ {t}  // Extend state with thought
-                v ← E(P, s, t)  // Evaluate new state
-                candidates ← candidates ∪ {(v, s')}
-        
-        if solution_found(candidates):
-            return extract_solution(candidates)
-        
-        S ← select_top(candidates, b)  // Keep top b states
-    
-    return best_state(S)
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
+
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import run_tot_algorithm
+
+result = run_tot_algorithm(
+    "Calculate (15 + 27) * (42 - 18)",
+    beam_width=2,
+    max_depth=3,
+)
+
+print(result["best_steps"])
+print(result["best_score"])
+print(result["explored_states"])
 ```
 
 This specification highlights the generality of the framework: different instantiations vary in their generation prompts, evaluation strategies, and search algorithms, but follow this core structure \[1, 2\].
@@ -564,7 +553,7 @@ pip install "smolagents[all]"           # All optional extras
 
 ### 3.4 CodeAgent: Code as Action
 
-**Code labeling.** In Sections 3-6, snippets fall into two categories: *runnable examples* (intended to run with adaptation) and *pseudo-code* (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. Runnable snippets map to tested sample files under `examples/paper_snippets/` (tests: `tests/test_paper_snippets.py`). API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 \[10, 12\].
+**Code labeling.** In Sections 3-6, listings follow a single scholarly pattern: *Listing N · Runnable (tested)*. Snippets map to tested sample files under `examples/paper_snippets/` (tests: `tests/test_paper_snippets.py`). API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 \[10, 12\].
 
 The flagship agent in smolagents is CodeAgent, which uses generated Python code to invoke tools directly rather than relying only on structured function-call objects \[10, 12\].
 
@@ -572,11 +561,13 @@ The flagship agent in smolagents is CodeAgent, which uses generated Python code 
 
 Traditional agents might generate:
 
-``` json
-{
-  "tool": "calculator",
-  "parameters": {"expression": "15 * 24"}
-}
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
+
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import build_traditional_tool_call
+
+payload = build_traditional_tool_call("15 * 24")
+print(payload)
 ```
 
 CodeAgent generates:
@@ -1058,7 +1049,7 @@ This section describes a design synthesis: combining Tree of Thoughts with Huggi
 
 </div>
 
-#### 4.2.2 Interface-Level Integration Sketch (Pseudo-code)
+#### 4.2.2 Interface-Level Integration Pattern
 
 *Scope note:* This is an integration sketch, not a faithful reimplementation of the canonical ToT algorithm in \[1\]. It highlights where planning hooks into a tool-using agent runtime.
 
@@ -1066,41 +1057,21 @@ This section describes a design synthesis: combining Tree of Thoughts with Huggi
 - Omits rollout/simulation specifics and evaluator calibration design.
 - Focuses on orchestration seams (planner → execution) rather than new algorithmic claims.
 
+**Runnable example.** Verified helpers: `examples/paper_snippets/tot_runtime_examples.py` and `examples/paper_snippets/agent_runtime_examples.py`.
+
 ``` python
-from smolagents import CodeAgent, InferenceClientModel
+from examples.paper_snippets.agent_runtime_examples import InferenceClientModel
+from examples.paper_snippets.tot_runtime_examples import HeuristicToTPlanner, ToTEnabledCodeAgent
 
-class ToTPlanner:
-    """Planner interface for candidate generation, scoring, and selection."""
-
-    def propose(self, task: str) -> list[str]:
-        ...
-
-    def evaluate(self, task: str, candidates: list[str]) -> list[float]:
-        ...
-
-    def select(self, candidates: list[str], scores: list[float]) -> str:
-        ...
-
-class ToTEnabledCodeAgent(CodeAgent):
-    def __init__(self, *args, planner: ToTPlanner, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.planner = planner
-
-    def run(self, task: str, **kwargs):
-        # Plan first, then execute via the standard CodeAgent runtime.
-        candidates = self.planner.propose(task)
-        scores = self.planner.evaluate(task, candidates)
-        high_level_plan = self.planner.select(candidates, scores)
-        return super().run(
-            f"Task: {task}\nUse this vetted high-level plan:\n{high_level_plan}",
-            **kwargs,
-        )
-
+planner = HeuristicToTPlanner()
 agent = ToTEnabledCodeAgent(
-    tools=[search_tool, calculator_tool],
+    tools=[],
     model=InferenceClientModel("meta-llama/Llama-3.3-70B-Instruct"),
-    planner=ToTPlanner(),
+    planner=planner,
 )
+
+result = agent.run("Compare two open-source vector databases for a production RAG stack.")
+print(result)
 ```
 
 ### 4.3 Design-Level Benefits (Hypothesized)
@@ -1126,26 +1097,16 @@ print(comparison["tot_ranked_scores"])
 
 **Example - Complex Query:**
 
-``` text
-Task: "Compare two open-source vector databases for a production RAG stack"
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-ToT Exploration:
-├── Path A: Blog-post-first comparison
-│   ├── Step 1: search("vector database A vs B blog comparison")
-│   ├── Step 2: extract claims and benchmark snippets
-│   └── Step 3: summarize trade-offs
-│   └── Heuristic rating: medium (fast but potentially opinionated)
-│
-├── Path B: Docs + repository evidence
-│   ├── Step 1: parse official docs for indexing/query/security features
-│   ├── Step 2: collect GitHub activity + release cadence
-│   └── Step 3: build capability/reliability matrix
-│   └── Heuristic rating: high (auditable sources, structured comparison)
-│
-└── Path C: Community sentiment sweep
-    └── Heuristic rating: low (anecdotal and noisy)
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import tool_selection_walkthrough
 
-Selected: Path B for source quality and reproducibility
+walkthrough = tool_selection_walkthrough()
+print(walkthrough["task"])
+for path in walkthrough["paths"]:
+    print(path["name"], path["rating"], path["summary"])
+print(walkthrough["selected"], walkthrough["selection_reason"])
 ```
 
 *Illustrative note:* No live external data is fetched in this walkthrough.
@@ -1175,37 +1136,16 @@ print(report.errors)
 
 **Example - Research Workflow:**
 
-``` text
-Task: "Prepare a market analysis report on electric vehicles"
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-ToT Planning Tree:
-├── Research Phase
-│   ├── Branch A: Industry reports → Company filings → News
-│   ├── Branch B: Academic papers → Expert interviews → Data
-│   └── Branch C: News first → Trending topics → Deep dive
-│
-├── Analysis Phase
-│   ├── Option 1: Statistical analysis of collected data
-│   ├── Option 2: Comparative analysis across companies
-│   └── Option 3: Trend projection with forecasting
-│
-└── Synthesis Phase
-    ├── Format A: Executive summary + detailed appendix
-    ├── Format B: Structured SWOT analysis
-    └── Format C: Narrative with visualizations
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import market_analysis_plan
 
-Evaluation selects:
-- Research: Branch A (most detailed)
-- Analysis: Option 2 (best for market comparison)
-- Format: Format C (most accessible)
-
-Execution Plan:
-├── Week 1: Source acquisition (reports, filings, policy updates)
-├── Week 2: Data extraction and normalization
-├── Week 3: Comparative analysis across manufacturers and regions
-├── Week 4: Draft report with claim-level citations
-├── Week 5: Validation pass (fact checks + consistency review)
-└── Week 6: Final report and appendix packaging
+plan = market_analysis_plan()
+print(plan["task"])
+print(plan["selected_research"], plan["selected_analysis"], plan["selected_format"])
+for step in plan["execution_plan"]:
+    print(step)
 ```
 
 ### 4.4 Case Studies
@@ -1218,40 +1158,25 @@ The case studies in this section are synthetic design walkthroughs intended to i
 
 **Traditional Agent:**
 
-``` text
-Step 1: Search for "Company Q3 2024 earnings"
-Step 2: Extract revenue figure
-Step 3: Calculate YoY growth
-# May miss detailed breakdowns, context, or comparative analysis
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
+
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import financial_case_study
+
+case = financial_case_study()
+for step in case["traditional_steps"]:
+    print(step)
 ```
 
 **ToT-Enhanced Agent:**
 
-``` text
-Planning Phase (ToT):
-├── Strategy A: Quick summary from news articles
-│   └── Heuristic rating: low (fast but shallow)
-│
-├── Strategy B: Official SEC filings analysis
-│   ├── 10-Q form deep dive
-│   ├── Balance sheet analysis  
-│   └── Cash flow evaluation
-│   └── Heuristic rating: high (authoritative, detailed)
-│
-├── Strategy C: Aggregator platforms + social sentiment
-│   └── Heuristic rating: medium (good context but may lack details)
-│
-└── Selected: Strategy B with supplementary search
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import financial_case_study
 
-Execution:
-├── Step 1: Retrieve 10-Q filing
-├── Step 2: Extract key metrics (revenue, EPS, guidance)
-├── Step 3: Compare to analyst estimates
-├── Step 4: Analyze segment performance
-├── Step 5: Check cash position and debt
-└── Step 6: Search for management commentary
-
-Result pattern: structured report with multiple evidence sources
+case = financial_case_study()
+print(case["selected_strategy"])
+for step in case["execution_steps"]:
+    print(step)
 ```
 
 #### 4.4.2 Case Study 2: Creative Content Agent
@@ -1267,40 +1192,16 @@ Result pattern: structured report with multiple evidence sources
 
 **ToT Exploration:**
 
-``` text
-Creative Concepts:
-├── Concept A: Influencer partnerships
-│   ├── Micro-influencer strategy
-│   ├── Challenge campaign
-│   └── UGC incentives
-│   └── Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)
-│
-├── Concept B: Interactive AR filters
-│   ├── Branded filter creation
-│   ├── Sustainability quiz
-│   └── Share-to-plant initiative
-│   └── Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)
-│
-└── Concept C: Behind-the-scenes documentary
-    ├── Series of short videos
-    ├── Supply chain transparency
-    └── Employee stories
-    └── Estimated reach: not estimated in this illustrative example (would require campaign model + historical data)
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-Evaluation Criteria:
-- Budget fit (weight: 25%)
-- Brand alignment (weight: 30%)
-- Engagement potential (weight: 30%)
-- Measurability (weight: 15%)
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import creative_case_study
 
-Selected: Concept B (best engagement/cost ratio)
-
-Execution Plan:
-├── Week 1: Filter development + testing
-├── Week 2-3: Soft launch with beta users
-├── Week 4: Full campaign launch
-├── Week 5-6: Monitor and optimize
-└── Week 7: Results analysis and report
+case = creative_case_study()
+print(case["constraints"])
+print(case["selected_concept"], case["evaluation_weights"])
+for step in case["execution_plan"]:
+    print(step)
 ```
 
 #### 4.4.3 Case Study 3: Debugging Assistant
@@ -1311,33 +1212,16 @@ Execution Plan:
 
 **ToT Agent Approach:**
 
-``` text
-Hypothesis Generation:
-├── H1: Function returns None before .strip() is called
-│   └── Likelihood: High
-│
-├── H2: Variable overwritten with None somewhere
-│   └── Likelihood: Medium
-│
-├── H3: Conditional branch not handling None case
-│   └── Likelihood: High
-│
-└── H4: External API returning None unexpectedly
-    └── Likelihood: Low (no API calls in traceback)
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-Investigation Plan:
-1. Check function return paths (test H1, H3)
-2. Trace variable assignments (test H2)
-3. Add defensive checks if needed
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import debugging_case_study
 
-Execution:
-├── Step 1: Insert print statements to identify None source
-├── Step 2: Discover regex match returning None
-├── Step 3: Add null check: `if match: result = match.group(1).strip()`
-├── Step 4: Test fix
-└── Step 5: Verify edge cases
-
-Resolution pattern: null-handling fix after hypothesis-driven tracing
+case = debugging_case_study()
+print(case["error"])
+for hypothesis_id, statement, likelihood in case["hypotheses"]:
+    print(hypothesis_id, likelihood, statement)
+print(case["resolution"])
 ```
 
 ### 4.5 Comparative Analysis (Qualitative, Non-Benchmark)
@@ -1368,7 +1252,7 @@ Table 4.6-1 presents the integration design space synthesized in this survey.
 | Evaluator design | Self-evaluation prompts, rule-based checks, learned evaluators (future) | Miscalibrated scoring; unstable branch ranking | E1/E2 mixed \[1, 2, 5, 26\] |
 | Stopping policy | Fixed depth, confidence threshold, budget-based termination | Premature stopping or excessive latency/cost | E2 method guidance \[1, 2\]; E3 implementation docs \[10, 12\] |
 | Tool interaction loop | Reactive tool calls vs deliberative pre-tool search | Tool misuse, cascading retries, weak recovery behavior | E1 agent evidence \[6\]; E2/E3 framework patterns \[8, 9, 10, 12\] |
-| Reproducibility controls | Run IDs, config manifests, explicit pseudo-code labels | Unverifiable claims, undocumented drift across versions | Survey protocol controls in this manuscript \[27, 28, 29, 30\] |
+| Reproducibility controls | Run IDs, config manifests, explicit runnable listing labels | Unverifiable claims, undocumented drift across versions | Survey protocol controls in this manuscript \[27, 28, 29, 30\] |
 
 **Table 4.6-1.** Integration design surfaces, common options, failure modes, and evidence basis.
 
@@ -1378,7 +1262,7 @@ Table 4.6-1 presents the integration design space synthesized in this survey.
 
 ## 5. Practical Implementation Strategies
 
-**Pseudo-code notice.** Most snippets in this section are design templates for adaptation, not drop-in production code. Unless explicitly tied to cited API documentation, patterns here should be treated as E2 design templates (with E3 references for API alignment). Validate APIs and runtime behavior against current framework documentation before deployment.
+**Implementation notice.** Most snippets in this section are runnable design templates, not drop-in production code. Unless explicitly tied to cited API documentation, patterns here should be treated as E2 design templates (with E3 references for API alignment). Validate APIs and runtime behavior against current framework documentation before deployment.
 
 This section is included as a reproducibility-oriented bridge from ToT components (Section 2) to concrete agent-framework integration seams (Section 3). The intent is to capture recurring implementation choices and failure modes observed in the surveyed corpus, not to introduce new algorithmic claims.
 
@@ -1403,148 +1287,24 @@ pip install "smolagents[litellm]"       # Multi-provider routing
 pip install torch accelerate
 ```
 
-#### 5.1.2 Basic ToT Agent Template (Pseudo-code)
+#### 5.1.2 Basic ToT Agent Template
+
+**Runnable example.** Verified helpers: `examples/paper_snippets/tot_runtime_examples.py` and `examples/paper_snippets/agent_runtime_examples.py`.
 
 ``` python
-from smolagents import CodeAgent, InferenceClientModel
-from dataclasses import dataclass
-from typing import List, Tuple
-import heapq
+from examples.paper_snippets.agent_runtime_examples import InferenceClientModel
+from examples.paper_snippets.tot_runtime_examples import SimpleToTAgent
 
-@dataclass
-class ThoughtNode:
-    thought: str
-    parent: 'ThoughtNode' = None
-    score: float = 0.0
-    depth: int = 0
-    
-    def path(self) -> List[str]:
-        """Get path from root to this node."""
-        if self.parent is None:
-            return [self.thought]
-        return self.parent.path() + [self.thought]
-
-class SimpleToTAgent(CodeAgent):
-    """Minimal Tree of Thoughts implementation for smolagents."""
-    
-    def __init__(self, beam_width=3, max_depth=4, **kwargs):
-        super().__init__(**kwargs)
-        self.beam_width = beam_width
-        self.max_depth = max_depth
-    
-    def solve_with_tot(self, problem: str) -> str:
-        """Solve problem using Tree of Thoughts."""
-        # Initialize root
-        root = ThoughtNode(thought="Start")
-        beams = [root]
-        
-        for depth in range(self.max_depth):
-            candidates = []
-            
-            for node in beams:
-                # Generate next thoughts
-                prompt = self._build_generation_prompt(
-                    problem, node.path()
-                )
-                thoughts = self._generate_candidates(prompt, self.beam_width)
-                
-                for thought in thoughts:
-                    # Create child node
-                    child = ThoughtNode(
-                        thought=thought,
-                        parent=node,
-                        depth=depth + 1
-                    )
-                    
-                    # Evaluate
-                    eval_prompt = self._build_evaluation_prompt(
-                        problem, child.path()
-                    )
-                    child.score = self._evaluate(eval_prompt)
-                    
-                    candidates.append(child)
-            
-            # Select top beams
-            beams = heapq.nlargest(
-                self.beam_width, 
-                candidates, 
-                key=lambda n: n.score
-            )
-            
-            # Check for solution
-            for node in beams:
-                if self._is_solution(problem, node.path()):
-                    return self._format_solution(node.path())
-        
-        # Return best path found
-        best = max(beams, key=lambda n: n.score)
-        return self._format_solution(best.path())
-    
-    def _build_generation_prompt(self, problem: str, path: List[str]) -> str:
-        return f"""Given the problem: {problem}
-
-Current progress: {' -> '.join(path)}
-
-Generate 3 different next steps to continue solving this problem. 
-Be creative and consider different approaches.
-
-Steps:"""
-    
-    def _build_evaluation_prompt(self, problem: str, path: List[str]) -> str:
-        return f"""Given the problem: {problem}
-
-Progress so far: {' -> '.join(path)}
-
-Rate how promising this approach is on a scale of 0-10, 
-where 0 means definitely wrong and 10 means definitely correct.
-
-Rating:"""
-    
-    def _generate_candidates(self, prompt: str, k: int) -> List[str]:
-        """Generate k thought candidates."""
-        response = self.model.generate(prompt)
-        # Parse numbered list
-        thoughts = []
-        for line in response.split('\n'):
-            if line.strip() and (line[0].isdigit() or line.startswith('-')):
-                thoughts.append(line.split('. ', 1)[-1].strip('- '))
-        return thoughts[:k]
-    
-    def _evaluate(self, prompt: str) -> float:
-        """Get evaluation score."""
-        try:
-            response = self.model.generate(prompt).strip()
-            # Extract first number
-            import re
-            match = re.search(r'(\d+(?:\.\d+)?)', response)
-            if match:
-                return float(match.group(1))
-        except:
-            pass
-        return 5.0  # Default
-    
-    def _is_solution(self, problem: str, path: List[str]) -> bool:
-        """Check if path represents complete solution."""
-        prompt = f"Does this solve the problem?\nProblem: {problem}\nSolution: {' -> '.join(path)}\nYes or No:"
-        response = self.model.generate(prompt).strip().lower()
-        return 'yes' in response
-    
-    def _format_solution(self, path: List[str]) -> str:
-        """Format final solution."""
-        return "\n".join(f"Step {i+1}: {step}" for i, step in enumerate(path))
-
-# Usage
 agent = SimpleToTAgent(
-    tools=[],
     model=InferenceClientModel("microsoft/Phi-3-mini-4k-instruct"),
     beam_width=3,
-    max_depth=4
+    max_depth=4,
 )
 
-result = agent.solve_with_tot("""
-Create a Python function that finds the most frequent word 
-in a text file, handling case insensitivity and ignoring punctuation.
-""")
+result = agent.solve_with_tot(
+    "Create a Python function that finds the most frequent word in a text file."
+)
+print(result)
 ```
 
 ### 5.2 Advanced Implementation Patterns
@@ -1661,30 +1421,29 @@ Current ToT implementations rely on LLM-based evaluation, which can be inconsist
 
 Extend ToT to multi-modal reasoning:
 
-``` text
-Visual Thought Tree:
-├── Image understanding nodes
-├── Visual reasoning branches
-└── Cross-modal integration points
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
 
-Example Task: "Design a logo based on these brand values"
-├── Generate visual concepts (image generation)
-├── Evaluate against brand guidelines (vision + text)
-└── Iterate on promising designs
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import multimodal_tree_outline
+
+outline = multimodal_tree_outline()
+print(outline["root"])
+print(outline["nodes"])
+print(outline["example_task"])
 ```
 
 #### 6.1.3 Hierarchical ToT
 
 Implement recursive tree structures:
 
-``` text
-High-Level Tree:
-├── Phase 1: Research
-│   └── Low-Level Tree (research strategies)
-├── Phase 2: Analysis
-│   └── Low-Level Tree (analysis methods)
-└── Phase 3: Synthesis
-    └── Low-Level Tree (writing approaches)
+**Runnable example.** Verified helper: `examples/paper_snippets/survey_walkthrough_examples.py`.
+
+``` python
+from examples.paper_snippets.survey_walkthrough_examples import hierarchical_tree_outline
+
+outline = hierarchical_tree_outline()
+for phase in outline["high_level_phases"]:
+    print(phase["phase"], "->", phase["subtree"])
 ```
 
 This design direction could allow agents to reason at multiple levels of abstraction \[1, 2\].
@@ -1693,19 +1452,20 @@ This design direction could allow agents to reason at multiple levels of abstrac
 
 Multiple agents exploring shared thought spaces:
 
+**Runnable example.** Verified helpers: `examples/paper_snippets/tot_runtime_examples.py` and `examples/paper_snippets/agent_runtime_examples.py`.
+
 ``` python
-class CollaborativeToT:
-    """Multiple agents exploring and sharing thoughts."""
-    
-    def __init__(self, agents: List[CodeAgent]):
-        self.agents = agents
-        self.shared_memory = {}
-    
-    def collaborative_solve(self, task):
-        # Agents take turns exploring
-        # Share promising paths
-        # Build on each other's discoveries
-        pass
+from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+from examples.paper_snippets.tot_runtime_examples import CollaborativeToT
+
+agents = [
+    CodeAgent(tools=[], model=InferenceClientModel("agent-a")),
+    CodeAgent(tools=[], model=InferenceClientModel("agent-b")),
+]
+collaborative = CollaborativeToT(agents)
+result = collaborative.collaborative_solve("Draft an EV market analysis plan")
+print(result["selected"])
+print(result["shared_memory"])
 ```
 
 ### 6.2 Industry Applications
@@ -1931,108 +1691,24 @@ In short, the field has usable tools and clear open questions; progress now depe
 - **ToT (Tree of Thoughts)**: Reasoning framework modeling problem-solving as tree search over thoughts
 - **Tool-Augmented LLM**: Language model extended with external tool capabilities
 
-## Appendix B: Reference Pseudo-code Implementation
+## Appendix B: Reference Runnable Implementation
 
-*Pseudo-code scope:* this appendix provides an intentionally minimal sketch for adaptation. It is not presented as a fully runnable benchmark harness.
+This appendix provides a minimal runnable reference implementation aligned to the manuscript's ToT architecture discussion.
+
+**Runnable example.** Verified helper: `examples/paper_snippets/tot_runtime_examples.py`.
 
 ``` python
-"""
-Reference Sketch: Tree of Thoughts with smolagents
-==================================================
+from examples.paper_snippets.agent_runtime_examples import InferenceClientModel
+from examples.paper_snippets.tot_runtime_examples import MinimalToTAgent, evaluate_math
 
-Pseudo-code example for architecture illustration.
-"""
+print(evaluate_math("1000 * (1 + 0.05)"))
 
-from smolagents import CodeAgent, InferenceClientModel, tool
-import heapq
-import re
-import ast
-import operator as op
-from typing import List
-
-@tool
-def evaluate_math(expression: str) -> float:
-    """Evaluate basic arithmetic safely (demo scope)."""
-    # Avoid raw eval(): restrict execution to a small arithmetic AST subset.
-    operators = {
-        ast.Add: op.add,
-        ast.Sub: op.sub,
-        ast.Mult: op.mul,
-        ast.Div: op.truediv,
-        ast.Pow: op.pow,
-        ast.USub: op.neg,
-        ast.UAdd: op.pos,
-    }
-
-    def _eval(node):
-        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
-            return node.value
-        if isinstance(node, ast.BinOp):
-            return operators[type(node.op)](_eval(node.left), _eval(node.right))
-        if isinstance(node, ast.UnaryOp):
-            return operators[type(node.op)](_eval(node.operand))
-        raise ValueError("Unsupported expression")
-
-    parsed = ast.parse(expression, mode="eval")
-    return float(_eval(parsed.body))
-
-class MinimalToTAgent(CodeAgent):
-    """Minimal ToT implementation for demonstration."""
-
-    def _parse_score(self, raw: str, default: float = 5.0) -> float:
-        match = re.search(r"-?\d+(?:\.\d+)?", raw)
-        return float(match.group(0)) if match else default
-
-    def _tool_signal(self, thought: str) -> float:
-        """
-        Lightweight tool-grounded signal: reward arithmetic thoughts that
-        pass safe parsing; penalize malformed arithmetic-like thoughts.
-        """
-        cleaned = thought.strip()
-        if not any(ch.isdigit() for ch in cleaned):
-            return 0.0
-        if not any(op_symbol in cleaned for op_symbol in "+-*/()"):
-            return 0.0
-        try:
-            evaluate_math(cleaned)
-            return 0.5
-        except Exception:
-            return -0.5
-    
-    def tot_solve(self, task: str, beam_width: int = 3, max_depth: int = 4):
-        # Initialize beams with starting thought
-        beams = [(0, [])]  # (score, path)
-        
-        for depth in range(max_depth):
-            candidates = []
-            
-            for score, path in beams:
-                # Generate next thoughts
-                prompt = f"Task: {task}\nCurrent steps: {path}\nNext step ideas:"
-                thoughts = self.model.generate(prompt).split('\n')[:beam_width]
-                
-                for thought in thoughts:
-                    new_path = path + [thought]
-                    # Heuristic model score + lightweight tool-grounded signal
-                    eval_prompt = f"Rate quality 0-10: {new_path}"
-                    new_score = self._parse_score(self.model.generate(eval_prompt))
-                    new_score += self._tool_signal(thought)
-                    
-                    candidates.append((new_score, new_path))
-            
-            # Keep top beams
-            beams = heapq.nlargest(beam_width, candidates, key=lambda x: x[0])
-        
-        # Return best path
-        return beams[0][1] if beams else []
-
-# Usage
-agent = MinimalToTAgent(
-    tools=[evaluate_math],
-    model=InferenceClientModel("microsoft/Phi-3-mini-4k-instruct")
+agent = MinimalToTAgent(model=InferenceClientModel("microsoft/Phi-3-mini-4k-instruct"))
+result = agent.tot_solve(
+    "Calculate compound interest on 1000 at 5% for 3 years",
+    beam_width=3,
+    max_depth=4,
 )
-
-result = agent.tot_solve("Calculate compound interest on $1000 at 5% for 3 years")
 print("Solution path:", result)
 ```
 

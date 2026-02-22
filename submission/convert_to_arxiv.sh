@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC_HTML="$ROOT_DIR/paper.html"
 OUT_DIR="$ROOT_DIR/submission/arxiv"
+TMP_HTML="$(mktemp "${TMPDIR:-/tmp}/paper-arxiv-sanitized.XXXXXX.html")"
+trap 'rm -f "$TMP_HTML"' EXIT
 
 mkdir -p "$OUT_DIR"
 
@@ -13,8 +15,14 @@ if ! command -v pandoc >/dev/null 2>&1; then
   exit 1
 fi
 
+# Pandoc may treat custom <pre data-*> wrappers as opaque HTML and drop
+# language annotations. Normalize code wrappers for conversion fidelity.
+perl -0777 -pe '
+  s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
+' "$SRC_HTML" > "$TMP_HTML"
+
 pandoc \
-  "$SRC_HTML" \
+  "$TMP_HTML" \
   --from=html \
   --to=latex \
   --standalone \

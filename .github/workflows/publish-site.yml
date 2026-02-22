@@ -12,6 +12,7 @@ on:
       - 'phase2/manuscript/build_phase2_html.sh'
       - 'phase2/manuscript/phase2-paper.css'
       - 'submission/build_llm_markdown.sh'
+      - 'submission/check_no_pseudo_listings.sh'
       - '.github/workflows/publish-site.yml'
   workflow_dispatch:
 
@@ -38,6 +39,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
+
+      - name: Guard against pseudo-code listings
+        run: |
+          bash submission/check_no_pseudo_listings.sh
 
       - name: Generate LLM-friendly Markdown
         run: |

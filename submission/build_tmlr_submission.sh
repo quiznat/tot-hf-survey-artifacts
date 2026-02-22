@@ -85,6 +85,12 @@ perl -i -pe '
   s/ClaudDib/System Contributor/g;
 ' "$ANON_HTML"
 
+# Pandoc may treat custom <pre data-*> wrappers as opaque HTML and drop
+# language annotations. Normalize code wrappers for conversion fidelity.
+perl -0777 -i -pe '
+  s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
+' "$ANON_HTML"
+
 pandoc \
   "$ANON_HTML" \
   --from=html \
