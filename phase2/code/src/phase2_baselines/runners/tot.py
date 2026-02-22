@@ -171,24 +171,17 @@ class ToTRunner(BaseRunner):
         total_tokens_in = 0
         total_tokens_out = 0
         collected: List[str] = []
+        prompt_builder = getattr(self.task, "build_tot_candidate_prompt")
 
         for attempt in range(2):
-            prompt = (
-                self.task.build_prompt(input_data, scratchpad=node.candidate)
-                + "\n\nGenerate candidate arithmetic expressions that use each provided number exactly once."
-                + f"\nReturn up to {branch_factor} candidates, one per line."
-                + "\nOutput only raw expressions using + - * / and parentheses."
-                + "\nDo not include '=', explanations, or words."
-            )
-            if node.candidate:
-                prompt += f"\nParent candidate to improve on (do not repeat): {node.candidate}"
-
             disallowed_preview = sorted(disallowed)[:20]
-            if disallowed_preview:
-                blocked = "\n".join(f"- {candidate}" for candidate in disallowed_preview)
-                prompt += "\nDo not repeat any of these previously explored candidates:\n" + blocked
-            if attempt == 1:
-                prompt += "\nPrevious candidates repeated; generate distinct alternatives."
+            prompt = prompt_builder(
+                input_data=input_data,
+                scratchpad=node.candidate,
+                branch_factor=branch_factor,
+                disallowed_candidates=disallowed_preview,
+                attempt=attempt,
+            )
 
             output = self.model.generate(prompt)
             total_tokens_in += estimate_tokens(prompt)

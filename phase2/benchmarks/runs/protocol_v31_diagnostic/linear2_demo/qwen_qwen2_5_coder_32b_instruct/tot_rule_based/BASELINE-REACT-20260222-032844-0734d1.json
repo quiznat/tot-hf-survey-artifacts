@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen2_5_coder_32b_instruct/tot_rule_based/BASELINE-REACT-20260222-032844-0734d1.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x = 5, y = 0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -1,
+        0,
+        -5
+      ],
+      [
+        7,
+        -4,
+        35
+      ]
+    ]
+  },
+  "item_id": "lin-v1-033",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4950,
+    "success": 1,
+    "tokens_in": 186,
+    "tokens_out": 189
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-032844-0734d1",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 300433570,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T03:28:44Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to solve a system of two linear equations with two variables. The equations are:\n-1x + 0y = -5  (or simply -x = -5)\n7x - 4y = 35\n\nI can use the solve2 tool which is designed to solve systems of two linear equations with two variables. The tool expects the coefficients in the format [a1, b1, c1, a2, b2, c2] where:\n- a1*x + b1*y = c1\n- a2*x + b2*y = c2\n\nFor my equations:\n-1x + 0y = -5 \u2192 a1=-1, b1=0, c1=-5\n7x - 4y = 35 \u2192 a2=7, b2=-4, c2=35\n\nACTION: solve2 [-1, 0",
+    "STEP 1 OBSERVATION: x=5.000000,y=0.000000",
+    "STEP 2 MODEL: THINK: I have successfully solved the system of equations using the solve2 tool. The solution is x = 5 and y = 0. Let me verify this solution by checking both original equations:\n\nEquation 1: -1x + 0y = -5\nSubstituting x = 5: -1(5) + 0(0) = -5 \u2713\n\nEquation 2: 7x - 4y = 35\nSubstituting x = 5, y = 0: 7(5) - 4(0) = 35 \u2713\n\nBoth equations are satisfied, so the solution is correct.\n\nFINAL: x = 5, y = 0"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen2_5_coder_32b_instruct/tot_hybrid/BASELINE-REACT-20260222-051730-4fc87b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=8, y=-3",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        6,
+        46
+      ],
+      [
+        0,
+        -8,
+        24
+      ]
+    ]
+  },
+  "item_id": "lin-v1-014",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6321,
+    "success": 1,
+    "tokens_in": 460,
+    "tokens_out": 212
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-051730-4fc87b",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 621820434,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T05:17:30Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to solve a system of linear equations. The equations are given as:\n- 8x + 6y = 46\n- 0x + (-8)y = 24\n\nThis is a system of two equations with two unknowns (x and y). I can use the solve2 tool which is designed for solving systems of linear equations.\n\nLooking at the equations:\n- First equation: 8x + 6y = 46\n- Second equation: 0x - 8y = 24\n\nI should format this properly for the solve2 tool. The tool expects coefficients in the form [a1, b1, c1, a2, b2, c2] where:\n- a1*x + b1*y = c1\n- a2*x + b2*y = c2\n\nSo I have:\n- a1=8, b1=6",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: I need to solve the system of linear equations:\n- 8x + 6y = 46\n- 0x - 8y = 24\n\nI'll use the solve2 tool which requires coefficients in the format [a1, b1, c1, a2, b2, c2] where:\n- a1*x + b1*y = c1\n- a2*x + b2*y = c2\n\nFrom the equations:\n- First equation: 8x + 6y = 46 \u2192 a1=8, b1=6, c1=46\n- Second equation: 0x - 8y = 24 \u2192 a2=0, b2=-8, c2=24\n\nI'll call the solve2 tool with these coefficients.\nACTION: solve2 [8, 6, 46, 0",
+    "STEP 2 OBSERVATION: x=8.000000,y=-3.000000",
+    "STEP 3 MODEL: FINAL: x=8, y=-3"
+  ]
+}

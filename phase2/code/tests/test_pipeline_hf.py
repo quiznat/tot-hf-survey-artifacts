@@ -22,6 +22,26 @@ class PipelineHFTests(unittest.TestCase):
                 hf_token_env=token_env,
             )
 
+    def test_react_tool_config_matches_task_tools(self) -> None:
+        _, task, config = create_baseline_setup(
+            runner_name="react",
+            provider="scripted",
+            task_name="linear2",
+        )
+        expected_tools = sorted(task.available_tools().keys())
+        self.assertEqual(config["tool_config"], expected_tools)
+        self.assertTrue(config["react_enable_tools"])
+
+    def test_react_tools_can_be_disabled_for_parity(self) -> None:
+        _, _task, config = create_baseline_setup(
+            runner_name="react",
+            provider="scripted",
+            task_name="digit-permutation",
+            react_enable_tools=False,
+        )
+        self.assertEqual(config["tool_config"], [])
+        self.assertFalse(config["react_enable_tools"])
+
 
 if __name__ == "__main__":
     unittest.main()

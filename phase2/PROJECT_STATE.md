@@ -1,11 +1,11 @@
 # Phase 2 Project State
 
-Status date: 2026-02-21
+Status date: 2026-02-22
 
 ## Current Phase
 - Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
 - Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 locked matrix execution is complete with consolidated analysis artifacts.
-- Active extension: protocol-v3.1 diagnostics are in flight to resolve ToT-vs-ReAct regressions on failure tasks.
+- Protocol-v3.1 diagnostics are completed (`2 tasks x 3 models x 4 profiles`, paired `react,tot`) with deep-analysis and parity artifacts generated.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -18,6 +18,20 @@ Status date: 2026-02-21
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
+- Completed full protocol-v3.1 diagnostic matrix execution (`2 x 3 x 4 x 50 = 1200` paired item comparisons; `2400` total manifests) with no model substitution.
+- Generated consolidated v3.1 outputs:
+  - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.md`
+  - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.json`
+  - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.md`
+  - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.json`
+- Fixed v3.1 deep-analysis failure aggregation to retain profile dimension (no profile-collapsing dedupe across `tot_model_self_eval`, `tot_hybrid`, `tot_rule_based`, `tot_model_self_eval_lite`).
+- Generated v3.1 ToT failure taxonomy views (pooled and task-scoped):
+  - `phase2/benchmarks/analysis/protocol_v31_failure_taxonomy_tot.{md,json}`
+  - `phase2/benchmarks/analysis/protocol_v31_failure_taxonomy_tot_linear2.{md,json}`
+  - `phase2/benchmarks/analysis/protocol_v31_failure_taxonomy_tot_digit_permutation.{md,json}`
+- Added implementation-audit artifact for v3.1 root-cause analysis:
+  - `phase2/benchmarks/analysis/protocol_v31_implementation_audit.md`
+- Ran full-matrix v3.1 `--report-only` replay parity and verified canonical metric stability (0/24 changed on condition/pairwise statistical fields).
 - Executed the full locked protocol-v3 matrix (`4 tasks x 3 models x 3 conditions x 50`) and completed 1800 manifested runs with no model substitution.
 - Backfilled transient timeout-interrupted segments and validated full 50x3 coverage for every task-model block.
 - Rebuilt all 12 protocol-v3 lockset reports and consolidated outputs:
@@ -174,13 +188,14 @@ Status date: 2026-02-21
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Complete protocol-v3.1 diagnostic matrix execution and summarize profile-level ToT-vs-ReAct effects.
-2. Update manuscript framing from universal method claims to task-conditional strategy recommendations.
+1. Run targeted implementation probes for v3.1 failure signatures (depth-limit and frontier-empty paths) and log root-cause evidence.
+2. Update manuscript framing and claims using v3.1 results as negative/conditional evidence (task/profile-dependent routing, not universal ToT gains).
 3. Build anonymous and camera-ready package variants with full v3 + v3.1 artifact map.
 
 ## Risks / Dependencies
 - Provider/model behavior can drift over time; additional reruns may change latency and timeout rates even with locked settings.
 - Protocol-v3 evidence shows task-dependent ToT-vs-ReAct directionality, so overgeneralized claims remain a publication risk.
+- Protocol-v3.1 evidence shows broad ToT underperformance on `linear2` and `digit-permutation`; implementation changes are required before broader positive claims.
 - Manuscript framing must keep claims strictly evidence-bounded to avoid rejection on scope overreach.
 
 ## Decision Log
@@ -214,3 +229,7 @@ Status date: 2026-02-21
 - 2026-02-21: Implemented protocol-v3 task adapters, generic lockset runner, matrix orchestrator, and matrix summary tooling.
 - 2026-02-21: Generated deterministic v3 lockset panels for subset-sum, linear2, and digit-permutation tasks.
 - 2026-02-22: Started protocol-v3.1 diagnostic track (`linear2`, `digit-permutation`) with evaluator/search profile comparisons against paired ReAct baselines.
+- 2026-02-22: Completed full protocol-v3.1 matrix and generated consolidated diagnostic summary/deep-analysis artifacts.
+- 2026-02-22: Verified full-matrix v3.1 `--report-only` canonical parity (no metric drift across replayed reports).
+- 2026-02-22: Identified ToT task-mismatch prompt defect (hardcoded arithmetic candidate instructions across non-arithmetic tasks) and published v3.1 implementation audit artifact.
+- 2026-02-22: Added mandatory smoke-gate policy to v3/v3.1 protocol and execution docs: smoke all task types before any production/full matrix run.

@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_hybrid/BASELINE-REACT-20260222-045435-2f43dd.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "1 -4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -5,
+        -5,
+        15
+      ],
+      [
+        8,
+        7,
+        -20
+      ]
+    ]
+  },
+  "item_id": "lin-v1-012",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4199,
+    "success": 1,
+    "tokens_in": 203,
+    "tokens_out": 154
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-045435-2f43dd",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 701668638,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:54:35Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two linear equations in the form [a, b, c] representing ax + by = c. So the equations are:  \n1) -5x - 5y = 15  \n2) 8x + 7y = -20  \n\nWe need to solve for x and y. Since we have two equations and two unknowns, we can solve the system. Let's simplify the first equation: divide both sides by -5 \u2192 x + y = -3 \u2192 y = -3 - x. Substitute into second equation:  \n8x + 7(-3 - x) = -20  \n8x -21 -7x = -20  \nx -21 = -20  \nx = 1  \nThen y = -3 - 1 = -4. So solution is (x=1, y=-4).  \n\nWe can verify using check",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The manual solution gives x = 1, y = -4. To verify correctness, I should use the check_xy tool with x=1 and y=-4 to confirm both equations are satisfied.\nACTION: check_xy 1 -4",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

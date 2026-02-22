@@ -49,6 +49,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tot-frontier-width", type=int, default=3)
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
+    parser.add_argument(
+        "--capability-parity-policy",
+        choices=["equalize_react_to_tot", "strict", "off"],
+        default="equalize_react_to_tot",
+        help="Capability parity policy passed through to run_structured_lockset.py",
+    )
     parser.add_argument("--seed-policy", default="item_hash")
     parser.add_argument("--bootstrap-samples", type=int, default=10000)
     parser.add_argument("--confidence-level", type=float, default=0.95)
@@ -104,6 +110,8 @@ def _build_command(task_id: str, model_id: str, args: argparse.Namespace) -> Lis
         str(args.hf_temperature),
         "--hf-top-p",
         str(args.hf_top_p),
+        "--capability-parity-policy",
+        args.capability_parity_policy,
         "--seed-policy",
         args.seed_policy,
         "--limit",
@@ -141,6 +149,7 @@ def main() -> int:
     print(f"tasks={tasks}")
     print(f"models={models}")
     print(f"report_only={args.report_only} dry_run={args.dry_run}")
+    print(f"capability_parity_policy={args.capability_parity_policy}")
 
     env = os.environ.copy()
     env["PYTHONPATH"] = str(ROOT / "code/src")

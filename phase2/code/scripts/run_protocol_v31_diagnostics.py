@@ -79,9 +79,35 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hf-timeout-seconds", type=int, default=180)
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
+    parser.add_argument(
+        "--capability-parity-policy",
+        choices=["equalize_react_to_tot", "strict", "off"],
+        default="equalize_react_to_tot",
+        help="Capability parity policy passed through to run_structured_lockset.py",
+    )
     parser.add_argument("--seed-policy", default="item_hash")
     parser.add_argument("--bootstrap-samples", type=int, default=10000)
     parser.add_argument("--confidence-level", type=float, default=0.95)
+    parser.add_argument(
+        "--series-id",
+        default="protocol_v31_diagnostic",
+        help="Runs subdirectory under phase2/benchmarks/runs/",
+    )
+    parser.add_argument(
+        "--report-tag",
+        default="v31",
+        help="Suffix tag used in report filenames (for example: v31, v32)",
+    )
+    parser.add_argument(
+        "--run-log",
+        default=str(ROOT / "reproducibility/run-log-protocol-v31.md"),
+        help="Run-log markdown path",
+    )
+    parser.add_argument(
+        "--run-label",
+        default="protocol_v31_diagnostics",
+        help="Label prefix used in start/done console markers",
+    )
     parser.add_argument(
         "--continue-on-error",
         action="store_true",
@@ -113,10 +139,10 @@ def _build_command(task_id: str, model_id: str, profile_id: str, args: argparse.
     task_slug = _slug(task_id)
     model_slug = _slug(model_id)
 
-    runs_dir = ROOT / "benchmarks/runs/protocol_v31_diagnostic" / task_slug / model_slug / profile_id
-    report_md = ROOT / "benchmarks/analysis" / f"{task_slug}_diag_report_{model_slug}_{profile_id}_v31.md"
-    report_json = ROOT / "benchmarks/analysis" / f"{task_slug}_diag_report_{model_slug}_{profile_id}_v31.json"
-    run_log = ROOT / "reproducibility/run-log-protocol-v31.md"
+    runs_dir = ROOT / "benchmarks/runs" / args.series_id / task_slug / model_slug / profile_id
+    report_md = ROOT / "benchmarks/analysis" / f"{task_slug}_diag_report_{model_slug}_{profile_id}_{args.report_tag}.md"
+    report_json = ROOT / "benchmarks/analysis" / f"{task_slug}_diag_report_{model_slug}_{profile_id}_{args.report_tag}.json"
+    run_log = Path(args.run_log)
 
     cmd = [
         "python3",
@@ -145,6 +171,8 @@ def _build_command(task_id: str, model_id: str, profile_id: str, args: argparse.
         str(args.hf_top_p),
         "--hf-timeout-seconds",
         str(args.hf_timeout_seconds),
+        "--capability-parity-policy",
+        args.capability_parity_policy,
         "--seed-policy",
         args.seed_policy,
         "--limit",
@@ -186,12 +214,15 @@ def main() -> int:
     if unknown_profiles:
         raise RuntimeError(f"Unknown profile(s): {unknown_profiles}")
 
-    print(f"protocol_v31_diagnostics_start={_utcstamp()}")
+    print(f"{args.run_label}_start={_utcstamp()}")
     print(f"tasks={tasks}")
     print(f"models={models}")
     print(f"profiles={profiles}")
+    print(f"series_id={args.series_id} report_tag={args.report_tag}")
+    print(f"run_log={args.run_log}")
     print(f"report_only={args.report_only} dry_run={args.dry_run}")
     print(f"continue_on_error={args.continue_on_error}")
+    print(f"capability_parity_policy={args.capability_parity_policy}")
 
     env = os.environ.copy()
     env["PYTHONPATH"] = str(ROOT / "code/src")
@@ -228,9 +259,9 @@ def main() -> int:
                     if not args.continue_on_error:
                         return proc.returncode
 
-    print(f"protocol_v31_diagnostics_done={_utcstamp()}")
+    print(f"{args.run_label}_done={_utcstamp()}")
     if failures:
-        print("protocol_v31_diagnostics_failures={count}".format(count=len(failures)))
+        print("{label}_failures={count}".format(label=args.run_label, count=len(failures)))
         for failure in failures:
             print(
                 "failure_block task={task} model={model} profile={profile} returncode={code}".format(

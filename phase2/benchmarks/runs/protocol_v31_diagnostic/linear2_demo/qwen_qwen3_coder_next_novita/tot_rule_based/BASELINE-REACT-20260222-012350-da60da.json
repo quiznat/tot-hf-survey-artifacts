@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_rule_based/BASELINE-REACT-20260222-012350-da60da.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "{\"x\": -2, \"y\": -3}",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        6,
+        3,
+        -21
+      ],
+      [
+        0,
+        5,
+        -15
+      ]
+    ]
+  },
+  "item_id": "lin-v1-028",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3511,
+    "success": 1,
+    "tokens_in": 189,
+    "tokens_out": 112
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-012350-da60da",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2801962507,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T01:23:50Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves solving a system of two linear equations. The input provides coefficients in the form [[a1, b1, c1], [a2, b2, c2]], representing equations:  \n1) a1*x + b1*y = c1  \n2) a2*x + b2*y = c2  \n\nGiven equations:  \n1) 6x + 3y = -21  \n2) 0x + 5y = -15 \u2192 5y = -15 \u2192 y = -3  \n\nWe can substitute y = -3 into the first equation to solve for x:  \n6x + 3*(-3) = -21 \u2192 6x - 9 = -21 \u2192 6x = -12 \u2192 x = -2  \n\nSo solution is (x, y) = (-2, -3). Let's verify using check_xy tool",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: ACTION: check_xy {\"x\": -2, \"y\": -3}",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

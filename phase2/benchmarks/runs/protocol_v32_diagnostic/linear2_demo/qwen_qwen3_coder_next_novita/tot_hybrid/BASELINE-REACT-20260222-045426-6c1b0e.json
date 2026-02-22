@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_hybrid/BASELINE-REACT-20260222-045426-6c1b0e.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "{\"x\": 2, \"y\": 9}",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -9,
+        -9,
+        -99
+      ],
+      [
+        9,
+        3,
+        45
+      ]
+    ]
+  },
+  "item_id": "lin-v1-004",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4850,
+    "success": 1,
+    "tokens_in": 430,
+    "tokens_out": 182
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-045426-6c1b0e",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2568898614,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:54:26Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two equations in the form [a, b, c], representing linear equations ax + by = c. So we have:\nEquation 1: -9x - 9y = -99  \nEquation 2: 9x + 3y = 45  \n\nWe need to solve for x and y. Let's simplify and solve manually first.\n\nEquation 1: divide both sides by -9 \u2192 x + y = 11  \nEquation 2: divide both sides by 3 \u2192 3x + y = 15  \n\nNow subtract Equation 1 (x + y = 11) from Equation 2 (3x + y = 15):  \n(3x + y) - (x + y) = 15 - 11 \u2192 2x = 4 \u2192 x = 2  \nThen from x + y",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: From the scratchpad, we have simplified the equations to:\nx + y = 11  \n3x + y = 15  \nSubtracting gives 2x = 4 \u2192 x = 2. Substituting back: 2 + y = 11 \u2192 y = 9. So the solution is x = 2, y = 9. We can verify using the check_xy tool.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: ACTION: check_xy {\"x\": 2, \"y\": 9}",
+    "STEP 3 OBSERVATION: match"
+  ]
+}

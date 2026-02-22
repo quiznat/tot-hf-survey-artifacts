@@ -1,0 +1,94 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_hybrid/TOT-PROTOTYPE-20260222-012111-7fd570.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "error_type": "depth_limit",
+  "evaluator_mode": "hybrid",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 7,
+      "frontier_width": 3,
+      "generated_nodes": 17,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0
+    }
+  },
+  "final_answer": "(14.0 - (-1.0*x)) / -9.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -1,
+        6,
+        -16
+      ],
+      [
+        -1,
+        -9,
+        14
+      ]
+    ]
+  },
+  "item_id": "lin-v1-001",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 29995,
+    "success": 0,
+    "tokens_in": 2480,
+    "tokens_out": 182
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot prototype reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260222-012111-7fd570",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 2133887066,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T01:21:11Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.5616 cum=0.5616 terminal=False candidate=x=2.0,y=-2.0",
+    "NODE n0002 parent=root score=0.1200 cum=0.1200 terminal=False candidate=(-1.0*x + 6.0*y) + (-1.0*x + -9.0*y)",
+    "NODE n0003 parent=root score=0.1200 cum=0.1200 terminal=False candidate=(-16.0 - 6.0*y) / -1.0",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=0.3200 cum=0.8816 terminal=False candidate=(-16.0 - 6.0*(-2.0)) / -1.0",
+    "NODE n0005 parent=n0001 score=0.1200 cum=0.6816 terminal=False candidate=(14.0 + 9.0*(-2.0)) / -1.0",
+    "NODE n0006 parent=n0001 score=0.1200 cum=0.6816 terminal=False candidate=(-16.0 + 14.0) / (-1.0 - (-1.0))",
+    "NODE n0002 generated no candidates",
+    "NODE n0007 parent=n0003 score=0.3200 cum=0.4400 terminal=False candidate=x = (-16.0 - 6.0*y) / -1.0",
+    "NODE n0008 parent=n0003 score=0.5792 cum=0.6992 terminal=False candidate=y = (14.0 - (-1.0*x)) / -9.0",
+    "NODE n0009 parent=n0003 score=0.1200 cum=0.2400 terminal=False candidate=x = (6.0*y + 16.0)",
+    "DEPTH 3 frontier=3",
+    "NODE n0010 parent=n0004 score=0.1200 cum=1.0016 terminal=False candidate=(-16.0 - 14.0) / (6.0 - (-9.0))",
+    "NODE n0011 parent=n0004 score=0.2448 cum=1.1264 terminal=False candidate=(-16.0 - (-1.0*x)) / 6.0",
+    "NODE n0012 parent=n0004 score=0.3792 cum=1.2608 terminal=False candidate=(14.0 - (-1.0*x)) / -9.0",
+    "NODE n0013 parent=n0008 score=0.4448 cum=1.1440 terminal=False candidate=y = (-16.0 - (-1.0*x)) / 6.0",
+    "NODE n0014 parent=n0008 score=0.1200 cum=0.8192 terminal=False candidate=x = (14.0 + 9.0*y) / -1.0",
+    "NODE n0015 parent=n0005 score=0.1200 cum=0.8016 terminal=False candidate=(-16.0 + 14.0) / (6.0 + (-9.0))",
+    "NODE n0016 parent=n0005 score=0.1200 cum=0.8016 terminal=False candidate=(6.0*14.0 + 9.0*16.0) / (6.0*(-9.0) - (-9.0)*6.0)",
+    "NODE n0017 parent=n0005 score=0.3408 cum=1.0224 terminal=False candidate=16.0 - (-1.0*x) = 6.0*y"
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-012002-40bfec.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "-7 1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        -4,
+        -60
+      ],
+      [
+        -6,
+        5,
+        47
+      ]
+    ]
+  },
+  "item_id": "lin-v1-046",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3026,
+    "success": 1,
+    "tokens_in": 175,
+    "tokens_out": 139
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-012002-40bfec",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3183434064,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T01:20:02Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves solving a system of two linear equations. The input provides coefficients in the form [[a1, b1, c1], [a2, b2, c2]], representing equations:  \n1) a1*x + b1*y = c1  \n2) a2*x + b2*y = c2  \n\nSo here:  \n8x - 4y = -60  \n-6x + 5y = 47  \n\nI need to find (x, y). I can either use algebraic methods or call the `solve2` tool if it's designed for this. Let\u2019s try `solve2` first, assuming it solves 2x2 linear systems given coefficients.\n\nACTION: solve2 [[8, -4, -60], [-6, 5, 47]]",
+    "STEP 1 OBSERVATION: x=-7.000000,y=1.000000",
+    "STEP 2 MODEL: THINK: The `solve2` tool returned x = -7.0 and y = 1.0 as the solution to the system of equations. To verify correctness, I should use the `check_xy` tool to plug these values back into both original equations and confirm they satisfy them.\n\nACTION: check_xy -7 1",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

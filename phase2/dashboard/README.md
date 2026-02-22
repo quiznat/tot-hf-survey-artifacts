@@ -6,9 +6,10 @@ Lightweight local dashboard for monitoring experiment execution and result artif
 - `http://127.0.0.1:8787`
 
 ## Features
-- protocol-v3.1 block/pair progress tracking (`done/partial/not started`)
+- protocol-v3.1 and protocol-v3.2 block/pair progress tracking (`done/partial/not started`)
 - runtime process status from PID/log files
 - protocol-v3 directional snapshot (ToT vs ReAct)
+- protocol-v3.1/v3.2 series explorer with filters (including version) and click-through detail (`task x model x profile`)
 - latest analysis artifacts table
 - log-tail viewer for runtime logs
 

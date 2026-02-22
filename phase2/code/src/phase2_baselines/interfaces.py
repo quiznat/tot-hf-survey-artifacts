@@ -22,6 +22,14 @@ class BenchmarkTask(Protocol):
     def build_prompt(self, input_data: Any, scratchpad: str = "") -> str:
         """Build prompt text for a given input and optional scratchpad."""
 
+    def build_react_prompt(
+        self,
+        input_data: Any,
+        scratchpad: str,
+        tools_override: Mapping[str, Callable[[str, Any], str]] | None = None,
+    ) -> str:
+        """Build ReAct prompt text with optional explicit tool exposure override."""
+
     def extract_final_answer(self, raw_output: str) -> str:
         """Extract the final answer string from raw model output."""
 

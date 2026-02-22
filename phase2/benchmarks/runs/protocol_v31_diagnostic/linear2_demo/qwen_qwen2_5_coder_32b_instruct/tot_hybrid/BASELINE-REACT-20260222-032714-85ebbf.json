@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen2_5_coder_32b_instruct/tot_hybrid/BASELINE-REACT-20260222-032714-85ebbf.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x = -9,",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        3,
+        87
+      ],
+      [
+        -6,
+        -1,
+        46
+      ]
+    ]
+  },
+  "item_id": "lin-v1-035",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3899,
+    "success": 0,
+    "tokens_in": 206,
+    "tokens_out": 237
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-032714-85ebbf",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3811487925,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T03:27:14Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to analyze the given equations and determine what to do next. The input shows two equations in the form [a, b, c] representing ax + by = c. So I have:\n- Equation 1: -7x + 3y = 87\n- Equation 2: -6x + (-1)y = 46 (or -6x - y = 46)\n\nI need to solve this system of linear equations. I can use either the solve2 tool which is designed for solving systems of two linear equations, or I could use check_xy to verify potential solutions. Since I'm starting with the raw equations, the most logical first step is to solve the system.\n\nACTION: solve2 [[-7, 3, 87], [-6, -1, 46]]\n\nFINAL: x = -3, y = 22",
+    "STEP 1 OBSERVATION: x=-9.000000,y=8.000000",
+    "STEP 2 MODEL: THINK: I used the solve2 tool with the given equations [-7, 3, 87] and [-6, -1, 46], but the result shows x = -9 and y = 8, not x = -3 and y = 22 as I initially stated. Let me verify this solution by checking if it satisfies both original equations:\n\nEquation 1: -7x + 3y = 87\n-7(-9) + 3(8) = 63 + 24 = 87 \u2713\n\nEquation 2: -6x - y = 46\n-6(-9) - 8 = 54 - 8 = 46 \u2713\n\nThe solution x = -9, y = 8 does satisfy both equations. My initial final answer was incorrect. I should correct my response.\n\nFINAL: x = -9,"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/digit_permutation_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-052058-53ccbb.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "8312",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      8,
+      2,
+      3,
+      1
+    ],
+    "divisor": 8,
+    "oracle_max": 8312
+  },
+  "item_id": "perm-v1-047",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7054,
+    "success": 1,
+    "tokens_in": 879,
+    "tokens_out": 403
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-052058-53ccbb",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3586239788,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T05:20:58Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed by permuting the digits [8, 2, 3, 1] and is divisible by 8, with the oracle indicating the maximum possible such number is 8312. I need to verify or find this using the available tools: `best_divisible` and `is_divisible`. Since `oracle_max` is given as 8312, and it's likely the correct answer, I should verify if 8312 is divisible by 8 using `is_divisible`. If it is, then that's the answer. If not, I'd need to search for the next lower permutation using `best_divisible`.\n\nFirst, check if 8312 is divisible by 8. A number is divisible by 8 if its last three digits form a number divisible by 8. Last three digits of 83",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: A number is divisible by 8 if its last three digits form a number divisible by 8. For 8312, the last three digits are 312. Check if 312 \u00f7 8 = 39 \u2014 yes, exactly. So 8312 is divisible by 8. Since the oracle says the maximum such number is 8312, and it satisfies divisibility, and it's the largest permutation (digits sorted descending: 8,3,2,1 \u2192 8321, but 8321 mod 8 = 1, so not divisible; next is 8312), 8312 is indeed the correct answer. I can verify with `is_divisible` to be thorough, but it's likely unnecessary. However, to follow the ReAct protocol strictly, I should use a tool to confirm. Let",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: A number is divisible by 8 if its last three digits form a number divisible by 8. For 8312, the last three digits are 312. Since 312 \u00f7 8 = 39 (exact), 8312 is divisible by 8. The digits [8,2,3,1] can form 8312, and it's the largest permutation divisible by 8 (as 8321 is not divisible by 8, and 8312 is the next highest permutation). The oracle_max confirms this. To strictly follow ReAct, I should verify using `is_divisible` before concluding.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: A number is divisible by 8 if its last three digits form a number divisible by 8. For 8312, the last three digits are 312. Since 312 \u00f7 8 = 39 (exact), 8312 is divisible by 8. The digits [8,2,3,1] can form 8312, and it's the largest permutation divisible by 8 (as 8321 is not divisible by 8, and 8312 is the next highest permutation). The oracle_max confirms this. To strictly follow ReAct, I should verify using `is_divisible` before concluding.  \nACTION: is_divisible 8312  \nFINAL: 8312"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/digit_permutation_demo/qwen_qwen2_5_coder_32b_instruct/tot_hybrid/BASELINE-REACT-20260222-042006-68b3a3.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "THINK: I need to find the largest number \u2264 9104 that can be formed using digits [9, 4, 0, 1] exactly once, and is divisible by 8.\n\nLet me systematically check valid 4-digit combinations in descending order:\n- 9410: exceeds oracle_max (9104)\n- 9401: exceeds oracle_max (9104) \n- 9140: exceeds oracle_max (9104)\n- 9104: within oracle_max, but I don't have a 4 in the right position\n- 9041: within oracle_max, but I don't have a 4 in the right position\n- 9014: within oracle_max, but I don't have a 4 in the right position\n\nWait, I need to be more careful. I have digits [9",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      9,
+      4,
+      0,
+      1
+    ],
+    "divisor": 8,
+    "oracle_max": 9104
+  },
+  "item_id": "perm-v1-024",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9049,
+    "success": 1,
+    "tokens_in": 964,
+    "tokens_out": 463
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-042006-68b3a3",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3699295698,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T04:20:06Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find the largest number that can be formed using the digits [9, 4, 0, 1] that is divisible by 8. I should first try to form the largest possible number and check if it's divisible by 8. If not, I'll need to rearrange the digits to find a number that is divisible by 8.\n\nLet me start by trying to form the largest number possible with these digits, which would be 9410, and then check if it's divisible by 8.\n\nACTION: is_divisible 9410 8\n\nWait, let me reconsider. The oracle_max is 9104, so I should work within that constraint. Let me think about this more systematically.\n\nFirst, I'll use the best_divisible tool to find the best number that can be made from these digits that is divisible by 8.\n\nACTION: best_divisible",
+    "STEP 1 OBSERVATION: no",
+    "STEP 2 MODEL: THINK: I need to find the largest number that can be formed using the digits [9, 4, 0, 1] that is divisible by 8, with the constraint that it cannot exceed 9104. Since the best_divisible tool didn't work as expected, I'll try a different approach.\n\nLet me manually check what numbers I can make with these digits that are divisible by 8, starting from the largest possible numbers and working down until I find one that meets the criteria.\n\nThe largest possible number would be 9410, but since we have an oracle_max constraint of 9104, I need to consider numbers up to 9104.\n\nLet me try forming numbers in descending order and check divisibility by 8:\n\nFirst, let me try 9104 - but I don't have 4 in my available digits (I have 9,4,0",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: I need to find the largest number that can be formed using the digits [9, 4, 0, 1] that is divisible by 8, with the constraint that it cannot exceed 9104. \n\nLet me reconsider the approach. I have digits [9, 4, 0, 1] and need to form numbers \u2264 9104 that are divisible by 8.\n\nSince I can only use each digit once, let me check what 4-digit numbers I can form:\n- 9410, 9401, 9140, 9104, 9041, 9014\n- 4910, 4901, 4190, 4109, 4091, 4019\n- 1940,",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: I need to find the largest number \u2264 9104 that can be formed using digits [9, 4, 0, 1] exactly once, and is divisible by 8.\n\nLet me systematically check valid 4-digit combinations in descending order:\n- 9410: exceeds oracle_max (9104)\n- 9401: exceeds oracle_max (9104) \n- 9140: exceeds oracle_max (9104)\n- 9104: within oracle_max, but I don't have a 4 in the right position\n- 9041: within oracle_max, but I don't have a 4 in the right position\n- 9014: within oracle_max, but I don't have a 4 in the right position\n\nWait, I need to be more careful. I have digits [9"
+  ]
+}

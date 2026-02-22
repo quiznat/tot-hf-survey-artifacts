@@ -69,11 +69,8 @@ def _pair_row(rows: List[Dict[str, Any]], a: str, b: str) -> Dict[str, Any] | No
 
 def _profile_from_path(path: Path) -> str:
     stem = path.stem
-    if stem.endswith("_v31"):
-        stem = stem[:-4]
     for profile_id in sorted(PROFILE_ORDER, key=len, reverse=True):
-        suffix = f"_{profile_id}"
-        if stem.endswith(suffix):
+        if f"_{profile_id}_" in stem or stem.endswith(f"_{profile_id}"):
             return profile_id
     return "unknown"
 

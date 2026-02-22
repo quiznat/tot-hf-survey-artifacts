@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_smoke_patch1/linear2_demo/qwen_qwen3_coder_next_novita/tot_rule_based/BASELINE-REACT-20260222-044649-36304a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "2 9",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -9,
+        -9,
+        -99
+      ],
+      [
+        9,
+        3,
+        45
+      ]
+    ]
+  },
+  "item_id": "lin-v1-004",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2775,
+    "success": 1,
+    "tokens_in": 203,
+    "tokens_out": 153
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-044649-36304a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2568898614,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:46:49Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task provides two linear equations in the form [a, b, c] representing ax + by = c. So the equations are:  \n-9x -9y = -99  \n9x + 3y = 45  \n\nWe can simplify the first equation by dividing by -9: x + y = 11  \nThe second equation: 9x + 3y = 45 \u2192 divide by 3: 3x + y = 15  \n\nNow subtract the simplified first equation (x + y = 11) from the second (3x + y = 15):  \n(3x + y) - (x + y) = 15 - 11 \u2192 2x = 4 \u2192 x = 2  \nThen from x + y = 11 \u2192 2 + y = 11 \u2192 y = 9  \n\nSo",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The manual solution gives x = 2, y = 9. To verify, I should use the check_xy tool with x=2 and y=9 to confirm both equations are satisfied.\nACTION: check_xy 2 9",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

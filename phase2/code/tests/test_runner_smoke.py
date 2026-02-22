@@ -99,6 +99,29 @@ class RunnerSmokeTests(unittest.TestCase):
         self.assertEqual(manifest["outcome"], "success")
         self.assertEqual(manifest["final_answer"], "(10*10-4)/4")
 
+    def test_react_can_disable_tools_for_capability_parity(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "ACTION: calc (10*10-4)/4",
+                "ACTION: calc (10*10-4)/4",
+            ]
+        )
+        runner = ReactRunner(model=model, model_name="test-react")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-react",
+                "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "max_steps_or_final"},
+                "tool_config": [],
+                "react_enable_tools": False,
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+                "max_steps": 2,
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "timeout")
+        self.assertIn("unknown tool 'calc'", "\n".join(manifest["trace"]))
+
 
 if __name__ == "__main__":
     unittest.main()

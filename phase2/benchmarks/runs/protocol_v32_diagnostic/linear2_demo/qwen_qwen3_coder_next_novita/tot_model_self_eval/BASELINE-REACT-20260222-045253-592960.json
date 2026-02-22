@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-045253-592960.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=3, y=-3",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        3,
+        -30
+      ],
+      [
+        -4,
+        -5,
+        3
+      ]
+    ]
+  },
+  "item_id": "lin-v1-017",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5582,
+    "success": 1,
+    "tokens_in": 152,
+    "tokens_out": 140
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-045253-592960",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3495556605,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:52:53Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two linear equations in the form [a, b, c] representing ax + by = c. So the equations are:\n-7x + 3y = -30\n-4x - 5y = 3\n\nWe need to solve for x and y. I can use the solve2 tool, which likely solves a system of two linear equations. Let me try that.\n\nACTION: solve2 [[-7, 3, -30], [-4, -5, 3]]",
+    "STEP 1 OBSERVATION: x=3.000000,y=-3.000000",
+    "STEP 2 MODEL: THINK: The solve2 tool returned x=3.000000 and y=-3.000000. I should verify this solution by plugging the values back into the original equations to ensure they satisfy both.\n\nEquation 1: -7x + 3y = -7(3) + 3(-3) = -21 - 9 = -30 \u2714\ufe0f  \nEquation 2: -4x - 5y = -4(3) - 5(-3) = -12 + 15 = 3 \u2714\ufe0f  \n\nBoth equations are satisfied, so the solution is correct.\n\nFINAL: x=3, y=-3"
+  ]
+}

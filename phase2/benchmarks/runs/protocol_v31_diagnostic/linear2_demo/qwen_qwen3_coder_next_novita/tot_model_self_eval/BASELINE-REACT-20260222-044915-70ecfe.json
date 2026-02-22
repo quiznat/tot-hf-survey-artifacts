@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-044915-70ecfe.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=4, y=-2",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        -7,
+        46
+      ],
+      [
+        9,
+        -5,
+        46
+      ]
+    ]
+  },
+  "item_id": "lin-v1-011",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4586,
+    "success": 1,
+    "tokens_in": 452,
+    "tokens_out": 214
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-044915-70ecfe",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 76168572,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:49:15Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task provides two equations in the form [a, b, c], likely representing linear equations of the form a*x + b*y = c. So we have:\n1) 8x - 7y = 46  \n2) 9x - 5y = 46  \n\nWe need to solve for x and y. Since we have two linear equations with two variables, we can solve the system. Let's try to eliminate one variable. Multiply equation 1 by 5 and equation 2 by 7 to eliminate y:\n\nEq1 *5: 40x - 35y = 230  \nEq2 *7: 63x - 35y = 322  \n\nSubtract Eq1*5 from Eq2*7:  \n(63x - 35y) - (40x - 35y) =",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the elimination method:  \n(63x - 35y) - (40x - 35y) = 23x  \n322 - 230 = 92  \nSo 23x = 92 \u2192 x = 4.  \n\nNow substitute x = 4 into one of the original equations to find y. Using equation 1:  \n8(4) - 7y = 46 \u2192 32 - 7y = 46 \u2192 -7y = 14 \u2192 y = -2.  \n\nSo the solution is x = 4, y = -2. Let's verify with the second equation:  \n9(4) - 5(-2) = 36 + 10 = 46 \u2714\ufe0f  \n\nSince the system is solved, and we have the solution, we can now use the `",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: x=4, y=-2"
+  ]
+}

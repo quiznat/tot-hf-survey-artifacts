@@ -20,7 +20,9 @@ class ReactRunner(BaseRunner):
 
         max_steps = int(self.config.get("max_steps", 5))
         scratchpad_lines: list[str] = []
-        tools = self.task.available_tools()
+        react_enable_tools = bool(self.config.get("react_enable_tools", True))
+        task_tools = self.task.available_tools()
+        tools = task_tools if react_enable_tools else {}
         tokens_in = 0
         tokens_out = 0
 
@@ -30,7 +32,15 @@ class ReactRunner(BaseRunner):
         for step in range(1, max_steps + 1):
             scratchpad = "\n".join(scratchpad_lines)
             if hasattr(self.task, "build_react_prompt"):
-                prompt = self.task.build_react_prompt(input_data, scratchpad)  # type: ignore[attr-defined]
+                try:
+                    prompt = self.task.build_react_prompt(  # type: ignore[attr-defined]
+                        input_data,
+                        scratchpad,
+                        tools_override=tools,
+                    )
+                except TypeError:
+                    # Backward-compat fallback for tasks with older build_react_prompt signature.
+                    prompt = self.task.build_react_prompt(input_data, scratchpad)  # type: ignore[attr-defined]
             else:
                 prompt = self.task.build_prompt(input_data, scratchpad)
 

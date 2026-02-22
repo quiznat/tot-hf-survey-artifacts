@@ -28,6 +28,29 @@ class Arithmetic24Task(BaseTask):
         analysis = self.analyze_candidate(final_answer, input_data)
         return bool(analysis["is_exact"])
 
+    def build_tot_candidate_prompt(
+        self,
+        input_data: Any,
+        scratchpad: str,
+        branch_factor: int,
+        disallowed_candidates: list[str] | None = None,
+        attempt: int = 0,
+    ) -> str:
+        prompt = (
+            self.build_prompt(input_data, scratchpad=scratchpad)
+            + "\n\nGenerate candidate arithmetic expressions that use each provided number exactly once."
+            + f"\nReturn up to {branch_factor} candidates, one per line."
+            + "\nOutput only raw expressions using + - * / and parentheses."
+            + "\nDo not include '=', explanations, or words."
+        )
+        blocked = [candidate for candidate in (disallowed_candidates or []) if candidate]
+        if blocked:
+            prompt += "\nDo not repeat any of these previously explored candidates:\n"
+            prompt += "\n".join(f"- {candidate}" for candidate in blocked)
+        if attempt > 0:
+            prompt += "\nPrevious candidates repeated; generate distinct alternatives."
+        return prompt
+
     def score_candidate(self, candidate: str, input_data: Any) -> float:
         """Rule-based score in [0, 1] for ToT pruning."""
         analysis = self.analyze_candidate(candidate, input_data)

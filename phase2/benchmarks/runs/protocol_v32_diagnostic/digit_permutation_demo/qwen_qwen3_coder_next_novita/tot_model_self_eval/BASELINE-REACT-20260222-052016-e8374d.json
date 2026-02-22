@@ -1,0 +1,58 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/digit_permutation_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-052016-e8374d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "THINK: We need the largest number \u2264 6300 formed by permuting digits [3, 0, 6, 0], divisible by 6. Since digit sum = 9 (divisible by 3), only need even numbers (last digit 0 or 6). Let's list candidate numbers in descending order and check \u2264 6300 and even.\n\nAll 4-digit permutations of [3,0,6,0] (no leading zero):\n\n- 6300 \u2192 even, ends with 0, \u2264 6300? Yes (equal). Check divisibility by 6: even \u2714, sum=9 \u2714 \u2192 divisible by 6. So 6300 is a candidate.\n\nIs there any larger? 6300 is the max possible with these digits (since digits sorted descending: 6,3,0,0 \u2192 63",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      6,
+      0
+    ],
+    "divisor": 6,
+    "oracle_max": 6300
+  },
+  "item_id": "perm-v1-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4323,
+    "success": 1,
+    "tokens_in": 215,
+    "tokens_out": 232
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-052016-e8374d",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 423265025,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T05:20:16Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [3, 0, 6, 0] (each used exactly once) that is divisible by 6, and it must be \u2264 oracle_max = 6300. Let's analyze.\n\nFirst, divisibility by 6 requires divisibility by both 2 and 3.\n\n- Divisibility by 2: last digit must be even \u2192 possible last digits: 0, 6 (we have two 0s and one 6).\n- Divisibility by 3: sum of digits must be divisible by 3. Sum = 3 + 0 + 6 + 0 = 9 \u2192 divisible by 3, so any permutation will satisfy divisibility by 3.\n\nSo we only need to ensure the number is even and \u2264 6300.\n\nWe want the maximum such number.\n\nAll permutations",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need the largest number \u2264 6300 formed by permuting digits [3, 0, 6, 0], divisible by 6. Since digit sum = 9 (divisible by 3), only need even numbers (last digit 0 or 6). Let's list candidate numbers in descending order and check \u2264 6300 and even.\n\nAll 4-digit permutations of [3,0,6,0] (no leading zero):\n\n- 6300 \u2192 even, ends with 0, \u2264 6300? Yes (equal). Check divisibility by 6: even \u2714, sum=9 \u2714 \u2192 divisible by 6. So 6300 is a candidate.\n\nIs there any larger? 6300 is the max possible with these digits (since digits sorted descending: 6,3,0,0 \u2192 63"
+  ]
+}

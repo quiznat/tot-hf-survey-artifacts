@@ -51,6 +51,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--tot-max-depth", type=int, default=3)
     parser.add_argument("--tot-branch-factor", type=int, default=3)
     parser.add_argument("--tot-frontier-width", type=int, default=3)
+    parser.add_argument(
+        "--capability-parity-policy",
+        choices=["equalize_react_to_tot", "strict", "off"],
+        default="equalize_react_to_tot",
+        help=(
+            "How to handle capability mismatch when paired react/tot conditions are selected. "
+            "equalize_react_to_tot disables React tools to match current ToT access; "
+            "strict fails fast on mismatch; off allows mismatch."
+        ),
+    )
     parser.add_argument("--offset", type=int, default=0, help="Start index within panel items")
     parser.add_argument("--limit", type=int, default=0, help="Number of items from panel (0 = all)")
     parser.add_argument(
@@ -161,6 +171,47 @@ def _seed_for_item(item_id: str, item_index: int, seed_policy: str) -> int:
     return item_index
 
 
+def _resolve_capability_plan(task_id: str, conditions: List[str], policy: str) -> Dict[str, Any]:
+    task = create_task(task_id)
+    task_tools = sorted(task.available_tools().keys())
+
+    react_selected = "react" in conditions
+    tot_selected = "tot" in conditions
+    react_tools = list(task_tools) if react_selected else []
+    tot_tools = [] if tot_selected else []
+    react_enable_tools = bool(react_tools)
+    adjustments: List[str] = []
+
+    if react_selected and tot_selected and react_tools != tot_tools:
+        if policy == "strict":
+            raise RuntimeError(
+                "capability parity violation: react exposes tools "
+                f"{react_tools} while tot exposes {tot_tools}. "
+                "Use --capability-parity-policy equalize_react_to_tot to run a fair tool-symmetric comparison."
+            )
+        if policy == "equalize_react_to_tot":
+            react_tools = list(tot_tools)
+            react_enable_tools = bool(react_tools)
+            adjustments.append("react_tools_disabled_to_match_tot")
+        else:
+            adjustments.append("mismatch_allowed_by_policy_off")
+
+    condition_tools: Dict[str, List[str]] = {}
+    if "single" in conditions:
+        condition_tools["single"] = []
+    if "react" in conditions:
+        condition_tools["react"] = react_tools
+    if "tot" in conditions:
+        condition_tools["tot"] = tot_tools
+
+    return {
+        "task_tools": task_tools,
+        "condition_tools": condition_tools,
+        "react_enable_tools": react_enable_tools,
+        "adjustments": adjustments,
+    }
+
+
 def _parse_utc(timestamp_utc: str) -> datetime:
     return datetime.fromisoformat(timestamp_utc.replace("Z", "+00:00"))
 
@@ -247,6 +298,8 @@ def _run_single_or_react(
     item: Dict[str, Any],
     seed: int,
     args: argparse.Namespace,
+    react_enable_tools: bool,
+    condition_tools: Dict[str, List[str]],
 ) -> Dict[str, Any]:
     runner, task, config = create_baseline_setup(
         runner_name=condition,
@@ -259,17 +312,23 @@ def _run_single_or_react(
         hf_max_new_tokens=args.hf_max_new_tokens,
         hf_temperature=args.hf_temperature,
         hf_top_p=args.hf_top_p,
+        react_enable_tools=react_enable_tools,
     )
     config["item_id"] = item["item_id"]
     config["input_data"] = item["input_data"]
     config["panel_id"] = args.panel_id
     config["hf_temperature"] = args.hf_temperature
     config["hf_top_p"] = args.hf_top_p
+    config["capability_parity_policy"] = args.capability_parity_policy
+    config["task_tools_available"] = list(getattr(args, "task_tools_available", []))
+    config["condition_tools_exposed"] = list(condition_tools.get(condition, []))
+    # Ensure manifest tool_config exactly mirrors the enforced condition exposure.
+    config["tool_config"] = list(condition_tools.get(condition, []))
     runner.prepare(task=task, config=config)
     return runner.run(item["input_data"])
 
 
-def _run_tot(item: Dict[str, Any], seed: int, args: argparse.Namespace) -> Dict[str, Any]:
+def _run_tot(item: Dict[str, Any], seed: int, args: argparse.Namespace, condition_tools: Dict[str, List[str]]) -> Dict[str, Any]:
     task = create_task(args.task_id)
     model, model_name, provider_name = _build_model(args)
     runner = ToTRunner(model=model, model_name=model_name, provider=provider_name)
@@ -284,7 +343,7 @@ def _run_tot(item: Dict[str, Any], seed: int, args: argparse.Namespace) -> Dict[
                 "pruning": "topk_cumulative_score",
                 "stop_policy": "first_terminal_or_depth_limit",
             },
-            "tool_config": [],
+            "tool_config": list(condition_tools.get("tot", [])),
             "budget": {"token_budget": 4000, "time_budget_ms": 15000, "cost_budget_usd": 0.0},
             "seed": seed,
             "max_depth": args.tot_max_depth,
@@ -296,6 +355,9 @@ def _run_tot(item: Dict[str, Any], seed: int, args: argparse.Namespace) -> Dict[
             "item_id": item["item_id"],
             "input_data": item["input_data"],
             "panel_id": args.panel_id,
+            "capability_parity_policy": args.capability_parity_policy,
+            "task_tools_available": list(getattr(args, "task_tools_available", [])),
+            "condition_tools_exposed": list(condition_tools.get("tot", [])),
         },
     )
     return runner.run(item["input_data"])
@@ -459,6 +521,17 @@ def _build_report(
         f"Seed policy: {args.seed_policy}",
         f"HF temperature: {args.hf_temperature}",
         f"HF top-p: {args.hf_top_p}",
+        f"Capability parity policy: {getattr(args, 'capability_parity_policy', 'unknown')}",
+        f"Task tools available: {', '.join(getattr(args, 'task_tools_available', [])) or 'none'}",
+        (
+            "Condition tools exposed: "
+            + "; ".join(
+                f"{name}=[{', '.join(tools) if tools else 'none'}]"
+                for name, tools in sorted(getattr(args, "condition_tools_map", {}).items())
+            )
+            if getattr(args, "condition_tools_map", None)
+            else "Condition tools exposed: unknown"
+        ),
         f"Items evaluated: {len(panel_items)}",
         f"Runs executed: {len(manifests)}",
         f"Confidence level: {args.confidence_level:.2f}",
@@ -542,6 +615,9 @@ def _build_report(
                 "seed_policy": args.seed_policy,
                 "hf_temperature": args.hf_temperature,
                 "hf_top_p": args.hf_top_p,
+                "capability_parity_policy": getattr(args, "capability_parity_policy", "unknown"),
+                "task_tools_available": list(getattr(args, "task_tools_available", [])),
+                "condition_tools_exposed": getattr(args, "condition_tools_map", {}),
                 "confidence_level": args.confidence_level,
                 "bootstrap_samples": args.bootstrap_samples,
                 "bootstrap_seed": args.bootstrap_seed,
@@ -582,6 +658,25 @@ def main() -> int:
         print(f"error: unsupported conditions: {unknown}")
         return 2
 
+    try:
+        capability_plan = _resolve_capability_plan(
+            task_id=resolved_task_id,
+            conditions=conditions,
+            policy=args.capability_parity_policy,
+        )
+    except RuntimeError as exc:
+        print(f"error: {exc}")
+        return 2
+
+    args.task_tools_available = list(capability_plan["task_tools"])
+    args.condition_tools_map = dict(capability_plan["condition_tools"])
+    args.react_enable_tools = bool(capability_plan["react_enable_tools"])
+    print(f"capability_parity_policy={args.capability_parity_policy}")
+    print(f"task_tools_available={args.task_tools_available}")
+    print(f"condition_tools_exposed={args.condition_tools_map}")
+    if capability_plan["adjustments"]:
+        print(f"capability_parity_adjustments={capability_plan['adjustments']}")
+
     runs_dir = Path(args.runs_dir)
     run_log = Path(args.run_log)
 
@@ -614,9 +709,21 @@ def main() -> int:
         item_manifests: List[Dict[str, Any]] = []
         for condition in conditions:
             if condition in {"single", "react"}:
-                manifest = _run_single_or_react(condition=condition, item=item, seed=seed, args=args)
+                manifest = _run_single_or_react(
+                    condition=condition,
+                    item=item,
+                    seed=seed,
+                    args=args,
+                    react_enable_tools=bool(args.react_enable_tools),
+                    condition_tools=dict(args.condition_tools_map),
+                )
             else:
-                manifest = _run_tot(item=item, seed=seed, args=args)
+                manifest = _run_tot(
+                    item=item,
+                    seed=seed,
+                    args=args,
+                    condition_tools=dict(args.condition_tools_map),
+                )
             item_manifests.append(manifest)
         return item_manifests
 

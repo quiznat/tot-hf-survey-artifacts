@@ -42,6 +42,28 @@ class DigitPermutationTask(BaseTask):
             return True
         return candidate == oracle
 
+    def build_tot_candidate_prompt(
+        self,
+        input_data: Any,
+        scratchpad: str,
+        branch_factor: int,
+        disallowed_candidates: list[str] | None = None,
+        attempt: int = 0,
+    ) -> str:
+        prompt = (
+            self.build_prompt(input_data, scratchpad=scratchpad)
+            + f"\n\nGenerate up to {branch_factor} distinct candidate integers."
+            + "\nEach line must be a single 4-digit integer using the provided digits exactly once."
+            + "\nDo not include words, commas, equations, or explanations."
+        )
+        blocked = [candidate for candidate in (disallowed_candidates or []) if candidate]
+        if blocked:
+            prompt += "\nDo not repeat any of these previously explored candidates:\n"
+            prompt += "\n".join(f"- {candidate}" for candidate in blocked)
+        if attempt > 0:
+            prompt += "\nPrevious candidates were duplicates or invalid; generate different alternatives."
+        return prompt
+
     def score_candidate(self, candidate: str, input_data: Any) -> float:
         payload = _normalize_input(input_data)
         value = _parse_integer(candidate)

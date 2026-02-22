@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/digit_permutation_demo/qwen_qwen2_5_72b_instruct/tot_model_self_eval/BASELINE-REACT-20260222-052529-672a3c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "9444",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      4,
+      9,
+      4
+    ],
+    "divisor": 6,
+    "oracle_max": 9444
+  },
+  "item_id": "perm-v1-027",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8815,
+    "success": 1,
+    "tokens_in": 328,
+    "tokens_out": 126
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-052529-672a3c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2996106164,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T05:25:29Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves finding the best number from the given digits that is divisible by the given divisor and is less than or equal to the oracle_max value. I will start by checking if any permutation of the digits can form a number that is divisible by the divisor using the `is_divisible` tool.\n\nACTION: is_divisible {'digits': [4, 4, 9, 4], 'divisor': 6}",
+    "STEP 1 OBSERVATION: no",
+    "STEP 2 MODEL: THINK: Since no direct permutation of the digits forms a number divisible by 6, I need to generate possible numbers from the digits and check each one for divisibility and compliance with the `oracle_max` constraint. I will use the `best_divisible` tool to find the best number that meets these criteria.\n\nACTION: best_divisible {'digits': [4, 4, 9, 4], 'divisor': 6, 'oracle_max': 9444}",
+    "STEP 2 OBSERVATION: 9444",
+    "STEP 3 MODEL: FINAL: 9444"
+  ]
+}

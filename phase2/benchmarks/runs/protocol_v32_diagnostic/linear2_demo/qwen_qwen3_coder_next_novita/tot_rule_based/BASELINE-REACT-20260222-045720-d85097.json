@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_rule_based/BASELINE-REACT-20260222-045720-d85097.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=-7,y=1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        -4,
+        -60
+      ],
+      [
+        -6,
+        5,
+        47
+      ]
+    ]
+  },
+  "item_id": "lin-v1-046",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3347,
+    "success": 1,
+    "tokens_in": 157,
+    "tokens_out": 154
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-045720-d85097",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3183434064,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:57:20Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a system of two linear equations in the form [a, b, c] representing ax + by = c. So the equations are:\n1) 8x - 4y = -60\n2) -6x + 5y = 47\n\nI need to solve for x and y. I can use the solve2 tool, which is likely designed to solve 2x2 linear systems. Let me try that.\n\nACTION: solve2 [[8, -4, -60], [-6, 5, 47]]",
+    "STEP 1 OBSERVATION: x=-7.000000,y=1.000000",
+    "STEP 2 MODEL: THINK: The solve2 tool successfully returned the solution x = -7.0 and y = 1.0 for the given system of equations. To ensure correctness, I should verify this solution by plugging it back into both original equations.\n\nEquation 1: 8x - 4y = 8*(-7) - 4*(1) = -56 - 4 = -60 \u2713  \nEquation 2: -6x + 5y = -6*(-7) + 5*(1) = 42 + 5 = 47 \u2713  \n\nBoth equations are satisfied, so the solution is correct.\n\nFINAL: x=-7,y=1"
+  ]
+}

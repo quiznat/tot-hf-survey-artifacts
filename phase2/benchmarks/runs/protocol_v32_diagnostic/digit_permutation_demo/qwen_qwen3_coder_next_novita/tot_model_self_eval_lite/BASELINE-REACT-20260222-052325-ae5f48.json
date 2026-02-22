@@ -1,0 +1,59 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/digit_permutation_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval_lite/BASELINE-REACT-20260222-052325-ae5f48.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "9732 4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      9,
+      3,
+      7,
+      2
+    ],
+    "divisor": 4,
+    "oracle_max": 9732
+  },
+  "item_id": "perm-v1-015",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3179,
+    "success": 1,
+    "tokens_in": 207,
+    "tokens_out": 174
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-052325-ae5f48",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 4092014321,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T05:23:25Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [9, 3, 7, 2] (each used exactly once) that is divisible by 4, and the oracle says the maximum possible is 9732. Let's verify if 9732 is divisible by 4. A number is divisible by 4 if its last two digits form a number divisible by 4. For 9732, the last two digits are 32, and 32 \u00f7 4 = 8, so yes, 9732 is divisible by 4. Since the oracle says 9732 is the maximum, and it's valid, the answer should be 9732. But to be thorough, I should confirm using the tools: first check if 9732 is divisible by 4 using is_divisible,",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The oracle states the maximum possible is 9732. To confirm, I need to verify that 9732 is divisible by 4 using the is_divisible tool. If it is, and it uses all digits [9,3,7,2] exactly once (which it does: digits are 9,7,3,2), then it's the answer. Let's check divisibility first.\nACTION: is_divisible 9732 4",
+    "STEP 2 OBSERVATION: yes"
+  ]
+}

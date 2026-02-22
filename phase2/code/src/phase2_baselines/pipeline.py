@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 from .adapters import HuggingFaceInferenceModel, ScriptedModel
 from .manifest import append_run_log, write_manifest
@@ -12,7 +12,12 @@ from .runners import ReactRunner, SinglePathRunner
 from .tasks import create_task, resolve_task_id
 
 
-def _build_baseline_config(runner_name: str, seed: int) -> Dict[str, Any]:
+def _build_baseline_config(
+    runner_name: str,
+    seed: int,
+    task_tool_names: List[str],
+    react_enable_tools: bool,
+) -> Dict[str, Any]:
     if runner_name == "single":
         return {
             "condition_id": "baseline-single-path",
@@ -24,14 +29,16 @@ def _build_baseline_config(runner_name: str, seed: int) -> Dict[str, Any]:
         }
 
     if runner_name == "react":
+        tool_config = list(task_tool_names) if react_enable_tools else []
         return {
             "condition_id": "baseline-react",
             "prompt_template_version": "v1",
             "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "max_steps_or_final"},
-            "tool_config": ["calc"],
+            "tool_config": tool_config,
             "budget": {"token_budget": 3000, "time_budget_ms": 12000, "cost_budget_usd": 0.0},
             "seed": seed,
             "max_steps": 5,
+            "react_enable_tools": react_enable_tools,
         }
 
     raise ValueError(f"Unsupported runner_name: {runner_name}")
@@ -93,6 +100,7 @@ def create_baseline_setup(
     hf_max_new_tokens: int = 192,
     hf_temperature: float = 0.0,
     hf_top_p: float = 1.0,
+    react_enable_tools: bool = True,
 ) -> Tuple[Any, Any, Dict[str, Any]]:
     """Create runner, task, and config for a named baseline condition."""
     task = create_task(task_name)
@@ -107,7 +115,13 @@ def create_baseline_setup(
         hf_temperature=hf_temperature,
         hf_top_p=hf_top_p,
     )
-    config = _build_baseline_config(runner_name=runner_name, seed=seed)
+    task_tool_names = sorted(task.available_tools().keys())
+    config = _build_baseline_config(
+        runner_name=runner_name,
+        seed=seed,
+        task_tool_names=task_tool_names,
+        react_enable_tools=react_enable_tools,
+    )
     config["task_id"] = task_id
 
     if runner_name == "single":

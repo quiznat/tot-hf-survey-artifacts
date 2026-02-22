@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen2_5_coder_32b_instruct/tot_rule_based/BASELINE-REACT-20260222-051906-7f0574.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x = -9, y = 8",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        3,
+        87
+      ],
+      [
+        -6,
+        -1,
+        46
+      ]
+    ]
+  },
+  "item_id": "lin-v1-035",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4096,
+    "success": 1,
+    "tokens_in": 197,
+    "tokens_out": 203
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-051906-7f0574",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3811487925,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T05:19:06Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to solve a system of two linear equations with two variables. The equations are:\n-7x + 3y = 87\n-6x + (-1)y = 46\n\nI can use the solve2 tool which is designed to solve systems of two linear equations with two variables. The tool expects the coefficients in the format [a, b, c] representing ax + by = c for each equation.\n\nFor the first equation -7x + 3y = 87, the coefficients are [-7, 3, 87].\nFor the second equation -6x + (-1)y = 46, the coefficients are [-6, -1, 46].\n\nI'll call the solve2 tool with these coefficients.\nACTION: solve2 [[-7, 3, 87], [-6, -1, 46]]\nFINAL: <answer>",
+    "STEP 1 OBSERVATION: x=-9.000000,y=8.000000",
+    "STEP 2 MODEL: THINK: I have successfully solved the system of linear equations using the solve2 tool. The solution is x = -9 and y = 8. Let me verify this is correct by substituting these values back into both original equations:\n\nEquation 1: -7x + 3y = 87\n-7(-9) + 3(8) = 63 + 24 = 87 \u2713\n\nEquation 2: -6x + (-1)y = 46\n-6(-9) + (-1)(8) = 54 - 8 = 46 \u2713\n\nBoth equations are satisfied, so the solution is correct.\nFINAL: x = -9, y = 8"
+  ]
+}

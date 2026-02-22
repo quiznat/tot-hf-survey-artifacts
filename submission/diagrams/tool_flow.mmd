@@ -1,0 +1,7 @@
+flowchart LR
+  classDef box fill:#f7f9fc,stroke:#49698f,stroke-width:2px,color:#14181f,font-size:22px;
+  classDef decision fill:#edf2f8,stroke:#49698f,stroke-width:2px,color:#14181f,font-size:21px;
+
+  Q["User Query"]:::box --> L["LLM Reasoning Step"]:::box --> D{"Need Tool?"}:::decision
+  D -- "Yes" --> SEL["Select Tool + Arguments"]:::box --> EX["Execute Tool"]:::box --> OBS["Tool Observation"]:::box --> L
+  D -- "No" --> ANS["Generate Final Answer"]:::box

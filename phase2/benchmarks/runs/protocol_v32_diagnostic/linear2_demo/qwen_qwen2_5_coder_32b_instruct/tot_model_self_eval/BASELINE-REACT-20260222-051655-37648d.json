@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen2_5_coder_32b_instruct/tot_model_self_eval/BASELINE-REACT-20260222-051655-37648d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=-7.000000,y=1.000000",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        -4,
+        -60
+      ],
+      [
+        -6,
+        5,
+        47
+      ]
+    ]
+  },
+  "item_id": "lin-v1-046",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4665,
+    "success": 1,
+    "tokens_in": 194,
+    "tokens_out": 194
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-051655-37648d",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3183434064,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T05:16:55Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to solve a system of two linear equations with two variables. The equations are:\n1) 8x + (-4)y = -60\n2) (-6)x + 5y = 47\n\nI can use the solve2 tool which is designed to solve systems of two linear equations. The tool expects the coefficients in the format [a, b, c] representing ax + by = c for each equation.\n\nFor the first equation 8x - 4y = -60, I'll provide [8, -4, -60]\nFor the second equation -6x + 5y = 47, I'll provide [-6, 5, 47]\n\nI'll call the solve2 tool with these parameters.\nACTION: solve2 [[8, -4, -60], [-6, 5, 47]]\nFINAL: <answer>",
+    "STEP 1 OBSERVATION: x=-7.000000,y=1.000000",
+    "STEP 2 MODEL: THINK: I have successfully solved the system of linear equations using the solve2 tool. The solution is x = -7 and y = 1. Let me verify this is correct by checking both equations:\n\nEquation 1: 8x + (-4)y = -60\n8(-7) + (-4)(1) = -56 - 4 = -60 \u2713\n\nEquation 2: (-6)x + 5y = 47\n(-6)(-7) + 5(1) = 42 + 5 = 47 \u2713\n\nBoth equations are satisfied, so the solution is correct.\nACTION: check_xy [-7, 1]\nFINAL: x=-7.000000,y=1.000000"
+  ]
+}

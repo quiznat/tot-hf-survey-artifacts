@@ -1,0 +1,9 @@
+flowchart LR
+  classDef box fill:#f7f9fc,stroke:#49698f,stroke-width:2px,color:#14181f,font-size:22px;
+  classDef decision fill:#edf2f8,stroke:#49698f,stroke-width:2px,color:#14181f,font-size:21px;
+
+  I["Input Task"]:::box --> S["Initialize State"]:::box --> P["Generate / Update Plan"]:::box --> X["Execute Next Step"]:::box --> O["Collect Observation"]:::box --> G{"Goal Satisfied?"}:::decision
+  G -- "Yes" --> R["Return Final Response"]:::box
+  G -- "No" --> N{"Need Replan?"}:::decision
+  N -- "Yes" --> P
+  N -- "No" --> X

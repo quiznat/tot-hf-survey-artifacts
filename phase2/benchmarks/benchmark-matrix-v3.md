@@ -8,12 +8,12 @@ Expand Phase 2 from single-task evidence (Game24) to a multi-task matrix with pr
 
 ## Task Families (Locked for v3)
 
-| Task ID | Family | Panel File | Items | Output Type | Objective Scoring | Why Included |
-|---|---|---|---:|---|---|---|
-| `game24-demo` | Arithmetic expression synthesis | `phase2/benchmarks/panels/game24_lockset_v1.json` | 50 | expression | exact-equality + number-usage | continuity with v2 evidence |
-| `subset-sum-demo` | Combinatorial subset selection | `phase2/benchmarks/panels/subset_sum_lockset_v1.json` | 50 | comma-separated integers | subset usage + exact target sum | branch-search utility on constrained selection |
-| `linear2-demo` | Symbolic equation solving | `phase2/benchmarks/panels/linear2_lockset_v1.json` | 50 | `x=<v>,y=<v>` | residual threshold on both equations | multi-step algebraic reasoning |
-| `digit-permutation-demo` | Constrained optimization | `phase2/benchmarks/panels/digit_permutation_lockset_v1.json` | 50 | integer | digit multiset + divisibility + optimality | search under discrete constraints |
+| Task ID                  | Family                          | Panel File                                                   | Items | Output Type              | Objective Scoring                          | Why Included                                   |
+| ------------------------ | ------------------------------- | ------------------------------------------------------------ | ----: | ------------------------ | ------------------------------------------ | ---------------------------------------------- |
+| `game24-demo`            | Arithmetic expression synthesis | `phase2/benchmarks/panels/game24_lockset_v1.json`            |    50 | expression               | exact-equality + number-usage              | continuity with v2 evidence                    |
+| `subset-sum-demo`        | Combinatorial subset selection  | `phase2/benchmarks/panels/subset_sum_lockset_v1.json`        |    50 | comma-separated integers | subset usage + exact target sum            | branch-search utility on constrained selection |
+| `linear2-demo`           | Symbolic equation solving       | `phase2/benchmarks/panels/linear2_lockset_v1.json`           |    50 | `x=<v>,y=<v>`            | residual threshold on both equations       | multi-step algebraic reasoning                 |
+| `digit-permutation-demo` | Constrained optimization        | `phase2/benchmarks/panels/digit_permutation_lockset_v1.json` |    50 | integer                  | digit multiset + divisibility + optimality | search under discrete constraints              |
 
 ## Conditions
 - `baseline-single-path`

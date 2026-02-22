@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/digit_permutation_demo/qwen_qwen2_5_coder_32b_instruct/tot_model_self_eval/BASELINE-REACT-20260222-041853-33282a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "2443",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      2,
+      4,
+      4
+    ],
+    "divisor": 7,
+    "oracle_max": 2443
+  },
+  "item_id": "perm-v1-039",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6073,
+    "success": 1,
+    "tokens_in": 910,
+    "tokens_out": 329
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-041853-33282a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 343875346,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T04:18:53Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find the largest number that can be formed using the digits [3, 2, 4, 4] that is divisible by 7. I should first try to form the largest possible number and check if it's divisible by 7, then work my way down if needed.\n\nLet me start by trying to form the largest number possible with these digits, which would be 4432, and check if it's divisible by 7.\n\nACTION: is_divisible 4432 7\n\nWait, let me reconsider. The oracle_max is 2443, so I need to find numbers up to that limit. Let me think about this more systematically.\n\nFirst, I'll use the best_divisible tool to see what the best divisible number is within the constraints.\n\nACTION: best_divisible 3 2 4 4 7 2443\n\nActually, let",
+    "STEP 1 OBSERVATION: no",
+    "STEP 2 MODEL: THINK: I need to find the largest number that can be formed using the digits [3, 2, 4, 4] that is divisible by 7 and does not exceed 2443. Since the oracle_max is 2443, I need to consider numbers up to this limit. \n\nLet me approach this systematically:\n1. First, I'll try to form the largest possible number with the given digits: 4432\n2. Check if 4432 is divisible by 7 (but it exceeds 2443)\n3. So I need to find the largest valid number \u2264 2443 that uses these digits and is divisible by 7\n\nSince 4432 > 2443, I need to try smaller arrangements. The maximum valid arrangement would be 2443 itself, but I need to check if it's divisible by",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: I need to find the largest number that can be formed using the digits [3, 2, 4, 4] that is divisible by 7 and does not exceed 2443. \n\nLet me reconsider the approach. The oracle_max is 2443, so I need to find numbers \u2264 2443. I should use the best_divisible tool which is designed for this exact purpose - finding the best divisible number given constraints.\n\nACTION: best_divisible 3 2 4 4 7 2443",
+    "STEP 3 OBSERVATION: 2443",
+    "STEP 4 MODEL: FINAL: 2443"
+  ]
+}

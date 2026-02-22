@@ -102,6 +102,10 @@ class BaseRunner(ABC):
             "max_steps",
             "hf_temperature",
             "hf_top_p",
+            "react_enable_tools",
+            "capability_parity_policy",
+            "task_tools_available",
+            "condition_tools_exposed",
         ):
             if key in self.config:
                 manifest[key] = self.config[key]

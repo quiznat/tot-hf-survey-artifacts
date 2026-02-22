@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -30,6 +31,35 @@ PHASE2 = ROOT / "phase2"
 ANALYSIS_DIR = PHASE2 / "benchmarks/analysis"
 RUNS_DIR = PHASE2 / "benchmarks/runs"
 RUNTIME_DIR = PHASE2 / "reproducibility/runtime"
+PROFILE_LABELS = {
+    "tot_model_self_eval": "ToT self-eval (3/3/3)",
+    "tot_hybrid": "ToT hybrid (3/3/3)",
+    "tot_rule_based": "ToT rule-based (3/3/3)",
+    "tot_model_self_eval_lite": "ToT self-eval lite (2/2/2)",
+}
+SERIES_VERSION_LABELS = {
+    "v31": "v3.1",
+    "v32": "v3.2",
+}
+DIAGNOSTIC_TASKS = {
+    "linear2-demo": ("linear2_demo", PHASE2 / "benchmarks/panels/linear2_lockset_v1.json"),
+    "digit-permutation-demo": (
+        "digit_permutation_demo",
+        PHASE2 / "benchmarks/panels/digit_permutation_lockset_v1.json",
+    ),
+}
+DIAGNOSTIC_MODELS = {
+    "Qwen/Qwen3-Coder-Next:novita": "qwen_qwen3_coder_next_novita",
+    "Qwen/Qwen2.5-72B-Instruct": "qwen_qwen2_5_72b_instruct",
+    "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen_qwen2_5_coder_32b_instruct",
+}
+DIAGNOSTIC_PROFILES = [
+    "tot_model_self_eval",
+    "tot_hybrid",
+    "tot_rule_based",
+    "tot_model_self_eval_lite",
+]
+DIAGNOSTIC_CONDITIONS = ("baseline-react", "tot-prototype")
 
 
 def utc_now() -> str:
@@ -140,33 +170,16 @@ def load_panel_items(panel_path: Path, limit: int = 50) -> List[str]:
     return out
 
 
-def compute_v31_progress() -> Dict[str, Any]:
-    base = RUNS_DIR / "protocol_v31_diagnostic"
-    tasks = {
-        "linear2-demo": ("linear2_demo", PHASE2 / "benchmarks/panels/linear2_lockset_v1.json"),
-        "digit-permutation-demo": (
-            "digit_permutation_demo",
-            PHASE2 / "benchmarks/panels/digit_permutation_lockset_v1.json",
-        ),
-    }
-    models = {
-        "Qwen/Qwen3-Coder-Next:novita": "qwen_qwen3_coder_next_novita",
-        "Qwen/Qwen2.5-72B-Instruct": "qwen_qwen2_5_72b_instruct",
-        "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen_qwen2_5_coder_32b_instruct",
-    }
-    profiles = [
-        "tot_model_self_eval",
-        "tot_hybrid",
-        "tot_rule_based",
-        "tot_model_self_eval_lite",
-    ]
-    conditions = {"baseline-react", "tot-prototype"}
+def compute_diagnostic_progress(series_id: str, report_version_id: str) -> Dict[str, Any]:
+    base = RUNS_DIR / series_id
+    conditions = set(DIAGNOSTIC_CONDITIONS)
 
     blocks: List[Dict[str, Any]] = []
-    for task_id, (task_slug, panel_path) in tasks.items():
+    for task_id, (task_slug, panel_path) in DIAGNOSTIC_TASKS.items():
         panel_items = load_panel_items(panel_path, limit=50)
-        for model_id, model_slug in models.items():
-            for profile in profiles:
+        block_total_pairs = len(panel_items) * len(DIAGNOSTIC_CONDITIONS)
+        for model_id, model_slug in DIAGNOSTIC_MODELS.items():
+            for profile in DIAGNOSTIC_PROFILES:
                 run_dir = base / task_slug / model_slug / profile
                 seen: Dict[str, set[str]] = {item_id: set() for item_id in panel_items}
                 if run_dir.exists():
@@ -180,19 +193,23 @@ def compute_v31_progress() -> Dict[str, Any]:
                             if item_id in seen and cond in conditions:
                                 seen[item_id].add(cond)
                 present_pairs = sum(len(seen[item_id]) for item_id in panel_items)
-                complete_items = sum(1 for item_id in panel_items if len(seen[item_id]) == 2)
+                complete_items = sum(
+                    1 for item_id in panel_items if len(seen[item_id]) == len(DIAGNOSTIC_CONDITIONS)
+                )
                 state = "not_started"
-                if present_pairs == 100:
+                if block_total_pairs and present_pairs == block_total_pairs:
                     state = "done"
                 elif present_pairs > 0:
                     state = "partial"
                 blocks.append(
                     {
+                        "report_version_id": report_version_id,
+                        "report_version_label": SERIES_VERSION_LABELS.get(report_version_id, report_version_id),
                         "task_id": task_id,
                         "model_id": model_id,
                         "profile": profile,
                         "present_pairs": present_pairs,
-                        "total_pairs": 100,
+                        "total_pairs": block_total_pairs,
                         "complete_items": complete_items,
                         "state": state,
                     }
@@ -202,15 +219,184 @@ def compute_v31_progress() -> Dict[str, Any]:
     partial = sum(1 for block in blocks if block["state"] == "partial")
     not_started = sum(1 for block in blocks if block["state"] == "not_started")
     present_pairs = sum(int(block["present_pairs"]) for block in blocks)
-    total_pairs = len(blocks) * 100
+    total_pairs = sum(int(block["total_pairs"]) for block in blocks)
 
     return {
+        "series_id": series_id,
+        "report_version_id": report_version_id,
+        "report_version_label": SERIES_VERSION_LABELS.get(report_version_id, report_version_id),
         "done_blocks": done,
         "partial_blocks": partial,
         "not_started_blocks": not_started,
         "present_pairs": present_pairs,
         "total_pairs": total_pairs,
         "blocks": blocks,
+    }
+
+
+def compute_diagnostic_progress_all() -> Dict[str, Dict[str, Any]]:
+    return {
+        "v31": compute_diagnostic_progress("protocol_v31_diagnostic", "v31"),
+        "v32": compute_diagnostic_progress("protocol_v32_diagnostic", "v32"),
+    }
+
+
+def _as_float(value: Any) -> float | None:
+    try:
+        return float(value)
+    except Exception:
+        return None
+
+
+def _condition_map(rows: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    return {str(row.get("condition_id", "")): row for row in rows}
+
+
+def _pair_row(rows: List[Dict[str, Any]], a: str, b: str) -> Dict[str, Any] | None:
+    for row in rows:
+        if row.get("condition_a") == a and row.get("condition_b") == b:
+            return row
+        if row.get("condition_a") == b and row.get("condition_b") == a:
+            return {
+                "condition_a": a,
+                "condition_b": b,
+                "matched_items": row.get("matched_items"),
+                "a_better": row.get("b_better"),
+                "b_better": row.get("a_better"),
+                "ties": row.get("ties"),
+                "delta_success_rate": -float(row.get("delta_success_rate", 0.0)),
+                "delta_ci_low": -float(row.get("delta_ci_high", 0.0)),
+                "delta_ci_high": -float(row.get("delta_ci_low", 0.0)),
+                "mcnemar_p_value": row.get("mcnemar_p_value"),
+                "mcnemar_p_holm": row.get("mcnemar_p_holm"),
+            }
+    return None
+
+
+def _infer_report_tag(path: Path) -> tuple[str, str]:
+    match = re.search(r"_(v[0-9][0-9a-z]*(?:_[0-9a-z]+)*)$", path.stem)
+    if not match:
+        return ("unknown", "")
+    full = match.group(1)
+    base = full.split("_", 1)[0]
+    return (base, full)
+
+
+def _infer_profile_id(path: Path) -> str:
+    stem = path.stem
+    for profile_id in sorted(PROFILE_LABELS.keys(), key=len, reverse=True):
+        marker = f"_{profile_id}_"
+        if marker in f"_{stem}_":
+            return profile_id
+    return "unknown"
+
+
+def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[str, Any]]:
+    paths = sorted(ANALYSIS_DIR.glob("*_diag_report_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+    rows: List[Dict[str, Any]] = []
+    for path in paths:
+        version_id, report_tag = _infer_report_tag(path)
+        if report_versions and version_id not in report_versions:
+            continue
+        payload = safe_read_json(path)
+        if not isinstance(payload, dict):
+            continue
+        condition_rows = payload.get("condition_summaries", [])
+        paired_rows = payload.get("paired_comparison", [])
+        if not isinstance(condition_rows, list):
+            condition_rows = []
+        if not isinstance(paired_rows, list):
+            paired_rows = []
+        cond = _condition_map([row for row in condition_rows if isinstance(row, dict)])
+        react = cond.get("baseline-react", {})
+        tot = cond.get("tot-prototype", {})
+        pair_tr = _pair_row([row for row in paired_rows if isinstance(row, dict)], "tot-prototype", "baseline-react")
+        profile_id = _infer_profile_id(path)
+        md_path = path.with_suffix(".md")
+        rows.append(
+            {
+                "report_version_id": version_id,
+                "report_version_label": SERIES_VERSION_LABELS.get(version_id, version_id),
+                "report_tag": report_tag,
+                "task_id": payload.get("task_id"),
+                "model_id": payload.get("model_id"),
+                "profile_id": profile_id,
+                "profile_label": PROFILE_LABELS.get(profile_id, profile_id),
+                "items_evaluated": payload.get("items_evaluated"),
+                "runs_executed": payload.get("runs_executed"),
+                "react_success_rate": react.get("success_rate"),
+                "tot_success_rate": tot.get("success_rate"),
+                "tot_minus_react": (pair_tr or {}).get("delta_success_rate"),
+                "holm_p_tot_vs_react": (pair_tr or {}).get("mcnemar_p_holm"),
+                "mcnemar_p_tot_vs_react": (pair_tr or {}).get("mcnemar_p_value"),
+                "react_latency_ms_mean": react.get("latency_ms_mean"),
+                "tot_latency_ms_mean": tot.get("latency_ms_mean"),
+                "react_tokens_in_mean": react.get("tokens_in_mean"),
+                "tot_tokens_in_mean": tot.get("tokens_in_mean"),
+                "tot_evaluator_mode": payload.get("tot_evaluator_mode"),
+                "tot_max_depth": payload.get("tot_max_depth"),
+                "tot_branch_factor": payload.get("tot_branch_factor"),
+                "tot_frontier_width": payload.get("tot_frontier_width"),
+                "report_json_path": str(path),
+                "report_md_path": str(md_path) if md_path.exists() else "",
+                "mtime_epoch": int(path.stat().st_mtime),
+            }
+        )
+    return rows
+
+
+def load_series_detail(report_path: Path) -> Dict[str, Any] | None:
+    payload = safe_read_json(report_path)
+    if not isinstance(payload, dict):
+        return None
+    profile_id = _infer_profile_id(report_path)
+    version_id, report_tag = _infer_report_tag(report_path)
+    md_path = report_path.with_suffix(".md")
+
+    condition_rows = payload.get("condition_summaries", [])
+    paired_rows = payload.get("paired_comparison", [])
+    if not isinstance(condition_rows, list):
+        condition_rows = []
+    if not isinstance(paired_rows, list):
+        paired_rows = []
+
+    condition_rows = [row for row in condition_rows if isinstance(row, dict)]
+    paired_rows = [row for row in paired_rows if isinstance(row, dict)]
+    condition_rows.sort(key=lambda row: str(row.get("condition_id", "")))
+    paired_rows.sort(key=lambda row: (str(row.get("condition_a", "")), str(row.get("condition_b", ""))))
+
+    cond = _condition_map(condition_rows)
+    react = cond.get("baseline-react", {})
+    tot = cond.get("tot-prototype", {})
+    pair_tr = _pair_row(paired_rows, "tot-prototype", "baseline-react")
+
+    return {
+        "report_version_id": version_id,
+        "report_version_label": SERIES_VERSION_LABELS.get(version_id, version_id),
+        "report_tag": report_tag,
+        "task_id": payload.get("task_id"),
+        "model_id": payload.get("model_id"),
+        "panel_id": payload.get("panel_id"),
+        "provider": payload.get("provider"),
+        "generated_utc": payload.get("generated_utc"),
+        "items_evaluated": payload.get("items_evaluated"),
+        "runs_executed": payload.get("runs_executed"),
+        "profile_id": profile_id,
+        "profile_label": PROFILE_LABELS.get(profile_id, profile_id),
+        "tot_evaluator_mode": payload.get("tot_evaluator_mode"),
+        "tot_max_depth": payload.get("tot_max_depth"),
+        "tot_branch_factor": payload.get("tot_branch_factor"),
+        "tot_frontier_width": payload.get("tot_frontier_width"),
+        "seed_policy": payload.get("seed_policy"),
+        "bootstrap_samples": payload.get("bootstrap_samples"),
+        "confidence_level": payload.get("confidence_level"),
+        "react_success_rate": react.get("success_rate"),
+        "tot_success_rate": tot.get("success_rate"),
+        "tot_minus_react": (pair_tr or {}).get("delta_success_rate"),
+        "condition_summaries": condition_rows,
+        "paired_comparison": paired_rows,
+        "report_json_path": str(report_path),
+        "report_md_path": str(md_path) if md_path.exists() else "",
     }
 
 
@@ -247,15 +433,32 @@ def load_v3_summary() -> Dict[str, Any]:
     }
 
 
-def load_v31_summary() -> Dict[str, Any]:
-    summary_path = ANALYSIS_DIR / "protocol_v31_diagnostic_summary.json"
+def load_diagnostic_summary(report_version_id: str) -> Dict[str, Any]:
+    if report_version_id == "v31":
+        summary_path = ANALYSIS_DIR / "protocol_v31_diagnostic_summary.json"
+    elif report_version_id == "v32":
+        summary_path = ANALYSIS_DIR / "protocol_v32_diagnostic_summary.json"
+    else:
+        summary_path = ANALYSIS_DIR / f"protocol_{report_version_id}_diagnostic_summary.json"
     payload = safe_read_json(summary_path)
     if not isinstance(payload, dict):
-        return {"records": [], "path": str(summary_path), "exists": False}
+        return {
+            "records": [],
+            "path": str(summary_path),
+            "exists": False,
+            "report_version_id": report_version_id,
+            "report_version_label": SERIES_VERSION_LABELS.get(report_version_id, report_version_id),
+        }
     records = payload.get("records", [])
     if not isinstance(records, list):
         records = []
-    return {"records": records, "path": str(summary_path), "exists": True}
+    return {
+        "records": records,
+        "path": str(summary_path),
+        "exists": True,
+        "report_version_id": report_version_id,
+        "report_version_label": SERIES_VERSION_LABELS.get(report_version_id, report_version_id),
+    }
 
 
 def list_latest_analysis(limit: int = 25) -> List[Dict[str, Any]]:
@@ -295,13 +498,24 @@ def diagnose_access() -> Dict[str, Any]:
 
 
 def build_overview() -> Dict[str, Any]:
+    diagnostic_progress = compute_diagnostic_progress_all()
+    series_reports = list_series_reports({"v31", "v32"})
     return {
         "generated_utc": utc_now(),
         "access": diagnose_access(),
         "runtime_processes": list_runtime_processes(),
-        "v31_progress": compute_v31_progress(),
+        "diagnostic_progress": diagnostic_progress,
+        "v31_progress": diagnostic_progress.get("v31", {}),
+        "v32_progress": diagnostic_progress.get("v32", {}),
         "v3_summary": load_v3_summary(),
-        "v31_summary": load_v31_summary(),
+        "diagnostic_summaries": {
+            "v31": load_diagnostic_summary("v31"),
+            "v32": load_diagnostic_summary("v32"),
+        },
+        "v31_summary": load_diagnostic_summary("v31"),
+        "v32_summary": load_diagnostic_summary("v32"),
+        "series_reports": series_reports,
+        "v31_series": [row for row in series_reports if row.get("report_version_id") == "v31"],
         "latest_analysis": list_latest_analysis(),
     }
 
@@ -395,6 +609,34 @@ def html_template() -> str:
     }
     a { color: #725018; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .controls input, .controls select, .controls button {
+      border: 1px solid var(--line);
+      background: #fffdf7;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+    .controls input { min-width: 220px; }
+    .btn {
+      border: 1px solid var(--line);
+      background: #f8eed8;
+      color: #614615;
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .btn:hover { background: #f2e2be; }
+    .clickable-row:hover { background: #fbf1dc; }
+    .clickable-row.selected { background: #efe2bf; }
+    .split { display: grid; gap: 12px; grid-template-columns: 1.25fr 1fr; }
+    .kvs { font-size: 12px; color: var(--ink); line-height: 1.5; }
+    .kvs code { background: #f3e8ce; padding: 1px 4px; border-radius: 4px; }
+    @media (max-width: 980px) {
+      .split { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -415,13 +657,19 @@ def html_template() -> str:
 
     <div class="grid" style="margin-top:12px;">
       <div class="card">
-        <h2>Protocol v3.1 Progress</h2>
+        <h2>Protocol Diagnostic Progress</h2>
+        <div class="controls" style="margin-bottom:6px;">
+          <select id="progressVersionFilter">
+            <option value="v31">v3.1</option>
+            <option value="v32" selected>v3.2</option>
+          </select>
+        </div>
         <div class="progress"><span id="v31ProgressBar"></span></div>
         <div class="small" id="v31ProgressText" style="margin-top:6px;"></div>
         <table id="v31BlocksTable" style="margin-top:8px;">
           <thead>
             <tr>
-              <th>Task</th><th>Model</th><th>Profile</th><th>Pairs</th><th>Status</th>
+              <th>Version</th><th>Task</th><th>Model</th><th>Profile</th><th>Pairs</th><th>Status</th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -453,6 +701,52 @@ def html_template() -> str:
         </table>
       </div>
 
+      <div class="split">
+        <div class="card">
+          <h2>v3.1/v3.2 Series Results</h2>
+          <div class="controls">
+            <input id="seriesSearch" type="text" placeholder="Search task/model/profile...">
+            <select id="seriesVersionFilter"><option value="">All versions</option></select>
+            <select id="seriesTaskFilter"><option value="">All tasks</option></select>
+            <select id="seriesModelFilter"><option value="">All models</option></select>
+            <select id="seriesProfileFilter"><option value="">All profiles</option></select>
+            <button id="seriesReset" class="btn">Reset</button>
+          </div>
+          <div class="small" id="seriesCountText"></div>
+          <table id="seriesTable" style="margin-top:8px;">
+            <thead>
+              <tr>
+                <th>Version</th><th>Task</th><th>Model</th><th>Profile</th><th>ReAct</th><th>ToT</th>
+                <th>Δ</th><th>Holm p</th><th>View</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Selected Series Detail</h2>
+          <div id="seriesDetailMeta" class="kvs small">Select a series to inspect condition-level metrics.</div>
+          <div id="seriesDetailLinks" class="small" style="margin-top:6px;"></div>
+          <table id="seriesConditionTable" style="margin-top:8px;">
+            <thead>
+              <tr>
+                <th>Condition</th><th>Runs</th><th>Success</th><th>Latency (ms)</th><th>Tokens In</th><th>Tokens Out</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <table id="seriesPairTable" style="margin-top:8px;">
+            <thead>
+              <tr>
+                <th>A</th><th>B</th><th>Items</th><th>Δ(A-B)</th><th>CI</th><th>p</th><th>Holm</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="card">
         <h2>Latest Analysis Files</h2>
         <table id="filesTable">
@@ -477,9 +771,13 @@ def html_template() -> str:
   </div>
 
   <script>
+    let selectedSeriesPath = "";
+    let lastSeriesRows = [];
+    let lastOverview = null;
+
     function esc(s) {
       return String(s ?? "").replace(/[&<>"']/g, function(m) {
-        return {"&":"&amp;","<":"&lt;",">":"&gt;","\\"":"&quot;","'":"&#39;"}[m];
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m];
       });
     }
 
@@ -494,6 +792,23 @@ def html_template() -> str:
       return (bytes / (1024 * 1024)).toFixed(1) + " MB";
     }
 
+    function fmtNum(value, digits = 3) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n.toFixed(digits) : "n/a";
+    }
+
+    function fmtRate(value) {
+      const n = Number(value);
+      return Number.isFinite(n) ? (n * 100).toFixed(1) + "%" : "n/a";
+    }
+
+    function fmtP(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return "n/a";
+      if (n < 1e-4) return n.toExponential(2);
+      return n.toFixed(6);
+    }
+
     function statusPill(state) {
       if (state === "done") return '<span class="pill good">done</span>';
       if (state === "partial") return '<span class="pill warn">partial</span>';
@@ -502,6 +817,23 @@ def html_template() -> str:
 
     function alivePill(alive) {
       return alive ? '<span class="pill good">alive</span>' : '<span class="pill bad">dead</span>';
+    }
+
+    function uniqueSorted(values) {
+      return Array.from(new Set(values.filter(Boolean))).sort((a, b) => String(a).localeCompare(String(b)));
+    }
+
+    function setSelectOptions(selectId, values, keepValue) {
+      const select = document.getElementById(selectId);
+      const current = keepValue ?? select.value;
+      const label = selectId === "seriesTaskFilter" ? "All tasks" :
+        (selectId === "seriesModelFilter" ? "All models" :
+        (selectId === "seriesVersionFilter" ? "All versions" : "All profiles"));
+      const options = ['<option value="">' + label + '</option>']
+        .concat(values.map(v => '<option value="' + esc(v) + '">' + esc(v) + '</option>'));
+      select.innerHTML = options.join("");
+      if (current) select.value = current;
+      if (select.value !== current) select.value = "";
     }
 
     async function fetchJson(url) {
@@ -514,6 +846,125 @@ def html_template() -> str:
       if (!path) return;
       const data = await fetchJson("/api/log?path=" + encodeURIComponent(path));
       document.getElementById("logTail").textContent = data.tail || "";
+    }
+
+    function applySeriesFilters(rows) {
+      const q = String(document.getElementById("seriesSearch").value || "").trim().toLowerCase();
+      const version = document.getElementById("seriesVersionFilter").value;
+      const task = document.getElementById("seriesTaskFilter").value;
+      const model = document.getElementById("seriesModelFilter").value;
+      const profile = document.getElementById("seriesProfileFilter").value;
+
+      let out = rows.slice();
+      if (version) out = out.filter(r => String(r.report_version_label || r.report_version_id || "") === version);
+      if (task) out = out.filter(r => String(r.task_id || "") === task);
+      if (model) out = out.filter(r => String(r.model_id || "") === model);
+      if (profile) out = out.filter(r => String(r.profile_label || r.profile_id || "") === profile);
+      if (q) {
+        out = out.filter(r => {
+          const hay = [
+            r.report_version_label || r.report_version_id,
+            r.task_id,
+            r.model_id,
+            r.profile_label || r.profile_id,
+            r.report_json_path
+          ].join(" ").toLowerCase();
+          return hay.includes(q);
+        });
+      }
+      out.sort((a, b) => {
+        const da = Number(a.tot_minus_react);
+        const db = Number(b.tot_minus_react);
+        const va = Number.isFinite(da) ? da : -999;
+        const vb = Number.isFinite(db) ? db : -999;
+        if (vb !== va) return vb - va;
+        return Number(b.mtime_epoch || 0) - Number(a.mtime_epoch || 0);
+      });
+      return out;
+    }
+
+    async function inspectSeries(path) {
+      if (!path) return;
+      selectedSeriesPath = path;
+      const detail = await fetchJson("/api/series_detail?path=" + encodeURIComponent(path));
+
+      const meta = [
+        "Version: <code>" + esc(detail.report_version_label || detail.report_version_id) + "</code>",
+        "Task: <code>" + esc(detail.task_id) + "</code>",
+        "Model: <code>" + esc(detail.model_id) + "</code>",
+        "Profile: <code>" + esc(detail.profile_label || detail.profile_id) + "</code>",
+        "Items: <code>" + esc(detail.items_evaluated) + "</code>",
+        "Runs: <code>" + esc(detail.runs_executed) + "</code>",
+        "Evaluator: <code>" + esc(detail.tot_evaluator_mode) + "</code>",
+        "ToT config: <code>d=" + esc(detail.tot_max_depth) + " b=" + esc(detail.tot_branch_factor) + " w=" + esc(detail.tot_frontier_width) + "</code>",
+        "ToT - ReAct Δ: <code>" + esc(fmtNum(detail.tot_minus_react, 3)) + "</code>",
+        "Generated: <code>" + esc(detail.generated_utc) + "</code>"
+      ];
+      document.getElementById("seriesDetailMeta").innerHTML = meta.join("<br>");
+
+      const links = [
+        "<a href='/api/file?path=" + encodeURIComponent(detail.report_json_path || "") + "' target='_blank'>open report json</a>"
+      ];
+      if (detail.report_md_path) {
+        links.push("<a href='/api/file?path=" + encodeURIComponent(detail.report_md_path) + "' target='_blank'>open report markdown</a>");
+      }
+      document.getElementById("seriesDetailLinks").innerHTML = links.join(" | ");
+
+      const conditionRows = detail.condition_summaries || [];
+      document.querySelector("#seriesConditionTable tbody").innerHTML = conditionRows.map(r =>
+        "<tr><td>" + esc(r.condition_id) + "</td><td>" + esc(r.runs) + "</td><td>" + esc(fmtRate(r.success_rate)) +
+        "</td><td>" + esc(fmtNum(r.latency_ms_mean, 1)) + "</td><td>" + esc(fmtNum(r.tokens_in_mean, 1)) +
+        "</td><td>" + esc(fmtNum(r.tokens_out_mean, 1)) + "</td></tr>"
+      ).join("");
+
+      const pairRows = detail.paired_comparison || [];
+      document.querySelector("#seriesPairTable tbody").innerHTML = pairRows.map(r =>
+        "<tr><td>" + esc(r.condition_a) + "</td><td>" + esc(r.condition_b) + "</td><td>" + esc(r.matched_items) +
+        "</td><td>" + esc(fmtNum(r.delta_success_rate, 3)) + "</td><td>[" + esc(fmtNum(r.delta_ci_low, 3)) + ", " +
+        esc(fmtNum(r.delta_ci_high, 3)) + "]</td><td>" + esc(fmtP(r.mcnemar_p_value)) + "</td><td>" +
+        esc(fmtP(r.mcnemar_p_holm)) + "</td></tr>"
+      ).join("");
+    }
+
+    function renderSeriesTable(rows) {
+      const versionValues = uniqueSorted(rows.map(r => r.report_version_label || r.report_version_id));
+      const taskValues = uniqueSorted(rows.map(r => r.task_id));
+      const modelValues = uniqueSorted(rows.map(r => r.model_id));
+      const profileValues = uniqueSorted(rows.map(r => r.profile_label || r.profile_id));
+      setSelectOptions("seriesVersionFilter", versionValues);
+      setSelectOptions("seriesTaskFilter", taskValues);
+      setSelectOptions("seriesModelFilter", modelValues);
+      setSelectOptions("seriesProfileFilter", profileValues);
+
+      const filtered = applySeriesFilters(rows);
+      document.getElementById("seriesCountText").textContent =
+        "Showing " + filtered.length + " of " + rows.length + " series reports.";
+
+      const tbody = document.querySelector("#seriesTable tbody");
+      tbody.innerHTML = filtered.map(r => {
+        const reportPath = String(r.report_json_path || "");
+        const enc = encodeURIComponent(reportPath);
+        const selected = reportPath === selectedSeriesPath ? " selected" : "";
+        return "<tr class='clickable-row" + selected + "' data-path='" + enc + "'>" +
+          "<td>" + esc(r.report_version_label || r.report_version_id) + "</td>" +
+          "<td>" + esc(r.task_id) + "</td>" +
+          "<td>" + esc(r.model_id) + "</td>" +
+          "<td>" + esc(r.profile_label || r.profile_id) + "</td>" +
+          "<td>" + esc(fmtRate(r.react_success_rate)) + "</td>" +
+          "<td>" + esc(fmtRate(r.tot_success_rate)) + "</td>" +
+          "<td>" + esc(fmtNum(r.tot_minus_react, 3)) + "</td>" +
+          "<td>" + esc(fmtP(r.holm_p_tot_vs_react)) + "</td>" +
+          "<td><button class='btn inspect-btn' data-path='" + enc + "'>inspect</button></td>" +
+          "</tr>";
+      }).join("");
+
+      const hasSelected = selectedSeriesPath && rows.some(r => String(r.report_json_path || "") === selectedSeriesPath);
+      if (hasSelected) {
+        inspectSeries(selectedSeriesPath).catch(console.error);
+      } else if (!selectedSeriesPath && filtered.length) {
+        const firstPath = String(filtered[0].report_json_path || "");
+        inspectSeries(firstPath).catch(console.error);
+      }
     }
 
     function render(data) {
@@ -533,13 +984,16 @@ def html_template() -> str:
         document.getElementById("accessWarnText").textContent = "";
       }
 
-      const v31 = data.v31_progress || {};
-      const done = Number(v31.done_blocks || 0);
-      const partial = Number(v31.partial_blocks || 0);
-      const notStarted = Number(v31.not_started_blocks || 0);
-      const pairs = Number(v31.present_pairs || 0);
-      const totalPairs = Number(v31.total_pairs || 0);
-      const pct = totalPairs > 0 ? Math.round((pairs / totalPairs) * 100) : 0;
+      lastOverview = data;
+      const diag = data.diagnostic_progress || {};
+      const p31 = diag.v31 || data.v31_progress || {};
+      const p32 = diag.v32 || data.v32_progress || {};
+      const p31Pairs = Number(p31.present_pairs || 0);
+      const p31Total = Number(p31.total_pairs || 0);
+      const p31Pct = p31Total > 0 ? Math.round((p31Pairs / p31Total) * 100) : 0;
+      const p32Pairs = Number(p32.present_pairs || 0);
+      const p32Total = Number(p32.total_pairs || 0);
+      const p32Pct = p32Total > 0 ? Math.round((p32Pairs / p32Total) * 100) : 0;
 
       const v3 = data.v3_summary || {};
       const v3Pos = Number(v3.tot_vs_react_positive || 0);
@@ -547,22 +1001,36 @@ def html_template() -> str:
       const procCount = (data.runtime_processes || []).filter(p => p.alive).length;
 
       document.getElementById("topCards").innerHTML = [
-        '<div class="card"><h2>v3.1 Blocks</h2><div class="metric">' + done + '/24</div><div class="small">partial: ' + partial + ' | not started: ' + notStarted + '</div></div>',
-        '<div class="card"><h2>v3.1 Pairs</h2><div class="metric">' + pairs + '/' + totalPairs + '</div><div class="small">' + pct + '% complete</div></div>',
+        '<div class="card"><h2>v3.1 Pairs</h2><div class="metric">' + p31Pairs + '/' + p31Total + '</div><div class="small">' + p31Pct + '% complete</div></div>',
+        '<div class="card"><h2>v3.2 Pairs</h2><div class="metric">' + p32Pairs + '/' + p32Total + '</div><div class="small">' + p32Pct + '% complete</div></div>',
         '<div class="card"><h2>v3 Direction</h2><div class="metric">' + v3Pos + ' / ' + v3Neg + '</div><div class="small">ToT>ReAct / ToT<ReAct blocks</div></div>',
         '<div class="card"><h2>Active Processes</h2><div class="metric">' + procCount + '</div><div class="small">from runtime PID files</div></div>'
       ].join("");
 
-      document.getElementById("v31ProgressBar").style.width = pct + "%";
-      document.getElementById("v31ProgressText").textContent = "Pairs complete: " + pairs + "/" + totalPairs + " (" + pct + "%)";
+      const progressFilter = document.getElementById("progressVersionFilter");
+      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v32";
+      const active = selectedVersion === "v31" ? p31 : p32;
+      const activePairs = Number(active.present_pairs || 0);
+      const activeTotal = Number(active.total_pairs || 0);
+      const activePct = activeTotal > 0 ? Math.round((activePairs / activeTotal) * 100) : 0;
+      const activeLabel = selectedVersion === "v31" ? "v3.1" : "v3.2";
+      const activeDone = Number(active.done_blocks || 0);
+      const activePartial = Number(active.partial_blocks || 0);
+      const activeNotStarted = Number(active.not_started_blocks || 0);
 
-      const blocks = (v31.blocks || []).slice().sort((a,b) => {
+      document.getElementById("v31ProgressBar").style.width = activePct + "%";
+      document.getElementById("v31ProgressText").textContent =
+        activeLabel + " pairs complete: " + activePairs + "/" + activeTotal + " (" + activePct + "%)" +
+        " | blocks done/partial/not started: " + activeDone + "/" + activePartial + "/" + activeNotStarted;
+
+      const blocks = (active.blocks || []).slice().sort((a,b) => {
         const ak = [a.task_id, a.model_id, a.profile].join("|");
         const bk = [b.task_id, b.model_id, b.profile].join("|");
         return ak.localeCompare(bk);
       });
       document.querySelector("#v31BlocksTable tbody").innerHTML = blocks.map(b =>
-        "<tr><td>" + esc(b.task_id) + "</td><td>" + esc(b.model_id) + "</td><td>" + esc(b.profile) +
+        "<tr><td>" + esc(b.report_version_label || b.report_version_id || activeLabel) + "</td><td>" +
+        esc(b.task_id) + "</td><td>" + esc(b.model_id) + "</td><td>" + esc(b.profile) +
         "</td><td>" + esc(String(b.present_pairs) + "/" + String(b.total_pairs)) + "</td><td>" + statusPill(b.state) + "</td></tr>"
       ).join("");
 
@@ -578,10 +1046,13 @@ def html_template() -> str:
         return ak.localeCompare(bk);
       });
       document.querySelector("#v3Table tbody").innerHTML = v3Rows.map(r =>
-        "<tr><td>" + esc(r.task_id) + "</td><td>" + esc(r.model_id) + "</td><td>" + esc(Number(r.tot_minus_react).toFixed(3)) +
-        "</td><td>" + esc(String(r.holm_p_tot_vs_react)) + "</td></tr>"
+        "<tr><td>" + esc(r.task_id) + "</td><td>" + esc(r.model_id) + "</td><td>" + esc(fmtNum(r.tot_minus_react, 3)) +
+        "</td><td>" + esc(fmtP(r.holm_p_tot_vs_react)) + "</td></tr>"
       ).join("");
       document.getElementById("v3SummaryText").textContent = "Summary source: " + (v3.path || "");
+
+      lastSeriesRows = data.series_reports || data.v31_series || [];
+      renderSeriesTable(lastSeriesRows);
 
       const files = data.latest_analysis || [];
       document.querySelector("#filesTable tbody").innerHTML = files.map(f =>
@@ -611,6 +1082,42 @@ def html_template() -> str:
     document.getElementById("loadLogBtn").addEventListener("click", async function() {
       const path = document.getElementById("logPicker").value;
       await loadLog(path);
+    });
+
+    document.getElementById("seriesSearch").addEventListener("input", function() {
+      renderSeriesTable(lastSeriesRows);
+    });
+    document.getElementById("seriesVersionFilter").addEventListener("change", function() {
+      renderSeriesTable(lastSeriesRows);
+    });
+    document.getElementById("seriesTaskFilter").addEventListener("change", function() {
+      renderSeriesTable(lastSeriesRows);
+    });
+    document.getElementById("seriesModelFilter").addEventListener("change", function() {
+      renderSeriesTable(lastSeriesRows);
+    });
+    document.getElementById("seriesProfileFilter").addEventListener("change", function() {
+      renderSeriesTable(lastSeriesRows);
+    });
+    document.getElementById("seriesReset").addEventListener("click", function() {
+      document.getElementById("seriesSearch").value = "";
+      document.getElementById("seriesVersionFilter").value = "";
+      document.getElementById("seriesTaskFilter").value = "";
+      document.getElementById("seriesModelFilter").value = "";
+      document.getElementById("seriesProfileFilter").value = "";
+      renderSeriesTable(lastSeriesRows);
+    });
+    document.getElementById("progressVersionFilter").addEventListener("change", function() {
+      if (lastOverview) render(lastOverview);
+    });
+    document.querySelector("#seriesTable tbody").addEventListener("click", async function(evt) {
+      const row = evt.target.closest("tr[data-path]");
+      if (!row) return;
+      const enc = row.getAttribute("data-path");
+      if (!enc) return;
+      const path = decodeURIComponent(enc);
+      await inspectSeries(path);
+      renderSeriesTable(lastSeriesRows);
     });
 
     refresh();
@@ -691,6 +1198,25 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 self._send_text("unable to read file", status=500)
                 return
             self._send_text(text, ctype="text/plain; charset=utf-8")
+            return
+
+        if path == "/api/series_detail":
+            raw = (qs.get("path") or [""])[0]
+            req = Path(raw)
+            try:
+                resolved = req.resolve()
+                resolved.relative_to(ROOT.resolve())
+            except Exception:
+                self._send_json({"error": "invalid path"}, status=400)
+                return
+            if not resolved.exists() or resolved.is_dir():
+                self._send_json({"error": "not found"}, status=404)
+                return
+            detail = load_series_detail(resolved)
+            if detail is None:
+                self._send_json({"error": "unable to parse report"}, status=500)
+                return
+            self._send_json(detail)
             return
 
         self._send_text("not found", status=404)

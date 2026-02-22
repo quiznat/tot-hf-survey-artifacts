@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen2_5_72b_instruct/tot_model_self_eval/BASELINE-REACT-20260222-030211-5ee35c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "1.0 -4.0 [-5, -5, 15] [8, 7, -20]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -5,
+        -5,
+        15
+      ],
+      [
+        8,
+        7,
+        -20
+      ]
+    ]
+  },
+  "item_id": "lin-v1-012",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7150,
+    "success": 1,
+    "tokens_in": 138,
+    "tokens_out": 111
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-030211-5ee35c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 701668638,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T03:02:11Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The given task is a system of linear equations. We have two equations with two unknowns. The available tools include `check_xy` to verify a solution and `solve2` which I assume can solve a system of two linear equations. I will use `solve2` to find the solution.\n\nACTION: solve2 [-5, -5, 15] [8, 7, -20]",
+    "STEP 1 OBSERVATION: x=1.000000,y=-4.000000",
+    "STEP 2 MODEL: THINK: The `solve2` tool has provided a solution for the system of equations, giving us x = 1.0 and y = -4.0. To ensure the accuracy of this solution, it would be prudent to use the `check_xy` tool to validate our results against the original equations.\n\nACTION: check_xy 1.0 -4.0 [-5, -5, 15] [8, 7, -20]",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

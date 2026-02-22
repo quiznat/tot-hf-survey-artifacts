@@ -1,0 +1,30 @@
+flowchart TB
+  classDef box fill:#f7f9fc,stroke:#49698f,stroke-width:2px,color:#14181f,font-size:22px;
+
+  subgraph top[" "]
+    direction LR
+    TG["Thought Generation"]:::box --> ES["Evaluate States"]:::box --> SB["Select Best Path"]:::box
+  end
+
+  MEM["Memory Store"]:::box
+
+  subgraph mid[" "]
+    direction LR
+    AP["Action Planning"]:::box <--> TE["Tool Execution"]:::box
+  end
+
+  OF["Observation Feedback"]:::box
+
+  style top fill:transparent,stroke:transparent
+  style mid fill:transparent,stroke:transparent
+  top --> MEM --> mid --> OF
+
+  TG --> MEM
+  ES --> MEM
+  SB --> MEM
+
+  MEM --> AP
+  MEM --> TE
+  TE --> OF
+  AP --> OF
+  OF --> MEM

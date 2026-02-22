@@ -1,6 +1,6 @@
 # Phase 2 Task Backlog
 
-Status date: 2026-02-21
+Status date: 2026-02-22
 
 ## P0 (Locked Foundations)
 - [x] Build deterministic baseline + ToT harness with manifested run outputs.
@@ -33,6 +33,7 @@ Status date: 2026-02-21
 ## P4 (Protocol-v3.1 Diagnostics)
 - [x] Define diagnostic protocol-v3.1 for failure tasks (`linear2`, `digit-permutation`) and lock profile matrix.
 - [x] Scaffold diagnostic execution and summary scripts.
-- [ ] Execute full v3.1 diagnostic matrix (`2 tasks x 3 models x 4 profiles`, paired `react,tot`).
-- [ ] Build consolidated v3.1 diagnostic summary and update manuscript claim framing.
+- [x] Execute full v3.1 diagnostic matrix (`2 tasks x 3 models x 4 profiles`, paired `react,tot`).
+- [x] Build consolidated v3.1 diagnostic summary and deep-analysis artifacts.
+- [x] Validate v3.1 report determinism with full-matrix `--report-only` parity on canonical metrics.
 - [ ] Decide adaptive routing policy (`ReAct` vs `ToT` by task/profile) from v3.1 evidence.

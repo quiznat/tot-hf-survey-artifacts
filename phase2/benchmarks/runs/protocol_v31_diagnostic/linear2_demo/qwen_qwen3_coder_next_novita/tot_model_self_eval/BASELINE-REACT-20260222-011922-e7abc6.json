@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-011922-e7abc6.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "[5, 0]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -1,
+        0,
+        -5
+      ],
+      [
+        7,
+        -4,
+        35
+      ]
+    ]
+  },
+  "item_id": "lin-v1-033",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3276,
+    "success": 1,
+    "tokens_in": 198,
+    "tokens_out": 175
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-011922-e7abc6",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 300433570,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T01:19:22Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves solving a system of two linear equations. The input provides coefficients in the form of equations: [[-1, 0, -5], [7, -4, 35]]. Each inner list likely represents [a, b, c] for an equation ax + by = c.\n\nSo the equations are:\n1) -1\u00b7x + 0\u00b7y = -5 \u2192 -x = -5 \u2192 x = 5  \n2) 7\u00b7x - 4\u00b7y = 35\n\nSince x = 5 from the first equation, substitute into the second:  \n7\u00b75 - 4\u00b7y = 35 \u2192 35 - 4y = 35 \u2192 -4y = 0 \u2192 y = 0.\n\nThus solution is x = 5, y = 0.\n\nI can verify using `check_xy` or solve using `solve2",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The system of equations is:  \n1) -x = -5 \u2192 x = 5  \n2) 7x - 4y = 35  \n\nSubstituting x = 5 into equation 2 gives 35 - 4y = 35 \u2192 y = 0.  \nThe solution is (x, y) = (5, 0). I should verify this using `check_xy` to ensure correctness before finalizing.\nACTION: check_xy [5, 0]",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

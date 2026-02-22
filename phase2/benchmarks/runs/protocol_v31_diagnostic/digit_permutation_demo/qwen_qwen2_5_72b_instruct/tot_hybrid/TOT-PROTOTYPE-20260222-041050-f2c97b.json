@@ -1,0 +1,80 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/digit_permutation_demo/qwen_qwen2_5_72b_instruct/tot_hybrid/TOT-PROTOTYPE-20260222-041050-f2c97b.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "evaluator_mode": "hybrid",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 4,
+      "frontier_width": 3,
+      "generated_nodes": 10,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1
+    }
+  },
+  "final_answer": "5421",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      2,
+      5,
+      4
+    ],
+    "divisor": 3,
+    "oracle_max": 5421
+  },
+  "item_id": "perm-v1-041",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 67492,
+    "success": 1,
+    "tokens_in": 1157,
+    "tokens_out": 912
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "tot prototype found terminal candidate",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260222-041050-f2c97b",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3030953454,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T04:10:50Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.9129 cum=0.9129 terminal=False candidate=5412",
+    "NODE n0002 parent=root score=0.1100 cum=0.1100 terminal=False candidate=(5 * 4) + (2 * 1)",
+    "NODE n0003 parent=root score=0.3300 cum=0.3300 terminal=False candidate=(5 + 4) * (2 + 1)",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=0.1100 cum=1.0229 terminal=False candidate=(5 * 4) + 2 + 1",
+    "NODE n0005 parent=n0001 score=0.3700 cum=1.2829 terminal=False candidate=(5 + 2) * 4 + 1",
+    "NODE n0006 parent=n0001 score=0.3729 cum=1.2857 terminal=False candidate=5 * (4 + 2) + 1",
+    "NODE n0007 parent=n0003 score=0.2700 cum=0.6000 terminal=False candidate=(5 * 4) - (2 + 1)",
+    "NODE n0008 parent=n0003 score=0.3729 cum=0.7029 terminal=False candidate=(5 + 2) * 4 - 1",
+    "NODE n0009 parent=n0003 score=0.2300 cum=0.5600 terminal=False candidate=(5 - 1) * 4 * 2",
+    "NODE n0010 parent=n0002 score=1.0000 cum=1.1100 terminal=True candidate=5421"
+  ]
+}

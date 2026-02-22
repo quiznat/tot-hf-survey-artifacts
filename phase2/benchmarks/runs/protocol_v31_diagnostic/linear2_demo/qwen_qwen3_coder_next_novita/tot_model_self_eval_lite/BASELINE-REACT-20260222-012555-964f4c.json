@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval_lite/BASELINE-REACT-20260222-012555-964f4c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=-6, y=2",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        5,
+        -6,
+        -42
+      ],
+      [
+        -4,
+        6,
+        36
+      ]
+    ]
+  },
+  "item_id": "lin-v1-044",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5103,
+    "success": 1,
+    "tokens_in": 461,
+    "tokens_out": 216
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-012555-964f4c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3846120071,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T01:25:55Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a system of two linear equations in the form [a, b, c] representing ax + by = c. So the equations are:  \n1) 5x - 6y = -42  \n2) -4x + 6y = 36  \n\nWe can solve this system using algebraic methods. Adding the two equations eliminates y:  \n(5x - 4x) + (-6y + 6y) = -42 + 36 \u2192 x = -6  \n\nSubstitute x = -6 into equation 1:  \n5(-6) - 6y = -42 \u2192 -30 - 6y = -42 \u2192 -6y = -12 \u2192 y = 2  \n\nSo solution is x = -6, y = 2.  \nWe can verify using check_xy tool.  \nAlternatively, use solve2 tool",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The system of equations is:  \n1) 5x - 6y = -42  \n2) -4x + 6y = 36  \n\nAdding equations eliminates y: (5x - 4x) + (-6y + 6y) = -42 + 36 \u2192 x = -6.  \nSubstitute x = -6 into equation 1: 5(-6) - 6y = -42 \u2192 -30 - 6y = -42 \u2192 -6y = -12 \u2192 y = 2.  \nSolution is x = -6, y = 2.  \nI can verify using check_xy or directly use solve2. Since solve2 is designed for solving 2-variable linear systems, I'll use that.\nACTION: solve2 [[5, -6, -42], [-4, 6, 36",
+    "STEP 2 OBSERVATION: x=-6.000000,y=2.000000",
+    "STEP 3 MODEL: FINAL: x=-6, y=2"
+  ]
+}

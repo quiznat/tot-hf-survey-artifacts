@@ -15,6 +15,7 @@ This diagnostic track tests whether evaluator/search-profile changes recover ToT
   - `Qwen/Qwen2.5-Coder-32B-Instruct`
 - Panel size: `n=50` paired items/task/model/profile
 - Conditions per profile: `react,tot` (paired within-block comparison)
+- Capability parity lock: paired `react` vs `tot` runs must use matched tool exposure (`equalize_react_to_tot` policy unless explicitly overridden).
 
 ## 3. Diagnostic Profiles
 - `tot_model_self_eval`:
@@ -32,6 +33,7 @@ This diagnostic track tests whether evaluator/search-profile changes recover ToT
 
 ## 4. Locked Controls
 - Sampling policy: `hf_temperature=0.0`, `hf_top_p=1.0`
+- Capability parity policy: `equalize_react_to_tot`
 - Seed policy: `item_hash`
 - Bootstrap samples: `10000`
 - Confidence level: `0.95`
@@ -41,6 +43,14 @@ This diagnostic track tests whether evaluator/search-profile changes recover ToT
 - Blocks: `2 tasks x 3 models x 4 profiles = 24`
 - Runs per block: `50 items x 2 conditions = 100`
 - Total: `2400` runs
+
+## 5A. Mandatory Smoke Gate (All Task Types)
+- Before any production/full matrix run, execute a smoke pass at `n=10` for every `task x profile` combination on at least one locked model.
+- Default smoke model: `Qwen/Qwen3-Coder-Next:novita`.
+- Required smoke coverage: `2 tasks x 4 profiles` with paired `react,tot` execution.
+- Full matrix runs are blocked until smoke artifacts are reviewed.
+- If smoke reveals task-format mismatch patterns (for example, `ToT success=0` with failure buckets dominated by format/empty-frontier/depth-limit), patch implementation first, then rerun smoke.
+- Record smoke command + outcome in `phase2/reproducibility/run-log-protocol-v31.md`.
 
 ## 6. Endpoints
 - Primary: `Delta(ToT - ReAct)` success rate per task/model/profile.

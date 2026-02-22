@@ -16,7 +16,30 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_
   --dry-run
 ```
 
-## 3. Execute the Full Matrix
+## 3. Mandatory Smoke Gate (All Task Types)
+Run this before any production/full matrix execution.
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_v3_matrix.py \
+  --tasks game24-demo,subset-sum-demo,linear2-demo,digit-permutation-demo \
+  --models Qwen/Qwen3-Coder-Next:novita \
+  --conditions single,react,tot \
+  --limit 10 \
+  --max-workers 8 \
+  --tot-evaluator-mode model_self_eval \
+  --tot-max-depth 3 \
+  --tot-branch-factor 3 \
+  --tot-frontier-width 3 \
+  --capability-parity-policy equalize_react_to_tot \
+  --hf-temperature 0.0 \
+  --hf-top-p 1.0 \
+  --seed-policy item_hash \
+  --bootstrap-samples 10000 \
+  --confidence-level 0.95
+```
+
+## 4. Execute the Full Matrix
 ```bash
 export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
@@ -30,6 +53,7 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_
   --tot-max-depth 3 \
   --tot-branch-factor 3 \
   --tot-frontier-width 3 \
+  --capability-parity-policy equalize_react_to_tot \
   --hf-temperature 0.0 \
   --hf-top-p 1.0 \
   --seed-policy item_hash \
@@ -37,7 +61,7 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_
   --confidence-level 0.95
 ```
 
-## 4. Build Consolidated Matrix Summary
+## 5. Build Consolidated Matrix Summary
 ```bash
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_matrix_summary.py \
   --reports-glob '/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/*_lockset_report_*_v3.json' \
@@ -45,7 +69,7 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protoco
   --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/protocol_v3_matrix_summary.json
 ```
 
-## 5. Report-Only Rebuild (No New Runs)
+## 6. Report-Only Rebuild (No New Runs)
 Use when manifests already exist and only reports need regeneration.
 ```bash
 export HF_TOKEN=your_token_here
@@ -54,12 +78,14 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_
   --report-only
 ```
 
-## 6. Notes
+## 7. Notes
 - Do not mix fallback models within a locked matrix run.
+- Smoke-gate pass across all task types is mandatory before production/full runs.
+- Keep paired-condition capability parity enabled (`--capability-parity-policy equalize_react_to_tot`) unless intentionally running a disclosed mismatch audit.
 - Keep run-log updates in `phase2/reproducibility/run-log-protocol-v3.md`.
 - If provider/model availability changes mid-run, stop and version protocol before resuming.
 
-## 7. Post-Run Artifact Refresh
+## 8. Post-Run Artifact Refresh
 Build pooled v3 summary:
 ```bash
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_matrix_summary.py

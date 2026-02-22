@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_rule_based/BASELINE-REACT-20260222-012411-520a27.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=1, y=-5",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        6,
+        -22
+      ],
+      [
+        1,
+        1,
+        -4
+      ]
+    ]
+  },
+  "item_id": "lin-v1-038",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9284,
+    "success": 1,
+    "tokens_in": 187,
+    "tokens_out": 161
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-012411-520a27",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2035782539,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T01:24:11Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves solving a system of two linear equations. The input provides coefficients in the form [[a1, b1, c1], [a2, b2, c2]], representing equations:  \n1) a1*x + b1*y = c1  \n2) a2*x + b2*y = c2  \n\nGiven equations:  \n1) 8x + 6y = -22  \n2) x + y = -4  \n\nI can either use algebraic substitution or elimination. Let's try elimination or substitution manually first.  \nFrom equation (2): x = -4 - y  \nSubstitute into (1):  \n8(-4 - y) + 6y = -22  \n\u2192 -32 - 8y + 6y = -22  \n\u2192 -32 - 2y = -22  \n\u2192 -2y = 10  \n\u2192",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: From the scratchpad, I derived -2y = 10, so y = -5. Then from x = -4 - y, x = -4 - (-5) = 1. So the solution is x = 1, y = -5. I should verify this using the check_xy tool to ensure correctness before finalizing.\nACTION: check_xy [1, -5]\nFINAL: x=1, y=-5"
+  ]
+}

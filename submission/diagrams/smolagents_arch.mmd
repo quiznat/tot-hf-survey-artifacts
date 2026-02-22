@@ -1,0 +1,23 @@
+flowchart TB
+  classDef box fill:#f7f9fc,stroke:#49698f,stroke-width:2px,color:#14181f,font-size:22px;
+
+  subgraph row1[" "]
+    direction LR
+    A["Agents<br/>- CodeAgent<br/>- ToolAgent<br/>- MultiStep"]:::box
+    M["Models<br/>- HfApiModel<br/>- LiteLLM<br/>- OpenAI"]:::box
+    T["Tools<br/>- @tool<br/>- Tool<br/>- Pipeline"]:::box
+  end
+
+  subgraph row2[" "]
+    direction LR
+    Mem["Memory<br/>- Step Log<br/>- Tool Calls<br/>- Errors"]:::box
+    P["Planning<br/>- Action<br/>- Selection<br/>- Tool Pick"]:::box
+    E["Execution<br/>- Code<br/>- Execution<br/>- Sandbox"]:::box
+  end
+
+  style row1 fill:transparent,stroke:transparent
+  style row2 fill:transparent,stroke:transparent
+
+  A --> Mem
+  M --> P
+  T --> E

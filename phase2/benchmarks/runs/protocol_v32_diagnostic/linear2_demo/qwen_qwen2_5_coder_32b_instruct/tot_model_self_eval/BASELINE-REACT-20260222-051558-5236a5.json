@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen2_5_coder_32b_instruct/tot_model_self_eval/BASELINE-REACT-20260222-051558-5236a5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x = 3, y = -7",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        9,
+        0,
+        27
+      ],
+      [
+        -4,
+        4,
+        -40
+      ]
+    ]
+  },
+  "item_id": "lin-v1-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5588,
+    "success": 1,
+    "tokens_in": 408,
+    "tokens_out": 280
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-051558-5236a5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 4126661290,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T05:15:58Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to solve a system of two linear equations with two variables. The equations are:\n1) 9x + 0y = 27\n2) -4x + 4y = -40\n\nI can see that the first equation has y coefficient as 0, which means I can solve for x directly. Then I can substitute that value into the second equation to find y.\n\nLet me start by solving the first equation for x.\nACTION: solve2 [\"9x + 0y = 27\", \"x\"]",
+    "STEP 1 OBSERVATION: x=3.000000,y=-7.000000",
+    "STEP 2 MODEL: THINK: I've solved the first equation and found x = 3. Let me verify this is correct by substituting back into the original equations, then solve for y using the second equation.\n\nLooking at the first equation: 9x + 0y = 27\nIf x = 3, then 9(3) + 0y = 27 \u2192 27 = 27 \u2713\n\nNow I need to solve for y using the second equation: -4x + 4y = -40\nSubstituting x = 3: -4(3) + 4y = -40 \u2192 -12 + 4y = -40 \u2192 4y = -28 \u2192 y = -7\n\nLet me double-check by substituting both values into both equations:\nEquation 1: 9(3) + 0(-7) = 27",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: I need to verify my solution by checking both equations with the values x = 3 and y = -7.\n\nFor equation 1: 9x + 0y = 27\nSubstituting x = 3, y = -7: 9(3) + 0(-7) = 27 + 0 = 27 \u2713\n\nFor equation 2: -4x + 4y = -40\nSubstituting x = 3, y = -7: -4(3) + 4(-7) = -12 + (-28) = -40 \u2713\n\nBoth equations are satisfied, so my solution is correct.\n\nFINAL: x = 3, y = -7"
+  ]
+}

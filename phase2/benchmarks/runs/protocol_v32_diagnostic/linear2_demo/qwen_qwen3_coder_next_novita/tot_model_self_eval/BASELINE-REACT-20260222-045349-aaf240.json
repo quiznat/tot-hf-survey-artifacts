@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_model_self_eval/BASELINE-REACT-20260222-045349-aaf240.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "x=9, y=-1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        4,
+        -22
+      ],
+      [
+        0,
+        6,
+        -6
+      ]
+    ]
+  },
+  "item_id": "lin-v1-041",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4902,
+    "success": 1,
+    "tokens_in": 381,
+    "tokens_out": 130
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-045349-aaf240",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2260319871,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:53:49Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two linear equations in the form [a, b, c] representing ax + by = c. So the equations are:\n- Equation 1: -2x + 4y = -22\n- Equation 2: 0x + 6y = -6 \u2192 6y = -6 \u2192 y = -1\n\nFrom equation 2, we directly get y = -1. Then substitute into equation 1 to solve for x:\n-2x + 4(-1) = -22 \u2192 -2x - 4 = -22 \u2192 -2x = -18 \u2192 x = 9\n\nSo solution is x = 9, y = -1.\n\nWe can verify using check_xy(9, -1), or use solve2 to solve the system.\n\nLet\u2019s use solve2 since it\u2019s designed for solving 2-variable linear systems.\n\nsolve2",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: ACTION: solve2 [[-2, 4, -22], [0, 6, -6]]",
+    "STEP 2 OBSERVATION: x=9.000000,y=-1.000000",
+    "STEP 3 MODEL: FINAL: x=9, y=-1"
+  ]
+}

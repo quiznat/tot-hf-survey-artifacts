@@ -1,0 +1,85 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/digit_permutation_demo/qwen_qwen2_5_coder_32b_instruct/tot_hybrid/TOT-PROTOTYPE-20260222-042051-66ec75.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "condition_id": "tot-prototype",
+  "error_type": "depth_limit",
+  "evaluator_mode": "hybrid",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 7,
+      "frontier_width": 3,
+      "generated_nodes": 10,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0
+    }
+  },
+  "final_answer": "6553",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      5,
+      6,
+      5
+    ],
+    "divisor": 8,
+    "oracle_max": 5536
+  },
+  "item_id": "perm-v1-040",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11648,
+    "success": 0,
+    "tokens_in": 2971,
+    "tokens_out": 340
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "tot prototype reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260222-042051-66ec75",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3358001451,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T04:20:51Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.1300 cum=0.1300 terminal=False candidate=To form the largest possible 4-digit integer using digits [3, 5, 6, 5] exactly once that is divisible by 8:",
+    "NODE n0002 parent=root score=0.1300 cum=0.1300 terminal=False candidate=First, I need to check which arrangements of these digits are divisible by 8.",
+    "NODE n0003 parent=root score=0.2300 cum=0.2300 terminal=False candidate=A number is divisible by 8 if its last three digits form a number divisible by 8.",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0003 score=0.1300 cum=0.3600 terminal=False candidate=To maximize the 4-digit number, I want the largest digit in the thousands place, then hundreds, tens, and units.",
+    "NODE n0005 parent=n0003 score=0.1300 cum=0.3600 terminal=False candidate=The digits are [3, 5, 6, 5]. The largest digit is 6, so it should be in the thousands place.",
+    "NODE n0006 parent=n0003 score=0.2300 cum=0.4600 terminal=False candidate=For divisibility by 8, I need the last three digits to form a number divisible by 8.",
+    "NODE n0007 parent=n0001 score=0.2200 cum=0.3500 terminal=False candidate=5653",
+    "NODE n0008 parent=n0001 score=0.2200 cum=0.3500 terminal=False candidate=5635",
+    "NODE n0009 parent=n0001 score=0.2200 cum=0.3500 terminal=False candidate=5563",
+    "NODE n0002 generated no candidates",
+    "DEPTH 3 frontier=3",
+    "NODE n0010 parent=n0006 score=0.2200 cum=0.6800 terminal=False candidate=6553",
+    "NODE n0004 generated no candidates",
+    "NODE n0005 generated no candidates"
+  ]
+}

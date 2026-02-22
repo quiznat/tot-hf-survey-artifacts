@@ -25,6 +25,10 @@ Primary conditions (required):
 - `baseline-react`
 - `tot-prototype` with `tot_evaluator_mode=model_self_eval`
 
+Capability parity lock:
+- Paired `react` vs `tot` comparisons must use matched tool exposure.
+- Current runner policy is `equalize_react_to_tot` (React tools are disabled unless ToT exposes the same tools).
+
 Secondary conditions (optional post-matrix):
 - `tot-prototype` with `rule_based`
 - `tot-prototype` with `hybrid`
@@ -54,11 +58,20 @@ Lock rules:
 Optional ablations after core matrix:
 - Primary model only (`Qwen/Qwen3-Coder-Next:novita`), task-by-task evaluator/search sensitivity.
 
+## 7A. Mandatory Smoke Gate (All Task Types)
+- Before any production/full matrix run, execute a smoke pass at `n=10` for every task in the locked panel set using all primary conditions (`single,react,tot`) on at least one locked model.
+- Default smoke model: `Qwen/Qwen3-Coder-Next:novita`.
+- Required smoke coverage: `4 tasks x 3 conditions` with paired condition reporting.
+- Full matrix runs are blocked until smoke artifacts are reviewed.
+- If smoke reveals task-format mismatch patterns (for example, `tot-prototype` terminal success collapse with dominant parse/format/frontier failures), patch implementation first, then rerun smoke.
+- Record smoke command + outcome in `phase2/reproducibility/run-log-protocol-v3.md`.
+
 ## 8. Execution Controls
 - Provider: Hugging Face Inference Router.
 - Auth token env: `HF_TOKEN`.
 - Determinism: `--seed-policy item_hash`.
 - Randomness policy: `--hf-temperature 0.0` (or provider minimum when not supported), `--hf-top-p 1.0`.
+- Capability parity policy: `--capability-parity-policy equalize_react_to_tot` (default).
 - Parallelism: `--max-workers 8` target.
 - Retries:
   - infra/transport failure: retry once,

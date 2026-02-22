@@ -1,7 +1,7 @@
 # Phase 2 Prepaper (Living Source of Truth)
 
 Status: active draft (build-as-we-go)
-Last updated: 2026-02-21 (protocol-v3 matrix complete; postprocessing integrated)
+Last updated: 2026-02-22 (protocol-v3.1 diagnostics complete; deep analysis integrated)
 
 ## Working Title
 Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluation with LLM-Based In-Chain Judging
@@ -27,16 +27,23 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - `phase2/code/scripts/run_protocol_v3_matrix.py`
   - `phase2/code/scripts/build_protocol_v3_matrix_summary.py`
 
-## Protocol v3.1 Diagnostic Track (Active)
+## Protocol v3.1 Diagnostic Track (Completed)
 - Active protocol file: `phase2/benchmarks/evaluation-protocol-v31.md`
 - Protocol ID: `TOT-HF-P2-EPV31-2026-02-22`
-- Status: running
+- Status: matrix execution complete and postprocessing complete.
 - Focus:
   - task subset where v3 showed ToT-vs-ReAct weakness (`linear2-demo`, `digit-permutation-demo`)
   - evaluator/search profile comparisons against paired ReAct baselines
 - Canonical execution tooling:
   - `phase2/code/scripts/run_protocol_v31_diagnostics.py`
   - `phase2/code/scripts/build_protocol_v31_diagnostic_summary.py`
+  - `phase2/code/scripts/build_protocol_v31_deep_analysis.py`
+- Consolidated artifacts:
+  - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.md`
+  - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.json`
+  - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.md`
+  - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.json`
+  - `phase2/benchmarks/analysis/protocol_v31_implementation_audit.md`
 
 ## Methodology Decision Freeze (2026-02-20)
 - Primary ToT methodology uses LLM-based in-chain evaluation (`model_self_eval`).
@@ -237,17 +244,47 @@ Finally, this phase emphasizes internal reproducibility and controlled paired in
   - Under this v3 configuration, ToT remains consistently stronger than single-path across all tasks/models.
   - Claim scope remains task- and model-scoped; v3 evidence does not support a universal "ToT > ReAct" statement.
 
+## Executed Protocol-v3.1 Diagnostic Evidence (Failure Tasks x Profile Sweep)
+- Matrix completion:
+  - 2 tasks x 3 models x 4 profiles x 50 paired items = 1200 paired comparisons (`2400` total manifests).
+  - Consolidated outputs:
+    - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.md`
+    - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.json`
+    - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.md`
+    - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.json`
+- Profile/model summary:
+  - ToT underperformed ReAct in 24/24 task-model-profile series (21/24 with Holm-adjusted p<0.05).
+  - Mean ToT-minus-ReAct deltas by task:
+    - `linear2-demo`: -0.647
+    - `digit-permutation-demo`: -0.328
+  - Mean latency multiplier (ToT/ReAct):
+    - `linear2-demo`: 4.067x
+    - `digit-permutation-demo`: 2.652x
+- Deep-analysis failure signal:
+  - Latest-manifest ToT failures are dominated by depth-limit termination (625/652 in the v3.1 deep-analysis latest-manifest slice).
+  - Task-level ToT failure rates in latest-manifest slice:
+    - `linear2-demo`: 0.673
+    - `digit-permutation-demo`: 0.413
+- Determinism and replay check:
+  - Full-matrix `--report-only` replay completed.
+  - Canonical statistical fields were stable across replay (0/24 changed after normalizing away regenerated metadata fields).
+- Interpretation:
+  - On these failure-task panels, current ToT implementation/prompt-budget policy is not competitive with ReAct.
+  - Immediate claim posture: task-conditional routing and implementation refinement, not general ToT superiority.
+
 ## Claim Boundary
 - Allowed claim pattern: "On fixed paired item sets for task T and model M, condition A outperformed condition B by X absolute success points under protocol Y."
 - Allowed claim pattern: "Across this protocol-v3 matrix, ToT outperformed single-path in all evaluated blocks while ToT-vs-ReAct direction varied by task/model."
+- Allowed claim pattern: "Under protocol-v3.1 diagnostic settings on failure-task panels, ToT underperformed ReAct across all profile variants."
 - Disallowed claim pattern: universal ordering claims (for example, "ToT always outperforms ReAct") without additional cross-task replication and sensitivity analysis.
 
 ## Prepaper Build Plan
 1. Keep v2 Methods/Results text as frozen baseline evidence. (completed in v0.1 section above)
 2. Execute protocol-v3 core matrix and generate consolidated v3 summary artifacts. (completed)
 3. Add a dedicated v3 results section with task-scoped contrasts and correction policy details. (completed)
-4. Draft reproducibility appendix with v3 command blocks, panel manifests, and artifact index. (completed: `phase2/manuscript/APPENDIX_REPRO_V3.md`)
-5. Build anonymous manuscript package after v3 evidence integration.
+4. Execute protocol-v3.1 diagnostics and integrate negative/conditional evidence boundaries. (completed)
+5. Draft reproducibility appendix with v3 command blocks, panel manifests, and artifact index. (completed: `phase2/manuscript/APPENDIX_REPRO_V3.md`)
+6. Build anonymous manuscript package after v3 + v3.1 evidence integration.
 
 Canonical execution commands for search ablations are archived in:
 - `phase2/benchmarks/protocol-v2-search-ablation-execution.md`
@@ -286,3 +323,6 @@ Canonical execution commands for search ablations are archived in:
 - 2026-02-21: Completed full locked protocol-v3 matrix execution (1800 runs) across 4 tasks and 3 models.
 - 2026-02-21: Generated consolidated v3 matrix summary, task-scoped and pooled v3 failure taxonomies, and report-only determinism parity checks.
 - 2026-02-21: Added v3 submission table/figure-data generator and reproducibility appendix draft (`APPENDIX_REPRO_V3.md`).
+- 2026-02-22: Completed full protocol-v3.1 diagnostic matrix (1200 paired comparisons; 2400 total manifests) across failure tasks and profile variants.
+- 2026-02-22: Added consolidated protocol-v3.1 summary/deep-analysis artifacts and completed full-matrix canonical parity replay checks.
+- 2026-02-22: Logged implementation-audit finding that v3.1 ToT candidate prompting is hardcoded to arithmetic-expression output across non-arithmetic tasks.

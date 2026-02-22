@@ -37,6 +37,28 @@ class LinearSystem2Task(BaseTask):
         x_val, y_val = solution
         return _residual_ok(payload["equations"], x_val, y_val)
 
+    def build_tot_candidate_prompt(
+        self,
+        input_data: Any,
+        scratchpad: str,
+        branch_factor: int,
+        disallowed_candidates: list[str] | None = None,
+        attempt: int = 0,
+    ) -> str:
+        prompt = (
+            self.build_prompt(input_data, scratchpad=scratchpad)
+            + f"\n\nGenerate up to {branch_factor} distinct candidate solutions."
+            + "\nReturn one candidate per line in exact format: x=<value>,y=<value>."
+            + "\nDo not output equations, derivations, or extra text."
+        )
+        blocked = [candidate for candidate in (disallowed_candidates or []) if candidate]
+        if blocked:
+            prompt += "\nDo not repeat any of these previously explored candidates:\n"
+            prompt += "\n".join(f"- {candidate}" for candidate in blocked)
+        if attempt > 0:
+            prompt += "\nPrevious candidates were duplicates or invalid; generate different alternatives."
+        return prompt
+
     def score_candidate(self, candidate: str, input_data: Any) -> float:
         payload = _normalize_input(input_data)
         solution = _parse_solution(candidate)

@@ -1,0 +1,59 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_diagnostic/digit_permutation_demo/qwen_qwen2_5_coder_32b_instruct/tot_model_self_eval/BASELINE-REACT-20260222-041832-4a461d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "{\"number\": 7535, \"divisor\": 11}",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      7,
+      5,
+      3,
+      5
+    ],
+    "divisor": 11,
+    "oracle_max": 7535
+  },
+  "item_id": "perm-v1-030",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3720,
+    "success": 1,
+    "tokens_in": 222,
+    "tokens_out": 194
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-041832-4a461d",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 247109095,
+  "task_id": "digit-permutation-demo",
+  "timestamp_utc": "2026-02-22T04:18:32Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find the largest number that can be formed using the digits [7, 5, 3, 5] that is divisible by 11. The oracle_max constraint tells me the answer cannot exceed 7535. \n\nFirst, I should check what numbers can be formed and test their divisibility by 11. Since I want the largest possible number under 7535, I should try arrangements that start with the highest digits.\n\nLet me first try to form the largest possible number with these digits: 7553. But I need to check if this is divisible by 11, or if there's a smaller arrangement that works.\n\nActually, let me approach this systematically using the available tools. I'll use best_divisible to find the best divisible number, but I need to make sure I'm working within the constraints.\n\nACTION: best_divisible {\"digits\": [7,",
+    "STEP 1 OBSERVATION: 7535",
+    "STEP 2 MODEL: THINK: The best_divisible tool returned 7535, which is the largest number that can be formed with the given digits [7, 5, 3, 5] that is divisible by 11. This number is also within the oracle_max constraint of 7535. Let me verify this is correct by checking if 7535 is indeed divisible by 11.\n\nACTION: is_divisible {\"number\": 7535, \"divisor\": 11}",
+    "STEP 2 OBSERVATION: yes"
+  ]
+}

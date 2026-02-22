@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v32_diagnostic/linear2_demo/qwen_qwen3_coder_next_novita/tot_rule_based/BASELINE-REACT-20260222-045703-e03ae9.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "{\"x\": -7, \"y\": -7}",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -8,
+        -8,
+        112
+      ],
+      [
+        -2,
+        -9,
+        77
+      ]
+    ]
+  },
+  "item_id": "lin-v1-030",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4482,
+    "success": 1,
+    "tokens_in": 198,
+    "tokens_out": 151
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-045703-e03ae9",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3959538252,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:57:03Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two equations in the form [a, b, c], likely representing linear equations of the form a*x + b*y = c. So we have:\n- Equation 1: -8x - 8y = 112\n- Equation 2: -2x - 9y = 77\n\nWe need to solve for x and y. Let's simplify Equation 1 first: divide both sides by -8 \u2192 x + y = -14. So x = -14 - y.\n\nSubstitute into Equation 2: -2(-14 - y) - 9y = 77 \u2192 28 + 2y - 9y = 77 \u2192 28 - 7y = 77 \u2192 -7y = 49 \u2192 y = -7.\n\nThen x = -14 - (-7) = -7",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The manual solution yields x = -7, y = -7. To verify, I should use the `check_xy` tool to confirm that (x, y) = (-7, -7) satisfies both equations.\nACTION: check_xy {\"x\": -7, \"y\": -7}",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

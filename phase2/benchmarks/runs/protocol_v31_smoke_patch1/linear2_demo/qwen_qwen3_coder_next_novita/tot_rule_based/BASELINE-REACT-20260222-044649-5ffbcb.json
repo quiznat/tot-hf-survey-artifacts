@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v31_smoke_patch1/linear2_demo/qwen_qwen3_coder_next_novita/tot_rule_based/BASELINE-REACT-20260222-044649-5ffbcb.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "condition_id": "baseline-react",
+  "final_answer": "{\"x\": -8, \"y\": 8}",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -4,
+        -1,
+        24
+      ],
+      [
+        -6,
+        -6,
+        0
+      ]
+    ]
+  },
+  "item_id": "lin-v1-007",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3187,
+    "success": 1,
+    "tokens_in": 204,
+    "tokens_out": 154
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v1",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-REACT-20260222-044649-5ffbcb",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1646084904,
+  "task_id": "linear2-demo",
+  "timestamp_utc": "2026-02-22T04:46:49Z",
+  "tool_config": [
+    "calc"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two equations in the form [a, b, c], representing equations like a*x + b*y = c. So we have:\nEquation 1: -4x - y = 24  \nEquation 2: -6x - 6y = 0  \n\nWe need to solve this system of linear equations. Let's analyze manually first.\n\nFrom Equation 2: -6x - 6y = 0 \u2192 divide both sides by -6: x + y = 0 \u2192 y = -x.\n\nSubstitute y = -x into Equation 1:  \n-4x - (-x) = 24 \u2192 -4x + x = 24 \u2192 -3x = 24 \u2192 x = -8  \nThen y = -x = 8.\n\nSo solution is x = -8, y = 8.\n\nWe can verify with tools. Let",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The manual solution gives x = -8, y = 8. To verify correctness, I should use the check_xy tool to test this solution against both equations.\nACTION: check_xy {\"x\": -8, \"y\": 8}",
+    "STEP 2 OBSERVATION: match"
+  ]
+}
