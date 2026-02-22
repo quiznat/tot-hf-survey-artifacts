@@ -13,7 +13,11 @@ from phase2_baselines.reporting import write_variance_report
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run repeated baseline sweep and build variance report")
     parser.add_argument("--runs-per-condition", type=int, default=5)
-    parser.add_argument("--runners", default="single,react", help="Comma-separated baseline runner names")
+    parser.add_argument(
+        "--runners",
+        default="single,cot,cot_sc,react",
+        help="Comma-separated baseline runner names",
+    )
     parser.add_argument("--provider", choices=["scripted", "hf"], default="scripted")
     parser.add_argument("--model-id", default="", help="Model identifier for --provider hf")
     parser.add_argument("--hf-token-env", default="HF_TOKEN", help="Env var name for Hugging Face API token")
@@ -21,6 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hf-max-new-tokens", type=int, default=192)
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
+    parser.add_argument("--cot-sc-samples", type=int, default=5, help="Sample count for cot_sc baseline")
     parser.add_argument("--numbers", default="4,4,10,10", help="Comma-separated integers")
     parser.add_argument(
         "--runs-dir",
@@ -70,6 +75,7 @@ def main() -> int:
                     hf_max_new_tokens=args.hf_max_new_tokens,
                     hf_temperature=args.hf_temperature,
                     hf_top_p=args.hf_top_p,
+                    cot_sc_samples=args.cot_sc_samples,
                 )
             except Exception as exc:
                 print(f"error: {exc}")

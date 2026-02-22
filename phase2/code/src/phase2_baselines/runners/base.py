@@ -100,6 +100,7 @@ class BaseRunner(ABC):
             "branch_factor",
             "frontier_width",
             "max_steps",
+            "cot_sc_samples",
             "hf_temperature",
             "hf_top_p",
             "react_enable_tools",

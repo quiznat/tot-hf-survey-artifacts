@@ -35,7 +35,11 @@ def parse_args() -> argparse.Namespace:
         default="/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/panels/game24_lockset_v1.json",
         help="JSON panel file with item_id + input_data entries",
     )
-    parser.add_argument("--conditions", default="single,react,tot", help="Comma-separated: single,react,tot")
+    parser.add_argument(
+        "--conditions",
+        default="single,cot,cot_sc,react,tot",
+        help="Comma-separated: single,cot,cot_sc,react,tot",
+    )
     parser.add_argument("--provider", choices=["scripted", "hf"], default="hf")
     parser.add_argument("--model-id", default="", help="Model identifier for --provider hf")
     parser.add_argument("--hf-token-env", default="HF_TOKEN", help="Env var name for Hugging Face API token")
@@ -43,6 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--hf-max-new-tokens", type=int, default=192)
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
+    parser.add_argument("--cot-sc-samples", type=int, default=5, help="Sample count for cot_sc baseline")
     parser.add_argument(
         "--tot-evaluator-mode",
         choices=["task_binary", "rule_based", "model_self_eval", "hybrid"],
@@ -199,6 +204,10 @@ def _resolve_capability_plan(task_id: str, conditions: List[str], policy: str) -
     condition_tools: Dict[str, List[str]] = {}
     if "single" in conditions:
         condition_tools["single"] = []
+    if "cot" in conditions:
+        condition_tools["cot"] = []
+    if "cot_sc" in conditions:
+        condition_tools["cot_sc"] = []
     if "react" in conditions:
         condition_tools["react"] = react_tools
     if "tot" in conditions:
@@ -226,6 +235,8 @@ def _load_latest_existing_manifests(
     item_ids = {item["item_id"] for item in selected_items}
     condition_map = {
         "single": "baseline-single-path",
+        "cot": "baseline-cot",
+        "cot_sc": "baseline-cot-sc",
         "react": "baseline-react",
         "tot": "tot-prototype",
     }
@@ -293,7 +304,7 @@ def _build_model(args: argparse.Namespace):
     )
 
 
-def _run_single_or_react(
+def _run_baseline_condition(
     condition: str,
     item: Dict[str, Any],
     seed: int,
@@ -313,6 +324,7 @@ def _run_single_or_react(
         hf_temperature=args.hf_temperature,
         hf_top_p=args.hf_top_p,
         react_enable_tools=react_enable_tools,
+        cot_sc_samples=args.cot_sc_samples,
     )
     config["item_id"] = item["item_id"]
     config["input_data"] = item["input_data"]
@@ -322,6 +334,8 @@ def _run_single_or_react(
     config["capability_parity_policy"] = args.capability_parity_policy
     config["task_tools_available"] = list(getattr(args, "task_tools_available", []))
     config["condition_tools_exposed"] = list(condition_tools.get(condition, []))
+    if condition == "cot_sc":
+        config["cot_sc_samples"] = int(args.cot_sc_samples)
     # Ensure manifest tool_config exactly mirrors the enforced condition exposure.
     config["tool_config"] = list(condition_tools.get(condition, []))
     runner.prepare(task=task, config=config)
@@ -655,7 +669,7 @@ def main() -> int:
         return 2
 
     conditions = [name.strip() for name in args.conditions.split(",") if name.strip()]
-    valid = {"single", "react", "tot"}
+    valid = {"single", "cot", "cot_sc", "react", "tot"}
     unknown = [name for name in conditions if name not in valid]
     if unknown:
         print(f"error: unsupported conditions: {unknown}")
@@ -711,8 +725,8 @@ def main() -> int:
         )
         item_manifests: List[Dict[str, Any]] = []
         for condition in conditions:
-            if condition in {"single", "react"}:
-                manifest = _run_single_or_react(
+            if condition in {"single", "cot", "cot_sc", "react"}:
+                manifest = _run_baseline_condition(
                     condition=condition,
                     item=item,
                     seed=seed,

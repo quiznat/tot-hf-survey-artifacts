@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 
 from phase2_baselines.adapters import ScriptedModel
-from phase2_baselines.runners import ReactRunner, SinglePathRunner
+from phase2_baselines.runners import CoTRunner, CoTSelfConsistencyRunner, ReactRunner, SinglePathRunner
 from phase2_baselines.tasks import Arithmetic24Task
 
 
@@ -121,6 +121,50 @@ class RunnerSmokeTests(unittest.TestCase):
         manifest = runner.run(self.numbers)
         self.assertEqual(manifest["outcome"], "timeout")
         self.assertIn("unknown tool 'calc'", "\n".join(manifest["trace"]))
+
+    def test_cot_success(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "We can use the numbers once each.\nFINAL: (10*10-4)/4",
+            ]
+        )
+        runner = CoTRunner(model=model, model_name="test-cot")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-cot",
+                "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "single-cot-pass"},
+                "tool_config": [],
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "success")
+        self.assertEqual(manifest["condition_id"], "baseline-cot")
+
+    def test_cot_self_consistency_majority_vote(self) -> None:
+        model = ScriptedModel(
+            responses=[
+                "Path one.\nFINAL: (10*10-4)/4",
+                "Path two.\nFINAL: 24",
+                "Path three.\nFINAL: (10*10-4)/4",
+            ]
+        )
+        runner = CoTSelfConsistencyRunner(model=model, model_name="test-cot-sc")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "baseline-cot-sc",
+                "search_config": {"depth": 1, "breadth": 3, "pruning": "majority_vote", "stop_policy": "sample_consensus"},
+                "tool_config": [],
+                "budget": {"token_budget": 1, "time_budget_ms": 1, "cost_budget_usd": 0.0},
+                "cot_sc_samples": 3,
+            },
+        )
+        manifest = runner.run(self.numbers)
+        self.assertEqual(manifest["outcome"], "success")
+        self.assertEqual(manifest["final_answer"], "(10*10-4)/4")
+        self.assertEqual(manifest["cot_sc_samples"], 3)
 
 
 if __name__ == "__main__":

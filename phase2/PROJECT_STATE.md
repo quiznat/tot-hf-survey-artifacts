@@ -6,7 +6,8 @@ Status date: 2026-02-22
 - Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
 - Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 locked matrix execution is complete with consolidated analysis artifacts.
 - Protocol-v3.1 diagnostics are completed (`2 tasks x 3 models x 4 profiles`, paired `react,tot`) with deep-analysis and parity artifacts generated.
-- Protocol-v4 confirmatory reset is now active with exploratory quarantine, disjoint panel generation, and pre-launch gate tooling.
+- Protocol-v4 confirmatory reset is completed (gates + full matrix + summary artifacts).
+- Protocol-v5 base-pattern expansion is now active (`single,cot,cot_sc,react,tot`) with v5/v5.1 execution tooling in place.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -15,10 +16,26 @@ Status date: 2026-02-22
 - P2-G2 (ToT Integration Prototype): completed
 - P2-G3 (Evaluation v1): completed
 - P2-G4 (Ablation and Error Analysis): completed
-- P2-G5 (Manuscript Draft): in progress (protocol-v3 results integrated; packaging in progress)
+- P2-G5 (Manuscript Draft): in progress (v4 complete; v5/v5.1 integration pending)
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
+- Added base comparator support in core harness:
+  - `baseline-cot` and `baseline-cot-sc` runners
+  - lockset pipeline + manifest support for `cot_sc_samples`
+  - five-condition lockset support in `run_structured_lockset.py` (`single,cot,cot_sc,react,tot`)
+- Added v5/v5.1 execution and summary tooling:
+  - `phase2/code/scripts/run_protocol_v5_smoke.py`
+  - `phase2/code/scripts/run_protocol_v5_matrix.py`
+  - `phase2/code/scripts/build_protocol_v5_matrix_summary.py`
+  - `phase2/code/scripts/run_protocol_v51_hybrid_matrix.py`
+  - `phase2/code/scripts/build_protocol_v51_hybrid_summary.py`
+- Added v5/v5.1 protocol documentation:
+  - `phase2/benchmarks/evaluation-protocol-v5.md`
+  - `phase2/benchmarks/evaluation-protocol-v51.md`
+  - `phase2/benchmarks/benchmark-matrix-v5.md`
+  - `phase2/benchmarks/protocol-v5-execution.md`
+- Extended dashboard support for upcoming v5/v5.1 monitoring and report browsing (in progress this session).
 - Published pre-v4 exploratory quarantine artifacts:
   - `phase2/benchmarks/evidence/protocol_v4_reset_20260222T0600Z/README.md`
   - `phase2/benchmarks/evidence/protocol_v4_reset_20260222T0600Z/summary.json`
@@ -205,9 +222,9 @@ Status date: 2026-02-22
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Run `build_protocol_v4_panels.py` and archive disjointness artifacts for all four confirmatory task panels.
-2. Run `run_protocol_v4_gates.py` on live provider (`HF_TOKEN`) and require all checks to pass.
-3. Launch `run_protocol_v4_matrix.py` and summarize with `build_protocol_v4_matrix_summary.py` as the only confirmatory evidence source.
+1. Run `run_protocol_v5_smoke.py` across all four tasks and verify five-condition coverage.
+2. Execute `run_protocol_v5_matrix.py` with locked models and `--max-workers 12`.
+3. Build `protocol_v5_matrix_summary` and then launch `run_protocol_v51_hybrid_matrix.py`.
 
 ## Risks / Dependencies
 - Provider/model behavior can drift over time; additional reruns may change latency and timeout rates even with locked settings.

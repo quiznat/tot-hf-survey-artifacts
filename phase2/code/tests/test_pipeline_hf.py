@@ -42,6 +42,26 @@ class PipelineHFTests(unittest.TestCase):
         self.assertEqual(config["tool_config"], [])
         self.assertFalse(config["react_enable_tools"])
 
+    def test_cot_config_has_no_tools(self) -> None:
+        _, _task, config = create_baseline_setup(
+            runner_name="cot",
+            provider="scripted",
+            task_name="game24",
+        )
+        self.assertEqual(config["condition_id"], "baseline-cot")
+        self.assertEqual(config["tool_config"], [])
+
+    def test_cot_sc_config_carries_sample_count(self) -> None:
+        _, _task, config = create_baseline_setup(
+            runner_name="cot_sc",
+            provider="scripted",
+            task_name="game24",
+            cot_sc_samples=7,
+        )
+        self.assertEqual(config["condition_id"], "baseline-cot-sc")
+        self.assertEqual(config["tool_config"], [])
+        self.assertEqual(config["cot_sc_samples"], 7)
+
 
 if __name__ == "__main__":
     unittest.main()

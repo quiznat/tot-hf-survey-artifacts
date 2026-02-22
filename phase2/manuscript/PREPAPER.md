@@ -1,7 +1,7 @@
 # Phase 2 Prepaper (Living Source of Truth)
 
 Status: active draft (build-as-we-go)
-Last updated: 2026-02-22 (protocol-v4 confirmatory reset scaffolded; pre-v4 evidence quarantined)
+Last updated: 2026-02-22 (v4 complete; v5 base-pattern and v5.1 hybrid protocols scaffolded)
 
 ## Working Title
 Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluation with LLM-Based In-Chain Judging
@@ -48,11 +48,25 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
 ## Protocol v4 Confirmatory Reset (Active)
 - Active protocol file: `phase2/benchmarks/evaluation-protocol-v4.md`
 - Protocol ID: `TOT-HF-P2-EPV4-2026-02-22`
-- Status: frozen and pending live gate execution.
+- Status: completed (gates + full matrix + summary artifacts generated).
 - Confirmatory matrix execution guide: `phase2/benchmarks/protocol-v4-execution.md`
 - Pre-v4 quarantine registry: `phase2/benchmarks/evidence/series_registry.json`
 - Confirmatory series target: `protocol_v4_confirmatory_matrix`
 - Gate-only series target: `protocol_v4_smoke`
+
+## Protocol v5 Base-Pattern Expansion (Active)
+- Active protocol file: `phase2/benchmarks/evaluation-protocol-v5.md`
+- Protocol ID: `TOT-HF-P2-EPV5-2026-02-22`
+- Status: frozen and ready for execution.
+- Base-pattern matrix execution guide: `phase2/benchmarks/protocol-v5-execution.md`
+- Primary series target: `protocol_v5_base_matrix`
+- Gate-only series target: `protocol_v5_base_smoke`
+
+## Protocol v5.1 Hybrid Profile Sweep (Active)
+- Active protocol file: `phase2/benchmarks/evaluation-protocol-v51.md`
+- Protocol ID: `TOT-HF-P2-EPV51-2026-02-22`
+- Status: frozen and ready for execution.
+- Primary series target: `protocol_v51_hybrid_matrix`
 
 ## Evidence Boundary (v4)
 - All pre-v4 runs are exploratory and excluded from primary inferential claims.

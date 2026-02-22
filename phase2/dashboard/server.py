@@ -36,15 +36,25 @@ PROFILE_LABELS = {
     "tot_hybrid": "ToT hybrid (3/3/3)",
     "tot_rule_based": "ToT rule-based (3/3/3)",
     "tot_model_self_eval_lite": "ToT self-eval lite (2/2/2)",
+    "tot_hybrid_eval": "ToT hybrid eval (3/3/3)",
+    "tot_rule_based_eval": "ToT rule-based eval (3/3/3)",
+    "tot_deep_search": "ToT deep search (4/4/4)",
     "confirmatory": "confirmatory",
     "smoke": "smoke",
+    "base-pattern": "base-pattern",
+    "base-smoke": "base-smoke",
 }
 SERIES_VERSION_LABELS = {
     "v31": "v3.1",
     "v32": "v3.2",
     "v4_smoke": "v4-smoke",
     "v4_matrix": "v4-matrix",
+    "v5_smoke": "v5-smoke",
+    "v5_matrix": "v5-matrix",
+    "v51_matrix": "v5.1-hybrid",
     "v4": "v4",
+    "v5": "v5",
+    "v51": "v5.1",
 }
 DIAGNOSTIC_TASKS = {
     "linear2-demo": ("linear2_demo", PHASE2 / "benchmarks/panels/linear2_lockset_v1.json"),
@@ -83,6 +93,36 @@ V4_MATRIX_MODELS = {
     "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen_qwen2_5_coder_32b_instruct",
 }
 V4_CONDITIONS = ("baseline-single-path", "baseline-react", "tot-prototype")
+V5_TASKS = {
+    "game24-demo": ("game24_demo", PHASE2 / "benchmarks/panels/game24_lockset_v4.json"),
+    "subset-sum-demo": ("subset_sum_demo", PHASE2 / "benchmarks/panels/subset_sum_lockset_v4.json"),
+    "linear2-demo": ("linear2_demo", PHASE2 / "benchmarks/panels/linear2_lockset_v4.json"),
+    "digit-permutation-demo": (
+        "digit_permutation_demo",
+        PHASE2 / "benchmarks/panels/digit_permutation_lockset_v4.json",
+    ),
+}
+V5_SMOKE_MODELS = {
+    "Qwen/Qwen3-Coder-Next:novita": "qwen_qwen3_coder_next_novita",
+}
+V5_MATRIX_MODELS = {
+    "Qwen/Qwen3-Coder-Next:novita": "qwen_qwen3_coder_next_novita",
+    "Qwen/Qwen2.5-72B-Instruct": "qwen_qwen2_5_72b_instruct",
+    "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen_qwen2_5_coder_32b_instruct",
+}
+V5_CONDITIONS = (
+    "baseline-single-path",
+    "baseline-cot",
+    "baseline-cot-sc",
+    "baseline-react",
+    "tot-prototype",
+)
+V51_PROFILES = [
+    "tot_model_self_eval",
+    "tot_hybrid_eval",
+    "tot_rule_based_eval",
+    "tot_deep_search",
+]
 
 
 def utc_now() -> str:
@@ -301,6 +341,33 @@ def compute_diagnostic_progress_all() -> Dict[str, Dict[str, Any]]:
             conditions=V4_CONDITIONS,
             panel_limit=50,
         ),
+        "v5_smoke": compute_series_progress(
+            series_id="protocol_v5_base_smoke",
+            report_version_id="v5_smoke",
+            tasks=V5_TASKS,
+            models=V5_SMOKE_MODELS,
+            profiles=[""],
+            conditions=V5_CONDITIONS,
+            panel_limit=10,
+        ),
+        "v5_matrix": compute_series_progress(
+            series_id="protocol_v5_base_matrix",
+            report_version_id="v5_matrix",
+            tasks=V5_TASKS,
+            models=V5_MATRIX_MODELS,
+            profiles=[""],
+            conditions=V5_CONDITIONS,
+            panel_limit=50,
+        ),
+        "v51_matrix": compute_series_progress(
+            series_id="protocol_v51_hybrid_matrix",
+            report_version_id="v51_matrix",
+            tasks=V5_TASKS,
+            models=V5_MATRIX_MODELS,
+            profiles=V51_PROFILES,
+            conditions=V5_CONDITIONS,
+            panel_limit=50,
+        ),
     }
 
 
@@ -347,6 +414,12 @@ def _infer_report_tag(path: Path) -> tuple[str, str]:
 
 def _infer_report_version(path: Path) -> tuple[str, str, str]:
     stem = path.stem
+    if "_base_report_" in stem and stem.endswith("_v5"):
+        return ("v5_matrix", SERIES_VERSION_LABELS.get("v5_matrix", "v5_matrix"), "v5")
+    if "_base_smoke_report_" in stem and stem.endswith("_v5"):
+        return ("v5_smoke", SERIES_VERSION_LABELS.get("v5_smoke", "v5_smoke"), "v5")
+    if "_hybrid_report_" in stem and stem.endswith("_v51"):
+        return ("v51_matrix", SERIES_VERSION_LABELS.get("v51_matrix", "v51_matrix"), "v51")
     if "_confirmatory_report_" in stem and stem.endswith("_v4"):
         return ("v4_matrix", SERIES_VERSION_LABELS.get("v4_matrix", "v4_matrix"), "v4")
     if "_smoke_report_" in stem and stem.endswith("_v4"):
@@ -361,6 +434,10 @@ def _infer_profile_id(path: Path) -> str:
         return "confirmatory"
     if "_smoke_report_" in stem:
         return "smoke"
+    if "_base_report_" in stem:
+        return "base-pattern"
+    if "_base_smoke_report_" in stem:
+        return "base-smoke"
     for profile_id in sorted(PROFILE_LABELS.keys(), key=len, reverse=True):
         marker = f"_{profile_id}_"
         if marker in f"_{stem}_":
@@ -371,6 +448,9 @@ def _infer_profile_id(path: Path) -> str:
 def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[str, Any]]:
     paths: List[Path] = []
     paths.extend(ANALYSIS_DIR.glob("*_diag_report_*.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_base_report_*_v5.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_base_smoke_report_*_v5.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_hybrid_report_*_v51.json"))
     paths.extend(ANALYSIS_DIR.glob("*_confirmatory_report_*_v4.json"))
     paths.extend(ANALYSIS_DIR.glob("*_smoke_report_*_v4.json"))
     paths = sorted(paths, key=lambda p: p.stat().st_mtime, reverse=True)
@@ -612,7 +692,7 @@ def diagnose_access() -> Dict[str, Any]:
 
 def build_overview() -> Dict[str, Any]:
     diagnostic_progress = compute_diagnostic_progress_all()
-    series_reports = list_series_reports({"v31", "v32", "v4_smoke", "v4_matrix"})
+    series_reports = list_series_reports({"v31", "v32", "v4_smoke", "v4_matrix", "v5_smoke", "v5_matrix", "v51_matrix"})
     return {
         "generated_utc": utc_now(),
         "access": diagnose_access(),
@@ -622,6 +702,9 @@ def build_overview() -> Dict[str, Any]:
         "v32_progress": diagnostic_progress.get("v32", {}),
         "v4_smoke_progress": diagnostic_progress.get("v4_smoke", {}),
         "v4_matrix_progress": diagnostic_progress.get("v4_matrix", {}),
+        "v5_smoke_progress": diagnostic_progress.get("v5_smoke", {}),
+        "v5_matrix_progress": diagnostic_progress.get("v5_matrix", {}),
+        "v51_matrix_progress": diagnostic_progress.get("v51_matrix", {}),
         "v3_summary": load_v3_summary(),
         "v4_gate_status": load_v4_gate_status(),
         "v4_matrix_summary": load_v4_matrix_summary(),
@@ -780,7 +863,10 @@ def html_template() -> str:
             <option value="v31">v3.1</option>
             <option value="v32">v3.2</option>
             <option value="v4_smoke">v4-smoke</option>
-            <option value="v4_matrix" selected>v4-matrix</option>
+            <option value="v4_matrix">v4-matrix</option>
+            <option value="v5_smoke">v5-smoke</option>
+            <option value="v5_matrix" selected>v5-matrix</option>
+            <option value="v51_matrix">v5.1-hybrid</option>
           </select>
         </div>
         <div class="progress"><span id="v31ProgressBar"></span></div>
@@ -1109,6 +1195,9 @@ def html_template() -> str:
       const p32 = diag.v32 || data.v32_progress || {};
       const p4Smoke = diag.v4_smoke || data.v4_smoke_progress || {};
       const p4Matrix = diag.v4_matrix || data.v4_matrix_progress || {};
+      const p5Smoke = diag.v5_smoke || data.v5_smoke_progress || {};
+      const p5Matrix = diag.v5_matrix || data.v5_matrix_progress || {};
+      const p51Matrix = diag.v51_matrix || data.v51_matrix_progress || {};
       const p31Pairs = Number(p31.present_pairs || 0);
       const p31Total = Number(p31.total_pairs || 0);
       const p31Pct = p31Total > 0 ? Math.round((p31Pairs / p31Total) * 100) : 0;
@@ -1121,6 +1210,15 @@ def html_template() -> str:
       const p4MatrixPairs = Number(p4Matrix.present_pairs || 0);
       const p4MatrixTotal = Number(p4Matrix.total_pairs || 0);
       const p4MatrixPct = p4MatrixTotal > 0 ? Math.round((p4MatrixPairs / p4MatrixTotal) * 100) : 0;
+      const p5SmokePairs = Number(p5Smoke.present_pairs || 0);
+      const p5SmokeTotal = Number(p5Smoke.total_pairs || 0);
+      const p5SmokePct = p5SmokeTotal > 0 ? Math.round((p5SmokePairs / p5SmokeTotal) * 100) : 0;
+      const p5MatrixPairs = Number(p5Matrix.present_pairs || 0);
+      const p5MatrixTotal = Number(p5Matrix.total_pairs || 0);
+      const p5MatrixPct = p5MatrixTotal > 0 ? Math.round((p5MatrixPairs / p5MatrixTotal) * 100) : 0;
+      const p51MatrixPairs = Number(p51Matrix.present_pairs || 0);
+      const p51MatrixTotal = Number(p51Matrix.total_pairs || 0);
+      const p51MatrixPct = p51MatrixTotal > 0 ? Math.round((p51MatrixPairs / p51MatrixTotal) * 100) : 0;
 
       const v3 = data.v3_summary || {};
       const v3Pos = Number(v3.tot_vs_react_positive || 0);
@@ -1134,26 +1232,40 @@ def html_template() -> str:
       document.getElementById("topCards").innerHTML = [
         '<div class="card"><h2>v4 Matrix Pairs</h2><div class="metric">' + p4MatrixPairs + '/' + p4MatrixTotal + '</div><div class="small">' + p4MatrixPct + '% complete</div></div>',
         '<div class="card"><h2>v4 Smoke Pairs</h2><div class="metric">' + p4SmokePairs + '/' + p4SmokeTotal + '</div><div class="small">' + p4SmokePct + '% complete</div></div>',
+        '<div class="card"><h2>v5 Matrix Pairs</h2><div class="metric">' + p5MatrixPairs + '/' + p5MatrixTotal + '</div><div class="small">' + p5MatrixPct + '% complete</div></div>',
+        '<div class="card"><h2>v5 Smoke Pairs</h2><div class="metric">' + p5SmokePairs + '/' + p5SmokeTotal + '</div><div class="small">' + p5SmokePct + '% complete</div></div>',
+        '<div class="card"><h2>v5.1 Hybrid Pairs</h2><div class="metric">' + p51MatrixPairs + '/' + p51MatrixTotal + '</div><div class="small">' + p51MatrixPct + '% complete</div></div>',
         '<div class="card"><h2>v4 Gate</h2><div class="metric">' + v4GateStatus + '</div><div class="small">' + v4GatePill + '</div></div>',
         '<div class="card"><h2>v3.1 Pairs</h2><div class="metric">' + p31Pairs + '/' + p31Total + '</div><div class="small">' + p31Pct + '% complete</div></div>',
         '<div class="card"><h2>v3.2 Pairs</h2><div class="metric">' + p32Pairs + '/' + p32Total + '</div><div class="small">' + p32Pct + '% complete</div></div>',
-        '<div class="card"><h2>v3 Direction</h2><div class="metric">' + v3Pos + ' / ' + v3Neg + '</div><div class="small">ToT>ReAct / ToT<ReAct blocks</div></div>',
+        '<div class="card"><h2>v3 Direction</h2><div class="metric">' + v3Pos + ' / ' + v3Neg + '</div><div class="small">ToT&gt;ReAct / ToT&lt;ReAct blocks</div></div>',
         '<div class="card"><h2>Active Processes</h2><div class="metric">' + procCount + '</div><div class="small">from runtime PID files</div></div>'
       ].join("");
 
       const progressFilter = document.getElementById("progressVersionFilter");
-      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v4_matrix";
+      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v5_matrix";
       const byVersion = {
         "v31": p31,
         "v32": p32,
         "v4_smoke": p4Smoke,
-        "v4_matrix": p4Matrix
+        "v4_matrix": p4Matrix,
+        "v5_smoke": p5Smoke,
+        "v5_matrix": p5Matrix,
+        "v51_matrix": p51Matrix
       };
       const active = byVersion[selectedVersion] || {};
       const activePairs = Number(active.present_pairs || 0);
       const activeTotal = Number(active.total_pairs || 0);
       const activePct = activeTotal > 0 ? Math.round((activePairs / activeTotal) * 100) : 0;
-      const activeLabel = ({"v31":"v3.1","v32":"v3.2","v4_smoke":"v4-smoke","v4_matrix":"v4-matrix"})[selectedVersion] || selectedVersion;
+      const activeLabel = ({
+        "v31":"v3.1",
+        "v32":"v3.2",
+        "v4_smoke":"v4-smoke",
+        "v4_matrix":"v4-matrix",
+        "v5_smoke":"v5-smoke",
+        "v5_matrix":"v5-matrix",
+        "v51_matrix":"v5.1-hybrid"
+      })[selectedVersion] || selectedVersion;
       const activeDone = Number(active.done_blocks || 0);
       const activePartial = Number(active.partial_blocks || 0);
       const activeNotStarted = Number(active.not_started_blocks || 0);

@@ -22,6 +22,9 @@ class BenchmarkTask(Protocol):
     def build_prompt(self, input_data: Any, scratchpad: str = "") -> str:
         """Build prompt text for a given input and optional scratchpad."""
 
+    def build_cot_prompt(self, input_data: Any, sample_index: int = 1, total_samples: int = 1) -> str:
+        """Build CoT prompt text with optional sample metadata."""
+
     def build_react_prompt(
         self,
         input_data: Any,

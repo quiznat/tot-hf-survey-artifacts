@@ -43,6 +43,19 @@ Status date: 2026-02-22
 - [x] Freeze protocol-v4 and execution guide with mandatory capability-parity lock.
 - [x] Implement disjoint panel generator for all tasks and generate v4 panel/disjointness artifacts.
 - [x] Add protocol-v4 smoke, gate, and confirmatory matrix orchestrators.
-- [ ] Run protocol-v4 gate suite on live provider (`HF_TOKEN`) and archive gate report artifacts.
-- [ ] Execute full protocol-v4 confirmatory matrix (`4 tasks x 3 models x 3 conditions x 50`).
-- [ ] Build protocol-v4 confirmatory matrix summary and scope manuscript claims to v4 evidence only.
+- [x] Run protocol-v4 gate suite on live provider (`HF_TOKEN`) and archive gate report artifacts.
+- [x] Execute full protocol-v4 confirmatory matrix (`4 tasks x 3 models x 3 conditions x 50`).
+- [x] Build protocol-v4 confirmatory matrix summary and scope manuscript claims to v4 evidence only.
+
+## P6 (Protocol-v5 Base Patterns)
+- [x] Add `cot` and `cot_sc` baseline runners to the shared lockset pipeline.
+- [x] Extend `run_structured_lockset.py` and tests for five-condition execution.
+- [x] Add protocol-v5 smoke/matrix orchestration and summary scripts.
+- [ ] Run protocol-v5 smoke (`n=10`) on all tasks with locked controls.
+- [ ] Execute full protocol-v5 base-pattern matrix (`4 tasks x 3 models x 5 conditions x 50`).
+- [ ] Build protocol-v5 matrix summary and publish task/model-scoped comparator table.
+
+## P7 (Protocol-v5.1 Hybrid Profiles)
+- [x] Freeze v5.1 profile grid and add execution + summary tooling.
+- [ ] Execute v5.1 hybrid matrix (`4 tasks x 3 models x 4 profiles x 5 conditions x 50`).
+- [ ] Build hybrid summary and choose profile policy for publication claims.

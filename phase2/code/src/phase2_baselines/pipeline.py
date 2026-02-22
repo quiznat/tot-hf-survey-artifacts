@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Tuple
 
 from .adapters import HuggingFaceInferenceModel, ScriptedModel
 from .manifest import append_run_log, write_manifest
-from .runners import ReactRunner, SinglePathRunner
+from .runners import CoTRunner, CoTSelfConsistencyRunner, ReactRunner, SinglePathRunner
 from .tasks import create_task, resolve_task_id
 
 
@@ -17,6 +17,7 @@ def _build_baseline_config(
     seed: int,
     task_tool_names: List[str],
     react_enable_tools: bool,
+    cot_sc_samples: int,
 ) -> Dict[str, Any]:
     if runner_name == "single":
         return {
@@ -26,6 +27,33 @@ def _build_baseline_config(
             "tool_config": [],
             "budget": {"token_budget": 2000, "time_budget_ms": 10000, "cost_budget_usd": 0.0},
             "seed": seed,
+        }
+
+    if runner_name == "cot":
+        return {
+            "condition_id": "baseline-cot",
+            "prompt_template_version": "v1",
+            "search_config": {"depth": 1, "breadth": 1, "pruning": "none", "stop_policy": "single-cot-pass"},
+            "tool_config": [],
+            "budget": {"token_budget": 3000, "time_budget_ms": 12000, "cost_budget_usd": 0.0},
+            "seed": seed,
+        }
+
+    if runner_name == "cot_sc":
+        samples = max(1, int(cot_sc_samples))
+        return {
+            "condition_id": "baseline-cot-sc",
+            "prompt_template_version": "v1",
+            "search_config": {
+                "depth": 1,
+                "breadth": samples,
+                "pruning": "majority_vote",
+                "stop_policy": "sample_consensus",
+            },
+            "tool_config": [],
+            "budget": {"token_budget": 6000, "time_budget_ms": 16000, "cost_budget_usd": 0.0},
+            "seed": seed,
+            "cot_sc_samples": samples,
         }
 
     if runner_name == "react":
@@ -58,6 +86,21 @@ def _resolve_model(
         if runner_name == "single":
             model = ScriptedModel(responses=["(10*10-4)/4"])
             return model, "scripted-single-v1", "local-scripted"
+        if runner_name == "cot":
+            model = ScriptedModel(
+                responses=["Reasoning: use 10*10 then subtract 4 and divide by 4.\nFINAL: (10*10-4)/4"]
+            )
+            return model, "scripted-cot-v1", "local-scripted"
+        if runner_name == "cot_sc":
+            model = ScriptedModel(
+                responses=[
+                    "Reasoning path A.\nFINAL: (10*10-4)/4",
+                    "Reasoning path B.\nFINAL: (10*10-4)/4",
+                    "Reasoning path C.\nFINAL: (10*10-4)/4",
+                ],
+                fallback="Reasoning fallback.\nFINAL: (10*10-4)/4",
+            )
+            return model, "scripted-cot-sc-v1", "local-scripted"
         if runner_name == "react":
             model = ScriptedModel(
                 responses=[
@@ -101,6 +144,7 @@ def create_baseline_setup(
     hf_temperature: float = 0.0,
     hf_top_p: float = 1.0,
     react_enable_tools: bool = True,
+    cot_sc_samples: int = 5,
 ) -> Tuple[Any, Any, Dict[str, Any]]:
     """Create runner, task, and config for a named baseline condition."""
     task = create_task(task_name)
@@ -121,11 +165,20 @@ def create_baseline_setup(
         seed=seed,
         task_tool_names=task_tool_names,
         react_enable_tools=react_enable_tools,
+        cot_sc_samples=cot_sc_samples,
     )
     config["task_id"] = task_id
 
     if runner_name == "single":
         runner = SinglePathRunner(model=model, model_name=resolved_model_id, provider=resolved_provider)
+        return runner, task, config
+
+    if runner_name == "cot":
+        runner = CoTRunner(model=model, model_name=resolved_model_id, provider=resolved_provider)
+        return runner, task, config
+
+    if runner_name == "cot_sc":
+        runner = CoTSelfConsistencyRunner(model=model, model_name=resolved_model_id, provider=resolved_provider)
         return runner, task, config
 
     if runner_name == "react":
@@ -137,9 +190,10 @@ def create_baseline_setup(
 
 def execute_and_record(
     runner_name: str,
-    input_data: Any,
     runs_dir: Path,
     run_log: Path,
+    input_data: Any | None = None,
+    input_numbers: Any | None = None,
     seed: int = 0,
     provider: str = "scripted",
     task_name: str = "game24",
@@ -149,8 +203,13 @@ def execute_and_record(
     hf_max_new_tokens: int = 192,
     hf_temperature: float = 0.0,
     hf_top_p: float = 1.0,
+    cot_sc_samples: int = 5,
 ) -> Dict[str, Any]:
     """Run one baseline condition and persist its manifest artifacts."""
+    payload = input_data if input_data is not None else input_numbers
+    if payload is None:
+        raise RuntimeError("execute_and_record requires input_data or input_numbers")
+
     runner, task, config = create_baseline_setup(
         runner_name=runner_name,
         seed=seed,
@@ -162,9 +221,10 @@ def execute_and_record(
         hf_max_new_tokens=hf_max_new_tokens,
         hf_temperature=hf_temperature,
         hf_top_p=hf_top_p,
+        cot_sc_samples=cot_sc_samples,
     )
     runner.prepare(task=task, config=config)
-    manifest = runner.run(input_data)
+    manifest = runner.run(payload)
 
     out_path = runs_dir / f"{manifest['run_id']}.json"
     manifest["artifact_paths"].append(str(out_path))

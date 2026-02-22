@@ -4,7 +4,7 @@ This directory will contain the executable implementation for baseline and ToT-i
 
 ## Current Layout
 - `src/phase2_baselines/runners/`: baseline runner implementations.
-  - includes `ToTRunner` prototype with search-state tracing.
+  - includes `CoTRunner`, `CoTSelfConsistencyRunner`, and `ToTRunner`.
 - `src/phase2_baselines/adapters.py`: scripted and Hugging Face inference model adapters.
 - `src/phase2_baselines/tasks/`: benchmark task adapters.
   - includes `subset-sum`, `linear2`, and `digit-permutation` tasks for protocol-v3.
@@ -27,6 +27,11 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_protocol_v4_gates.py`: protocol-v4 pre-launch gate runner (tests, smoke, parity audit, report-only parity).
 - `scripts/run_protocol_v4_matrix.py`: frozen confirmatory matrix orchestrator for protocol-v4.
 - `scripts/build_protocol_v4_matrix_summary.py`: consolidated summary across protocol-v4 confirmatory reports.
+- `scripts/run_protocol_v5_smoke.py`: protocol-v5 smoke execution for `single,cot,cot_sc,react,tot`.
+- `scripts/run_protocol_v5_matrix.py`: protocol-v5 base-pattern matrix orchestrator.
+- `scripts/build_protocol_v5_matrix_summary.py`: consolidated summary across protocol-v5 base reports.
+- `scripts/run_protocol_v51_hybrid_matrix.py`: protocol-v5.1 hybrid profile matrix orchestrator.
+- `scripts/build_protocol_v51_hybrid_summary.py`: consolidated summary across protocol-v5.1 hybrid reports.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
 - `scripts/build_search_ablation_summary.py`: consolidate primary + A1 + A2 lockset reports into one search-ablation summary.
@@ -153,8 +158,9 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
 ```
 
 Active protocol reference:
-- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v2.md`
-- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/protocol-v2-search-ablation-execution.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v5.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v51.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/protocol-v5-execution.md`
 
 ## Local Tests
 ```bash
@@ -207,7 +213,7 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_structure
   --panel-file /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/panels/subset_sum_lockset_v1.json \
   --provider hf \
   --model-id Qwen/Qwen3-Coder-Next:novita \
-  --conditions single,react,tot \
+  --conditions single,cot,cot_sc,react,tot \
   --limit 50 \
   --max-workers 8
 ```

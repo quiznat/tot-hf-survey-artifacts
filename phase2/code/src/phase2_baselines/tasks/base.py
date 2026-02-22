@@ -26,6 +26,19 @@ class BaseTask:
         del final_answer, input_data
         return False
 
+    def build_cot_prompt(self, input_data: Any, sample_index: int = 1, total_samples: int = 1) -> str:
+        prompt = self.build_prompt(input_data)
+        sample_note = ""
+        if total_samples > 1:
+            sample_note = f"Sample {sample_index}/{total_samples}: produce an independently reasoned attempt.\n"
+        return (
+            f"{prompt}\n\n"
+            f"{sample_note}"
+            "Think step by step before answering.\n"
+            "End with exactly one line:\n"
+            "FINAL: <answer>\n"
+        )
+
     def available_tools(self) -> Mapping[str, Callable[[str, Any], str]]:
         return {}
 

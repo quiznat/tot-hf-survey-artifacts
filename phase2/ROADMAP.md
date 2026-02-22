@@ -24,6 +24,10 @@ Deliver a reproducible implementation and empirical evaluation of Tree-of-Though
 - Expansion protocol ID: `TOT-HF-P2-EPV3-2026-02-21`
 - Active confirmatory reset protocol: `phase2/benchmarks/evaluation-protocol-v4.md`
 - Confirmatory protocol ID: `TOT-HF-P2-EPV4-2026-02-22`
+- Active base-pattern protocol: `phase2/benchmarks/evaluation-protocol-v5.md`
+- Base-pattern protocol ID: `TOT-HF-P2-EPV5-2026-02-22`
+- Active hybrid profile protocol: `phase2/benchmarks/evaluation-protocol-v51.md`
+- Hybrid protocol ID: `TOT-HF-P2-EPV51-2026-02-22`
 
 ## Gate Model
 
@@ -79,6 +83,6 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 4)
-1. Enforce exploratory quarantine for all pre-v4 evidence using `phase2/benchmarks/evidence/series_registry.json`.
-2. Build and validate disjoint protocol-v4 panels, then pass all v4 gates (tests, smoke, parity audit, report-only stability).
-3. Execute the frozen protocol-v4 confirmatory matrix and summarize only v4 confirmatory reports.
+1. Execute protocol-v5 smoke and full base-pattern matrix (`single,cot,cot_sc,react,tot`) with frozen controls.
+2. Build protocol-v5 matrix summary and compare ToT against all base comparators (not only ReAct).
+3. Execute protocol-v5.1 hybrid profile matrix and summarize task/model/profile effects.

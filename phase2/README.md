@@ -11,10 +11,14 @@ This directory is the execution workspace for the novel contribution track: impl
 - Pre-v4 evidence is quarantined as exploratory and excluded from primary confirmatory claims:
   - registry: `phase2/benchmarks/evidence/series_registry.json`
   - reset record: `phase2/benchmarks/evidence/protocol_v4_reset_20260222T0600Z/README.md`
-- Active confirmatory track:
+- Confirmatory reference track (completed and frozen):
   - protocol: `phase2/benchmarks/evaluation-protocol-v4.md`
   - matrix: `phase2/benchmarks/benchmark-matrix-v4.md`
   - execution guide: `phase2/benchmarks/protocol-v4-execution.md`
+- Active expansion track:
+  - base patterns protocol: `phase2/benchmarks/evaluation-protocol-v5.md`
+  - base patterns matrix: `phase2/benchmarks/benchmark-matrix-v5.md`
+  - base + hybrid execution guide: `phase2/benchmarks/protocol-v5-execution.md`
 
 ## Dashboard
 - Service installer: `phase2/dashboard/install_service.sh`
