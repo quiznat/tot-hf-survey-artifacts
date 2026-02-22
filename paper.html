@@ -4,9 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tree of Thoughts Meets Hugging Face Agents</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
   <script defer>
     window.addEventListener('DOMContentLoaded', function () {
@@ -19,19 +16,20 @@
   </script>
   <style>
     :root {
-      --text-color: #2c2c2c;
-      --accent-color: #8b4513;
-      --bg-color: #fafafa;
-      --border-color: #e0e0e0;
-      --code-sand: #efe2cc;
-      --code-sand-dark: #e3d1b2;
-      --code-ink: #2f2418;
-      --code-comment: #7c6b55;
-      --code-keyword: #7b3f00;
-      --code-string: #2d5c4d;
-      --code-number: #5b4a9c;
-      --code-function: #14506a;
-      --code-operator: #5a4631;
+      --ink: #14181f;
+      --muted: #4a5566;
+      --paper: #ffffff;
+      --bg: #f3f5f8;
+      --border: #d6dce5;
+      --rule: #9ba9bd;
+      --link: #0b4f8a;
+      --link-hover: #083a66;
+      --code-bg: #f7f9fc;
+      --code-border: #ccd5e2;
+      --code-ink: #122233;
+      --note-bg: #f5f8fc;
+      --note-border: #9fb3cc;
+      --table-head: #eef2f7;
     }
 
     * {
@@ -41,49 +39,49 @@
     }
 
     body {
-      font-family: 'Crimson Text', Georgia, serif;
+      font-family: "Times New Roman", Times, "Nimbus Roman No9 L", serif;
       font-size: 18px;
-      line-height: 1.8;
-      color: var(--text-color);
-      background-color: var(--bg-color);
+      line-height: 1.68;
+      color: var(--ink);
+      background-color: var(--bg);
       padding: 2rem 1rem;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
-      background: white;
-      padding: 3rem 4rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      background: var(--paper);
+      border: 1px solid var(--border);
+      padding: 2.75rem 3.25rem;
+      counter-reset: listing;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.15rem;
       font-weight: 700;
-      color: var(--text-color);
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-      border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 1rem;
+      line-height: 1.25;
+      margin-bottom: 0.45rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--rule);
     }
 
     .subtitle {
       margin: 0.5rem 0 2rem;
-      color: #555;
+      color: var(--muted);
       font-style: italic;
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       text-align: left;
     }
 
     .front-matter {
       margin: 0 0 1.75rem;
       padding: 1rem 1.25rem;
-      border: 1px solid var(--border-color);
-      background: #fcfcf9;
+      border: 1px solid var(--border);
+      background: #fafbfd;
     }
 
     .authors-line {
-      font-size: 1.05rem;
+      font-size: 1.03rem;
       margin-bottom: 0.5rem;
       text-align: left;
     }
@@ -104,91 +102,136 @@
       text-align: left;
     }
 
-    .front-matter a {
-      color: var(--accent-color);
+    a {
+      color: var(--link);
       text-decoration: none;
     }
 
-    .front-matter a:hover {
+    a:hover {
+      color: var(--link-hover);
       text-decoration: underline;
     }
 
     h2 {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-top: 3rem;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border-color);
+      font-size: 1.58rem;
+      font-weight: 700;
+      margin-top: 2.7rem;
+      margin-bottom: 1.05rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px solid var(--border);
     }
 
     h3 {
       font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      font-weight: 700;
+      margin-top: 1.9rem;
+      margin-bottom: 0.85rem;
     }
 
     h4 {
       font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-top: 1.5rem;
-      margin-bottom: 0.8rem;
+      font-weight: 700;
+      margin-top: 1.45rem;
+      margin-bottom: 0.65rem;
     }
 
     p {
-      margin-bottom: 1.2rem;
-      text-align: justify;
-      hyphens: auto;
+      margin-bottom: 1rem;
+      text-align: left;
+      hyphens: none;
     }
 
     .abstract {
-      background: #f8f8f8;
-      padding: 1.5rem 2rem;
-      border-left: 4px solid var(--accent-color);
-      margin: 2rem 0;
-      font-style: italic;
+      border: 1px solid var(--border);
+      background: #fafbfd;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0;
     }
 
     .abstract-title {
       font-weight: 700;
-      font-style: normal;
-      margin-bottom: 0.8rem;
-      font-size: 1.1rem;
+      margin-bottom: 0.7rem;
+      font-size: 1.06rem;
+    }
+
+    p.listing-note {
+      margin: 0.5rem 0 0.35rem;
+      font-size: 0.84rem;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    p.listing-note strong {
+      font-family: "Arial", "Helvetica", sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #143a63;
+      margin-right: 0.3rem;
     }
 
     pre {
-      background: linear-gradient(180deg, #f4e9d7 0%, var(--code-sand) 100%);
-      border: 1px solid var(--code-sand-dark);
-      border-radius: 8px;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
+      margin: 1.9rem 0 1.2rem;
+    }
+
+    pre[data-kind] {
+      counter-increment: listing;
+      position: relative;
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 3px;
+      padding: 1rem 1.2rem;
       overflow-x: auto;
-      font-family: Consolas, Monaco, monospace;
-      font-size: 0.9rem;
+      font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.87rem;
       line-height: 1.5;
       color: var(--code-ink);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    }
+
+    pre[data-kind]::before {
+      content: "Listing " counter(listing) " · " attr(data-kind);
+      position: absolute;
+      top: -1.45rem;
+      left: 0;
+      font-family: "Arial", "Helvetica", sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #3f4f66;
+      background: var(--paper);
+      border: 1px solid var(--code-border);
+      border-radius: 3px;
+      padding: 0.16rem 0.4rem;
+      white-space: nowrap;
+    }
+
+    pre[data-listing="runnable"]::before {
+      color: #0f5a33;
+      border-color: #90c0a2;
+      background: #eff9f2;
+    }
+
+    pre[data-listing="pseudo"]::before {
+      color: #66561f;
+      border-color: #d4c38a;
+      background: #fcf9ef;
     }
 
     code {
-      font-family: Consolas, Monaco, monospace;
-      font-size: 0.9em;
-      background: #f3e7d3;
+      font-family: "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.87em;
+      background: #f3f6fb;
       color: var(--code-ink);
-      padding: 0.2em 0.4em;
+      border: 1px solid #d7dfeb;
+      padding: 0.12em 0.35em;
       border-radius: 3px;
     }
 
     pre code {
       background: transparent;
+      border: 0;
       padding: 0;
       color: var(--code-ink);
-      font-weight: 500;
-      text-shadow: none;
     }
 
     .hljs {
@@ -197,11 +240,10 @@
       color: var(--code-ink);
     }
 
-    /* Syntax-token styling for highlight.js/prism-style class names. */
     .token.comment,
     .hljs-comment,
     .hljs-quote {
-      color: var(--code-comment);
+      color: #6a778b;
       font-style: italic;
     }
 
@@ -209,92 +251,99 @@
     .hljs-keyword,
     .hljs-selector-tag,
     .hljs-literal {
-      color: var(--code-keyword);
+      color: #0f3d68;
       font-weight: 600;
     }
 
     .token.string,
     .hljs-string,
     .hljs-regexp {
-      color: var(--code-string);
+      color: #1e5b40;
     }
 
     .token.number,
     .hljs-number,
     .hljs-attr {
-      color: var(--code-number);
+      color: #4f478f;
     }
 
     .token.function,
     .hljs-title,
     .hljs-title.function_ {
-      color: var(--code-function);
+      color: #0d5874;
     }
 
     .token.operator,
     .hljs-operator,
     .token.punctuation,
     .hljs-punctuation {
-      color: var(--code-operator);
+      color: #3b4960;
     }
 
     ul, ol {
-      margin: 1rem 0 1.2rem 2rem;
+      margin: 0.9rem 0 1.05rem 1.8rem;
     }
 
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.42rem;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1.5rem 0;
+      margin: 1.35rem 0;
       font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     caption {
       caption-side: top;
       text-align: left;
-      margin-bottom: 0.6rem;
-      font-size: 0.92rem;
-      font-style: italic;
-      color: #4a4a4a;
+      margin-bottom: 0.55rem;
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
     th {
-      background: #f0f0f0;
-      font-weight: 600;
+      background: var(--table-head);
+      font-weight: 700;
       text-align: left;
-      padding: 0.8rem 1rem;
-      border-bottom: 2px solid var(--border-color);
+      padding: 0.68rem 0.9rem;
+      border-bottom: 1px solid var(--border);
     }
 
     td {
-      padding: 0.7rem 1rem;
-      border-bottom: 1px solid var(--border-color);
+      padding: 0.62rem 0.9rem;
+      border-bottom: 1px solid #e8edf4;
     }
 
-    tr:hover {
-      background: #f8f8f8;
+    tr:last-child td {
+      border-bottom: 0;
     }
 
     hr {
       border: none;
-      border-top: 1px solid var(--border-color);
-      margin: 2.5rem 0;
+      border-top: 1px solid var(--border);
+      margin: 2.35rem 0;
     }
 
     .diagram-container {
       text-align: center;
-      margin: 1.5rem 0;
+      margin: 1.3rem 0;
+    }
+
+    .diagram-container img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
     }
 
     .note {
-      background: #fff8e1;
-      border-left: 4px solid #ffc107;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
+      background: var(--note-bg);
+      border-left: 3px solid var(--note-border);
+      padding: 0.9rem 1.1rem;
+      margin: 1.2rem 0;
       font-size: 0.95rem;
     }
 
@@ -303,23 +352,23 @@
     }
 
     .references p {
-      margin-bottom: 0.8rem;
-      padding-left: 2rem;
-      text-indent: -2rem;
+      margin-bottom: 0.72rem;
+      padding-left: 1.85rem;
+      text-indent: -1.85rem;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
       body {
         font-size: 16px;
-        padding: 1rem 0.5rem;
+        padding: 0.9rem 0.5rem;
       }
 
       .container {
-        padding: 2rem 1.5rem;
+        padding: 1.85rem 1.25rem;
       }
 
       h1 {
-        font-size: 1.8rem;
+        font-size: 1.82rem;
       }
 
       h2 {
@@ -327,7 +376,11 @@
       }
 
       h3 {
-        font-size: 1.2rem;
+        font-size: 1.18rem;
+      }
+
+      pre[data-kind] {
+        font-size: 0.82rem;
       }
     }
   </style>
@@ -492,7 +545,7 @@
         <p>The evolution of reasoning in language models reflects broader trends in AI. Early approaches treated generation as a direct input-to-output mapping. Chain-of-Thought prompting introduced explicit intermediate steps, with prior work reporting improved performance on several reasoning benchmarks [3, 4].</p>
         <p>Chain of Thought works by prompting the model to generate a sequence of thoughts leading to the final answer:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
    Each can has 3 tennis balls. How many tennis balls does he have now?
 
 A: Roger started with 5 balls.
@@ -527,7 +580,7 @@ A: Roger started with 5 balls.
         <p>The first challenge is decomposing the problem into discrete thought steps. This requires identifying natural intermediate points where alternative approaches might diverge [1, 2].</p>
         <p>For mathematical problems, thoughts might represent individual operations:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Problem: Calculate (15 + 27) × (42 - 18)
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Problem: Calculate (15 + 27) × (42 - 18)
 
 Thought decomposition:
 - T1: Calculate first parentheses: 15 + 27 = ?
@@ -535,7 +588,7 @@ Thought decomposition:
 - T3: Multiply results from T1 and T2</code></pre>
         <p>For creative writing, thoughts might represent content decisions:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Task: Write a story about a detective solving a mystery
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Task: Write a story about a detective solving a mystery
 
 Thought decomposition:
 - T1: Choose setting (modern city, historical period, future)
@@ -546,9 +599,9 @@ Thought decomposition:
 
         <h4>2.3.2 Thought Generation</h4>
         <p>Given the current problem state and history, the model must generate candidate next thoughts. This is typically accomplished through prompting that encourages diversity [1, 2]:</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/prompt_templates.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/prompt_templates.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">def build_generation_prompt(task: str, current_path: str, k: int) -&gt; str:
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">def build_generation_prompt(task: str, current_path: str, k: int) -&gt; str:
     return f"""
 Given the task: {task}
 And current progress: {current_path}
@@ -574,9 +627,9 @@ Steps:
         <p>Once candidates are generated, each is evaluated to estimate its promise. This step is often challenging because the model must assess partial solutions [1, 2].</p>
         <p>Evaluation strategies include:</p>
         <p><strong>Value Function Scoring:</strong></p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/prompt_templates.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/prompt_templates.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">def build_evaluation_prompt(task: str, thought_path: str) -&gt; str:
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">def build_evaluation_prompt(task: str, thought_path: str) -&gt; str:
     return f"""
 Given the task: {task}
 And current progress: {thought_path}
@@ -628,7 +681,7 @@ Rating:
         <p><strong>Input:</strong> Problem P, generation function G(P, s, k) → {t₁, ..., tₖ}, evaluation function E(P, s, t) → v on a 0-10 scale, search algorithm A, beam width b, maximum depth d</p>
         <p><strong>Output:</strong> Solution or best path found</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Algorithm ToT(P, G, E, A, b, d):
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Algorithm ToT(P, G, E, A, b, d):
     Initialize: S ← {s₀}  // Set of states, starting with initial state
     
     for depth = 1 to d:
@@ -784,9 +837,9 @@ Rating:
         <p><strong>Execution</strong> runs tool code safely [10, 12].</p>
 
         <h4>3.3.3 Installation and Setup</h4>
-        <p><strong>Runnable example.</strong> The following install commands are intended to be executable as written (subject to environment differences). Verified script: <code>examples/paper_snippets/install_smolagents.sh</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> The following install commands are intended to be executable as written (subject to environment differences). Verified script: <code>examples/paper_snippets/install_smolagents.sh</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-bash"># Basic installation
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-bash"># Basic installation
 pip install smolagents
 
 # Common extras from official installation docs
@@ -798,34 +851,34 @@ pip install "smolagents[gradio]"        # Gradio UI
 pip install "smolagents[all]"           # All optional extras</code></pre>
 
         <h3>3.4 CodeAgent: Code as Action</h3>
-        <p class="note"><strong>Code labeling.</strong> In Sections 3-6, snippets fall into two categories: <em>runnable examples</em> (intended to run with adaptation) and <em>pseudo-code</em> (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. Runnable snippets map to tested sample files under <code>examples/paper_snippets/</code> (tests: <code>tests/test_paper_snippets.py</code>). API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 [10, 12].</p>
+        <p class="note"><strong>Code labeling.</strong> In Sections 3-6, listings follow a single scholarly pattern: <em>Listing N · Runnable (tested)</em> or <em>Listing N · Illustrative pseudo-code</em>. Runnable snippets map to tested sample files under <code>examples/paper_snippets/</code> (tests: <code>tests/test_paper_snippets.py</code>). API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 [10, 12].</p>
         <p>The flagship agent in smolagents is CodeAgent, which uses generated Python code to invoke tools directly rather than relying only on structured function-call objects [10, 12].</p>
 
         <h4>3.4.1 Code as Action Paradigm</h4>
         <p>Traditional agents might generate:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-json">{
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-json">{
   "tool": "calculator",
   "parameters": {"expression": "15 * 24"}
 }</code></pre>
         <p>CodeAgent generates:</p>
-        <p><strong>Runnable examples.</strong> Verified helper implementations: <code>examples/paper_snippets/code_action_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable examples.</strong> Verified helper implementations: <code>examples/paper_snippets/code_action_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.code_action_examples import calculator
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.code_action_examples import calculator
 
 result = calculator("15 * 24")
 print(result)</code></pre>
         <p>In this survey's implementation framing, this approach offers several engineering advantages:</p>
         <p><strong>Composability:</strong> Multiple tools can be combined in single code blocks:</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.code_action_examples import composable_pipeline
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.code_action_examples import composable_pipeline
 
 answer = composable_pipeline("Bitcoin price history")
 print(answer)</code></pre>
         <p><strong>Familiarity:</strong> Python syntax is widely understood, making agent behavior more interpretable.</p>
         <p><strong>Flexibility:</strong> Complex logic (loops, conditionals) is expressed naturally:</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.code_action_examples import stock_alerts
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.code_action_examples import stock_alerts
 
 for message in stock_alerts(["AAPL", "GOOGL", "MSFT"], threshold=100):
     print(message)</code></pre>
@@ -833,9 +886,9 @@ for message in stock_alerts(["AAPL", "GOOGL", "MSFT"], threshold=100):
 
         <h4>3.4.2 CodeAgent Implementation</h4>
         <p>A minimal CodeAgent (doc-aligned pattern):</p>
-        <p><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
 
 # Define the agent
 agent = CodeAgent(
@@ -854,9 +907,9 @@ print(result)</code></pre>
             <li>Return the result</li>
         </ul>
         <p>The agent might generate:</p>
-        <p><strong>Runnable example.</strong> Verified implementation: <code>examples/paper_snippets/fibonacci_example.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified implementation: <code>examples/paper_snippets/fibonacci_example.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python"># Calculate Fibonacci sequence
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python"># Calculate Fibonacci sequence
 def fibonacci(n):
     if n &lt;= 1:
         return n
@@ -871,7 +924,7 @@ print(result)</code></pre>
         <h4>3.4.3 Configuration and Customization</h4>
         <p>CodeAgent configuration options in current docs include model/tool binding, step limits, optional planning, authorized imports, and executor settings [10, 12]. Grammar-constrained generation is a model-side capability rather than a CodeAgent constructor parameter [10, 12].</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
 from examples.paper_snippets.builtin_tools_examples import DuckDuckGoSearchTool
 
 agent = CodeAgent(
@@ -895,9 +948,9 @@ agent = CodeAgent(
 
         <h4>3.5.2 Planning Capabilities</h4>
         <p>MultiStepAgent can create and execute plans:</p>
-        <p><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import MultiStepAgent, InferenceClientModel
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.agent_runtime_examples import MultiStepAgent, InferenceClientModel
 from examples.paper_snippets.builtin_tools_examples import DuckDuckGoSearchTool
 
 agent = MultiStepAgent(
@@ -921,9 +974,9 @@ result = agent.run("""
 
         <h4>3.5.3 Error Handling and Recovery</h4>
         <p>Error handling is typically implemented at orchestration level around agent execution.</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/orchestration_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/orchestration_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.orchestration_examples import retry_with_recovery
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.orchestration_examples import retry_with_recovery
 
 attempts = {"n": 0}
 
@@ -952,10 +1005,10 @@ result = retry_with_recovery(
 
         <h4>3.6.1 Built-in Tools</h4>
         <p>smolagents provides default tool integrations (examples below are doc-aligned) [10, 12]:</p>
-        <p><strong>Runnable examples.</strong> Verified stand-ins: <code>examples/paper_snippets/builtin_tools_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable examples.</strong> Verified stand-ins: <code>examples/paper_snippets/builtin_tools_examples.py</code>.</p>
         <p><strong>Search and browsing tools:</strong></p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.builtin_tools_examples import (
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.builtin_tools_examples import (
     DuckDuckGoSearchTool,
     WikipediaSearchTool,
     VisitWebpageTool,
@@ -966,16 +1019,16 @@ wiki_tool = WikipediaSearchTool()
 visit_tool = VisitWebpageTool()</code></pre>
         <p><strong>Python execution tool:</strong></p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.builtin_tools_examples import PythonInterpreterTool
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.builtin_tools_examples import PythonInterpreterTool
 
 python_tool = PythonInterpreterTool()
 result = python_tool("sum(range(100))")</code></pre>
 
         <h4>3.6.2 Custom Tool Definition</h4>
         <p>Tools are defined using Python decorators [10, 12]:</p>
-        <p><strong>Runnable examples.</strong> The following are runnable excerpts; full helper/import context is provided and tested in <code>examples/paper_snippets/tool_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable examples.</strong> The following are runnable excerpts; full helper/import context is provided and tested in <code>examples/paper_snippets/tool_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from smolagents import tool
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from smolagents import tool
 from typing import Optional
 
 @tool
@@ -1017,7 +1070,7 @@ def fetch_stock_price(
         <p>Tools can be combined in sophisticated ways:</p>
         <p><strong>Chained Tools:</strong></p>
         <!-- Runnable example -->
-        <pre><code class="language-python">@tool
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">@tool
 def analyze_website(url: str) -&gt; str:
     """Analyze a website and return key information."""
     # Helper functions are defined in tool_examples.py
@@ -1033,7 +1086,7 @@ def analyze_website(url: str) -&gt; str:
     return summary</code></pre>
         <p><strong>Conditional Tools:</strong></p>
         <!-- Runnable example -->
-        <pre><code class="language-python">@tool
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">@tool
 def smart_search(query: str, require_recent: bool = False) -&gt; str:
     """Search with conditional logic."""
     if require_recent:
@@ -1042,7 +1095,7 @@ def smart_search(query: str, require_recent: bool = False) -&gt; str:
         return web_search(query)</code></pre>
         <p><strong>Stateful Tools:</strong></p>
         <!-- Runnable example -->
-        <pre><code class="language-python">import sqlite3
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">import sqlite3
 
 class DatabaseTool:
     def __init__(self):
@@ -1080,7 +1133,7 @@ class DatabaseTool:
         <h4>3.6.4 Tool Schemas and Validation</h4>
         <p>smolagents supports tool schema generation/serialization for callable interfaces [10, 12]:</p>
         <!-- Runnable example -->
-        <pre><code class="language-python"># For the fetch_stock_price tool above, the schema is:
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python"># For the fetch_stock_price tool above, the schema is:
 {
     "name": "fetch_stock_price",
     "description": "Fetch the current or historical stock price...",
@@ -1125,9 +1178,9 @@ class DatabaseTool:
         <h4>3.6.6 Tool Security and Sandboxing</h4>
         <p>Security is critical when agents execute generated code. Current smolagents patterns center on executor selection plus environment controls [10, 12]:</p>
         <p><strong>Executor selection:</strong></p>
-        <p><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
 from examples.paper_snippets.tool_examples import fetch_stock_price
 
 agent = CodeAgent(
@@ -1143,9 +1196,9 @@ agent = CodeAgent(
 
         <h4>3.7.1 Deployment Patterns</h4>
         <p><strong>Local Deployment:</strong></p>
-        <p><strong>Runnable example.</strong> Framework-agnostic local handler equivalent to a simple web route; verified helper: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Framework-agnostic local handler equivalent to a simple web route; verified helper: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import (
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.agent_runtime_examples import (
     ChatRequest,
     CodeAgent,
     InferenceClientModel,
@@ -1155,9 +1208,9 @@ agent = CodeAgent(
 agent = CodeAgent(tools=[], model=InferenceClientModel("demo-model"))
 response = handle_chat(agent, ChatRequest(message="What is the 15th Fibonacci number?"))</code></pre>
         <p><strong>Containerized Deployment:</strong></p>
-        <p><strong>Runnable example.</strong> This Dockerfile block is intended to be executable with standard Python service scaffolding. Verified file: <code>examples/paper_snippets/Dockerfile</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> This Dockerfile block is intended to be executable with standard Python service scaffolding. Verified file: <code>examples/paper_snippets/Dockerfile</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-dockerfile">FROM python:3.11-slim
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-dockerfile">FROM python:3.11-slim
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
@@ -1166,9 +1219,9 @@ EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
 
         <h4>3.7.2 Monitoring and Observability</h4>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/monitoring_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/monitoring_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.monitoring_examples import InMemoryTracer, InstrumentedRunner
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.monitoring_examples import InMemoryTracer, InstrumentedRunner
 
 tracer = InMemoryTracer()
 runner = InstrumentedRunner(tracer=tracer)
@@ -1208,7 +1261,7 @@ result = runner.run(
             <li>Focuses on orchestration seams (planner → execution) rather than new algorithmic claims.</li>
         </ul>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
 
 class ToTPlanner:
     """Planner interface for candidate generation, scoring, and selection."""
@@ -1248,9 +1301,9 @@ agent = ToTEnabledCodeAgent(
         <h4>4.3.1 Improved Tool Selection</h4>
         <p><strong>Problem:</strong> Agents often select suboptimal tools or sequences.</p>
         <p><strong>ToT Solution:</strong> Explore multiple tool sequences before execution.</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.strategy_examples import compare_tool_selection
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.strategy_examples import compare_tool_selection
 
 task = "Compare two open-source vector databases for a production RAG stack."
 comparison = compare_tool_selection(task)
@@ -1260,7 +1313,7 @@ print(comparison["tot_best_candidate"])
 print(comparison["tot_ranked_scores"])</code></pre>
         <p><strong>Example - Complex Query:</strong></p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Task: "Compare two open-source vector databases for a production RAG stack"
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Task: "Compare two open-source vector databases for a production RAG stack"
 
 ToT Exploration:
 ├── Path A: Blog-post-first comparison
@@ -1284,9 +1337,9 @@ Selected: Path B for source quality and reproducibility</code></pre>
         <h4>4.3.2 Error Recovery and Backtracking</h4>
         <p><strong>Problem:</strong> When tool calls fail, agents often get stuck or produce incorrect results.</p>
         <p><strong>ToT Solution:</strong> Maintain alternative paths for backtracking.</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.strategy_examples import RecoverableAgent
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.strategy_examples import RecoverableAgent
 
 agent = RecoverableAgent()
 report = agent.execute_with_recovery(
@@ -1300,7 +1353,7 @@ print(report.errors)</code></pre>
         <h4>4.3.3 Multi-Step Planning</h4>
         <p><strong>Example - Research Workflow:</strong></p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Task: "Prepare a market analysis report on electric vehicles"
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Task: "Prepare a market analysis report on electric vehicles"
 
 ToT Planning Tree:
 ├── Research Phase
@@ -1338,13 +1391,13 @@ Execution Plan:
         <p><strong>Scenario:</strong> Analyze a company's quarterly earnings.</p>
         <p><strong>Traditional Agent:</strong></p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Step 1: Search for "Company Q3 2024 earnings"
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Step 1: Search for "Company Q3 2024 earnings"
 Step 2: Extract revenue figure
 Step 3: Calculate YoY growth
 # May miss detailed breakdowns, context, or comparative analysis</code></pre>
         <p><strong>ToT-Enhanced Agent:</strong></p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Planning Phase (ToT):
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Planning Phase (ToT):
 ├── Strategy A: Quick summary from news articles
 │   └── Heuristic rating: low (fast but shallow)
 │
@@ -1380,7 +1433,7 @@ Result pattern: structured report with multiple evidence sources</code></pre>
         </ul>
         <p><strong>ToT Exploration:</strong></p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Creative Concepts:
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Creative Concepts:
 ├── Concept A: Influencer partnerships
 │   ├── Micro-influencer strategy
 │   ├── Challenge campaign
@@ -1419,7 +1472,7 @@ Execution Plan:
         <p><strong>Error:</strong> <code>AttributeError: 'NoneType' object has no attribute 'strip'</code></p>
         <p><strong>ToT Agent Approach:</strong></p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Hypothesis Generation:
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Hypothesis Generation:
 ├── H1: Function returns None before .strip() is called
 │   └── Likelihood: High
 │
@@ -1550,9 +1603,9 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pr
         <h3>5.1 Getting Started</h3>
 
         <h4>5.1.1 Environment Setup</h4>
-        <p><strong>Runnable example.</strong> This environment setup is intended to run as written in a fresh virtual environment. Verified script: <code>examples/paper_snippets/setup_env.sh</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> This environment setup is intended to run as written in a fresh virtual environment. Verified script: <code>examples/paper_snippets/setup_env.sh</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-bash"># Create virtual environment
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-bash"># Create virtual environment
 python -m venv agent_env
 source agent_env/bin/activate
 
@@ -1567,7 +1620,7 @@ pip install torch accelerate</code></pre>
 
         <h4>5.1.2 Basic ToT Agent Template (Pseudo-code)</h4>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
 from dataclasses import dataclass
 from typing import List, Tuple
 import heapq
@@ -1711,9 +1764,9 @@ in a text file, handling case insensitivity and ignoring punctuation.
 
         <h4>5.2.1 Hybrid CoT-ToT Agent</h4>
         <p><strong>Status:</strong> Heuristic design pattern (E2). Not empirically validated in this paper; failure modes include miscalibrated complexity scoring and prompt sensitivity.</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.strategy_examples import HybridReasoningAgent
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.strategy_examples import HybridReasoningAgent
 
 agent = HybridReasoningAgent(complexity_threshold=7)
 simple = agent.run("Add two numbers.")
@@ -1726,9 +1779,9 @@ print(complex_task["mode"], complex_task["complexity"])</code></pre>
 
         <h4>5.2.2 Adaptive ToT Agent</h4>
         <p><strong>Status:</strong> Heuristic design pattern (E2). Not empirically validated in this paper; adaptive parameter inference can drift and should be bounded by explicit compute/latency budgets.</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/strategy_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.strategy_examples import AdaptiveToTAgent
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.strategy_examples import AdaptiveToTAgent
 
 agent = AdaptiveToTAgent()
 result = agent.adaptive_solve(
@@ -1741,9 +1794,9 @@ print(result["solution"])</code></pre>
         <h3>5.3 Optimization Techniques</h3>
 
         <h4>5.3.1 Caching Strategies</h4>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/optimization_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/optimization_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.optimization_examples import CachedToTSupport
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.optimization_examples import CachedToTSupport
 
 cache = CachedToTSupport()
 
@@ -1759,16 +1812,16 @@ candidates = cache.cached_generate(prompt, k=3, generate_fn=generate_fn)</code><
 
         <h4>5.3.2 Early Termination</h4>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.optimization_examples import EarlyTerminationPolicy, ThoughtNode
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.optimization_examples import EarlyTerminationPolicy, ThoughtNode
 
 policy = EarlyTerminationPolicy(confidence_threshold=0.9)
 beams = [ThoughtNode(score=9.5), ThoughtNode(score=7.0)]
 should_stop = policy.should_terminate(beams)</code></pre>
 
         <h3>5.4 Testing and Validation</h3>
-        <p><strong>Runnable example.</strong> Verified test file: <code>tests/test_paper_snippets.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified test file: <code>tests/test_paper_snippets.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">import unittest
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">import unittest
 from examples.paper_snippets.fibonacci_example import fibonacci
 from examples.paper_snippets.tool_examples import fetch_stock_price
 
@@ -1803,7 +1856,7 @@ if __name__ == "__main__":
         <h4>6.1.2 Multi-Modal Tree of Thoughts</h4>
         <p>Extend ToT to multi-modal reasoning:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">Visual Thought Tree:
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">Visual Thought Tree:
 ├── Image understanding nodes
 ├── Visual reasoning branches
 └── Cross-modal integration points
@@ -1816,7 +1869,7 @@ Example Task: "Design a logo based on these brand values"
         <h4>6.1.3 Hierarchical ToT</h4>
         <p>Implement recursive tree structures:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-text">High-Level Tree:
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-text">High-Level Tree:
 ├── Phase 1: Research
 │   └── Low-Level Tree (research strategies)
 ├── Phase 2: Analysis
@@ -1828,7 +1881,7 @@ Example Task: "Design a logo based on these brand values"
         <h4>6.1.4 Collaborative ToT</h4>
         <p>Multiple agents exploring shared thought spaces:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">class CollaborativeToT:
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-python">class CollaborativeToT:
     """Multiple agents exploring and sharing thoughts."""
     
     def __init__(self, agents: List[CodeAgent]):
@@ -1931,9 +1984,9 @@ Example Task: "Design a logo based on these brand values"
 
         <h4>6.4.1 Transparency</h4>
         <p>ToT can provide interpretability through explicit reasoning trees and branch histories [1]:</p>
-        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/transparency_examples.py</code>.</p>
+        <p class="listing-note listing-note-runnable"><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/transparency_examples.py</code>.</p>
         <!-- Runnable example -->
-        <pre><code class="language-python">from examples.paper_snippets.transparency_examples import Result, SelectedPath, explain_decision
+        <pre data-listing="runnable" data-kind="Runnable (tested)"><code class="language-python">from examples.paper_snippets.transparency_examples import Result, SelectedPath, explain_decision
 
 result = Result(selected_path=SelectedPath(justification="Highest evaluator score"))
 explanation = explain_decision(
@@ -2082,7 +2135,7 @@ explanation = explain_decision(
         <h2>Appendix B: Reference Pseudo-code Implementation</h2>
         <p><em>Pseudo-code scope:</em> this appendix provides an intentionally minimal sketch for adaptation. It is not presented as a fully runnable benchmark harness.</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">"""
+        <pre data-listing="pseudo" data-kind="Illustrative pseudo-code"><code class="language-python">"""
 Reference Sketch: Tree of Thoughts with smolagents
 ==================================================
 
