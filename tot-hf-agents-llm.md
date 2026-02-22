@@ -2261,17 +2261,6 @@ Table F.1 summarizes representative claim-to-evidence mappings used in this manu
 
 ------------------------------------------------------------------------
 
-## Appendix G: Revision History
-
-- Version 1.1: neutralized promotional tone and standardized conservative scholarly phrasing across abstract, body, and conclusion.
-- Added Section 0.3 PRISMA-style study-selection count table and Section 0.4 reproducibility statement with frozen run ID.
-- Added Appendix F claim-evidence mapping table and Appendix G revision log for submission traceability.
-- Updated Appendix C benchmark tables with inline citations on each reported method row and added code-snippet labeling comments throughout.
-- Version 1.1.1: corrected Hugging Face ecosystem framing for deprecated transformers agents, added migration note, and upgraded key synthesis tables with explicit captions and textual references.
-- Version 1.1.1 (post-review hardening): corrected Appendix C.2 FoA transcription value, clarified selected-row policy, tightened Section 4 hypothesis framing, aligned Section 5 install guidance with smolagents extras, and hardened Appendix B pseudo-code labeling and parsing robustness.
-
-------------------------------------------------------------------------
-
 ## Acknowledgments
 
 This research was conducted with reference to the foundational work of Shunyu Yao and colleagues on Tree of Thoughts, and the educational resources provided by Hugging Face's Agent Course. We acknowledge the contributions of the open-source community in developing the tools and frameworks discussed.
