@@ -27,6 +27,17 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - `phase2/code/scripts/run_protocol_v3_matrix.py`
   - `phase2/code/scripts/build_protocol_v3_matrix_summary.py`
 
+## Protocol v3.1 Diagnostic Track (Active)
+- Active protocol file: `phase2/benchmarks/evaluation-protocol-v31.md`
+- Protocol ID: `TOT-HF-P2-EPV31-2026-02-22`
+- Status: running
+- Focus:
+  - task subset where v3 showed ToT-vs-ReAct weakness (`linear2-demo`, `digit-permutation-demo`)
+  - evaluator/search profile comparisons against paired ReAct baselines
+- Canonical execution tooling:
+  - `phase2/code/scripts/run_protocol_v31_diagnostics.py`
+  - `phase2/code/scripts/build_protocol_v31_diagnostic_summary.py`
+
 ## Methodology Decision Freeze (2026-02-20)
 - Primary ToT methodology uses LLM-based in-chain evaluation (`model_self_eval`).
 - `rule_based` and `hybrid` evaluator modes are retained for ablations/controls only.

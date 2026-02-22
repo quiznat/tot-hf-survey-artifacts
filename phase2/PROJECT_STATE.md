@@ -5,6 +5,7 @@ Status date: 2026-02-21
 ## Current Phase
 - Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
 - Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 locked matrix execution is complete with consolidated analysis artifacts.
+- Active extension: protocol-v3.1 diagnostics are in flight to resolve ToT-vs-ReAct regressions on failure tasks.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -173,9 +174,9 @@ Status date: 2026-02-21
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Convert `phase2/manuscript/PREPAPER.md` into venue-targeted manuscript sections (Intro, Related Work positioning, Discussion, Conclusion) using the now-frozen v3 artifact set.
-2. Build anonymous and camera-ready packaging variants for submission (`PDF`, artifact appendix, and blinded metadata handling).
-3. Prepare reviewer-oriented artifact index with direct pointers to panel files, run logs, matrix reports, taxonomy files, and parity checks.
+1. Complete protocol-v3.1 diagnostic matrix execution and summarize profile-level ToT-vs-ReAct effects.
+2. Update manuscript framing from universal method claims to task-conditional strategy recommendations.
+3. Build anonymous and camera-ready package variants with full v3 + v3.1 artifact map.
 
 ## Risks / Dependencies
 - Provider/model behavior can drift over time; additional reruns may change latency and timeout rates even with locked settings.
@@ -212,3 +213,4 @@ Status date: 2026-02-21
 - 2026-02-21: Pivoted active execution track to protocol-v3 multi-task deepening while retaining protocol-v2 as frozen baseline evidence.
 - 2026-02-21: Implemented protocol-v3 task adapters, generic lockset runner, matrix orchestrator, and matrix summary tooling.
 - 2026-02-21: Generated deterministic v3 lockset panels for subset-sum, linear2, and digit-permutation tasks.
+- 2026-02-22: Started protocol-v3.1 diagnostic track (`linear2`, `digit-permutation`) with evaluator/search profile comparisons against paired ReAct baselines.

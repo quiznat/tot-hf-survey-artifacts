@@ -29,3 +29,10 @@ Status date: 2026-02-21
 - [x] Generate v3-backed submission tables/figures directly from matrix summary JSON.
 - [x] Draft reproducibility appendix text for v3 commands, panels, and artifact map.
 - [ ] Prepare anonymous vs camera-ready package variants once v3 evidence is complete.
+
+## P4 (Protocol-v3.1 Diagnostics)
+- [x] Define diagnostic protocol-v3.1 for failure tasks (`linear2`, `digit-permutation`) and lock profile matrix.
+- [x] Scaffold diagnostic execution and summary scripts.
+- [ ] Execute full v3.1 diagnostic matrix (`2 tasks x 3 models x 4 profiles`, paired `react,tot`).
+- [ ] Build consolidated v3.1 diagnostic summary and update manuscript claim framing.
+- [ ] Decide adaptive routing policy (`ReAct` vs `ToT` by task/profile) from v3.1 evidence.
