@@ -1870,28 +1870,19 @@ highlights where planning hooks into a tool-using agent runtime.
 
 \textbf{ToT Solution:} Explore multiple tool sequences before execution.
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/strategy\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Traditional approach}
-\KeywordTok{def}\NormalTok{ traditional\_agent(task):}
-\NormalTok{    thought }\OperatorTok{=}\NormalTok{ model.generate(}\SpecialStringTok{f"What tool for: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\SpecialStringTok{?"}\NormalTok{)}
-\NormalTok{    tool\_call }\OperatorTok{=}\NormalTok{ parse\_tool(thought)}
-\NormalTok{    result }\OperatorTok{=}\NormalTok{ execute(tool\_call)}
-    \CommentTok{\# No alternative considered}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.strategy\_examples }\ImportTok{import}\NormalTok{ compare\_tool\_selection}
 
-\CommentTok{\# ToT{-}enhanced approach}
-\KeywordTok{def}\NormalTok{ tot\_agent(task):}
-\NormalTok{    candidates }\OperatorTok{=}\NormalTok{ [}
-        \StringTok{"Use web\_search then summarize"}\NormalTok{,}
-        \StringTok{"Use calculator then web\_search"}\NormalTok{,}
-        \StringTok{"Use knowledge\_base directly"}
-\NormalTok{    ]}
-    
-    \CommentTok{\# Simulate and evaluate each}
-\NormalTok{    scores }\OperatorTok{=}\NormalTok{ [evaluate\_path(task, path) }\ControlFlowTok{for}\NormalTok{ path }\KeywordTok{in}\NormalTok{ candidates]}
-\NormalTok{    best }\OperatorTok{=}\NormalTok{ candidates[argmax(scores)]}
-    
-    \ControlFlowTok{return}\NormalTok{ execute(best)}
+\NormalTok{task }\OperatorTok{=} \StringTok{"Compare two open{-}source vector databases for a production RAG stack."}
+\NormalTok{comparison }\OperatorTok{=}\NormalTok{ compare\_tool\_selection(task)}
+
+\BuiltInTok{print}\NormalTok{(comparison[}\StringTok{"traditional\_result"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(comparison[}\StringTok{"tot\_best\_candidate"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(comparison[}\StringTok{"tot\_ranked\_scores"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1932,30 +1923,21 @@ produce incorrect results.
 
 \textbf{ToT Solution:} Maintain alternative paths for backtracking.
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/strategy\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{ RecoverableAgent(ToTEnabledCodeAgent):}
-    \KeywordTok{def}\NormalTok{ execute\_with\_recovery(}\VariableTok{self}\NormalTok{, action\_plan):}
-        \ControlFlowTok{for}\NormalTok{ i, action }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(action\_plan):}
-            \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{                result }\OperatorTok{=} \VariableTok{self}\NormalTok{.execute\_action(action)}
-                \ControlFlowTok{if} \VariableTok{self}\NormalTok{.verify\_result(result):}
-                    \ControlFlowTok{continue}
-                \ControlFlowTok{else}\NormalTok{:}
-                    \CommentTok{\# Result suspicious, try alternative}
-\NormalTok{                    alternatives }\OperatorTok{=} \VariableTok{self}\NormalTok{.generate\_alternatives(action, i)}
-                    \ControlFlowTok{for}\NormalTok{ alt }\KeywordTok{in}\NormalTok{ alternatives:}
-\NormalTok{                        result }\OperatorTok{=} \VariableTok{self}\NormalTok{.execute\_action(alt)}
-                        \ControlFlowTok{if} \VariableTok{self}\NormalTok{.verify\_result(result):}
-                            \ControlFlowTok{break}
-            \ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ e:}
-                \CommentTok{\# Action failed, backtrack}
-                \VariableTok{self}\NormalTok{.log\_error(action, e)}
-                \ControlFlowTok{if}\NormalTok{ i }\OperatorTok{\textgreater{}} \DecValTok{0}\NormalTok{:}
-                    \CommentTok{\# Try different path at previous step}
-                    \ControlFlowTok{return} \VariableTok{self}\NormalTok{.replan\_from\_step(i }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)}
-        
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.compile\_results()}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.strategy\_examples }\ImportTok{import}\NormalTok{ RecoverableAgent}
+
+\NormalTok{agent }\OperatorTok{=}\NormalTok{ RecoverableAgent()}
+\NormalTok{report }\OperatorTok{=}\NormalTok{ agent.execute\_with\_recovery(}
+\NormalTok{    [}\StringTok{"collect\_sources"}\NormalTok{, }\StringTok{"fail\_primary\_lookup"}\NormalTok{, }\StringTok{"draft\_summary"}\NormalTok{]}
+\NormalTok{)}
+
+\BuiltInTok{print}\NormalTok{(report.completed\_actions)}
+\BuiltInTok{print}\NormalTok{(report.fallback\_actions)}
+\BuiltInTok{print}\NormalTok{(report.errors)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2444,43 +2426,21 @@ Patterns}\label{advanced-implementation-patterns}
 validated in this paper; failure modes include miscalibrated complexity
 scoring and prompt sensitivity.
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/strategy\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{ HybridReasoningAgent(CodeAgent):}
-    \CommentTok{"""Switches between CoT and ToT based on problem complexity."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, complexity\_threshold}\OperatorTok{=}\DecValTok{7}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.complexity\_threshold }\OperatorTok{=}\NormalTok{ complexity\_threshold}
-    
-    \KeywordTok{def}\NormalTok{ assess\_complexity(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{int}\NormalTok{:}
-        \CommentTok{"""Rate task complexity 1{-}10."""}
-\NormalTok{        prompt }\OperatorTok{=} \SpecialStringTok{f"""Rate the complexity of this task from 1{-}10:}
-\SpecialStringTok{1 = Simple single{-}step task}
-\SpecialStringTok{5 = Multi{-}step with clear sequence}
-\SpecialStringTok{10 = Requires exploration, creativity, or has ambiguity}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.strategy\_examples }\ImportTok{import}\NormalTok{ HybridReasoningAgent}
 
-\SpecialStringTok{Task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
+\NormalTok{agent }\OperatorTok{=}\NormalTok{ HybridReasoningAgent(complexity\_threshold}\OperatorTok{=}\DecValTok{7}\NormalTok{)}
+\NormalTok{simple }\OperatorTok{=}\NormalTok{ agent.run(}\StringTok{"Add two numbers."}\NormalTok{)}
+\NormalTok{complex\_task }\OperatorTok{=}\NormalTok{ agent.run(}
+    \StringTok{"Compare three architecture options and plan a multi{-}step migration with trade{-}offs."}
+\NormalTok{)}
 
-\SpecialStringTok{Complexity (1{-}10):"""}
-        
-        \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{            response }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt).strip()}
-            \ControlFlowTok{return} \BuiltInTok{int}\NormalTok{(response.split()[}\DecValTok{0}\NormalTok{])}
-        \ControlFlowTok{except}\NormalTok{:}
-            \ControlFlowTok{return} \DecValTok{5}
-    
-    \KeywordTok{def}\NormalTok{ run(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-\NormalTok{        complexity }\OperatorTok{=} \VariableTok{self}\NormalTok{.assess\_complexity(task)}
-        
-        \ControlFlowTok{if}\NormalTok{ complexity }\OperatorTok{\textless{}} \VariableTok{self}\NormalTok{.complexity\_threshold:}
-            \CommentTok{\# Use standard CoT}
-            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Complexity }\SpecialCharTok{\{}\NormalTok{complexity}\SpecialCharTok{\}}\SpecialStringTok{/10: Using Chain of Thought"}\NormalTok{)}
-            \ControlFlowTok{return} \BuiltInTok{super}\NormalTok{().run(task, }\OperatorTok{**}\NormalTok{kwargs)}
-        \ControlFlowTok{else}\NormalTok{:}
-            \CommentTok{\# Use ToT}
-            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Complexity }\SpecialCharTok{\{}\NormalTok{complexity}\SpecialCharTok{\}}\SpecialStringTok{/10: Using Tree of Thoughts"}\NormalTok{)}
-            \ControlFlowTok{return} \VariableTok{self}\NormalTok{.solve\_with\_tot(task)}
+\BuiltInTok{print}\NormalTok{(simple[}\StringTok{"mode"}\NormalTok{], simple[}\StringTok{"complexity"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(complex\_task[}\StringTok{"mode"}\NormalTok{], complex\_task[}\StringTok{"complexity"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2490,48 +2450,20 @@ scoring and prompt sensitivity.
 validated in this paper; adaptive parameter inference can drift and
 should be bounded by explicit compute/latency budgets.
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/strategy\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{ AdaptiveToTAgent(CodeAgent):}
-    \CommentTok{"""Adapts beam width and depth based on problem characteristics."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.default\_beam\_width }\OperatorTok{=} \DecValTok{3}
-        \VariableTok{self}\NormalTok{.default\_max\_depth }\OperatorTok{=} \DecValTok{4}
-    
-    \KeywordTok{def}\NormalTok{ adaptive\_solve(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
-        \CommentTok{"""Adaptively configure ToT parameters."""}
-        \CommentTok{\# Estimate parameters based on task}
-\NormalTok{        config }\OperatorTok{=} \VariableTok{self}\NormalTok{.estimate\_config(task)}
-        
-        \VariableTok{self}\NormalTok{.beam\_width }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}beam\_width\textquotesingle{}}\NormalTok{]}
-        \VariableTok{self}\NormalTok{.max\_depth }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}max\_depth\textquotesingle{}}\NormalTok{]}
-        
-        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"Adaptive config: beam=}\SpecialCharTok{\{}\VariableTok{self}\SpecialCharTok{.}\NormalTok{beam\_width}\SpecialCharTok{\}}\SpecialStringTok{, depth=}\SpecialCharTok{\{}\VariableTok{self}\SpecialCharTok{.}\NormalTok{max\_depth}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
-        
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.solve\_with\_tot(task)}
-    
-    \KeywordTok{def}\NormalTok{ estimate\_config(}\VariableTok{self}\NormalTok{, task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{dict}\NormalTok{:}
-        \CommentTok{"""Estimate optimal ToT parameters."""}
-\NormalTok{        prompt }\OperatorTok{=} \SpecialStringTok{f"""Given this task, estimate:}
-\SpecialStringTok{1. How many alternative approaches should be considered (2{-}5)?}
-\SpecialStringTok{2. How many steps are likely needed (2{-}6)?}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.strategy\_examples }\ImportTok{import}\NormalTok{ AdaptiveToTAgent}
 
-\SpecialStringTok{Task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
+\NormalTok{agent }\OperatorTok{=}\NormalTok{ AdaptiveToTAgent()}
+\NormalTok{result }\OperatorTok{=}\NormalTok{ agent.adaptive\_solve(}
+    \StringTok{"Compare and optimize an ambiguous design with multiple trade{-}off constraints."}
+\NormalTok{)}
 
-\SpecialStringTok{Format: "Approaches: X, Steps: Y"""}
-        
-\NormalTok{        response }\OperatorTok{=} \VariableTok{self}\NormalTok{.model.generate(prompt)}
-        
-        \ImportTok{import}\NormalTok{ re}
-\NormalTok{        approaches }\OperatorTok{=}\NormalTok{ re.search(}\VerbatimStringTok{r\textquotesingle{}Approaches:}\DecValTok{\textbackslash{}s}\OperatorTok{*}\KeywordTok{(}\DecValTok{\textbackslash{}d}\OperatorTok{+}\KeywordTok{)}\VerbatimStringTok{\textquotesingle{}}\NormalTok{, response)}
-\NormalTok{        steps }\OperatorTok{=}\NormalTok{ re.search(}\VerbatimStringTok{r\textquotesingle{}Steps:}\DecValTok{\textbackslash{}s}\OperatorTok{*}\KeywordTok{(}\DecValTok{\textbackslash{}d}\OperatorTok{+}\KeywordTok{)}\VerbatimStringTok{\textquotesingle{}}\NormalTok{, response)}
-        
-        \ControlFlowTok{return}\NormalTok{ \{}
-            \StringTok{\textquotesingle{}beam\_width\textquotesingle{}}\NormalTok{: }\BuiltInTok{int}\NormalTok{(approaches.group(}\DecValTok{1}\NormalTok{)) }\ControlFlowTok{if}\NormalTok{ approaches }\ControlFlowTok{else} \DecValTok{3}\NormalTok{,}
-            \StringTok{\textquotesingle{}max\_depth\textquotesingle{}}\NormalTok{: }\BuiltInTok{int}\NormalTok{(steps.group(}\DecValTok{1}\NormalTok{)) }\ControlFlowTok{if}\NormalTok{ steps }\ControlFlowTok{else} \DecValTok{4}
-\NormalTok{        \}}
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"config"}\NormalTok{])}
+\BuiltInTok{print}\NormalTok{(result[}\StringTok{"solution"}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 

@@ -1111,27 +1111,17 @@ agent = ToTEnabledCodeAgent(
 
 **ToT Solution:** Explore multiple tool sequences before execution.
 
-``` python
-# Traditional approach
-def traditional_agent(task):
-    thought = model.generate(f"What tool for: {task}?")
-    tool_call = parse_tool(thought)
-    result = execute(tool_call)
-    # No alternative considered
+**Runnable example.** Verified helper: `examples/paper_snippets/strategy_examples.py`.
 
-# ToT-enhanced approach
-def tot_agent(task):
-    candidates = [
-        "Use web_search then summarize",
-        "Use calculator then web_search",
-        "Use knowledge_base directly"
-    ]
-    
-    # Simulate and evaluate each
-    scores = [evaluate_path(task, path) for path in candidates]
-    best = candidates[argmax(scores)]
-    
-    return execute(best)
+``` python
+from examples.paper_snippets.strategy_examples import compare_tool_selection
+
+task = "Compare two open-source vector databases for a production RAG stack."
+comparison = compare_tool_selection(task)
+
+print(comparison["traditional_result"])
+print(comparison["tot_best_candidate"])
+print(comparison["tot_ranked_scores"])
 ```
 
 **Example - Complex Query:**
@@ -1166,29 +1156,19 @@ Selected: Path B for source quality and reproducibility
 
 **ToT Solution:** Maintain alternative paths for backtracking.
 
+**Runnable example.** Verified helper: `examples/paper_snippets/strategy_examples.py`.
+
 ``` python
-class RecoverableAgent(ToTEnabledCodeAgent):
-    def execute_with_recovery(self, action_plan):
-        for i, action in enumerate(action_plan):
-            try:
-                result = self.execute_action(action)
-                if self.verify_result(result):
-                    continue
-                else:
-                    # Result suspicious, try alternative
-                    alternatives = self.generate_alternatives(action, i)
-                    for alt in alternatives:
-                        result = self.execute_action(alt)
-                        if self.verify_result(result):
-                            break
-            except Exception as e:
-                # Action failed, backtrack
-                self.log_error(action, e)
-                if i > 0:
-                    # Try different path at previous step
-                    return self.replan_from_step(i - 1)
-        
-        return self.compile_results()
+from examples.paper_snippets.strategy_examples import RecoverableAgent
+
+agent = RecoverableAgent()
+report = agent.execute_with_recovery(
+    ["collect_sources", "fail_primary_lookup", "draft_summary"]
+)
+
+print(report.completed_actions)
+print(report.fallback_actions)
+print(report.errors)
 ```
 
 #### 4.3.3 Multi-Step Planning
@@ -1573,89 +1553,37 @@ in a text file, handling case insensitivity and ignoring punctuation.
 
 **Status:** Heuristic design pattern (E2). Not empirically validated in this paper; failure modes include miscalibrated complexity scoring and prompt sensitivity.
 
+**Runnable example.** Verified helper: `examples/paper_snippets/strategy_examples.py`.
+
 ``` python
-class HybridReasoningAgent(CodeAgent):
-    """Switches between CoT and ToT based on problem complexity."""
-    
-    def __init__(self, complexity_threshold=7, **kwargs):
-        super().__init__(**kwargs)
-        self.complexity_threshold = complexity_threshold
-    
-    def assess_complexity(self, task: str) -> int:
-        """Rate task complexity 1-10."""
-        prompt = f"""Rate the complexity of this task from 1-10:
-1 = Simple single-step task
-5 = Multi-step with clear sequence
-10 = Requires exploration, creativity, or has ambiguity
+from examples.paper_snippets.strategy_examples import HybridReasoningAgent
 
-Task: {task}
+agent = HybridReasoningAgent(complexity_threshold=7)
+simple = agent.run("Add two numbers.")
+complex_task = agent.run(
+    "Compare three architecture options and plan a multi-step migration with trade-offs."
+)
 
-Complexity (1-10):"""
-        
-        try:
-            response = self.model.generate(prompt).strip()
-            return int(response.split()[0])
-        except:
-            return 5
-    
-    def run(self, task: str, **kwargs):
-        complexity = self.assess_complexity(task)
-        
-        if complexity < self.complexity_threshold:
-            # Use standard CoT
-            print(f"Complexity {complexity}/10: Using Chain of Thought")
-            return super().run(task, **kwargs)
-        else:
-            # Use ToT
-            print(f"Complexity {complexity}/10: Using Tree of Thoughts")
-            return self.solve_with_tot(task)
+print(simple["mode"], simple["complexity"])
+print(complex_task["mode"], complex_task["complexity"])
 ```
 
 #### 5.2.2 Adaptive ToT Agent
 
 **Status:** Heuristic design pattern (E2). Not empirically validated in this paper; adaptive parameter inference can drift and should be bounded by explicit compute/latency budgets.
 
+**Runnable example.** Verified helper: `examples/paper_snippets/strategy_examples.py`.
+
 ``` python
-class AdaptiveToTAgent(CodeAgent):
-    """Adapts beam width and depth based on problem characteristics."""
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.default_beam_width = 3
-        self.default_max_depth = 4
-    
-    def adaptive_solve(self, task: str) -> str:
-        """Adaptively configure ToT parameters."""
-        # Estimate parameters based on task
-        config = self.estimate_config(task)
-        
-        self.beam_width = config['beam_width']
-        self.max_depth = config['max_depth']
-        
-        print(f"Adaptive config: beam={self.beam_width}, depth={self.max_depth}")
-        
-        return self.solve_with_tot(task)
-    
-    def estimate_config(self, task: str) -> dict:
-        """Estimate optimal ToT parameters."""
-        prompt = f"""Given this task, estimate:
-1. How many alternative approaches should be considered (2-5)?
-2. How many steps are likely needed (2-6)?
+from examples.paper_snippets.strategy_examples import AdaptiveToTAgent
 
-Task: {task}
+agent = AdaptiveToTAgent()
+result = agent.adaptive_solve(
+    "Compare and optimize an ambiguous design with multiple trade-off constraints."
+)
 
-Format: "Approaches: X, Steps: Y"""
-        
-        response = self.model.generate(prompt)
-        
-        import re
-        approaches = re.search(r'Approaches:\s*(\d+)', response)
-        steps = re.search(r'Steps:\s*(\d+)', response)
-        
-        return {
-            'beam_width': int(approaches.group(1)) if approaches else 3,
-            'max_depth': int(steps.group(1)) if steps else 4
-        }
+print(result["config"])
+print(result["solution"])
 ```
 
 ### 5.3 Optimization Techniques

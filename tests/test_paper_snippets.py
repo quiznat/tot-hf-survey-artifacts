@@ -32,6 +32,12 @@ from examples.paper_snippets.prompt_templates import (
     build_evaluation_prompt,
     build_generation_prompt,
 )
+from examples.paper_snippets.strategy_examples import (
+    AdaptiveToTAgent,
+    HybridReasoningAgent,
+    RecoverableAgent,
+    compare_tool_selection,
+)
 from examples.paper_snippets.transparency_examples import Result, SelectedPath, explain_decision
 from examples.paper_snippets.tool_examples import (
     DatabaseTool,
@@ -187,6 +193,51 @@ class TestPaperSnippets(unittest.TestCase):
         policy = EarlyTerminationPolicy(confidence_threshold=0.9)
         self.assertTrue(policy.should_terminate([ThoughtNode(score=9.5), ThoughtNode(score=7.0)]))
         self.assertFalse(policy.should_terminate([ThoughtNode(score=8.0)]))
+
+    def test_tool_selection_strategy_examples(self) -> None:
+        comparison = compare_tool_selection(
+            "Compare two open-source vector databases for a production RAG stack."
+        )
+        self.assertEqual(comparison["traditional_result"], "executed:blog_post_first")
+        self.assertEqual(comparison["tot_best_candidate"], "docs_and_repo_evidence")
+        self.assertEqual(comparison["tot_result"], "executed:docs_and_repo_evidence")
+        ranked_names = [name for name, _ in comparison["tot_ranked_scores"]]
+        self.assertIn("community_sentiment", ranked_names)
+
+    def test_recoverable_agent(self) -> None:
+        agent = RecoverableAgent()
+        report = agent.execute_with_recovery(
+            ["collect_sources", "fail_primary_lookup", "draft_summary"]
+        )
+        self.assertIn("collect_sources", report.completed_actions)
+        self.assertIn("fallback_primary_lookup", report.completed_actions)
+        self.assertIn("draft_summary", report.completed_actions)
+        self.assertGreaterEqual(report.retry_count, 1)
+        self.assertGreaterEqual(len(report.errors), 1)
+        self.assertIsNone(report.replanned_from_step)
+
+    def test_hybrid_reasoning_agent(self) -> None:
+        agent = HybridReasoningAgent(complexity_threshold=7)
+        simple = agent.run("Add two numbers.")
+        complex_task = agent.run(
+            "Compare three architecture options and plan a multi-step migration with trade-offs."
+        )
+        self.assertEqual(simple["mode"], "cot")
+        self.assertEqual(complex_task["mode"], "tot")
+        self.assertGreaterEqual(complex_task["complexity"], simple["complexity"])
+
+    def test_adaptive_tot_agent(self) -> None:
+        agent = AdaptiveToTAgent()
+        simple = agent.adaptive_solve("Summarize this paragraph.")
+        complex_task = agent.adaptive_solve(
+            "Compare and optimize an ambiguous design with multiple trade-off constraints."
+        )
+        simple_cfg = simple["config"]
+        complex_cfg = complex_task["config"]
+        self.assertGreaterEqual(complex_cfg["beam_width"], simple_cfg["beam_width"])
+        self.assertGreaterEqual(complex_cfg["max_depth"], simple_cfg["max_depth"])
+        self.assertIn("beam=", complex_task["solution"])
+        self.assertIn("depth=", complex_task["solution"])
 
     def test_transparency_examples(self) -> None:
         result = Result(selected_path=SelectedPath(justification="Highest evaluator score"))
