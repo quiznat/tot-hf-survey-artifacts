@@ -104,6 +104,11 @@ Selection-flow and extraction artifacts are provided in Appendix D and Appendix 
 
 ### 0.3 Study Selection Flow
 
+<figure class="diagram-container">
+<img src="./assets/diagram_survey_method.png" class="diagram-fallback" alt="Survey method flow diagram for frozen run" />
+<figcaption>Figure 0.3-1. Survey method flow for frozen run TOT-HF-SURVEY-2026-02-19 (seeded corpus to screened and included records).</figcaption>
+</figure>
+
 | Stage                              | Count |
 |------------------------------------|-------|
 | Records identified                 | 30    |
