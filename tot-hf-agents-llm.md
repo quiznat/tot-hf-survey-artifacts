@@ -30,7 +30,7 @@ Abstract
 
 Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks, yet standard autoregressive decoding is left-to-right and often commits to a single trajectory per sample, without explicit mechanisms for alternative-path exploration, backtracking, or branch-level comparison. This can constrain effectiveness on complex multi-step problems requiring deliberation and planning. Concurrently, the emergence of AI agent frameworks has enabled LLMs to interact with external tools and execute actions autonomously, but these systems often struggle with strategic reasoning and error recovery \[1, 3, 4, 6, 8, 9\].
 
-This paper presents a systematic synthesis of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs \[1, 2, 10, 11, 12, 26\].
+This paper presents a focused technical synthesis (rather than an exhaustive systematic review) of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs \[1, 2, 10, 11, 12, 26\].
 
 Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) detailed documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) synthetic case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.
 
@@ -46,7 +46,7 @@ This manuscript workflow included autonomous system assistance in early drafting
 
 **Keywords:** Tree of Thoughts, LLM reasoning, AI agents, Hugging Face agents, smolagents, tool-augmented reasoning, survey methodology
 
-**Scope and evidence note.** This document is a technical overview and synthesis. It combines literature findings with implementation guidance. Reported benchmark gains (for example, ToT results on Game of 24) are attributed to cited prior work unless explicitly marked as original measurements.
+**Scope and evidence note.** This document is a focused technical synthesis rather than an exhaustive systematic review. It combines literature findings with implementation guidance. Reported benchmark gains (for example, ToT results on Game of 24) are attributed to cited prior work unless explicitly marked as original measurements.
 
 ------------------------------------------------------------------------
 
@@ -182,7 +182,7 @@ The evolution of reasoning in language models reflects broader trends in AI. Ear
 
 Chain of Thought works by prompting the model to generate a sequence of thoughts leading to the final answer:
 
-``` python
+``` text
 Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
    Each can has 3 tennis balls. How many tennis balls does he have now?
 
@@ -230,7 +230,7 @@ The first challenge is decomposing the problem into discrete thought steps. This
 
 For mathematical problems, thoughts might represent individual operations:
 
-``` python
+``` text
 Problem: Calculate (15 + 27) × (42 - 18)
 
 Thought decomposition:
@@ -241,7 +241,7 @@ Thought decomposition:
 
 For creative writing, thoughts might represent content decisions:
 
-``` python
+``` text
 Task: Write a story about a detective solving a mystery
 
 Thought decomposition:
@@ -349,7 +349,7 @@ We can formally specify the ToT algorithm as follows:
 
 **Output:** Solution or best path found
 
-``` python
+``` text
 Algorithm ToT(P, G, E, A, b, d):
     Initialize: S ← {s₀}  // Set of states, starting with initial state
     
@@ -540,6 +540,8 @@ smolagents is built around several key abstractions \[10, 12\]:
 
 #### 3.3.3 Installation and Setup
 
+**Runnable example.** The following install commands are intended to be executable as written (subject to environment differences).
+
 ``` bash
 # Basic installation
 pip install smolagents
@@ -555,7 +557,7 @@ pip install "smolagents[all]"           # All optional extras
 
 ### 3.4 CodeAgent: Code as Action
 
-**Code labeling.** In Sections 3-6, snippets fall into two categories: *runnable examples* (intended to run with adaptation) and *pseudo-code* (architectural sketches). When helper methods or framework internals are omitted, treat the snippet as pseudo-code. API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 \[10, 12\].
+**Code labeling.** In Sections 3-6, snippets fall into two categories: *runnable examples* (intended to run with adaptation) and *pseudo-code* (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 \[10, 12\].
 
 The flagship agent in smolagents is CodeAgent, which uses generated Python code to invoke tools directly rather than relying only on structured function-call objects \[10, 12\].
 
@@ -943,6 +945,8 @@ async def chat(request: ChatRequest):
 ```
 
 **Containerized Deployment:**
+
+**Runnable example.** This Dockerfile block is intended to be executable with standard Python service scaffolding.
 
 ``` dockerfile
 FROM python:3.11-slim
@@ -1347,6 +1351,8 @@ This section is included as a reproducibility-oriented bridge from ToT component
 ### 5.1 Getting Started
 
 #### 5.1.1 Environment Setup
+
+**Runnable example.** This environment setup is intended to run as written in a fresh virtual environment.
 
 ``` bash
 # Create virtual environment

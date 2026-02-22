@@ -166,15 +166,15 @@ LLMs to interact with external tools and execute actions autonomously,
 but these systems often struggle with strategic reasoning and error
 recovery {[}1, 3, 4, 6, 8, 9{]}.
 
-This paper presents a systematic synthesis of two developments in
-artificial intelligence: Tree of Thoughts (ToT) reasoning and the
-Hugging Face agent ecosystem. We examine how structured search over
-reasoning paths can be integrated with accessible agent frameworks to
-create more robust autonomous systems. Through technical analysis,
-implementation patterns, and benchmark context from prior literature, we
-describe where systematic exploration can improve complex reasoning
-while also introducing cost and latency trade-offs {[}1, 2, 10, 11, 12,
-26{]}.
+This paper presents a focused technical synthesis (rather than an
+exhaustive systematic review) of two developments in artificial
+intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face
+agent ecosystem. We examine how structured search over reasoning paths
+can be integrated with accessible agent frameworks to create more robust
+autonomous systems. Through technical analysis, implementation patterns,
+and benchmark context from prior literature, we describe where
+systematic exploration can improve complex reasoning while also
+introducing cost and latency trade-offs {[}1, 2, 10, 11, 12, 26{]}.
 
 Our contributions include: (1) a thorough theoretical and practical
 examination of Tree of Thoughts as both a reasoning paradigm and
@@ -206,11 +206,11 @@ listed human author.
 \textbf{Keywords:} Tree of Thoughts, LLM reasoning, AI agents, Hugging
 Face agents, smolagents, tool-augmented reasoning, survey methodology
 
-\textbf{Scope and evidence note.} This document is a technical overview
-and synthesis. It combines literature findings with implementation
-guidance. Reported benchmark gains (for example, ToT results on Game of
-24) are attributed to cited prior work unless explicitly marked as
-original measurements.
+\textbf{Scope and evidence note.} This document is a focused technical
+synthesis rather than an exhaustive systematic review. It combines
+literature findings with implementation guidance. Reported benchmark
+gains (for example, ToT results on Game of 24) are attributed to cited
+prior work unless explicitly marked as original measurements.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -533,13 +533,13 @@ thoughts leading to the final answer:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Q: Roger has }\DecValTok{5}\NormalTok{ tennis balls. He buys }\DecValTok{2}\NormalTok{ more cans of tennis balls.}
-\NormalTok{   Each can has }\DecValTok{3}\NormalTok{ tennis balls. How many tennis balls does he have now?}
+\NormalTok{Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.}
+\NormalTok{   Each can has 3 tennis balls. How many tennis balls does he have now?}
 
-\NormalTok{A: Roger started }\ControlFlowTok{with} \DecValTok{5}\NormalTok{ balls.}
-\NormalTok{   He buys }\DecValTok{2}\NormalTok{ cans, each }\ControlFlowTok{with} \DecValTok{3}\NormalTok{ balls, so that}\StringTok{\textquotesingle{}s 2 × 3 = 6 balls.}
-\ErrorTok{   5 + 6 = 11.}
-\NormalTok{   The answer }\KeywordTok{is} \FloatTok{11.}
+\NormalTok{A: Roger started with 5 balls.}
+\NormalTok{   He buys 2 cans, each with 3 balls, so that\textquotesingle{}s 2 × 3 = 6 balls.}
+\NormalTok{   5 + 6 = 11.}
+\NormalTok{   The answer is 11.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -622,12 +622,12 @@ operations:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Problem: Calculate (}\DecValTok{15} \OperatorTok{+} \DecValTok{27}\NormalTok{) × (}\DecValTok{42} \OperatorTok{{-}} \DecValTok{18}\NormalTok{)}
+\NormalTok{Problem: Calculate (15 + 27) × (42 {-} 18)}
 
 \NormalTok{Thought decomposition:}
-\OperatorTok{{-}}\NormalTok{ T1: Calculate first parentheses: }\DecValTok{15} \OperatorTok{+} \DecValTok{27} \OperatorTok{=}\NormalTok{ ?}
-\OperatorTok{{-}}\NormalTok{ T2: Calculate second parentheses: }\DecValTok{42} \OperatorTok{{-}} \DecValTok{18} \OperatorTok{=}\NormalTok{ ?}
-\OperatorTok{{-}}\NormalTok{ T3: Multiply results }\ImportTok{from}\NormalTok{ T1 }\KeywordTok{and}\NormalTok{ T2}
+\NormalTok{{-} T1: Calculate first parentheses: 15 + 27 = ?}
+\NormalTok{{-} T2: Calculate second parentheses: 42 {-} 18 = ?}
+\NormalTok{{-} T3: Multiply results from T1 and T2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -638,10 +638,10 @@ For creative writing, thoughts might represent content decisions:
 \NormalTok{Task: Write a story about a detective solving a mystery}
 
 \NormalTok{Thought decomposition:}
-\OperatorTok{{-}}\NormalTok{ T1: Choose setting (modern city, historical period, future)}
-\OperatorTok{{-}}\NormalTok{ T2: Select detective archetype (hardboiled, amateur, professional)}
-\OperatorTok{{-}}\NormalTok{ T3: Determine mystery }\BuiltInTok{type}\NormalTok{ (murder, theft, disappearance)}
-\OperatorTok{{-}}\NormalTok{ T4: Plan plot structure (clues, red herrings, resolution)}
+\NormalTok{{-} T1: Choose setting (modern city, historical period, future)}
+\NormalTok{{-} T2: Select detective archetype (hardboiled, amateur, professional)}
+\NormalTok{{-} T3: Determine mystery type (murder, theft, disappearance)}
+\NormalTok{{-} T4: Plan plot structure (clues, red herrings, resolution)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -810,24 +810,24 @@ algorithm A, beam width b, maximum depth d
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Algorithm ToT(P, G, E, A, b, d):}
-\NormalTok{    Initialize: S <- \{s0\}  }\OperatorTok{//}\NormalTok{ Set of states, starting }\ControlFlowTok{with}\NormalTok{ initial state}
+\NormalTok{    Initialize: S <- \{s0\}  // Set of states, starting with initial state}
     
-    \ControlFlowTok{for}\NormalTok{ depth }\OperatorTok{=} \DecValTok{1}\NormalTok{ to d:}
+\NormalTok{    for depth = 1 to d:}
 \NormalTok{        candidates <- empty_set}
         
-        \ControlFlowTok{for}\NormalTok{ each state s }\KeywordTok{in}\NormalTok{ S:}
-\NormalTok{            thoughts <- G(P, s, k)  }\OperatorTok{//}\NormalTok{ Generate k candidates}
-            \ControlFlowTok{for}\NormalTok{ each thought t }\KeywordTok{in}\NormalTok{ thoughts:}
-\NormalTok{                s}\StringTok{\textquotesingle{} <- s union }\SpecialCharTok{\{t\}}\StringTok{  // Extend state with thought}
-\ErrorTok{                v <- E}\NormalTok{(P, s, t)  }\OperatorTok{//}\NormalTok{ Evaluate new state}
-\NormalTok{                candidates <- candidates union \{(v, s}\StringTok{\textquotesingle{})\}}
-\ErrorTok{        }
-        \ControlFlowTok{if}\NormalTok{ solution\_found(candidates):}
-            \ControlFlowTok{return}\NormalTok{ extract\_solution(candidates)}
+\NormalTok{        for each state s in S:}
+\NormalTok{            thoughts <- G(P, s, k)  // Generate k candidates}
+\NormalTok{            for each thought t in thoughts:}
+\NormalTok{                s\textquotesingle{} <- s union \{t\}  // Extend state with thought}
+\NormalTok{                v <- E(P, s, t)  // Evaluate new state}
+\NormalTok{                candidates <- candidates union \{(v, s\textquotesingle{})\}}
         
-\NormalTok{        S <- select\_top(candidates, b)  }\OperatorTok{//}\NormalTok{ Keep top b states}
+\NormalTok{        if solution\_found(candidates):}
+\NormalTok{            return extract\_solution(candidates)}
+        
+\NormalTok{        S <- select\_top(candidates, b)  // Keep top b states}
     
-    \ControlFlowTok{return}\NormalTok{ best\_state(S)}
+\NormalTok{    return best\_state(S)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1133,6 +1133,9 @@ smolagents is built around several key abstractions {[}10, 12{]}:
 
 \paragraph{3.3.3 Installation and Setup}\label{installation-and-setup}
 
+\textbf{Runnable example.} The following install commands are intended
+to be executable as written (subject to environment differences).
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Basic installation}
@@ -1153,10 +1156,11 @@ Action}\label{codeagent-code-as-action}
 
 \textbf{Code labeling.} In Sections 3-6, snippets fall into two
 categories: \emph{runnable examples} (intended to run with adaptation)
-and \emph{pseudo-code} (architectural sketches). When helper methods or
-framework internals are omitted, treat the snippet as pseudo-code.
-API-facing examples were aligned to public smolagents docs/repository
-references as of February 19, 2026 {[}10, 12{]}.
+and \emph{pseudo-code} (architectural sketches). By default, snippets
+are illustrative pseudo-code unless the surrounding text explicitly
+marks them as a runnable example. API-facing examples were aligned to
+public smolagents docs/repository references as of February 19, 2026
+{[}10, 12{]}.
 
 The flagship agent in smolagents is CodeAgent, which uses generated
 Python code to invoke tools directly rather than relying only on
@@ -1645,6 +1649,9 @@ Production}\label{deployment-and-production}
 \end{Shaded}
 
 \textbf{Containerized Deployment:}
+
+\textbf{Runnable example.} This Dockerfile block is intended to be
+executable with standard Python service scaffolding.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2186,6 +2193,9 @@ algorithmic claims.
 \subsubsection{5.1 Getting Started}\label{getting-started}
 
 \paragraph{5.1.1 Environment Setup}\label{environment-setup}
+
+\textbf{Runnable example.} This environment setup is intended to run as
+written in a fresh virtual environment.
 
 \begin{Shaded}
 \begin{Highlighting}[]

@@ -352,7 +352,7 @@
         <div class="abstract">
             <div class="abstract-title">Abstract</div>
             <p>Large Language Models (LLMs) have demonstrated remarkable capabilities across diverse tasks, yet standard autoregressive decoding is left-to-right and often commits to a single trajectory per sample, without explicit mechanisms for alternative-path exploration, backtracking, or branch-level comparison. This can constrain effectiveness on complex multi-step problems requiring deliberation and planning. Concurrently, the emergence of AI agent frameworks has enabled LLMs to interact with external tools and execute actions autonomously, but these systems often struggle with strategic reasoning and error recovery [1, 3, 4, 6, 8, 9].</p>
-            <p>This paper presents a systematic synthesis of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs [1, 2, 10, 11, 12, 26].</p>
+            <p>This paper presents a focused technical synthesis (rather than an exhaustive systematic review) of two developments in artificial intelligence: Tree of Thoughts (ToT) reasoning and the Hugging Face agent ecosystem. We examine how structured search over reasoning paths can be integrated with accessible agent frameworks to create more robust autonomous systems. Through technical analysis, implementation patterns, and benchmark context from prior literature, we describe where systematic exploration can improve complex reasoning while also introducing cost and latency trade-offs [1, 2, 10, 11, 12, 26].</p>
             <p>Our contributions include: (1) a thorough theoretical and practical examination of Tree of Thoughts as both a reasoning paradigm and implementation strategy; (2) detailed documentation of Hugging Face's agent frameworks, including the Agent Course educational pathway and the smolagents library; (3) architectural patterns for integrating ToT reasoning with CodeAgent and MultiStepAgent implementations; (4) synthetic case-study walkthroughs across financial analysis, creative content generation, and software engineering; and (5) practical implementation strategies, optimization techniques, and deployment patterns.</p>
             <p>This work summarizes published research and implementation patterns so researchers and practitioners can evaluate structured-reasoning agent designs with clear evidence boundaries.</p>
         </div>
@@ -363,7 +363,7 @@
 
         <p><strong>Keywords:</strong> Tree of Thoughts, LLM reasoning, AI agents, Hugging Face agents, smolagents, tool-augmented reasoning, survey methodology</p>
 
-        <p class="note"><strong>Scope and evidence note.</strong> This document is a technical overview and synthesis. It combines literature findings with implementation guidance. Reported benchmark gains (for example, ToT results on Game of 24) are attributed to cited prior work unless explicitly marked as original measurements.</p>
+        <p class="note"><strong>Scope and evidence note.</strong> This document is a focused technical synthesis rather than an exhaustive systematic review. It combines literature findings with implementation guidance. Reported benchmark gains (for example, ToT results on Game of 24) are attributed to cited prior work unless explicitly marked as original measurements.</p>
 
         <hr>
 
@@ -492,7 +492,7 @@
         <p>The evolution of reasoning in language models reflects broader trends in AI. Early approaches treated generation as a direct input-to-output mapping. Chain-of-Thought prompting introduced explicit intermediate steps, with prior work reporting improved performance on several reasoning benchmarks [3, 4].</p>
         <p>Chain of Thought works by prompting the model to generate a sequence of thoughts leading to the final answer:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
+        <pre><code class="language-text">Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls.
    Each can has 3 tennis balls. How many tennis balls does he have now?
 
 A: Roger started with 5 balls.
@@ -527,7 +527,7 @@ A: Roger started with 5 balls.
         <p>The first challenge is decomposing the problem into discrete thought steps. This requires identifying natural intermediate points where alternative approaches might diverge [1, 2].</p>
         <p>For mathematical problems, thoughts might represent individual operations:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">Problem: Calculate (15 + 27) × (42 - 18)
+        <pre><code class="language-text">Problem: Calculate (15 + 27) × (42 - 18)
 
 Thought decomposition:
 - T1: Calculate first parentheses: 15 + 27 = ?
@@ -535,7 +535,7 @@ Thought decomposition:
 - T3: Multiply results from T1 and T2</code></pre>
         <p>For creative writing, thoughts might represent content decisions:</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">Task: Write a story about a detective solving a mystery
+        <pre><code class="language-text">Task: Write a story about a detective solving a mystery
 
 Thought decomposition:
 - T1: Choose setting (modern city, historical period, future)
@@ -623,7 +623,7 @@ Rating: """</code></pre>
         <p><strong>Input:</strong> Problem P, generation function G(P, s, k) → {t₁, ..., tₖ}, evaluation function E(P, s, t) → v on a 0-10 scale, search algorithm A, beam width b, maximum depth d</p>
         <p><strong>Output:</strong> Solution or best path found</p>
         <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">Algorithm ToT(P, G, E, A, b, d):
+        <pre><code class="language-text">Algorithm ToT(P, G, E, A, b, d):
     Initialize: S ← {s₀}  // Set of states, starting with initial state
     
     for depth = 1 to d:
@@ -779,6 +779,7 @@ Rating: """</code></pre>
         <p><strong>Execution</strong> runs tool code safely [10, 12].</p>
 
         <h4>3.3.3 Installation and Setup</h4>
+        <p><strong>Runnable example.</strong> The following install commands are intended to be executable as written (subject to environment differences).</p>
         <!-- Runnable example -->
         <pre><code class="language-bash"># Basic installation
 pip install smolagents
@@ -792,7 +793,7 @@ pip install "smolagents[gradio]"        # Gradio UI
 pip install "smolagents[all]"           # All optional extras</code></pre>
 
         <h3>3.4 CodeAgent: Code as Action</h3>
-        <p class="note"><strong>Code labeling.</strong> In Sections 3-6, snippets fall into two categories: <em>runnable examples</em> (intended to run with adaptation) and <em>pseudo-code</em> (architectural sketches). When helper methods or framework internals are omitted, treat the snippet as pseudo-code. API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 [10, 12].</p>
+        <p class="note"><strong>Code labeling.</strong> In Sections 3-6, snippets fall into two categories: <em>runnable examples</em> (intended to run with adaptation) and <em>pseudo-code</em> (architectural sketches). By default, snippets are illustrative pseudo-code unless the surrounding text explicitly marks them as a runnable example. API-facing examples were aligned to public smolagents docs/repository references as of February 19, 2026 [10, 12].</p>
         <p>The flagship agent in smolagents is CodeAgent, which uses generated Python code to invoke tools directly rather than relying only on structured function-call objects [10, 12].</p>
 
         <h4>3.4.1 Code as Action Paradigm</h4>
@@ -1106,6 +1107,7 @@ async def chat(request: ChatRequest):
     response = agent.run(request.message)
     return {"response": response}</code></pre>
         <p><strong>Containerized Deployment:</strong></p>
+        <p><strong>Runnable example.</strong> This Dockerfile block is intended to be executable with standard Python service scaffolding.</p>
         <!-- Runnable example -->
         <pre><code class="language-dockerfile">FROM python:3.11-slim
 WORKDIR /app
@@ -1528,6 +1530,7 @@ Resolution pattern: null-handling fix after hypothesis-driven tracing</code></pr
         <h3>5.1 Getting Started</h3>
 
         <h4>5.1.1 Environment Setup</h4>
+        <p><strong>Runnable example.</strong> This environment setup is intended to run as written in a fresh virtual environment.</p>
         <!-- Runnable example -->
         <pre><code class="language-bash"># Create virtual environment
 python -m venv agent_env
