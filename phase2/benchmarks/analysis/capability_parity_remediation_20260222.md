@@ -9,8 +9,10 @@
 - `phase2/code/src/phase2_baselines/runners/tot.py`
 - `phase2/code/src/phase2_baselines/pipeline.py`
 - `phase2/code/scripts/run_structured_lockset.py`
+- `phase2/code/scripts/run_game24_lockset.py`
 - `phase2/code/scripts/run_protocol_v3_matrix.py`
 - `phase2/code/scripts/run_protocol_v31_diagnostics.py`
+- `phase2/code/scripts/audit_capability_parity.py`
 - `phase2/code/tests/test_pipeline_hf.py`
 - `phase2/code/tests/test_runner_smoke.py`
 
@@ -18,9 +20,12 @@
 - Source artifact: `phase2/benchmarks/analysis/capability_parity_audit.md`
 - Machine-readable data: `phase2/benchmarks/analysis/capability_parity_audit.json`
 - Findings summary:
-  - `10` high-severity paired tool mismatches (`react` tool-enabled vs `tot` tool-disabled).
+  - `13` high-severity paired tool mismatches (`react` tool-enabled vs `tot` tool-disabled).
   - `9` medium-severity manifest tool declaration mismatches (React was hardcoded as `calc` even for non-Game24 tasks).
 - Affected historical run series:
+  - `protocol_v2_locked`
+  - `protocol_v2_locked_ablations`
+  - `protocol_v2_locked_search_ablations`
   - `protocol_v3_matrix`
   - `protocol_v31_diagnostic`
   - `protocol_v31_smoke_patch1`
@@ -45,11 +50,13 @@
    - Structured lockset report markdown/json now records the capability parity settings used.
 
 5. Propagated policy through orchestrators/docs.
-   - `phase2/code/scripts/run_protocol_v3_matrix.py`
-   - `phase2/code/scripts/run_protocol_v31_diagnostics.py`
-   - `phase2/benchmarks/evaluation-protocol-v3.md`
-   - `phase2/benchmarks/evaluation-protocol-v31.md`
-   - `phase2/benchmarks/protocol-v3-execution.md`
+  - `phase2/code/scripts/run_protocol_v3_matrix.py`
+  - `phase2/code/scripts/run_protocol_v31_diagnostics.py`
+  - `phase2/code/scripts/run_game24_lockset.py`
+  - `phase2/code/scripts/audit_capability_parity.py`
+  - `phase2/benchmarks/evaluation-protocol-v3.md`
+  - `phase2/benchmarks/evaluation-protocol-v31.md`
+  - `phase2/benchmarks/protocol-v3-execution.md`
    - `phase2/benchmarks/protocol-v31-execution.md`
 
 ## Verification Evidence
@@ -62,7 +69,7 @@
 - Strict policy guard behavior validated:
   - `--capability-parity-policy strict` aborts `react,tot` runs when tool exposure differs.
 - Equalized run behavior validated:
-  - sample run (`tmp_capability_equalized`) produced both conditions with `tool_config=[]`.
+  - sample runs (`tmp_capability_equalized`, `tmp_capability_equalized_game24`) produced both conditions with `tool_config=[]`.
   - audit output: `phase2/benchmarks/analysis/capability_parity_audit_tmp_equalized.json` (`findings=0`).
 
 ## Current Rule For Future Runs

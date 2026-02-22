@@ -15,12 +15,12 @@ from phase2_baselines.tasks import create_task, supported_tasks
 
 ROOT = Path("/Users/quiznat/Desktop/Tree_of_Thought/phase2")
 RUNS_ROOT = ROOT / "benchmarks/runs"
-DEFAULT_SERIES = [
-    "protocol_v3_matrix",
-    "protocol_v31_diagnostic",
-    "protocol_v31_smoke_patch1",
-    "protocol_v32_diagnostic",
-]
+
+
+def _discover_series_names() -> List[str]:
+    if not RUNS_ROOT.exists():
+        return []
+    return sorted(path.name for path in RUNS_ROOT.iterdir() if path.is_dir())
 
 
 @dataclass
@@ -47,9 +47,10 @@ class ConditionAudit:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Audit paired-condition capability parity")
+    discovered = _discover_series_names()
     parser.add_argument(
         "--series",
-        default=",".join(DEFAULT_SERIES),
+        default=",".join(discovered),
         help="Comma-separated run subdirectories under phase2/benchmarks/runs",
     )
     parser.add_argument(
@@ -141,6 +142,11 @@ def _code_checks() -> List[Dict[str, Any]]:
             ROOT / "code/scripts/run_structured_lockset.py",
             "def _resolve_capability_plan(",
             "Structured lockset runner enforces capability parity policy before execution.",
+        ),
+        (
+            ROOT / "code/scripts/run_game24_lockset.py",
+            "def _resolve_capability_plan(",
+            "Legacy Game24 lockset runner enforces the same capability parity policy.",
         ),
         (
             ROOT / "code/src/phase2_baselines/pipeline.py",

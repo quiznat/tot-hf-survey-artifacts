@@ -365,3 +365,5 @@ All timestamps must be UTC. Add one entry per run.
 | BASELINE-SINGLE-PATH-20260220-195835-7059a2 | 2026-02-20T19:58:35Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
 | BASELINE-SINGLE-PATH-20260220-195836-3971de | 2026-02-20T19:58:36Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
 | BASELINE-SINGLE-PATH-20260220-195843-506f6d | 2026-02-20T19:58:43Z | game24-demo | baseline-single-path | failure | single-path baseline execution |
+| BASELINE-REACT-20260222-054456-ccfde9 | 2026-02-22T05:44:56Z | game24-demo | baseline-react | failure | react baseline execution |
+| TOT-PROTOTYPE-20260222-054456-d4f46d | 2026-02-22T05:44:56Z | game24-demo | tot-prototype | failure | tot prototype frontier exhausted without candidates |
