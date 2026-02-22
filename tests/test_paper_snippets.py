@@ -38,6 +38,28 @@ from examples.paper_snippets.strategy_examples import (
     RecoverableAgent,
     compare_tool_selection,
 )
+from examples.paper_snippets.survey_walkthrough_examples import (
+    build_traditional_tool_call,
+    creative_case_study,
+    creative_thought_decomposition,
+    debugging_case_study,
+    financial_case_study,
+    hierarchical_tree_outline,
+    market_analysis_plan,
+    math_thought_decomposition,
+    multimodal_tree_outline,
+    run_tot_algorithm,
+    tennis_ball_cot_trace,
+    tool_selection_walkthrough,
+)
+from examples.paper_snippets.tot_runtime_examples import (
+    CollaborativeToT,
+    HeuristicToTPlanner,
+    MinimalToTAgent,
+    SimpleToTAgent,
+    ToTEnabledCodeAgent,
+    evaluate_math,
+)
 from examples.paper_snippets.transparency_examples import Result, SelectedPath, explain_decision
 from examples.paper_snippets.tool_examples import (
     DatabaseTool,
@@ -238,6 +260,93 @@ class TestPaperSnippets(unittest.TestCase):
         self.assertGreaterEqual(complex_cfg["max_depth"], simple_cfg["max_depth"])
         self.assertIn("beam=", complex_task["solution"])
         self.assertIn("depth=", complex_task["solution"])
+
+    def test_survey_walkthrough_examples(self) -> None:
+        trace = tennis_ball_cot_trace()
+        self.assertIn("The answer is 11", trace)
+
+        math_steps = math_thought_decomposition()
+        story_steps = creative_thought_decomposition()
+        self.assertEqual(len(math_steps), 3)
+        self.assertEqual(len(story_steps), 4)
+
+        loop = run_tot_algorithm("Calculate a multi-step math result", beam_width=2, max_depth=3)
+        self.assertGreater(loop["explored_states"], 0)
+        self.assertGreater(len(loop["best_steps"]), 0)
+
+        payload = build_traditional_tool_call("15 * 24")
+        self.assertEqual(payload["tool"], "calculator")
+        self.assertEqual(payload["parameters"]["expression"], "15 * 24")
+
+        selection = tool_selection_walkthrough()
+        self.assertEqual(selection["selected"], "Path B")
+        self.assertEqual(len(selection["paths"]), 3)
+
+        plan = market_analysis_plan()
+        self.assertEqual(plan["selected_analysis"], "Option 2")
+        self.assertEqual(len(plan["execution_plan"]), 6)
+
+        financial = financial_case_study()
+        self.assertEqual(financial["selected_strategy"], "Strategy B")
+        self.assertIn("Retrieve 10-Q filing", financial["execution_steps"])
+
+        creative = creative_case_study()
+        self.assertEqual(creative["selected_concept"], "Concept B")
+        self.assertIn("TikTok", creative["constraints"]["channels"])
+
+        debugging = debugging_case_study()
+        self.assertIn("NoneType", debugging["error"])
+        self.assertEqual(debugging["resolution"], "Add null check before calling .strip()")
+
+        multimodal = multimodal_tree_outline()
+        hierarchical = hierarchical_tree_outline()
+        self.assertIn("Visual reasoning branches", multimodal["nodes"])
+        self.assertEqual(len(hierarchical["high_level_phases"]), 3)
+
+    def test_tot_runtime_examples(self) -> None:
+        planner = HeuristicToTPlanner()
+        task = "Compare two open-source vector databases for a production RAG stack"
+        candidates = planner.propose(task)
+        scores = planner.evaluate(task, candidates)
+        selected = planner.select(candidates, scores)
+        self.assertEqual(len(candidates), 3)
+        self.assertIn("docs", selected.lower())
+
+        model = InferenceClientModel("demo-model")
+        planned_agent = ToTEnabledCodeAgent(tools=[], model=model, planner=planner)
+        planned_output = planned_agent.run(task)
+        self.assertIn("model[demo-model]:", planned_output)
+        self.assertIn("Task:", planned_output)
+        self.assertIn("vector databases", planned_output)
+
+        simple_agent = SimpleToTAgent(model=InferenceClientModel("simple-model"), beam_width=2, max_depth=3)
+        solution = simple_agent.solve_with_tot(
+            "Create a function to normalize punctuation and case for token counting."
+        )
+        self.assertIn("Step 1:", solution)
+
+        self.assertAlmostEqual(evaluate_math("2 + 3 * 4"), 14.0)
+        with self.assertRaises(ValueError):
+            evaluate_math("__import__('os').system('echo no')")
+
+        minimal = MinimalToTAgent(model=InferenceClientModel("minimal-model"))
+        path = minimal.tot_solve(
+            "Calculate compound interest on 1000 at 5 percent for 3 years",
+            beam_width=2,
+            max_depth=3,
+        )
+        self.assertGreater(len(path), 0)
+        self.assertIsInstance(path[0], str)
+
+        collaborators = [
+            CodeAgent(tools=[], model=InferenceClientModel("agent-a")),
+            CodeAgent(tools=[], model=InferenceClientModel("agent-b")),
+        ]
+        collaborative = CollaborativeToT(collaborators)
+        collab_result = collaborative.collaborative_solve("Draft a plan for EV market analysis")
+        self.assertEqual(len(collab_result["contributions"]), 2)
+        self.assertEqual(len(collab_result["shared_memory"]), 2)
+        self.assertIsNotNone(collab_result["selected"])
 
     def test_transparency_examples(self) -> None:
         result = Result(selected_path=SelectedPath(justification="Highest evaluator score"))
