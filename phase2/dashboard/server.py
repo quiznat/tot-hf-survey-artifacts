@@ -8,12 +8,24 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 from typing import Any, Dict, List
 
 
-ROOT = Path("/Users/quiznat/Desktop/Tree_of_Thought")
+def resolve_root() -> Path:
+    env_root = os.environ.get("TOT_HF_ROOT", "").strip()
+    if env_root:
+        return Path(env_root).expanduser().resolve()
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        if (parent / "phase2").is_dir() and (parent / "README.md").exists():
+            return parent
+    return Path.cwd()
+
+
+ROOT = resolve_root()
 PHASE2 = ROOT / "phase2"
 ANALYSIS_DIR = PHASE2 / "benchmarks/analysis"
 RUNS_DIR = PHASE2 / "benchmarks/runs"
@@ -266,10 +278,20 @@ def list_latest_analysis(limit: int = 25) -> List[Dict[str, Any]]:
 def diagnose_access() -> Dict[str, Any]:
     probe = PHASE2 / "README.md"
     try:
+        cwd = os.getcwd()
+    except Exception:
+        cwd = ""
+    base = {
+        "root": str(ROOT),
+        "phase2": str(PHASE2),
+        "python_executable": sys.executable,
+        "cwd": cwd,
+    }
+    try:
         text = probe.read_text(encoding="utf-8")
-        return {"root_readable": True, "probe": str(probe), "probe_size": len(text)}
+        return {**base, "root_readable": True, "probe": str(probe), "probe_size": len(text)}
     except Exception as exc:
-        return {"root_readable": False, "probe": str(probe), "error": str(exc)}
+        return {**base, "root_readable": False, "probe": str(probe), "error": str(exc)}
 
 
 def build_overview() -> Dict[str, Any]:
@@ -500,9 +522,12 @@ def html_template() -> str:
       const accessWarn = document.getElementById("accessWarn");
       if (access.root_readable === false) {
         accessWarn.style.display = "block";
+        const py = access.python_executable ? " Interpreter: " + access.python_executable + "." : "";
+        const root = access.root ? " Root: " + access.root + "." : "";
         document.getElementById("accessWarnText").textContent =
           "Dashboard service cannot read workspace files (" + (access.error || "permission denied") +
-          "). On macOS, grant Full Disk Access to the service python interpreter, then reinstall service.";
+          "). On macOS, grant Full Disk Access to the service python interpreter, then reinstall service." +
+          py + root;
       } else {
         accessWarn.style.display = "none";
         document.getElementById("accessWarnText").textContent = "";

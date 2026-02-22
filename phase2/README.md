@@ -21,7 +21,7 @@ This directory is the execution workspace for the novel contribution track: impl
 - Dashboard docs: `phase2/dashboard/README.md`
 
 If the service runs but shows no data, macOS privacy controls may block LaunchAgents from reading Desktop paths.  
-In that case, grant Full Disk Access to the configured `python3` interpreter and restart the service.
+Run `phase2/dashboard/repair_permissions.sh`, grant Full Disk Access to the reported `python3`, then reinstall via `phase2/dashboard/install_service.sh`.
 
 ## Purpose
 - Keep long-running project state stable across sessions.

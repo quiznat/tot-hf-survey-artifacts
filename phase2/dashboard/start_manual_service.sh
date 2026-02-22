@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="/Users/quiznat/Desktop/Tree_of_Thought"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 RUNTIME_DIR="${ROOT}/phase2/reproducibility/runtime"
 PORT="${1:-8891}"
+PYTHON_BIN="${PYTHON_BIN:-$(command -v python3 || true)}"
+
+if [[ -z "${PYTHON_BIN}" ]]; then
+  echo "python3 not found in PATH."
+  exit 1
+fi
+PYTHON_BIN="$(cd "$(dirname "${PYTHON_BIN}")" && pwd)/$(basename "${PYTHON_BIN}")"
 
 mkdir -p "${RUNTIME_DIR}"
 
@@ -17,7 +25,8 @@ log="${RUNTIME_DIR}/dashboard_manual_${ts}.log"
 pidf="${RUNTIME_DIR}/dashboard_manual_${ts}.pid"
 
 nohup env PYTHONUNBUFFERED=1 \
-  python3 "${ROOT}/phase2/dashboard/server.py" \
+  TOT_HF_ROOT="${ROOT}" \
+  "${PYTHON_BIN}" "${SCRIPT_DIR}/server.py" \
   --host 127.0.0.1 \
   --port "${PORT}" \
   > "${log}" 2>&1 < /dev/null &

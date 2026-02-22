@@ -26,7 +26,12 @@ curl -I http://127.0.0.1:8787/
 ## Privacy Note (macOS)
 If service mode shows empty data while manual mode works, macOS Desktop privacy controls are blocking LaunchAgent file reads.
 
-Grant Full Disk Access to the active `python3` interpreter (the one shown in launchctl status), then reinstall:
+Open the privacy panel and print the exact interpreter path used by launchd:
+```bash
+bash /Users/quiznat/Desktop/Tree_of_Thought/phase2/dashboard/repair_permissions.sh
+```
+
+After granting Full Disk Access to that interpreter, reinstall:
 ```bash
 bash /Users/quiznat/Desktop/Tree_of_Thought/phase2/dashboard/install_service.sh
 ```
