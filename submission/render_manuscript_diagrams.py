@@ -18,24 +18,27 @@ ASSETS = ROOT / "assets"
 DOT = shutil.which("dot")
 
 BG = "#ffffff"
-EDGE = "#5f7390"
-NODE_FILL = "#f8fbff"
-NODE_BORDER = "#4f6485"
-TITLE = "#14181f"
+INK = "#162130"
+LINE = "#445a79"
+NODE_FILL = "#ffffff"
 
 BASE_GRAPH = (
-    f'bgcolor="{BG}", pad="0.35", nodesep="0.55", ranksep="0.70", '
-    f'splines="polyline", fontname="Helvetica", fontcolor="{TITLE}", '
-    'labelloc="t", margin="0.15"'
+    f'bgcolor="{BG}", pad="0.06", nodesep="0.34", ranksep="0.50", '
+    f'splines="polyline", fontname="Helvetica", fontcolor="{INK}", margin="0.02"'
 )
 BASE_NODE = (
-    f'shape="box", style="rounded,filled", fillcolor="{NODE_FILL}", '
-    f'color="{NODE_BORDER}", penwidth="2.0", fontname="Helvetica", '
-    'fontsize="20", margin="0.14,0.10"'
+    f'shape="box", style="filled", fillcolor="{NODE_FILL}", '
+    f'color="{LINE}", penwidth="1.5", fontname="Helvetica", '
+    'fontsize="13", margin="0.08,0.06"'
+)
+BASE_DECISION = (
+    f'shape="diamond", style="filled", fillcolor="{NODE_FILL}", '
+    f'color="{LINE}", penwidth="1.5", fontname="Helvetica", fontsize="13", '
+    'margin="0.04,0.04"'
 )
 BASE_EDGE = (
-    f'color="{EDGE}", penwidth="1.8", arrowsize="0.8", '
-    'fontname="Helvetica", fontsize="15", labeldistance="1.4"'
+    f'color="{LINE}", penwidth="1.3", arrowsize="0.70", '
+    f'fontname="Helvetica", fontsize="11", fontcolor="{INK}"'
 )
 
 
@@ -57,7 +60,7 @@ def write_and_render(name: str, dot_source: str) -> None:
 
     subprocess.run([DOT, "-Tsvg", str(dot_path), "-o", str(svg_path)], check=True)
     subprocess.run(
-        [DOT, "-Tpng", "-Gdpi=140", str(dot_path), "-o", str(png_path)],
+        [DOT, "-Tpng", "-Gdpi=240", str(dot_path), "-o", str(png_path)],
         check=True,
     )
 
@@ -66,25 +69,30 @@ def smolagents_arch_dot() -> str:
     return dedent(
         f"""
         digraph G {{
-          graph [{BASE_GRAPH}, rankdir="TB", label="smolagents Architecture", fontsize="32"];
+          graph [{BASE_GRAPH}, rankdir="TB"];
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
-          agents [label="Agents\\n- CodeAgent\\n- ToolAgent\\n- MultiStep"];
-          models [label="Models\\n- HfApiModel\\n- LiteLLM\\n- OpenAI"];
-          tools [label="Tools\\n- @tool\\n- Tool\\n- Pipeline"];
-          memory [label="Memory\\n- Step Log\\n- Tool Calls\\n- Errors"];
-          planning [label="Planning\\n- Action\\n- Selection\\n- Tool Pick"];
-          execution [label="Execution\\n- Code\\n- Execution\\n- Sandbox"];
+          agents [label="Agents\\nCodeAgent\\nToolAgent\\nMultiStepAgent"];
+          models [label="Models\\nHfApiModel\\nLiteLLM\\nOpenAI"];
+          tools [label="Tools\\n@tool\\nTool\\nPipeline"];
+
+          memory [label="Memory\\nStep Log\\nTool Calls\\nErrors"];
+          planning [label="Planning\\nAction\\nSelection\\nTool Pick"];
+          execution [label="Execution\\nCode\\nExecution\\nSandbox"];
 
           {{ rank=same; agents; models; tools }}
           {{ rank=same; memory; planning; execution }}
 
-          agents -> models [dir=none];
-          models -> tools [dir=none];
+          agents -> models [dir=none, arrowhead=none, arrowtail=none];
+          models -> tools [dir=none, arrowhead=none, arrowtail=none];
+
           agents -> memory;
           models -> planning;
           tools -> execution;
+
+          memory -> planning [style=invis];
+          planning -> execution [style=invis];
         }}
         """
     ).strip() + "\n"
@@ -94,7 +102,7 @@ def multistep_state_dot() -> str:
     return dedent(
         f"""
         digraph G {{
-          graph [{BASE_GRAPH}, rankdir="TB", label="MultiStepAgent State Diagram", fontsize="32"];
+          graph [{BASE_GRAPH}, rankdir="TB", ranksep="0.56", nodesep="0.34"];
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
@@ -103,15 +111,17 @@ def multistep_state_dot() -> str:
           plan [label="Generate / Update Plan"];
           step [label="Execute Next Step"];
           observe [label="Collect Observation"];
-          goal [shape="diamond", style="filled", fillcolor="#edf2f8", label="Goal\\nSatisfied?"];
-          replan [shape="diamond", style="filled", fillcolor="#edf2f8", label="Need\\nReplan?"];
+          goal [{BASE_DECISION}, label="Goal\\nSatisfied?"];
+          replan [{BASE_DECISION}, label="Need\\nReplan?"];
           out [label="Return Final Response"];
 
           input -> init -> plan -> step -> observe -> goal;
           goal -> out [label="Yes"];
           goal -> replan [label="No"];
-          replan -> plan [label="Yes"];
-          replan -> step [label="No"];
+          replan -> plan [label="Yes", constraint=false];
+          replan -> step [label="No", constraint=false];
+
+          {{ rank=same; goal; replan }}
         }}
         """
     ).strip() + "\n"
@@ -121,27 +131,25 @@ def tool_flow_dot() -> str:
     return dedent(
         f"""
         digraph G {{
-          graph [{BASE_GRAPH}, rankdir="TB", label="Tool-Augmented LLM Flow", fontsize="32"];
+          graph [{BASE_GRAPH}, rankdir="TB", ranksep="0.52", nodesep="0.30"];
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
           query [label="User Query"];
           reason [label="LLM Reasoning Step"];
-          need [shape="diamond", style="filled", fillcolor="#edf2f8", label="Need\\nTool?"];
+          need [{BASE_DECISION}, label="Need\\nTool?"];
           select [label="Select Tool + Arguments"];
-          exec [label="Execute Tool"];
-          obs [label="Tool Observation"];
-          ans [label="Generate Final Answer"];
+          execute [label="Execute Tool"];
+          observe [label="Tool Observation"];
+          answer [label="Generate Final Answer"];
 
-          query -> reason;
-          reason -> need;
+          query -> reason -> need;
           need -> select [label="Yes"];
-          need -> ans [label="No"];
-          select -> exec;
-          exec -> obs;
-          obs -> reason [label="Observation loop", constraint=false];
+          need -> answer [label="No"];
+          select -> execute -> observe;
+          observe -> reason [constraint=false];
 
-          {{ rank=same; select; ans }}
+          {{ rank=same; select; answer }}
         }}
         """
     ).strip() + "\n"
@@ -151,31 +159,33 @@ def tot_agent_dot() -> str:
     return dedent(
         f"""
         digraph G {{
-          graph [{BASE_GRAPH}, rankdir="TB", label="ToT-Enhanced Agent", fontsize="32"];
+          graph [{BASE_GRAPH}, rankdir="TB", ranksep="0.56"];
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
           thought [label="Thought Generation"];
-          eval [label="Evaluate States"];
+          evaluate [label="Evaluate States"];
           select [label="Select Best Path"];
           memory [label="Memory Store"];
           action [label="Action Planning"];
-          tools [label="Tool Execution"];
+          tool [label="Tool Execution"];
           feedback [label="Observation Feedback"];
 
-          {{ rank=same; thought; eval; select }}
-          {{ rank=same; action; tools }}
+          {{ rank=same; thought; evaluate; select }}
+          {{ rank=same; action; tool }}
 
-          thought -> eval -> select;
+          thought -> evaluate -> select;
           thought -> memory;
-          eval -> memory;
+          evaluate -> memory;
           select -> memory;
+
           memory -> action;
-          memory -> tools;
-          action -> tools;
+          memory -> tool;
+          action -> tool;
+
           action -> feedback;
-          tools -> feedback;
-          feedback -> memory;
+          tool -> feedback;
+          feedback -> memory [constraint=false];
         }}
         """
     ).strip() + "\n"
@@ -185,23 +195,22 @@ def survey_method_dot() -> str:
     return dedent(
         f"""
         digraph G {{
-          graph [{BASE_GRAPH}, rankdir="TB", label="Survey Method Flow (Frozen Run)", fontsize="32"];
+          graph [{BASE_GRAPH}, rankdir="TB", ranksep="0.56"];
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
           seed [label="Seeded Corpus\\n(Pre-Curated ToT+Agent Scope)"];
           records [label="Records Identified\\nn = 30"];
+          dupes [label="Duplicates Removed\\nn = 0"];
           screened [label="Title/Abstract Screened\\nn = 30"];
           fulltext [label="Full-Text Assessed\\nn = 30"];
           included [label="Studies Included in Synthesis\\nn = 22"];
-          excl [label="Full-Text Exclusions\\nn = 8\\n- Out of scope / method fit\\n- Insufficient extraction detail"];
-          dup [shape="note", style="filled", fillcolor="#eef3f9", color="#9aa9be", fontsize="14", label="duplicates removed: 0"];
+          excluded [label="Full-Text Exclusions\\nn = 8\\nOut of scope / method fit\\nInsufficient extraction detail"];
 
-          seed -> records -> screened -> fulltext -> included;
-          fulltext -> excl [label="excluded"];
-          dup -> records [style="dashed", arrowhead="none"];
+          seed -> records -> dupes -> screened -> fulltext -> included;
+          fulltext -> excluded [label="Excluded", constraint=false];
 
-          {{ rank=same; fulltext; excl }}
+          {{ rank=same; fulltext; excluded }}
         }}
         """
     ).strip() + "\n"

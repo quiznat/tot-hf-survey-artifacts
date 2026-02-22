@@ -1,19 +1,18 @@
 digraph G {
-  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="Survey Method Flow (Frozen Run)", fontsize="32"];
-  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
-  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+  graph [bgcolor="#ffffff", pad="0.06", nodesep="0.34", ranksep="0.50", splines="polyline", fontname="Helvetica", fontcolor="#162130", margin="0.02", rankdir="TB", ranksep="0.56"];
+  node [shape="box", style="filled", fillcolor="#ffffff", color="#445a79", penwidth="1.5", fontname="Helvetica", fontsize="13", margin="0.08,0.06"];
+  edge [color="#445a79", penwidth="1.3", arrowsize="0.70", fontname="Helvetica", fontsize="11", fontcolor="#162130"];
 
   seed [label="Seeded Corpus\n(Pre-Curated ToT+Agent Scope)"];
   records [label="Records Identified\nn = 30"];
+  dupes [label="Duplicates Removed\nn = 0"];
   screened [label="Title/Abstract Screened\nn = 30"];
   fulltext [label="Full-Text Assessed\nn = 30"];
   included [label="Studies Included in Synthesis\nn = 22"];
-  excl [label="Full-Text Exclusions\nn = 8\n- Out of scope / method fit\n- Insufficient extraction detail"];
-  dup [shape="note", style="filled", fillcolor="#eef3f9", color="#9aa9be", fontsize="14", label="duplicates removed: 0"];
+  excluded [label="Full-Text Exclusions\nn = 8\nOut of scope / method fit\nInsufficient extraction detail"];
 
-  seed -> records -> screened -> fulltext -> included;
-  fulltext -> excl [label="excluded"];
-  dup -> records [style="dashed", arrowhead="none"];
+  seed -> records -> dupes -> screened -> fulltext -> included;
+  fulltext -> excluded [label="Excluded", constraint=false];
 
-  { rank=same; fulltext; excl }
+  { rank=same; fulltext; excluded }
 }

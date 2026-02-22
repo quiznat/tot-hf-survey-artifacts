@@ -330,24 +330,17 @@
 
     figure.diagram-container {
       margin: 1.35rem 0 1.55rem;
-      border: 1px solid var(--border);
-      background: #fcfdff;
-      padding: 0.95rem 1rem 0.75rem;
-    }
-
-    .diagram-host {
-      width: 100%;
-      min-height: 240px;
-    }
-
-    .diagram-host pre.mermaid {
-      margin: 0;
-      padding: 0;
-      border: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       background: transparent;
-      overflow: visible;
-      font-size: 1rem;
-      line-height: 1.3;
+      padding: 0.7rem 0 0.5rem;
+    }
+
+    .diagram-picture {
+      display: block;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
     }
 
     img.diagram-fallback {
@@ -355,18 +348,6 @@
       width: 100%;
       height: auto;
       border: 0;
-    }
-
-    .diagram-host {
-      display: none;
-    }
-
-    html.mermaid-ready .diagram-host {
-      display: block;
-    }
-
-    html.mermaid-ready img.diagram-fallback {
-      display: none;
     }
 
     figcaption.diagram-caption {
@@ -519,7 +500,10 @@
 
         <h3>0.3 Study Selection Flow</h3>
         <figure class="diagram-container">
-            <img class="diagram-fallback" src="./assets/diagram_survey_method.png" alt="Survey method flow diagram for frozen run">
+            <picture class="diagram-picture">
+                <source srcset="./assets/diagram_survey_method.svg" type="image/svg+xml">
+                <img class="diagram-fallback" src="./assets/diagram_survey_method.png" alt="Survey method flow diagram for frozen run">
+            </picture>
             <figcaption class="diagram-caption">Figure 0.3-1. Survey method flow for frozen run TOT-HF-SURVEY-2026-02-19 (seeded corpus to screened and included records).</figcaption>
         </figure>
         <table>
@@ -869,23 +853,10 @@ print(result["explored_states"])</code></pre>
         <h4>3.3.2 Architecture Overview</h4>
         <p>smolagents is built around several key abstractions [10, 12]:</p>
         <figure class="diagram-container">
-            <div class="diagram-host" aria-hidden="true">
-                <pre class="mermaid">flowchart TB
-    user["User Task"] --> agent["CodeAgent / MultiStepAgent"]
-    agent --> planner["Planning Module"]
-    agent --> memory["Memory Store"]
-    agent --> model["Model Interface"]
-    planner --> router["Tool Router"]
-    router --> builtin["Built-in Tools"]
-    router --> custom["Custom Tools"]
-    builtin --> exec["Execution Sandbox"]
-    custom --> exec
-    exec --> obs["Observations"]
-    obs --> memory
-    memory --> agent
-</pre>
-            </div>
-            <img class="diagram-fallback" src="./assets/diagram_smolagents_arch.png" alt="smolagents architecture diagram">
+            <picture class="diagram-picture">
+                <source srcset="./assets/diagram_smolagents_arch.svg" type="image/svg+xml">
+                <img class="diagram-fallback" src="./assets/diagram_smolagents_arch.png" alt="smolagents architecture diagram">
+            </picture>
             <figcaption class="diagram-caption">Figure 3.3-1. Conceptual architecture of smolagents components and execution loop.</figcaption>
         </figure>
         <p><strong>Agents</strong> orchestrate the observation-thought-action loop [10, 12].</p>
@@ -1003,20 +974,10 @@ agent = CodeAgent(
         <h4>3.5.1 Multi-Step Architecture</h4>
         <p>MultiStepAgent maintains richer state across execution:</p>
         <figure class="diagram-container">
-            <div class="diagram-host" aria-hidden="true">
-                <pre class="mermaid">flowchart TD
-    in["Input Task"] --> init["Initialize State"]
-    init --> plan["Generate / Update Plan"]
-    plan --> step["Execute Next Step"]
-    step --> observe["Collect Observation"]
-    observe --> done{"Goal Satisfied?"}
-    done -- "No" --> replan{"Need Replan?"}
-    replan -- "Yes" --> plan
-    replan -- "No" --> step
-    done -- "Yes" --> out["Return Final Response"]
-</pre>
-            </div>
-            <img class="diagram-fallback" src="./assets/diagram_multistep_state.png" alt="MultiStepAgent state diagram">
+            <picture class="diagram-picture">
+                <source srcset="./assets/diagram_multistep_state.svg" type="image/svg+xml">
+                <img class="diagram-fallback" src="./assets/diagram_multistep_state.png" alt="MultiStepAgent state diagram">
+            </picture>
             <figcaption class="diagram-caption">Figure 3.5-1. MultiStepAgent state progression with optional replanning loop.</figcaption>
         </figure>
 
@@ -1238,18 +1199,10 @@ class DatabaseTool:
         <h4>3.6.5 The Tool-Augmented LLM Pattern</h4>
         <p>The integration of tools with LLMs follows a recurring pattern in agent frameworks [6, 10]:</p>
         <figure class="diagram-container">
-            <div class="diagram-host" aria-hidden="true">
-                <pre class="mermaid">flowchart LR
-    query["User Query"] --> reason["LLM Reasoning Step"]
-    reason --> need{"Need External Tool?"}
-    need -- "Yes" --> select["Select Tool + Arguments"]
-    select --> execute["Execute Tool"]
-    execute --> observation["Tool Observation"]
-    observation --> reason
-    need -- "No" --> answer["Generate Final Answer"]
-</pre>
-            </div>
-            <img class="diagram-fallback" src="./assets/diagram_tool_flow.png" alt="Tool-augmented LLM flow diagram">
+            <picture class="diagram-picture">
+                <source srcset="./assets/diagram_tool_flow.svg" type="image/svg+xml">
+                <img class="diagram-fallback" src="./assets/diagram_tool_flow.png" alt="Tool-augmented LLM flow diagram">
+            </picture>
             <figcaption class="diagram-caption">Figure 3.6-1. Tool-augmented reasoning loop used by agent frameworks.</figcaption>
         </figure>
         <p>This pattern, associated with reasoning-action workflows such as ReAct and related agent frameworks, enables LLMs to [6, 10]:</p>
@@ -1336,30 +1289,10 @@ result = runner.run(
 
         <h4>4.2.1 ToT-Enhanced Agent Architecture</h4>
         <figure class="diagram-container">
-            <div class="diagram-host" aria-hidden="true">
-                <pre class="mermaid">flowchart TB
-    subgraph search["Reasoning Search Layer"]
-        direction LR
-        thought["Thought Generation"] --> evaluate["Evaluate States"] --> select["Select Best Path"]
-    end
-    memory["Memory Store"]
-    subgraph execute["Execution Layer"]
-        direction LR
-        plan["Action Planning"] --> tools["Tool Execution"]
-    end
-    feedback["Observation Feedback"]
-
-    thought --> memory
-    evaluate --> memory
-    select --> memory
-    memory --> plan
-    memory --> tools
-    plan --> feedback
-    tools --> feedback
-    feedback --> evaluate
-</pre>
-            </div>
-            <img class="diagram-fallback" src="./assets/diagram_tot_agent.png" alt="ToT-enhanced agent architecture diagram">
+            <picture class="diagram-picture">
+                <source srcset="./assets/diagram_tot_agent.svg" type="image/svg+xml">
+                <img class="diagram-fallback" src="./assets/diagram_tot_agent.png" alt="ToT-enhanced agent architecture diagram">
+            </picture>
             <figcaption class="diagram-caption">Figure 4.2-1. ToT-enhanced agent architecture with explicit branch selection and memory feedback.</figcaption>
         </figure>
 

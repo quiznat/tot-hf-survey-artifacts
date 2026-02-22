@@ -1,23 +1,21 @@
 digraph G {
-  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="Tool-Augmented LLM Flow", fontsize="32"];
-  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
-  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+  graph [bgcolor="#ffffff", pad="0.06", nodesep="0.34", ranksep="0.50", splines="polyline", fontname="Helvetica", fontcolor="#162130", margin="0.02", rankdir="TB", ranksep="0.52", nodesep="0.30"];
+  node [shape="box", style="filled", fillcolor="#ffffff", color="#445a79", penwidth="1.5", fontname="Helvetica", fontsize="13", margin="0.08,0.06"];
+  edge [color="#445a79", penwidth="1.3", arrowsize="0.70", fontname="Helvetica", fontsize="11", fontcolor="#162130"];
 
   query [label="User Query"];
   reason [label="LLM Reasoning Step"];
-  need [shape="diamond", style="filled", fillcolor="#edf2f8", label="Need\nTool?"];
+  need [shape="diamond", style="filled", fillcolor="#ffffff", color="#445a79", penwidth="1.5", fontname="Helvetica", fontsize="13", margin="0.04,0.04", label="Need\nTool?"];
   select [label="Select Tool + Arguments"];
-  exec [label="Execute Tool"];
-  obs [label="Tool Observation"];
-  ans [label="Generate Final Answer"];
+  execute [label="Execute Tool"];
+  observe [label="Tool Observation"];
+  answer [label="Generate Final Answer"];
 
-  query -> reason;
-  reason -> need;
+  query -> reason -> need;
   need -> select [label="Yes"];
-  need -> ans [label="No"];
-  select -> exec;
-  exec -> obs;
-  obs -> reason [label="Observation loop", constraint=false];
+  need -> answer [label="No"];
+  select -> execute -> observe;
+  observe -> reason [constraint=false];
 
-  { rank=same; select; ans }
+  { rank=same; select; answer }
 }
