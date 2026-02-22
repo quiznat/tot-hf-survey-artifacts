@@ -19,6 +19,7 @@ fi
 # language annotations. Normalize code wrappers for conversion fidelity.
 perl -0777 -pe '
   s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
+  s#<div class="diagram-host"[^>]*>.*?</div>##gs;
 ' "$SRC_HTML" > "$TMP_HTML"
 
 pandoc \

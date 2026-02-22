@@ -89,6 +89,7 @@ perl -i -pe '
 # language annotations. Normalize code wrappers for conversion fidelity.
 perl -0777 -i -pe '
   s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
+  s#<div class="diagram-host"[^>]*>.*?</div>##gs;
 ' "$ANON_HTML"
 
 pandoc \

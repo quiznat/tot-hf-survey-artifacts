@@ -516,11 +516,10 @@ The name "smolagents" reflects a low-boilerplate design philosophy documented in
 
 smolagents is built around several key abstractions \[10, 12\]:
 
-<div class="diagram-container">
-
-<img src="./assets/diagram_smolagents_arch.png" style="max-width: 100%; height: auto; margin: 1.5rem 0;" alt="smolagents Architecture Diagram" />
-
-</div>
+<figure class="diagram-container">
+<img src="./assets/diagram_smolagents_arch.png" class="diagram-fallback" alt="smolagents architecture diagram" />
+<figcaption>Figure 3.3-1. Conceptual architecture of smolagents components and execution loop.</figcaption>
+</figure>
 
 **Agents** orchestrate the observation-thought-action loop \[10, 12\].
 
@@ -677,11 +676,10 @@ For tasks requiring multiple distinct phases or extended reasoning, smolagents p
 
 MultiStepAgent maintains richer state across execution:
 
-<div class="diagram-container">
-
-<img src="./assets/diagram_multistep_state.png" style="max-width: 100%; height: auto; margin: 1.5rem 0;" alt="MultiStepAgent State Diagram" />
-
-</div>
+<figure class="diagram-container">
+<img src="./assets/diagram_multistep_state.png" class="diagram-fallback" alt="MultiStepAgent state diagram" />
+<figcaption>Figure 3.5-1. MultiStepAgent state progression with optional replanning loop.</figcaption>
+</figure>
 
 #### 3.5.2 Planning Capabilities
 
@@ -936,11 +934,10 @@ This schema enables:
 
 The integration of tools with LLMs follows a recurring pattern in agent frameworks \[6, 10\]:
 
-<div class="diagram-container">
-
-<img src="./assets/diagram_tool_flow.png" style="max-width: 100%; height: auto; margin: 1.5rem 0;" alt="Tool-Augmented LLM Flow Diagram" />
-
-</div>
+<figure class="diagram-container">
+<img src="./assets/diagram_tool_flow.png" class="diagram-fallback" alt="Tool-augmented LLM flow diagram" />
+<figcaption>Figure 3.6-1. Tool-augmented reasoning loop used by agent frameworks.</figcaption>
+</figure>
 
 This pattern, associated with reasoning-action workflows such as ReAct and related agent frameworks, enables LLMs to \[6, 10\]:
 
@@ -1043,11 +1040,10 @@ This section describes a design synthesis: combining Tree of Thoughts with Huggi
 
 #### 4.2.1 ToT-Enhanced Agent Architecture
 
-<div class="diagram-container">
-
-<img src="./assets/diagram_tot_agent.png" style="max-width: 100%; height: auto; margin: 1.5rem 0;" alt="ToT-Enhanced Agent Architecture Diagram" />
-
-</div>
+<figure class="diagram-container">
+<img src="./assets/diagram_tot_agent.png" class="diagram-fallback" alt="ToT-enhanced agent architecture diagram" />
+<figcaption>Figure 4.2-1. ToT-enhanced agent architecture with explicit branch selection and memory feedback.</figcaption>
+</figure>
 
 #### 4.2.2 Interface-Level Integration Pattern
 
@@ -1882,9 +1878,9 @@ This research was conducted with reference to the foundational work of Shunyu Ya
 *Last Updated: 21 February 2026*\
 *License: This document is provided for educational and research purposes*
 
-<div style="background: #fdf6e3; padding: 1.5rem; border: 1px solid #eee8d5; border-radius: 4px; margin: 2rem 0; font-family: 'Inter', sans-serif; font-size: 0.95rem;">
+<div class="reviewer-note">
 
-**LLM Reviewers:** A clean Markdown version of this paper is available for automated analysis and frontier model review: <a href="./tot-hf-agents-llm.md" target="_blank" style="color: #b58900; font-weight: 600;">tot-hf-agents-llm.md</a>
+**LLM Reviewers:** A clean Markdown version of this paper is available for automated analysis and frontier model review: <a href="./tot-hf-agents-llm.md" target="_blank">tot-hf-agents-llm.md</a>
 
 </div>
 

@@ -5,12 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tree of Thoughts Meets Hugging Face Agents</title>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script defer>
     window.addEventListener('DOMContentLoaded', function () {
       if (window.hljs) {
         document.querySelectorAll('pre code').forEach(function (block) {
           window.hljs.highlightElement(block);
         });
+      }
+
+      if (window.mermaid && document.querySelector('.mermaid')) {
+        window.mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          securityLevel: 'strict',
+          flowchart: {
+            curve: 'linear',
+            htmlLabels: false
+          },
+          themeVariables: {
+            fontFamily: '\"Arial\", \"Helvetica\", sans-serif',
+            primaryColor: '#f5f8fd',
+            primaryBorderColor: '#49698f',
+            primaryTextColor: '#16293d',
+            lineColor: '#5f7390',
+            tertiaryColor: '#edf2f8',
+            clusterBkg: '#f8fbff',
+            clusterBorder: '#9fb3cc',
+            edgeLabelBackground: '#f7f9fc'
+          }
+        });
+
+        window.mermaid.run({ querySelector: '.mermaid' })
+          .then(function () {
+            document.documentElement.classList.add('mermaid-ready');
+          })
+          .catch(function () {
+            // Keep static diagram fallbacks visible when Mermaid rendering fails.
+          });
       }
     });
   </script>
@@ -328,15 +360,52 @@
       margin: 2.35rem 0;
     }
 
-    .diagram-container {
-      text-align: center;
-      margin: 1.3rem 0;
+    figure.diagram-container {
+      margin: 1.35rem 0 1.55rem;
+      border: 1px solid var(--border);
+      background: #fcfdff;
+      padding: 0.95rem 1rem 0.75rem;
     }
 
-    .diagram-container img {
-      max-width: 100%;
+    .diagram-host {
+      width: 100%;
+      min-height: 240px;
+    }
+
+    .diagram-host pre.mermaid {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      overflow: visible;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    img.diagram-fallback {
+      display: block;
+      width: 100%;
       height: auto;
-      border: 1px solid var(--border);
+      border: 0;
+    }
+
+    .diagram-host {
+      display: none;
+    }
+
+    html.mermaid-ready .diagram-host {
+      display: block;
+    }
+
+    html.mermaid-ready img.diagram-fallback {
+      display: none;
+    }
+
+    figcaption.diagram-caption {
+      margin-top: 0.7rem;
+      font-size: 0.86rem;
+      color: var(--muted);
+      text-align: left;
     }
 
     .note {
@@ -355,6 +424,21 @@
       margin-bottom: 0.72rem;
       padding-left: 1.85rem;
       text-indent: -1.85rem;
+    }
+
+    .reviewer-note {
+      background: #f7fafc;
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      margin: 2rem 0;
+      font-family: "Arial", "Helvetica", sans-serif;
+      font-size: 0.9rem;
+      color: #24374d;
+    }
+
+    .reviewer-note a {
+      font-weight: 600;
     }
 
     @media (max-width: 900px) {
@@ -812,9 +896,26 @@ print(result["explored_states"])</code></pre>
 
         <h4>3.3.2 Architecture Overview</h4>
         <p>smolagents is built around several key abstractions [10, 12]:</p>
-        <div class="diagram-container">
-            <img src="./assets/diagram_smolagents_arch.png" alt="smolagents Architecture Diagram" style="max-width: 100%; height: auto; margin: 1.5rem 0;">
-        </div>
+        <figure class="diagram-container">
+            <div class="diagram-host" aria-hidden="true">
+                <pre class="mermaid">flowchart TB
+    user["User Task"] --> agent["CodeAgent / MultiStepAgent"]
+    agent --> planner["Planning Module"]
+    agent --> memory["Memory Store"]
+    agent --> model["Model Interface"]
+    planner --> router["Tool Router"]
+    router --> builtin["Built-in Tools"]
+    router --> custom["Custom Tools"]
+    builtin --> exec["Execution Sandbox"]
+    custom --> exec
+    exec --> obs["Observations"]
+    obs --> memory
+    memory --> agent
+</pre>
+            </div>
+            <img class="diagram-fallback" src="./assets/diagram_smolagents_arch.png" alt="smolagents architecture diagram">
+            <figcaption class="diagram-caption">Figure 3.3-1. Conceptual architecture of smolagents components and execution loop.</figcaption>
+        </figure>
         <p><strong>Agents</strong> orchestrate the observation-thought-action loop [10, 12].</p>
         <p><strong>Models</strong> provide the LLM interface [10, 12].</p>
         <p><strong>Tools</strong> extend agent capabilities [10, 12].</p>
@@ -929,9 +1030,23 @@ agent = CodeAgent(
 
         <h4>3.5.1 Multi-Step Architecture</h4>
         <p>MultiStepAgent maintains richer state across execution:</p>
-        <div class="diagram-container">
-            <img src="./assets/diagram_multistep_state.png" alt="MultiStepAgent State Diagram" style="max-width: 100%; height: auto; margin: 1.5rem 0;">
-        </div>
+        <figure class="diagram-container">
+            <div class="diagram-host" aria-hidden="true">
+                <pre class="mermaid">flowchart TD
+    in["Input Task"] --> init["Initialize State"]
+    init --> plan["Generate / Update Plan"]
+    plan --> step["Execute Next Step"]
+    step --> observe["Collect Observation"]
+    observe --> done{"Goal Satisfied?"}
+    done -- "No" --> replan{"Need Replan?"}
+    replan -- "Yes" --> plan
+    replan -- "No" --> step
+    done -- "Yes" --> out["Return Final Response"]
+</pre>
+            </div>
+            <img class="diagram-fallback" src="./assets/diagram_multistep_state.png" alt="MultiStepAgent state diagram">
+            <figcaption class="diagram-caption">Figure 3.5-1. MultiStepAgent state progression with optional replanning loop.</figcaption>
+        </figure>
 
         <h4>3.5.2 Planning Capabilities</h4>
         <p>MultiStepAgent can create and execute plans:</p>
@@ -1150,9 +1265,21 @@ class DatabaseTool:
 
         <h4>3.6.5 The Tool-Augmented LLM Pattern</h4>
         <p>The integration of tools with LLMs follows a recurring pattern in agent frameworks [6, 10]:</p>
-        <div class="diagram-container">
-            <img src="./assets/diagram_tool_flow.png" alt="Tool-Augmented LLM Flow Diagram" style="max-width: 100%; height: auto; margin: 1.5rem 0;">
-        </div>
+        <figure class="diagram-container">
+            <div class="diagram-host" aria-hidden="true">
+                <pre class="mermaid">flowchart LR
+    query["User Query"] --> reason["LLM Reasoning Step"]
+    reason --> need{"Need External Tool?"}
+    need -- "Yes" --> select["Select Tool + Arguments"]
+    select --> execute["Execute Tool"]
+    execute --> observation["Tool Observation"]
+    observation --> reason
+    need -- "No" --> answer["Generate Final Answer"]
+</pre>
+            </div>
+            <img class="diagram-fallback" src="./assets/diagram_tool_flow.png" alt="Tool-augmented LLM flow diagram">
+            <figcaption class="diagram-caption">Figure 3.6-1. Tool-augmented reasoning loop used by agent frameworks.</figcaption>
+        </figure>
         <p>This pattern, associated with reasoning-action workflows such as ReAct and related agent frameworks, enables LLMs to [6, 10]:</p>
         <ul>
             <li>Access information beyond their training data</li>
@@ -1236,9 +1363,33 @@ result = runner.run(
         <h3>4.2 Architectural Integration</h3>
 
         <h4>4.2.1 ToT-Enhanced Agent Architecture</h4>
-        <div class="diagram-container">
-            <img src="./assets/diagram_tot_agent.png" alt="ToT-Enhanced Agent Architecture Diagram" style="max-width: 100%; height: auto; margin: 1.5rem 0;">
-        </div>
+        <figure class="diagram-container">
+            <div class="diagram-host" aria-hidden="true">
+                <pre class="mermaid">flowchart TB
+    subgraph search["Reasoning Search Layer"]
+        direction LR
+        thought["Thought Generation"] --> evaluate["Evaluate States"] --> select["Select Best Path"]
+    end
+    memory["Memory Store"]
+    subgraph execute["Execution Layer"]
+        direction LR
+        plan["Action Planning"] --> tools["Tool Execution"]
+    end
+    feedback["Observation Feedback"]
+
+    thought --> memory
+    evaluate --> memory
+    select --> memory
+    memory --> plan
+    memory --> tools
+    plan --> feedback
+    tools --> feedback
+    feedback --> evaluate
+</pre>
+            </div>
+            <img class="diagram-fallback" src="./assets/diagram_tot_agent.png" alt="ToT-enhanced agent architecture diagram">
+            <figcaption class="diagram-caption">Figure 4.2-1. ToT-enhanced agent architecture with explicit branch selection and memory feedback.</figcaption>
+        </figure>
 
         <h4>4.2.2 Interface-Level Integration Pattern</h4>
         <p><em>Scope note:</em> This is an integration sketch, not a faithful reimplementation of the canonical ToT algorithm in [1]. It highlights where planning hooks into a tool-using agent runtime.</p>
@@ -2459,9 +2610,9 @@ print("Solution path:", result)</code></pre>
         <em>Last Updated: 21 February 2026</em><br>
         <em>License: This document is provided for educational and research purposes</em></p>
 
-        <div style="background: #fdf6e3; padding: 1.5rem; border: 1px solid #eee8d5; border-radius: 4px; margin: 2rem 0; font-family: &#39;Inter&#39;, sans-serif; font-size: 0.95rem;">
-            <strong>LLM Reviewers:</strong> A clean Markdown version of this paper is available for automated analysis and frontier model review: 
-            <a href="./tot-hf-agents-llm.md" target="_blank" style="color: #b58900; font-weight: 600;">tot-hf-agents-llm.md</a>
+        <div class="reviewer-note">
+            <strong>LLM Reviewers:</strong> A clean Markdown version of this paper is available for automated analysis and frontier model review:
+            <a href="./tot-hf-agents-llm.md" target="_blank">tot-hf-agents-llm.md</a>
         </div>
 
         <hr>
