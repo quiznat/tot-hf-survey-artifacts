@@ -546,8 +546,10 @@ Thought decomposition:
 
         <h4>2.3.2 Thought Generation</h4>
         <p>Given the current problem state and history, the model must generate candidate next thoughts. This is typically accomplished through prompting that encourages diversity [1, 2]:</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">generation_prompt = """
+        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/prompt_templates.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">def build_generation_prompt(task: str, current_path: str, k: int) -&gt; str:
+    return f"""
 Given the task: {task}
 And current progress: {current_path}
 
@@ -558,7 +560,7 @@ Steps:
 1.
 2.
 3.
-"""</code></pre>
+""".strip()</code></pre>
         <p>The quality of generation affects ToT effectiveness [1, 2]. Prompts should encourage:</p>
         <ul>
             <li><strong>Diversity</strong>: Exploring different angles and strategies</li>
@@ -572,8 +574,10 @@ Steps:
         <p>Once candidates are generated, each is evaluated to estimate its promise. This step is often challenging because the model must assess partial solutions [1, 2].</p>
         <p>Evaluation strategies include:</p>
         <p><strong>Value Function Scoring:</strong></p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">evaluation_prompt = """
+        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/prompt_templates.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">def build_evaluation_prompt(task: str, thought_path: str) -&gt; str:
+    return f"""
 Given the task: {task}
 And current progress: {thought_path}
 
@@ -582,7 +586,8 @@ Rate how promising this approach is on a scale of 0-10:
 - 4-6: Might help but uncertain
 - 7-10: Clearly advances toward solution
 
-Rating: """</code></pre>
+Rating:
+""".strip()</code></pre>
         <p><strong>Vote-based Evaluation:</strong> Multiple evaluation prompts are generated, and the majority vote determines the score. This reduces variance in evaluation [1, 2, 5].</p>
         <p><strong>Self-consistency Checking:</strong> The model is asked whether the current path is consistent with the goal, providing a binary evaluation signal [1, 2, 5].</p>
         <p><strong>Heuristic Evaluation:</strong> Domain-specific heuristics (e.g., in Game of 24, how close intermediate values are to 24) guide evaluation [1, 2].</p>
@@ -804,23 +809,26 @@ pip install "smolagents[all]"           # All optional extras</code></pre>
   "parameters": {"expression": "15 * 24"}
 }</code></pre>
         <p>CodeAgent generates:</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">calculator(expression="15 * 24")</code></pre>
+        <p><strong>Runnable examples.</strong> Verified helper implementations: <code>examples/paper_snippets/code_action_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.code_action_examples import calculator
+
+result = calculator("15 * 24")
+print(result)</code></pre>
         <p>In this survey's implementation framing, this approach offers several engineering advantages:</p>
         <p><strong>Composability:</strong> Multiple tools can be combined in single code blocks:</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python"># Search for data, process it, and visualize
-results = search(query="Bitcoin price history")
-df = parse_results(results)
-chart = create_chart(df, type="line")
-answer = summarize(chart)</code></pre>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.code_action_examples import composable_pipeline
+
+answer = composable_pipeline("Bitcoin price history")
+print(answer)</code></pre>
         <p><strong>Familiarity:</strong> Python syntax is widely understood, making agent behavior more interpretable.</p>
         <p><strong>Flexibility:</strong> Complex logic (loops, conditionals) is expressed naturally:</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">for stock in ["AAPL", "GOOGL", "MSFT"]:
-    price = get_stock_price(stock)
-    if price &gt; 100:
-        alert(f"{stock} price alert: ${price}")</code></pre>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.code_action_examples import stock_alerts
+
+for message in stock_alerts(["AAPL", "GOOGL", "MSFT"], threshold=100):
+    print(message)</code></pre>
         <p><strong>Debugging:</strong> Generated code can be inspected, logged, and analyzed like any Python code.</p>
 
         <h4>3.4.2 CodeAgent Implementation</h4>
@@ -1855,45 +1863,22 @@ class CachedToTAgent(CodeAgent):
         return heuristic_confidence &gt;= self.confidence_threshold</code></pre>
 
         <h3>5.4 Testing and Validation</h3>
-        <!-- Illustrative / pseudo-code -->
+        <p><strong>Runnable example.</strong> Verified test file: <code>tests/test_paper_snippets.py</code>.</p>
+        <!-- Runnable example -->
         <pre><code class="language-python">import unittest
-from unittest.mock import Mock
+from examples.paper_snippets.fibonacci_example import fibonacci
+from examples.paper_snippets.tool_examples import fetch_stock_price
 
-class TestToTAgent(unittest.TestCase):
-    def setUp(self):
-        self.mock_model = Mock()
-        self.agent = SimpleToTAgent(
-            tools=[],
-            model=self.mock_model
-        )
-    
-    def test_thought_generation(self):
-        """Test thought generation."""
-        self.mock_model.generate.return_value = """
-1. First approach
-2. Second approach
-3. Third approach
-"""
-        
-        thoughts = self.agent._generate_candidates("test", 3)
-        self.assertEqual(len(thoughts), 3)
-        self.assertEqual(thoughts[0], "First approach")
-    
-    def test_evaluation_parsing(self):
-        """Test score extraction."""
-        self.mock_model.generate.return_value = "Score: 8.5 out of 10"
-        
-        score = self.agent._evaluate("test prompt")
-        self.assertEqual(score, 8.5)
-    
-    def test_solution_detection(self):
-        """Test solution identification."""
-        self.mock_model.generate.return_value = "Yes, this is complete."
-        
-        is_solution = self.agent._is_solution("test", ["step1", "step2"])
-        self.assertTrue(is_solution)
 
-if __name__ == '__main__':
+class TestPaperSnippets(unittest.TestCase):
+    def test_fibonacci(self):
+        self.assertEqual(fibonacci(15), 610)
+
+    def test_fetch_stock_price(self):
+        self.assertEqual(fetch_stock_price("AAPL"), "$175.50")
+
+
+if __name__ == "__main__":
     unittest.main()</code></pre>
 
         <hr>

@@ -2,7 +2,16 @@ import subprocess
 import unittest
 from pathlib import Path
 
+from examples.paper_snippets.code_action_examples import (
+    calculator,
+    composable_pipeline,
+    stock_alerts,
+)
 from examples.paper_snippets.fibonacci_example import fibonacci, solve_fifteenth_fibonacci
+from examples.paper_snippets.prompt_templates import (
+    build_evaluation_prompt,
+    build_generation_prompt,
+)
 from examples.paper_snippets.tool_examples import (
     DatabaseTool,
     analyze_website,
@@ -17,6 +26,28 @@ SNIPPET_DIR = ROOT / "examples" / "paper_snippets"
 
 
 class TestPaperSnippets(unittest.TestCase):
+    def test_prompt_templates(self) -> None:
+        generation = build_generation_prompt(
+            task="Solve 24 game",
+            current_path="used numbers: 3, 8",
+            k=3,
+        )
+        evaluation = build_evaluation_prompt(
+            task="Solve 24 game",
+            thought_path="Try multiplication first",
+        )
+        self.assertIn("Generate 3 different possible next steps", generation)
+        self.assertIn("Rate how promising this approach is on a scale of 0-10", evaluation)
+
+    def test_code_action_examples(self) -> None:
+        self.assertEqual(calculator("15 * 24"), 360.0)
+        summary = composable_pipeline("Bitcoin price history")
+        self.assertIn("line-chart", summary)
+        alerts = stock_alerts(["AAPL", "GOOGL", "MSFT"], threshold=180)
+        self.assertTrue(any("GOOGL" in msg for msg in alerts))
+        self.assertTrue(any("MSFT" in msg for msg in alerts))
+        self.assertFalse(any("AAPL" in msg for msg in alerts))
+
     def test_fibonacci(self) -> None:
         self.assertEqual(fibonacci(0), 0)
         self.assertEqual(fibonacci(1), 1)

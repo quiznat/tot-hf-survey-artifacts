@@ -655,20 +655,24 @@ Given the current problem state and history, the model must generate
 candidate next thoughts. This is typically accomplished through
 prompting that encourages diversity {[}1, 2{]}:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/prompt\_templates.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{generation\_prompt }\OperatorTok{=} \StringTok{"""}
-\StringTok{Given the task: }\SpecialCharTok{\{task\}}
-\StringTok{And current progress: }\SpecialCharTok{\{current\_path\}}
+\KeywordTok{def}\NormalTok{ build\_generation\_prompt(task: }\BuiltInTok{str}\NormalTok{, current\_path: }\BuiltInTok{str}\NormalTok{, k: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+    \ControlFlowTok{return} \SpecialStringTok{f"""}
+\SpecialStringTok{Given the task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
+\SpecialStringTok{And current progress: }\SpecialCharTok{\{}\NormalTok{current\_path}\SpecialCharTok{\}}
 
-\StringTok{Generate }\SpecialCharTok{\{k\}}\StringTok{ different possible next steps. Each step should represent}
-\StringTok{a concrete action toward solving the problem. Consider diverse approaches.}
+\SpecialStringTok{Generate }\SpecialCharTok{\{}\NormalTok{k}\SpecialCharTok{\}}\SpecialStringTok{ different possible next steps. Each step should represent}
+\SpecialStringTok{a concrete action toward solving the problem. Consider diverse approaches.}
 
-\StringTok{Steps:}
-\StringTok{1.}
-\StringTok{2.}
-\StringTok{3.}
-\StringTok{"""}
+\SpecialStringTok{Steps:}
+\SpecialStringTok{1.}
+\SpecialStringTok{2.}
+\SpecialStringTok{3.}
+\SpecialStringTok{"""}\NormalTok{.strip()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -704,18 +708,23 @@ Evaluation strategies include:
 
 \textbf{Value Function Scoring:}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/prompt\_templates.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{evaluation\_prompt }\OperatorTok{=} \StringTok{"""}
-\StringTok{Given the task: }\SpecialCharTok{\{task\}}
-\StringTok{And current progress: }\SpecialCharTok{\{thought\_path\}}
+\KeywordTok{def}\NormalTok{ build\_evaluation\_prompt(task: }\BuiltInTok{str}\NormalTok{, thought\_path: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+    \ControlFlowTok{return} \SpecialStringTok{f"""}
+\SpecialStringTok{Given the task: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
+\SpecialStringTok{And current progress: }\SpecialCharTok{\{}\NormalTok{thought\_path}\SpecialCharTok{\}}
 
-\StringTok{Rate how promising this approach is on a scale of 0{-}10:}
-\StringTok{{-} 0{-}3: Likely incorrect or counterproductive}
-\StringTok{{-} 4{-}6: Might help but uncertain}
-\StringTok{{-} 7{-}10: Clearly advances toward solution}
+\SpecialStringTok{Rate how promising this approach is on a scale of 0{-}10:}
+\SpecialStringTok{{-} 0{-}3: Likely incorrect or counterproductive}
+\SpecialStringTok{{-} 4{-}6: Might help but uncertain}
+\SpecialStringTok{{-} 7{-}10: Clearly advances toward solution}
 
-\StringTok{Rating: """}
+\SpecialStringTok{Rating:}
+\SpecialStringTok{"""}\NormalTok{.strip()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1185,9 +1194,15 @@ Traditional agents might generate:
 
 CodeAgent generates:
 
+\textbf{Runnable examples.} Verified helper implementations:
+\texttt{examples/paper\_snippets/code\_action\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{calculator(expression}\OperatorTok{=}\StringTok{"15 * 24"}\NormalTok{)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.code\_action\_examples }\ImportTok{import}\NormalTok{ calculator}
+
+\NormalTok{result }\OperatorTok{=}\NormalTok{ calculator(}\StringTok{"15 * 24"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(result)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1199,11 +1214,10 @@ blocks:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Search for data, process it, and visualize}
-\NormalTok{results }\OperatorTok{=}\NormalTok{ search(query}\OperatorTok{=}\StringTok{"Bitcoin price history"}\NormalTok{)}
-\NormalTok{df }\OperatorTok{=}\NormalTok{ parse\_results(results)}
-\NormalTok{chart }\OperatorTok{=}\NormalTok{ create\_chart(df, }\BuiltInTok{type}\OperatorTok{=}\StringTok{"line"}\NormalTok{)}
-\NormalTok{answer }\OperatorTok{=}\NormalTok{ summarize(chart)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.code\_action\_examples }\ImportTok{import}\NormalTok{ composable\_pipeline}
+
+\NormalTok{answer }\OperatorTok{=}\NormalTok{ composable\_pipeline(}\StringTok{"Bitcoin price history"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(answer)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1215,10 +1229,10 @@ naturally:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{ stock }\KeywordTok{in}\NormalTok{ [}\StringTok{"AAPL"}\NormalTok{, }\StringTok{"GOOGL"}\NormalTok{, }\StringTok{"MSFT"}\NormalTok{]:}
-\NormalTok{    price }\OperatorTok{=}\NormalTok{ get\_stock\_price(stock)}
-    \ControlFlowTok{if}\NormalTok{ price }\OperatorTok{\textgreater{}} \DecValTok{100}\NormalTok{:}
-\NormalTok{        alert(}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{stock}\SpecialCharTok{\}}\SpecialStringTok{ price alert: $}\SpecialCharTok{\{}\NormalTok{price}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.code\_action\_examples }\ImportTok{import}\NormalTok{ stock\_alerts}
+
+\ControlFlowTok{for}\NormalTok{ message }\KeywordTok{in}\NormalTok{ stock\_alerts([}\StringTok{"AAPL"}\NormalTok{, }\StringTok{"GOOGL"}\NormalTok{, }\StringTok{"MSFT"}\NormalTok{], threshold}\OperatorTok{=}\DecValTok{100}\NormalTok{):}
+    \BuiltInTok{print}\NormalTok{(message)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2565,46 +2579,25 @@ Techniques}\label{optimization-techniques}
 
 \subsubsection{5.4 Testing and Validation}\label{testing-and-validation}
 
+\textbf{Runnable example.} Verified test file:
+\texttt{tests/test\_paper\_snippets.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \ImportTok{import}\NormalTok{ unittest}
-\ImportTok{from}\NormalTok{ unittest.mock }\ImportTok{import}\NormalTok{ Mock}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.fibonacci\_example }\ImportTok{import}\NormalTok{ fibonacci}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.tool\_examples }\ImportTok{import}\NormalTok{ fetch\_stock\_price}
 
-\KeywordTok{class}\NormalTok{ TestToTAgent(unittest.TestCase):}
-    \KeywordTok{def}\NormalTok{ setUp(}\VariableTok{self}\NormalTok{):}
-        \VariableTok{self}\NormalTok{.mock\_model }\OperatorTok{=}\NormalTok{ Mock()}
-        \VariableTok{self}\NormalTok{.agent }\OperatorTok{=}\NormalTok{ SimpleToTAgent(}
-\NormalTok{            tools}\OperatorTok{=}\NormalTok{[],}
-\NormalTok{            model}\OperatorTok{=}\VariableTok{self}\NormalTok{.mock\_model}
-\NormalTok{        )}
-    
-    \KeywordTok{def}\NormalTok{ test\_thought\_generation(}\VariableTok{self}\NormalTok{):}
-        \CommentTok{"""Test thought generation."""}
-        \VariableTok{self}\NormalTok{.mock\_model.generate.return\_value }\OperatorTok{=} \StringTok{"""}
-\StringTok{1. First approach}
-\StringTok{2. Second approach}
-\StringTok{3. Third approach}
-\StringTok{"""}
-        
-\NormalTok{        thoughts }\OperatorTok{=} \VariableTok{self}\NormalTok{.agent.\_generate\_candidates(}\StringTok{"test"}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertEqual(}\BuiltInTok{len}\NormalTok{(thoughts), }\DecValTok{3}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertEqual(thoughts[}\DecValTok{0}\NormalTok{], }\StringTok{"First approach"}\NormalTok{)}
-    
-    \KeywordTok{def}\NormalTok{ test\_evaluation\_parsing(}\VariableTok{self}\NormalTok{):}
-        \CommentTok{"""Test score extraction."""}
-        \VariableTok{self}\NormalTok{.mock\_model.generate.return\_value }\OperatorTok{=} \StringTok{"Score: 8.5 out of 10"}
-        
-\NormalTok{        score }\OperatorTok{=} \VariableTok{self}\NormalTok{.agent.\_evaluate(}\StringTok{"test prompt"}\NormalTok{)}
-        \VariableTok{self}\NormalTok{.assertEqual(score, }\FloatTok{8.5}\NormalTok{)}
-    
-    \KeywordTok{def}\NormalTok{ test\_solution\_detection(}\VariableTok{self}\NormalTok{):}
-        \CommentTok{"""Test solution identification."""}
-        \VariableTok{self}\NormalTok{.mock\_model.generate.return\_value }\OperatorTok{=} \StringTok{"Yes, this is complete."}
-        
-\NormalTok{        is\_solution }\OperatorTok{=} \VariableTok{self}\NormalTok{.agent.\_is\_solution(}\StringTok{"test"}\NormalTok{, [}\StringTok{"step1"}\NormalTok{, }\StringTok{"step2"}\NormalTok{])}
-        \VariableTok{self}\NormalTok{.assertTrue(is\_solution)}
 
-\ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{\textquotesingle{}\_\_main\_\_\textquotesingle{}}\NormalTok{:}
+\KeywordTok{class}\NormalTok{ TestPaperSnippets(unittest.TestCase):}
+    \KeywordTok{def}\NormalTok{ test\_fibonacci(}\VariableTok{self}\NormalTok{):}
+        \VariableTok{self}\NormalTok{.assertEqual(fibonacci(}\DecValTok{15}\NormalTok{), }\DecValTok{610}\NormalTok{)}
+
+    \KeywordTok{def}\NormalTok{ test\_fetch\_stock\_price(}\VariableTok{self}\NormalTok{):}
+        \VariableTok{self}\NormalTok{.assertEqual(fetch\_stock\_price(}\StringTok{"AAPL"}\NormalTok{), }\StringTok{"$175.50"}\NormalTok{)}
+
+
+\ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
 \NormalTok{    unittest.main()}
 \end{Highlighting}
 \end{Shaded}
