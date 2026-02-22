@@ -28,6 +28,10 @@ if [[ ! -f "${SOURCE_SERVER}" ]]; then
 fi
 
 PYTHON_BIN="$(cd "$(dirname "${PYTHON_BIN}")" && pwd)/$(basename "${PYTHON_BIN}")"
+REAL_PY="$("${PYTHON_BIN}" -c 'import os,sys; print(os.path.realpath(sys.executable))' 2>/dev/null || true)"
+if [[ -n "${REAL_PY}" ]]; then
+  PYTHON_BIN="${REAL_PY}"
+fi
 
 mkdir -p "${PLIST_DIR}"
 mkdir -p "${RUNTIME_DIR}"

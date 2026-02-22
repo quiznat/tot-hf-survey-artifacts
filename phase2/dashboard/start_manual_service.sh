@@ -12,6 +12,10 @@ if [[ -z "${PYTHON_BIN}" ]]; then
   exit 1
 fi
 PYTHON_BIN="$(cd "$(dirname "${PYTHON_BIN}")" && pwd)/$(basename "${PYTHON_BIN}")"
+REAL_PY="$("${PYTHON_BIN}" -c 'import os,sys; print(os.path.realpath(sys.executable))' 2>/dev/null || true)"
+if [[ -n "${REAL_PY}" ]]; then
+  PYTHON_BIN="${REAL_PY}"
+fi
 
 mkdir -p "${RUNTIME_DIR}"
 

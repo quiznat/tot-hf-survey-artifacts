@@ -17,6 +17,12 @@ PYTHON_BIN="$(
 if [[ -z "${PYTHON_BIN}" ]]; then
   PYTHON_BIN="$(command -v python3 || true)"
 fi
+if [[ -n "${PYTHON_BIN}" ]]; then
+  REAL_PY="$("${PYTHON_BIN}" -c 'import os,sys; print(os.path.realpath(sys.executable))' 2>/dev/null || true)"
+  if [[ -n "${REAL_PY}" ]]; then
+    PYTHON_BIN="${REAL_PY}"
+  fi
+fi
 
 echo "Service label: ${LABEL}"
 echo "LaunchAgent plist: ${PLIST_PATH}"
