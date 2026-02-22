@@ -24,21 +24,21 @@ NODE_FILL = "#ffffff"
 
 BASE_GRAPH = (
     f'bgcolor="{BG}", pad="0.06", nodesep="0.34", ranksep="0.50", '
-    f'splines="polyline", fontname="Helvetica", fontcolor="{INK}", margin="0.02"'
+    f'splines="polyline", fontname="Times-Roman", fontcolor="{INK}", margin="0.02"'
 )
 BASE_NODE = (
     f'shape="box", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="Helvetica", '
-    'fontsize="9", margin="0.08,0.06"'
+    f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", '
+    'fontsize="8", margin="0.08,0.06"'
 )
 BASE_DECISION = (
     f'shape="diamond", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="Helvetica", fontsize="9", '
+    f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", fontsize="8", '
     'margin="0.04,0.04"'
 )
 BASE_EDGE = (
     f'color="{LINE}", penwidth="1.3", arrowsize="0.70", '
-    f'fontname="Helvetica", fontsize="11", fontcolor="{INK}"'
+    f'fontname="Times-Roman", fontsize="8", fontcolor="{INK}"'
 )
 
 
