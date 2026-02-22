@@ -1244,9 +1244,12 @@ Implementation}\label{codeagent-implementation}
 
 A minimal CodeAgent (doc-aligned pattern):
 
+\textbf{Runnable example.} Verified stand-ins:
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
 
 \CommentTok{\# Define the agent}
 \NormalTok{agent }\OperatorTok{=}\NormalTok{ CodeAgent(}
@@ -1256,6 +1259,7 @@ A minimal CodeAgent (doc-aligned pattern):
 
 \CommentTok{\# Run the agent}
 \NormalTok{result }\OperatorTok{=}\NormalTok{ agent.run(}\StringTok{"What is the 15th Fibonacci number?"}\NormalTok{)}
+\BuiltInTok{print}\NormalTok{(result)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1305,8 +1309,8 @@ model-side capability rather than a CodeAgent constructor parameter
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
-\ImportTok{from}\NormalTok{ smolagents.default\_tools }\ImportTok{import}\NormalTok{ DuckDuckGoSearchTool}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.builtin\_tools\_examples }\ImportTok{import}\NormalTok{ DuckDuckGoSearchTool}
 
 \NormalTok{agent }\OperatorTok{=}\NormalTok{ CodeAgent(}
 \NormalTok{    tools}\OperatorTok{=}\NormalTok{[DuckDuckGoSearchTool()],}
@@ -1337,12 +1341,16 @@ MultiStepAgent maintains richer state across execution:
 
 MultiStepAgent can create and execute plans:
 
+\textbf{Runnable example.} Verified stand-ins:
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ MultiStepAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ MultiStepAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.builtin\_tools\_examples }\ImportTok{import}\NormalTok{ DuckDuckGoSearchTool}
 
 \NormalTok{agent }\OperatorTok{=}\NormalTok{ MultiStepAgent(}
-\NormalTok{    tools}\OperatorTok{=}\NormalTok{[search, calculator, summarize],}
+\NormalTok{    tools}\OperatorTok{=}\NormalTok{[DuckDuckGoSearchTool()],}
 \NormalTok{    model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"Qwen/Qwen2.5{-}Coder{-}32B{-}Instruct"}\NormalTok{),}
 \NormalTok{    planning\_interval}\OperatorTok{=}\DecValTok{2}  \CommentTok{\# Re{-}plan every 2 steps}
 \NormalTok{)}
@@ -1667,16 +1675,20 @@ controls {[}10, 12{]}:
 
 \textbf{Executor selection:}
 
+\textbf{Runnable example.} Verified stand-ins:
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ CodeAgent, InferenceClientModel}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.tool\_examples }\ImportTok{import}\NormalTok{ fetch\_stock\_price}
 
 \NormalTok{agent }\OperatorTok{=}\NormalTok{ CodeAgent(}
-\NormalTok{    tools}\OperatorTok{=}\NormalTok{tools,}
+\NormalTok{    tools}\OperatorTok{=}\NormalTok{[fetch\_stock\_price],}
 \NormalTok{    model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"meta{-}llama/Llama{-}3.3{-}70B{-}Instruct"}\NormalTok{),}
 \NormalTok{    additional\_authorized\_imports}\OperatorTok{=}\NormalTok{[}\StringTok{"math"}\NormalTok{, }\StringTok{"datetime"}\NormalTok{],}
 \NormalTok{    executor\_type}\OperatorTok{=}\StringTok{"docker"}\NormalTok{,   }\CommentTok{\# examples: local, docker, e2b, modal, wasm}
-\NormalTok{    executor\_kwargs}\OperatorTok{=}\NormalTok{\{...\},    }\CommentTok{\# backend{-}specific settings}
+\NormalTok{    executor\_kwargs}\OperatorTok{=}\NormalTok{\{}\StringTok{"image"}\NormalTok{: }\StringTok{"python:3.11{-}slim"}\NormalTok{, }\StringTok{"network"}\NormalTok{: }\StringTok{"none"}\NormalTok{\},}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1694,19 +1706,21 @@ Production}\label{deployment-and-production}
 
 \textbf{Local Deployment:}
 
+\textbf{Runnable example.} Framework-agnostic local handler equivalent
+to a simple web route; verified helper:
+\texttt{examples/paper\_snippets/agent\_runtime\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# FastAPI wrapper for local serving}
-\ImportTok{from}\NormalTok{ fastapi }\ImportTok{import}\NormalTok{ FastAPI}
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.agent\_runtime\_examples }\ImportTok{import}\NormalTok{ (}
+\NormalTok{    ChatRequest,}
+\NormalTok{    CodeAgent,}
+\NormalTok{    InferenceClientModel,}
+\NormalTok{    handle\_chat,}
+\NormalTok{)}
 
-\NormalTok{app }\OperatorTok{=}\NormalTok{ FastAPI()}
-\NormalTok{agent }\OperatorTok{=}\NormalTok{ CodeAgent(tools}\OperatorTok{=}\NormalTok{[...], model}\OperatorTok{=}\NormalTok{model)}
-
-\AttributeTok{@app.post}\NormalTok{(}\StringTok{"/chat"}\NormalTok{)}
-\ControlFlowTok{async} \KeywordTok{def}\NormalTok{ chat(request: ChatRequest):}
-\NormalTok{    response }\OperatorTok{=}\NormalTok{ agent.run(request.message)}
-    \ControlFlowTok{return}\NormalTok{ \{}\StringTok{"response"}\NormalTok{: response\}}
+\NormalTok{agent }\OperatorTok{=}\NormalTok{ CodeAgent(tools}\OperatorTok{=}\NormalTok{[], model}\OperatorTok{=}\NormalTok{InferenceClientModel(}\StringTok{"demo{-}model"}\NormalTok{))}
+\NormalTok{response }\OperatorTok{=}\NormalTok{ handle\_chat(agent, ChatRequest(message}\OperatorTok{=}\StringTok{"What is the 15th Fibonacci number?"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 

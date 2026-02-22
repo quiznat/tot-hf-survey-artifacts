@@ -6,6 +6,7 @@ This directory contains runnable, tested examples that back manuscript snippets.
 - `fibonacci_example.py`: Section 3.4.2 generated-code example.
 - `prompt_templates.py`: Section 2.3.2 and 2.3.3 prompt-template examples.
 - `code_action_examples.py`: Section 3.4.1 code-as-action runnable examples.
+- `agent_runtime_examples.py`: Section 3.4.2, 3.4.3, 3.5.2, 3.6.6, and 3.7.1 runtime/deployment stand-ins.
 - `builtin_tools_examples.py`: Section 3.6.1 built-in tool examples.
 - `orchestration_examples.py`: Section 3.5.3 recovery/retry orchestration example.
 - `monitoring_examples.py`: Section 3.7.2 tracing/observability example.

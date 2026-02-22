@@ -833,8 +833,9 @@ for message in stock_alerts(["AAPL", "GOOGL", "MSFT"], threshold=100):
 
         <h4>3.4.2 CodeAgent Implementation</h4>
         <p>A minimal CodeAgent (doc-aligned pattern):</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
+        <p><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
 
 # Define the agent
 agent = CodeAgent(
@@ -843,7 +844,8 @@ agent = CodeAgent(
 )
 
 # Run the agent
-result = agent.run("What is the 15th Fibonacci number?")</code></pre>
+result = agent.run("What is the 15th Fibonacci number?")
+print(result)</code></pre>
         <p>This creates an agent that can:</p>
         <ul>
             <li>Break down the problem into steps</li>
@@ -868,9 +870,9 @@ print(result)</code></pre>
 
         <h4>3.4.3 Configuration and Customization</h4>
         <p>CodeAgent configuration options in current docs include model/tool binding, step limits, optional planning, authorized imports, and executor settings [10, 12]. Grammar-constrained generation is a model-side capability rather than a CodeAgent constructor parameter [10, 12].</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
-from smolagents.default_tools import DuckDuckGoSearchTool
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+from examples.paper_snippets.builtin_tools_examples import DuckDuckGoSearchTool
 
 agent = CodeAgent(
     tools=[DuckDuckGoSearchTool()],
@@ -893,11 +895,13 @@ agent = CodeAgent(
 
         <h4>3.5.2 Planning Capabilities</h4>
         <p>MultiStepAgent can create and execute plans:</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import MultiStepAgent, InferenceClientModel
+        <p><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import MultiStepAgent, InferenceClientModel
+from examples.paper_snippets.builtin_tools_examples import DuckDuckGoSearchTool
 
 agent = MultiStepAgent(
-    tools=[search, calculator, summarize],
+    tools=[DuckDuckGoSearchTool()],
     model=InferenceClientModel("Qwen/Qwen2.5-Coder-32B-Instruct"),
     planning_interval=2  # Re-plan every 2 steps
 )
@@ -1121,15 +1125,17 @@ class DatabaseTool:
         <h4>3.6.6 Tool Security and Sandboxing</h4>
         <p>Security is critical when agents execute generated code. Current smolagents patterns center on executor selection plus environment controls [10, 12]:</p>
         <p><strong>Executor selection:</strong></p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import CodeAgent, InferenceClientModel
+        <p><strong>Runnable example.</strong> Verified stand-ins: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+from examples.paper_snippets.tool_examples import fetch_stock_price
 
 agent = CodeAgent(
-    tools=tools,
+    tools=[fetch_stock_price],
     model=InferenceClientModel("meta-llama/Llama-3.3-70B-Instruct"),
     additional_authorized_imports=["math", "datetime"],
     executor_type="docker",   # examples: local, docker, e2b, modal, wasm
-    executor_kwargs={...},    # backend-specific settings
+    executor_kwargs={"image": "python:3.11-slim", "network": "none"},
 )</code></pre>
         <p>Network policy, CPU/memory limits, and host restrictions are typically enforced by the selected execution backend (container/runtime platform), not by a single universal smolagents runtime API. These controls support safer deployment patterns, but production safety still depends on environment-specific hardening and policy review [10, 12].</p>
 
@@ -1137,18 +1143,17 @@ agent = CodeAgent(
 
         <h4>3.7.1 Deployment Patterns</h4>
         <p><strong>Local Deployment:</strong></p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python"># FastAPI wrapper for local serving
-from fastapi import FastAPI
-from smolagents import CodeAgent
+        <p><strong>Runnable example.</strong> Framework-agnostic local handler equivalent to a simple web route; verified helper: <code>examples/paper_snippets/agent_runtime_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.agent_runtime_examples import (
+    ChatRequest,
+    CodeAgent,
+    InferenceClientModel,
+    handle_chat,
+)
 
-app = FastAPI()
-agent = CodeAgent(tools=[...], model=model)
-
-@app.post("/chat")
-async def chat(request: ChatRequest):
-    response = agent.run(request.message)
-    return {"response": response}</code></pre>
+agent = CodeAgent(tools=[], model=InferenceClientModel("demo-model"))
+response = handle_chat(agent, ChatRequest(message="What is the 15th Fibonacci number?"))</code></pre>
         <p><strong>Containerized Deployment:</strong></p>
         <p><strong>Runnable example.</strong> This Dockerfile block is intended to be executable with standard Python service scaffolding. Verified file: <code>examples/paper_snippets/Dockerfile</code>.</p>
         <!-- Runnable example -->

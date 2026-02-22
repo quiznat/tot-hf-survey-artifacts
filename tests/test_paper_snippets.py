@@ -2,6 +2,13 @@ import subprocess
 import unittest
 from pathlib import Path
 
+from examples.paper_snippets.agent_runtime_examples import (
+    ChatRequest,
+    CodeAgent,
+    InferenceClientModel,
+    MultiStepAgent,
+    handle_chat,
+)
 from examples.paper_snippets.code_action_examples import (
     calculator,
     composable_pipeline,
@@ -40,6 +47,46 @@ SNIPPET_DIR = ROOT / "examples" / "paper_snippets"
 
 
 class TestPaperSnippets(unittest.TestCase):
+    def test_agent_runtime_examples(self) -> None:
+        model = InferenceClientModel("meta-llama/Llama-3.3-70B-Instruct")
+        agent = CodeAgent(tools=[], model=model)
+        self.assertEqual(agent.run("What is the 15th Fibonacci number?"), "610")
+
+        configured = CodeAgent(
+            tools=[],
+            model=model,
+            max_steps=10,
+            planning_interval=3,
+            additional_authorized_imports=["math", "random"],
+            executor_type="local",
+            executor_kwargs=None,
+        )
+        self.assertEqual(configured.max_steps, 10)
+        self.assertEqual(configured.planning_interval, 3)
+        self.assertEqual(configured.additional_authorized_imports, ["math", "random"])
+
+        sandboxed = CodeAgent(
+            tools=[],
+            model=model,
+            additional_authorized_imports=["math", "datetime"],
+            executor_type="docker",
+            executor_kwargs={"image": "python:3.11-slim", "network": "none"},
+        )
+        self.assertEqual(sandboxed.executor_type, "docker")
+        self.assertEqual(sandboxed.executor_kwargs["network"], "none")
+
+        ms_agent = MultiStepAgent(tools=[], model=model, planning_interval=2)
+        multi_result = ms_agent.run(
+            "Analyze the impact of recent AI regulations on tech stocks."
+        )
+        self.assertIn("search news and regulation updates", multi_result)
+        self.assertIn("summarize likely impacts", multi_result)
+
+    def test_local_chat_handler(self) -> None:
+        agent = CodeAgent(tools=[], model=InferenceClientModel("demo-model"))
+        response = handle_chat(agent, ChatRequest(message="What is the 15th Fibonacci number?"))
+        self.assertEqual(response["response"], "610")
+
     def test_prompt_templates(self) -> None:
         generation = build_generation_prompt(
             task="Solve 24 game",

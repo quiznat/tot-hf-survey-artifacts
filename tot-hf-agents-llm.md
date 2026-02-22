@@ -618,8 +618,10 @@ for message in stock_alerts(["AAPL", "GOOGL", "MSFT"], threshold=100):
 
 A minimal CodeAgent (doc-aligned pattern):
 
+**Runnable example.** Verified stand-ins: `examples/paper_snippets/agent_runtime_examples.py`.
+
 ``` python
-from smolagents import CodeAgent, InferenceClientModel
+from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
 
 # Define the agent
 agent = CodeAgent(
@@ -629,6 +631,7 @@ agent = CodeAgent(
 
 # Run the agent
 result = agent.run("What is the 15th Fibonacci number?")
+print(result)
 ```
 
 This creates an agent that can:
@@ -661,8 +664,8 @@ print(result)
 CodeAgent configuration options in current docs include model/tool binding, step limits, optional planning, authorized imports, and executor settings \[10, 12\]. Grammar-constrained generation is a model-side capability rather than a CodeAgent constructor parameter \[10, 12\].
 
 ``` python
-from smolagents import CodeAgent, InferenceClientModel
-from smolagents.default_tools import DuckDuckGoSearchTool
+from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+from examples.paper_snippets.builtin_tools_examples import DuckDuckGoSearchTool
 
 agent = CodeAgent(
     tools=[DuckDuckGoSearchTool()],
@@ -693,11 +696,14 @@ MultiStepAgent maintains richer state across execution:
 
 MultiStepAgent can create and execute plans:
 
+**Runnable example.** Verified stand-ins: `examples/paper_snippets/agent_runtime_examples.py`.
+
 ``` python
-from smolagents import MultiStepAgent, InferenceClientModel
+from examples.paper_snippets.agent_runtime_examples import MultiStepAgent, InferenceClientModel
+from examples.paper_snippets.builtin_tools_examples import DuckDuckGoSearchTool
 
 agent = MultiStepAgent(
-    tools=[search, calculator, summarize],
+    tools=[DuckDuckGoSearchTool()],
     model=InferenceClientModel("Qwen/Qwen2.5-Coder-32B-Instruct"),
     planning_interval=2  # Re-plan every 2 steps
 )
@@ -960,15 +966,18 @@ Security is critical when agents execute generated code. Current smolagents patt
 
 **Executor selection:**
 
+**Runnable example.** Verified stand-ins: `examples/paper_snippets/agent_runtime_examples.py`.
+
 ``` python
-from smolagents import CodeAgent, InferenceClientModel
+from examples.paper_snippets.agent_runtime_examples import CodeAgent, InferenceClientModel
+from examples.paper_snippets.tool_examples import fetch_stock_price
 
 agent = CodeAgent(
-    tools=tools,
+    tools=[fetch_stock_price],
     model=InferenceClientModel("meta-llama/Llama-3.3-70B-Instruct"),
     additional_authorized_imports=["math", "datetime"],
     executor_type="docker",   # examples: local, docker, e2b, modal, wasm
-    executor_kwargs={...},    # backend-specific settings
+    executor_kwargs={"image": "python:3.11-slim", "network": "none"},
 )
 ```
 
@@ -980,18 +989,18 @@ Network policy, CPU/memory limits, and host restrictions are typically enforced 
 
 **Local Deployment:**
 
+**Runnable example.** Framework-agnostic local handler equivalent to a simple web route; verified helper: `examples/paper_snippets/agent_runtime_examples.py`.
+
 ``` python
-# FastAPI wrapper for local serving
-from fastapi import FastAPI
-from smolagents import CodeAgent
+from examples.paper_snippets.agent_runtime_examples import (
+    ChatRequest,
+    CodeAgent,
+    InferenceClientModel,
+    handle_chat,
+)
 
-app = FastAPI()
-agent = CodeAgent(tools=[...], model=model)
-
-@app.post("/chat")
-async def chat(request: ChatRequest):
-    response = agent.run(request.message)
-    return {"response": response}
+agent = CodeAgent(tools=[], model=InferenceClientModel("demo-model"))
+response = handle_chat(agent, ChatRequest(message="What is the 15th Fibonacci number?"))
 ```
 
 **Containerized Deployment:**
