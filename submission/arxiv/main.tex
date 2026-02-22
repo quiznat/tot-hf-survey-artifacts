@@ -1374,28 +1374,36 @@ The agent might:
 Recovery}\label{error-handling-and-recovery}
 
 Error handling is typically implemented at orchestration level around
-agent execution (pseudo-code sketch):
+agent execution.
+
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/orchestration\_examples.py}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ MultiStepAgent}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.orchestration\_examples }\ImportTok{import}\NormalTok{ retry\_with\_recovery}
 
-\NormalTok{agent }\OperatorTok{=}\NormalTok{ MultiStepAgent(}
-\NormalTok{    tools}\OperatorTok{=}\NormalTok{tools,}
-\NormalTok{    model}\OperatorTok{=}\NormalTok{model,}
-\NormalTok{    max\_steps}\OperatorTok{=}\DecValTok{20}\NormalTok{,}
-\NormalTok{    planning\_interval}\OperatorTok{=}\DecValTok{3}
+\NormalTok{attempts }\OperatorTok{=}\NormalTok{ \{}\StringTok{"n"}\NormalTok{: }\DecValTok{0}\NormalTok{\}}
+
+\KeywordTok{def}\NormalTok{ run\_fn(task: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+\NormalTok{    attempts[}\StringTok{"n"}\NormalTok{] }\OperatorTok{+=} \DecValTok{1}
+    \ControlFlowTok{if}\NormalTok{ attempts[}\StringTok{"n"}\NormalTok{] }\OperatorTok{\textless{}} \DecValTok{3}\NormalTok{:}
+        \ControlFlowTok{raise} \PreprocessorTok{RuntimeError}\NormalTok{(}\StringTok{"temporary failure"}\NormalTok{)}
+    \ControlFlowTok{return} \SpecialStringTok{f"ok:}\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\SpecialStringTok{"}
+
+\KeywordTok{def}\NormalTok{ add\_recovery\_context(task: }\BuiltInTok{str}\NormalTok{, err: }\PreprocessorTok{Exception}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{str}\NormalTok{:}
+    \ControlFlowTok{return} \SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\SpecialStringTok{ | recovery hint: }\SpecialCharTok{\{}\NormalTok{err}\SpecialCharTok{\}}\SpecialStringTok{"}
+
+\KeywordTok{def}\NormalTok{ log\_error(err: }\PreprocessorTok{Exception}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \VariableTok{None}\NormalTok{:}
+    \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f"retrying after error: }\SpecialCharTok{\{}\NormalTok{err}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{)}
+
+\NormalTok{result }\OperatorTok{=}\NormalTok{ retry\_with\_recovery(}
+\NormalTok{    task}\OperatorTok{=}\StringTok{"fetch+summarize request"}\NormalTok{,}
+\NormalTok{    run\_fn}\OperatorTok{=}\NormalTok{run\_fn,}
+\NormalTok{    add\_recovery\_context}\OperatorTok{=}\NormalTok{add\_recovery\_context,}
+\NormalTok{    log\_error}\OperatorTok{=}\NormalTok{log\_error,}
+\NormalTok{    max\_attempts}\OperatorTok{=}\DecValTok{3}\NormalTok{,}
 \NormalTok{)}
-
-\CommentTok{\# Pseudo{-}code orchestration pattern}
-\ControlFlowTok{for}\NormalTok{ attempt }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{3}\NormalTok{):}
-    \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{        result }\OperatorTok{=}\NormalTok{ agent.run(task)}
-        \ControlFlowTok{break}
-    \ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ err:}
-\NormalTok{        log\_error(err)}
-\NormalTok{        task }\OperatorTok{=}\NormalTok{ add\_recovery\_context(task, err)}
-\CommentTok{\# Report final outcome or propagate terminal error}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1410,11 +1418,14 @@ interaction with external systems, data sources, and services {[}6,
 smolagents provides default tool integrations (examples below are
 doc-aligned) {[}10, 12{]}:
 
+\textbf{Runnable examples.} Verified stand-ins:
+\texttt{examples/paper\_snippets/builtin\_tools\_examples.py}.
+
 \textbf{Search and browsing tools:}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents.default\_tools }\ImportTok{import}\NormalTok{ (}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.builtin\_tools\_examples }\ImportTok{import}\NormalTok{ (}
 \NormalTok{    DuckDuckGoSearchTool,}
 \NormalTok{    WikipediaSearchTool,}
 \NormalTok{    VisitWebpageTool,}
@@ -1430,7 +1441,7 @@ doc-aligned) {[}10, 12{]}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ PythonInterpreterTool}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.builtin\_tools\_examples }\ImportTok{import}\NormalTok{ PythonInterpreterTool}
 
 \NormalTok{python\_tool }\OperatorTok{=}\NormalTok{ PythonInterpreterTool()}
 \NormalTok{result }\OperatorTok{=}\NormalTok{ python\_tool(}\StringTok{"sum(range(100))"}\NormalTok{)}
@@ -1720,25 +1731,21 @@ executable with standard Python service scaffolding. Verified file:
 \paragraph{3.7.2 Monitoring and
 Observability}\label{monitoring-and-observability}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/monitoring\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Instrumented agent with tracing}
-\ImportTok{from}\NormalTok{ smolagents }\ImportTok{import}\NormalTok{ CodeAgent}
-\ImportTok{import}\NormalTok{ opentelemetry}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.monitoring\_examples }\ImportTok{import}\NormalTok{ InMemoryTracer, InstrumentedRunner}
 
-\KeywordTok{class}\NormalTok{ InstrumentedAgent(CodeAgent):}
-    \KeywordTok{def}\NormalTok{ run(}\VariableTok{self}\NormalTok{, task, }\OperatorTok{**}\NormalTok{kwargs):}
-        \ControlFlowTok{with}\NormalTok{ tracer.start\_as\_current\_span(}\StringTok{"agent\_run"}\NormalTok{) }\ImportTok{as}\NormalTok{ span:}
-\NormalTok{            span.set\_attribute(}\StringTok{"task"}\NormalTok{, task)}
-\NormalTok{            start\_time }\OperatorTok{=}\NormalTok{ time.time()}
-            
-\NormalTok{            result }\OperatorTok{=} \BuiltInTok{super}\NormalTok{().run(task, }\OperatorTok{**}\NormalTok{kwargs)}
-            
-\NormalTok{            span.set\_attribute(}\StringTok{"duration"}\NormalTok{, time.time() }\OperatorTok{{-}}\NormalTok{ start\_time)}
-\NormalTok{            span.set\_attribute(}\StringTok{"steps"}\NormalTok{, }\BuiltInTok{len}\NormalTok{(}\VariableTok{self}\NormalTok{.memory))}
-\NormalTok{            span.set\_attribute(}\StringTok{"tools\_used"}\NormalTok{, }\BuiltInTok{list}\NormalTok{(}\VariableTok{self}\NormalTok{.tools.keys()))}
-            
-            \ControlFlowTok{return}\NormalTok{ result}
+\NormalTok{tracer }\OperatorTok{=}\NormalTok{ InMemoryTracer()}
+\NormalTok{runner }\OperatorTok{=}\NormalTok{ InstrumentedRunner(tracer}\OperatorTok{=}\NormalTok{tracer)}
+\NormalTok{result }\OperatorTok{=}\NormalTok{ runner.run(}
+\NormalTok{    task}\OperatorTok{=}\StringTok{"demo task"}\NormalTok{,}
+\NormalTok{    run\_fn}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ task: }\SpecialStringTok{f"done:}\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}\SpecialStringTok{"}\NormalTok{,}
+\NormalTok{    steps}\OperatorTok{=}\DecValTok{4}\NormalTok{,}
+\NormalTok{    tools\_used}\OperatorTok{=}\NormalTok{[}\StringTok{"search"}\NormalTok{, }\StringTok{"calc"}\NormalTok{],}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2519,36 +2526,24 @@ Techniques}\label{optimization-techniques}
 
 \paragraph{5.3.1 Caching Strategies}\label{caching-strategies}
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/optimization\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ functools }\ImportTok{import}\NormalTok{ lru\_cache}
-\ImportTok{import}\NormalTok{ hashlib}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.optimization\_examples }\ImportTok{import}\NormalTok{ CachedToTSupport}
 
-\KeywordTok{class}\NormalTok{ CachedToTAgent(CodeAgent):}
-    \CommentTok{"""ToT Agent with result caching."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.evaluation\_cache }\OperatorTok{=}\NormalTok{ \{\}}
-        \VariableTok{self}\NormalTok{.generation\_cache }\OperatorTok{=}\NormalTok{ \{\}}
-    
-    \KeywordTok{def}\NormalTok{ cached\_evaluate(}\VariableTok{self}\NormalTok{, prompt: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
-        \CommentTok{"""Cache evaluation results."""}
-\NormalTok{        key }\OperatorTok{=}\NormalTok{ hashlib.md5(prompt.encode()).hexdigest()}
-        
-        \ControlFlowTok{if}\NormalTok{ key }\KeywordTok{not} \KeywordTok{in} \VariableTok{self}\NormalTok{.evaluation\_cache:}
-            \VariableTok{self}\NormalTok{.evaluation\_cache[key] }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_evaluate(prompt)}
-        
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.evaluation\_cache[key]}
-    
-    \KeywordTok{def}\NormalTok{ cached\_generate(}\VariableTok{self}\NormalTok{, prompt: }\BuiltInTok{str}\NormalTok{, k: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}}\NormalTok{ List[}\BuiltInTok{str}\NormalTok{]:}
-        \CommentTok{"""Cache generation results."""}
-\NormalTok{        key }\OperatorTok{=}\NormalTok{ hashlib.md5(prompt.encode()).hexdigest()}
-        
-        \ControlFlowTok{if}\NormalTok{ key }\KeywordTok{not} \KeywordTok{in} \VariableTok{self}\NormalTok{.generation\_cache:}
-            \VariableTok{self}\NormalTok{.generation\_cache[key] }\OperatorTok{=} \VariableTok{self}\NormalTok{.\_generate\_candidates(prompt, k)}
-        
-        \ControlFlowTok{return} \VariableTok{self}\NormalTok{.generation\_cache[key]}
+\NormalTok{cache }\OperatorTok{=}\NormalTok{ CachedToTSupport()}
+
+\KeywordTok{def}\NormalTok{ evaluate\_fn(prompt: }\BuiltInTok{str}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{float}\NormalTok{:}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(}\BuiltInTok{len}\NormalTok{(prompt))}
+
+\KeywordTok{def}\NormalTok{ generate\_fn(prompt: }\BuiltInTok{str}\NormalTok{, k: }\BuiltInTok{int}\NormalTok{) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{list}\NormalTok{[}\BuiltInTok{str}\NormalTok{]:}
+    \ControlFlowTok{return}\NormalTok{ [}\SpecialStringTok{f"}\SpecialCharTok{\{}\NormalTok{prompt}\SpecialCharTok{\}}\SpecialStringTok{:}\SpecialCharTok{\{}\NormalTok{i}\SpecialCharTok{\}}\SpecialStringTok{"} \ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(k)]}
+
+\NormalTok{prompt }\OperatorTok{=} \StringTok{"compare three solution branches"}
+\NormalTok{score }\OperatorTok{=}\NormalTok{ cache.cached\_evaluate(prompt, evaluate\_fn)}
+\NormalTok{candidates }\OperatorTok{=}\NormalTok{ cache.cached\_generate(prompt, k}\OperatorTok{=}\DecValTok{3}\NormalTok{, generate\_fn}\OperatorTok{=}\NormalTok{generate\_fn)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2556,24 +2551,11 @@ Techniques}\label{optimization-techniques}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{class}\NormalTok{ EarlyTerminationAgent(CodeAgent):}
-    \CommentTok{"""Stops exploration when confident in solution."""}
-    
-    \KeywordTok{def} \FunctionTok{\_\_init\_\_}\NormalTok{(}\VariableTok{self}\NormalTok{, confidence\_threshold}\OperatorTok{=}\FloatTok{0.9}\NormalTok{, }\OperatorTok{**}\NormalTok{kwargs):}
-        \BuiltInTok{super}\NormalTok{().}\FunctionTok{\_\_init\_\_}\NormalTok{(}\OperatorTok{**}\NormalTok{kwargs)}
-        \VariableTok{self}\NormalTok{.confidence\_threshold }\OperatorTok{=}\NormalTok{ confidence\_threshold}
-    
-    \KeywordTok{def}\NormalTok{ should\_terminate(}\VariableTok{self}\NormalTok{, beams: List[ThoughtNode]) }\OperatorTok{{-}\textgreater{}} \BuiltInTok{bool}\NormalTok{:}
-        \CommentTok{"""Check if best beam is sufficiently confident."""}
-        \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ beams:}
-            \ControlFlowTok{return} \VariableTok{False}
-        
-\NormalTok{        best }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(beams, key}\OperatorTok{=}\KeywordTok{lambda}\NormalTok{ n: n.score)}
-        
-        \CommentTok{\# Normalize score to a 0{-}1 heuristic confidence signal (not calibrated probability)}
-\NormalTok{        heuristic\_confidence }\OperatorTok{=}\NormalTok{ best.score }\OperatorTok{/} \FloatTok{10.0}
-        
-        \ControlFlowTok{return}\NormalTok{ heuristic\_confidence }\OperatorTok{\textgreater{}=} \VariableTok{self}\NormalTok{.confidence\_threshold}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.optimization\_examples }\ImportTok{import}\NormalTok{ EarlyTerminationPolicy, ThoughtNode}
+
+\NormalTok{policy }\OperatorTok{=}\NormalTok{ EarlyTerminationPolicy(confidence\_threshold}\OperatorTok{=}\FloatTok{0.9}\NormalTok{)}
+\NormalTok{beams }\OperatorTok{=}\NormalTok{ [ThoughtNode(score}\OperatorTok{=}\FloatTok{9.5}\NormalTok{), ThoughtNode(score}\OperatorTok{=}\FloatTok{7.0}\NormalTok{)]}
+\NormalTok{should\_stop }\OperatorTok{=}\NormalTok{ policy.should\_terminate(beams)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2810,23 +2792,19 @@ Track these metrics for ToT agents:
 ToT can provide interpretability through explicit reasoning trees and
 branch histories {[}1{]}:
 
+\textbf{Runnable example.} Verified helper:
+\texttt{examples/paper\_snippets/transparency\_examples.py}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{def}\NormalTok{ explain\_decision(agent, task, result):}
-    \CommentTok{"""Generate explanation from ToT tree."""}
-\NormalTok{    explanation }\OperatorTok{=} \SpecialStringTok{f"""}
-\SpecialStringTok{    Decision Process for: }\SpecialCharTok{\{}\NormalTok{task}\SpecialCharTok{\}}
-\SpecialStringTok{    }
-\SpecialStringTok{    Alternative paths considered:}
-\SpecialStringTok{    }\SpecialCharTok{\{}\NormalTok{format\_tree(agent.search\_tree)}\SpecialCharTok{\}}
-\SpecialStringTok{    }
-\SpecialStringTok{    Selected path reasoning:}
-\SpecialStringTok{    }\SpecialCharTok{\{}\NormalTok{result}\SpecialCharTok{.}\NormalTok{selected\_path}\SpecialCharTok{.}\NormalTok{justification}\SpecialCharTok{\}}
-\SpecialStringTok{    }
-\SpecialStringTok{    Rejected alternatives and why:}
-\SpecialStringTok{    }\SpecialCharTok{\{}\NormalTok{format\_rejected\_paths(agent.search\_tree)}\SpecialCharTok{\}}
-\SpecialStringTok{    """}
-    \ControlFlowTok{return}\NormalTok{ explanation}
+\ImportTok{from}\NormalTok{ examples.paper\_snippets.transparency\_examples }\ImportTok{import}\NormalTok{ Result, SelectedPath, explain\_decision}
+
+\NormalTok{result }\OperatorTok{=}\NormalTok{ Result(selected\_path}\OperatorTok{=}\NormalTok{SelectedPath(justification}\OperatorTok{=}\StringTok{"Highest evaluator score"}\NormalTok{))}
+\NormalTok{explanation }\OperatorTok{=}\NormalTok{ explain\_decision(}
+\NormalTok{    task}\OperatorTok{=}\StringTok{"Solve arithmetic puzzle"}\NormalTok{,}
+\NormalTok{    search\_tree}\OperatorTok{=}\NormalTok{[}\StringTok{"path A"}\NormalTok{, }\StringTok{"path B"}\NormalTok{, }\StringTok{"path C"}\NormalTok{],}
+\NormalTok{    result}\OperatorTok{=}\NormalTok{result,}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

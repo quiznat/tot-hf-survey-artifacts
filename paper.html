@@ -916,35 +916,42 @@ result = agent.run("""
         </ol>
 
         <h4>3.5.3 Error Handling and Recovery</h4>
-        <p>Error handling is typically implemented at orchestration level around agent execution (pseudo-code sketch):</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import MultiStepAgent
+        <p>Error handling is typically implemented at orchestration level around agent execution.</p>
+        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/orchestration_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.orchestration_examples import retry_with_recovery
 
-agent = MultiStepAgent(
-    tools=tools,
-    model=model,
-    max_steps=20,
-    planning_interval=3
-)
+attempts = {"n": 0}
 
-# Pseudo-code orchestration pattern
-for attempt in range(3):
-    try:
-        result = agent.run(task)
-        break
-    except Exception as err:
-        log_error(err)
-        task = add_recovery_context(task, err)
-# Report final outcome or propagate terminal error</code></pre>
+def run_fn(task: str) -&gt; str:
+    attempts["n"] += 1
+    if attempts["n"] &lt; 3:
+        raise RuntimeError("temporary failure")
+    return f"ok:{task}"
+
+def add_recovery_context(task: str, err: Exception) -&gt; str:
+    return f"{task} | recovery hint: {err}"
+
+def log_error(err: Exception) -&gt; None:
+    print(f"retrying after error: {err}")
+
+result = retry_with_recovery(
+    task="fetch+summarize request",
+    run_fn=run_fn,
+    add_recovery_context=add_recovery_context,
+    log_error=log_error,
+    max_attempts=3,
+)</code></pre>
 
         <h3>3.6 The Tool Ecosystem</h3>
         <p>Tools extend agent capabilities beyond language generation, enabling interaction with external systems, data sources, and services [6, 10].</p>
 
         <h4>3.6.1 Built-in Tools</h4>
         <p>smolagents provides default tool integrations (examples below are doc-aligned) [10, 12]:</p>
+        <p><strong>Runnable examples.</strong> Verified stand-ins: <code>examples/paper_snippets/builtin_tools_examples.py</code>.</p>
         <p><strong>Search and browsing tools:</strong></p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents.default_tools import (
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.builtin_tools_examples import (
     DuckDuckGoSearchTool,
     WikipediaSearchTool,
     VisitWebpageTool,
@@ -954,8 +961,8 @@ search_tool = DuckDuckGoSearchTool()
 wiki_tool = WikipediaSearchTool()
 visit_tool = VisitWebpageTool()</code></pre>
         <p><strong>Python execution tool:</strong></p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from smolagents import PythonInterpreterTool
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.builtin_tools_examples import PythonInterpreterTool
 
 python_tool = PythonInterpreterTool()
 result = python_tool("sum(range(100))")</code></pre>
@@ -1154,24 +1161,18 @@ EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre>
 
         <h4>3.7.2 Monitoring and Observability</h4>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python"># Instrumented agent with tracing
-from smolagents import CodeAgent
-import opentelemetry
+        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/monitoring_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.monitoring_examples import InMemoryTracer, InstrumentedRunner
 
-class InstrumentedAgent(CodeAgent):
-    def run(self, task, **kwargs):
-        with tracer.start_as_current_span("agent_run") as span:
-            span.set_attribute("task", task)
-            start_time = time.time()
-            
-            result = super().run(task, **kwargs)
-            
-            span.set_attribute("duration", time.time() - start_time)
-            span.set_attribute("steps", len(self.memory))
-            span.set_attribute("tools_used", list(self.tools.keys()))
-            
-            return result</code></pre>
+tracer = InMemoryTracer()
+runner = InstrumentedRunner(tracer=tracer)
+result = runner.run(
+    task="demo task",
+    run_fn=lambda task: f"done:{task}",
+    steps=4,
+    tools_used=["search", "calc"],
+)</code></pre>
 
         <hr>
 
@@ -1811,56 +1812,29 @@ Format: "Approaches: X, Steps: Y"""
         <h3>5.3 Optimization Techniques</h3>
 
         <h4>5.3.1 Caching Strategies</h4>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">from functools import lru_cache
-import hashlib
+        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/optimization_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.optimization_examples import CachedToTSupport
 
-class CachedToTAgent(CodeAgent):
-    """ToT Agent with result caching."""
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.evaluation_cache = {}
-        self.generation_cache = {}
-    
-    def cached_evaluate(self, prompt: str) -&gt; float:
-        """Cache evaluation results."""
-        key = hashlib.md5(prompt.encode()).hexdigest()
-        
-        if key not in self.evaluation_cache:
-            self.evaluation_cache[key] = self._evaluate(prompt)
-        
-        return self.evaluation_cache[key]
-    
-    def cached_generate(self, prompt: str, k: int) -&gt; List[str]:
-        """Cache generation results."""
-        key = hashlib.md5(prompt.encode()).hexdigest()
-        
-        if key not in self.generation_cache:
-            self.generation_cache[key] = self._generate_candidates(prompt, k)
-        
-        return self.generation_cache[key]</code></pre>
+cache = CachedToTSupport()
+
+def evaluate_fn(prompt: str) -&gt; float:
+    return float(len(prompt))
+
+def generate_fn(prompt: str, k: int) -&gt; list[str]:
+    return [f"{prompt}:{i}" for i in range(k)]
+
+prompt = "compare three solution branches"
+score = cache.cached_evaluate(prompt, evaluate_fn)
+candidates = cache.cached_generate(prompt, k=3, generate_fn=generate_fn)</code></pre>
 
         <h4>5.3.2 Early Termination</h4>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">class EarlyTerminationAgent(CodeAgent):
-    """Stops exploration when confident in solution."""
-    
-    def __init__(self, confidence_threshold=0.9, **kwargs):
-        super().__init__(**kwargs)
-        self.confidence_threshold = confidence_threshold
-    
-    def should_terminate(self, beams: List[ThoughtNode]) -&gt; bool:
-        """Check if best beam is sufficiently confident."""
-        if not beams:
-            return False
-        
-        best = max(beams, key=lambda n: n.score)
-        
-        # Normalize score to a 0-1 heuristic confidence signal (not calibrated probability)
-        heuristic_confidence = best.score / 10.0
-        
-        return heuristic_confidence &gt;= self.confidence_threshold</code></pre>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.optimization_examples import EarlyTerminationPolicy, ThoughtNode
+
+policy = EarlyTerminationPolicy(confidence_threshold=0.9)
+beams = [ThoughtNode(score=9.5), ThoughtNode(score=7.0)]
+should_stop = policy.should_terminate(beams)</code></pre>
 
         <h3>5.4 Testing and Validation</h3>
         <p><strong>Runnable example.</strong> Verified test file: <code>tests/test_paper_snippets.py</code>.</p>
@@ -2028,22 +2002,16 @@ Example Task: "Design a logo based on these brand values"
 
         <h4>6.4.1 Transparency</h4>
         <p>ToT can provide interpretability through explicit reasoning trees and branch histories [1]:</p>
-        <!-- Illustrative / pseudo-code -->
-        <pre><code class="language-python">def explain_decision(agent, task, result):
-    """Generate explanation from ToT tree."""
-    explanation = f"""
-    Decision Process for: {task}
-    
-    Alternative paths considered:
-    {format_tree(agent.search_tree)}
-    
-    Selected path reasoning:
-    {result.selected_path.justification}
-    
-    Rejected alternatives and why:
-    {format_rejected_paths(agent.search_tree)}
-    """
-    return explanation</code></pre>
+        <p><strong>Runnable example.</strong> Verified helper: <code>examples/paper_snippets/transparency_examples.py</code>.</p>
+        <!-- Runnable example -->
+        <pre><code class="language-python">from examples.paper_snippets.transparency_examples import Result, SelectedPath, explain_decision
+
+result = Result(selected_path=SelectedPath(justification="Highest evaluator score"))
+explanation = explain_decision(
+    task="Solve arithmetic puzzle",
+    search_tree=["path A", "path B", "path C"],
+    result=result,
+)</code></pre>
 
         <h4>6.4.2 Safety Considerations</h4>
         <ul>
