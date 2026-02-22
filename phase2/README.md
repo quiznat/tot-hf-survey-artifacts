@@ -14,6 +14,15 @@ This directory is the execution workspace for the novel contribution track: impl
   - matrix: `phase2/benchmarks/benchmark-matrix-v3.md`
   - execution guide: `phase2/benchmarks/protocol-v3-execution.md`
 
+## Dashboard
+- Service installer: `phase2/dashboard/install_service.sh`
+- Service uninstaller: `phase2/dashboard/uninstall_service.sh`
+- Local URL: `http://127.0.0.1:8787`
+- Dashboard docs: `phase2/dashboard/README.md`
+
+If the service runs but shows no data, macOS privacy controls may block LaunchAgents from reading Desktop paths.  
+In that case, grant Full Disk Access to the configured `python3` interpreter and restart the service.
+
 ## Purpose
 - Keep long-running project state stable across sessions.
 - Separate planning and implementation artifacts from the survey manuscript workflow.
