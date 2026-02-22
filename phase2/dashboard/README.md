@@ -40,3 +40,16 @@ bash /Users/quiznat/Desktop/Tree_of_Thought/phase2/dashboard/uninstall_service.s
 ```bash
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/dashboard/server.py --host 127.0.0.1 --port 8787
 ```
+
+## Session-Resilient Manual Service (Fallback)
+Use this if macOS privacy blocks LaunchAgent data access from Desktop paths.
+
+Start:
+```bash
+bash /Users/quiznat/Desktop/Tree_of_Thought/phase2/dashboard/start_manual_service.sh 8891
+```
+
+Stop:
+```bash
+bash /Users/quiznat/Desktop/Tree_of_Thought/phase2/dashboard/stop_manual_service.sh 8891
+```
