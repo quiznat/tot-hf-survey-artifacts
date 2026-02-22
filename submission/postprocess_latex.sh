@@ -12,8 +12,18 @@ if [ ! -f "$TEX_FILE" ]; then
   exit 1
 fi
 
+has_pattern() {
+  local pattern="$1"
+  local file="$2"
+  if command -v rg >/dev/null 2>&1; then
+    rg -q "$pattern" "$file"
+  else
+    grep -Eq "$pattern" "$file"
+  fi
+}
+
 # Add robust line-breaking support for code blocks.
-if ! rg -q "\\\\usepackage\\{fvextra\\}" "$TEX_FILE"; then
+if ! has_pattern "\\\\usepackage\\{fvextra\\}" "$TEX_FILE"; then
   perl -0777 -i -pe '
     s~\\usepackage\{color\}~\\usepackage{color}\n\\usepackage{fvextra}~s;
   ' "$TEX_FILE"
@@ -24,7 +34,7 @@ perl -0777 -i -pe '
 ' "$TEX_FILE"
 
 # Configure longtable behavior for margin-safe rendering.
-if ! rg -q "\\\\newcolumntype\\{L\\}" "$TEX_FILE"; then
+if ! has_pattern "\\\\newcolumntype\\{L\\}" "$TEX_FILE"; then
   perl -0777 -i -pe '
     s~\\makesavenoteenv\{longtable\}~\\makesavenoteenv{longtable}\n\\setlength{\\tabcolsep}{2pt}\n\\setlength{\\LTleft}{0pt}\n\\setlength{\\LTright}{0pt}\n\\setlength{\\LTcapwidth}{\\linewidth}\n\\renewcommand{\\arraystretch}{1.08}\n\\newcolumntype{L}[1]{>{\\raggedright\\arraybackslash}p{#1}}\n\\AtBeginEnvironment{longtable}{\\small}~s;
   ' "$TEX_FILE"

@@ -48,10 +48,10 @@ if ! command -v pandoc >/dev/null 2>&1; then
   exit 1
 fi
 
-if command -v python3 >/dev/null 2>&1; then
+if command -v python3 >/dev/null 2>&1 && command -v dot >/dev/null 2>&1; then
   python3 "$ROOT_DIR/submission/render_manuscript_diagrams.py"
 else
-  echo "Warning: python3 not found; skipping diagram regeneration." >&2
+  echo "Warning: python3 and/or graphviz 'dot' not found; using existing diagram assets." >&2
 fi
 
 cp "$SRC_HTML" "$ANON_HTML"
