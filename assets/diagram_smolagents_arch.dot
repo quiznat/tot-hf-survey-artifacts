@@ -1,0 +1,21 @@
+digraph G {
+  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="smolagents Architecture", fontsize="32"];
+  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
+  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+
+  agents [label="Agents\n- CodeAgent\n- ToolAgent\n- MultiStep"];
+  models [label="Models\n- HfApiModel\n- LiteLLM\n- OpenAI"];
+  tools [label="Tools\n- @tool\n- Tool\n- Pipeline"];
+  memory [label="Memory\n- Step Log\n- Tool Calls\n- Errors"];
+  planning [label="Planning\n- Action\n- Selection\n- Tool Pick"];
+  execution [label="Execution\n- Code\n- Execution\n- Sandbox"];
+
+  { rank=same; agents; models; tools }
+  { rank=same; memory; planning; execution }
+
+  agents -> models [dir=none];
+  models -> tools [dir=none];
+  agents -> memory;
+  models -> planning;
+  tools -> execution;
+}

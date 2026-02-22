@@ -1,0 +1,23 @@
+digraph G {
+  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="Tool-Augmented LLM Flow", fontsize="32"];
+  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
+  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+
+  query [label="User Query"];
+  reason [label="LLM Reasoning Step"];
+  need [shape="diamond", style="filled", fillcolor="#edf2f8", label="Need\nTool?"];
+  select [label="Select Tool + Arguments"];
+  exec [label="Execute Tool"];
+  obs [label="Tool Observation"];
+  ans [label="Generate Final Answer"];
+
+  query -> reason;
+  reason -> need;
+  need -> select [label="Yes"];
+  need -> ans [label="No"];
+  select -> exec;
+  exec -> obs;
+  obs -> reason [label="Observation loop", constraint=false];
+
+  { rank=same; select; ans }
+}

@@ -1,0 +1,19 @@
+digraph G {
+  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="Survey Method Flow (Frozen Run)", fontsize="32"];
+  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
+  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+
+  seed [label="Seeded Corpus\n(Pre-Curated ToT+Agent Scope)"];
+  records [label="Records Identified\nn = 30"];
+  screened [label="Title/Abstract Screened\nn = 30"];
+  fulltext [label="Full-Text Assessed\nn = 30"];
+  included [label="Studies Included in Synthesis\nn = 22"];
+  excl [label="Full-Text Exclusions\nn = 8\n- Out of scope / method fit\n- Insufficient extraction detail"];
+  dup [shape="note", style="filled", fillcolor="#eef3f9", color="#9aa9be", fontsize="14", label="duplicates removed: 0"];
+
+  seed -> records -> screened -> fulltext -> included;
+  fulltext -> excl [label="excluded"];
+  dup -> records [style="dashed", arrowhead="none"];
+
+  { rank=same; fulltext; excl }
+}

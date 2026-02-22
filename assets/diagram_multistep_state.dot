@@ -1,0 +1,20 @@
+digraph G {
+  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="MultiStepAgent State Diagram", fontsize="32"];
+  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
+  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+
+  input [label="Input Task"];
+  init [label="Initialize State"];
+  plan [label="Generate / Update Plan"];
+  step [label="Execute Next Step"];
+  observe [label="Collect Observation"];
+  goal [shape="diamond", style="filled", fillcolor="#edf2f8", label="Goal\nSatisfied?"];
+  replan [shape="diamond", style="filled", fillcolor="#edf2f8", label="Need\nReplan?"];
+  out [label="Return Final Response"];
+
+  input -> init -> plan -> step -> observe -> goal;
+  goal -> out [label="Yes"];
+  goal -> replan [label="No"];
+  replan -> plan [label="Yes"];
+  replan -> step [label="No"];
+}

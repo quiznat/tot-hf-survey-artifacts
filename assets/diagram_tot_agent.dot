@@ -1,0 +1,27 @@
+digraph G {
+  graph [bgcolor="#ffffff", pad="0.35", nodesep="0.55", ranksep="0.70", splines="polyline", fontname="Helvetica", fontcolor="#14181f", labelloc="t", margin="0.15", rankdir="TB", label="ToT-Enhanced Agent", fontsize="32"];
+  node [shape="box", style="rounded,filled", fillcolor="#f8fbff", color="#4f6485", penwidth="2.0", fontname="Helvetica", fontsize="20", margin="0.14,0.10"];
+  edge [color="#5f7390", penwidth="1.8", arrowsize="0.8", fontname="Helvetica", fontsize="15", labeldistance="1.4"];
+
+  thought [label="Thought Generation"];
+  eval [label="Evaluate States"];
+  select [label="Select Best Path"];
+  memory [label="Memory Store"];
+  action [label="Action Planning"];
+  tools [label="Tool Execution"];
+  feedback [label="Observation Feedback"];
+
+  { rank=same; thought; eval; select }
+  { rank=same; action; tools }
+
+  thought -> eval -> select;
+  thought -> memory;
+  eval -> memory;
+  select -> memory;
+  memory -> action;
+  memory -> tools;
+  action -> tools;
+  action -> feedback;
+  tools -> feedback;
+  feedback -> memory;
+}
