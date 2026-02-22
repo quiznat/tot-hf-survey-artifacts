@@ -8,11 +8,13 @@ This directory is the execution workspace for the novel contribution track: impl
 - Build command: `bash phase2/manuscript/build_phase2_html.sh`
 
 ## Current Evaluation Track
-- Frozen v2 evidence remains archived and reportable.
-- Expanded v3 multi-task matrix is now scaffolded for deeper pre-publication validation:
-  - protocol: `phase2/benchmarks/evaluation-protocol-v3.md`
-  - matrix: `phase2/benchmarks/benchmark-matrix-v3.md`
-  - execution guide: `phase2/benchmarks/protocol-v3-execution.md`
+- Pre-v4 evidence is quarantined as exploratory and excluded from primary confirmatory claims:
+  - registry: `phase2/benchmarks/evidence/series_registry.json`
+  - reset record: `phase2/benchmarks/evidence/protocol_v4_reset_20260222T0600Z/README.md`
+- Active confirmatory track:
+  - protocol: `phase2/benchmarks/evaluation-protocol-v4.md`
+  - matrix: `phase2/benchmarks/benchmark-matrix-v4.md`
+  - execution guide: `phase2/benchmarks/protocol-v4-execution.md`
 
 ## Dashboard
 - Service installer: `phase2/dashboard/install_service.sh`

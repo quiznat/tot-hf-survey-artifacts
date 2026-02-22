@@ -36,10 +36,15 @@ PROFILE_LABELS = {
     "tot_hybrid": "ToT hybrid (3/3/3)",
     "tot_rule_based": "ToT rule-based (3/3/3)",
     "tot_model_self_eval_lite": "ToT self-eval lite (2/2/2)",
+    "confirmatory": "confirmatory",
+    "smoke": "smoke",
 }
 SERIES_VERSION_LABELS = {
     "v31": "v3.1",
     "v32": "v3.2",
+    "v4_smoke": "v4-smoke",
+    "v4_matrix": "v4-matrix",
+    "v4": "v4",
 }
 DIAGNOSTIC_TASKS = {
     "linear2-demo": ("linear2_demo", PHASE2 / "benchmarks/panels/linear2_lockset_v1.json"),
@@ -60,6 +65,24 @@ DIAGNOSTIC_PROFILES = [
     "tot_model_self_eval_lite",
 ]
 DIAGNOSTIC_CONDITIONS = ("baseline-react", "tot-prototype")
+V4_TASKS = {
+    "game24-demo": ("game24_demo", PHASE2 / "benchmarks/panels/game24_lockset_v4.json"),
+    "subset-sum-demo": ("subset_sum_demo", PHASE2 / "benchmarks/panels/subset_sum_lockset_v4.json"),
+    "linear2-demo": ("linear2_demo", PHASE2 / "benchmarks/panels/linear2_lockset_v4.json"),
+    "digit-permutation-demo": (
+        "digit_permutation_demo",
+        PHASE2 / "benchmarks/panels/digit_permutation_lockset_v4.json",
+    ),
+}
+V4_SMOKE_MODELS = {
+    "Qwen/Qwen3-Coder-Next:novita": "qwen_qwen3_coder_next_novita",
+}
+V4_MATRIX_MODELS = {
+    "Qwen/Qwen3-Coder-Next:novita": "qwen_qwen3_coder_next_novita",
+    "Qwen/Qwen2.5-72B-Instruct": "qwen_qwen2_5_72b_instruct",
+    "Qwen/Qwen2.5-Coder-32B-Instruct": "qwen_qwen2_5_coder_32b_instruct",
+}
+V4_CONDITIONS = ("baseline-single-path", "baseline-react", "tot-prototype")
 
 
 def utc_now() -> str:
@@ -170,17 +193,28 @@ def load_panel_items(panel_path: Path, limit: int = 50) -> List[str]:
     return out
 
 
-def compute_diagnostic_progress(series_id: str, report_version_id: str) -> Dict[str, Any]:
+def compute_series_progress(
+    *,
+    series_id: str,
+    report_version_id: str,
+    tasks: Dict[str, tuple[str, Path]],
+    models: Dict[str, str],
+    profiles: List[str],
+    conditions: tuple[str, ...],
+    panel_limit: int,
+) -> Dict[str, Any]:
     base = RUNS_DIR / series_id
-    conditions = set(DIAGNOSTIC_CONDITIONS)
+    condition_set = set(conditions)
 
     blocks: List[Dict[str, Any]] = []
-    for task_id, (task_slug, panel_path) in DIAGNOSTIC_TASKS.items():
-        panel_items = load_panel_items(panel_path, limit=50)
-        block_total_pairs = len(panel_items) * len(DIAGNOSTIC_CONDITIONS)
-        for model_id, model_slug in DIAGNOSTIC_MODELS.items():
-            for profile in DIAGNOSTIC_PROFILES:
-                run_dir = base / task_slug / model_slug / profile
+    for task_id, (task_slug, panel_path) in tasks.items():
+        panel_items = load_panel_items(panel_path, limit=panel_limit)
+        block_total_pairs = len(panel_items) * len(conditions)
+        for model_id, model_slug in models.items():
+            for profile in profiles:
+                run_dir = base / task_slug / model_slug
+                if profile:
+                    run_dir = run_dir / profile
                 seen: Dict[str, set[str]] = {item_id: set() for item_id in panel_items}
                 if run_dir.exists():
                     for manifest_path in run_dir.glob("*.json"):
@@ -190,12 +224,10 @@ def compute_diagnostic_progress(series_id: str, report_version_id: str) -> Dict[
                         item_id = payload.get("item_id")
                         cond = payload.get("condition_id")
                         if isinstance(item_id, str) and isinstance(cond, str):
-                            if item_id in seen and cond in conditions:
+                            if item_id in seen and cond in condition_set:
                                 seen[item_id].add(cond)
                 present_pairs = sum(len(seen[item_id]) for item_id in panel_items)
-                complete_items = sum(
-                    1 for item_id in panel_items if len(seen[item_id]) == len(DIAGNOSTIC_CONDITIONS)
-                )
+                complete_items = sum(1 for item_id in panel_items if len(seen[item_id]) == len(conditions))
                 state = "not_started"
                 if block_total_pairs and present_pairs == block_total_pairs:
                     state = "done"
@@ -203,11 +235,12 @@ def compute_diagnostic_progress(series_id: str, report_version_id: str) -> Dict[
                     state = "partial"
                 blocks.append(
                     {
+                        "series_id": series_id,
                         "report_version_id": report_version_id,
                         "report_version_label": SERIES_VERSION_LABELS.get(report_version_id, report_version_id),
                         "task_id": task_id,
                         "model_id": model_id,
-                        "profile": profile,
+                        "profile": profile or "none",
                         "present_pairs": present_pairs,
                         "total_pairs": block_total_pairs,
                         "complete_items": complete_items,
@@ -234,10 +267,40 @@ def compute_diagnostic_progress(series_id: str, report_version_id: str) -> Dict[
     }
 
 
+def compute_diagnostic_progress(series_id: str, report_version_id: str) -> Dict[str, Any]:
+    return compute_series_progress(
+        series_id=series_id,
+        report_version_id=report_version_id,
+        tasks=DIAGNOSTIC_TASKS,
+        models=DIAGNOSTIC_MODELS,
+        profiles=DIAGNOSTIC_PROFILES,
+        conditions=DIAGNOSTIC_CONDITIONS,
+        panel_limit=50,
+    )
+
+
 def compute_diagnostic_progress_all() -> Dict[str, Dict[str, Any]]:
     return {
         "v31": compute_diagnostic_progress("protocol_v31_diagnostic", "v31"),
         "v32": compute_diagnostic_progress("protocol_v32_diagnostic", "v32"),
+        "v4_smoke": compute_series_progress(
+            series_id="protocol_v4_smoke",
+            report_version_id="v4_smoke",
+            tasks=V4_TASKS,
+            models=V4_SMOKE_MODELS,
+            profiles=[""],
+            conditions=V4_CONDITIONS,
+            panel_limit=10,
+        ),
+        "v4_matrix": compute_series_progress(
+            series_id="protocol_v4_confirmatory_matrix",
+            report_version_id="v4_matrix",
+            tasks=V4_TASKS,
+            models=V4_MATRIX_MODELS,
+            profiles=[""],
+            conditions=V4_CONDITIONS,
+            panel_limit=50,
+        ),
     }
 
 
@@ -282,8 +345,22 @@ def _infer_report_tag(path: Path) -> tuple[str, str]:
     return (base, full)
 
 
+def _infer_report_version(path: Path) -> tuple[str, str, str]:
+    stem = path.stem
+    if "_confirmatory_report_" in stem and stem.endswith("_v4"):
+        return ("v4_matrix", SERIES_VERSION_LABELS.get("v4_matrix", "v4_matrix"), "v4")
+    if "_smoke_report_" in stem and stem.endswith("_v4"):
+        return ("v4_smoke", SERIES_VERSION_LABELS.get("v4_smoke", "v4_smoke"), "v4")
+    base, full = _infer_report_tag(path)
+    return (base, SERIES_VERSION_LABELS.get(base, base), full)
+
+
 def _infer_profile_id(path: Path) -> str:
     stem = path.stem
+    if "_confirmatory_report_" in stem:
+        return "confirmatory"
+    if "_smoke_report_" in stem:
+        return "smoke"
     for profile_id in sorted(PROFILE_LABELS.keys(), key=len, reverse=True):
         marker = f"_{profile_id}_"
         if marker in f"_{stem}_":
@@ -292,10 +369,14 @@ def _infer_profile_id(path: Path) -> str:
 
 
 def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[str, Any]]:
-    paths = sorted(ANALYSIS_DIR.glob("*_diag_report_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
+    paths: List[Path] = []
+    paths.extend(ANALYSIS_DIR.glob("*_diag_report_*.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_confirmatory_report_*_v4.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_smoke_report_*_v4.json"))
+    paths = sorted(paths, key=lambda p: p.stat().st_mtime, reverse=True)
     rows: List[Dict[str, Any]] = []
     for path in paths:
-        version_id, report_tag = _infer_report_tag(path)
+        version_id, version_label, report_tag = _infer_report_version(path)
         if report_versions and version_id not in report_versions:
             continue
         payload = safe_read_json(path)
@@ -316,7 +397,7 @@ def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[st
         rows.append(
             {
                 "report_version_id": version_id,
-                "report_version_label": SERIES_VERSION_LABELS.get(version_id, version_id),
+                "report_version_label": version_label,
                 "report_tag": report_tag,
                 "task_id": payload.get("task_id"),
                 "model_id": payload.get("model_id"),
@@ -350,7 +431,7 @@ def load_series_detail(report_path: Path) -> Dict[str, Any] | None:
     if not isinstance(payload, dict):
         return None
     profile_id = _infer_profile_id(report_path)
-    version_id, report_tag = _infer_report_tag(report_path)
+    version_id, version_label, report_tag = _infer_report_version(report_path)
     md_path = report_path.with_suffix(".md")
 
     condition_rows = payload.get("condition_summaries", [])
@@ -372,7 +453,7 @@ def load_series_detail(report_path: Path) -> Dict[str, Any] | None:
 
     return {
         "report_version_id": version_id,
-        "report_version_label": SERIES_VERSION_LABELS.get(version_id, version_id),
+        "report_version_label": version_label,
         "report_tag": report_tag,
         "task_id": payload.get("task_id"),
         "model_id": payload.get("model_id"),
@@ -461,6 +542,38 @@ def load_diagnostic_summary(report_version_id: str) -> Dict[str, Any]:
     }
 
 
+def load_v4_gate_status() -> Dict[str, Any]:
+    gate_path = ANALYSIS_DIR / "protocol_v4_gate_report.json"
+    payload = safe_read_json(gate_path)
+    if not isinstance(payload, dict):
+        return {
+            "exists": False,
+            "status": "unknown",
+            "checks": [],
+            "path": str(gate_path),
+        }
+    checks = payload.get("checks", [])
+    if not isinstance(checks, list):
+        checks = []
+    return {
+        "exists": True,
+        "status": str(payload.get("status", "unknown")),
+        "checks": checks,
+        "path": str(gate_path),
+    }
+
+
+def load_v4_matrix_summary() -> Dict[str, Any]:
+    summary_path = ANALYSIS_DIR / "protocol_v4_matrix_summary.json"
+    payload = safe_read_json(summary_path)
+    if not isinstance(payload, dict):
+        return {"exists": False, "records": [], "path": str(summary_path)}
+    records = payload.get("records", [])
+    if not isinstance(records, list):
+        records = []
+    return {"exists": True, "records": records, "path": str(summary_path)}
+
+
 def list_latest_analysis(limit: int = 25) -> List[Dict[str, Any]]:
     if not ANALYSIS_DIR.exists():
         return []
@@ -499,7 +612,7 @@ def diagnose_access() -> Dict[str, Any]:
 
 def build_overview() -> Dict[str, Any]:
     diagnostic_progress = compute_diagnostic_progress_all()
-    series_reports = list_series_reports({"v31", "v32"})
+    series_reports = list_series_reports({"v31", "v32", "v4_smoke", "v4_matrix"})
     return {
         "generated_utc": utc_now(),
         "access": diagnose_access(),
@@ -507,7 +620,11 @@ def build_overview() -> Dict[str, Any]:
         "diagnostic_progress": diagnostic_progress,
         "v31_progress": diagnostic_progress.get("v31", {}),
         "v32_progress": diagnostic_progress.get("v32", {}),
+        "v4_smoke_progress": diagnostic_progress.get("v4_smoke", {}),
+        "v4_matrix_progress": diagnostic_progress.get("v4_matrix", {}),
         "v3_summary": load_v3_summary(),
+        "v4_gate_status": load_v4_gate_status(),
+        "v4_matrix_summary": load_v4_matrix_summary(),
         "diagnostic_summaries": {
             "v31": load_diagnostic_summary("v31"),
             "v32": load_diagnostic_summary("v32"),
@@ -657,11 +774,13 @@ def html_template() -> str:
 
     <div class="grid" style="margin-top:12px;">
       <div class="card">
-        <h2>Protocol Diagnostic Progress</h2>
+        <h2>Protocol Series Progress</h2>
         <div class="controls" style="margin-bottom:6px;">
           <select id="progressVersionFilter">
             <option value="v31">v3.1</option>
-            <option value="v32" selected>v3.2</option>
+            <option value="v32">v3.2</option>
+            <option value="v4_smoke">v4-smoke</option>
+            <option value="v4_matrix" selected>v4-matrix</option>
           </select>
         </div>
         <div class="progress"><span id="v31ProgressBar"></span></div>
@@ -689,7 +808,7 @@ def html_template() -> str:
       </div>
 
       <div class="card">
-        <h2>v3 Snapshot</h2>
+        <h2>v3 Snapshot (Legacy)</h2>
         <div class="small" id="v3SummaryText"></div>
         <table id="v3Table" style="margin-top:8px;">
           <thead>
@@ -703,7 +822,7 @@ def html_template() -> str:
 
       <div class="split">
         <div class="card">
-          <h2>v3.1/v3.2 Series Results</h2>
+          <h2>Series Results (v3 + v4)</h2>
           <div class="controls">
             <input id="seriesSearch" type="text" placeholder="Search task/model/profile...">
             <select id="seriesVersionFilter"><option value="">All versions</option></select>
@@ -988,19 +1107,34 @@ def html_template() -> str:
       const diag = data.diagnostic_progress || {};
       const p31 = diag.v31 || data.v31_progress || {};
       const p32 = diag.v32 || data.v32_progress || {};
+      const p4Smoke = diag.v4_smoke || data.v4_smoke_progress || {};
+      const p4Matrix = diag.v4_matrix || data.v4_matrix_progress || {};
       const p31Pairs = Number(p31.present_pairs || 0);
       const p31Total = Number(p31.total_pairs || 0);
       const p31Pct = p31Total > 0 ? Math.round((p31Pairs / p31Total) * 100) : 0;
       const p32Pairs = Number(p32.present_pairs || 0);
       const p32Total = Number(p32.total_pairs || 0);
       const p32Pct = p32Total > 0 ? Math.round((p32Pairs / p32Total) * 100) : 0;
+      const p4SmokePairs = Number(p4Smoke.present_pairs || 0);
+      const p4SmokeTotal = Number(p4Smoke.total_pairs || 0);
+      const p4SmokePct = p4SmokeTotal > 0 ? Math.round((p4SmokePairs / p4SmokeTotal) * 100) : 0;
+      const p4MatrixPairs = Number(p4Matrix.present_pairs || 0);
+      const p4MatrixTotal = Number(p4Matrix.total_pairs || 0);
+      const p4MatrixPct = p4MatrixTotal > 0 ? Math.round((p4MatrixPairs / p4MatrixTotal) * 100) : 0;
 
       const v3 = data.v3_summary || {};
       const v3Pos = Number(v3.tot_vs_react_positive || 0);
       const v3Neg = Number(v3.tot_vs_react_negative || 0);
+      const v4Gate = data.v4_gate_status || {};
+      const v4GateStatus = String(v4Gate.status || "unknown");
+      const v4GatePill = v4GateStatus === "ok" ? '<span class="pill good">ok</span>' :
+        (v4GateStatus === "failed" ? '<span class="pill bad">failed</span>' : '<span class="pill">unknown</span>');
       const procCount = (data.runtime_processes || []).filter(p => p.alive).length;
 
       document.getElementById("topCards").innerHTML = [
+        '<div class="card"><h2>v4 Matrix Pairs</h2><div class="metric">' + p4MatrixPairs + '/' + p4MatrixTotal + '</div><div class="small">' + p4MatrixPct + '% complete</div></div>',
+        '<div class="card"><h2>v4 Smoke Pairs</h2><div class="metric">' + p4SmokePairs + '/' + p4SmokeTotal + '</div><div class="small">' + p4SmokePct + '% complete</div></div>',
+        '<div class="card"><h2>v4 Gate</h2><div class="metric">' + v4GateStatus + '</div><div class="small">' + v4GatePill + '</div></div>',
         '<div class="card"><h2>v3.1 Pairs</h2><div class="metric">' + p31Pairs + '/' + p31Total + '</div><div class="small">' + p31Pct + '% complete</div></div>',
         '<div class="card"><h2>v3.2 Pairs</h2><div class="metric">' + p32Pairs + '/' + p32Total + '</div><div class="small">' + p32Pct + '% complete</div></div>',
         '<div class="card"><h2>v3 Direction</h2><div class="metric">' + v3Pos + ' / ' + v3Neg + '</div><div class="small">ToT>ReAct / ToT<ReAct blocks</div></div>',
@@ -1008,12 +1142,18 @@ def html_template() -> str:
       ].join("");
 
       const progressFilter = document.getElementById("progressVersionFilter");
-      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v32";
-      const active = selectedVersion === "v31" ? p31 : p32;
+      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v4_matrix";
+      const byVersion = {
+        "v31": p31,
+        "v32": p32,
+        "v4_smoke": p4Smoke,
+        "v4_matrix": p4Matrix
+      };
+      const active = byVersion[selectedVersion] || {};
       const activePairs = Number(active.present_pairs || 0);
       const activeTotal = Number(active.total_pairs || 0);
       const activePct = activeTotal > 0 ? Math.round((activePairs / activeTotal) * 100) : 0;
-      const activeLabel = selectedVersion === "v31" ? "v3.1" : "v3.2";
+      const activeLabel = ({"v31":"v3.1","v32":"v3.2","v4_smoke":"v4-smoke","v4_matrix":"v4-matrix"})[selectedVersion] || selectedVersion;
       const activeDone = Number(active.done_blocks || 0);
       const activePartial = Number(active.partial_blocks || 0);
       const activeNotStarted = Number(active.not_started_blocks || 0);

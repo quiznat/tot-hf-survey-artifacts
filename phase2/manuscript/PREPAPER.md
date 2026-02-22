@@ -1,7 +1,7 @@
 # Phase 2 Prepaper (Living Source of Truth)
 
 Status: active draft (build-as-we-go)
-Last updated: 2026-02-22 (protocol-v3.1 diagnostics complete; deep analysis integrated)
+Last updated: 2026-02-22 (protocol-v4 confirmatory reset scaffolded; pre-v4 evidence quarantined)
 
 ## Working Title
 Tree-of-Thought Search with Hugging Face Inference Models: Reproducible Evaluation with LLM-Based In-Chain Judging
@@ -44,6 +44,20 @@ This prepaper is the canonical source for Phase 2 methodological decisions, froz
   - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.md`
   - `phase2/benchmarks/analysis/protocol_v31_deep_analysis.json`
   - `phase2/benchmarks/analysis/protocol_v31_implementation_audit.md`
+
+## Protocol v4 Confirmatory Reset (Active)
+- Active protocol file: `phase2/benchmarks/evaluation-protocol-v4.md`
+- Protocol ID: `TOT-HF-P2-EPV4-2026-02-22`
+- Status: frozen and pending live gate execution.
+- Confirmatory matrix execution guide: `phase2/benchmarks/protocol-v4-execution.md`
+- Pre-v4 quarantine registry: `phase2/benchmarks/evidence/series_registry.json`
+- Confirmatory series target: `protocol_v4_confirmatory_matrix`
+- Gate-only series target: `protocol_v4_smoke`
+
+## Evidence Boundary (v4)
+- All pre-v4 runs are exploratory and excluded from primary inferential claims.
+- Only protocol-v4 confirmatory artifacts are eligible for final effect-size and p-value tables.
+- Gate/smoke artifacts are required for launch validation but are not claim-bearing evidence.
 
 ## Methodology Decision Freeze (2026-02-20)
 - Primary ToT methodology uses LLM-based in-chain evaluation (`model_self_eval`).

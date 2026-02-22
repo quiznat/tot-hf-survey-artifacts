@@ -450,7 +450,10 @@ def _build_report(
             c2_better = 0
             ties = 0
             diffs: List[int] = []
-            for _, values in by_item.items():
+            # Deterministic item ordering prevents order-sensitive bootstrap drift
+            # between execution-time and report-only rebuilds.
+            for item_id in sorted(by_item.keys()):
+                values = by_item[item_id]
                 if c1 not in values or c2 not in values:
                     continue
                 matched += 1

@@ -6,6 +6,7 @@ Status date: 2026-02-22
 - Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
 - Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 locked matrix execution is complete with consolidated analysis artifacts.
 - Protocol-v3.1 diagnostics are completed (`2 tasks x 3 models x 4 profiles`, paired `react,tot`) with deep-analysis and parity artifacts generated.
+- Protocol-v4 confirmatory reset is now active with exploratory quarantine, disjoint panel generation, and pre-launch gate tooling.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -18,6 +19,22 @@ Status date: 2026-02-22
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
+- Published pre-v4 exploratory quarantine artifacts:
+  - `phase2/benchmarks/evidence/protocol_v4_reset_20260222T0600Z/README.md`
+  - `phase2/benchmarks/evidence/protocol_v4_reset_20260222T0600Z/summary.json`
+  - `phase2/benchmarks/evidence/series_registry.json`
+- Added protocol-v4 execution and governance docs:
+  - `phase2/ROADMAP_V4_MINI.md`
+  - `phase2/benchmarks/evaluation-protocol-v4.md`
+  - `phase2/benchmarks/protocol-v4-execution.md`
+  - `phase2/benchmarks/benchmark-matrix-v4.md`
+  - `phase2/reproducibility/run-log-protocol-v4.md`
+- Added protocol-v4 implementation tooling:
+  - `phase2/code/scripts/build_protocol_v4_panels.py`
+  - `phase2/code/scripts/run_protocol_v4_smoke.py`
+  - `phase2/code/scripts/run_protocol_v4_gates.py`
+  - `phase2/code/scripts/run_protocol_v4_matrix.py`
+  - `phase2/code/scripts/build_protocol_v4_matrix_summary.py`
 - Completed full protocol-v3.1 diagnostic matrix execution (`2 x 3 x 4 x 50 = 1200` paired item comparisons; `2400` total manifests) with no model substitution.
 - Generated consolidated v3.1 outputs:
   - `phase2/benchmarks/analysis/protocol_v31_diagnostic_summary.md`
@@ -188,12 +205,13 @@ Status date: 2026-02-22
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Run targeted implementation probes for v3.1 failure signatures (depth-limit and frontier-empty paths) and log root-cause evidence.
-2. Update manuscript framing and claims using v3.1 results as negative/conditional evidence (task/profile-dependent routing, not universal ToT gains).
-3. Build anonymous and camera-ready package variants with full v3 + v3.1 artifact map.
+1. Run `build_protocol_v4_panels.py` and archive disjointness artifacts for all four confirmatory task panels.
+2. Run `run_protocol_v4_gates.py` on live provider (`HF_TOKEN`) and require all checks to pass.
+3. Launch `run_protocol_v4_matrix.py` and summarize with `build_protocol_v4_matrix_summary.py` as the only confirmatory evidence source.
 
 ## Risks / Dependencies
 - Provider/model behavior can drift over time; additional reruns may change latency and timeout rates even with locked settings.
+- Confirmatory run validity now depends on strict freeze discipline; any mid-run prompt/code/config change forces protocol-v4 rerun or version bump.
 - Protocol-v3 evidence shows task-dependent ToT-vs-ReAct directionality, so overgeneralized claims remain a publication risk.
 - Protocol-v3.1 evidence shows broad ToT underperformance on `linear2` and `digit-permutation`; implementation changes are required before broader positive claims.
 - Manuscript framing must keep claims strictly evidence-bounded to avoid rejection on scope overreach.
@@ -233,3 +251,4 @@ Status date: 2026-02-22
 - 2026-02-22: Verified full-matrix v3.1 `--report-only` canonical parity (no metric drift across replayed reports).
 - 2026-02-22: Identified ToT task-mismatch prompt defect (hardcoded arithmetic candidate instructions across non-arithmetic tasks) and published v3.1 implementation audit artifact.
 - 2026-02-22: Added mandatory smoke-gate policy to v3/v3.1 protocol and execution docs: smoke all task types before any production/full matrix run.
+- 2026-02-22: Quarantined all pre-v4 evidence as exploratory-only and activated protocol-v4 confirmatory reset workflow (disjoint panels, gates, and frozen matrix tooling).

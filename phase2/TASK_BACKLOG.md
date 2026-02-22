@@ -37,3 +37,12 @@ Status date: 2026-02-22
 - [x] Build consolidated v3.1 diagnostic summary and deep-analysis artifacts.
 - [x] Validate v3.1 report determinism with full-matrix `--report-only` parity on canonical metrics.
 - [ ] Decide adaptive routing policy (`ReAct` vs `ToT` by task/profile) from v3.1 evidence.
+
+## P5 (Protocol-v4 Confirmatory Reset)
+- [x] Publish pre-v4 quarantine/invalidation ledger and series registry classification.
+- [x] Freeze protocol-v4 and execution guide with mandatory capability-parity lock.
+- [x] Implement disjoint panel generator for all tasks and generate v4 panel/disjointness artifacts.
+- [x] Add protocol-v4 smoke, gate, and confirmatory matrix orchestrators.
+- [ ] Run protocol-v4 gate suite on live provider (`HF_TOKEN`) and archive gate report artifacts.
+- [ ] Execute full protocol-v4 confirmatory matrix (`4 tasks x 3 models x 3 conditions x 50`).
+- [ ] Build protocol-v4 confirmatory matrix summary and scope manuscript claims to v4 evidence only.

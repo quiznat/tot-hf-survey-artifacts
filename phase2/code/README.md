@@ -20,8 +20,13 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/run_game24_lockset.py`: paired Game24 panel runner across `single`, `react`, and `tot` conditions.
 - `scripts/run_structured_lockset.py`: generic paired lockset runner for registered tasks.
 - `scripts/build_protocol_v3_panels.py`: deterministic panel generator for protocol-v3 tasks.
+- `scripts/build_protocol_v4_panels.py`: disjoint panel generator for protocol-v4 confirmatory track.
 - `scripts/run_protocol_v3_matrix.py`: task x model matrix orchestrator for protocol-v3.
 - `scripts/build_protocol_v3_matrix_summary.py`: consolidated summary across protocol-v3 reports.
+- `scripts/run_protocol_v4_smoke.py`: protocol-v4 smoke execution across all tasks.
+- `scripts/run_protocol_v4_gates.py`: protocol-v4 pre-launch gate runner (tests, smoke, parity audit, report-only parity).
+- `scripts/run_protocol_v4_matrix.py`: frozen confirmatory matrix orchestrator for protocol-v4.
+- `scripts/build_protocol_v4_matrix_summary.py`: consolidated summary across protocol-v4 confirmatory reports.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
 - `scripts/build_search_ablation_summary.py`: consolidate primary + A1 + A2 lockset reports into one search-ablation summary.
@@ -217,4 +222,29 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_
 ## Build Protocol-v3 Matrix Summary
 ```bash
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v3_matrix_summary.py
+```
+
+## Build Protocol-v4 Panels
+```bash
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v4_panels.py
+```
+
+## Run Protocol-v4 Gates
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_v4_gates.py
+```
+
+## Run Protocol-v4 Confirmatory Matrix
+```bash
+export HF_TOKEN=your_token_here
+PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_protocol_v4_matrix.py
+```
+
+## Build Protocol-v4 Matrix Summary
+```bash
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_protocol_v4_matrix_summary.py
 ```

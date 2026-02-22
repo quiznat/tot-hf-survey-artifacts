@@ -1,6 +1,6 @@
 # Phase 2 Roadmap: Novel ToT-HF Contribution
 
-Last updated: 2026-02-21
+Last updated: 2026-02-22
 
 ## Objective
 Deliver a reproducible implementation and empirical evaluation of Tree-of-Thought-style reasoning integrated with Hugging Face agent frameworks.
@@ -22,6 +22,8 @@ Deliver a reproducible implementation and empirical evaluation of Tree-of-Though
 - Primary gate/ablation model: `Qwen/Qwen3-Coder-Next:novita`
 - Active expansion protocol: `phase2/benchmarks/evaluation-protocol-v3.md`
 - Expansion protocol ID: `TOT-HF-P2-EPV3-2026-02-21`
+- Active confirmatory reset protocol: `phase2/benchmarks/evaluation-protocol-v4.md`
+- Confirmatory protocol ID: `TOT-HF-P2-EPV4-2026-02-22`
 
 ## Gate Model
 
@@ -77,6 +79,6 @@ Acceptance criteria:
 4. Writing: manuscript updates grounded in measured results.
 
 ## Immediate Next Actions (Sprint 4)
-1. Execute protocol-v3 matrix blocks with locked tasks/models (`4 x 3 x 50 x 3 = 1800` runs).
-2. Generate consolidated protocol-v3 matrix summary and task-wise failure taxonomy refresh.
-3. Update manuscript claims/tables to use task-scoped v3 evidence before any submission packaging.
+1. Enforce exploratory quarantine for all pre-v4 evidence using `phase2/benchmarks/evidence/series_registry.json`.
+2. Build and validate disjoint protocol-v4 panels, then pass all v4 gates (tests, smoke, parity audit, report-only stability).
+3. Execute the frozen protocol-v4 confirmatory matrix and summarize only v4 confirmatory reports.
