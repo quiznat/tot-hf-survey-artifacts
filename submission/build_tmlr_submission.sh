@@ -24,6 +24,7 @@ copy_referenced_assets() {
   asset_paths="$(
     perl -nE '
       while (/(?:src|href)=["\x27]\.\/assets\/([^"\x27?#]+)/g) { print "$1\n"; }
+      while (/srcset=["\x27]\.\/assets\/([^"\x27?#\s,]+)/g) { print "$1\n"; }
       while (/url\(["\x27]?\.\/assets\/([^)"\x27?#]+)/g) { print "$1\n"; }
     ' "$html_file" | sort -u
   )"
@@ -45,6 +46,12 @@ if ! command -v pandoc >/dev/null 2>&1; then
   echo "Error: pandoc is required." >&2
   echo "Install pandoc, then rerun: bash submission/build_tmlr_submission.sh" >&2
   exit 1
+fi
+
+if command -v python3 >/dev/null 2>&1; then
+  python3 "$ROOT_DIR/submission/render_manuscript_diagrams.py"
+else
+  echo "Warning: python3 not found; skipping diagram regeneration." >&2
 fi
 
 cp "$SRC_HTML" "$ANON_HTML"
@@ -89,6 +96,7 @@ perl -i -pe '
 # language annotations. Normalize code wrappers for conversion fidelity.
 perl -0777 -i -pe '
   s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
+  s#<picture>\s*<source[^>]*>\s*(<img[^>]+>)\s*</picture>#$1#gs;
   s#<div class="diagram-host"[^>]*>.*?</div>##gs;
 ' "$ANON_HTML"
 
@@ -116,6 +124,7 @@ perl -i -CS -pe '
   s/├──/|--/g; s/└──/`--/g; s/│/|/g; s/─/-/g;
 ' "$ANON_TEX"
 
+bash "$ROOT_DIR/submission/postprocess_latex.sh" "$ANON_TEX"
 copy_referenced_assets "$ANON_HTML" "$ROOT_DIR/assets" "$ANON_DIR/assets"
 
 if command -v latexmk >/dev/null 2>&1; then
