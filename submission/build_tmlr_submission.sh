@@ -61,6 +61,20 @@ fi
 
 cp "$SRC_HTML" "$ANON_HTML"
 
+ANON_VERSION="$(
+  perl -0777 -ne '
+    if (/<p class="meta-line"><strong>Version:<\/strong>\s*(.*?)<\/p>/s) {
+      my $v = $1;
+      $v =~ s/\s+/ /g;
+      print $v;
+    }
+  ' "$SRC_HTML"
+)"
+if [ -z "$ANON_VERSION" ]; then
+  ANON_VERSION="v1.1.2 -- Formatting and consistency pass (23 February 2026)"
+fi
+export ANON_VERSION
+
 # Replace identifying front matter with anonymous metadata suitable for double-blind review.
 perl -0777 -i -pe 's#<section class="front-matter">.*?</section>#<section class="front-matter">\
             <p class="authors-line"><strong>Authors:</strong> Anonymous Authors</p>\
@@ -68,7 +82,7 @@ perl -0777 -i -pe 's#<section class="front-matter">.*?</section>#<section class=
                 <li><strong>1</strong> Affiliation withheld for double-blind review</li>\
             </ol>\
             <p class="contact-line"><strong>Contact:</strong> withheld for double-blind review</p>\
-            <p class="meta-line"><strong>Version:</strong> v1.1.1 -- Pre-submission corrections (21 February 2026)</p>\
+            <p class="meta-line"><strong>Version:</strong> $ENV{ANON_VERSION}</p>\
             <p class="meta-line"><strong>Submission venue:</strong> TMLR (double-blind review track)</p>\
         </section>#s' "$ANON_HTML"
 

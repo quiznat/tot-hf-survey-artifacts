@@ -22,7 +22,7 @@ BG = "#ffffff"
 INK = "#162130"
 LINE = "#445a79"
 NODE_FILL = "#ffffff"
-MANUSCRIPT_FONT = "Latin Modern Roman"
+MANUSCRIPT_FONT = "Times-Roman"
 
 BASE_GRAPH = (
     f'bgcolor="{BG}", pad="0.06", nodesep="0.34", ranksep="0.50", '
@@ -31,16 +31,16 @@ BASE_GRAPH = (
 BASE_NODE = (
     f'shape="box", style="filled", fillcolor="{NODE_FILL}", '
     f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", '
-    'fontsize="10", margin="0.06,0.05"'
+    'fontsize="11", margin="0.06,0.05"'
 )
 BASE_DECISION = (
     f'shape="diamond", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", fontsize="10", '
+    f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", fontsize="11", '
     'margin="0.04,0.04"'
 )
 BASE_EDGE = (
     f'color="{LINE}", penwidth="1.3", arrowsize="0.70", '
-    f'fontname="{MANUSCRIPT_FONT}", fontsize="8", fontcolor="{INK}"'
+    f'fontname="{MANUSCRIPT_FONT}", fontsize="9", fontcolor="{INK}"'
 )
 
 
@@ -74,13 +74,13 @@ def smolagents_arch_dot() -> str:
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
-          agents [label="Agents\\nCodeAgent\\nToolAgent\\nMultiStepAgent", width="2.10"];
-          models [label="Models\\nHfApiModel\\nLiteLLM\\nOpenAI", width="2.10"];
-          tools [label="Tools\\n@tool\\nTool\\nPipeline", width="2.10"];
+          agents [label="Agents\\nCodeAgent\\nToolAgent\\nMultiStepAgent", width="2.10", group="g1"];
+          models [label="Models\\nHfApiModel\\nLiteLLM\\nOpenAI", width="2.10", group="g2"];
+          tools [label="Tools\\n@tool\\nTool\\nPipeline", width="2.10", group="g3"];
 
-          memory [label="Memory\\nStep Log\\nTool Calls\\nErrors", width="2.10"];
-          planning [label="Planning\\nAction\\nSelection\\nTool Pick", width="2.10"];
-          execution [label="Execution\\nCode\\nExecution\\nSandbox", width="2.10"];
+          memory [label="Memory\\nStep Log\\nTool Calls\\nErrors", width="2.10", group="g1"];
+          planning [label="Planning\\nAction\\nSelection\\nTool Pick", width="2.10", group="g2"];
+          execution [label="Execution\\nCode\\nExecution\\nSandbox", width="2.10", group="g3"];
 
           {{ rank=same; agents; models; tools }}
           {{ rank=same; memory; planning; execution }}

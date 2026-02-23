@@ -42,6 +42,13 @@ perl -i -pe '
   s/\\texttt\{([^}]{55,})\}/\\path{$1}/g;
 ' "$TEX_FILE"
 
+# Keep helper-path notes visually aligned with code listings.
+perl -0777 -i -pe '
+  s/\\textbf\{Runnable example\.\}\s+Verified helper:\s*\\path\{([^}]*)\}\./\\textbf{Runnable example.} Verified helper: {\\scriptsize\\path{$1}}./gs;
+  s/\\textbf\{Runnable examples\.\}\s+Verified helper implementations:\s*\\path\{([^}]*)\}\./\\textbf{Runnable examples.} Verified helper implementations: {\\scriptsize\\path{$1}}./gs;
+  s/\\textbf\{Runnable example\.\}\s+Verified helpers:\s*\\path\{([^}]*)\}\s+and\s+\\path\{([^}]*)\}\./\\textbf{Runnable example.} Verified helpers: {\\scriptsize\\path{$1}} and {\\scriptsize\\path{$2}}./gs;
+' "$TEX_FILE"
+
 # Give TeX extra flexibility before producing overfull lines.
 if ! has_pattern "\\\\setlength\\{\\\\emergencystretch\\}" "$TEX_FILE"; then
   perl -0777 -i -pe '
@@ -61,7 +68,7 @@ perl -i -pe '
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llllllll\@\{\}\}/\\begin{longtable}[]{L{0.08\\linewidth}L{0.10\\linewidth}L{0.08\\linewidth}L{0.08\\linewidth}L{0.08\\linewidth}L{0.14\\linewidth}L{0.17\\linewidth}L{0.17\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllllll\@\{\}\}/\\begin{longtable}[]{L{0.06\\linewidth}L{0.14\\linewidth}L{0.08\\linewidth}L{0.10\\linewidth}L{0.10\\linewidth}L{0.22\\linewidth}L{0.16\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llllll\@\{\}\}/\\begin{longtable}[]{L{0.12\\linewidth}L{0.12\\linewidth}L{0.12\\linewidth}L{0.12\\linewidth}L{0.20\\linewidth}L{0.22\\linewidth}}/g;
-  s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllll\@\{\}\}/\\begin{longtable}[]{L{0.27\\linewidth}L{0.13\\linewidth}L{0.16\\linewidth}L{0.10\\linewidth}L{0.20\\linewidth}}/g;
+  s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllll\@\{\}\}/\\begin{longtable}[]{L{0.34\\linewidth}L{0.13\\linewidth}L{0.16\\linewidth}L{0.10\\linewidth}L{0.13\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llll\@\{\}\}/\\begin{longtable}[]{L{0.13\\linewidth}L{0.27\\linewidth}L{0.27\\linewidth}L{0.19\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lll\@\{\}\}/\\begin{longtable}[]{L{0.21\\linewidth}L{0.14\\linewidth}L{0.57\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}ll\@\{\}\}/\\begin{longtable}[]{L{0.62\\linewidth}L{0.30\\linewidth}}/g;
