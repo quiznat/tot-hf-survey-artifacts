@@ -29,8 +29,16 @@ if ! has_pattern "\\\\usepackage\\{fvextra\\}" "$TEX_FILE"; then
   ' "$TEX_FILE"
 fi
 
-perl -0777 -i -pe '
-  s~^\\DefineVerbatimEnvironment\{Highlighting\}\{Verbatim\}\{.*$~\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\\\\\},fontsize=\\footnotesize,breaklines=true}~m;
+if ! has_pattern "\\\\RecustomVerbatimEnvironment\\{Highlighting\\}" "$TEX_FILE"; then
+  perl -0777 -i -pe '
+    s~(^\\DefineVerbatimEnvironment\{Highlighting\}\{Verbatim\}\{[^\n]*\})~$1\n\\RecustomVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\\footnotesize,breaklines=true}~m;
+  ' "$TEX_FILE"
+fi
+
+# Allow line wrapping for inline monospaced paths/identifiers that would
+# otherwise force margin overflow.
+perl -i -pe '
+  s/\\texttt\{([^}]*(?:\/|_)[^}]*)\}/\\path{$1}/g;
 ' "$TEX_FILE"
 
 # Configure longtable behavior for margin-safe rendering.
