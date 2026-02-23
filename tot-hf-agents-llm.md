@@ -18,6 +18,8 @@ A Survey of Tree of Thoughts and Hugging Face Agent Frameworks
 
 **arXiv categories:** cs.AI (primary); cs.CL (cross-list), cs.LG (optional cross-list)
 
+**Rendered PDF:** <a href="https://github.com/quiznat/tot-hf-survey-artifacts/blob/main/paper.pdf" target="_blank" rel="noopener noreferrer">paper.pdf</a>
+
 </div>
 
 <div class="abstract">
@@ -105,7 +107,7 @@ Selection-flow and extraction artifacts are provided in Appendix D and Appendix 
 ### 0.3 Study Selection Flow
 
 <figure class="diagram-container">
-<img src="./assets/diagram_survey_method.png" class="diagram-fallback" alt="Survey method flow diagram for frozen run" />
+<img src="./assets/diagram_survey_method.svg" class="diagram-asset" alt="Survey method flow diagram for frozen run" />
 <figcaption>Figure 0.3-1. Survey method flow for frozen run TOT-HF-SURVEY-2026-02-19 (seeded corpus to screened and included records).</figcaption>
 </figure>
 
@@ -522,7 +524,7 @@ The name "smolagents" reflects a low-boilerplate design philosophy documented in
 smolagents is built around several key abstractions \[10, 12\]:
 
 <figure class="diagram-container">
-<img src="./assets/diagram_smolagents_arch.png" class="diagram-fallback" alt="smolagents architecture diagram" />
+<img src="./assets/diagram_smolagents_arch.svg" class="diagram-asset" alt="smolagents architecture diagram" />
 <figcaption>Figure 3.3-1. Conceptual architecture of smolagents components and execution loop.</figcaption>
 </figure>
 
@@ -682,7 +684,7 @@ For tasks requiring multiple distinct phases or extended reasoning, smolagents p
 MultiStepAgent maintains richer state across execution:
 
 <figure class="diagram-container">
-<img src="./assets/diagram_multistep_state.png" class="diagram-fallback" alt="MultiStepAgent state diagram" />
+<img src="./assets/diagram_multistep_state.svg" class="diagram-asset" alt="MultiStepAgent state diagram" />
 <figcaption>Figure 3.5-1. MultiStepAgent state progression with optional replanning loop.</figcaption>
 </figure>
 
@@ -940,7 +942,7 @@ This schema enables:
 The integration of tools with LLMs follows a recurring pattern in agent frameworks \[6, 10\]:
 
 <figure class="diagram-container">
-<img src="./assets/diagram_tool_flow.png" class="diagram-fallback" alt="Tool-augmented LLM flow diagram" />
+<img src="./assets/diagram_tool_flow.svg" class="diagram-asset" alt="Tool-augmented LLM flow diagram" />
 <figcaption>Figure 3.6-1. Tool-augmented reasoning loop used by agent frameworks.</figcaption>
 </figure>
 
@@ -1046,7 +1048,7 @@ This section describes a design synthesis: combining Tree of Thoughts with Huggi
 #### 4.2.1 ToT-Enhanced Agent Architecture
 
 <figure class="diagram-container">
-<img src="./assets/diagram_tot_agent.png" class="diagram-fallback" alt="ToT-enhanced agent architecture diagram" />
+<img src="./assets/diagram_tot_agent.svg" class="diagram-asset" alt="ToT-enhanced agent architecture diagram" />
 <figcaption>Figure 4.2-1. ToT-enhanced agent architecture with explicit branch selection and memory feedback.</figcaption>
 </figure>
 

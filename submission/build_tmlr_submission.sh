@@ -8,16 +8,21 @@ ANON_DIR="$TMLR_DIR/anonymous"
 ANON_HTML="$ANON_DIR/paper-anonymous.html"
 ANON_MD="$ANON_DIR/paper-anonymous.md"
 ANON_TEX="$ANON_DIR/main.tex"
+TMP_TEX_HTML="$(mktemp "${TMPDIR:-/tmp}/paper-anon-tex.XXXXXX.html")"
 OFFICIAL_DIR="$TMLR_DIR/official-anonymous"
 OFFICIAL_TEX="$OFFICIAL_DIR/main-tmlr.tex"
 TMLR_STYLE="$TMLR_DIR/template/tmlr.sty"
+trap 'rm -f "$TMP_TEX_HTML"' EXIT
 
 copy_referenced_assets() {
   local html_file="$1"
   local source_assets_dir="$2"
   local target_assets_dir="$3"
+  local clear_target="${4:-1}"
 
-  rm -rf "$target_assets_dir"
+  if [ "$clear_target" = "1" ]; then
+    rm -rf "$target_assets_dir"
+  fi
   mkdir -p "$target_assets_dir"
 
   local asset_paths
@@ -96,7 +101,6 @@ perl -i -pe '
 # language annotations. Normalize code wrappers for conversion fidelity.
 perl -0777 -i -pe '
   s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
-  s#<picture>\s*<source[^>]*>\s*(<img[^>]+>)\s*</picture>#$1#gs;
   s#<div class="diagram-host"[^>]*>.*?</div>##gs;
 ' "$ANON_HTML"
 
@@ -107,8 +111,14 @@ pandoc \
   --wrap=none \
   --output="$ANON_MD"
 
+# Convert SVG diagram refs to PDF for LaTeX targets.
+cp "$ANON_HTML" "$TMP_TEX_HTML"
+perl -0777 -i -pe '
+  s#(<img[^>]+src=["\x27]\.\/assets\/diagram_[^"\x27]+)\.svg(["\x27])#$1.pdf$2#gs;
+' "$TMP_TEX_HTML"
+
 pandoc \
-  "$ANON_HTML" \
+  "$TMP_TEX_HTML" \
   --from=html \
   --to=latex \
   --standalone \
@@ -125,7 +135,8 @@ perl -i -CS -pe '
 ' "$ANON_TEX"
 
 bash "$ROOT_DIR/submission/postprocess_latex.sh" "$ANON_TEX"
-copy_referenced_assets "$ANON_HTML" "$ROOT_DIR/assets" "$ANON_DIR/assets"
+copy_referenced_assets "$ANON_HTML" "$ROOT_DIR/assets" "$ANON_DIR/assets" 1
+copy_referenced_assets "$TMP_TEX_HTML" "$ROOT_DIR/assets" "$ANON_DIR/assets" 0
 
 if command -v latexmk >/dev/null 2>&1; then
   (

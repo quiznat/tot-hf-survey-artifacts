@@ -31,7 +31,7 @@ fi
 
 if ! has_pattern "\\\\RecustomVerbatimEnvironment\\{Highlighting\\}" "$TEX_FILE"; then
   perl -0777 -i -pe '
-    s~(^\\DefineVerbatimEnvironment\{Highlighting\}\{Verbatim\}\{[^\n]*\})~$1\n\\RecustomVerbatimEnvironment{Highlighting}{Verbatim}{fontsize=\\footnotesize,breaklines=true}~m;
+    s~(^\\DefineVerbatimEnvironment\{Highlighting\}\{Verbatim\}\{[^\n]*\})~$1\n\\RecustomVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\},fontsize=\\scriptsize,breaklines=true,breakanywhere=true}~m;
   ' "$TEX_FILE"
 fi
 
@@ -39,18 +39,28 @@ fi
 # otherwise force margin overflow.
 perl -i -pe '
   s/\\texttt\{([^}]*(?:\/|_)[^}]*)\}/\\path{$1}/g;
+  s/\\texttt\{([^}]{55,})\}/\\path{$1}/g;
 ' "$TEX_FILE"
+
+# Give TeX extra flexibility before producing overfull lines.
+if ! has_pattern "\\\\setlength\\{\\\\emergencystretch\\}" "$TEX_FILE"; then
+  perl -0777 -i -pe '
+    s~\\setcounter\{secnumdepth\}\{-\\maxdimen\}~\\setcounter{secnumdepth}{-\\maxdimen}\n\\setlength{\\emergencystretch}{2em}~s;
+  ' "$TEX_FILE"
+fi
 
 # Configure longtable behavior for margin-safe rendering.
 if ! has_pattern "\\\\newcolumntype\\{L\\}" "$TEX_FILE"; then
   perl -0777 -i -pe '
-    s~\\makesavenoteenv\{longtable\}~\\makesavenoteenv{longtable}\n\\setlength{\\tabcolsep}{2pt}\n\\setlength{\\LTleft}{0pt}\n\\setlength{\\LTright}{0pt}\n\\setlength{\\LTcapwidth}{\\linewidth}\n\\renewcommand{\\arraystretch}{1.08}\n\\newcolumntype{L}[1]{>{\\raggedright\\arraybackslash}p{#1}}\n\\AtBeginEnvironment{longtable}{\\small}~s;
+    s~\\makesavenoteenv\{longtable\}~\\makesavenoteenv{longtable}\n\\setlength{\\tabcolsep}{2pt}\n\\setlength{\\LTleft}{0pt}\n\\setlength{\\LTright}{0pt}\n\\setlength{\\LTcapwidth}{\\linewidth}\n\\renewcommand{\\arraystretch}{1.06}\n\\newcolumntype{L}[1]{>{\\raggedright\\arraybackslash}p{#1}}\n\\AtBeginEnvironment{longtable}{\\footnotesize}\n\\AtBeginEnvironment{tabular}{\\footnotesize}~s;
   ' "$TEX_FILE"
 fi
 
 # Replace fixed-width left-aligned columns with wrapped paragraph columns.
 perl -i -pe '
+  s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llllllll\@\{\}\}/\\begin{longtable}[]{L{0.08\\linewidth}L{0.10\\linewidth}L{0.08\\linewidth}L{0.08\\linewidth}L{0.08\\linewidth}L{0.14\\linewidth}L{0.17\\linewidth}L{0.17\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllllll\@\{\}\}/\\begin{longtable}[]{L{0.06\\linewidth}L{0.14\\linewidth}L{0.08\\linewidth}L{0.10\\linewidth}L{0.10\\linewidth}L{0.22\\linewidth}L{0.16\\linewidth}}/g;
+  s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llllll\@\{\}\}/\\begin{longtable}[]{L{0.12\\linewidth}L{0.12\\linewidth}L{0.12\\linewidth}L{0.12\\linewidth}L{0.20\\linewidth}L{0.22\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllll\@\{\}\}/\\begin{longtable}[]{L{0.17\\linewidth}L{0.13\\linewidth}L{0.16\\linewidth}L{0.10\\linewidth}L{0.30\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llll\@\{\}\}/\\begin{longtable}[]{L{0.13\\linewidth}L{0.27\\linewidth}L{0.27\\linewidth}L{0.19\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lll\@\{\}\}/\\begin{longtable}[]{L{0.21\\linewidth}L{0.14\\linewidth}L{0.57\\linewidth}}/g;

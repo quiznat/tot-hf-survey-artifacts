@@ -2,14 +2,15 @@
 """Render publication-style flow diagrams for manuscript assets.
 
 Outputs for each diagram:
-  - PNG fallback used by paper.html/PDF conversion
-  - SVG vector file for high-fidelity web display and reuse
+  - SVG for web manuscript rendering
+  - PDF for LaTeX/PDF manuscript rendering
 """
 
 from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from textwrap import dedent
 
@@ -29,40 +30,39 @@ BASE_GRAPH = (
 BASE_NODE = (
     f'shape="box", style="filled", fillcolor="{NODE_FILL}", '
     f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", '
-    'fontsize="13", margin="0.08,0.06"'
+    'fontsize="14", margin="0.08,0.06"'
 )
 BASE_DECISION = (
     f'shape="diamond", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", fontsize="13", '
+    f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", fontsize="14", '
     'margin="0.04,0.04"'
 )
 BASE_EDGE = (
     f'color="{LINE}", penwidth="1.3", arrowsize="0.70", '
-    f'fontname="Times-Roman", fontsize="11", fontcolor="{INK}"'
+    f'fontname="Times-Roman", fontsize="12", fontcolor="{INK}"'
 )
 
 
-def ensure_dot_available() -> None:
+def ensure_dot_available() -> bool:
     if DOT:
-        return
-    raise SystemExit(
-        "Graphviz 'dot' is required to render diagrams. "
-        "Install with: brew install graphviz"
+        return True
+    print(
+        "Warning: Graphviz 'dot' not found; skipping diagram render and using "
+        "checked-in diagram assets.",
+        file=sys.stderr,
     )
+    return False
 
 
 def write_and_render(name: str, dot_source: str) -> None:
     dot_path = ASSETS / f"{name}.dot"
     svg_path = ASSETS / f"{name}.svg"
-    png_path = ASSETS / f"{name}.png"
+    pdf_path = ASSETS / f"{name}.pdf"
 
     dot_path.write_text(dot_source, encoding="utf-8")
 
     subprocess.run([DOT, "-Tsvg", str(dot_path), "-o", str(svg_path)], check=True)
-    subprocess.run(
-        [DOT, "-Tpng", "-Gdpi=240", str(dot_path), "-o", str(png_path)],
-        check=True,
-    )
+    subprocess.run([DOT, "-Tpdf", str(dot_path), "-o", str(pdf_path)], check=True)
 
 
 def smolagents_arch_dot() -> str:
@@ -217,7 +217,8 @@ def survey_method_dot() -> str:
 
 
 def main() -> None:
-    ensure_dot_available()
+    if not ensure_dot_available():
+        return
     ASSETS.mkdir(parents=True, exist_ok=True)
 
     diagrams = {
@@ -231,7 +232,7 @@ def main() -> None:
     for name, source in diagrams.items():
         write_and_render(name, source)
 
-    print("Rendered Graphviz manuscript diagrams (PNG + SVG) in assets/.")
+    print("Rendered Graphviz manuscript diagrams (SVG + PDF) in assets/.")
 
 
 if __name__ == "__main__":

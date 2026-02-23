@@ -55,8 +55,8 @@ fi
 # language annotations. Normalize code wrappers for conversion fidelity.
 perl -0777 -pe '
   s/<pre\s+data-listing="[^"]+"\s+data-kind="[^"]+">/<pre>/g;
-  s#<picture>\s*<source[^>]*>\s*(<img[^>]+>)\s*</picture>#$1#gs;
   s#<div class="diagram-host"[^>]*>.*?</div>##gs;
+  s#(<img[^>]+src=["\x27]\.\/assets\/diagram_[^"\x27]+)\.svg(["\x27])#$1.pdf$2#gs;
 ' "$SRC_HTML" > "$TMP_HTML"
 
 pandoc \
