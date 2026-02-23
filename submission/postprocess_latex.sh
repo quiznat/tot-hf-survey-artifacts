@@ -30,7 +30,7 @@ if ! has_pattern "\\\\usepackage\\{fvextra\\}" "$TEX_FILE"; then
 fi
 
 perl -0777 -i -pe '
-  s~^\\DefineVerbatimEnvironment\{Highlighting\}\{Verbatim\}\{.*$~\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\\\\\},fontsize=\\footnotesize,breaklines=true,breakanywhere=true}~m;
+  s~^\\DefineVerbatimEnvironment\{Highlighting\}\{Verbatim\}\{.*$~\\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\\\\{\\\\\\},fontsize=\\footnotesize,breaklines=true}~m;
 ' "$TEX_FILE"
 
 # Configure longtable behavior for margin-safe rendering.
