@@ -31,16 +31,16 @@ BASE_GRAPH = (
 BASE_NODE = (
     f'shape="box", style="filled", fillcolor="{NODE_FILL}", '
     f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", '
-    'fontsize="11", margin="0.06,0.05"'
+    'fontsize="14", margin="0.08,0.07"'
 )
 BASE_DECISION = (
     f'shape="diamond", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", fontsize="11", '
-    'margin="0.04,0.04"'
+    f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", fontsize="14", '
+    'margin="0.05,0.05"'
 )
 BASE_EDGE = (
     f'color="{LINE}", penwidth="1.3", arrowsize="0.70", '
-    f'fontname="{MANUSCRIPT_FONT}", fontsize="9", fontcolor="{INK}"'
+    f'fontname="{MANUSCRIPT_FONT}", fontsize="11", fontcolor="{INK}"'
 )
 
 
