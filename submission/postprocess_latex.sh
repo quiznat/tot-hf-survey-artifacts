@@ -61,7 +61,7 @@ perl -i -pe '
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llllllll\@\{\}\}/\\begin{longtable}[]{L{0.08\\linewidth}L{0.10\\linewidth}L{0.08\\linewidth}L{0.08\\linewidth}L{0.08\\linewidth}L{0.14\\linewidth}L{0.17\\linewidth}L{0.17\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllllll\@\{\}\}/\\begin{longtable}[]{L{0.06\\linewidth}L{0.14\\linewidth}L{0.08\\linewidth}L{0.10\\linewidth}L{0.10\\linewidth}L{0.22\\linewidth}L{0.16\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llllll\@\{\}\}/\\begin{longtable}[]{L{0.12\\linewidth}L{0.12\\linewidth}L{0.12\\linewidth}L{0.12\\linewidth}L{0.20\\linewidth}L{0.22\\linewidth}}/g;
-  s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllll\@\{\}\}/\\begin{longtable}[]{L{0.17\\linewidth}L{0.13\\linewidth}L{0.16\\linewidth}L{0.10\\linewidth}L{0.30\\linewidth}}/g;
+  s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lllll\@\{\}\}/\\begin{longtable}[]{L{0.27\\linewidth}L{0.13\\linewidth}L{0.16\\linewidth}L{0.10\\linewidth}L{0.20\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}llll\@\{\}\}/\\begin{longtable}[]{L{0.13\\linewidth}L{0.27\\linewidth}L{0.27\\linewidth}L{0.19\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}lll\@\{\}\}/\\begin{longtable}[]{L{0.21\\linewidth}L{0.14\\linewidth}L{0.57\\linewidth}}/g;
   s/\\begin\{longtable\}(?:\[\])?\{\@\{\}ll\@\{\}\}/\\begin{longtable}[]{L{0.62\\linewidth}L{0.30\\linewidth}}/g;
