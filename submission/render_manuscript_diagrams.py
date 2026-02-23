@@ -22,24 +22,25 @@ BG = "#ffffff"
 INK = "#162130"
 LINE = "#445a79"
 NODE_FILL = "#ffffff"
+MANUSCRIPT_FONT = "Latin Modern Roman"
 
 BASE_GRAPH = (
     f'bgcolor="{BG}", pad="0.06", nodesep="0.34", ranksep="0.50", '
-    f'splines="polyline", fontname="Times-Roman", fontcolor="{INK}", margin="0.02"'
+    f'splines="polyline", fontname="{MANUSCRIPT_FONT}", fontcolor="{INK}", margin="0.02"'
 )
 BASE_NODE = (
     f'shape="box", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", '
-    'fontsize="11", margin="0.06,0.05"'
+    f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", '
+    'fontsize="10", margin="0.06,0.05"'
 )
 BASE_DECISION = (
     f'shape="diamond", style="filled", fillcolor="{NODE_FILL}", '
-    f'color="{LINE}", penwidth="1.5", fontname="Times-Roman", fontsize="11", '
+    f'color="{LINE}", penwidth="1.5", fontname="{MANUSCRIPT_FONT}", fontsize="10", '
     'margin="0.04,0.04"'
 )
 BASE_EDGE = (
     f'color="{LINE}", penwidth="1.3", arrowsize="0.70", '
-    f'fontname="Times-Roman", fontsize="9", fontcolor="{INK}"'
+    f'fontname="{MANUSCRIPT_FONT}", fontsize="8", fontcolor="{INK}"'
 )
 
 
@@ -69,17 +70,17 @@ def smolagents_arch_dot() -> str:
     return dedent(
         f"""
         digraph G {{
-          graph [{BASE_GRAPH}, rankdir="TB"];
+          graph [{BASE_GRAPH}, rankdir="TB", ranksep="0.58", nodesep="0.38"];
           node [{BASE_NODE}];
           edge [{BASE_EDGE}];
 
-          agents [label="Agents\\nCodeAgent\\nToolAgent\\nMultiStepAgent"];
-          models [label="Models\\nHfApiModel\\nLiteLLM\\nOpenAI"];
-          tools [label="Tools\\n@tool\\nTool\\nPipeline"];
+          agents [label="Agents\\nCodeAgent\\nToolAgent\\nMultiStepAgent", width="2.10"];
+          models [label="Models\\nHfApiModel\\nLiteLLM\\nOpenAI", width="2.10"];
+          tools [label="Tools\\n@tool\\nTool\\nPipeline", width="2.10"];
 
-          memory [label="Memory\\nStep Log\\nTool Calls\\nErrors"];
-          planning [label="Planning\\nAction\\nSelection\\nTool Pick"];
-          execution [label="Execution\\nCode\\nExecution\\nSandbox"];
+          memory [label="Memory\\nStep Log\\nTool Calls\\nErrors", width="2.10"];
+          planning [label="Planning\\nAction\\nSelection\\nTool Pick", width="2.10"];
+          execution [label="Execution\\nCode\\nExecution\\nSandbox", width="2.10"];
 
           {{ rank=same; agents; models; tools }}
           {{ rank=same; memory; planning; execution }}
@@ -87,12 +88,12 @@ def smolagents_arch_dot() -> str:
           agents -> models [dir=none, arrowhead=none, arrowtail=none];
           models -> tools [dir=none, arrowhead=none, arrowtail=none];
 
-          agents -> memory;
-          models -> planning;
-          tools -> execution;
+          agents -> memory [tailport=s, headport=n, weight=100, minlen=2];
+          models -> planning [tailport=s, headport=n, weight=100, minlen=2];
+          tools -> execution [tailport=s, headport=n, weight=100, minlen=2];
 
-          memory -> planning [style=invis];
-          planning -> execution [style=invis];
+          memory -> planning [style=invis, weight=10];
+          planning -> execution [style=invis, weight=10];
         }}
         """
     ).strip() + "\n"
