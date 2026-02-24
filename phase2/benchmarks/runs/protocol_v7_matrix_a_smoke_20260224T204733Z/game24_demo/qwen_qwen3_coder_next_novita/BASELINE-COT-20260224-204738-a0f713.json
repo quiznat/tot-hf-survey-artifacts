@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-204738-a0f713.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "10 + 4 + 7 + 3",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    7,
+    3
+  ],
+  "item_id": "g24-v4-006",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4233,
+    "success": 1,
+    "tokens_in": 34,
+    "tokens_out": 252
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-204738-a0f713",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 616286443,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:47:38Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 7, 3], and we must use each **exactly once** to make 24.\n\nLet\u2019s try to find a combination using basic operations (+, \u2212, \u00d7, \u00f7, parentheses).\n\nFirst, consider possible products that get close to 24:\n- 4 \u00d7 6 = 24  \n- 3 \u00d7 8 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 + 17 = 24  \n- 10 + 14 = 24  \n\nWe have 10, 7, 4, 3.\n\nTry: (10 \u2212 7) = 3 \u2192 then we have two 3s? But only one 3 is allowed.\n\nTry: (7 \u2212 3) = 4 \u2192 then we have two 4s? But only one 4.\n\nTry: (10 + 4) = 14; 14 + 7 + 3 = 24? 14 + 7 + 3 = 24 \u2192 yes! But that uses all numbers: 10 + 4 + 7 + 3 = 24.\n\nWait: 10 + 4 + 7 + 3 = 24? Let's compute: 10 + 4 = 14, 14 + 7 = 21, 21 + 3 = 24. \u2705\n\nThat uses each number exactly once, and only addition.\n\nSo the expression is:  \n**10 + 4 + 7 + 3**\n\nBut wait \u2014 is that allowed? The problem says \"use each number exactly once\", and doesn\u2019t restrict operations. So yes, addition is fine.\n\nLet me double-check: numbers used: 10, 4, 7, 3 \u2014 all used once. Result: 24.\n\nYes.\n\nSo final answer:\n\nFINAL: 10 + 4 + 7 + 3",
+    "FINAL: 10 + 4 + 7 + 3"
+  ]
+}

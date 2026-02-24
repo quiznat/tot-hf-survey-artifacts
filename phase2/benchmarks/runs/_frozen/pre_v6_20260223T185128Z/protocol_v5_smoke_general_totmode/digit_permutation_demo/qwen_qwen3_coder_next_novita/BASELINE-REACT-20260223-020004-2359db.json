@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-020004-2359db.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "3336",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7063,
+    "success": 1,
+    "tokens_in": 795,
+    "tokens_out": 283
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-020004-2359db",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:00:04Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number that can be formed using the digits [6, 3, 3, 3] that is divisible by 8, and the oracle_max is given as 3336. Let's verify if 3336 is valid: digits of 3336 are [3, 3, 3, 6] \u2014 matches the multiset [6, 3, 3, 3]. Now check divisibility by 8: a number is divisible by 8 if its last three digits form a number divisible by 8. For 3336, last three digits are 336. 336 \u00f7 8 = 42 \u2192 exact, so 3336 is divisible by 8. Is there a larger number possible? The digits sorted descending: 6,3,3,3 \u2192 largest",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The digits [6, 3, 3, 3] can form numbers up to 6333 as the largest permutation. But the oracle_max is 3336, which is less than 6333, so perhaps 3336 is the *maximum divisible by 8*, not the maximum overall. Let's check all permutations of [6,3,3,3] in descending order and test divisibility by 8.\n\nPermutations in descending order:\n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u2192 not divisible\n- 3633 \u2192 last three = 633 \u2192 633 \u00f7 8 = 79.125 \u2192 no\n- 3363 \u2192 last three = 363 \u2192",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continue checking permutations in descending order. We already saw 6333 and 3633 are not divisible by 8. Next: 3363 \u2192 last three digits = 363; 363 \u00f7 8 = 45.375 \u2192 not divisible. Next: 3336 \u2192 last three = 336; 336 \u00f7 8 = 42 \u2192 divisible. So 3336 is the first (i.e., largest) permutation divisible by 8. Since oracle_max = 3336 matches this, and no larger permutation works, the answer is 3336.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: 3336"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173421-e1ad92.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "8860",
+        10
+      ]
+    ],
+    "cot_sc_winner_votes": 10
+  },
+  "final_answer": "8860",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      0,
+      6,
+      8,
+      8
+    ],
+    "divisor": 7,
+    "oracle_max": 8806
+  },
+  "item_id": "perm-v4-004",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5329,
+    "success": 0,
+    "tokens_in": 480,
+    "tokens_out": 2573
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173421-e1ad92",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 95857809,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:21Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [0, 6, 8, 8]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n\n- Digits: 0, 6, 8, 8 \u2192 total 4 digits, with 8 repeated twice.\n- Must be a 4-digit number \u2192 first digit \u2260 0.\n- Want largest possible number \u2192 try descending order: 8860, 8806, 8680, etc.\n- Then check divisibility by 7.\n\n---\n\n### Step 2: List all permutations of digits in descending order\n\nWe want the **largest** number, so start from the highest possible arrangement:\n\nAll permutations of [8, 8, 6, 0] sorted descending:\n\n1. 8860  \n2. 8806  \n3. 8680  \n4. 8608  \n5. 8086  \n6. 8068  \n7. 6880  \n8. 6808  \n9. 6088  \n10. 0886 \u2192 invalid (starts with 0)  \n... and so on.\n\nLet\u2019s test each valid one (starting with non-zero) for divisibility by 7.\n\n---\n\n### Step 3: Check divisibility by 7\n\nWe\u2019ll test each candidate:\n\n#### 1. 8860  \n8860 \u00f7 7 = ?  \n7 \u00d7 1265 = 8855  \n8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 \u274c\n\n#### 2. 8806  \n8806 \u00f7 7  \n7 \u00d7 1258 = 8806? Let's compute:  \n1258 \u00d7 7 = (1200\u00d77=8400) + (58\u00d77=406) = 8400 + 406 = **8806** \u2705  \nSo **8806 is divisible by 7**.\n\nWe should verify if any larger number (than 8806) also works \u2014 but 8860 was larger and didn\u2019t",
+    "SAMPLE 1 FINAL: 8860",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the digits: [0, 6, 8, 8]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: List all 4-digit numbers using digits [0, 6, 8, 8] exactly once.\n\nSince there are duplicate 8s, the total number of distinct permutations is:\n\n$$\n\\frac{4!}{2!} = 12 \\text{ permutations}\n$$\n\nBut we must exclude those where the first digit is 0 (not a 4-digit number).\n\nLet\u2019s generate all valid 4-digit numbers (starting with non-zero digit), sorted in descending order \u2014 we want the **largest** that is divisible by 7.\n\nDigits: 0, 6, 8, 8  \nPossible first digits: 6 or 8\n\n#### Start with 8 (largest possible thousands digit):\n\nWe fix first digit = 8, remaining digits: [0, 6, 8]\n\nNow generate all distinct permutations of remaining digits:\n\n- 8 8 6 0 \u2192 8860  \n- 8 8 0 6 \u2192 8806  \n- 8 6 8 0 \u2192 8680  \n- 8 6 0 8 \u2192 8608  \n- 8 0 8 6 \u2192 8086  \n- 8 0 6 8 \u2192 8068  \n\nSo 6 numbers starting with 8.\n\nNow check which are divisible by 7.\n\nWe\u2019ll test them in descending order (since we want the largest possible):\n\n1. **8860**  \n   8860 \u00f7 7 = 1265.714... \u2192 7 \u00d7 1265 = 8855, remainder 5 \u2192 \u274c\n\n2. **8806**  \n   8806 \u00f7 7 = ?  \n   7 \u00d7 1258 = 8806? Let\u2019s compute:  \n   7 \u00d7 1200 = 8400  \n   7 \u00d7 58 = 406  \n   Total = 8400 + 406 = 8806",
+    "SAMPLE 2 FINAL: 8860",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [0, 6, 8, 8]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n- Must be a 4-digit number \u21d2 first digit \u2260 0\n- Digits: two 8s, one 6, one 0\n- Use each digit exactly once\n- Maximize the number (so prefer larger digits on the left)\n- Must be divisible by 7\n\n---\n\n### Step 2: List all possible 4-digit permutations in descending order and test divisibility by 7\n\nWe want the **largest** possible number first, so start from highest permutations.\n\nAll permutations of [8, 8, 6, 0], with no leading zero.\n\nLet\u2019s generate descending permutations:\n\n1. 8860  \n2. 8806  \n3. 8680  \n4. 8608  \n5. 8086  \n6. 8068  \n7. 6880  \n8. 6808  \n9. 6088  \n10. 0886 \u2192 invalid (leading 0)  \n11. 0868 \u2192 invalid  \n12. 0688 \u2192 invalid  \nSo only 9 valid candidates above.\n\nNow test each for divisibility by 7.\n\nLet\u2019s compute mod 7:\n\n1. **8860 \u00f7 7**:  \n   7 \u00d7 1265 = 8855  \n   8860 \u2212 8855 = 5 \u21d2 remainder 5 \u21d2 not divisible\n\n2. **8806 \u00f7 7**:  \n   7 \u00d7 1258 = 8806?  \n   7 \u00d7 1258 = 7 \u00d7 1200 = 8400; 7 \u00d7 58 = 406 \u21d2 8400 + 406 = 8806 \u2705  \n   So **8806 is divisible by 7**\n\nLet\u2019s double-check:  \n1258 \u00d7 7:  \n1200\u00d77=8400  \n50\u00d77=350  \n8",
+    "SAMPLE 3 FINAL: 8860",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [0, 6, 8, 8], and must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **7**.\n\n---\n\n### Step 1: Understand constraints\n- Must be a **4-digit** number \u2192 first digit cannot be 0.\n- Digits available: two 8s, one 6, one 0.\n- All digits must be used exactly once.\n- Number must be divisible by 7.\n\nWe want the **largest possible** such number.\n\n---\n\n### Step 2: Generate candidates in descending order\n\nTo get the largest number, we want the digits in descending order as much as possible.\n\nAll permutations of [0,6,8,8] in descending order:\n\nLet\u2019s list all **distinct** 4-digit permutations (since two 8s are identical), sorted descending:\n\nStart with highest possible thousand digit: 8.\n\nThen remaining digits: [0,6,8]\n\nPermutations of remaining digits in descending order:\n\n- 8860  \n- 8806  \n- 8680  \n- 8608  \n- 8086  \n- 8068  \n\nThat\u2019s all permutations starting with 8 (since 0 can't be first, and only digits are 8,8,6,0).\n\nLet\u2019s list them systematically:\n\n1. 8860  \n2. 8806  \n3. 8680  \n4. 8608  \n5. 8086  \n6. 8068  \n\nNow check divisibility by 7.\n\nWe\u2019ll test each:\n\n#### 1. 8860 \u00f7 7  \n7 \u00d7 1265 = 8855  \n8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 not divisible.\n\n#### 2. 8806 \u00f7 7  \n7 \u00d7 1258 = 8806? Let's compute:  \n1258 \u00d7 7 = (1200\u00d77)+(58\u00d77) = 8400 + 406 = 8806 \u2705  \n\u2192 **Divisible!**\n\nSo 8806 is divisible by 7.\n\nBut wait \u2014 is there any larger number? 8",
+    "SAMPLE 4 FINAL: 8860",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the digits: [0, 6, 8, 8]  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n- Must be a 4-digit number \u2192 first digit \u2260 0\n- Digits: one 0, one 6, two 8s\n- Use all digits exactly once\n- Maximize the number \u2192 prefer higher digits in higher places (thousands > hundreds > tens > units)\n- Must be divisible by 7.\n\n---\n\n### Step 2: List all possible 4-digit numbers (descending order) using digits [0,6,8,8]\n\nWe want the **largest possible**, so start with numbers starting with 8 (since 8 is the largest digit), then arrange remaining digits in descending order.\n\nAll permutations of [0,6,8,8] with first digit \u2260 0:\n\nLet\u2019s generate in descending order:\n\n1. **8860**\n2. **8806**\n3. **8680**\n4. **8608**\n5. **8086**\n6. **8068**\n7. **6880**\n8. **6808**\n9. **6088**\n\nThat\u2019s all unique permutations (since two 8s are identical, total = 4! / 2! = 12, but excluding those starting with 0: how many start with 0? Fix 0 in thousands place \u2192 permute [6,8,8] \u2192 3 permutations: 0688, 0868, 0886 \u2192 all invalid as 4-digit numbers). So 12 - 3 = 9 numbers \u2014 matches list above.\n\nNow check divisibility by 7.\n\nWe\u2019ll test each from largest to smallest until we find one divisible by 7.\n\n---\n\n### Step 3: Check divisibility by 7\n\nRecall: A number is divisible by 7 if dividing by 7 gives remainder 0.\n\nLet\u2019s test each:\n\n1. **8860 \u00f7 7**  \n   7 \u00d7 1265 = 8855  \n   8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 \u274c",
+    "SAMPLE 5 FINAL: 8860",
+    "SAMPLE 6 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given digits: [0, 6, 8, 8]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n\n- Must be a 4-digit number \u2192 leading digit cannot be 0.\n- Digits: 0, 6, 8, 8 \u2192 two 8s, one 0, one 6.\n- Use all digits exactly once.\n- Maximize the number \u2192 try largest permutations first.\n- Then check divisibility by 7.\n\n---\n\n### Step 2: Generate candidate numbers in descending order\n\nWe want the **largest possible** number, so start with permutations sorted descending.\n\nAll unique permutations of [0,6,8,8] (since two 8s are identical):\n\nWe can list them in descending order:\n\nStart with largest possible thousands digit: 8  \nThen remaining digits: [0,6,8]\n\nNow generate permutations of remaining digits in descending order:\n\n- 8 8 6 0 \u2192 8860  \n- 8 8 0 6 \u2192 8806  \n- 8 6 8 0 \u2192 8680  \n- 8 6 0 8 \u2192 8608  \n- 8 0 8 6 \u2192 8086  \n- 8 0 6 8 \u2192 8068  \n\nThen numbers starting with 6 (next largest thousands digit):\n\n- 6 8 8 0 \u2192 6880  \n- 6 8 0 8 \u2192 6808  \n- 6 0 8 8 \u2192 6088  \n\n(Starting with 0 is invalid \u2014 not 4-digit.)\n\nSo full list in descending order:\n\n1. 8860  \n2. 8806  \n3. 8680  \n4. 8608  \n5. 8086  \n6. 8068  \n7. 6880  \n8. 6808  \n9. 6088  \n\nNow test each for divisibility by 7.\n\nWe can compute modulo 7.\n\nLet\u2019s compute:\n\n1. **8860 \u00f7 7**:  \n   7 \u00d7 1",
+    "SAMPLE 6 FINAL: 8860",
+    "SAMPLE 7 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the digits: [0, 6, 8, 8]  \nWe need to form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n- Must be a 4-digit number \u2192 first digit \u2260 0\n- Digits available: 0, 6, 8, 8 \u2192 must use both 8s, one 6, one 0\n- Maximize the number \u2192 prefer larger digits on the left\n- Must be divisible by 7\n\n---\n\n### Step 2: List all possible 4-digit numbers using digits [0,6,8,8], sorted descendingly\n\nWe want the largest possible, so start from highest possible permutations.\n\nAll permutations of [0,6,8,8], with no leading zero:\n\nLet\u2019s generate them in descending order:\n\n- First digit = 8 (largest possible)\n- Remaining digits: [0,6,8] \u2192 permutations of these three, with one 8 and one 0 and one 6.\n\nAll permutations of [0,6,8] (6 permutations), but since we already used one 8, and we have two 8s, this is fine.\n\nPermutations of [0,6,8]:\n\n1. 8 8 6 0 \u2192 8860  \n2. 8 8 0 6 \u2192 8806  \n3. 8 6 8 0 \u2192 8680  \n4. 8 6 0 8 \u2192 8608  \n5. 8 0 8 6 \u2192 8086  \n6. 8 0 6 8 \u2192 8068  \n\nThese are all permutations starting with 8.\n\nNow, check which of these are divisible by 7.\n\nLet\u2019s compute each mod 7.\n\n#### 1. 8860 \u00f7 7  \n7 \u00d7 1265 = 8855  \n8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 not divisible\n\n#### 2. 8806 \u00f7 7  \n7 \u00d7 1258 = 8806? Let's check:  \n1258 \u00d7 7 = 1258 \u00d7 7",
+    "SAMPLE 7 FINAL: 8860",
+    "SAMPLE 8 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given digits: [0, 6, 8, 8]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: List all permutations of the digits [0, 6, 8, 8] that form valid 4-digit numbers (i.e., first digit \u2260 0)\n\nSince there are repeated digits (two 8s), the total distinct permutations = 4! / 2! = 12.\n\nLet\u2019s list them in descending order (since we want the **largest** possible number satisfying the condition), and test divisibility by 7.\n\nStart with largest possible thousands digit: 8\n\n#### Thousands digit = 8\n\nRemaining digits: [0, 6, 8]\n\n permutations of [0,6,8] (3 digits, all distinct now):\n\n- 8680  \n- 8608  \n- 8860  \n- 8806  \n- 8068  \n- 8086  \n\nBut wait \u2014 we need to generate **all distinct 4-digit numbers** using [0,6,8,8] exactly once.\n\nBetter approach: generate all unique permutations of the multiset [0,6,8,8] and filter.\n\nLet\u2019s generate them systematically in descending order.\n\nStart with largest possible number: 8860  \nThen 8806  \nThen 8680  \nThen 8608  \nThen 8086  \nThen 8068  \nThen 6880  \nThen 6808  \nThen 6088  \nThen 0886 \u2192 invalid (leading 0)  \n0868 \u2192 invalid  \n0688 \u2192 invalid  \nAlso 6088 already listed.\n\nWait \u2014 need to be careful: all permutations where first digit \u2260 0.\n\nLet\u2019s generate all permutations of positions:\n\nAll distinct permutations (12 total):\n\n1. 0,6,8,8 \u2192 0688 \u2192 invalid  \n2. 0,8,6,8 \u2192 0868 \u2192 invalid  \n3. 0,8,8,6 \u2192 0886 \u2192 invalid  \n4. 6,0,8,8 \u2192 6088  \n5.",
+    "SAMPLE 8 FINAL: 8860",
+    "SAMPLE 9 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given digits: [0, 6, 8, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n- Use all four digits: 0, 6, 8, 8 \u2014 each exactly once.\n- Must be a 4-digit number \u2192 first digit \u2260 0.\n- Want the **largest possible** such number divisible by 7.\n\n---\n\n### Step 2: Generate candidate numbers in descending order\n\nTo get the largest possible number, we want digits in descending order as much as possible.\n\nAll permutations of [0, 6, 8, 8] sorted descending:\n\nLet\u2019s list all distinct 4-digit permutations (since two 8s are identical, some permutations repeat).\n\nWe can generate permutations in descending order:\n\nStart with largest possible thousands digit: 8.\n\nThen consider the remaining digits [0, 6, 8] \u2192 next largest hundreds digit: 8.\n\nSo candidate: **8860**\n\nCheck if divisible by 7.\n\nCompute:  \n8860 \u00f7 7 = ?  \n7 \u00d7 1265 = 8855  \n8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 not divisible.\n\nNext: 8806  \n8806 \u00f7 7 = ?  \n7 \u00d7 1258 = 8806?  \n7 \u00d7 1258 = 7 \u00d7 1200 = 8400; 7 \u00d7 58 = 406 \u2192 8400 + 406 = 8806 \u2705  \nSo **8806 is divisible by 7**.\n\nBut wait \u2014 check if there's a larger valid number than 8806.\n\nWe had 8860 (not ok), next is 8806 (ok). Are there any numbers between 8806 and 8860 using digits [0,6,8,8]?\n\nLet\u2019s list all distinct 4-digit numbers formed by [0,6,8,8] in descending order.\n\nAll permutations (distinct) of digits 0,6,8,8:\n\n- Thousands digit = 8:\n   - Remaining digits: [0",
+    "SAMPLE 9 FINAL: 8860",
+    "SAMPLE 10 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given digits: [0, 6, 8, 8]  \nWe must form the **largest possible 4-digit integer** using each digit exactly once, and it must be **divisible by 7**.\n\n---\n\n### Step 1: Understand constraints\n- Use all four digits: 0, 6, 8, 8 \u2014 exactly once each.\n- Leading digit \u2260 0 (since it's a 4-digit number).\n- We want the **largest possible** such number divisible by 7.\n\n---\n\n### Step 2: List all possible 4-digit numbers using digits [0,6,8,8] (no repeats beyond available digits), sorted descending.\n\nWe want the largest possible \u2192 start from highest possible thousands digit.\n\nAvailable digits: two 8s, so highest thousands digit is 8.\n\nLet\u2019s generate all permutations of [0,6,8,8] with first digit \u2260 0, sort them descending, and test divisibility by 7.\n\nWe can reason manually.\n\n#### Thousands digit = 8:\n\nWe fix first digit = 8.\n\nRemaining digits to arrange: [0,6,8] (since one 8 is used, one left).\n\nPermutations of [0,6,8]:\n- 8 6 0 \u2192 8860  \n- 8 0 6 \u2192 8806  \n- 6 8 0 \u2192 8680  \n- 6 0 8 \u2192 8608  \n- 0 8 6 \u2192 8086  \n- 0 6 8 \u2192 8068  \n\nSo numbers:  \n8860, 8806, 8680, 8608, 8086, 8068\n\nSort descending:  \n8860, 8806, 8680, 8608, 8086, 8068\n\nNow test each for divisibility by 7.\n\nWe\u2019ll compute modulo 7.\n\n#### Check 8860 \u00f7 7:\n\n7 \u00d7 1265 = 8855  \n8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 not divisible.\n\n#### 8806 \u00f7 7:\n\n7 \u00d7 1258 = 8806",
+    "SAMPLE 10 FINAL: 8860",
+    "VOTE SUMMARY: 8860 -> 10",
+    "VOTE WINNER: 8860 (10/10)"
+  ]
+}

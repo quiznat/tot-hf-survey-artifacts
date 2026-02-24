@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-022120-0b6aa7.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_xy",
+    "solve2"
+  ],
+  "final_answer": "x=8,y=5",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        5,
+        1,
+        45
+      ],
+      [
+        -9,
+        -7,
+        -107
+      ]
+    ]
+  },
+  "item_id": "lin-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12765,
+    "success": 1,
+    "tokens_in": 197,
+    "tokens_out": 195
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-022120-0b6aa7",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 4282970196,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T02:21:20Z",
+  "tool_config": [
+    "check_xy",
+    "solve2"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves solving a system of two linear equations. The input provides coefficients in the format [[a1, b1, c1], [a2, b2, c2]], representing equations:  \na1*x + b1*y = c1  \na2*x + b2*y = c2  \n\nSo here:  \nEquation 1: 5x + 1y = 45  \nEquation 2: -9x + (-7)y = -107 \u2192 -9x - 7y = -107  \n\nWe need to find x and y satisfying both. Let's try solving manually first, or use the available tools.  \nTool `solve2` likely solves a 2x2 system directly. Let's use it.  \nTool `check_xy` can verify a candidate solution (x, y) against both equations.\n\nFirst, try `solve2` with the equations.\n\nACTION: solve2 [[5, 1, 45], [-9, -7, -107]]",
+    "STEP 1 OBSERVATION: x=8.000000,y=5.000000",
+    "STEP 2 MODEL: THINK: The `solve2` tool returned x = 8.0 and y = 5.0 as the solution. To ensure correctness, I should verify this solution using the `check_xy` tool with both equations. Let's plug in x=8, y=5 into the original equations:  \nEquation 1: 5*8 + 1*5 = 40 + 5 = 45 \u2714\ufe0f  \nEquation 2: -9*8 - 7*5 = -72 - 35 = -107 \u2714\ufe0f  \nBoth equations are satisfied. So the solution is correct. I can now report the final answer.\n\nFINAL: x=8,y=5"
+  ]
+}

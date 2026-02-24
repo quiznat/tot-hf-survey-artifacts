@@ -1,0 +1,103 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-021937-e4ca35.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "24,7,6,2",
+        1
+      ],
+      [
+        "21,7",
+        1
+      ],
+      [
+        "23,2,6,7",
+        1
+      ],
+      [
+        "21,23",
+        1
+      ],
+      [
+        "2,6,7,24",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "24,7,6,2",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 32232,
+    "success": 1,
+    "tokens_in": 360,
+    "tokens_out": 1320
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-021937-e4ca35",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:19:37Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given numbers: [2, 6, 7, 21, 23, 24]  \nTarget: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try combinations:\n\nStart with larger numbers since 39 is relatively large.\n\nTry 24 + 23 = 47 \u2192 too big  \n24 + 21 = 45 \u2192 too big  \n24 + 7 = 31 \u2192 need 8 more \u2192 remaining numbers: 2, 6, 21, 23 \u2014 2+6=8 \u2192 yes!  \nSo: 24 + 7 + 2 + 6 = 39  \nCheck: 24 + 7 = 31; 31 + 2 = 33; 33 + 6 = 39 \u2705\n\nAlternative: 23 + 21 = 44 \u2192 too big  \n23 + 7 = 30 \u2192 need 9 \u2192 2+6=8, 2+7=9 but 7 used \u2192 no  \n23 + 6 = 29 \u2192 need 10 \u2192 2+7=9, 2+21=23 too big  \n21 + 7 = 28 \u2192 need 11 \u2192 2+6=8, 2+23=25, 6+23=29 \u2014 no  \n21 + 6 + 2 = 29 \u2192 need 10 \u2192 7+23=30 too big  \n21 + 7 + 6 = 34 \u2192 need 5 \u2192 no 5  \n21 + 7 + 2 = 30 \u2192 need 9 \u2192 6+2+? no  \n23 + 6 + 2 = 31 \u2192 need 8 \u2192 7+? = 8 \u2192 7 works! So 23 + 6 + 2 + 7 = 38 \u2192 wait: 23+6=29, +2=31, +7=38 \u2014 not 39  \nOops, miscalc.\n\nBack to earlier valid combo: 24 + 7 + 6 + 2 = 39  \nCheck uniqueness: all numbers distinct and from",
+    "SAMPLE 1 FINAL: 24,7,6,2",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given numbers: [2, 6, 7, 21, 23, 24]  \nTarget: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try combinations:\n\nStart with larger numbers, since 39 is relatively large.\n\nTry 24 + ? = 39 \u2192 need 15  \nCan we make 15 from remaining [2, 6, 7, 21, 23]?  \n2 + 6 + 7 = 15 \u2192 yes!  \nSo 24 + 2 + 6 + 7 = 39  \nCheck: 24 + 2 = 26, +6 = 32, +7 = 39 \u2705\n\nAlternative: 23 + ? = 39 \u2192 need 16  \nRemaining: [2, 6, 7, 21, 24]  \n2 + 6 + 7 = 15 \u2192 too low  \n2 + 6 + 21 = 29 \u2192 too high  \n2 + 7 + 21 = 30  \n6 + 7 + 21 = 34  \n2 + 6 + 7 + 21 = 36  \n2 + 6 + 7 + 24 = 39? Wait, 2+6+7+24 = 39 \u2014 same as before, just reordered.\n\nTry 21 + ? = 39 \u2192 need 18  \nRemaining: [2, 6, 7, 23, 24]  \n2 + 6 + 7 = 15  \n2 + 6 + 23 = 31  \n2 + 7 + 23 = 32  \n6 + 7 + 23 = 36  \n2 + 6 + 7 + 23 = 38  \n2 + 6 + 7 + 24 = 39 \u2014 again same set.\n\nTry 7 + 23 + ? = 30 \u2192 need 9 \u2192 not possible  \n6 + 23 + ? = 29 \u2192 need 10 \u2192 no  \n2 + 23 + ? = 25 \u2192 need 14 \u2192 no  \n21 + 7",
+    "SAMPLE 2 FINAL: 21,7",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given numbers: [2, 6, 7, 21, 23, 24]  \nTarget: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try combinations:\n\nStart with larger numbers, since 39 is relatively large.\n\nTry 24 + ? = 39 \u2192 need 15  \nCan we make 15 from remaining [2, 6, 7, 21, 23]?  \n15 = 6 + 7 + 2 = 15 \u2192 yes!  \nSo: 24 + 6 + 7 + 2 = 39  \nCheck: 24 + 6 = 30, +7 = 37, +2 = 39 \u2705\n\nAlternative: Try 23 + ? = 39 \u2192 need 16  \nRemaining: [2, 6, 7, 21, 24]  \n16 = 2 + 6 + 7 + ? \u2192 2+6+7=15, need 1 \u2192 no  \n21 is too big (21 > 16), 24 too big. So no.\n\nTry 21 + ? = 39 \u2192 need 18  \nRemaining: [2, 6, 7, 23, 24]  \n18 = 6 + 7 + 2 + ? = 15, need 3 \u2192 no  \n23, 24 too big. 2+6+7=15, 2+24=26 too big. No.\n\nTry 7 + 23 + ? = 30 \u2192 need 9 \u2192 2+7? already used 7. 2+6=8, 2+6+? no. 9 not possible.\n\nTry 2 + 6 + 7 + 24 = 39 \u2014 already found.\n\nAny other? Try 2 + 6 + 31? no 31.  \n2 + 7 + 30? no.  \n6 + 7 + 26? no.\n\nWhat about 2 + 21 + 16? 16 not available.\n\n23 + 2 + 6 + 7 = 38 \u2192 close,",
+    "SAMPLE 3 FINAL: 23,2,6,7",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [2, 6, 7, 21, 23, 24]  \nTarget: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try combinations:\n\nStart with larger numbers, since 39 is relatively large.\n\nTry 24 + ? = 39 \u2192 need 15  \nCan we make 15 from remaining [2, 6, 7, 21, 23]?  \n2 + 6 + 7 = 15 \u2192 yes!  \nSo: 24 + 2 + 6 + 7 = 39  \nCheck: 24 + 2 = 26, +6 = 32, +7 = 39 \u2705\n\nAlternative: 23 + ? = 39 \u2192 need 16  \nRemaining: [2, 6, 7, 21, 24]  \n2 + 6 + 7 = 15 \u2192 too low  \n2 + 6 + 21 = 29 \u2192 too high  \n2 + 7 + 21 = 30  \n6 + 7 + 21 = 34  \n2 + 6 + 7 + 21 = 36  \n2 + 6 + 7 + 24 = 39? Wait, 2+6+7+24 = 39 \u2014 same as before, just reordered.\n\nTry 21 + ? = 39 \u2192 need 18  \nFrom [2,6,7,23,24]:  \n2 + 6 + 7 = 15  \n2 + 6 + 23 = 31  \n2 + 7 + 23 = 32  \n6 + 7 + 23 = 36  \n2 + 6 + 7 + 23 = 38  \n2 + 6 + 7 + 24 = 39 \u2014 again same.\n\nTry 7 + 23 + ? = 30 \u2192 need 9 \u2192 not possible (no 9, and smallest others are 2,6 \u2192 8 or 2+6=8, 2+6+2=invalid).  \n21 + 23 = 44 > 39",
+    "SAMPLE 4 FINAL: 21,23",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [2, 6, 7, 21, 23, 24]  \nTarget: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try combinations:\n\nStart with larger numbers, since 39 is relatively large.\n\nTry 24 + 23 = 47 \u2192 too big  \n24 + 21 = 45 \u2192 too big  \n24 + 7 = 31 \u2192 need 8 more \u2192 remaining numbers: 2, 6, 23, 21 \u2014 2+6=8 \u2192 yes!  \nSo: 24 + 7 + 2 + 6 = 39  \nCheck: 24 + 7 = 31; 2 + 6 = 8; 31 + 8 = 39 \u2705\n\nAre there others? Let\u2019s verify uniqueness isn\u2019t required \u2014 just one valid set.\n\nAlternative: 23 + 21 = 44 \u2192 too big  \n23 + 7 = 30 \u2192 need 9 \u2192 6 + 2 = 8, 2 + ? no 9  \n23 + 6 = 29 \u2192 need 10 \u2192 2 + 7 = 9, 2 + ? no 10  \n23 + 2 = 25 \u2192 need 14 \u2192 6 + 7 = 13, 21 too big  \n21 + 7 = 28 \u2192 need 11 \u2192 6 + 2 = 8, 23 too big  \n21 + 6 = 27 \u2192 need 12 \u2192 2 + 7 = 9  \n21 + 2 = 23 \u2192 need 16 \u2192 6 + 7 = 13, 23 already used  \n2 + 6 + 7 = 15 \u2192 need 24 \u2192 yes! 2 + 6 + 7 + 24 = 39 \u2014 same as before.\n\nSo the valid set is: 2, 6, 7, 24  \nOrder doesn\u2019t matter, but typically ascending is clean.\n\nFINAL: 2,6,7,24",
+    "SAMPLE 5 FINAL: 2,6,7,24",
+    "VOTE SUMMARY: 24,7,6,2 -> 1, 21,7 -> 1, 23,2,6,7 -> 1, 21,23 -> 1, 2,6,7,24 -> 1",
+    "VOTE WINNER: 24,7,6,2 (1/5)"
+  ]
+}

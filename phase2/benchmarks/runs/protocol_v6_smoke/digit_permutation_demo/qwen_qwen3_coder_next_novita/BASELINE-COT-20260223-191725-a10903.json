@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-191725-a10903.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "7652",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      5,
+      7,
+      6
+    ],
+    "divisor": 4,
+    "oracle_max": 7652
+  },
+  "item_id": "perm-v4-007",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8089,
+    "success": 1,
+    "tokens_in": 41,
+    "tokens_out": 289
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260223-191725-a10903",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1309011917,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:25Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: To form the **largest possible 4-digit integer** using the digits **[2, 5, 7, 6]** exactly once, and ensuring it's **divisible by 4**, we need to recall the divisibility rule for 4:\n\n> A number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, our strategy is:\n\n1. Generate all permutations of the digits [2, 5, 7, 6] (there are 4! = 24 permutations).\n2. For each permutation, form the 4-digit number.\n3. Check if the last two digits form a number divisible by 4.\n4. Among those that satisfy the condition, pick the **largest**.\n\nBut since we want the **largest** number, we should try to arrange digits in descending order first, and adjust only as needed.\n\nDigits in descending order: **7, 6, 5, 2** \u2192 number = 7652  \nCheck last two digits: **52**  \nIs 52 divisible by 4?  \n52 \u00f7 4 = 13 \u2192 Yes \u2705\n\nSo 7652 is divisible by 4.\n\nBut is there a larger valid number? Let's check if any permutation larger than 7652 (but using same digits) is divisible by 4.\n\nThe next larger candidate would be 7625? No \u2014 7625 < 7652.\n\nWait \u2014 actually, 7652 is the largest permutation: 7 > 6 > 5 > 2.\n\nLet\u2019s verify all permutations starting with 76 (since 76xx is the largest possible prefix):\n\n- 7652 \u2192 last two digits = 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 7625 \u2192 25 \u00f7 4 = 6.25 \u2192 \u274c  \n- 7562 \u2192 62 \u00f7 4 = 15.5 \u2192 \u274c  \n- 7526 \u2192 26 \u00f7 4 = 6.5 \u2192 \u274c  \n- 7265 \u2192 65 \u00f7 4 = 16.25 \u2192 \u274c  \n- 7256 \u2192 56 \ufffd",
+    "FINAL: 7652"
+  ]
+}

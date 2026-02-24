@@ -1,0 +1,104 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260222-192642-e90b20.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget sum: 33  \nWe need to select a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21 + ? = 33 \u2192 need 12. Is 12 achievable from remaining [5,6,10,13,14,17]?  \nPossible pairs: 5+6=11, 5+10=15, 6+10=16 \u2014 no 12.  \nTry 21 + 5 + 6 = 32 \u2192 need 1 more \u2014 no 1.  \n21 + 5 + 10 =",
+        1
+      ],
+      [
+        "We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible: 5 + 6 = 11 \u2192 too low  \n5 + 10 = 15 \u2192 too high  \n6 + 10 = 16  \nOnly single numbers: 12 not in list. So 21 + ? = 33 \u2192 need 12, not",
+        1
+      ],
+      [
+        "We need to find a subset of [5, 6, 10, 13, 14, 17, 21] that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with larger numbers:\n\n- 21 + 13 = 34 \u2192 too big  \n- 21 + 10 = 31 \u2192 need 2 more \u2192 no 2  \n- 21 + 6 = 27 \u2192 need 6 more \u2192 6 is already used, but 5+? = 6? No 1  \n- 21 + 5 = 26 \u2192 need 7 \u2192 no 7  \n- 21 + 14 = 35 \u2192 too big  \n- 21 + 17 = 38 \u2192 too big  \n\nTry 17:\n\n- 17 + 14 = 3",
+        1
+      ],
+      [
+        "We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest number, 21:  \n33 - 21 = 12  \nNow find numbers that sum to 12 from remaining: [5, 6, 10, 13, 14, 17]  \nTry 6 + 5 = 11 \u2192 too low  \n6 + 10 = 16 \u2192 too high  \n5 + 10 = 15 \u2192 too high  \nOnly 12 alone? Not in list.  \nSo 21 + ? = 33 \u2192 need 12, but no subset",
+        1
+      ],
+      [
+        "We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible? 5 + 6 = 11, 5 + 10 = 15, 6 + 10 = 16 \u2014 too big.  \n12 alone? Not in list. So 21 + ? = 33 \u2192 need 12, not possible.\n\nTry",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget sum: 33  \nWe need to select a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21 + ? = 33 \u2192 need 12. Is 12 achievable from remaining [5,6,10,13,14,17]?  \nPossible pairs: 5+6=11, 5+10=15, 6+10=16 \u2014 no 12.  \nTry 21 + 5 + 6 = 32 \u2192 need 1 more \u2014 no 1.  \n21 + 5 + 10 =",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      6,
+      10,
+      13,
+      14,
+      17,
+      21
+    ],
+    "target": 33
+  },
+  "item_id": "ss-v4-020",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 24874,
+    "success": 0,
+    "tokens_in": 365,
+    "tokens_out": 491
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-192642-e90b20",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3431824564,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:26:42Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 10, 13, 14, 17, 21]\nTarget: 33\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget sum: 33  \nWe need to select a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21 + ? = 33 \u2192 need 12. Is 12 achievable from remaining [5,6,10,13,14,17]?  \nPossible pairs: 5+6=11, 5+10=15, 6+10=16 \u2014 no 12.  \nTry 21 + 5 + 6 = 32 \u2192 need 1 more \u2014 no 1.  \n21 + 5 + 10 =",
+    "SAMPLE 1 FINAL: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget sum: 33  \nWe need to select a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21 + ? = 33 \u2192 need 12. Is 12 achievable from remaining [5,6,10,13,14,17]?  \nPossible pairs: 5+6=11, 5+10=15, 6+10=16 \u2014 no 12.  \nTry 21 + 5 + 6 = 32 \u2192 need 1 more \u2014 no 1.  \n21 + 5 + 10 =",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 10, 13, 14, 17, 21]\nTarget: 33\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible: 5 + 6 = 11 \u2192 too low  \n5 + 10 = 15 \u2192 too high  \n6 + 10 = 16  \nOnly single numbers: 12 not in list. So 21 + ? = 33 \u2192 need 12, not",
+    "SAMPLE 2 FINAL: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible: 5 + 6 = 11 \u2192 too low  \n5 + 10 = 15 \u2192 too high  \n6 + 10 = 16  \nOnly single numbers: 12 not in list. So 21 + ? = 33 \u2192 need 12, not",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 10, 13, 14, 17, 21]\nTarget: 33\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We need to find a subset of [5, 6, 10, 13, 14, 17, 21] that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with larger numbers:\n\n- 21 + 13 = 34 \u2192 too big  \n- 21 + 10 = 31 \u2192 need 2 more \u2192 no 2  \n- 21 + 6 = 27 \u2192 need 6 more \u2192 6 is already used, but 5+? = 6? No 1  \n- 21 + 5 = 26 \u2192 need 7 \u2192 no 7  \n- 21 + 14 = 35 \u2192 too big  \n- 21 + 17 = 38 \u2192 too big  \n\nTry 17:\n\n- 17 + 14 = 3",
+    "SAMPLE 3 FINAL: We need to find a subset of [5, 6, 10, 13, 14, 17, 21] that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with larger numbers:\n\n- 21 + 13 = 34 \u2192 too big  \n- 21 + 10 = 31 \u2192 need 2 more \u2192 no 2  \n- 21 + 6 = 27 \u2192 need 6 more \u2192 6 is already used, but 5+? = 6? No 1  \n- 21 + 5 = 26 \u2192 need 7 \u2192 no 7  \n- 21 + 14 = 35 \u2192 too big  \n- 21 + 17 = 38 \u2192 too big  \n\nTry 17:\n\n- 17 + 14 = 3",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 10, 13, 14, 17, 21]\nTarget: 33\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest number, 21:  \n33 - 21 = 12  \nNow find numbers that sum to 12 from remaining: [5, 6, 10, 13, 14, 17]  \nTry 6 + 5 = 11 \u2192 too low  \n6 + 10 = 16 \u2192 too high  \n5 + 10 = 15 \u2192 too high  \nOnly 12 alone? Not in list.  \nSo 21 + ? = 33 \u2192 need 12, but no subset",
+    "SAMPLE 4 FINAL: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest number, 21:  \n33 - 21 = 12  \nNow find numbers that sum to 12 from remaining: [5, 6, 10, 13, 14, 17]  \nTry 6 + 5 = 11 \u2192 too low  \n6 + 10 = 16 \u2192 too high  \n5 + 10 = 15 \u2192 too high  \nOnly 12 alone? Not in list.  \nSo 21 + ? = 33 \u2192 need 12, but no subset",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 10, 13, 14, 17, 21]\nTarget: 33\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible? 5 + 6 = 11, 5 + 10 = 15, 6 + 10 = 16 \u2014 too big.  \n12 alone? Not in list. So 21 + ? = 33 \u2192 need 12, not possible.\n\nTry",
+    "SAMPLE 5 FINAL: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible? 5 + 6 = 11, 5 + 10 = 15, 6 + 10 = 16 \u2014 too big.  \n12 alone? Not in list. So 21 + ? = 33 \u2192 need 12, not possible.\n\nTry",
+    "VOTE SUMMARY: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget sum: 33  \nWe need to select a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21 + ? = 33 \u2192 need 12. Is 12 achievable from remaining [5,6,10,13,14,17]?  \nPossible pairs: 5+6=11, 5+10=15, 6+10=16 \u2014 no 12.  \nTry 21 + 5 + 6 = 32 \u2192 need 1 more \u2014 no 1.  \n21 + 5 + 10 = -> 1, We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible: 5 + 6 = 11 \u2192 too low  \n5 + 10 = 15 \u2192 too high  \n6 + 10 = 16  \nOnly single numbers: 12 not in list. So 21 + ? = 33 \u2192 need 12, not -> 1, We need to find a subset of [5, 6, 10, 13, 14, 17, 21] that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with larger numbers:\n\n- 21 + 13 = 34 \u2192 too big  \n- 21 + 10 = 31 \u2192 need 2 more \u2192 no 2  \n- 21 + 6 = 27 \u2192 need 6 more \u2192 6 is already used, but 5+? = 6? No 1  \n- 21 + 5 = 26 \u2192 need 7 \u2192 no 7  \n- 21 + 14 = 35 \u2192 too big  \n- 21 + 17 = 38 \u2192 too big  \n\nTry 17:\n\n- 17 + 14 = 3 -> 1, We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest number, 21:  \n33 - 21 = 12  \nNow find numbers that sum to 12 from remaining: [5, 6, 10, 13, 14, 17]  \nTry 6 + 5 = 11 \u2192 too low  \n6 + 10 = 16 \u2192 too high  \n5 + 10 = 15 \u2192 too high  \nOnly 12 alone? Not in list.  \nSo 21 + ? = 33 \u2192 need 12, but no subset -> 1, We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget: 33  \nWe need to find a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21:  \n33 - 21 = 12  \nNow find subset of remaining [5,6,10,13,14,17] that sums to 12.  \nPossible? 5 + 6 = 11, 5 + 10 = 15, 6 + 10 = 16 \u2014 too big.  \n12 alone? Not in list. So 21 + ? = 33 \u2192 need 12, not possible.\n\nTry -> 1",
+    "VOTE WINNER: We are given the list: [5, 6, 10, 13, 14, 17, 21]  \nTarget sum: 33  \nWe need to select a subset (each number used at most once) that sums to 33.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 33 is moderately large.\n\nTry 21 + ? = 33 \u2192 need 12. Is 12 achievable from remaining [5,6,10,13,14,17]?  \nPossible pairs: 5+6=11, 5+10=15, 6+10=16 \u2014 no 12.  \nTry 21 + 5 + 6 = 32 \u2192 need 1 more \u2014 no 1.  \n21 + 5 + 10 = (1/5)"
+  ]
+}

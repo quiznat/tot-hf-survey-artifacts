@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011849-98a89a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[10, 18, 22]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      10,
+      10,
+      18,
+      19,
+      22,
+      24,
+      25
+    ],
+    "target": 50
+  },
+  "item_id": "ss-v4-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7373,
+    "success": 1,
+    "tokens_in": 487,
+    "tokens_out": 302
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011849-98a89a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1773078958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:18:49Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a subset of the given numbers that sum to the target value of 50. The numbers available are [2, 10, 10, 18, 19, 22, 24, 25]. This is a subset sum problem where I need to identify which combination of these numbers adds up to exactly 50.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see if any single number equals 50: None of the numbers are 50.\n\nLet me try pairs:\n- 2 + 10 = 12 (too small)\n- 2 + 18 = 20 (too small)\n- 2 + 19 = 21 (too small)\n- 2 + 22 = 24 (too small)\n- 2 + 24 = 2",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically with pairs and then move to larger combinations.\n\nPairs that sum close to 50:\n- 10 + 18 = 28 (too small)\n- 10 + 19 = 29 (too small)\n- 10 + 22 = 32 (too small)\n- 10 + 24 = 34 (too small)\n- 10 + 25 = 35 (too small)\n- 18 + 19 = 37 (too small)\n- 18 + 22 = 40 (too small)\n- 18 + 24 = 42 (too small)\n- 18 + 25 = 43 (too small)\n- 19 + 22 = 41 (too small)\n- 19 + 2",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue systematically. I need to check combinations of three numbers since two-number pairs don't reach 50. \n\nLet me try combinations of three numbers:\n- 10 + 18 + 19 = 47 (close!)\n- 10 + 18 + 22 = 50 \u2713\n\nI found a combination that works! The numbers 10, 18, and 22 sum to exactly 50.\n\nLet me double-check: 10 + 18 + 22 = 28 + 22 = 50 \u2713\n\nFINAL: [10, 18, 22]"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-react-reasoning-text-loop-no-tools@0.1",
+  "algorithm_id": "algorithm.reasoning.react_text_loop_reasoning_only_no_tools.v1",
+  "algorithm_module_id": "algorithm_module.baseline_react_text_loop_reasoning_only_no_tools.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-TEXT-20260224-173424-72ac61.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-react-text",
+  "condition_key": "baseline_react_reasoning_text_loop_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "8806",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      0,
+      6,
+      8,
+      8
+    ],
+    "divisor": 7,
+    "oracle_max": 8806
+  },
+  "item_id": "perm-v4-004",
+  "max_steps": 5,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3062,
+    "success": 1,
+    "tokens_in": 52,
+    "tokens_out": 181
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (reasoning text loop, no tools)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_execution_mode": "react_execution_mode.reasoning_text_loop_no_tools.v1",
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-TEXT-20260224-173424-72ac61",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 95857809,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:24Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "STEP 1 MODEL: Thought 1: We are given digits [0, 6, 8, 8] and need to form the largest possible number divisible by 7, using all digits exactly once. The oracle_max is 8806, which suggests that 8806 might be the correct answer \u2014 but we must verify if 8806 is divisible by 7 and if it uses the given digits.\n\nCheck digits of 8806: digits are 8, 8, 0, 6 \u2014 matches [0, 6, 8, 8] \u2713  \nNow check divisibility: 8806 \u00f7 7 = ?\n\nCompute:  \n7 \u00d7 1258 = 8806?  \n7 \u00d7 1200 = 8400  \n7 \u00d7 58 = 406  \n8400 + 406 = 8806 \u2192 Yes!  \nSo 8806 = 7 \u00d7 1258 \u2192 divisible by 7.\n\nIs there a larger permutation? The permutations of [0,6,8,8] in descending order:  \n8860, 8806, 8680, 8608, 8086, 8068, 6880, 6808, 6088, 0886 (invalid, leading zero), etc.\n\nCheck 8860 \u00f7 7:  \n7 \u00d7 1265 = 8855  \n8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 not divisible.\n\nNext: 8806 \u2014 we already confirmed divisible.\n\nSo 8806 is the largest valid permutation divisible by 7.\n\nAction 1: Finish[8806]"
+  ]
+}

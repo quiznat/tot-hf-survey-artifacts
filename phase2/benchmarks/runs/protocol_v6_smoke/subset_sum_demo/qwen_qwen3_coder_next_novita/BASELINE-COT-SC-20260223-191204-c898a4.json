@@ -1,0 +1,112 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-191204-c898a4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "19,19,19",
+        8
+      ],
+      [
+        "5,14,19,19",
+        1
+      ],
+      [
+        "19,19,1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 8
+  },
+  "final_answer": "19,19,19",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      14,
+      19,
+      19,
+      19
+    ],
+    "target": 57
+  },
+  "item_id": "ss-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 23019,
+    "success": 1,
+    "tokens_in": 710,
+    "tokens_out": 1560
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260223-191204-c898a4",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3940183932,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T19:12:04Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [5, 14, 19, 19, 19], and target sum: 57.\n\nWe can use each number at most once \u2014 so up to three 19s.\n\nLet\u2019s consider combinations:\n\n- Try using all three 19s: 19 + 19 + 19 = 57 \u2192 exactly matches target.\n\nThat\u2019s a valid solution.\n\nCheck if any other combination works (just to be thorough):\n\n- Two 19s: 19 + 19 = 38 \u2192 need 19 more, but we already used two 19s, only one left \u2192 38 + 19 = 57 again (same as above).\n\n- One 19: 57 - 19 = 38. Can we make 38 from [5, 14] and remaining 19s? But we\u2019re only using one 19, so remaining numbers are 5, 14, and two 19s \u2014 but we can\u2019t use more 19s if we're limiting to one. So ignore.\n\nActually, since we\u2019re allowed to use up to all three, the simplest is 19 + 19 + 19 = 57.\n\nOther combinations: 5 + 14 + 19 + 19 = 57? Let's check: 5 + 14 = 19, 19 + 19 = 38, 19 + 38 = 57 \u2192 yes! So 5, 14, 19, 19 also works.\n\nWait \u2014 5 + 14 + 19 + 19 = 57? Compute: 5 + 14 = 19; 19 + 19 = 38; 19 + 38 = 57. Yes.\n\nSo we have at least two valid subsets:\n- [19, 19, 19]\n- [5, 14, 19, 19]\n\nBut the problem says: \u201cSelect one or more values\u2026 return only a comma-separated list of chosen numbers.\u201d\n\nIt doesn\u2019t say to find *all* solutions \u2014 just *a* solution.\n\nWe can choose any valid one.\n\nWhich to pick? Either is fine.",
+    "SAMPLE 1 FINAL: 5,14,19,19",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [5, 14, 19, 19, 19]  \nTarget: 57  \nRules: Use each number at most once.\n\nLet\u2019s consider possibilities.\n\nFirst, note that 19 appears three times. Let\u2019s try using all three 19s:\n\n19 + 19 + 19 = 57 \u2192 That\u2019s exactly the target!\n\nCheck: 19 \u00d7 3 = 57 \u2714\ufe0f\n\nWe have three 19s available, so this is valid.\n\nNo other combination is needed since we already found one that works.\n\nSo the answer is: 19,19,19\n\nFINAL: 19,19,19",
+    "SAMPLE 2 FINAL: 19,19,19",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [5, 14, 19, 19, 19]  \nTarget sum: 57  \nWe can use each number at most once.\n\nLet\u2019s consider combinations:\n\n- Try using all three 19s: 19 + 19 + 19 = 57 \u2192 \u2705 That\u2019s exactly the target.\n\nWe don\u2019t need to include 5 or 14 since 19\u00d73 = 57 already.\n\nSo the solution is: 19,19,19\n\nFINAL: 19,19,19",
+    "SAMPLE 3 FINAL: 19,19,19",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given numbers: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe can use each number at most once.\n\nFirst, note that there are three 19s.  \nTry using all three 19s:  \n19 + 19 + 19 = 57 \u2192 exactly the target!\n\nThat\u2019s valid, uses three numbers (all the 19s), and sum is 57.\n\nCheck if any other combination works (just to be thorough):\n- 19 + 19 + 14 = 52 \u2192 too low  \n- 19 + 19 + 5 = 43  \n- 19 + 14 + 5 = 38  \n- 14 + 5 = 19  \n- All five: 5 + 14 + 19 + 19 + 19 = 76 \u2192 too high  \nSo only combination that hits 57 is the three 19s.\n\nThus, answer is: 19,19,19\n\nFINAL: 19,19,19",
+    "SAMPLE 4 FINAL: 19,19,19",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try three 19s: 19 + 19 + 19 = 57 \u2192 That\u2019s exactly the target!  \nWe have three 19s available, so this is valid.\n\nCheck if any other combination works (just to be thorough):\n- 19 + 19 + 14 = 52 \u2192 too low  \n- 19 + 19 + 5 = 43  \n- 19 + 14 + 5 = 38  \n- 14 + 19 + 19 + 5 = 57? 14+19=33, +19=52, +5=57 \u2192 Wait, that's also 57!  \nBut we have only three 19s. In this case: 19, 19, 14, 5 \u2192 uses two 19s, 14, and 5 \u2192 total 4 numbers, sum = 19+19+14+5 = 57.\n\nWait \u2014 that\u2019s another valid combination!\n\nLet\u2019s double-check sums:\n- 19 + 19 + 19 = 57 \u2713  \n- 19 + 19 + 14 + 5 = 57? 19+19=38, 38+14=52, 52+5=57 \u2713\n\nSo we have at least two valid subsets.\n\nBut the instruction says: \"Select one or more values... Return only a comma-separated list of chosen numbers.\"\n\nIt does not say to find *all* solutions \u2014 just *a* solution. So we can pick any one valid subset.\n\nWhich one to return? Let's pick the simplest: three 19s.\n\nBut wait: are we allowed to use the same value multiple times? The rule says: \"You may use each listed number at most once.\" Since there are three 19s in the list, using three 19s is allowed \u2014 each is a distinct element in the list.\n\nSo [19, 19, 19] is valid.\n\nAlternative: [19,",
+    "SAMPLE 5 FINAL: 19,19,19",
+    "SAMPLE 6 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given numbers: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe can use each number at most once.\n\nLet\u2019s consider combinations:\n\n- Try using all three 19s: 19 + 19 + 19 = 57  \nThat\u2019s exactly the target.\n\nCheck if any duplicates violate rules: The list contains three 19s, and we\u2019re allowed to use each listed number at most once \u2014 since there are three separate 19s in the list, using all three is allowed.\n\nSo: 19, 19, 19 \u2192 sum = 57.\n\nNo need to try other combinations since this works.\n\nFINAL: 19,19,19",
+    "SAMPLE 6 FINAL: 19,19,19",
+    "SAMPLE 7 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers: [5, 14, 19, 19, 19]  \nTarget: 57  \nEach number can be used at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using all three 19s: 19 + 19 + 19 = 57 \u2192 That's exactly the target!\n\nCheck if any other combination works (just to be thorough):\n- 19 + 19 + 14 = 52 \u2192 need 5 more \u2192 52 + 5 = 57 \u2192 So 19 + 19 + 14 + 5 = 57  \nWait: 19 + 19 + 14 + 5 = 57? 19+19=38, 38+14=52, 52+5=57 \u2192 Yes!  \nBut we have three 19s, so using two 19s, 14, and 5 is also valid.\n\nBut wait \u2014 the list has three 19s, so both combinations are possible:\n- 19,19,19  \n- 19,19,14,5  \n\nLet\u2019s verify counts:\n- For 19,19,19: uses three 19s \u2014 available \u2705  \n- For 19,19,14,5: uses two 19s, 14, and 5 \u2014 available \u2705  \n\nSo there are multiple valid answers.\n\nBut the instruction says: \"Select one or more values...\". It doesn\u2019t say to find all \u2014 just to return a valid combination.\n\nThe simplest is 19,19,19 (only three numbers, all same, sum exactly 57).\n\nSo answer: 19,19,19\n\nLet\u2019s double-check: 19\u00d73 = 57 \u2192 correct.\n\nFINAL: 19,19,19",
+    "SAMPLE 7 FINAL: 19,19,19",
+    "SAMPLE 8 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe may use each number at most once.\n\nLet\u2019s consider combinations:\n\n- Try using all three 19s: 19 + 19 + 19 = 57 \u2192 that\u2019s exactly the target!\n\nCheck if allowed: Yes \u2014 there are three 19s in the list, and we\u2019re using each once.\n\nSo the solution is: 19,19,19\n\nFINAL: 19,19,19",
+    "SAMPLE 8 FINAL: 19,19,19",
+    "SAMPLE 9 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the list: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe may use each number at most once.\n\nLet\u2019s consider possible combinations.\n\nFirst, note that 19 appears three times. Let\u2019s try using three 19s:  \n19 + 19 + 19 = 57 \u2705\n\nThat\u2019s exactly the target.\n\nCheck if any other combination could work (though not required, since we just need one valid solution), but this one is valid and uses three of the available 19s.\n\nSo the answer is: 19,19,19\n\nFINAL: 19,19,19",
+    "SAMPLE 9 FINAL: 19,19,19",
+    "SAMPLE 10 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: Let's analyze the problem.\n\nWe are given numbers: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe can use each number at most once \u2014 note there are three 19s, so we can use up to three 19s.\n\nLet\u2019s try combinations:\n\n- 19 + 19 + 19 = 57 \u2192 that\u2019s exactly the target!  \nCheck: 19 \u00d7 3 = 57 \u2714\ufe0f\n\nAre there other combinations?  \nTry including 14:  \n- 14 + 19 + 19 = 52 \u2192 need 5 more \u2192 we have a 5 \u2192 14 + 19 + 19 + 5 = 57  \nThat\u2019s 14, 19, 19, 5 = 57 \u2714\ufe0f  \nBut wait \u2014 do we have two 19s? Yes, we have three, so that\u2019s fine.\n\nAlso: 5 + 14 + 19 + 19 = 57 (same as above)\n\nWhat about 5 + 14 + 19 + 19 + 19 = 76 \u2192 too big.\n\n5 + 19 + 19 = 43 \u2192 need 14 \u2192 again same as above.\n\nSo two possible combinations:\n- [19, 19, 19]\n- [5, 14, 19, 19]\n\nBut the problem says: \"Select one or more values... return only a comma-separated list of chosen numbers\". It doesn\u2019t say to find *all* solutions, just *a* solution.\n\nWe need to choose one valid combination.\n\nWhich one to pick? Both are valid.\n\nBut note: the list has three 19s, so using all three is allowed.\n\nThe simplest is 19,19,19.\n\nLet\u2019s verify sum: 19+19+19 = 57 \u2714\ufe0f\n\nYes.\n\nSo answer: 19,19,19\n\nBut wait \u2014 does order matter? The example shows numbers in ascending order: 4,9,2 \u2192 but that\u2019s not sorted. Actually, the example is arbitrary. Typically, we can return in any order, but to be safe, perhaps sort ascending.\n\n19,19,1",
+    "SAMPLE 10 FINAL: 19,19,1",
+    "VOTE SUMMARY: 19,19,19 -> 8, 5,14,19,19 -> 1, 19,19,1 -> 1",
+    "VOTE WINNER: 19,19,19 (8/10)"
+  ]
+}

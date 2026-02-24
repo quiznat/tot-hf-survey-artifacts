@@ -1,0 +1,97 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-022936-7f62ef.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "6,11",
+        4
+      ],
+      [
+        "3,6,8",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 4
+  },
+  "final_answer": "6,11",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      5,
+      6,
+      8,
+      11,
+      18,
+      19,
+      22
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v4-007",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 42861,
+    "success": 1,
+    "tokens_in": 737,
+    "tokens_out": 1093
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-022936-7f62ef",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1937262580,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:29:36Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We need to find a subset of [3, 5, 6, 8, 11, 18, 19, 22] that sums to 17, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 3 + 5 = 8  \n- 3 + 5 + 6 = 14  \n- 3 + 5 + 6 + 8 = 22 \u2192 too big  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 \u2192 too big  \n- 3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2014 yes!\n\nAny others? Let\u2019s verify uniqueness:  \n- 5 + 6 + 8 = 19  \n- 5 + 11 = 16  \n- 6 + 11 = 17 \u2705 \u2014 another valid combination: 6 + 11 = 17  \nWait: 6 + 11 = 17 \u2014 yes! So two possible subsets: {3,6,8} and {6,11}\n\nBut the problem says \"Select one or more values\", and we can return any valid subset.\n\nWhich to choose? Either is acceptable. Let's pick the smaller one in terms of count: {6,11} has only two numbers.\n\nCheck: 6 + 11 = 17 \u2014 correct.\n\nAlso check if any single number equals 17 \u2014 no.\n\nSo valid answers: 6,11 or 3,6,8.\n\nWe can choose either. Let's go with 6,11.\n\nFINAL: 6,11",
+    "SAMPLE 1 FINAL: 6,11",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [3, 5, 6, 8, 11, 18, 19, 22]  \nTarget sum: 17  \nWe need to select one or more numbers (each used at most once) that sum to 17.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 3 + 5 = 8  \n- 3 + 5 + 6 = 14  \n- 3 + 5 + 6 + 8 = 22 \u2192 too big  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 \u2192 too big  \n- 3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2014 yes!\n\nAny other combinations?\n\n- 5 + 6 + 8 = 19  \n- 5 + 11 = 16  \n- 5 + 11 + 3 = 19  \n- 6 + 11 = 17 \u2705 \u2014 another one: 6 + 11 = 17\n\nSo two valid subsets: [3,6,8] and [6,11]\n\nBut the problem says \u201cSelect one or more values\u201d \u2014 any valid subset is acceptable. We only need to return one.\n\nWhich to choose? Either is fine. Let\u2019s pick the smaller one in terms of count: [6,11] has only two numbers.\n\nCheck: 6 + 11 = 17 \u2014 correct.\n\nAlso verify no duplicates or out-of-range numbers: 6 and 11 are both in the list.\n\nSo answer: 6,11\n\nFINAL: 6,11",
+    "SAMPLE 2 FINAL: 6,11",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We need to find a subset of [3, 5, 6, 8, 11, 18, 19, 22] that sums to 17, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 3 + 5 = 8  \n- 3 + 6 = 9  \n- 3 + 8 = 11  \n- 3 + 11 = 14  \n- 3 + 5 + 6 = 14  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 \u2192 too big  \n- 3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2014 yes!\n\nAll numbers are in the list and used once.\n\nAny other? Let\u2019s verify uniqueness isn\u2019t required \u2014 just need one valid set.\n\nSo answer: 3,6,8\n\nFINAL: 3,6,8",
+    "SAMPLE 3 FINAL: 3,6,8",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [3, 5, 6, 8, 11, 18, 19, 22]  \nTarget: 17  \nWe need to select one or more numbers (each used at most once) that sum to 17.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 3 + 5 = 8  \n- 3 + 5 + 6 = 14  \n- 3 + 5 + 6 + 8 = 22 \u2192 too big  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 \u2192 too big  \n- 3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2192 Yes!\n\nAny other combinations?\n\n- 5 + 6 + 8 = 19  \n- 5 + 11 = 16  \n- 5 + 11 + 3 = 19  \n- 6 + 11 = 17 \u2705  \nWait: 6 + 11 = 17 \u2192 Yes! That\u2019s simpler.\n\nSo two valid subsets: [3,6,8] and [6,11]\n\nBut the problem says \"Select one or more values\" \u2014 any valid subset is acceptable. We just need to return one.\n\nWhich to choose? Let\u2019s verify both:\n\n- 6 + 11 = 17 \u2714  \n- 3 + 6 + 8 = 17 \u2714\n\nBoth are valid. Since the problem doesn\u2019t ask for all, just one, we can pick either.\n\nLet\u2019s pick the shorter one: 6,11\n\nCheck uniqueness: 6 and 11 are both in the list, used once \u2014 valid.\n\nSo answer: 6,11\n\nFINAL: 6,11",
+    "SAMPLE 4 FINAL: 6,11",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [3, 5, 6, 8, 11, 18, 19, 22]  \nTarget: 17  \nWe need to select a subset (each number used at most once) that sums to 17.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 3 + 5 = 8  \n- 3 + 5 + 6 = 14  \n- 3 + 5 + 6 + 8 = 22 \u2192 too big  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 \u2192 too big  \n- 3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2192 Yes!\n\nAny other combinations? Let\u2019s verify uniqueness and completeness.\n\n- 5 + 6 + 8 = 19  \n- 5 + 11 = 16  \n- 3 + 11 + 5 = 19  \n- 18, 19, 22 are all >17, so can\u2019t be used alone or with positives (since all numbers positive).  \n- 11 + 6 = 17 \u2705 \u2014 wait, 11 + 6 = 17 \u2192 also valid!\n\nSo two valid subsets:  \n- 3, 6, 8  \n- 6, 11  \n\nBut the problem says: \u201cSelect one or more values\u2026 Return only a comma-separated list of chosen numbers.\u201d  \nIt doesn\u2019t say to find all \u2014 just *a* valid selection.\n\nWe can choose either. Let\u2019s pick one.\n\nCheck: 6 + 11 = 17 \u2192 valid. Shorter.\n\nAlso 3 + 6 + 8 = 17 \u2192 valid.\n\nEither is acceptable. Let\u2019s go with the shorter one: 6,11.\n\nBut order? The sample shows numbers in some order \u2014 likely ascending or as found. Let\u2019s sort ascending: 6,11.\n\nAlternatively, original list order: 6 appears before 11, so 6,11 is fine.\n\nDouble-check: 6 + 11 = 17 \u2714\ufe0f  \nNo duplicates used \u2714\ufe0f\n\nFINAL: 6,11",
+    "SAMPLE 5 FINAL: 6,11",
+    "SAMPLE 5 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given the list: [3, 5, 6, 8, 11, 18, 19, 22]  \nTarget: 17  \nWe need to select a subset (each number used at most once) that sums to 17.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 3 + 5 = 8  \n- 3 + 5 + 6 = 14  \n- 3 + 5 + 6 + 8 = 22 \u2192 too big  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 \u2192 too big  \n- 3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2192 Yes!\n\nAny other combinations? Let\u2019s verify uniqueness and completeness.\n\n- 5 + 6 + 8 = 19  \n- 5 + 11 = 16  \n- 3 + 11 + 5 = 19  \n- 18, 19, 22 are all >17, so can\u2019t be used alone or with positives (since all numbers positive).  \n- 11 + 6 = 17 \u2705 \u2014 wait, 11 + 6 = 17 \u2192 also valid!\n\nSo two valid subsets:  \n- 3, 6, 8  \n- 6, 11  \n\nBut the problem says: \u201cSelect one or more values\u2026 Return only a comma-separated list of chosen numbers.\u201d  \nIt doesn\u2019t say to find all \u2014 just *a* valid selection.\n\nWe can choose either. Let\u2019s pick one.\n\nCheck: 6 + 11 = 17 \u2192 valid. Shorter.\n\nAlso 3 + 6 + 8 = 17 \u2192 valid.\n\nEither is acceptable. Let\u2019s go with the shorter one: 6,11.\n\nBut order? The sample shows numbers in some order \u2014 likely ascending or as found. Let\u2019s sort ascending: 6,11.\n\nAlternatively, original list order: 6 appears before 11, so 6,11 is fine.\n\nDouble-check: 6 + 11 = 17 \u2714\ufe0f  \nNo duplicates used \u2714\ufe0f\n\nFINAL: 6,11\n\nAnswer only:",
+    "SAMPLE 5 OUTPUT: RECOVERY OUTPUT: 6,11",
+    "SAMPLE 5 FINAL: 6,11",
+    "VOTE SUMMARY: 6,11 -> 4, 3,6,8 -> 1",
+    "VOTE WINNER: 6,11 (4/5)"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-023104-3f9895.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "x=-4.0,y=6.0",
+        5
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "x=-4.0,y=6.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        -3,
+        -10
+      ],
+      [
+        1,
+        4,
+        20
+      ]
+    ]
+  },
+  "item_id": "lin-v4-002",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 45042,
+    "success": 1,
+    "tokens_in": 250,
+    "tokens_out": 672
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-023104-3f9895",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4264802945,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T02:31:04Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \nx = 20.0 \u2212 4.0y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 \u2212 4y into Equation 1:\n\n\u22122(20 \u2212 4y) \u2212 3y = \u221210  \n\u2192 \u221240 + 8y \u2212 3y = \u221210  \n\u2192 \u221240 + 5y = \u221210  \n\u2192 5y = 30  \n\u2192 y = 6.0\n\n**Step 3: Plug y = 6 into expression for x**  \nx = 20 \u2212 4(6) = 20 \u2212 24 = \u22124.0\n\n**Check in Equation 1:**  \n\u22122(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2705  \nEquation 2: \u22124 + 4(6) = \u22124 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 1 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \n\u2003x + 4y = 20  \n\u21d2 x = 20 \u2212 4y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 \u2212 4y into Equation 1:  \n\u2003-2(20 \u2212 4y) \u2212 3y = \u221210  \nCompute:  \n\u2003-40 + 8y \u2212 3y = \u221210  \n\u2003-40 + 5y = \u221210  \nAdd 40 to both sides:  \n\u20035y = 30  \n\u21d2 y = 6\n\n**Step 3: Find x**  \nUse x = 20 \u2212 4y = 20 \u2212 4(6) = 20 \u2212 24 = \u22124\n\n**Check** (optional but good):  \nEquation 1: -2(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2705  \nEquation 2: \u22124 + 4(6) = \u22124 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 2 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \nx = 20.0 \u2212 4.0y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 \u2212 4y into Equation 1:\n\n\u22122(20 \u2212 4y) \u2212 3y = \u221210  \n\u2192 \u221240 + 8y \u2212 3y = \u221210  \n\u2192 \u221240 + 5y = \u221210  \n\u2192 5y = 30  \n\u2192 y = 6.0\n\n**Step 3: Plug y = 6 into expression for x**  \nx = 20 \u2212 4(6) = 20 \u2212 24 = \u22124.0\n\n**Check in Equation 1:**  \n\u22122(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2705  \nEquation 2: \u22124 + 4(6) = \u22124 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 3 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \n\u2003x = 20.0 \u2212 4.0y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 \u2212 4y into Equation 1:\n\n\u22122(20 \u2212 4y) \u2212 3y = \u221210  \n\u2192 \u221240 + 8y \u2212 3y = \u221210  \n\u2192 \u221240 + 5y = \u221210  \n\u2192 5y = 30  \n\u2192 y = 6.0\n\n**Step 3: Plug y = 6 into expression for x**  \nx = 20 \u2212 4(6) = 20 \u2212 24 = \u22124.0\n\n**Check in Equation 1:**  \n\u22122(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2705  \nEquation 2: \u22124 + 4(6) = \u22124 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 4 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \nx = 20.0 \u2212 4.0y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 \u2212 4y into Equation 1:\n\n\u22122(20 \u2212 4y) \u2212 3y = \u221210  \n\u2192 \u221240 + 8y \u2212 3y = \u221210  \n\u2192 \u221240 + 5y = \u221210  \n\u2192 5y = 30  \n\u2192 y = 6.0\n\n**Step 3: Plug y = 6 into expression for x**  \nx = 20 \u2212 4(6) = 20 \u2212 24 = \u22124.0\n\n**Check in Equation 1:**  \n\u22122(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2705  \nEquation 2: \u22124 + 4(6) = \u22124 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 5 FINAL: x=-4.0,y=6.0",
+    "VOTE SUMMARY: x=-4.0,y=6.0 -> 5",
+    "VOTE WINNER: x=-4.0,y=6.0 (5/5)"
+  ]
+}

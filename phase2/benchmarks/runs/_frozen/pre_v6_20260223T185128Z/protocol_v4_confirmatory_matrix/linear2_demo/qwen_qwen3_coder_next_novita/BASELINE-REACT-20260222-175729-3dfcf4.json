@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-175729-3dfcf4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "(7, 8)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -6,
+        4,
+        -10
+      ],
+      [
+        -5,
+        -4,
+        -67
+      ]
+    ]
+  },
+  "item_id": "lin-v4-040",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 28954,
+    "success": 1,
+    "tokens_in": 190,
+    "tokens_out": 198
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-175729-3dfcf4",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1778941294,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T17:57:29Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two equations in the form of coefficient arrays: [[-6, 4, -10], [-5, -4, -67]]. Each inner list likely represents a linear equation in two variables, e.g., ax + by = c. So:\n\nEquation 1: -6x + 4y = -10  \nEquation 2: -5x - 4y = -67\n\nWe can solve this system using elimination or substitution. Let's use elimination.\n\nAdd the two equations to eliminate y:\n\n(-6x + 4y) + (-5x - 4y) = -10 + (-67)  \n\u2192 (-11x) + 0y = -77  \n\u2192 -11x = -77  \n\u2192 x = 7\n\nNow substitute x = 7 into one equation to find y. Use Equation 1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: From the scratchpad, we have x = 7. Now substitute x = 7 into Equation 1: -6x + 4y = -10.  \n\u2192 -6(7) + 4y = -10  \n\u2192 -42 + 4y = -10  \n\u2192 4y = 32  \n\u2192 y = 8\n\nCheck with Equation 2: -5x - 4y = -5(7) - 4(8) = -35 - 32 = -67 \u2713\n\nSo the solution is x = 7, y = 8. Since the task is to solve the system, the final answer is the pair (7, 8).\nFINAL: (7, 8)"
+  ]
+}

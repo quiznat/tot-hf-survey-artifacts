@@ -1,0 +1,130 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173019-9b8d4f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "10 + 7",
+        3
+      ],
+      [
+        "4 * 6",
+        2
+      ],
+      [
+        "(7 - 3)",
+        1
+      ],
+      [
+        "(10 - 4)",
+        1
+      ],
+      [
+        "(10 + 3)",
+        1
+      ],
+      [
+        "(7 - 3) * (10 - 4)",
+        1
+      ],
+      [
+        "4 * (10 - 7 + 3)",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "10 + 7",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    7,
+    3
+  ],
+  "item_id": "g24-v4-006",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4630,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2338
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173019-9b8d4f",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 616286443,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:30:19Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [4, 10, 7, 3] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to make 24.\n\nLet\u2019s explore possible combinations.\n\nTry grouping ideas:\n\n- 10 + 7 + 4 + 3 = 24 \u2192 10+7=17, +4=21, +3=24 \u2192 **Yes!** But wait \u2014 that uses only addition, and all numbers exactly once.\n\nCheck: 10 + 7 + 4 + 3 = 24. That\u2019s valid.\n\nBut hold on \u2014 is there any restriction that we must use *all four operations*? No \u2014 the problem only says \"use each number exactly once\", no requirement on operations.\n\nSo this is a valid solution.\n\nHowever, let\u2019s double-check: 10 + 7 = 17; 17 + 4 = 21; 21 + 3 = 24. Yes.\n\nSo the expression is: `10 + 7 + 4 + 3`\n\nBut maybe the problem expects more complex operations? Not necessarily \u2014 the simplest valid expression is acceptable.\n\nAlternatively, other solutions exist (e.g., (10 - 7) \u00d7 (4 + 3) = 3 \u00d7 7 = 21 \u2014 no), or (7 - 3) \u00d7 (10 - 4) = 4 \u00d7 6 = 24 \u2014 yes! That\u2019s another.\n\nWait: (7 - 3) = 4, (10 - 4) = 6, 4 \u00d7 6 = 24. Uses all numbers: 7, 3, 10, 4 \u2014 each once. So that\u2019s also valid.\n\nWhich to choose? Either is fine. Let\u2019s pick the multiplication one since it\u2019s more \"interesting\", but both are correct.\n\nLet\u2019s verify: (7 - 3) \u00d7 (10 - 4) = 4 \u00d7 6 = 24 \u2705\n\nSo final answer: `(7 - 3) * (10 - 4)`\n\nBut note: the sample format uses `/` for division, but for multiplication we can use `*` or `\u00d7`. Since programming-friendly, `*` is safe.\n\nAlternatively, using standard math notation: `(7 - 3",
+    "SAMPLE 1 FINAL: (7 - 3)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [4, 10, 7, 3], and we must use each **exactly once** to make 24.\n\nLet\u2019s try combinations and operations (+, \u2212, \u00d7, \u00f7, parentheses).\n\nFirst, think of known 24 combinations:  \n- 8 \u00d7 3 = 24  \n- 6 \u00d7 4 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 = 21, then +3 = 24 \u2014 but we only have one 3.\n\nTry using multiplication and addition/subtraction.\n\nLet\u2019s test:  \n(10 \u2212 7) = 3  \nThen 4 \u00d7 3 = 12 \u2192 not enough.\n\nTry: (7 \u2212 3) = 4  \nThen 10 + 4 = 14, 14 + 4 = 18 \u2014 nope.\n\nTry: (10 + 7) = 17, 17 + 4 = 21, +3 = 24 \u2014 but that\u2019s 17 + 4 + 3 = 24, yes! Wait: 10 + 7 + 4 + 3 = 24. That\u2019s just sum: 10 + 7 = 17, +4 = 21, +3 = 24. \u2705\n\nBut wait \u2014 are we allowed to use only addition? Yes, unless restricted \u2014 problem says \u201cuse each number exactly once\u201d and doesn\u2019t restrict operations. So:\n\n**10 + 7 + 4 + 3 = 24**\n\nThat uses all four numbers exactly once.\n\nDouble-check: 10 + 7 = 17, 17 + 4 = 21, 21 + 3 = 24. \u2714\ufe0f\n\nSo final expression: `10 + 7 + 4 + 3`\n\nBut wait \u2014 is there any hidden rule? The classic \"24 game\" usually allows only +, \u2212, \u00d7, \u00f7, parentheses, and each number used once \u2014 so this is valid.\n\nAlternatively, could there be a multiplication-based solution? Like (10 \u2212 4) \u00d7 (7 \u2212 3) = 6 \u00d7 4 = 24. Let\u2019s check:",
+    "SAMPLE 2 FINAL: 10 + 7",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers [4, 10, 7, 3] and must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nTry common strategies: multiplication + addition/subtraction.\n\nFirst, note that 10 + 7 + 4 + 3 = 24 \u2014 but that\u2019s just sum = 24! Wait: 10 + 7 = 17, 17 + 4 = 21, 21 + 3 = 24. Yes!\n\nBut \u2014 we must use **each number exactly once**, and the operations are not restricted \u2014 so addition is allowed.\n\nSo: 10 + 7 + 4 + 3 = 24.\n\nThat uses all numbers once.\n\nBut wait \u2014 is there any catch? The problem doesn\u2019t restrict operations, so yes, simple addition works.\n\nLet me double-check: 10 + 7 + 4 + 3 = 24 \u2714\ufe0f\n\nAll numbers used exactly once \u2714\ufe0f\n\nSo one valid expression is: `10 + 7 + 4 + 3`\n\nBut let\u2019s see if there's a more \"standard\" 24-game style expression (often expects multiplication), just to be safe \u2014 but the problem doesn\u2019t require that.\n\nAlternative: Try (10 - 7) = 3, then 3 \u00d7 4 = 12, 12 \u00d7 3 = 36 \u2014 too big.\n\n(7 - 3) = 4, 10 + 4 = 14, 14 + 4 = 18 \u2014 but we used 4 twice.\n\n(10 + 2) \u00d7 2 \u2014 no 2.\n\nTry (7 \u00d7 3) + (10 - 4) = 21 + 6 = 27 \u2014 too high.\n\n(7 \u00d7 4) - (10 - 3) = 28 - 7 = 21.\n\n(10 \u00d7 3) - (7 + 4) = 30 - 11 = 19.\n\n(10 + 4) \u00d7 (3 - ?) \u2014 need 7.\n\n(10 - 4) = 6, 7 - 3 = 4, 6 \u00d7 4 = 24! Yes!\n\nCheck: (10 - 4) = 6,",
+    "SAMPLE 3 FINAL: (10 - 4)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers [4, 10, 7, 3] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s try combinations:\n\nFirst, consider common 24 patterns:\n- 6 \u00d7 4 = 24\n- 8 \u00d7 3 = 24\n- 12 \u00d7 2 = 24\n- 48 \u00f7 2 = 24\n- 7 \u00d7 3 + 3 = 24 (but only one 3)\n- 10 + 7 + 4 + 3 = 24 \u2192 10 + 7 = 17, +4 = 21, +3 = 24 \u2192 **Yes!**\n\nWait: 10 + 7 + 4 + 3 = 24. That uses all four numbers exactly once.\n\nLet\u2019s verify: 10 + 7 = 17; 17 + 4 = 21; 21 + 3 = 24 \u2705\n\nSo the expression is:  \n**10 + 7 + 4 + 3**\n\nThat\u2019s valid \u2014 no need for multiplication or parentheses.\n\nBut wait \u2014 is there any rule against just adding? No, standard 24 game allows any operations, and addition is fine.\n\nLet\u2019s double-check: each number used once: 10, 7, 4, 3 \u2014 yes.\n\nFinal expression: 10 + 7 + 4 + 3\n\nFINAL: 10 + 7 + 4 + 3",
+    "SAMPLE 4 FINAL: 10 + 7",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [4, 10, 7, 3] and need to use each exactly once to make 24.\n\nLet\u2019s explore combinations.\n\nTry standard operations: +, \u2212, \u00d7, \u00f7, parentheses.\n\nFirst, check if multiplication can help \u2014 24 = 4 \u00d7 6, or 3 \u00d7 8, or 6 \u00d7 4, etc.\n\nCan we make 6 from 10, 7, 3?  \n10 \u2212 7 = 3, then 3 + 3 = 6 \u2014 but we only have one 3. Wait, numbers are [4, 10, 7, 3] \u2014 only one 3.\n\nWhat about (10 + 7 \u2212 3) = 14, then 14 + 4 = 18 \u2014 too low.\n\n(10 + 3) = 13, (7 + 4) = 11 \u2192 no.\n\nTry (7 \u2212 3) = 4, then we have two 4s and a 10: 4, 4, 10 \u2192 10 + 4 + 4 + ? = 18 \u2014 no.\n\nTry multiplication: 3 \u00d7 7 = 21, then 21 + 4 = 25, 25 \u2212 10 = 15 \u2014 no.\n\n3 \u00d7 10 = 30, 30 \u2212 7 = 23, 23 + 4 = 27 \u2014 close.\n\n3 \u00d7 10 = 30, 30 \u2212 4 = 26, 26 \u2212 7 = 19.\n\n7 \u00d7 3 = 21, need +3 \u2014 only one 3.\n\nWhat about (10 \u2212 7) = 3, then 3 \u00d7 4 = 12, 12 \u00d7 2 = 24 \u2014 but no 2.\n\nWait \u2014 can we make 2 from remaining numbers? Let\u2019s see: if we do (10 \u2212 7) = 3, and (4 \u2212 3) = 1 \u2014 then 3 \u00d7 3 \u00d7 ? Not working.\n\nTry: (7 \u2212 3) = 4. Now numbers left: 4 and 10 and this 4 \u2192 4, 4, 10.",
+    "SAMPLE 5 FINAL: (10 + 3)",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers [4, 10, 7, 3] and must use each exactly once (and only once) with basic arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to make 24.\n\nLet\u2019s explore combinations.\n\nTry common strategies:  \n- 24 = 6 \u00d7 4  \n- 24 = 8 \u00d7 3  \n- 24 = 12 \u00d7 2  \n- 24 = 48 \u00f7 2  \n- 24 = 7 \u00d7 3 + 3 (but only one 3) \u2014 not helpful directly.\n\nTry combining 10 and 4:  \n10 + 4 = 14 \u2192 need 10 more from 7 and 3? 7 + 3 = 10 \u2192 14 + 10 = 24!  \nSo: (10 + 4) + (7 + 3) = 24 \u2192 14 + 10 = 24.  \nThat uses all numbers exactly once.\n\nCheck: 10 + 4 + 7 + 3 = 24. Yes!\n\nBut wait \u2014 is that allowed? The problem says \"use each number exactly once\", and basic operations \u2014 addition is fine, and no restriction on using only binary operations or needing parentheses. So:\n\n10 + 4 + 7 + 3 = 24  \n\u2192 uses all four numbers once.\n\nThat\u2019s valid.\n\nBut let\u2019s double-check if any hidden rules (e.g., must use operations *between* numbers, not just sum \u2014 but sum is fine). Yes, summing all is acceptable.\n\nAlternative: (10 \u2212 7) \u00d7 (4 + 3) = 3 \u00d7 7 = 21 \u2014 no.  \n(10 \u2212 3) \u00d7 (7 \u2212 4) = 7 \u00d7 3 = 21 \u2014 no.  \n(7 \u2212 3) \u00d7 (10 \u2212 4) = 4 \u00d7 6 = 24 \u2014 yes!  \nThat\u2019s: (7 \u2212 3) \u00d7 (10 \u2212 4) = 4 \u00d7 6 = 24.\n\nThat uses all numbers exactly once and uses subtraction and multiplication.\n\nWhich to choose? Both are valid. Let\u2019s pick the one with multiplication and subtraction, as it\u2019s more \u201cinteresting\u201d than just addition, but the problem doesn",
+    "SAMPLE 6 FINAL: (7 - 3) * (10 - 4)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers [4, 10, 7, 3] and need to use each exactly once (and only once) with basic arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s try combinations.\n\nFirst, consider possible products near 24:\n- 4 \u00d7 6 = 24 \u2192 can we make 6 from [10, 7, 3]?  \n  10 \u2212 7 + 3 = 6 \u2192 yes! So 4 \u00d7 (10 \u2212 7 + 3) = 4 \u00d7 6 = 24.\n\nCheck: uses 4, 10, 7, 3 \u2014 all exactly once.  \nCompute: 10 \u2212 7 = 3; 3 + 3 = 6; 4 \u00d7 6 = 24. \u2714\ufe0f\n\nAlternatively, write it clearly:  \n4 \u00d7 (10 \u2212 7 + 3) = 24\n\nBut note: order of operations \u2014 subtraction and addition have same precedence, left to right, so 10 \u2212 7 + 3 = (10 \u2212 7) + 3 = 6, correct.\n\nSo expression is valid.\n\nAnother possibility: (7 \u2212 3) \u00d7 (10 \u2212 4) = 4 \u00d7 6 = 24 \u2014 also works!  \nWait: (7 \u2212 3) = 4, (10 \u2212 4) = 6, 4 \u00d7 6 = 24. Uses 7, 3, 10, 4 \u2014 all once.\n\nThat\u2019s cleaner and avoids addition/subtraction ambiguity.\n\nYes: (7 \u2212 3) \u00d7 (10 \u2212 4) = 4 \u00d7 6 = 24.\n\nSo final answer:  \nFINAL: (7 - 3) * (10 - 4)",
+    "SAMPLE 7 FINAL: 4 * (10 - 7 + 3)",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers [4, 10, 7, 3] and must use **each exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nFirst, consider possible multiplications that get us near 24:\n- 4 \u00d7 6 = 24 \u2192 can we make 6 from 10, 7, 3?  \n  10 \u2212 7 + 3 = 6 \u2192 yes! So: 4 \u00d7 (10 \u2212 7 + 3) = 4 \u00d7 6 = 24.\n\nCheck: uses 4, 10, 7, 3 \u2014 each once. Valid.\n\nLet\u2019s verify:  \n10 \u2212 7 = 3  \n3 + 3 = 6  \n4 \u00d7 6 = 24 \u2705\n\nSo expression:  \n**4 \u00d7 (10 \u2212 7 + 3)**\n\nAlternatively, could write as 4 \u00d7 (3 + 10 \u2212 7), same thing.\n\nThis is valid and uses all numbers exactly once.\n\nFINAL: 4*(10-7+3)",
+    "SAMPLE 8 FINAL: 4 * 6",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers [4, 10, 7, 3] and need to use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s try some combinations.\n\nFirst, consider possible products near 24:\n- 4 \u00d7 6 = 24 \u2192 can we make 6 from 10, 7, 3?  \n  10 \u2212 7 + 3 = 6 \u2192 yes! So:  \n  4 \u00d7 (10 \u2212 7 + 3) = 4 \u00d7 6 = 24 \u2705\n\nCheck: uses 4, 10, 7, 3 \u2014 each exactly once.\n\nYes, that works.\n\nLet\u2019s verify:  \n10 \u2212 7 = 3  \n3 + 3 = 6  \n4 \u00d7 6 = 24.\n\nPerfect.\n\nFINAL: 4*(10 - 7 + 3)",
+    "SAMPLE 9 FINAL: 4 * 6",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 7, 3]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers [4, 10, 7, 3] and must use each exactly once (and only once) with basic arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore possibilities.\n\nFirst, consider common 24 combinations:\n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24 (but we only have one 3)  \n- 10 + 7 + 4 + 3 = 24 \u2192 10 + 7 = 17, +4 = 21, +3 = 24 \u2192 **Yes!**\n\nWait \u2014 10 + 7 + 4 + 3 = 24. That uses all four numbers exactly once.\n\nCheck: 10 + 7 = 17, 17 + 4 = 21, 21 + 3 = 24 \u2705\n\nSo the expression is simply:  \n**10 + 7 + 4 + 3**\n\nThat\u2019s valid \u2014 uses each number once, only addition, gives 24.\n\nNo need for parentheses or other operations.\n\nFINAL: 10 + 7 + 4 + 3",
+    "SAMPLE 10 FINAL: 10 + 7",
+    "VOTE SUMMARY: 10 + 7 -> 3, 4 * 6 -> 2, (7 - 3) -> 1, (10 - 4) -> 1, (10 + 3) -> 1, (7 - 3) * (10 - 4) -> 1, 4 * (10 - 7 + 3) -> 1",
+    "VOTE WINNER: 10 + 7 (3/10)"
+  ]
+}

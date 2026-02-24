@@ -1,0 +1,72 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.single_path_direct_answer.v1",
+  "algorithm_module_id": "algorithm_module.baseline_single_path_direct_answer.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260224-173334-d4734b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-single-path",
+  "condition_key": "baseline_single_path_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "x=7.0,y=3.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        8,
+        -25
+      ],
+      [
+        -7,
+        -7,
+        -70
+      ]
+    ]
+  },
+  "item_id": "lin-v4-006",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2971,
+    "success": 1,
+    "tokens_in": 30,
+    "tokens_out": 132
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260224-173334-d4734b",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 359837145,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:34Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.",
+    "OUTPUT: We are given the system:\n\n1) $-7.0x + 8.0y = -25.0$  \n2) $-7.0x - 7.0y = -70.0$\n\n### Step 1: Eliminate one variable\nSubtract Equation 2 from Equation 1:\n\n$$\n(-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0)\n$$\n\nSimplify left side:\n$$\n-7.0x + 8.0y + 7.0x + 7.0y = (8.0 + 7.0)y = 15.0y\n$$\n\nRight side:\n$$\n-25.0 + 70.0 = 45.0\n$$\n\nSo:\n$$\n15.0y = 45.0 \\Rightarrow y = \\frac{45.0}{15.0} = 3.0\n$$\n\n### Step 2: Plug back to find $x$\nUse Equation 2:  \n$-7.0x - 7.0y = -70.0$\n\nSubstitute $y = 3.0$:\n\n$$\n-7.0x - 7.0(3.0) = -70.0 \\\\\n-7.0x - 21.0 = -70.0 \\\\\n-7.0x = -70.0 + 21.0 = -49.0 \\\\\nx = \\frac{-49.0}{-7.0} = 7.0\n$$\n\n### Final Answer:\nx=7.0,y=3.0",
+    "FINAL: x=7.0,y=3.0"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180851-848539.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "1200",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      2,
+      0,
+      0
+    ],
+    "divisor": 8,
+    "oracle_max": 1200
+  },
+  "item_id": "perm-v4-047",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 35286,
+    "success": 1,
+    "tokens_in": 452,
+    "tokens_out": 284
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180851-848539",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 917534581,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:08:51Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by a given divisor (8) that can be formed by rearranging the given digits [1, 2, 0, 0]. The oracle_max is 1200, which likely serves as an upper bound \u2014 meaning we should not consider numbers larger than 1200.\n\nDigits: [1, 2, 0, 0] \u2192 possible 4-digit numbers (leading zeros not allowed) formed by permutations:\n- All permutations of [1,2,0,0] (excluding those starting with 0):\n  - 1002\n  - 1020\n  - 1200\n  - 2001\n  - 2010\n  - 2100\n\nNow check which of these are divisible by 8.\n\nRecall: A number is divisible by",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: A number is divisible by 8 if its last three digits form a number divisible by 8. Let's evaluate each candidate (4-digit numbers formed from [1,2,0,0], no leading zero), and check divisibility by 8, while staying \u2264 oracle_max = 1200.\n\nList of valid permutations (no leading 0):\n- 1002 \u2192 last 3 digits = 002 = 2 \u2192 2 mod 8 = 2 \u2192 not divisible\n- 1020 \u2192 last 3 digits = 020 = 20 \u2192 20 mod 8 = 4 \u2192 not divisible\n- 1200 \u2192 last 3 digits = 200 \u2192 200 mod 8 = 0 \u2192 divisible! Also, 1200 \u2264 1200 \u2192 valid\n- 2",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continue evaluating candidates. We already saw 1200 is divisible by 8 and \u2264 1200. Next candidates:\n\n- 2001 \u2192 exceeds 1200 \u2192 discard (since oracle_max = 1200 is an upper bound)\n- 2010 \u2192 exceeds 1200 \u2192 discard\n- 2100 \u2192 exceeds 1200 \u2192 discard\n\nSo only candidates \u2264 1200 are: 1002, 1020, 1200. Among these, only 1200 is divisible by 8.\n\nThus, the maximum valid number is 1200.\n\nFINAL: 1200"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-204738-55722a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "(4 + 4)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    4,
+    4,
+    8
+  ],
+  "item_id": "g24-v4-005",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3620,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 206
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-204738-55722a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2465764240,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:47:38Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s try to think of combinations that multiply or add to 24.\n\nFirst, note that:\n- 8 \u00d7 3 = 24, so if we can make the other two numbers (4 and 4) cancel out or become 1 (e.g., via division), that might work.\n\nTry:  \n(8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2705  \nThat uses all numbers: 8, 3, 4, 4 \u2014 each exactly once.\n\nLet\u2019s verify:  \n4 \u00f7 4 = 1  \n8 \u00d7 3 = 24  \n24 \u00d7 1 = 24\n\nYes, valid.\n\nAlternative:  \n(8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.  \nOr 4 \u00d7 (8 \u2212 4) + 3 = 4\u00d74 + 3 = 19 \u2014 no.  \nOr (4 + 4) \u00d7 3 = 24, but then 8 is unused \u2014 not allowed.\n\nSo the only clean solution using all four numbers is:  \n(8 \u00d7 3) \u00d7 (4 \u00f7 4)\n\nWe can write it without extra parentheses as:  \n8 \u00d7 3 \u00d7 (4 \u00f7 4)\n\nBut to be safe and clear, parentheses help.\n\nFinal expression:  \n(8 \u00d7 3) \u00d7 (4 \u00f7 4)\n\nFINAL: (8*3)*(4/4)",
+    "FINAL: (4 + 4)"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180658-1f3047.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "8384",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      8,
+      3,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8384
+  },
+  "item_id": "perm-v4-028",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 23997,
+    "success": 1,
+    "tokens_in": 880,
+    "tokens_out": 392
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180658-1f3047",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 123779203,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:06:58Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by the given divisor (4) that can be formed by rearranging the given digits [8, 3, 8, 4]. The oracle_max is 8384, which is likely the maximum possible number formed by those digits (8,3,8,4 \u2192 8384), but it may not be divisible by 4. We need to find the largest permutation of these digits that is divisible by 4.\n\nRecall: A number is divisible by 4 if its last two digits form a number divisible by 4.\n\nDigits: [8, 3, 8, 4] \u2192 possible permutations (sorted descending to find max first):\n- 8843\n- 8834\n- 8483\n- 8438\n- 8384 (oracle_max)\n-",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need the largest permutation of digits [8, 3, 8, 4] divisible by 4. Divisibility by 4 depends on the last two digits forming a number divisible by 4. Let\u2019s list all unique permutations in descending order and check the last two digits.\n\nFirst, sort digits descending: [8, 8, 4, 3] \u2192 max number = 8843  \nBut we need to generate permutations in descending order and test divisibility by 4.\n\nLet\u2019s generate candidates in descending numeric order:\n\n1. 8843 \u2192 last two digits = 43 \u2192 43 mod 4 = 3 \u2192 not divisible  \n2. 8834 \u2192 last two = 34 \u2192 34 mod 4 = 2 \u2192 no  \n3. 8483 \u2192 83 mod 4 = 3 \u2192 no",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continue checking permutations in descending order. Next candidates after 8483:\n\n4. 8438 \u2192 last two = 38 \u2192 38 mod 4 = 2 \u2192 no  \n5. 8384 \u2192 last two = 84 \u2192 84 mod 4 = 0 \u2192 yes! Divisible by 4.  \nSince 8384 is the oracle_max and is divisible by 4, it is the answer.\n\nBut let\u2019s verify uniqueness: Are there any larger permutations than 8384 that we missed? Let's list all permutations of [8,3,8,4] in descending order properly.\n\nAll unique permutations (sorted descending):\n- 8843  \n- 8834  \n- 8483  \n- 8438  \n- 8384 \u2190 first divisible by 4  \n-",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: We have verified that among all unique permutations of the digits [8, 3, 8, 4] in descending order, 8384 is the first one divisible by 4 (since 84 mod 4 = 0). Since it matches the oracle_max and satisfies the divisibility condition, it is the maximum valid number. No further checks are needed.\nFINAL: 8384"
+  ]
+}

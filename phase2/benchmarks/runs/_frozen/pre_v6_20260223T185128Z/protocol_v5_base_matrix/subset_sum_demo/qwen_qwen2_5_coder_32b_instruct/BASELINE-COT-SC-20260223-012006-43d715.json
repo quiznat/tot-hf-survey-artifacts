@@ -1,0 +1,103 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-012006-43d715.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 12 + 16 = 28, need 8 more. I have two 4's, so 4 + 4 = 8. This gives me 12 + 16 + 4 + 4 = 36 \u2713\n\nLet me verify: 12 + 16 + 4 + 4 = 36\n- Using 12: \u2713\n- Using 16: \u2713  \n- Using first 4: \u2713\n- Using second 4: \u2713\n- Total count: 4 numbers used, all within the list\n- Sum: 12 + 16 + 4",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 36 - 24 = 12\n- Looking at the remaining numbers [4, 4, 12, 16, 23], I can see that 12 alone equals 12\n- So one possible combination is: 24 + 12 = 36\n\nLet me verify: 24 + 12 = 36 \u2713\n\nLet me check if there are other combinations:\n- If I use 16, I need remaining numbers to sum to 36 - 16 = 20\n-",
+        1
+      ],
+      [
+        "24,12",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nThis uses",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me consider what combinations could work:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nCheck if",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 12 + 16 = 28, need 8 more. I have two 4's, so 4 + 4 = 8. This gives me 12 + 16 + 4 + 4 = 36 \u2713\n\nLet me verify: 12 + 16 + 4 + 4 = 36\n- Using 12: \u2713\n- Using 16: \u2713  \n- Using first 4: \u2713\n- Using second 4: \u2713\n- Total count: 4 numbers used, all within the list\n- Sum: 12 + 16 + 4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      4,
+      12,
+      16,
+      23,
+      24
+    ],
+    "target": 36
+  },
+  "item_id": "ss-v4-040",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11832,
+    "success": 0,
+    "tokens_in": 360,
+    "tokens_out": 549
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-012006-43d715",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 255371975,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:20:06Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 4, 12, 16, 23, 24]\nTarget: 36\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 12 + 16 = 28, need 8 more. I have two 4's, so 4 + 4 = 8. This gives me 12 + 16 + 4 + 4 = 36 \u2713\n\nLet me verify: 12 + 16 + 4 + 4 = 36\n- Using 12: \u2713\n- Using 16: \u2713  \n- Using first 4: \u2713\n- Using second 4: \u2713\n- Total count: 4 numbers used, all within the list\n- Sum: 12 + 16 + 4",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 12 + 16 = 28, need 8 more. I have two 4's, so 4 + 4 = 8. This gives me 12 + 16 + 4 + 4 = 36 \u2713\n\nLet me verify: 12 + 16 + 4 + 4 = 36\n- Using 12: \u2713\n- Using 16: \u2713  \n- Using first 4: \u2713\n- Using second 4: \u2713\n- Total count: 4 numbers used, all within the list\n- Sum: 12 + 16 + 4",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 4, 12, 16, 23, 24]\nTarget: 36\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 36 - 24 = 12\n- Looking at the remaining numbers [4, 4, 12, 16, 23], I can see that 12 alone equals 12\n- So one possible combination is: 24 + 12 = 36\n\nLet me verify: 24 + 12 = 36 \u2713\n\nLet me check if there are other combinations:\n- If I use 16, I need remaining numbers to sum to 36 - 16 = 20\n-",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 36 - 24 = 12\n- Looking at the remaining numbers [4, 4, 12, 16, 23], I can see that 12 alone equals 12\n- So one possible combination is: 24 + 12 = 36\n\nLet me verify: 24 + 12 = 36 \u2713\n\nLet me check if there are other combinations:\n- If I use 16, I need remaining numbers to sum to 36 - 16 = 20\n-",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 4, 12, 16, 23, 24]\nTarget: 36\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 24 + 12 = 36 (this works!)\n- 16 + 12 + 4 + 4 = 36 (this also works)\n\nLet me verify the first solution:\n24 + 12 = 36 \u2713\n\nLet me verify the second solution:\n16 + 12 + 4 + 4 = 36 \u2713\n\nBoth are valid, but I'll go with the simpler one using fewer numbers.\n\nFINAL: 24,12",
+    "SAMPLE 3 FINAL: 24,12",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 4, 12, 16, 23, 24]\nTarget: 36\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nThis uses",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nThis uses",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 4, 12, 16, 23, 24]\nTarget: 36\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me consider what combinations could work:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nCheck if",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me consider what combinations could work:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nCheck if",
+    "VOTE SUMMARY: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 12 + 16 = 28, need 8 more. I have two 4's, so 4 + 4 = 8. This gives me 12 + 16 + 4 + 4 = 36 \u2713\n\nLet me verify: 12 + 16 + 4 + 4 = 36\n- Using 12: \u2713\n- Using 16: \u2713  \n- Using first 4: \u2713\n- Using second 4: \u2713\n- Total count: 4 numbers used, all within the list\n- Sum: 12 + 16 + 4 -> 1, I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 36 - 24 = 12\n- Looking at the remaining numbers [4, 4, 12, 16, 23], I can see that 12 alone equals 12\n- So one possible combination is: 24 + 12 = 36\n\nLet me verify: 24 + 12 = 36 \u2713\n\nLet me check if there are other combinations:\n- If I use 16, I need remaining numbers to sum to 36 - 16 = 20\n- -> 1, 24,12 -> 1, I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nThis uses -> 1, I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me consider what combinations could work:\n- If I use 24, I need the remaining numbers to sum to 12\n- If I use 16, I need the remaining numbers to sum to 20\n- If I use 12, I need the remaining numbers to sum to 24\n\nLet me try using 24:\nRemaining numbers: [4, 4, 12, 16, 23]\nNeed sum of 12 from these\nI can use 12 alone: 24 + 12 = 36 \u2713\n\nLet me verify: 24 + 12 = 36\nCheck if -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [4, 4, 12, 16, 23, 24] that sum to 36.\n\nLet me think step by step:\n\nFirst, let me look for obvious combinations:\n- 12 + 16 = 28, need 8 more. I have two 4's, so 4 + 4 = 8. This gives me 12 + 16 + 4 + 4 = 36 \u2713\n\nLet me verify: 12 + 16 + 4 + 4 = 36\n- Using 12: \u2713\n- Using 16: \u2713  \n- Using first 4: \u2713\n- Using second 4: \u2713\n- Total count: 4 numbers used, all within the list\n- Sum: 12 + 16 + 4 (1/5)"
+  ]
+}

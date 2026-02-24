@@ -1,0 +1,57 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-190606-79fafc.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "(10 + 1 + 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6094,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 281
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260223-190606-79fafc",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T19:06:06Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible strategies:\n\n- 10 + 4 = 14 \u2192 need 10 more from two 1s? Not possible.\n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 again.\n- Try multiplication: 4 \u00d7 10 = 40. Then we have two 1s. 40 \u2212 ? = 24 \u2192 need to subtract 16, but only two 1s left \u2192 not possible directly.\n- What about (10 + 1 + 1) \u00d7 something? 10 + 1 + 1 = 12, then 12 \u00d7 2 = 24. Do we have a 2? Not directly, but 4 \u00f7 2 = 2 \u2014 but no 2. Wait, 4 \u00f7 2 = 2, but no 2.\n\nWait \u2014 maybe (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 too high.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33.\n\n(10 \u2212 1 \u2212 1) \u00d7 4 = 8 \u00d7 4 = 32.\n\n(10 + 1) \u00d7 1 + 4 = 15.\n\nHmm.\n\nTry division: 10 \u00f7 (1 \u2212 1/4)? Wait, 1/4 = 0.25, 1 \u2212 0.25 = 0.75, 10 \u00f7 0.75 = 13.33 \u2014 no.\n\nWhat about (4 + 1) \u00d7 (10 \u2212 1) = 5 \u00d7 9 = 45.\n\nToo high.\n\nTry using exponentiation? But standard 24 game usually allows only +, \u2212, \u00d7, \u00f7, parentheses. Let\u2019s assume only those.\n\nWait \u2014 maybe (1",
+    "FINAL: (10 + 1 + 1)"
+  ]
+}

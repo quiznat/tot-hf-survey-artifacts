@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-012327-2993b3.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x = -5, y = -7",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        1,
+        -7,
+        44
+      ],
+      [
+        -4,
+        -9,
+        83
+      ]
+    ]
+  },
+  "item_id": "lin-v4-017",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 32801,
+    "success": 1,
+    "tokens_in": 432,
+    "tokens_out": 198
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012327-2993b3",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1640531228,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:23:27Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of equations in the form [a, b, c], which likely represents linear equations of the form ax + by = c. So we have:\n1) 1x - 7y = 44  \n2) -4x - 9y = 83  \n\nWe need to solve this system of two linear equations for x and y.\n\nLet\u2019s solve using substitution or elimination.\n\nLet\u2019s use elimination. Multiply equation (1) by 4 to align x-coefficients with equation (2):\n\nEquation (1) \u00d7 4:  \n4x - 28y = 176  \nEquation (2):  \n-4x - 9y = 83  \n\nAdd them:  \n(4x - 4x) + (-28y - 9y) = 176 + 83  \n\u2192 0x -",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the elimination:  \nAdding the equations gives:  \n0x - 37y = 259  \n\u2192 -37y = 259  \n\u2192 y = 259 / (-37) = -7  \n\nNow substitute y = -7 into equation (1):  \n1x - 7(-7) = 44  \n\u2192 x + 49 = 44  \n\u2192 x = 44 - 49 = -5  \n\nSo the solution is x = -5, y = -7.  \nLet\u2019s verify with equation (2):  \n-4(-5) - 9(-7) = 20 + 63 = 83 \u2714\ufe0f  \n\nThus, the solution is correct.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: x = -5, y = -7"
+  ]
+}

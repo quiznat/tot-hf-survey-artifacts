@@ -1,0 +1,82 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-033805-82c74a.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-gen",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 1,
+      "frontier_width": 3,
+      "generated_nodes": 3,
+      "max_depth": 4,
+      "peak_frontier_size": 1,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "7652",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      5,
+      7,
+      6
+    ],
+    "divisor": 4,
+    "oracle_max": 7652
+  },
+  "item_id": "perm-v4-007",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 33200,
+    "success": 1,
+    "tokens_in": 380,
+    "tokens_out": 65
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-033805-82c74a",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 1309011917,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:38:05Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.8000 cum=0.8000 terminal=False thought=DECOMP: insight=Divisibility by 4 depends only on the last two digits; subnodes=last2div4 | permute_first2; recombine=For each valid last-two-digit pair (div...",
+    "NODE n0002 parent=root score=0.7500 cum=0.7500 terminal=False thought=STEP: List all 2-digit endings from digits [2,5,6,7] that form numbers divisible by 4: 52 (52\u00f74=13), 56 (56\u00f74=14), 72 (72\u00f74=18), 76 (76\u00f74=19)",
+    "NODE n0003 parent=root score=0.7500 cum=0.7500 terminal=True thought=FINAL: 7652"
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-204947-f13969.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "- ( 10 + 7 + 6 + 1",
+        1
+      ],
+      [
+        "(10 - 7 + 1)",
+        1
+      ],
+      [
+        "- (28 - 4",
+        1
+      ],
+      [
+        "- ( 54 / 7",
+        1
+      ],
+      [
+        "(10 - 7) + 1",
+        1
+      ],
+      [
+        "(10 - 7) * 6 + 1 * 6",
+        1
+      ],
+      [
+        "- ( 9 * 6 / 7",
+        1
+      ],
+      [
+        "- (10 + 7 + 6 + 1",
+        1
+      ],
+      [
+        "- ( (10 + 1) * 6 / 7",
+        1
+      ],
+      [
+        "(54 - 7",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "- ( 10 + 7 + 6 + 1",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    10,
+    7,
+    6
+  ],
+  "item_id": "g24-v4-004",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 18228,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2644
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204947-f13969",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3891199489,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:49:47Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve this problem, we need to use the numbers 1, 10, 7, and 6 exactly once to produce 24. Let's break it down step by step:\n\n1. Consider the operations that can be used: addition (+), subtraction (-), multiplication (*), and division (/).\n2. Start by trying different combinations of these operations with the given numbers.\n\nLet's try a few combinations:\n\n- \\( 10 \\times 6 = 60 \\) (too large)\n- \\( 10 + 7 + 6 + 1 = 24 \\) (close but not using all operations)\n\nNow, let's try more complex combinations:\n\n- \\( 10 \\times (7 - 6) = 10 \\) (not enough)\n- \\( 10 \\times (7 - 1) = 60 \\) (too large)\n- \\( 10 \\times (6 - 1) = 50 \\) (too large)\n- \\( 10 + (7 - 1) \\times 6 = 10 + 6 \\times 6 = 10 + 36 = 46 \\) (too large)\n\nLet's try another approach:\n\n- \\( (10 - 7) \\times 6 + 1 = 3 \\times 6 + 1 = 18 + 1 = 19 \\) (not enough)\n- \\( (10 - 6) \\times 7 + 1 = 4 \\times 7 + 1 = 28 + 1 = 29 \\) (too large)\n- \\( (10 - 1) \\times (7 - 6) = 9 \\times 1 = 9 \\) (not enough)\n- \\( (10 - 1) \\times 6 - 7 = 9 \\times 6 - 7 = 54 - 7 = 47 \\) (too large)\n\nFinally, let's try:\n\n- \\( (10 - 6) \\times (7 + 1) = 4 \\times 8 = 32 \\) (too large)\n- \\( (10 - 7) \\times (6 + 1) = 3 \\times 7 = 21 \\) (not enough)\n- \\( (10 + 7) \\times (6 -",
+    "SAMPLE 1 FINAL: - ( 10 + 7 + 6 + 1",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this problem, we need to use each of the numbers 1, 10, 7, and 6 exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with larger numbers**: Since 24 is a relatively large number, we might want to start with multiplication or a combination of operations that can quickly get us close to 24.\n\nLet's try different combinations:\n\n- **Multiplication and Addition**:\n  - \\( 6 \\times 4 = 24 \\)\n  - We need to find a way to get 4 using 1, 10, and 7.\n  - \\( 10 - 7 + 1 = 4 \\)\n\nSo, we can combine these steps:\n\n\\[ 6 \\times (10 - 7 + 1) = 6 \\times 4 = 24 \\]\n\nTherefore, the expression that uses each number exactly once to produce 24 is:\n\nFINAL: \\( 6 \\times (10 - 7 + 1) \\)",
+    "SAMPLE 2 FINAL: (10 - 7 + 1)",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: Let's approach this step-by-step:\n\n1. We need to use the numbers 1, 10, 7, and 6 exactly once to produce 24.\n2. We can use basic arithmetic operations: addition (+), subtraction (-), multiplication (*), and division (/).\n\nFirst, let's consider different combinations of these numbers and operations:\n\n- \\(10 + 7 = 17\\)\n- \\(17 + 6 = 23\\) (not 24, but close)\n- \\(23 + 1 = 24\\) (this works, but we need to use multiplication or division to incorporate all numbers)\n\nNow, let's try another approach:\n\n- \\(10 - 7 = 3\\)\n- \\(3 * 6 = 18\\)\n- \\(18 + 1 = 19\\) (not 24)\n\nLet's try a different combination:\n\n- \\(10 - 6 = 4\\)\n- \\(4 * 7 = 28\\)\n- \\(28 - 4 = 24\\) (but we used 4 twice, so this doesn't work)\n\nFinally, let's try:\n\n- \\(10 - 1 = 9\\)\n- \\(9 * 6 = 54\\)\n- \\(54 / 7 = 7.714\\) (not 24)\n\nAfter several attempts, let's try a different approach:\n\n- \\(10 - 6 = 4\\)\n- \\(4 * 7 = 28\\)\n- \\(28 - 4 = 24\\) (but we used 4 twice)\n\nOne more attempt:\n\n- \\(10 - 7 = 3\\)\n- \\(3 * 6 = 18\\)\n- \\(18 + 6 = 24\\) (but we used 6 twice)\n\nFinally, let's try:\n\n- \\(10 - 6 = 4\\)\n- \\(4 * 7 = 28\\)\n- \\(28 - 4 = 24\\) (but we used 4 twice)\n\nAfter several attempts, we find:\n\n- \\(10 - 6 = 4\\)\n- \\(4 * 7 = 28\\)\n- \\(28 - 4 = 24\\) (but we used 4 twice)\n\nFinally, the correct solution is:\n\n- \\(10 - 6 =",
+    "SAMPLE 3 FINAL: - (28 - 4",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this, we need to use each of the numbers 1, 10, 7, and 6 exactly once to produce 24. Let's break it down step by step:\n\n1. Consider the operations available: addition, subtraction, multiplication, and division.\n2. Try different combinations of these operations to see if we can get 24.\n\nLet's start with some potential combinations:\n\n- \\( 10 \\times 6 = 60 \\)\n- \\( 60 - 7 = 53 \\)\n- \\( 53 - 1 = 52 \\) (This doesn't work)\n\nNext, let's try another approach:\n\n- \\( 10 + 7 = 17 \\)\n- \\( 17 \\times 1 = 17 \\)\n- \\( 17 + 6 = 23 \\) (Close, but not 24)\n\nLet's try another combination:\n\n- \\( 10 - 7 = 3 \\)\n- \\( 3 \\times 6 = 18 \\)\n- \\( 18 + 1 = 19 \\) (Not 24)\n\nAnother approach:\n\n- \\( 10 - 6 = 4 \\)\n- \\( 4 \\times 7 = 28 \\)\n- \\( 28 - 1 = 27 \\) (Not 24)\n\nFinally, let's try:\n\n- \\( 10 - 1 = 9 \\)\n- \\( 9 \\times 6 = 54 \\)\n- \\( 54 / 7 = 7.714 \\) (Not 24)\n\nAfter several attempts, let's try a different strategy:\n\n- \\( 10 - 6 = 4 \\)\n- \\( 4 \\times 7 = 28 \\)\n- \\( 28 - 4 = 24 \\) (But we used 4 twice, so this is invalid)\n\nFinally, let's try:\n\n- \\( 10 - 1 = 9 \\)\n- \\( 9 \\times (7 - 6) = 9 \\times 1 = 9 \\)\n- \\( 9 \\times 6 = 54 \\)\n- \\( 54 / 7 = 7.714 \\) (Not 24)\n\nAfter more attempts, we find:\n\n- \\( 6 \\times (1",
+    "SAMPLE 4 FINAL: - ( 54 / 7",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To achieve 24 using the numbers 1, 10, 7, and 6 exactly once, let's consider different combinations and operations:\n\n1. Start with basic arithmetic operations: addition, subtraction, multiplication, and division.\n2. Try to form intermediate results that can be combined to get 24.\n\nLet's explore possible combinations:\n\n- \\(10 + 7 = 17\\)\n- \\(17 - 1 = 16\\)\n- \\(16 \\times 6 / 6 = 16\\) (not useful)\n\nNext, try another combination:\n\n- \\(10 - 7 = 3\\)\n- \\(3 \\times 6 = 18\\)\n- \\(18 + 1 = 19\\) (not 24)\n\nAnother approach:\n\n- \\(10 - 6 = 4\\)\n- \\(4 \\times 7 = 28\\)\n- \\(28 - 1 = 27\\) (not 24)\n\nFinally, consider:\n\n- \\(10 - 1 = 9\\)\n- \\(9 \\times 6 = 54\\)\n- \\(54 / 7 = 7.71\\) (not useful)\n\nOne more try:\n\n- \\(10 - 7 = 3\\)\n- \\(3 \\times 6 = 18\\)\n- \\(18 + 6 = 24\\)\n\nThis is close but not correct. Let's try another:\n\n- \\(10 - 6 = 4\\)\n- \\(4 \\times 7 = 28\\)\n- \\(28 - 4 = 24\\) (not 24)\n\nFinally, the correct combination:\n\n- \\(10 - 1 = 9\\)\n- \\(9 \\times 6 = 54\\)\n- \\(54 / 7 = 7.71\\) (not useful)\n\nAfter reviewing all steps, the correct solution is:\n\n- \\(6 \\times (10 - 7) + 1 = 24\\)\n\nFINAL: \\(6 \\times (10 - 7) + 1 = 24\\)",
+    "SAMPLE 5 FINAL: (10 - 7) + 1",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve the problem of producing 24 using the numbers [1, 10, 7, 6] exactly once, let's break it down step by step:\n\n1. **Identify potential operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider different combinations**:\n   - Multiplication and division often help in reaching larger numbers like 24.\n   - Addition and subtraction can be used to adjust the result to 24.\n\n3. **Try different arrangements**:\n   - Let's start with multiplication and division:\n     - \\( 10 \\times 6 = 60 \\)\n     - \\( 60 \\div 7 \\approx 8.57 \\) (not useful)\n     - \\( 10 \\times 7 = 70 \\)\n     - \\( 70 \\div 6 \\approx 11.67 \\) (not useful)\n   - Now, try combining other operations:\n     - \\( 10 + 7 = 17 \\)\n     - \\( 17 + 6 = 23 \\)\n     - \\( 23 + 1 = 24 \\) (close but not using all numbers correctly)\n   - Another combination:\n     - \\( 10 - 7 = 3 \\)\n     - \\( 3 \\times 6 = 18 \\)\n     - \\( 18 + 6 = 24 \\) (not correct as 6 is reused)\n\n4. **Final successful combination**:\n   - \\( 10 - 7 = 3 \\)\n   - \\( 3 \\times 6 = 18 \\)\n   - \\( 18 + 6 = 24 \\) (correct but 6 is reused)\n   - Correct combination:\n     - \\( 10 - 7 = 3 \\)\n     - \\( 3 \\times 6 = 18 \\)\n     - \\( 18 + 6 = 24 \\) (correct but 6 is reused)\n\nAfter trying various combinations, the correct and valid expression is:\n\nFINAL: (10 - 7) * 6 + 1 * 6 = 24",
+    "SAMPLE 6 FINAL: (10 - 7) * 6 + 1 * 6",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: Let's approach this step-by-step to find a way to use the numbers [1, 10, 7, 6] exactly once to produce 24.\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider different combinations**:\n   - Let's try to multiply some numbers to get close to 24.\n   - We can also consider using division to simplify the problem.\n\n3. **Test combinations**:\n   - \\( 10 \\times 2.4 = 24 \\) (but we don't have 2.4)\n   - \\( 6 \\times 4 = 24 \\) (but we don't have 4 directly)\n\n4. **Break down the problem**:\n   - We need to find a way to use the given numbers to get 4 or another factor of 24.\n   - Consider \\( 10 - 7 = 3 \\)\n   - Now, we need to use 3 and the remaining numbers to get 24.\n\n5. **Combine the results**:\n   - \\( 6 \\times (10 - 7) = 6 \\times 3 = 18 \\) (not 24)\n   - Let's try another combination: \\( (10 - 7) \\times 6 + 1 \\)\n   - \\( 3 \\times 6 + 1 = 18 + 1 = 19 \\) (not 24)\n\n6. **Try another approach**:\n   - Consider \\( 10 - 1 = 9 \\)\n   - \\( 7 - 6 = 1 \\)\n   - \\( 9 \\times 2.666... \\) (not useful)\n\n7. **Final successful combination**:\n   - \\( (10 - 1) \\times (7 - 6) = 9 \\times 1 = 9 \\) (not 24)\n   - Let's try \\( (10 - 1) \\times 6 / 7 \\)\n   - \\( 9 \\times 6 / 7 = 54 / 7 \\approx 7.71 \\) (not 24)\n\n8. **Re-evaluate and find the correct combination**:\n   - \\( (10 - 7) \\times 6 + 1 \\)\n   - \\(",
+    "SAMPLE 7 FINAL: - ( 9 * 6 / 7",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use each of the numbers 1, 10, 7, and 6 exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the target number**: We need to reach 24.\n2. **Evaluate possible operations**: We can use addition, subtraction, multiplication, and division.\n3. **Start with combinations that might get us close to 24**:\n   - Multiplication often helps in reaching higher numbers quickly.\n   - Division can be used to adjust values to get closer to the target.\n\n4. **Try different combinations**:\n   - \\(10 \\times 6 = 60\\) (too high)\n   - \\(10 \\times 7 = 70\\) (too high)\n   - \\(7 \\times 6 = 42\\) (too high)\n   - \\(10 + 7 + 6 + 1 = 24\\) (but we need to use each number exactly once)\n\n5. **Adjust and try more complex expressions**:\n   - \\(10 \\times (7 - 1) = 10 \\times 6 = 60\\) (too high)\n   - \\(10 \\times (7 - 6) = 10 \\times 1 = 10\\) (too low)\n   - \\(10 + (7 - 1) \\times 6 = 10 + 6 \\times 6 = 10 + 36 = 46\\) (too high)\n   - \\(10 + (7 + 1) \\times 6 = 10 + 8 \\times 6 = 10 + 48 = 58\\) (too high)\n   - \\(10 + (7 - 6) \\times 1 = 10 + 1 \\times 1 = 10 + 1 = 11\\) (too low)\n   - \\(10 \\times (7 - 6 + 1) = 10 \\times 2 = 20\\) (too low)\n   - \\(10 \\times (7 - 6) + 1 = 10 \\times 1 + 1 = 10 + 1 = 11\\) (too low)\n   - \\(10 \\times (7 - 6) + 6 = 10",
+    "SAMPLE 8 FINAL: - (10 + 7 + 6 + 1",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use each of the numbers 1, 10, 7, and 6 exactly once to produce 24. Let's think through the steps:\n\n1. **Consider basic operations**: Addition, subtraction, multiplication, and division.\n2. **Look for combinations that might simplify the problem**:\n   - Multiplying 6 and 4 gives 24, so we need to find a way to get 4 using 1, 10, and 7.\n   - Adding 10 and 7 gives 17, which is not useful directly.\n   - Subtracting 7 from 10 gives 3, which is not useful directly.\n   - Dividing 10 by 7 is not an integer, so it's not useful directly.\n3. **Try different groupings and operations**:\n   - \\( (10 - 7) \\times 6 + 1 = 3 \\times 6 + 1 = 18 + 1 = 19 \\) (not 24)\n   - \\( (10 - 7) \\times 6 - 1 = 3 \\times 6 - 1 = 18 - 1 = 17 \\) (not 24)\n   - \\( (10 - 1) \\times 6 - 7 = 9 \\times 6 - 7 = 54 - 7 = 47 \\) (not 24)\n   - \\( (10 - 1) \\times (7 - 6) = 9 \\times 1 = 9 \\) (not 24)\n   - \\( (10 - 1) \\times 6 / 7 = 9 \\times 6 / 7 = 54 / 7 \\approx 7.71 \\) (not 24)\n   - \\( (10 + 1) \\times (7 - 6) = 11 \\times 1 = 11 \\) (not 24)\n   - \\( (10 + 1) \\times 6 / 7 = 11 \\times 6 / 7 = 66 / 7 \\approx 9.43 \\) (not 24)\n   - \\( (10 - 7) \\times (6 + 1) = 3",
+    "SAMPLE 9 FINAL: - ( (10 + 1) * 6 / 7",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use each of the numbers [1, 10, 7, 6] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Explore combinations**:\n   - Start with multiplication and division because they can quickly increase or decrease values.\n   - Consider using parentheses to change the order of operations.\n\nLet's try different combinations:\n\n- \\(10 \\times 6 = 60\\)\n  - Subtract 7: \\(60 - 7 = 53\\)\n  - Add 1: \\(53 + 1 = 54\\) (not 24)\n\n- \\(10 \\times 7 = 70\\)\n  - Subtract 6: \\(70 - 6 = 64\\)\n  - Add 1: \\(64 + 1 = 65\\) (not 24)\n\n- \\(10 \\times 1 = 10\\)\n  - Add 7: \\(10 + 7 = 17\\)\n  - Multiply by 6: \\(17 \\times 6 = 102\\) (not 24)\n\n- \\(10 + 7 = 17\\)\n  - Multiply by 6: \\(17 \\times 6 = 102\\)\n  - Subtract 1: \\(102 - 1 = 101\\) (not 24)\n\n- \\(10 - 7 = 3\\)\n  - Multiply by 6: \\(3 \\times 6 = 18\\)\n  - Add 1: \\(18 + 1 = 19\\) (not 24)\n\n- \\(10 - 6 = 4\\)\n  - Multiply by 7: \\(4 \\times 7 = 28\\)\n  - Subtract 1: \\(28 - 1 = 27\\) (not 24)\n\n- \\(10 - 1 = 9\\)\n  - Multiply by 6: \\(9 \\times 6 = 54\\)\n  - Subtract 7: \\(54 - 7 = 47\\) (not 24)\n\n- \\(10 + 6 = 16\\)\n  - Multiply by 7",
+    "SAMPLE 10 FINAL: (54 - 7",
+    "VOTE SUMMARY: - ( 10 + 7 + 6 + 1 -> 1, (10 - 7 + 1) -> 1, - (28 - 4 -> 1, - ( 54 / 7 -> 1, (10 - 7) + 1 -> 1, (10 - 7) * 6 + 1 * 6 -> 1, - ( 9 * 6 / 7 -> 1, - (10 + 7 + 6 + 1 -> 1, - ( (10 + 1) * 6 / 7 -> 1, (54 - 7 -> 1",
+    "VOTE WINNER: - ( 10 + 7 + 6 + 1 (1/10)"
+  ]
+}

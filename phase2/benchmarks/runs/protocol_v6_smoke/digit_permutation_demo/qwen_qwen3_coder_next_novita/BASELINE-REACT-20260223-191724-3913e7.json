@@ -1,0 +1,67 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191724-3913e7.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "3300",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4644,
+    "success": 1,
+    "tokens_in": 2102,
+    "tokens_out": 264
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191724-3913e7",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:24Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: To solve this, I need to form the largest possible 4-digit integer using the digits [3, 0, 3, 0] exactly once, and it must be divisible by 5.\n\nA number is divisible by 5 if its last digit is either 0 or 5. Since we only have digits [3, 0, 3, 0], the last digit must be 0.\n\nTo maximize the number, I should place the largest digits first. With the last digit fixed as 0, I have remaining digits [3, 3, 0] to arrange in the first three positions. The largest arrangement is 3, 3, 0, giving 3300.\n\nLet me verify: digits used are 3, 3, 0, 0 \u2014 matches the given digits. It's a 4-digit number, and ends in 0 so divisible by 5.\n\nIs there a larger possibility? If I try 3030, that's smaller than 3300. If I try 3003, that ends in 3, not divisible by 5. So 3300 is the largest.\n\n<code>\nfinal_answer(3300)\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'final_answer(3300)'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\n3300",
+    "OUTPUT: 3300",
+    "FINAL: 3300"
+  ]
+}

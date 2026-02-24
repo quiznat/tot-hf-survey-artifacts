@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.single_path_direct_answer.v1",
+  "algorithm_module_id": "algorithm_module.baseline_single_path_direct_answer.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260224-173447-8c5008.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-single-path",
+  "condition_key": "baseline_single_path_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "6333",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3822,
+    "success": 0,
+    "tokens_in": 28,
+    "tokens_out": 263
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260224-173447-8c5008",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:47Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 3, 3, 3]\nThe number must be divisible by 8.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[6, 3, 3, 3]**  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 8**.\n\n---\n\n### Step 1: Divisibility Rule for 8  \nA number is divisible by 8 **if and only if** its **last three digits** form a number divisible by 8.\n\nSo, for a 4-digit number **ABCD**, we need **BCD** (the last three digits) to be divisible by 8.\n\nWe want the **largest possible** such number.\n\n---\n\n### Step 2: Try to maximize the number  \nTo maximize the number, we want the **thousands digit** as large as possible, then hundreds, etc.\n\nAvailable digits: 6, 3, 3, 3  \nSo the largest possible thousands digit is **6**, then the remaining digits are three 3s.\n\nSo candidate numbers starting with 6:  \n- 6333  \n- 6333 (only one unique arrangement, since all other digits are 3s)\n\nWait \u2014 actually, with digits [6, 3, 3, 3], the only distinct permutations are:\n\n- 6333  \n- 3633  \n- 3363  \n- 3336  \n\nLet\u2019s list all unique permutations (since three 3s are identical):\n\n1. **6333**  \n2. **3633**  \n3. **3363**  \n4. **3336**\n\nNow check which of these are divisible by 8.\n\nWe\u2019ll apply the rule: check last three digits.\n\n1. **6333** \u2192 last three digits = **333**  \n   333 \u00f7 8 = 41.625 \u2192 not divisible.\n\n2. **3633** \u2192 last three digits = **633**  \n   633 \u00f7 8 = 79.125 \u2192 not divisible.\n\n3. **3363** \u2192 last three digits = **363**  \n   363 \u00f7 8 = 45.375 \u2192 not divisible.\n\n4. **3336** \u2192 last three digits = **336**  \n   336",
+    "FINAL: 6333"
+  ]
+}

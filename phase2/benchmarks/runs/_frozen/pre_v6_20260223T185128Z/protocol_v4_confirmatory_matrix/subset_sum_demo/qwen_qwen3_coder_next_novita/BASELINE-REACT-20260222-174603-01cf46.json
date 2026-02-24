@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174603-01cf46.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "4 + 6 + 7 + 22 + 22 = 61",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      6,
+      7,
+      15,
+      18,
+      22,
+      22
+    ],
+    "target": 61
+  },
+  "item_id": "ss-v4-014",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 54366,
+    "success": 0,
+    "tokens_in": 1279,
+    "tokens_out": 380
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174603-01cf46",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1065316142,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:46:03Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [4, 6, 7, 15, 18, 22, 22] and a target: 61. The task is likely to find a subset (or combination) of these numbers that sums to the target. Since no tools are available, this is a pure reasoning problem.\n\nLet\u2019s try to find a subset that sums to 61.\n\nFirst, total sum of all numbers:  \n4 + 6 = 10  \n10 + 7 = 17  \n17 + 15 = 32  \n32 + 18 = 50  \n50 + 22 = 72  \n72 + 22 = 94  \nSo total = 94. Target is 61, so we need to exclude numbers summing to 94 - 6",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need a subset of [4, 6, 7, 15, 18, 22, 22] that sums to 61. Total sum is 94, so excluded numbers must sum to 94 - 61 = 33. Let\u2019s try to find a subset that sums to 33 to exclude \u2014 or directly find one that sums to 61.\n\nLet\u2019s try including the larger numbers first:  \n22 + 22 = 44  \n61 - 44 = 17 \u2192 need 17 from remaining [4, 6, 7, 15, 18].  \n17 = 15 + 2 \u2192 no 2  \n17 = 7 + 6 + 4 = 17 \u2705  \nSo: 22 + 22 + 7",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We found that 22 + 22 + 7 = 51, but wait \u2014 22 + 22 = 44, plus 7 is 51, not 61. I miscalculated: 61 - 44 = 17, and 7 + 6 + 4 = 17, so total would be 22 + 22 + 7 + 6 + 4 = 61. Let's verify: 22 + 22 = 44; 44 + 7 = 51; 51 + 6 = 57; 57 + 4 = 61. Yes! That uses numbers: 4, 6, 7, 22, 22 \u2014 all present in the list (note there are two 22s).",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: We have successfully found a subset: 4 + 6 + 7 + 22 + 22 = 61. All numbers are available in the input list [4, 6, 7, 15, 18, 22, 22], and the sum is correct. No further steps needed \u2014 the task is to find such a combination, and we have it.",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: FINAL: 4 + 6 + 7 + 22 + 22 = 61"
+  ]
+}

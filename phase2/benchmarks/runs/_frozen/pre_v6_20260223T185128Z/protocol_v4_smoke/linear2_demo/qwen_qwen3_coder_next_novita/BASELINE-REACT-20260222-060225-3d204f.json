@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060225-3d204f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: Continuing from STEP 4:  \nNow y = 2, x = 8.\n\nVerify in equation (1): -8x - 9y = -8*8 - 9*2 = -64 - 18 = -82 \u2714\ufe0f matches RHS.\n\nEquation (2): 7x - 7y = 7*8 - 7*2 = 56 - 14 = 42 \u2714\ufe0f matches RHS.\n\nSo the correct solution is x = 8, y = 2. The earlier arithmetic error was in computing -82 + 48 \u2014 I mistakenly got -3 instead of -34.\n\nFinal answer: x = 8, y = 2.",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -8,
+        -9,
+        -82
+      ],
+      [
+        7,
+        -7,
+        42
+      ]
+    ]
+  },
+  "item_id": "lin-v4-001",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10393,
+    "success": 1,
+    "tokens_in": 1264,
+    "tokens_out": 485
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060225-3d204f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1711179923,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T06:02:25Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of equations in the form [a, b, c], which likely represents linear equations in two variables: a*x + b*y = c. So we have:\n1) -8x - 9y = -82  \n2) 7x - 7y = 42  \n\nWe need to solve this system of equations. Let's simplify and solve step by step.\n\nFirst, simplify equation (2): divide both sides by 7 \u2192 x - y = 6 \u2192 x = y + 6.\n\nSubstitute x = y + 6 into equation (1):\n-8(y + 6) - 9y = -82  \n\u2192 -8y - 48 - 9y = -82  \n\u2192 -17y - 48 = -82  \n\u2192 -17y = -82 + 48 = -3",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing from STEP 1:  \n-17y = -3 \u2192 y = (-3)/(-17) = 3/17.\n\nNow substitute y = 3/17 into x = y + 6:  \nx = 3/17 + 6 = 3/17 + 102/17 = 105/17.\n\nSo the solution is x = 105/17, y = 3/17.\n\nLet\u2019s verify in both original equations:\n\nEquation 1: -8x - 9y = -8*(105/17) - 9*(3/17) = (-840 - 27)/17 = -867/17 = -51. But the RHS is -82. That\u2019s not equal \u2014 contradiction! So I made an arithmetic",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: I made an arithmetic error in verification. Let's recompute carefully.\n\nEquation 1: -8x - 9y = -8*(105/17) - 9*(3/17) = (-840/17) - (27/17) = -867/17. Now compute -867 \u00f7 17: 17 \u00d7 51 = 867, so -867/17 = -51. But RHS is -82 \u2014 mismatch. So either my solution is wrong or I mis-simplified.\n\nWait \u2014 go back to substitution step:\n\nEquation (2): 7x - 7y = 42 \u2192 divide by 7: x - y = 6 \u2192 x = y + 6 \u2714\ufe0f\n\nPlug into equation (1): -8x - 9",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let's carefully re-solve the system step by step to avoid arithmetic errors.\n\nGiven:\n1) -8x - 9y = -82  \n2) 7x - 7y = 42  \n\nSimplify equation (2): divide both sides by 7 \u2192 x - y = 6 \u2192 x = y + 6 \u2714\ufe0f\n\nSubstitute x = y + 6 into equation (1):\n-8(y + 6) - 9y = -82  \n\u2192 -8y - 48 - 9y = -82  \n\u2192 -17y - 48 = -82  \n\u2192 -17y = -82 + 48 = -34  \n\u2192 y = (-34)/(-17) = 2.\n\nNow x = y + 6 = 2 + 6 = 8.\n\nVerify:\nEquation",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Continuing from STEP 4:  \nNow y = 2, x = 8.\n\nVerify in equation (1): -8x - 9y = -8*8 - 9*2 = -64 - 18 = -82 \u2714\ufe0f matches RHS.\n\nEquation (2): 7x - 7y = 7*8 - 7*2 = 56 - 14 = 42 \u2714\ufe0f matches RHS.\n\nSo the correct solution is x = 8, y = 2. The earlier arithmetic error was in computing -82 + 48 \u2014 I mistakenly got -3 instead of -34.\n\nFinal answer: x = 8, y = 2."
+  ]
+}

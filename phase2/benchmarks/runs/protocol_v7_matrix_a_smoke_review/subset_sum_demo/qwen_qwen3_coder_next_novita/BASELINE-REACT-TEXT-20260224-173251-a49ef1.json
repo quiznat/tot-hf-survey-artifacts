@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-react-reasoning-text-loop-no-tools@0.1",
+  "algorithm_id": "algorithm.reasoning.react_text_loop_reasoning_only_no_tools.v1",
+  "algorithm_module_id": "algorithm_module.baseline_react_text_loop_reasoning_only_no_tools.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-TEXT-20260224-173251-a49ef1.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-react-text",
+  "condition_key": "baseline_react_reasoning_text_loop_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "21 + 24 - 6",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "max_steps": 5,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3796,
+    "success": 0,
+    "tokens_in": 52,
+    "tokens_out": 177
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (reasoning text loop, no tools)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_execution_mode": "react_execution_mode.reasoning_text_loop_no_tools.v1",
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-TEXT-20260224-173251-a49ef1",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-24T17:32:51Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "STEP 1 MODEL: Thought 1: We need to find a way to reach the target 39 using the numbers [2, 6, 7, 21, 23, 24]. Since no tools are available, we must use arithmetic operations (addition, subtraction, multiplication, division, parentheses) on the given numbers, each used at most once. Let\u2019s explore combinations.\n\nFirst, check if any single number equals 39 \u2014 no. Try sums of two numbers:  \n2+24=26, 6+23=29, 7+21=28, 21+23=44, 21+24=45, 23+24=47 \u2014 too high or low.  \nTry three numbers:  \n2+6+21=29, 2+7+21=30, 6+7+21=34, 2+6+23=31, 2+7+23=32, 6+7+23=36, 2+6+24=32, 2+7+24=33, 6+7+24=37, 2+21+23=46, 2+21+24=47, 2+23+24=49, 6+21+23=50, etc.  \n36 is close (6+7+23=36), need +3 \u2014 but no 3.  \nTry 21 + 24 = 45; 45 \u2212 6 = 39! Yes! 21 + 24 \u2212 6 = 39.  \nCheck: 21 + 24 = 45; 45 \u2212 6 = 39. All numbers used: 21, 24, 6 \u2014 valid (others unused, which is allowed unless problem states all must be used; typical \"24 game\"-style allows subset).  \nThe task didn\u2019t specify using all numbers, just reaching target. So this works.\n\nAction 1: Finish[21 + 24 - 6]"
+  ]
+}

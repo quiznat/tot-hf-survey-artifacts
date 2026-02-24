@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-20260224-204932-1669f2.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "- ( 6 * 4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    4,
+    1,
+    6
+  ],
+  "item_id": "g24-v4-010",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 13369,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 233
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-204932-1669f2",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 878833230,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:49:32Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: To solve this, we need to use each of the numbers 1, 4, 1, and 6 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. Start with simple arithmetic operations:\n   - \\( 6 \\times 4 = 24 \\) (but we still have two 1s left)\n   - \\( 6 \\times (4 + 1) = 30 \\) (too high)\n   - \\( 6 \\times (4 - 1) = 18 \\) (too low)\n   - \\( 6 + 4 + 1 + 1 = 12 \\) (too low)\n\n2. Consider using division or subtraction:\n   - \\( 6 \\times (4 - 1/1) = 6 \\times 3 = 18 \\) (too low)\n   - \\( 6 \\times (4 + 1/1) = 6 \\times 5 = 30 \\) (too high)\n\n3. Try combining numbers in different ways:\n   - \\( (6 + 1) \\times (4 - 1) = 7 \\times 3 = 21 \\) (too low)\n   - \\( (6 - 1) \\times (4 + 1) = 5 \\times 5 = 25 \\) (too high)\n\n4. Finally, consider more complex operations:\n   - \\( 6 \\times (4 + 1 - 1) = 6 \\times 4 = 24 \\)\n\nThis works because:\n- \\( 4 + 1 - 1 = 4 \\)\n- \\( 6 \\times 4 = 24 \\)\n\nThus, the expression that uses each number exactly once to produce 24 is:\n\nFINAL: \\( 6 \\times (4 + 1 - 1) \\)",
+    "FINAL: - ( 6 * 4"
+  ]
+}

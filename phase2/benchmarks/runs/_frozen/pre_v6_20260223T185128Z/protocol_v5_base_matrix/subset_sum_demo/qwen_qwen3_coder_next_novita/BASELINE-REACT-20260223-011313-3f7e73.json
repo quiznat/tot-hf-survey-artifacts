@@ -1,0 +1,72 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-011313-3f7e73.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      2,
+      5,
+      10,
+      22,
+      23
+    ],
+    "target": 40
+  },
+  "item_id": "ss-v4-035",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 37225,
+    "success": 0,
+    "tokens_in": 1330,
+    "tokens_out": 516
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011313-3f7e73",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3838098620,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:13:13Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We need to use the numbers [2, 2, 5, 10, 22, 23] with arithmetic operations to reach the target 40. Since no tools are available, this is a pure reasoning/puzzle task \u2014 likely using +, \u2212, \u00d7, \u00f7, and parentheses. Let's explore combinations.\n\nFirst, note the numbers: two 2s, 5, 10, 22, 23.\n\nTry to get close to 40.\n\nObservation: 22 + 23 = 45 \u2192 too high by 5. We have a 5! So 22 + 23 \u2212 5 = 40. That uses 22, 23, and 5 \u2014 but we still have [2, 2, 10] unused. The problem likely requires using *all* numbers",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The target is 40, and we must use all numbers [2, 2, 5, 10, 22, 23] exactly once with arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses). My earlier idea 22 + 23 \u2212 5 = 40 uses only three numbers \u2014 need to incorporate the remaining 2, 2, and 10. Perhaps we can create a neutral term (e.g., \u00d71 or +0) using the extra numbers.\n\nIdea: Can we make 0 from [2, 2, 10]? 2 + 2 \u2212 4 = 0, but no 4. 10 \u2212 2 \u2212 2 \u2212 6 = 0 \u2014 no 6. Alternatively, make 1: (2 / 2) = 1, then multiply something by 1.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We need to use all six numbers [2, 2, 5, 10, 22, 23] exactly once to reach 40. We saw 22 + 23 \u2212 5 = 40, leaving [2, 2, 10] unused. Let\u2019s try to incorporate them via multiplication by 1 or addition of 0.\n\nWe can make 1 from (2 / 2), so maybe: (22 + 23 \u2212 5) \u00d7 (2 / 2) = 40 \u00d7 1 = 40, but then 10 is still unused.\n\nAlternatively, make 0 from (10 \u2212 10), but we only have one 10.\n\nWait \u2014 what if we do something like: 22 + 23 \u2212 5 + (2 \u2212 2) \u00d7 1",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: We need to use all six numbers [2, 2, 5, 10, 22, 23] exactly once to reach 40. So far, 22 + 23 \u2212 5 = 40, leaving [2, 2, 10] unused. To incorporate them, we can try to create a neutral factor (\u00d71) or additive zero (+0). We can get 1 from (2 / 2), but then 10 remains. Alternatively, can we absorb 10 via subtraction/addition with others? Try: (23 \u2212 10) = 13, (22 + 5) = 27, 27 + 13 = 40 \u2014 that\u2019s 23, 10, 22, 5 used, leaving [2, 2]. Again,",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: We need to use all six numbers [2, 2, 5, 10, 22, 23] exactly once with arithmetic operations to reach 40. Let\u2019s try grouping differently.\n\nTry: (23 + 22) = 45; 45 \u2212 5 = 40. Remaining: 2, 2, 10.\n\nCan we make 0 from 2, 2, 10? Try: (10 \u2212 2 \u00d7 5) = 0, but 5 is already used.\n\nWait \u2014 maybe use division/multiplication creatively.\n\nTry: 10 \u00d7 2 = 20, 22 + 23 = 45, 45 \u2212 5 = 40, still leftover 2.\n\nAlternative idea: (23 \u2212 2) = 21, (",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

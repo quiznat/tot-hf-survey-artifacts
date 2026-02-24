@@ -1,0 +1,72 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192836-736557.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      5,
+      14,
+      17,
+      18
+    ],
+    "target": 24
+  },
+  "item_id": "ss-v4-032",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10338,
+    "success": 0,
+    "tokens_in": 1285,
+    "tokens_out": 521
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192836-736557",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3259560732,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:28:36Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We need to use the numbers [1, 2, 5, 14, 17, 18] and operations (+, \u2212, \u00d7, \u00f7, parentheses) to reach the target 24. Since no tools are available, this is a pure reasoning puzzle. Let\u2019s explore combinations.\n\nFirst, note that 18 + 5 + 2 - 1 = 24, but we haven\u2019t used 14 or 17. All numbers must be used exactly once.\n\nTry grouping: maybe (18 - 14) = 4, (17 - 5) = 12, (2 + 1) = 3 \u2192 4 \u00d7 3 = 12, not enough.\n\nTry: 17 + 1 = 18, 18 + 5 = 23, +2 = 25",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We must use all six numbers [1, 2, 5, 14, 17, 18] exactly once with +, \u2212, \u00d7, \u00f7, and parentheses to get 24. Let\u2019s consider known 24 patterns: 3\u00d78, 4\u00d76, 12\u00d72, 48\u00f72, etc. Try to form such products.\n\nObserve: 18 + 5 + 2 - 1 = 24, but 14 and 17 unused \u2014 invalid.\n\nTry using subtraction to cancel large numbers: 17 + 1 = 18, so 18 (from numbers) and 18 (from 17+1) \u2014 maybe 18 \u2212 (17 + 1) = 0? Not helpful.\n\nTry: (18 \u2212 14) =",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let\u2019s try more structured approaches. Consider using multiplication to reach 24. Known factor pairs: 3\u00d78, 4\u00d76, 12\u00d72, 24\u00d71. Can we form 3 and 8? Or 4 and 6?\n\nLook at differences: 18 \u2212 14 = 4. That\u2019s promising \u2014 gives us 4. Then maybe we need \u00d76.\n\nCan we get 6 from remaining numbers [1, 2, 5, 17]? Try 17 \u2212 5 \u2212 2 \u2212 1 = 9 \u2014 no. 5 + 2 \u2212 1 = 6! Yes! So: (18 \u2212 14) = 4, and (5 + 2 \u2212 1) = 6, then 4 \u00d7 6 = 24. But we haven\u2019t used 1",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: We have (18 \u2212 14) = 4 and (5 + 2 \u2212 1) = 6, giving 4 \u00d7 6 = 24 \u2014 but 17 is still unused. All six numbers must be used exactly once. So we need to incorporate 17 in a neutral way, e.g., +0 or \u00d71.\n\nCan we make 0 using 17 and something else? 17 \u2212 17 = 0, but only one 17. Or make 1: e.g., 17/17 = 1, but again only one 17.\n\nAlternative idea: Use 17 and 1 to make 18, then 18 \u2212 18 = 0 using the existing 18? But we only have one 18.\n\nWait \u2014 what if we do: (17 \u2212",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Let's try a different angle. Since 17 and 18 are consecutive, their difference is 1 \u2014 useful for scaling or adjusting. Also, 14 + 1 = 15, 18 \u2212 15 = 3. Then 5 + 2 = 7, 3 \u00d7 7 = 21 \u2014 not enough.\n\nTry: (18 \u00d7 2) = 36. Then 36 \u2212 14 = 22, 22 + 5 = 27, 27 \u2212 17 = 10, 10 + 1 = 11 \u2014 no.\n\nWhat about (17 + 1) = 18, then 18 + 5 + 2 \u2212 1 = 24 \u2014 but again duplicate 18 and reuse 1.\n\nWait \u2014 maybe use division:",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

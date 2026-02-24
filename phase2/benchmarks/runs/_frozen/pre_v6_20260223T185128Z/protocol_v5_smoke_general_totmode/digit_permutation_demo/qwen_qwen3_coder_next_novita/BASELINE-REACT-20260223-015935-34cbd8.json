@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-015935-34cbd8.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "7652",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      5,
+      7,
+      6
+    ],
+    "divisor": 4,
+    "oracle_max": 7652
+  },
+  "item_id": "perm-v4-007",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11009,
+    "success": 1,
+    "tokens_in": 471,
+    "tokens_out": 220
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-015935-34cbd8",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1309011917,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T01:59:35Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by the given divisor (4) that can be formed by rearranging the given digits [2, 5, 7, 6]. The oracle_max is given as 7652, which is likely the maximum possible number (not necessarily divisible by 4), but we need the maximum *divisible by 4*.\n\nRecall: A number is divisible by 4 if its last two digits form a number divisible by 4.\n\nWe have digits: [2, 5, 7, 6]. All permutations of these digits (4! = 24) are manageable manually.\n\nFirst, sort digits descending: [7, 6, 5, 2] \u2192 7652 (oracle_max). Check if 7652 divisible by 4: last two digits = 52. 52 \u00f7 4",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The task is to find the maximum number divisible by the given divisor (4) that can be formed by rearranging the given digits [2, 5, 7, 6]. The oracle_max is 7652, which is the largest possible number from these digits, but may not be divisible by 4. A number is divisible by 4 if its last two digits form a number divisible by 4. Let\u2019s check 7652: last two digits are 52, and 52 \u00f7 4 = 13 \u2192 divisible. So 7652 is divisible by 4. Since it's the largest possible permutation and satisfies the divisibility condition, it must be the answer.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 7652"
+  ]
+}

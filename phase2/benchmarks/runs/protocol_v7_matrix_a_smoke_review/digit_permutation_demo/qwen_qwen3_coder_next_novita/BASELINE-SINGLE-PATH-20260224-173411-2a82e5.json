@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.single_path_direct_answer.v1",
+  "algorithm_module_id": "algorithm_module.baseline_single_path_direct_answer.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260224-173411-2a82e5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-single-path",
+  "condition_key": "baseline_single_path_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "9810",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3867,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 311
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260224-173411-2a82e5",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:11Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[1, 9, 0, 8]**  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 6**.\n\n---\n\n### Step 1: Divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even: possible even digits from the set: **0, 8**\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3  \n  Sum = 1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 \u2705 So any permutation of these digits will be divisible by 3.\n\nSo, we only need to ensure the number ends in an **even digit** (0 or 8), and we want the **largest possible** such number.\n\n---\n\n### Step 2: Try to maximize the number  \nTo get the largest number, we want the **largest digits on the left**.\n\nLet\u2019s try to put the largest digit (9) in the thousands place, then next largest in hundreds, etc., but ensuring the last digit is even.\n\nAvailable digits: 1, 9, 0, 8  \nWe want to maximize the number, so try to end with **8** (since 8 > 0), and arrange the remaining digits (1, 9, 0) in descending order for the first three places.\n\nSo candidate: **9 1 0 8** \u2192 9108  \nBut can we do better?\n\nTry: **9 0 1 8** \u2192 9018  \n\u2192 9108 > 9018\n\nTry: **1 9 0 8** \u2192 1908  \n\u2192 smaller\n\nTry: **1 0 9 8** \u2192 1098  \n\u2192 smaller\n\nTry: **0** can\u2019t be in the thousands place (would make it a 3-digit number), so ignore.\n\nWhat about ending with **0**? Then we can try to maximize the first three digits: remaining digits are 1, 9, 8 \u2192 descending order: 9, 8, 1 \u2192 **9810**\n\nCompare:\n- 9",
+    "FINAL: 9810"
+  ]
+}

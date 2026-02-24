@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-021925-9b6d3d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "17,20",
+        2
+      ],
+      [
+        "20,17",
+        1
+      ],
+      [
+        "10,13,14",
+        1
+      ],
+      [
+        "10,13",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "17,20",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      10,
+      13,
+      14,
+      17,
+      18,
+      19,
+      19,
+      20
+    ],
+    "target": 37
+  },
+  "item_id": "ss-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 47635,
+    "success": 1,
+    "tokens_in": 370,
+    "tokens_out": 1218
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-021925-9b6d3d",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 581773520,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:19:25Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to see if any pair sums to 37:\n\n- 20 + 17 = 37 \u2192 \u2705  \nCheck: 20 and 17 are both in the list. Yes.\n\nSo one valid solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but we\u2019ll sort ascending for consistency).\n\nAre there others? Let\u2019s verify if any other combinations exist (though only one valid set is needed):\n\n- 19 + 18 = 37 \u2192 \u2705  \nAlso valid! There are two 19s, so 19 + 18 = 37 is possible.\n\nSo both (17,20) and (18,19) work.\n\nBut the problem says: \u201cSelect one or more values\u2026\u201d, and we only need to return *a* solution.\n\nWe can choose either.\n\nLet\u2019s pick the first one we found: 17,20.\n\nBut wait \u2014 check if duplicates matter: list has two 19s, so using one 19 is fine.\n\nBoth are valid.\n\nLet\u2019s double-check:\n\n- 17 + 20 = 37 \u2714  \n- 18 + 19 = 37 \u2714 (and 19 appears twice, so okay)\n\nWhich to choose? Either is acceptable.\n\nLet\u2019s go with 18,19 (smaller numbers? Doesn\u2019t matter). Or maybe 17,20 \u2014 both fine.\n\nWe\u2019ll choose 17,20.\n\nFINAL: 17,20",
+    "SAMPLE 1 FINAL: 17,20",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 37.\n\nTry 20 + 17 = 37 \u2192 perfect!  \nCheck: 20 and 17 are both in the list. Yes.\n\nSo one valid solution is: 20,17\n\nAre there others? Let\u2019s verify if any other combinations work (though only one valid set is needed).\n\nTry 19 + 18 = 37 \u2192 yes! 19 and 18 are both present (there are two 19s, so using one 19 is fine). So 19,18 is also valid.\n\nBut the problem says \"Select one or more values\", and we can return any valid combination.\n\nWe need to return only one comma-separated list.\n\nWhich to choose? Either is fine.\n\nLet\u2019s double-check availability:\n\n- For 20,17: both appear once \u2192 OK  \n- For 19,18: 19 appears twice, so using one is OK; 18 appears once \u2192 OK\n\nBoth are valid.\n\nLet\u2019s pick 19,18 (or 18,19 \u2014 order doesn\u2019t matter, but typically ascending or as found; the sample shows ascending: 4,9,2 \u2014 wait, that\u2019s not ascending. Actually, the sample is arbitrary order.)\n\nThe problem doesn\u2019t specify order, so any order is acceptable.\n\nLet\u2019s go with 18,19 (ascending order).\n\nWait \u2014 but 19 appears twice, but we only need one.\n\nAlternatively, 10 + 13 + 14 = 37? 10+13=23, +14=37 \u2192 yes! That\u2019s three numbers.\n\nCheck: 10,13,14 all present once \u2192 valid.\n\nSo we have at least three solutions:\n- 20,17  \n- 19,18  \n- 10,13,14  \n\nAny is acceptable.\n\nLet\u2019s pick the first one we found: 20,17.\n\nBut to be safe, let\u2019s confirm no duplicates used: 20",
+    "SAMPLE 2 FINAL: 20,17",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37 \u2192 valid.\n\nCheck availability: 20 and 17 each appear once \u2192 okay.\n\nAlternative:  \nTry 19 + ? = 37 \u2192 need 18 \u2192 19 + 18 = 37 \u2192 also valid (and there are two 19s, so one 19 and 18 is fine).\n\nSo two possible solutions:  \n- 17,20  \n- 18,19  \n\nBut the problem says \"Select one or more values\", and we just need *one* valid set.\n\nLet\u2019s verify both:\n\n17 + 20 = 37 \u2705  \n18 + 19 = 37 \u2705  \n\nEither is acceptable. Let\u2019s pick the first one: 17,20.\n\nBut wait \u2014 check if numbers are in the list:  \nList: [10, 13, 14, 17, 18, 19, 19, 20]  \nYes, 17 and 20 are present.\n\nSo answer: 17,20\n\nAlternatively, could there be a 3-number sum?  \ne.g., 10 + 13 + 14 = 37 \u2192 10+13=23, +14=37 \u2705  \nThat\u2019s also valid! And uses three numbers.\n\nCheck: 10,13,14 are all in the list \u2014 yes.\n\nSo now we have at least three valid solutions:\n- 10,13,14  \n- 17,20  \n- 18,19  \n\nWhich to choose? The problem says \"Select one or more values\", no preference. Any is fine.\n\nLet\u2019s pick the smallest numbers? Or just any.\n\nLet\u2019s verify 10",
+    "SAMPLE 3 FINAL: 10,13,14",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 17 is in the list \u2192 20 + 17 = 37 \u2705  \nCheck availability: 20 and 17 both appear once \u2192 valid.\n\nSo one valid solution is: 17, 20  \nOrder doesn\u2019t matter, but let\u2019s sort ascending: 17,20\n\nDouble-check no duplicates used: yes, each used once.\n\nAlternative combinations? Let\u2019s see if others exist (just to be thorough):\n\nTry 19 + ? = 37 \u2192 need 18 \u2192 19 + 18 = 37 \u2705  \nWe have two 19s, and one 18 \u2192 so 18 + 19 = 37 is also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,19  \n\nBut the problem says \u201cSelect one or more values\u201d \u2014 any valid subset is acceptable. We only need to return one.\n\nWhich to pick? Either is fine. Let\u2019s pick the first one we found: 17,20.\n\nFINAL: 17,20",
+    "SAMPLE 4 FINAL: 17,20",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 37.\n\nTry 20 + 17 = 37 \u2192 perfect!  \nCheck: 20 + 17 = 37 \u2705  \nBoth numbers are in the list (20 appears once, 17 appears once).  \nSo [20, 17] is a valid solution.\n\nAre there others? Let\u2019s verify if any other combinations work (though only one valid set is needed).\n\nTry 19 + 18 = 37 \u2192 also 37 \u2705  \n19 appears twice, 18 once \u2192 valid.\n\nSo both (20,17) and (19,18) are valid.\n\nBut the problem says: \u201cSelect one or more values\u2026 Return only a comma-separated list of chosen numbers.\u201d\n\nIt doesn\u2019t require all possible solutions \u2014 just one valid selection.\n\nWe can choose either.\n\nLet\u2019s pick 19,18 (since both are earlier in the list, but order doesn\u2019t matter as long as sum is correct).\n\nWait \u2014 but the list has two 19s, so using one 19 and 18 is fine.\n\nAlternatively, 20 + 17 = 37.\n\nEither is acceptable.\n\nLet\u2019s double-check no duplicates used:  \nFor 19,18: use one 19 (we have two, so okay), and 18 (once). \u2705  \nFor 20,17: both unique. \u2705\n\nLet\u2019s see if any 3-number combos also work \u2014 just to be thorough.\n\nTry 10 + 13 + 14 = 37 \u2192 10+13=23, +14=37 \u2705  \n10,13,14 all present once. So that\u2019s another valid solution.\n\nSo we have at least three valid solutions:\n- 10,13,14  \n- 17,20  \n- 18,19  \n\nAll valid.\n\nNow, which to return? Any one is acceptable.\n\nLet\u2019s pick the smallest numbers: 10,13",
+    "SAMPLE 5 FINAL: 10,13",
+    "VOTE SUMMARY: 17,20 -> 2, 20,17 -> 1, 10,13,14 -> 1, 10,13 -> 1",
+    "VOTE WINNER: 17,20 (2/5)"
+  ]
+}

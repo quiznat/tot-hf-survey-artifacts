@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-20260223-011925-e8524a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "5,7",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      5,
+      7,
+      7,
+      10
+    ],
+    "target": 29
+  },
+  "item_id": "ss-v4-030",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2580,
+    "success": 0,
+    "tokens_in": 64,
+    "tokens_out": 125
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-011925-e8524a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3298614460,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:25Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 5, 7, 7, 10]\nTarget: 29\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let me work through this step by step.\n\nGiven numbers: [5, 5, 7, 7, 10]\nTarget: 29\n\nI need to find a combination that sums to 29, using each number at most once.\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use all numbers:\n5 + 5 + 7 + 7 + 10 = 34 (too high)\n\nI need to exclude some numbers to get to 29.\n34 - 29 = 5, so I need to exclude numbers that sum to 5.\n\nIf I exclude one 5: 5 + 7 + 7 + 10 = 29 \u2713\n\nLet me verify: 5 + 7 + 7 + 10 = 29\nThis works and uses each number at most once.\n\nFINAL: 5,7",
+    "FINAL: 5,7"
+  ]
+}

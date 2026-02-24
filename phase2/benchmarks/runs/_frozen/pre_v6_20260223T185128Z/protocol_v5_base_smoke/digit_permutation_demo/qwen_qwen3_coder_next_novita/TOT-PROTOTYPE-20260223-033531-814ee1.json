@@ -1,0 +1,82 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-033531-814ee1.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-gen",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 1,
+      "frontier_width": 3,
+      "generated_nodes": 3,
+      "max_depth": 4,
+      "peak_frontier_size": 1,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "3300",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 20587,
+    "success": 1,
+    "tokens_in": 370,
+    "tokens_out": 55
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-033531-814ee1",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:35:31Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.8000 cum=0.8000 terminal=False thought=DECOMP: insight=Divisibility by 5 requires last digit to be 0 or 5; since only 0s are available, last digit must be 0; remaining digits [3,3,0] must form lar...",
+    "NODE n0002 parent=root score=0.0000 cum=0.0000 terminal=False thought=STEP: Among permutations of [3,3,0], the largest 3-digit number is 330",
+    "NODE n0003 parent=root score=0.7500 cum=0.7500 terminal=True thought=FINAL: 3300"
+  ]
+}

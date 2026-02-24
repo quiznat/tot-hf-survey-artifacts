@@ -1,0 +1,93 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-015214-090d73.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 =",
+        2
+      ],
+      [
+        "We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck:  \n10 + 4 = 14  \n14 + 6 = 20  \n20 + 4 = 24 \u2705\n\nSo the expression is:  \n**10 +",
+        1
+      ],
+      [
+        "We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 6\u00d74, 8\u00d73, 12\u00d72, etc.), or sums/differences that lead to such products.\n\nGiven numbers: 6, 4, 10, 4.\n\nTry to get 24 via multiplication:\n\n- 6 \u00d7 4 = 24, but then we still have 10 and 4 left \u2014 need to neutralize them (e.g., subtract 10 and add 4? That gives -6, not helpful). Or (6 \u00d7 4) + (4 - 10) = 24 - 6 = 18.\n\n- Try (10 + 4",
+        1
+      ],
+      [
+        "We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = 24. \u2705\n\nSo the expression is:  \n**1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 =",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 53877,
+    "success": 0,
+    "tokens_in": 205,
+    "tokens_out": 508
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-015214-090d73",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T01:52:14Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck:  \n10 + 4 = 14  \n14 + 6 = 20  \n20 + 4 = 24 \u2705\n\nSo the expression is:  \n**10 +",
+    "SAMPLE 1 FINAL: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck:  \n10 + 4 = 14  \n14 + 6 = 20  \n20 + 4 = 24 \u2705\n\nSo the expression is:  \n**10 +",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 =",
+    "SAMPLE 2 FINAL: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 =",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 =",
+    "SAMPLE 3 FINAL: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 =",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 6\u00d74, 8\u00d73, 12\u00d72, etc.), or sums/differences that lead to such products.\n\nGiven numbers: 6, 4, 10, 4.\n\nTry to get 24 via multiplication:\n\n- 6 \u00d7 4 = 24, but then we still have 10 and 4 left \u2014 need to neutralize them (e.g., subtract 10 and add 4? That gives -6, not helpful). Or (6 \u00d7 4) + (4 - 10) = 24 - 6 = 18.\n\n- Try (10 + 4",
+    "SAMPLE 4 FINAL: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 6\u00d74, 8\u00d73, 12\u00d72, etc.), or sums/differences that lead to such products.\n\nGiven numbers: 6, 4, 10, 4.\n\nTry to get 24 via multiplication:\n\n- 6 \u00d7 4 = 24, but then we still have 10 and 4 left \u2014 need to neutralize them (e.g., subtract 10 and add 4? That gives -6, not helpful). Or (6 \u00d7 4) + (4 - 10) = 24 - 6 = 18.\n\n- Try (10 + 4",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = 24. \u2705\n\nSo the expression is:  \n**1",
+    "SAMPLE 5 FINAL: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = 24. \u2705\n\nSo the expression is:  \n**1",
+    "VOTE SUMMARY: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = -> 2, We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck:  \n10 + 4 = 14  \n14 + 6 = 20  \n20 + 4 = 24 \u2705\n\nSo the expression is:  \n**10 + -> 1, We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 6\u00d74, 8\u00d73, 12\u00d72, etc.), or sums/differences that lead to such products.\n\nGiven numbers: 6, 4, 10, 4.\n\nTry to get 24 via multiplication:\n\n- 6 \u00d7 4 = 24, but then we still have 10 and 4 left \u2014 need to neutralize them (e.g., subtract 10 and add 4? That gives -6, not helpful). Or (6 \u00d7 4) + (4 - 10) = 24 - 6 = 18.\n\n- Try (10 + 4 -> 1, We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0, \u00d71, \u22120).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = 24. \u2705\n\nSo the expression is:  \n**1 -> 1",
+    "VOTE WINNER: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the remaining 10 and 4 (e.g., +0 or \u00d71).  \n- 10 + 4 + 6 + 4 = 24? 10+4+6+4 = 24 \u2192 yes! Wait: 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2192 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = (2/5)"
+  ]
+}

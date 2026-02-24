@@ -1,0 +1,85 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/digit_permutation_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-020030-3daa25.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 5,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "8664",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 32686,
+    "success": 1,
+    "tokens_in": 736,
+    "tokens_out": 277
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-020030-3daa25",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:00:30Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Divisibility by 4 depends only on the last two digits; subnodes=last2div4 | permute_first2; recombine=For each valid last-two-digit pair (div...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: List all 2-digit endings from digits [6,6,8,4] that form numbers divisible by 4: 64 (64\u00f74=16), 68 (68\u00f74=17), 84 (84\u00f74=21), 44 (invalid\u2014only one 4), 46 ...",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=divisibility by 4 depends only on last two digits; subnodes=last2div4 | permute_first2; recombine=for each valid last-two-digit pair (divisib...",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: For valid endings 64 and 68, remaining digits are [6,8] and [6,4] respectively; to maximize the 4-digit number, place larger digits first: for ending 6...",
+    "NODE n0005 parent=n0001 score=1.0000 cum=1.5000 terminal=True thought=FINAL: 8664"
+  ]
+}

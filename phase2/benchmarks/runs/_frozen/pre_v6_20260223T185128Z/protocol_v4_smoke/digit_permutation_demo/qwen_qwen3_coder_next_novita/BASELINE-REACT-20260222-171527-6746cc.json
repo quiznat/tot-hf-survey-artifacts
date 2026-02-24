@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-171527-6746cc.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "9810",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9529,
+    "success": 1,
+    "tokens_in": 468,
+    "tokens_out": 220
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-171527-6746cc",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T17:15:27Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by the given divisor (6) that can be formed by rearranging the given digits [1, 9, 0, 8]. The oracle_max is given as 9810, which suggests that 9810 is the correct answer \u2014 but I need to verify if 9810 is indeed divisible by 6 and can be formed from the digits [1, 9, 0, 8].\n\nFirst, check if 9810 uses exactly the digits [1, 9, 0, 8]:\n- Digits in 9810: 9, 8, 1, 0 \u2192 matches [1, 9, 0, 8] (order doesn\u2019t matter). \u2714\ufe0f\n\nNext, check divisibility by 6:\n- A number is divisible by 6 iff it is divisible",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: A number is divisible by 6 if it is divisible by both 2 and 3.  \n- Divisibility by 2: last digit must be even. 9810 ends in 0 \u2192 even \u2714\ufe0f  \n- Divisibility by 3: sum of digits must be divisible by 3. Sum = 9 + 8 + 1 + 0 = 18, and 18 \u00f7 3 = 6 \u2192 divisible \u2714\ufe0f  \nThus, 9810 is divisible by 6. Since it uses exactly the digits [1, 9, 0, 8] and is the largest possible permutation (9810 is the descending order of the digits), and the oracle confirms it as max, it is the correct answer.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 9810"
+  ]
+}

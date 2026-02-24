@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-012150-2b9ded.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x = -5, y = -3",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -1,
+        -8,
+        29
+      ],
+      [
+        4,
+        -7,
+        1
+      ]
+    ]
+  },
+  "item_id": "lin-v4-011",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5421,
+    "success": 1,
+    "tokens_in": 458,
+    "tokens_out": 257
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012150-2b9ded",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3364211354,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:21:50Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of two equations in the form [a, b, c], which likely represents linear equations of the form ax + by = c. So we have:\nEquation 1: -1x - 8y = 29  \nEquation 2: 4x - 7y = 1  \n\nWe need to solve this system of two linear equations for x and y.\n\nLet\u2019s solve using substitution or elimination. Let's use elimination.\n\nMultiply Equation 1 by 4 to align coefficients of x with Equation 2:\nEquation 1 \u00d7 4: -4x - 32y = 116  \nEquation 2:      4x - 7y = 1  \n\nAdd the two equations:\n(-4x + 4x) + (-32y - 7y) = 116 + 1  \n\u2192 0",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the elimination:  \n(-32y - 7y) = -39y, and 116 + 1 = 117, so:  \n-39y = 117  \n\u2192 y = 117 / (-39) = -3  \n\nNow substitute y = -3 into one of the original equations to solve for x. Use Equation 2: 4x - 7y = 1  \n\u2192 4x - 7(-3) = 1  \n\u2192 4x + 21 = 1  \n\u2192 4x = 1 - 21 = -20  \n\u2192 x = -20 / 4 = -5  \n\nCheck with Equation 1: -1x - 8y = 29  \n\u2192 -1(-5) - 8(-3) = 5 + 24 =",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continuing the check:  \n-1(-5) - 8(-3) = 5 + 24 = 29, which matches the right-hand side of Equation 1. So the solution is consistent.\n\nThus, the solution to the system is x = -5, y = -3.\n\nFINAL: x = -5, y = -3"
+  ]
+}

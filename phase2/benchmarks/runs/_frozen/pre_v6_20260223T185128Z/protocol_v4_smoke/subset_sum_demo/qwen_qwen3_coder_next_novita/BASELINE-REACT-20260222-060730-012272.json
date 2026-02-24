@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060730-012272.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[22, 18, 10]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      10,
+      10,
+      18,
+      19,
+      22,
+      24,
+      25
+    ],
+    "target": 50
+  },
+  "item_id": "ss-v4-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6377,
+    "success": 1,
+    "tokens_in": 820,
+    "tokens_out": 287
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060730-012272",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1773078958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T06:07:30Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to reach the target sum of 50 using numbers from the list [2, 10, 10, 18, 19, 22, 24, 25]. Since no tools are available, this is likely a subset sum or combination problem \u2014 find a subset of numbers that sum to 50.\n\nLet\u2019s explore combinations:\n\nStart with larger numbers:\n- 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n- 25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n- 25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n- 25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n- 25 + 10 + 10 = 45 \u2192",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continue exploring combinations. 25 + 10 + 10 = 45, need 5 more \u2014 no 5. Try 25 + 18 + 10 = 53 \u2192 too big. 25 + 19 + 10 = 54 \u2192 too big. Try without 25: 24 + 22 = 46 \u2192 need 4 \u2192 no 4. 24 + 19 = 43 \u2192 need 7 \u2192 no 7. 24 + 18 = 42 \u2192 need 8 \u2192 no 8. 24 + 10 + 10 = 44 \u2192 need 6 \u2192 no 6. 22 + 19 = 41 \u2192 need 9 \u2192 no 9. 22 + 18 = 40",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continue exploring combinations. 22 + 18 = 40 \u2192 need 10 more \u2014 we have two 10s! So 22 + 18 + 10 = 50. Yes! That uses one of the 10s. Let's verify: 22 + 18 = 40, 40 + 10 = 50. All numbers are in the list: 22, 18, and one 10 are present. So a valid subset is [22, 18, 10].",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: [22, 18, 10]"
+  ]
+}

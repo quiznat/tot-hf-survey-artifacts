@@ -1,0 +1,142 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-204958-7d311b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "( 24 + 6",
+        1
+      ],
+      [
+        "- ( 20 + 4",
+        1
+      ],
+      [
+        "- (20 + 4",
+        1
+      ],
+      [
+        "- (4 * (10 - 6)",
+        1
+      ],
+      [
+        "6 * 4",
+        1
+      ],
+      [
+        "(10 - 4",
+        1
+      ],
+      [
+        "- ( 6 * 4",
+        1
+      ],
+      [
+        "- ( (10 - 4) * 4 + 6",
+        1
+      ],
+      [
+        "- ( (10 - 4) * 6",
+        1
+      ],
+      [
+        "10 + 6 + 4 + 4",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "( 24 + 6",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 23963,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2658
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204958-7d311b",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:49:58Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve this problem, we need to use each of the numbers 6, 4, 10, and 4 exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition (+), subtraction (-), multiplication (*), and division (/).\n\n2. **Consider different combinations**:\n   - Multiplication is often useful for reaching 24 because 24 is a product of smaller numbers.\n   - We can try to combine the numbers in such a way that they multiply to 24 or add up to 24 after some operations.\n\n3. **Test potential solutions**:\n   - Let's start with the idea of multiplying two numbers to get close to 24 and then adjust with the other numbers.\n   - One approach is to use 6 and 4, which multiply to 24, but we need to incorporate the other two 4s and 10.\n\n4. **Combine the numbers**:\n   - We can try to use the other 4 and 10 to adjust the result of 6 * 4 = 24.\n   - One way to do this is to use the other 4 as a divisor or subtractor.\n\n5. **Finalize the expression**:\n   - Consider the expression \\( (10 - 4) \\times 6 / 4 \\):\n     - First, calculate \\( 10 - 4 = 6 \\).\n     - Then, \\( 6 \\times 6 = 36 \\).\n     - Finally, \\( 36 / 4 = 9 \\), which is not 24.\n   - Adjust the approach: \\( (10 - 4) \\times 4 + 6 \\):\n     - First, calculate \\( 10 - 4 = 6 \\).\n     - Then, \\( 6 \\times 4 = 24 \\).\n     - Finally, \\( 24 + 6 = 30 \\), which is not 24.\n   - Try another combination: \\( (10 - 4) \\times (6 / 4) \\):\n     - First, calculate \\( 10 - 4 = 6 \\).\n     - Then, \\( 6 / 4 = 1.5 \\).\n     - Finally, \\( 6 \\times 1.5 = 9 \\), which is not 24.\n\n6",
+    "SAMPLE 1 FINAL: ( 24 + 6",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: Let's approach this step by step:\n\n1. We have the numbers: 6, 4, 10, 4.\n2. We need to use each number exactly once to produce 24.\n3. We can use addition, subtraction, multiplication, and division.\n\nLet's try different combinations:\n\n- First, let's try multiplication and addition:\n  - \\( 6 \\times 4 = 24 \\)\n  - We need to use the remaining numbers 10 and 4. We can try to make 10 and 4 cancel out or combine in a way that doesn't affect the result.\n  - One way is to use division: \\( 10 \\div 4 = 2.5 \\), but this doesn't help.\n  - Another way is to use subtraction: \\( 10 - 4 = 6 \\), but this also doesn't help.\n\n- Next, let's try a different approach:\n  - \\( 10 + 4 = 14 \\)\n  - Now we need to use 6 and 4 to get from 14 to 24.\n  - \\( 14 + 6 = 20 \\)\n  - We need 4 more to reach 24.\n  - \\( 20 + 4 = 24 \\)\n\nThis works, so let's write the final expression:\n\nFINAL: \\( (10 + 4) + 6 + 4 \\)",
+    "SAMPLE 2 FINAL: - ( 20 + 4",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To solve this problem, we need to use each of the numbers [6, 4, 10, 4] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the target number 24**: We need to find a combination of operations (addition, subtraction, multiplication, division) that will result in 24.\n\n2. **Evaluate possible combinations**:\n   - Multiplication and division often help reach larger numbers quickly.\n   - Addition and subtraction can be used to adjust the results.\n\n3. **Try different operations**:\n   - \\(6 \\times 4 = 24\\), but we still have 10 and 4 left.\n   - \\(10 + 4 = 14\\), which is not useful directly.\n   - \\(10 - 4 = 6\\), but we already have a 6.\n\n4. **Combine operations**:\n   - \\(10 - 4 = 6\\)\n   - Now we have two 6s and one 4 left.\n   - \\(6 \\times 4 = 24\\)\n\n5. **Form the expression**:\n   - Using the results from the steps above, we can form the expression: \\( (10 - 4) \\times 6 \\).\n\n6. **Verify the expression**:\n   - \\(10 - 4 = 6\\)\n   - \\(6 \\times 6 = 36\\) (This is incorrect, so let's try another approach.)\n\n7. **Re-evaluate with different combinations**:\n   - \\(6 + 4 = 10\\)\n   - Now we have 10, 10, and 4 left.\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 4 = 24\\)\n\n8. **Form the correct expression**:\n   - Using the results from the steps above, we can form the expression: \\( (6 + 4) + (10 - 4) \\).\n\n9. **Simplify and verify**:\n   - \\(6 + 4 = 10\\)\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 4 = 24\\)\n\nHowever, this approach uses 10 twice, which is not allowed. Let's try another combination:\n\n- \\(6 \\times",
+    "SAMPLE 3 FINAL: - (20 + 4",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use each of the numbers 6, 4, 10, and 4 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Multiplication and Addition/Subtraction:**\n   - \\(6 \\times 4 = 24\\), but we still have 10 and 4 left.\n   - \\(10 + 4 = 14\\), and \\(14 + 6 = 20\\), but we need 24.\n   - \\(10 - 4 = 6\\), and \\(6 \\times 4 = 24\\), but we still have another 6 left.\n\n2. **Division and Multiplication:**\n   - \\(10 \\div 4 = 2.5\\), which is not useful since we need whole numbers.\n   - \\(6 \\div 4 = 1.5\\), which is also not useful.\n\n3. **Combining Operations:**\n   - \\(10 - 4 = 6\\), then \\(6 \\times 4 = 24\\), but we still have another 6 left.\n   - \\(10 + 4 = 14\\), then \\(14 - 6 = 8\\), and \\(8 \\times 3 = 24\\), but we don't have a 3.\n\n4. **Exploring Other Combinations:**\n   - \\(6 \\times (10 - 4) = 6 \\times 6 = 36\\), but we need 24.\n   - \\(4 \\times (10 - 6) = 4 \\times 4 = 16\\), but we need 24.\n\n5. **Final Combination:**\n   - \\(6 \\times (4 + 4 - 10) = 6 \\times (8 - 10) = 6 \\times (-2) = -12\\), which is not correct.\n   - \\(6 \\times (10 - 4) + 4 = 6 \\times 6 + 4 = 36 + 4 = 40\\), which is not correct.\n   - \\(6 \\times (10 - 4) - 4 = 6 \\times 6 - 4 = 36 - 4 = 32\\), which is not correct",
+    "SAMPLE 4 FINAL: - (4 * (10 - 6)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: Let's break down the problem step by step to find a way to use the numbers [6, 4, 10, 4] exactly once to produce 24.\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider the target value**: We need to reach 24.\n3. **Explore combinations**:\n   - Start by trying to use multiplication to get close to 24.\n   - Consider the numbers 6 and 4, as 6 * 4 = 24, but we need to use all four numbers.\n\n4. **Incorporate the remaining numbers**:\n   - We have 10 and another 4 left.\n   - We can try to use the remaining numbers to adjust the result of 6 * 4.\n\n5. **Experiment with different arrangements**:\n   - One approach is to use the other 4 to adjust the result of 6 * 4.\n   - We can try \\( 6 * (4 + \\frac{4}{10}) \\).\n\n6. **Check the expression**:\n   - Calculate \\( 4 + \\frac{4}{10} \\):\n     \\[\n     4 + \\frac{4}{10} = 4 + 0.4 = 4.4\n     \\]\n   - Then multiply by 6:\n     \\[\n     6 * 4.4 = 26.4\n     \\]\n   - This doesn't work, so let's try another combination.\n\n7. **Try another combination**:\n   - Consider using division and subtraction to adjust the result.\n   - Try \\( (10 - 4) * (6 - 4) \\):\n     \\[\n     (10 - 4) * (6 - 4) = 6 * 2 = 12\n     \\]\n   - This also doesn't work, so let's try another approach.\n\n8. **Final combination**:\n   - Consider using the numbers in a different order and operations:\n     \\[\n     (10 - 4) * 6 / 4\n     \\]\n   - Calculate step by step:\n     \\[\n     10 - 4 = 6\n     \\]\n     \\[\n     6 * 6 = 36\n     \\]\n     \\[\n     36 / 4 = 9\n     \\]",
+    "SAMPLE 5 FINAL: 6 * 4",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use each of the numbers [6, 4, 10, 4] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider different combinations**:\n   - Multiplication and addition often help reach higher numbers.\n   - Division can be used to reduce numbers or create fractions that might help in reaching the target.\n\n3. **Try different groupings**:\n   - Start with multiplication: \\(6 \\times 4 = 24\\), but we still have 10 and 4 left.\n   - Consider using division: \\(10 / 4 = 2.5\\), which doesn't seem useful directly.\n   - Try combining numbers differently: \\(10 - 4 = 6\\), but we already have a 6.\n\n4. **Combine operations**:\n   - Use \\(6 \\times 4 = 24\\) and see if we can incorporate the other numbers.\n   - Try subtracting: \\(10 - 4 = 6\\), then \\(6 \\times 4 = 24\\).\n\n5. **Finalize the expression**:\n   - We can use the result from \\(10 - 4 = 6\\) and multiply it by 4 to get 24.\n\nPutting it all together, the expression is:\n\\[ (10 - 4) \\times 6 \\]\n\nHowever, we need to use all four numbers exactly once. Let's try another approach:\n\n- Use \\(6 \\times 4 = 24\\) and find a way to incorporate 10 and 4 without changing the result.\n- Consider \\(10 - 4 = 6\\) again, but this time use it in a different context.\n\nFinally, we can use:\n\\[ 6 \\times (10 - 4) \\]\n\nThis uses all four numbers exactly once and produces 24.\n\nFINAL: \\(6 \\times (10 - 4)\\)",
+    "SAMPLE 6 FINAL: (10 - 4",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use the numbers 6, 4, 10, and 4 exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**:\n   - Multiplication and division often help in reaching larger numbers like 24.\n   - Addition and subtraction can adjust the results to get closer to 24.\n\n3. **Try different groupings**:\n   - Let's start with multiplication and see if we can get a close result:\n     - \\( 6 \\times 4 = 24 \\)\n     - This is a good start, but we still need to use the other two numbers (10 and 4).\n\n4. **Incorporate the remaining numbers**:\n   - We need to find a way to use 10 and 4 without changing the result of 24.\n   - One way is to add and subtract them in a way that they cancel each other out:\n     - \\( 10 - 4 = 6 \\)\n\n5. **Combine the results**:\n   - Now, we can use the result of \\( 10 - 4 \\) and multiply it by 4:\n     - \\( (10 - 4) \\times 6 = 6 \\times 6 = 36 \\)\n     - This is not correct, so let's try another approach.\n\n6. **Re-evaluate the approach**:\n   - Instead of using 10 and 4 to cancel each other out, let's try a different combination:\n     - \\( 10 - 4 = 6 \\)\n     - Now, we can use this 6 and the other 4:\n     - \\( 6 \\times (10 - 4) = 6 \\times 6 = 36 \\)\n     - This is still not correct, so let's try another combination.\n\n7. **Final attempt**:\n   - Let's try a different grouping:\n     - \\( 10 + 4 = 14 \\)\n     - Now, we can use the result of 14 and the other numbers:\n     - \\( 6 \\times (14 / 4) = 6 \\times 3.5 = 21 \\)\n     - This is not correct, so let's try another combination.\n\n8",
+    "SAMPLE 7 FINAL: - ( 6 * 4",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use each of the numbers [6, 4, 10, 4] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify potential operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**: We need to find a combination that results in 24.\n\nLet's try different combinations:\n\n- \\( 6 \\times 4 = 24 \\) (but we need to use all four numbers)\n- \\( 10 + 4 + 4 + 6 = 24 \\) (but we need to use each number exactly once)\n\nWe need to use all four numbers exactly once. Let's try more complex combinations:\n\n- \\( (10 - 4) \\times (6 - 4) = 6 \\times 2 = 12 \\) (not 24)\n- \\( (10 - 4) \\times 4 + 6 = 6 \\times 4 + 6 = 24 \\) (this works!)\n\nSo, the expression that uses each number exactly once to produce 24 is:\n\nFINAL: (10 - 4) * 4 + 6",
+    "SAMPLE 8 FINAL: - ( (10 - 4) * 4 + 6",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use each of the numbers 6, 4, 10, and 4 exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**: We need to try different combinations of these operations to see if we can reach 24.\n\nLet's start with some basic combinations:\n\n- **Multiplication and Addition**:\n  - \\(6 \\times 4 = 24\\), but we still have 10 and 4 left.\n  - \\(10 + 4 = 14\\), but we need to use the other numbers to get to 24.\n\n- **Subtraction and Multiplication**:\n  - \\(10 - 4 = 6\\), and then \\(6 \\times 4 = 24\\). This uses all numbers, but we need to check if we can form it correctly.\n\nNow, let's try to form a valid expression:\n\n- \\( (10 - 4) \\times 6 = 6 \\times 6 = 36 \\) (not 24)\n- \\( (10 - 4) \\times 4 = 6 \\times 4 = 24 \\) (this works, but we need to use 6)\n\nLet's try another approach:\n\n- **Combining all numbers**:\n  - \\( 6 \\times (10 - 4) = 6 \\times 6 = 36 \\) (not 24)\n  - \\( 6 \\times 4 + 4 = 24 + 4 = 28 \\) (not 24)\n\nFinally, let's try:\n\n- \\( (10 - 4) \\times (6 - 4) = 6 \\times 2 = 12 \\) (not 24)\n- \\( (10 - 4) \\times 4 + 6 = 6 \\times 4 + 6 = 24 + 6 = 30 \\) (not 24)\n\nAfter several attempts, we find that:\n\n- \\( (10 - 4) \\times 6 = 6 \\times 6 = 36 \\) (not 24)\n- \\( (10 - 4) \\times 4 =",
+    "SAMPLE 9 FINAL: - ( (10 - 4) * 6",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use each of the numbers 6, 4, 10, and 4 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Multiplication**:\n   - \\(6 + 4 + 10 + 4 = 24\\) (This doesn't work because it exceeds 24)\n\n2. **Subtraction and Multiplication**:\n   - \\(10 \\times 4 - 6 - 4 = 40 - 6 - 4 = 30 - 4 = 26\\) (This doesn't work)\n   - \\(10 \\times 4 - 6 + 4 = 40 - 6 + 4 = 38\\) (This doesn't work)\n\n3. **Division and Multiplication**:\n   - \\(10 \\times (6 / 4) + 4 = 10 \\times 1.5 + 4 = 15 + 4 = 19\\) (This doesn't work)\n   - \\(10 \\times (6 / 4) - 4 = 10 \\times 1.5 - 4 = 15 - 4 = 11\\) (This doesn't work)\n\n4. **Combination of Operations**:\n   - \\(10 + 6 + 4 + 4 = 24\\) (This works, but we need to ensure all operations are used correctly)\n\nAfter exploring these combinations, we find that the simplest and correct solution is:\n\n\\[10 + 6 + 4 + 4 = 24\\]\n\nHowever, since we need to use each number exactly once and ensure the operations are clear, let's verify:\n\n\\[10 + 6 + 4 + 4 = 24\\]\n\nThis is indeed correct. Therefore, the final answer is:\n\nFINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 10 FINAL: 10 + 6 + 4 + 4",
+    "VOTE SUMMARY: ( 24 + 6 -> 1, - ( 20 + 4 -> 1, - (20 + 4 -> 1, - (4 * (10 - 6) -> 1, 6 * 4 -> 1, (10 - 4 -> 1, - ( 6 * 4 -> 1, - ( (10 - 4) * 4 + 6 -> 1, - ( (10 - 4) * 6 -> 1, 10 + 6 + 4 + 4 -> 1",
+    "VOTE WINNER: ( 24 + 6 (1/10)"
+  ]
+}

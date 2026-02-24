@@ -1,0 +1,96 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011943-b4cb8c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+        3
+      ],
+      [
+        "I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me think step by step:\n\nFirst, let me look for large numbers that might be part of the solution since 60 is relatively large.\nThe largest numbers are 23, 20, 12, 11, 10, 7, 5.\n\nIf I start with the largest number 23, I need the remaining sum to be 60 - 23 = 37.\nLooking for numbers that sum to 37 from [5, 7, 10, 11, 12, 20]:\n- 20 + 12 + 7 - this sums to 39 (too high)\n- 20 +",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 I can add 5: 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 +",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      7,
+      10,
+      11,
+      12,
+      20,
+      23
+    ],
+    "target": 60
+  },
+  "item_id": "ss-v4-031",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15371,
+    "success": 0,
+    "tokens_in": 365,
+    "tokens_out": 530
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011943-b4cb8c",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 656285829,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:43Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 7, 10, 11, 12, 20, 23]\nTarget: 60\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me think step by step:\n\nFirst, let me look for large numbers that might be part of the solution since 60 is relatively large.\nThe largest numbers are 23, 20, 12, 11, 10, 7, 5.\n\nIf I start with the largest number 23, I need the remaining sum to be 60 - 23 = 37.\nLooking for numbers that sum to 37 from [5, 7, 10, 11, 12, 20]:\n- 20 + 12 + 7 - this sums to 39 (too high)\n- 20 +",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me think step by step:\n\nFirst, let me look for large numbers that might be part of the solution since 60 is relatively large.\nThe largest numbers are 23, 20, 12, 11, 10, 7, 5.\n\nIf I start with the largest number 23, I need the remaining sum to be 60 - 23 = 37.\nLooking for numbers that sum to 37 from [5, 7, 10, 11, 12, 20]:\n- 20 + 12 + 7 - this sums to 39 (too high)\n- 20 +",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 7, 10, 11, 12, 20, 23]\nTarget: 60\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 7, 10, 11, 12, 20, 23]\nTarget: 60\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 I can add 5: 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 +",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 I can add 5: 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 +",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 7, 10, 11, 12, 20, 23]\nTarget: 60\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 7, 10, 11, 12, 20, 23]\nTarget: 60\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 =",
+    "VOTE SUMMARY: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 = -> 3, I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me think step by step:\n\nFirst, let me look for large numbers that might be part of the solution since 60 is relatively large.\nThe largest numbers are 23, 20, 12, 11, 10, 7, 5.\n\nIf I start with the largest number 23, I need the remaining sum to be 60 - 23 = 37.\nLooking for numbers that sum to 37 from [5, 7, 10, 11, 12, 20]:\n- 20 + 12 + 7 - this sums to 39 (too high)\n- 20 + -> 1, I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 I can add 5: 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [5, 7, 10, 11, 12, 20, 23] that sum to 60.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try to use the largest numbers:\n- 23 + 20 = 43, need 17 more\n- 23 + 12 = 35, need 25 more\n- 20 + 12 = 32, need 28 more\n\nLet me try combinations with 23:\n- 23 + 20 + 12 = 55, need 5 more \u2192 23 + 20 + 12 + 5 = 60 \u2713\n\nLet me verify: 23 + 20 + 12 + 5 = (3/5)"
+  ]
+}

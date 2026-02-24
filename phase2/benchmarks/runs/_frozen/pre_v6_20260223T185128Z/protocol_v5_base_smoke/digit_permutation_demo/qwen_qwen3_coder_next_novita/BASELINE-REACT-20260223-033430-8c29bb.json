@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-033430-8c29bb.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "9810",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15393,
+    "success": 1,
+    "tokens_in": 52,
+    "tokens_out": 186
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-033430-8c29bb",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:34:30Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: Thought 1: We are given digits [1, 9, 0, 8] and need to form the largest possible number divisible by 6, using each digit exactly once. A number is divisible by 6 iff it's divisible by both 2 and 3.  \n- Divisibility by 2: last digit must be even \u2192 possible last digits: 0, 8  \n- Divisibility by 3: sum of digits must be divisible by 3. Sum = 1+9+0+8 = 18, which is divisible by 3 \u2192 any permutation is divisible by 3. So only need to ensure last digit is even.  \nTo maximize the number, we want the largest possible digits in higher places. Try to form the largest number ending with 8 or 0.  \n- Largest possible arrangement ending with 8: arrange remaining digits [9,1,0] in descending order \u2192 9108  \n- Largest possible arrangement ending with 0: arrange remaining digits [9,8,1] in descending order \u2192 9810  \nCompare 9810 vs 9108 \u2192 9810 is larger.  \nGiven oracle_max = 9810, and 9810 ends with 0 (even), sum = 18 divisible by 3 \u2192 divisible by 6. So 9810 is valid and maximal.  \nAction 1: Finish[9810]"
+  ]
+}

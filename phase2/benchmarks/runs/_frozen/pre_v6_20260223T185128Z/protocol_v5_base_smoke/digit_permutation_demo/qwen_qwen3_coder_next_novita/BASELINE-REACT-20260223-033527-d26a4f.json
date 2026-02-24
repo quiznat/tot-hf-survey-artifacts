@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-033527-d26a4f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "8664",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2387,
+    "success": 1,
+    "tokens_in": 52,
+    "tokens_out": 180
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-033527-d26a4f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:35:27Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: Thought 1: We are given digits [6, 6, 8, 4], a divisor 4, and an oracle_max of 8664. The task likely asks to find the largest number divisible by 4 that can be formed using all the digits exactly once. Since no tools are available, we must compute this manually.\n\nA number is divisible by 4 if its last two digits form a number divisible by 4. So we need to arrange the digits to form the largest possible number (i.e., descending order as much as possible) such that the last two digits form a number divisible by 4.\n\nDigits: 6, 6, 8, 4  \nAll permutations in descending order would start with 8664 \u2014 and indeed, oracle_max = 8664 is given, suggesting that\u2019s the answer. Let\u2019s verify:  \n8664 \u00f7 4 = 2166 \u2192 integer, so divisible by 4.  \nAlso, 8664 uses digits 8, 6, 6, 4 \u2014 matches exactly.\n\nIs there a larger permutation? The digits sorted descending: 8, 6, 6, 4 \u2192 8664 is the largest possible arrangement. Since it\u2019s divisible by 4, it\u2019s the answer.\n\nAction 1: Finish[8664]"
+  ]
+}

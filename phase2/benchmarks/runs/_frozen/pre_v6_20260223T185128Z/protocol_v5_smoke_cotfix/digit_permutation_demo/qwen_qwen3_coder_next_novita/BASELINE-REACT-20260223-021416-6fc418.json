@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021416-6fc418.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "final_answer": "4422",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 25021,
+    "success": 1,
+    "tokens_in": 184,
+    "tokens_out": 191
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021416-6fc418",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:14:16Z",
+  "tool_config": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed by permuting the digits [4, 2, 2, 4] that is divisible by 11. The oracle_max is given as 4422, which suggests that 4422 is the correct answer (since it's the largest permutation and divisible by 11). Let's verify:  \n- Permutations of [4,2,2,4] in descending order: 4422, 4242, 4224, 2442, 2424, 2244.  \n- Check divisibility by 11: A number is divisible by 11 if the alternating sum of its digits is divisible by 11. For 4422: (4 + 2) - (4 + 2) = 6",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The alternating sum for divisibility by 11 is (sum of digits in odd positions) \u2212 (sum of digits in even positions). For 4422: positions (1-indexed from left) are: pos1=4, pos2=4, pos3=2, pos4=2. So odd positions: 4 + 2 = 6; even positions: 4 + 2 = 6; difference = 0, which is divisible by 11. So 4422 is divisible by 11. Since it's the largest permutation (4422 > 4242 > ...), and it's divisible by 11, it must be the answer. Let's confirm with the tool to be safe.  \nACTION: is_divisible 4422  \n11",
+    "STEP 2 OBSERVATION: yes"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021108-9a5af1.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_target",
+    "sum_list"
+  ],
+  "final_answer": "2,6,14,18,22",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      14,
+      18,
+      22,
+      24
+    ],
+    "target": 62
+  },
+  "item_id": "ss-v4-004",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 17918,
+    "success": 1,
+    "tokens_in": 183,
+    "tokens_out": 148
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021108-9a5af1",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1288386879,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:11:08Z",
+  "tool_config": [
+    "check_target",
+    "sum_list"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to reach the target sum of 62 using some subset of the numbers [2, 6, 14, 18, 22, 24]. I need to find a combination that sums to exactly 62. Let me first try to compute the total sum of all numbers to see if it's even possible.  \nsum_list([2, 6, 14, 18, 22, 24]) = 2+6=8, +14=22, +18=40, +22=62, +24=86. So total is 86.  \nWe need 62, which is less than 86, so we need to exclude numbers summing to 86\u221262 = 24.  \nNotice that 24 is in the list \u2014 so",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The total sum is 86, and we need 62, so we need to exclude numbers summing to 24. Since 24 is in the list, excluding just 24 gives sum = 86 \u2212 24 = 62. Therefore, the subset [2, 6, 14, 18, 22] sums to 62. Let me verify using check_target."
+  ]
+}

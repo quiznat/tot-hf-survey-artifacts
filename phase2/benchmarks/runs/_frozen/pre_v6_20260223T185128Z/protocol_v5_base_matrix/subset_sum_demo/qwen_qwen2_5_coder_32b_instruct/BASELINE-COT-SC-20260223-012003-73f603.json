@@ -1,0 +1,99 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-012003-73f603.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "18,1",
+        2
+      ],
+      [
+        "I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 23, I'd need a negative sum, which isn't possible\n- If I use 8, I need the remaining sum to be 19 - 8 = 11\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLet me check if using 18 works:\n- 18 + 1 = 19 \u2713\n- This uses one 18 and one 1, both available in the list",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\nThis uses one 18 and one 1, which are both available.\n\nOption 2: Use 8 + 18 = 26 (too big)\nOption 3: Use 2",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\n- I have one 18 and one 1 in my list\n- This works perfectly: 18, 1\n\nOption 2: Use 8 + something = 19, so",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "18,1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      8,
+      18,
+      18,
+      18,
+      23
+    ],
+    "target": 19
+  },
+  "item_id": "ss-v4-038",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11669,
+    "success": 1,
+    "tokens_in": 360,
+    "tokens_out": 546
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-012003-73f603",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1863147561,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:20:03Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 8, 18, 18, 18, 23]\nTarget: 19\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: Let me think through this step by step.\n\nI need to find numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me consider what combinations could work:\n\nFirst, I'll look for the largest numbers that might work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- I have a 1 available, so 18 + 1 = 19 \u2713\n\nLet me verify this uses valid numbers:\n- 18 (from the list) \n- 1 (from the list)\n- Sum = 19 \u2713\n\nThis uses each number at most once and gives the target sum.\n\nFINAL: 18,1",
+    "SAMPLE 1 FINAL: 18,1",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 8, 18, 18, 18, 23]\nTarget: 19\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 23, I'd need a negative sum, which isn't possible\n- If I use 8, I need the remaining sum to be 19 - 8 = 11\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLet me check if using 18 works:\n- 18 + 1 = 19 \u2713\n- This uses one 18 and one 1, both available in the list",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 23, I'd need a negative sum, which isn't possible\n- If I use 8, I need the remaining sum to be 19 - 8 = 11\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLet me check if using 18 works:\n- 18 + 1 = 19 \u2713\n- This uses one 18 and one 1, both available in the list",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 8, 18, 18, 18, 23]\nTarget: 19\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll look for obvious combinations:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- I have a 1 available, so 18 + 1 = 19 \u2713\n\nLet me verify this uses each number at most once:\n- 18 (used once) \n- 1 (used once)\n- All other numbers (8, 18, 18, 23) are not used\n\nThis works perfectly.\n\nFINAL: 18,1",
+    "SAMPLE 3 FINAL: 18,1",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 8, 18, 18, 18, 23]\nTarget: 19\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\nThis uses one 18 and one 1, which are both available.\n\nOption 2: Use 8 + 18 = 26 (too big)\nOption 3: Use 2",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\nThis uses one 18 and one 1, which are both available.\n\nOption 2: Use 8 + 18 = 26 (too big)\nOption 3: Use 2",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 8, 18, 18, 18, 23]\nTarget: 19\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\n- I have one 18 and one 1 in my list\n- This works perfectly: 18, 1\n\nOption 2: Use 8 + something = 19, so",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\n- I have one 18 and one 1 in my list\n- This works perfectly: 18, 1\n\nOption 2: Use 8 + something = 19, so",
+    "VOTE SUMMARY: 18,1 -> 2, I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 23, I'd need a negative sum, which isn't possible\n- If I use 8, I need the remaining sum to be 19 - 8 = 11\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLet me check if using 18 works:\n- 18 + 1 = 19 \u2713\n- This uses one 18 and one 1, both available in the list -> 1, I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\nThis uses one 18 and one 1, which are both available.\n\nOption 2: Use 8 + 18 = 26 (too big)\nOption 3: Use 2 -> 1, I need to find a combination of numbers from [1, 8, 18, 18, 18, 23] that sum to 19.\n\nLet me think step by step:\n\nFirst, I'll consider what combinations could work:\n- If I use 18, I need the remaining sum to be 19 - 18 = 1\n- If I use 1, I need the remaining sum to be 19 - 1 = 18\n\nLooking at the available numbers: [1, 8, 18, 18, 18, 23]\n\nOption 1: Use 18 + 1 = 19\n- I have one 18 and one 1 in my list\n- This works perfectly: 18, 1\n\nOption 2: Use 8 + something = 19, so -> 1",
+    "VOTE WINNER: 18,1 (2/5)"
+  ]
+}

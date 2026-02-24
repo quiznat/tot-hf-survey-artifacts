@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-react-reasoning-text-loop-no-tools@0.1",
+  "algorithm_id": "algorithm.reasoning.react_text_loop_reasoning_only_no_tools.v1",
+  "algorithm_module_id": "algorithm_module.baseline_react_text_loop_reasoning_only_no_tools.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-TEXT-20260224-173424-ea8158.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-react-text",
+  "condition_key": "baseline_react_reasoning_text_loop_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "4422",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "max_steps": 5,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3385,
+    "success": 1,
+    "tokens_in": 52,
+    "tokens_out": 231
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (reasoning text loop, no tools)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_execution_mode": "react_execution_mode.reasoning_text_loop_no_tools.v1",
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-TEXT-20260224-173424-ea8158",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:24Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "STEP 1 MODEL: Thought 1: We are given digits [4, 2, 2, 4] and need to form the largest possible number divisible by 11 using all digits exactly once. The oracle says the maximum is 4422, but let's verify.\n\nA number is divisible by 11 if the alternating sum of its digits is a multiple of 11 (including 0). For a 4-digit number with digits a b c d, the rule is: (a + c) \u2212 (b + d) \u2261 0 mod 11.\n\nWe need to permute [4, 2, 2, 4] to maximize the number while satisfying this.\n\nAll permutations of [4,2,2,4] in descending order:  \n4422, 4242, 4224, 2442, 2424, 2244.\n\nCheck each:\n\n- 4422: (4 + 2) \u2212 (4 + 2) = 6 \u2212 6 = 0 \u2192 divisible by 11 \u2714  \n- 4242: (4 + 4) \u2212 (2 + 2) = 8 \u2212 4 = 4 \u2192 not divisible  \n- 4224: (4 + 2) \u2212 (2 + 4) = 6 \u2212 6 = 0 \u2714  \n- 2442: (2 + 4) \u2212 (4 + 2) = 6 \u2212 6 = 0 \u2714  \n- 2424: (2 + 2) \u2212 (4 + 4) = 4 \u2212 8 = \u22124 \u2192 not divisible  \n- 2244: (2 + 4) \u2212 (2 + 4) = 6 \u2212 6 = 0 \u2714  \n\nSo valid numbers: 4422, 4224, 2442, 2244. Largest is 4422.\n\nMatches oracle_max = 4422.\n\nAction 1: Finish[4422]"
+  ]
+}

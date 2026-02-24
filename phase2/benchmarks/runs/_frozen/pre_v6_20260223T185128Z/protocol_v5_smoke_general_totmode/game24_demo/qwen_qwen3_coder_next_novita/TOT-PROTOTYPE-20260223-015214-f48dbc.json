@@ -1,0 +1,81 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015214-f48dbc.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 6,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(6\u00d74)\u2212(1\u22121)",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    4,
+    1,
+    6
+  ],
+  "item_id": "g24-v4-010",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15401,
+    "success": 1,
+    "tokens_in": 269,
+    "tokens_out": 72
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015214-f48dbc",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 878833230,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T01:52:14Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Group numbers to form intermediate values that combine to 24; subnodes=1+1=2 | 4+6=10 | 2\u00d710=20; recombine=Add remaining 4 to 20 to get 24",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Try (6\u22124)\u00d7(1+1)=4, then 4\u00d76=24 but 6 is used twice\u2014invalid",
+    "NODE n0003 parent=root score=0.0500 cum=0.0500 terminal=False thought=FINAL: (6\u22121)\u00d74+1+1",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Use multiplication as primary operation; subnodes=6\u00d74=24 | 1\u22121=0; recombine=24\u22120=24",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Recognize 6\u00d74=24 directly uses two numbers; remaining 1 and 1 can form 0 via subtraction, which doesn\u2019t alter the product",
+    "NODE n0006 parent=n0001 score=1.0000 cum=1.5000 terminal=True thought=FINAL: (6\u00d74)\u2212(1\u22121)"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180541-cd4849.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "6202",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      2,
+      0,
+      6
+    ],
+    "divisor": 7,
+    "oracle_max": 6202
+  },
+  "item_id": "perm-v4-016",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 13063,
+    "success": 1,
+    "tokens_in": 415,
+    "tokens_out": 183
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180541-cd4849",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2754264170,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:05:41Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by 7 that can be formed using the digits [2, 2, 0, 6]. The oracle_max is given as 6202, which suggests that 6202 is the correct answer (since it's the maximum possible number formed by those digits and divisible by 7). Let's verify:  \n- Digits available: 2, 2, 0, 6 \u2192 possible 4-digit numbers (no leading zero).  \n- Largest possible number: 6220  \n- Next: 6202  \n- Then: 6022  \n- Then: 2620, 2602, 2260, etc.  \n\nCheck divisibility by 7:  \n- 6220 \u00f7 7 = 888.571... \u2192 not",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue verifying candidates in descending order to find the largest number divisible by 7 using digits [2, 2, 0, 6] (no leading zero). We already know the oracle_max is 6202, so likely that's the answer, but let's confirm systematically.\n\nAll permutations of [2,2,0,6] forming valid 4-digit numbers (sorted descending):\n- 6220 \u2192 6220 \u00f7 7 = 888.571... \u2192 remainder 4 (7\u00d7888=6216, 6220\u22126216=4) \u2192 not divisible  \n- 6202 \u2192 6202 \u00f7 7 = 886 \u2192 7\u00d7886 = 6202 exactly \u2192 divisible!  \nSo 6202 is",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 6202"
+  ]
+}

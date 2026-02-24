@@ -1,0 +1,102 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015419-86a2c7.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "error_type": "depth_limit",
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 10,
+      "frontier_width": 3,
+      "generated_nodes": 24,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(4 + 10) \u00d7 (1 + 1)",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 119748,
+    "success": 0,
+    "tokens_in": 24948,
+    "tokens_out": 1805
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search reached depth limit without terminal answer",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015419-86a2c7",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T01:54:19Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 24 can be approached via (a + b) \u00d7 (c + d) or (a \u00d7 b) + (c \u00d7 d) patterns; with small numbers like 1s, multiplication of sums is promis...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Compute (4 + 10) = 14 and (1 + 1) = 2",
+    "NODE n0003 parent=root score=0.8720 cum=0.8720 terminal=False thought=FINAL: (4 + 10) \u00d7 (1 + 1)",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0003 score=0.8720 cum=1.7440 terminal=False thought=STEP: Verify (4 + 10) \u00d7 (1 + 1) = 14 \u00d7 2 = 28 \u2260 24 \u2014 invalid",
+    "NODE n0005 parent=n0003 score=0.8720 cum=1.7440 terminal=False thought=DECOMP: insight=Alternative decomposition: aim for 6 \u00d7 4 = 24 using 10 \u2212 4 = 6 and 1 + 1 = 2, but need \u00d72 \u2192 try (10 \u2212 4) \u00d7 (1 + 1)! = 6 \u00d7 2 = 12 \u2014 insufficie...",
+    "NODE n0006 parent=n0003 score=0.8720 cum=1.7440 terminal=False thought=DECOMP: insight=Alternative 24 decomposition via (a \u00d7 b) + (c \u00d7 d) with 1s as multipliers; subnodes=(10 \u00d7 1) | (4 \u00d7 1); recombine=Add products: (10 \u00d7 1) + (4...",
+    "NODE n0007 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Target 24 requires 12 \u00d7 2 or 8 \u00d7 3 or 6 \u00d7 4; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00d7 2 = 8 \u2014 but only one 2 available; instead, use 10 + 1 +...",
+    "NODE n0008 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Target 24 suggests leveraging 4 \u00d7 6 = 24; with numbers [4,10,1,1], construct 6 as (10 \u2212 1 \u2212 1) = 8 \u2014 too large; instead, (10 + 1 + 1)/4 = 3 \u2014...",
+    "NODE n0009 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Target 24 requires 12 \u00d7 2; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00f7 2 = 2 \u2014 but no standalone 2; however, (1 + 1) = 2, so use 4 \u00f7 (1 + 1) = 2...",
+    "NODE n0010 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Target 24 = 25 \u2212 1; with [4,10,1,1], try (10 + 1) \u00d7 (1 + 1) + 4 = 22 + 4 = 26 \u2014 close; adjust: (10 + 1 + 1) \u00d7 2 = 24 but need 2 from 4 \u2192 use ...",
+    "NODE n0011 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Compute (10 + 1 + 1) =",
+    "DEPTH 2 frontier=3",
+    "NODE n0012 parent=n0004 score=0.8720 cum=2.6160 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00f7 2 = 2, but 2 must come from remaining numbers; since (1 + 1) = 2, reuse is disal...",
+    "NODE n0013 parent=n0004 score=0.8720 cum=2.6160 terminal=False thought=DECOMP: insight=Target 24 = 6 \u00d7 4; with [4,10,1,1], get 6 as (10 \u2212 4), and 4 as (1 + 1)! \u00d7 2 \u2014 but no extra 2; instead, use (10 \u2212 4) = 6 and construct 4 as (...",
+    "NODE n0014 parent=n0005 score=0.8720 cum=2.6160 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00f7 2 = 2, but 2 must come from remaining numbers without reuse; insight=Use (1 + 1)...",
+    "NODE n0015 parent=n0005 score=0.8720 cum=2.6160 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00f7 2 = 2, but 2 must come from unused numbers; instead, use 4 \u2212 (1 + 1) = 2, so com...",
+    "NODE n0016 parent=n0005 score=0.8720 cum=2.6160 terminal=False thought=STEP: Compute (10 + 1 + 1) = 12 and (4 \u2212 (1 + 1)) = 2, then 12 \u00d7 2 = 24",
+    "NODE n0017 parent=n0006 score=0.8720 cum=2.6160 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00f7 2 = 2, but 2 must come from unused numbers; instead, construct 2 as (4 \u00f7 2) inva...",
+    "NODE n0018 parent=n0006 score=0.8720 cum=2.6160 terminal=False thought=STEP: Compute (10 + 1 + 1) =",
+    "NODE n0019 parent=n0006 score=0.8720 cum=2.6160 terminal=False thought=DECOMP: insight=Target 24 = 8 \u00d7 3; with [4,10,1,1], construct 8 as (10 \u2212 1 \u2212 1) and 3 as (4 \u2212 1), but only two 1s\u2014(10 \u2212 1 \u2212 1) uses both 1s, leaving 4 unused...",
+    "DEPTH 3 frontier=3",
+    "NODE n0020 parent=n0012 score=0.8720 cum=3.4880 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], 10 + 1 + 1 = 12 and 4 \u00f7 2 = 2, but 2 must come from unused numbers; instead, construct 2 as (4 \u2212 (1 + 1)...",
+    "NODE n0021 parent=n0013 score=0.8720 cum=3.4880 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], construct 12 as (10 + 1 + 1) and 2 as (4 \u2212 (1 + 1)), but this reuses the two 1s in both subnodes\u2014invalid...",
+    "NODE n0022 parent=n0013 score=0.8720 cum=3.4880 terminal=False thought=DECOMP: insight=Target 24 = 8 \u00d7 3; with [4,10,1,1], construct 8 as (10 \u2212 1 \u2212 1) using both 1s, leaving 4 unused; instead, use 4 + (1 + 1) = 6 and 10 \u2212 4 = 6 ...",
+    "NODE n0023 parent=n0014 score=0.8720 cum=3.4880 terminal=False thought=DECOMP: insight=Target 24 = 12 \u00d7 2; with [4,10,1,1], construct 12 as (10 + 1 + 1) using both 1s, and 2 as (4 \u2212 (1 + 1)) \u2014 but this reuses the two 1s in both ...",
+    "NODE n0024 parent=n0014 score=0.8720 cum=3.4880 terminal=False thought=DECOMP: insight=Target 24 = 8 \u00d7 3; with [4,10,1,1], construct 8 as (10 \u2212 1 \u2212 1) using both 1s, leaving 4 unused; instead, use 4 \u00d7 2 = 8 and 3 from remaining ..."
+  ]
+}

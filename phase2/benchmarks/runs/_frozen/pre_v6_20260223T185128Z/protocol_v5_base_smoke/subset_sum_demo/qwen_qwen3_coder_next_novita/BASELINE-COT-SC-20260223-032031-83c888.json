@@ -1,0 +1,121 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-032031-83c888.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "21,9",
+        6
+      ],
+      [
+        "9,9,8,4",
+        1
+      ],
+      [
+        "4,10,16,4,10,16",
+        1
+      ],
+      [
+        "2,21,9",
+        1
+      ],
+      [
+        "9,21",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 6
+  },
+  "final_answer": "21,9",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      4,
+      8,
+      9,
+      9,
+      10,
+      16,
+      21
+    ],
+    "target": 30
+  },
+  "item_id": "ss-v4-001",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 56508,
+    "success": 1,
+    "tokens_in": 740,
+    "tokens_out": 2446
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-032031-83c888",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3378432673,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T03:20:31Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [1, 4, 8, 9, 9, 10, 16, 21]  \nTarget: 30  \nEach number can be used at most once.\n\nLet\u2019s try to find a combination that sums to 30.\n\nStart with larger numbers to reduce the search space.\n\nTry 21:  \n30 - 21 = 9 \u2192 need 9. There are two 9s. So 21 + 9 = 30 \u2192 valid.  \nBut wait: we need to pick numbers from the list, and 9 is present twice. So 21 and one 9 works.\n\nCheck: 21 + 9 = 30 \u2705  \nAvailable numbers: 21 (yes), 9 (yes, two available, use one). So valid.\n\nAlternative combinations? Just to be thorough:\n\nTry 16:  \n30 - 16 = 14  \nNeed sum 14 from remaining: [1,4,8,9,9,10,21] but 21 >14 so ignore.\n\nFrom [1,4,8,9,9,10]:  \nTry 10 + 4 = 14 \u2192 16 + 10 + 4 = 30 \u2705  \nCheck: 16, 10, 4 \u2014 all present once. Yes.\n\nAnother: 9 + 4 + 1 = 14 \u2192 16 + 9 + 4 + 1 = 30 \u2705  \nBut we already have simpler ones.\n\nTry without 21 or 16:  \nTry 10 + 9 + 9 + 1 + 1? No second 1.  \n10 + 9 + 8 + 1 + 4 = 32 \u2192 too big.  \n10 + 9 + 8 = 27 \u2192 need 3 more \u2192 no 3.  \n9 + 9 + 8 + 4 = 30 \u2705  \nCheck: 9 + 9 + 8 + 4 = 30 \u2192 yes, and two 9s available. So valid.\n\nSo multiple solutions exist:\n- 21, 9  \n- 16, 10, 4  \n- 9, 9, 8, 4",
+    "SAMPLE 1 FINAL: 9,9,8,4",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [1, 4, 8, 9, 9, 10, 16, 21]  \nTarget sum: 30  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to reduce search space.\n\n- Try 21:  \n  30 - 21 = 9 \u2192 need 9. There are two 9s, so 21 + 9 = 30 \u2192 valid.  \n  So [21, 9] works.\n\nCheck if duplicates are allowed: Yes, there are two 9s, so using one 9 is fine.\n\nOther possibilities? Let's verify if other combos work too (but only need one valid set).\n\n- Try 16:  \n  30 - 16 = 14  \n  Need sum 14 from remaining: [1, 4, 8, 9, 9, 10, 21] (but 21 > 14, so ignore)  \n  Try 10 + 4 = 14 \u2192 16 + 10 + 4 = 30 \u2192 valid: 4,10,16  \n  Also 8 + 4 + 1 + ? = 13, need 1 more \u2192 8+4+1+? = 14? 8+4+1+1? No second 1.  \n  9 + 4 + 1 = 14 \u2192 16 + 9 + 4 + 1 = 30 \u2192 also valid.\n\nBut we only need one valid set.\n\nSimplest: 21 + 9 = 30  \nWe have two 9s, so can pick one.\n\nSo answer: 9,21 or 21,9 \u2014 order doesn\u2019t matter, but typical to list in ascending or as found. The example uses ascending (4,9,2 \u2192 but 2,4,9), so maybe sort ascending: 9,21.\n\nBut let\u2019s check if 9,21 is acceptable \u2014 yes.\n\nAlternatively, 4,10,16 \u2192 sorted: 4,10,16.\n\nBoth valid. Pick one.\n\nLet\u2019s pick the smallest count: 2 numbers \u2192 9 and 21.\n\nReturn comma-separated: 9",
+    "SAMPLE 2 FINAL: 4,10,16,4,10,16",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [1, 4, 8, 9, 9, 10, 16, 21]  \nTarget: 30  \nWe can use each number at most once (note: there are two 9s, so we can use up to two 9s).\n\nLet\u2019s try combinations:\n\nStart with larger numbers to reduce steps:\n\n- 21 + ? = 30 \u2192 need 9. We have two 9s \u2192 21 + 9 = 30 \u2705  \nSo [21, 9] works.\n\nCheck if any other combos exist (though only one valid combo is needed):\n\n- 16 + 10 = 26 \u2192 need 4 \u2192 16 + 10 + 4 = 30 \u2705  \nSo [16, 10, 4] also works.\n\n- 16 + 9 + 4 + 1 = 30? 16+9=25, +4=29, +1=30 \u2705 \u2192 [16,9,4,1]\n\n- 10 + 9 + 8 + 4 - wait, 10+9+8+4 = 31 \u2192 too much  \n10 + 9 + 8 + 1 = 28 \u2192 need 2 more \u2192 no 2  \n10 + 9 + 9 = 28 \u2192 need 2 \u2192 no  \n10 + 8 + 9 + 4 = 31  \n10 + 8 + 4 + 1 = 23  \n9 + 9 + 8 + 4 = 30 \u2705 \u2192 [9,9,8,4]\n\nSo multiple solutions exist.\n\nBut the problem says: \"Select one or more values... Return only a comma-separated list of chosen numbers.\"\n\nWe just need **one valid combination**.\n\nLet\u2019s pick the simplest: 21 + 9 = 30. Use one 9.\n\nSo answer: 21,9\n\nFINAL: 21,9",
+    "SAMPLE 3 FINAL: 21,9",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: Let's find a subset of [1, 4, 8, 9, 9, 10, 16, 21] that sums to 30, using each number at most once.\n\nStart by considering larger numbers first to reduce combinations:\n\n- Try 21: need 9 more. Available 9s \u2192 21 + 9 = 30. Yes! There are two 9s, so 21 + 9 works.\n\nSo one valid subset is [21, 9].\n\nCheck if others exist (though only one solution is needed):\n- 16 + 10 + 4 = 30 \u2192 16+10+4 = 30 \u2705\n- 16 + 9 + 4 + 1 = 30 \u2192 16+9+4+1 = 30 \u2705\n- 10 + 9 + 8 + 1 + 4 = 32 \u2192 too big  \n- 10 + 9 + 8 = 27, need 3 more \u2192 no 3  \n- 9 + 9 + 8 + 4 = 30 \u2192 9+9+8+4 = 30 \u2705  \nSo multiple solutions exist.\n\nThe problem says \"Select one or more values\", and only requires a valid solution.\n\nLet\u2019s pick the simplest: 21 + 9 = 30.\n\nWe have two 9s, so using one 9 is allowed.\n\nThus, answer: 21,9\n\nFINAL: 21,9",
+    "SAMPLE 4 FINAL: 21,9",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: Let's find a subset of [1, 4, 8, 9, 9, 10, 16, 21] that sums to 30.\n\nStart with larger numbers to reduce steps:\n\n- Try 21: 30 - 21 = 9 \u2192 need 9. There's a 9 in the list \u2192 21 + 9 = 30 \u2705  \nCheck availability: one 21 and one 9 (we have two 9s, so okay).\n\nSo [21, 9] works.\n\nAlternative checks:  \n- 16 + 10 + 4 = 30 \u2192 16+10+4 = 30 \u2705  \nAlso valid.\n\n- 9 + 9 + 8 + 4 = 30 \u2192 9+9=18, 18+8=26, +4=30 \u2705  \nAlso works.\n\nBut we only need to return *one* valid subset.\n\nLet\u2019s pick the simplest: 21 + 9 = 30.\n\nWe have two 9s, so using one is fine.\n\nReturn as comma-separated: 21,9\n\nFINAL: 21,9",
+    "SAMPLE 5 FINAL: 21,9",
+    "SAMPLE 6 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the list: [1, 4, 8, 9, 9, 10, 16, 21]  \nTarget: 30  \nEach number can be used at most once.\n\nLet\u2019s try combinations that sum to 30.\n\nFirst, note the largest numbers: 21, 16, 10, 9, 9, etc.\n\nTry including 21:  \n30 - 21 = 9 \u2192 need a 9. There are two 9s, so 21 + 9 = 30. \u2705  \nThat gives: 21, 9\n\nCheck if duplicates allowed? We have two 9s, so using one 9 is fine.\n\nAlternative: 16 + 10 + 4 = 30 \u2192 16 + 10 = 26, +4 = 30. \u2705  \nSo 16,10,4 is another solution.\n\nBut we only need **one** valid combination.\n\nLet\u2019s verify 21 + 9 = 30 \u2014 yes, and 9 is available.\n\nSo 21,9 works.\n\nBut wait \u2014 are there constraints on order? No, just comma-separated list.\n\nBut the problem says \"Select one or more values\", and we have two 9s \u2014 using one 9 is fine.\n\nLet\u2019s try to find another: 10 + 9 + 9 + 1 + 1? No, only one 1.\n\n10 + 9 + 8 + 4 = 31 \u2014 too much.\n\n10 + 9 + 8 + 1 = 28 \u2014 need 2 more \u2014 no 2.\n\n16 + 9 + 4 + 1 = 30 \u2014 yes! 16 + 9 = 25, +4 = 29, +1 = 30. \u2705  \nSo 16,9,4,1 is also valid.\n\nBut again, we only need one.\n\nLet\u2019s pick the simplest: 21 + 9 = 30.\n\nWe have two 9s, so using one is allowed.\n\nSo answer: 21,9\n\nBut ensure no rule violation: numbers used only once \u2014 yes.\n\nThus:\n\nFINAL: 21,9",
+    "SAMPLE 6 FINAL: 21,9",
+    "SAMPLE 7 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: Let's find a subset of [1, 4, 8, 9, 9, 10, 16, 21] that sums to 30.\n\nStart with larger numbers to reduce steps:\n\nTry 21: 30 - 21 = 9 \u2192 need 9. There is a 9. So 21 + 9 = 30. \u2705  \nWe have two 9s, so using one 9 is allowed.\n\nCheck: 21 + 9 = 30. Numbers used: 21 and one 9. Both present in list.\n\nAlternative checks:  \n21 + 8 + 1 = 30? 21+8+1=30 \u2192 yes! Also valid: 21,8,1  \nBut we only need one solution.\n\nAnother: 16 + 10 + 4 = 30 \u2192 16+10+4=30 \u2705  \nAlso valid.\n\nBut the rule says \"Select one or more values\", and any valid subset is acceptable.\n\nLet\u2019s pick the simplest: 21 and 9.\n\nSince there are two 9s, using one is fine.\n\nSo: 21,9\n\nOrder doesn\u2019t matter, but usually ascending or as in list \u2014 let's follow ascending order as in the list: 9,21\n\nWait, list order: [1,4,8,9,9,10,16,21] \u2014 but output format just needs comma-separated numbers, no specific order required.\n\nBut to be safe, let's output in increasing order: 9,21\n\nDouble-check: 9 + 21 = 30 \u2714\ufe0f  \nUsed numbers exist: one 9 (we have two), and 21 \u2714\ufe0f\n\nAlternative: 10 + 9 + 9 + 1 + 1? No extra 1.\n\n10 + 9 + 8 + 1 + 2? No 2.\n\n16 + 9 + 4 + 1 = 30? 16+9=25, +4=29, +1=30 \u2192 yes! 16,9,4,1\n\nBut again, any valid set works.\n\nG\u662f\u6700\u7b80 shortest length: 2 numbers: 21+9=30.\n\nSo final answer:",
+    "SAMPLE 7 FINAL: 2,21,9",
+    "SAMPLE 8 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We need to find a subset of the numbers [1, 4, 8, 9, 9, 10, 16, 21] that sums to 30, using each number at most once.\n\nLet\u2019s sort the list: [1, 4, 8, 9, 9, 10, 16, 21]\n\nTry combinations:\n\nStart with larger numbers to get close to 30.\n\n- 21 + 9 = 30 \u2192 that works! But we have two 9s, so 21 + 9 = 30 is valid.\n\nCheck: 21 + 9 = 30 \u2192 yes.\n\nSo one valid solution is: 21,9\n\nAre there others? Let\u2019s see if others exist, but the problem only asks for *one* or more values \u2014 any valid subset suffices.\n\nLet\u2019s verify: numbers available: two 9s, so using one 9 is allowed.\n\nSo 21 and 9 is valid.\n\nAlternative: 16 + 10 + 4 = 30 \u2192 16+10=26, +4=30 \u2192 yes! That\u2019s also valid.\n\nAlso: 9 + 9 + 8 + 4 = 30 \u2192 9+9=18, +8=26, +4=30 \u2192 yes.\n\nBut we only need one solution.\n\nThe simplest is 21,9.\n\nBut note: order doesn\u2019t matter in the output, but typically we list in descending or ascending order. The sample shows \"4,9,2\" \u2014 not sorted necessarily, but let\u2019s follow a consistent order.\n\nLet\u2019s pick 21,9 \u2014 descending order.\n\nOr ascending: 9,21 \u2014 fine.\n\nBut sample used \"4,9,2\" (unsorted), so any order is acceptable.\n\nLet\u2019s go with 9,21 or 21,9 \u2014 both correct.\n\nI\u2019ll pick 21,9.\n\nWait \u2014 check: Are we allowed to use both 9s? The list has two 9s, and rule says \"each listed number at most once\" \u2014 since there are two 9s in the list, using one 9 is fine. Using two 9s is also allowed.\n\nBut 21 + 9 = 30 uses only one 9 \u2014 acceptable",
+    "SAMPLE 8 FINAL: 21,9",
+    "SAMPLE 9 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the list: [1, 4, 8, 9, 9, 10, 16, 21]  \nTarget: 30  \nWe may use each number at most once (note: there are two 9s, so we can use 9 up to twice).\n\nLet\u2019s try combinations that sum to 30.\n\nStart with larger numbers to reduce search space.\n\nTry 21 + ? = 30 \u2192 need 9 \u2192 we have two 9s \u2192 21 + 9 = 30 \u2705  \nThat gives us: 21, 9\n\nCheck if valid: yes \u2014 21 + 9 = 30, and we have at least one 9.\n\nBut let\u2019s verify if other combinations exist (though only one valid set is needed).\n\nAlternative: 16 + ? = 30 \u2192 need 14  \nCan we make 14 from remaining numbers? Remaining: [1, 4, 8, 9, 9, 10]  \nTry 10 + 4 = 14 \u2192 16 + 10 + 4 = 30 \u2705  \nSo 4, 10, 16 is another solution.\n\nAnother: 9 + 9 + ? = 30 \u2192 18, need 12  \nFrom remaining: [1, 4, 8, 10, 16, 21] (but we\u2019ve used both 9s already)  \nCan we make 12? 4 + 8 = 12 \u2192 9 + 9 + 4 + 8 = 30 \u2705  \nSo 4, 8, 9, 9 is also valid.\n\nBut we only need **one** valid combination.\n\nLet\u2019s pick the simplest: 21 + 9 = 30.\n\nWe have two 9s, so using one is allowed.\n\nThus, answer: 21,9\n\nWait \u2014 order? The problem says \u201ccomma-separated list of chosen numbers (example: 4,9,2)\u201d. No requirement for order, but typically ascending or original order? Sample doesn\u2019t specify.\n\nWe can output in any order. Let\u2019s sort ascending for neatness: 9,21.\n\nBut original list has two 9s \u2014 does it matter which 9 we pick? No",
+    "SAMPLE 9 FINAL: 9,21",
+    "SAMPLE 10 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 4, 8, 9, 9, 10, 16, 21]\nTarget: 30\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We need to select numbers from [1, 4, 8, 9, 9, 10, 16, 21] (each at most once) that sum to 30.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers and work down.\n\n- 21 + ? = 30 \u2192 need 9 \u2192 we have two 9s \u2192 21 + 9 = 30 \u2705  \nSo [21, 9] works.\n\nCheck if any other combinations exist (though only one valid set is needed).\n\nTry 16 + ? = 30 \u2192 need 14  \nFrom remaining: 1, 4, 8, 9, 9, 10  \nCan we make 14?  \n- 10 + 4 = 14 \u2705 \u2192 so 16 + 10 + 4 = 30  \nAlso valid: [16, 10, 4]\n\nTry 9 + 9 = 18 \u2192 need 12  \nRemaining: 1, 4, 8, 10, 16, 21  \n12? 8 + 4 = 12 \u2192 9 + 9 + 8 + 4 = 30 \u2705  \nSo [9, 9, 8, 4] works.\n\nTry 10 + 9 + 8 = 27 \u2192 need 3 \u2192 no 3  \n10 + 9 + 4 + 1 = 24 \u2192 need 6 \u2192 no  \n16 + 9 + 4 + 1 = 30 \u2705 \u2192 16+9+4+1 = 30\n\nSo multiple solutions exist.\n\nBut the problem says: \u201cSelect one or more values\u2026 Return only a comma-separated list of chosen numbers.\u201d\n\nWe only need to return *one* valid combination.\n\nLet\u2019s pick the simplest: 21 + 9 = 30.\n\nWe have two 9s, so using one 9 is allowed.\n\nThus: 21,9\n\nFinal answer:  \nFINAL: 21,9",
+    "SAMPLE 10 FINAL: 21,9",
+    "VOTE SUMMARY: 21,9 -> 6, 9,9,8,4 -> 1, 4,10,16,4,10,16 -> 1, 2,21,9 -> 1, 9,21 -> 1",
+    "VOTE WINNER: 21,9 (6/10)"
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-173044-5d0a93.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 3,
+      "frontier_width": 3,
+      "generated_nodes": 9,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "6\u00d7(7\u22122\u22121)",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    6,
+    2,
+    7
+  ],
+  "item_id": "g24-v4-007",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15154,
+    "success": 1,
+    "tokens_in": 1351,
+    "tokens_out": 133
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-173044-5d0a93",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 1427883711,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:30:44Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Group numbers to form intermediate values that combine to 24; subnodes=(7\u22121)=6 | (6+2)=8 | 6\u00d78=48; recombine=Divide the product by the remain...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Try (7\u22121)\u00d7(6+2)=48, then 48\u00f72=24",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=FINAL: (7\u22121)\u00d7(6+2)\u00f72",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Form 24 directly via multiplication of two factors from the numbers; subnodes=6\u00d74=24 | 7\u2212(2\u22121)=6; recombine=Multiply the 6 from first subnode...",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Recognize that 6\u00d74=24, and 4 can be formed as 7\u2212(2\u22121), using all numbers exactly once",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=FINAL: 6\u00d7(7\u2212(2\u22121))",
+    "NODE n0007 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Form 24 as 6\u00d74, where 4 = 7 \u2212 (2 \u2212 1); subnodes=6 | (7\u2212(2\u22121))=4; recombine=Multiply the two subnode results: 6\u00d74",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Verify that (7\u2212(2\u22121)) = 6, so 6\u00d76=36 \u2014 too large; adjust: try (7\u22122\u22121)=4, then 6\u00d74=24",
+    "NODE n0009 parent=n0002 score=0.5000 cum=1.0000 terminal=True thought=FINAL: 6\u00d7(7\u22122\u22121)"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-011026-08a78c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 +",
+        2
+      ],
+      [
+        "1,8",
+        2
+      ],
+      [
+        "We are given the list: [1, 2, 8, 18, 22]  \nTarget: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\n- 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already >9, so 18 and 22 cannot be in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 +",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      8,
+      18,
+      22
+    ],
+    "target": 9
+  },
+  "item_id": "ss-v4-018",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 34455,
+    "success": 0,
+    "tokens_in": 355,
+    "tokens_out": 596
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011026-08a78c",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2906260670,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:10:26Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 8, 18, 22]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 +",
+    "SAMPLE 1 FINAL: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 +",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 8, 18, 22]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be in any valid combination (since all numbers are positive).  \n\nSo only possible candidates are 1, 2, and 8.  \nWe found 1 + 8 = 9.\n\nThus, the solution is: 1,8\n\nFINAL: 1,8",
+    "SAMPLE 2 FINAL: 1,8",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 8, 18, 22]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [1, 2, 8, 18, 22]  \nTarget: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\n- 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already >9, so 18 and 22 cannot be in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not",
+    "SAMPLE 3 FINAL: We are given the list: [1, 2, 8, 18, 22]  \nTarget: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\n- 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already >9, so 18 and 22 cannot be in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 8, 18, 22]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be in any valid combination (since all numbers are positive).  \n\nSo only possible candidates are 1, 2, and 8.  \nWe found 1 + 8 = 9.\n\nThus, the solution is: 1,8\n\nFINAL: 1,8",
+    "SAMPLE 4 FINAL: 1,8",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 8, 18, 22]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 +",
+    "SAMPLE 5 FINAL: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 +",
+    "VOTE SUMMARY: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 + -> 2, 1,8 -> 2, We are given the list: [1, 2, 8, 18, 22]  \nTarget: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\n- 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already >9, so 18 and 22 cannot be in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not -> 1",
+    "VOTE WINNER: We are given the numbers: [1, 2, 8, 18, 22]  \nTarget sum: 9  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try 1 + 2 = 3 \u2192 too small  \n- 1 + 8 = 9 \u2192 \u2705 matches target  \n- 2 + 8 = 10 \u2192 too big  \n- 1 + 2 + 8 = 11 \u2192 too big  \n- Any number \u226518 is already larger than 9, so 18 and 22 cannot be used in any valid combination (since all numbers are positive).\n\nSo only possible candidates are 1, 2, and 8.\n\nWe already saw 1 + 8 = 9.\n\nIs there any other combination?  \n2 + ? = 9 \u2192 need 7, not available  \n1 + 2 + (2/5)"
+  ]
+}

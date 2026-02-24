@@ -1,0 +1,106 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-032621-ac96af.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "x=-9.0,y=-3.0",
+        10
+      ]
+    ],
+    "cot_sc_winner_votes": 10
+  },
+  "final_answer": "x=-9.0,y=-3.0",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        1,
+        -3,
+        0
+      ],
+      [
+        1,
+        7,
+        -30
+      ]
+    ]
+  },
+  "item_id": "lin-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 59189,
+    "success": 1,
+    "tokens_in": 500,
+    "tokens_out": 1155
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-032621-ac96af",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3768981616,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T03:26:21Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u20031.0*x \u2212 3.0*y = 0.0  \nEquation 2:  \n\u2003\u20031.0*x + 7.0*y = \u221230.0\n\n**Step 1: Subtract Equation 1 from Equation 2**  \nThis eliminates x.\n\nEquation 2 \u2212 Equation 1:  \n\u2003\u2003(1.0*x + 7.0*y) \u2212 (1.0*x \u2212 3.0*y) = \u221230.0 \u2212 0.0  \n\u2003\u20031.0*x \u2212 1.0*x + 7.0*y + 3.0*y = \u221230.0  \n\u2003\u200310.0*y = \u221230.0  \n\n**Step 2: Solve for y**  \n\u2003\u2003y = \u221230.0 / 10.0 = \u22123.0  \n\n**Step 3: Substitute y = \u22123.0 into Equation 1 to find x**  \nEquation 1:  \n\u2003\u2003x \u2212 3.0*y = 0.0  \n\u2003\u2003x \u2212 3.0*(\u22123.0) = 0.0  \n\u2003\u2003x + 9.0 = 0.0  \n\u2003\u2003x = \u22129.0  \n\n**Final answer:**\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 1 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the following system of linear equations:\n\nEquation 1:  \n\u2003\u20031.0x \u2212 3.0y = 0.0  \nEquation 2:  \n\u2003\u20031.0x + 7.0y = \u221230.0\n\n**Step 1: Subtract Equation 1 from Equation 2**  \nThis eliminates x:\n\n(1.0x + 7.0y) \u2212 (1.0x \u2212 3.0y) = \u221230.0 \u2212 0.0  \n\u2192 1.0x \u2212 1.0x + 7.0y + 3.0y = \u221230.0  \n\u2192 10.0y = \u221230.0  \n\u2192 y = \u221230.0 / 10.0 = \u22123.0\n\n**Step 2: Substitute y = \u22123.0 into Equation 1 to find x**  \nEquation 1:  \n\u2003\u2003x \u2212 3y = 0  \n\u2192 x \u2212 3(\u22123.0) = 0  \n\u2192 x + 9.0 = 0  \n\u2192 x = \u22129.0\n\n**Check with Equation 2:**  \nx + 7y = \u22129.0 + 7(\u22123.0) = \u22129.0 \u2212 21.0 = \u221230.0 \u2705\n\nSo solution is:  \nx = \u22129.0, y = \u22123.0\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 2 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the following system of linear equations:\n\nEquation 1:  \n\u2003\u20031.0*x \u2212 3.0*y = 0.0  \nEquation 2:  \n\u2003\u20031.0*x + 7.0*y = \u221230.0\n\nLet\u2019s write them more cleanly:\n\n(1)\u2003x \u2212 3y = 0  \n(2)\u2003x + 7y = \u221230\n\n**Step 1: Eliminate x**  \nSubtract Equation (1) from Equation (2):\n\n(x + 7y) \u2212 (x \u2212 3y) = (\u221230) \u2212 0  \n\u21d2 x + 7y \u2212 x + 3y = \u221230  \n\u21d2 10y = \u221230  \n\u21d2 y = \u221230 / 10 = \u22123.0\n\n**Step 2: Substitute y = \u22123.0 into Equation (1)**  \nx \u2212 3(\u22123.0) = 0  \n\u21d2 x + 9.0 = 0  \n\u21d2 x = \u22129.0\n\n**Check with Equation (2):**  \nx + 7y = \u22129.0 + 7(\u22123.0) = \u22129.0 \u2212 21.0 = \u221230.0 \u2705\n\nFinal answer:\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 3 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003x \u2212 3y = 0  \nEquation 2:  \n\u2003\u2003x + 7y = \u221230\n\n**Step 1: Solve one equation for one variable.**  \nFrom Equation 1:  \nx \u2212 3y = 0 \u2192 x = 3y\n\n**Step 2: Substitute into the other equation.**  \nSubstitute x = 3y into Equation 2:  \n3y + 7y = \u221230  \n\u2192 10y = \u221230  \n\u2192 y = \u22123\n\n**Step 3: Solve for x.**  \nx = 3y = 3 \u00d7 (\u22123) = \u22129\n\n**Check:**  \nEquation 1: \u22129 \u2212 3(\u22123) = \u22129 + 9 = 0 \u2705  \nEquation 2: \u22129 + 7(\u22123) = \u22129 \u2212 21 = \u221230 \u2705\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 4 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003x \u2212 3y = 0  \nEquation 2:  \n\u2003\u2003x + 7y = \u221230\n\n**Step 1: Solve Equation 1 for x.**  \nFrom Equation 1:  \n\u2003x = 3y\n\n**Step 2: Substitute into Equation 2.**  \nReplace x in Equation 2 with 3y:  \n\u20033y + 7y = \u221230  \n\u200310y = \u221230  \n\u2003y = \u22123\n\n**Step 3: Plug y back into x = 3y.**  \n\u2003x = 3(\u22123) = \u22129\n\n\u2705 Check in Equation 2:  \nx + 7y = \u22129 + 7(\u22123) = \u22129 \u2212 21 = \u221230 \u2714\ufe0f\n\nFINAL: x=-9,y=-3",
+    "SAMPLE 5 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 6 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the following system of linear equations:\n\nEquation 1:  \n\u2003\u2003x \u2212 3y = 0  \nEquation 2:  \n\u2003\u2003x + 7y = \u221230  \n\n**Step 1: Subtract Equation 1 from Equation 2**  \nThis eliminates x:\n\n(x + 7y) \u2212 (x \u2212 3y) = \u221230 \u2212 0  \n\u2192 x + 7y \u2212 x + 3y = \u221230  \n\u2192 10y = \u221230  \n\u2192 y = \u22123\n\n**Step 2: Substitute y = \u22123 into Equation 1**  \nx \u2212 3(\u22123) = 0  \n\u2192 x + 9 = 0  \n\u2192 x = \u22129\n\n\u2705 Check with Equation 2:  \nx + 7y = \u22129 + 7(\u22123) = \u22129 \u2212 21 = \u221230 \u2714\ufe0f\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 6 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 7 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the following system of linear equations:\n\nEquation 1:  \n\u2003\u2003x \u2212 3y = 0  \nEquation 2:  \n\u2003\u2003x + 7y = \u221230  \n\n**Step 1: Solve Equation 1 for x.**  \nFrom Equation 1:  \nx = 3y  \n\n**Step 2: Substitute into Equation 2.**  \nReplace x in Equation 2 with 3y:  \n3y + 7y = \u221230  \n\u2192 10y = \u221230  \n\u2192 y = \u22123  \n\n**Step 3: Plug y = \u22123 into x = 3y.**  \nx = 3 \u00d7 (\u22123) = \u22129  \n\n**Check:**  \nEquation 1: \u22129 \u2212 3(\u22123) = \u22129 + 9 = 0 \u2705  \nEquation 2: \u22129 + 7(\u22123) = \u22129 \u2212 21 = \u221230 \u2705  \n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 7 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 8 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u20031.0\u00b7x \u2212 3.0\u00b7y = 0.0  \nEquation 2:  \n\u2003\u20031.0\u00b7x + 7.0\u00b7y = \u221230.0\n\n**Step 1: Subtract Equation 1 from Equation 2**  \nThis eliminates x.\n\nEquation 2 \u2212 Equation 1:  \n\u2003(1.0x + 7.0y) \u2212 (1.0x \u2212 3.0y) = \u221230.0 \u2212 0.0  \n\u20031.0x \u2212 1.0x + 7.0y + 3.0y = \u221230.0  \n\u200310.0y = \u221230.0  \n\u2003\u21d2 y = \u221230.0 / 10.0 = \u22123.0\n\n**Step 2: Substitute y = \u22123.0 into Equation 1 to solve for x**  \nEquation 1:  \n\u2003x \u2212 3.0\u00b7(\u22123.0) = 0.0  \n\u2003x + 9.0 = 0.0  \n\u2003\u21d2 x = \u22129.0\n\n**Check with Equation 2**:  \nx + 7y = \u22129.0 + 7\u00b7(\u22123.0) = \u22129.0 \u2212 21.0 = \u221230.0 \u2714\ufe0f\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 8 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 9 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the system:\n\n1) $ 1.0x - 3.0y = 0.0 $  \n2) $ 1.0x + 7.0y = -30.0 $\n\n**Step 1: Subtract Equation 1 from Equation 2** to eliminate $ x $:\n\nEquation 2 \u2212 Equation 1:\n\n$$\n(1.0x + 7.0y) - (1.0x - 3.0y) = -30.0 - 0.0\n$$\n\nSimplify:\n\n$$\n1.0x - 1.0x + 7.0y + 3.0y = -30.0\n$$\n$$\n10.0y = -30.0\n$$\n\nSo:\n\n$$\ny = \\frac{-30.0}{10.0} = -3.0\n$$\n\n**Step 2: Plug $ y = -3.0 $ into Equation 1 to solve for $ x $:**\n\nEquation 1:  \n$$\nx - 3.0(-3.0) = 0.0\n$$\n$$\nx + 9.0 = 0.0\n$$\n$$\nx = -9.0\n$$\n\n**Check with Equation 2:**\n\n$ x + 7y = -9.0 + 7(-3.0) = -9.0 - 21.0 = -30.0 $ \u2705\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 9 FINAL: x=-9.0,y=-3.0",
+    "SAMPLE 10 PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the following system of linear equations:\n\nEquation 1:  \n\u20031.0x \u2212 3.0y = 0.0  \n\u2192 x \u2212 3y = 0 \u2003(1)\n\nEquation 2:  \n\u20031.0x + 7.0y = \u221230.0  \n\u2192 x + 7y = \u221230 \u2003(2)\n\n**Step 1: Subtract Equation (1) from Equation (2)**  \n(x + 7y) \u2212 (x \u2212 3y) = \u221230 \u2212 0  \nx + 7y \u2212 x + 3y = \u221230  \n10y = \u221230  \n\u2192 y = \u22123\n\n**Step 2: Substitute y = \u22123 into Equation (1)**  \nx \u2212 3(\u22123) = 0  \nx + 9 = 0  \n\u2192 x = \u22129\n\n**Verification**  \nPlug x = \u22129, y = \u22123 into Equation 2:  \nx + 7y = \u22129 + 7(\u22123) = \u22129 \u2212 21 = \u221230 \u2705\n\nFINAL: x=-9.0,y=-3.0",
+    "SAMPLE 10 FINAL: x=-9.0,y=-3.0",
+    "VOTE SUMMARY: x=-9.0,y=-3.0 -> 10",
+    "VOTE WINNER: x=-9.0,y=-3.0 (10/10)"
+  ]
+}

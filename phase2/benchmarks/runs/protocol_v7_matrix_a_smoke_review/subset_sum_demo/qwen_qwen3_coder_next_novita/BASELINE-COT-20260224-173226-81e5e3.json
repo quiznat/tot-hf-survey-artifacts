@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173226-81e5e3.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "2,14",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      14,
+      18,
+      22,
+      24
+    ],
+    "target": 62
+  },
+  "item_id": "ss-v4-004",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4962,
+    "success": 0,
+    "tokens_in": 65,
+    "tokens_out": 223
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173226-81e5e3",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1288386879,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-24T17:32:26Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [2, 6, 14, 18, 22, 24] that sums to 62.\n\nFirst, total sum of all numbers:  \n2 + 6 + 14 + 18 + 22 + 24 =  \n= (2+6) + (14+18) + (22+24) = 8 + 32 + 46 = 86.\n\nWe need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo, find a subset to exclude that sums to 24 \u2014 then the rest sum to 62.\n\nWhich numbers sum to 24? Look at list:  \n24 itself is in the list \u2192 exclude just 24 \u2192 remaining numbers: [2, 6, 14, 18, 22]  \nSum: 2+6=8, +14=22, +18=40, +22=62 \u2705\n\nSo chosen numbers: 2, 6, 14, 18, 22\n\nCheck: 2 + 6 = 8; 8 + 14 = 22; 22 + 18 = 40; 40 + 22 = 62.\n\nYes.\n\nAlternative: try other combinations?  \nTry including 24: then need 62 \u2212 24 = 38 from remaining [2,6,14,18,22].  \nCan we get 38? Try 22+14+2 = 38 \u2192 yes! So 24,22,14,2 = 24+22=46, +14=60, +2=62. That\u2019s also valid.\n\nSo two solutions:  \n- 2,6,14,18,22  \n- 2,14,22,24\n\nWait \u2014 check second: 2+14=16, +22=38, +24=62 \u2705\n\nSo multiple solutions exist.\n\nBut the problem says \"Select one or more values... Return only a comma-separated list of chosen numbers.\"\n\nWe can return any valid subset.\n\nLet\u2019s verify both",
+    "FINAL: 2,14"
+  ]
+}

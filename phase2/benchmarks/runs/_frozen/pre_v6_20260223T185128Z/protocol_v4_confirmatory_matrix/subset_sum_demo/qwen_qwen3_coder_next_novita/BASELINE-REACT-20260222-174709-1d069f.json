@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174709-1d069f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[13, 16, 22]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      5,
+      11,
+      11,
+      13,
+      16,
+      22
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-039",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15949,
+    "success": 1,
+    "tokens_in": 841,
+    "tokens_out": 309
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174709-1d069f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2776084078,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:47:09Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [4, 5, 11, 11, 13, 16, 22] and a target: 51. The task is likely to find a subset (or some combination) of these numbers that sum to the target. Since no tools are available, this is a pure reasoning problem.\n\nLet\u2019s try to find a subset that sums to 51.\n\nFirst, total sum of all numbers: 4 + 5 + 11 + 11 + 13 + 16 + 22 = let's compute:\n4 + 5 = 9  \n9 + 11 = 20  \n20 + 11 = 31  \n31 + 13 = 44  \n44 + 16 = 60  \n60 + 22 = 8",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: I made an arithmetic error in computing the total sum. Let me recalculate carefully:  \n4 + 5 = 9  \n9 + 11 = 20  \n20 + 11 = 31  \n31 + 13 = 44  \n44 + 16 = 60  \n60 + 22 = 82  \nSo total sum is 82, not 8. Target is 51, so we need a subset summing to 51 \u2014 equivalently, the complement subset (numbers *not* chosen) must sum to 82 \u2212 51 = 31.\n\nSo now, find a subset that sums to 31 (easier to check smaller sums), or directly find one that sums to 51.\n\nLet\u2019s try combinations.\n\nLargest number is 22. Try including 22: remaining",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Including 22, remaining sum needed: 51 \u2212 22 = 29. Remaining numbers: [4, 5, 11, 11, 13, 16]. Try including 16: 29 \u2212 16 = 13. Now need 13 \u2014 and 13 is in the list! So candidate: 22 + 16 + 13 = 51. Check availability: numbers include 13, 16, and 22 \u2014 yes, all present once. So subset {13, 16, 22} sums to 51.\n\nConfirm: 13 + 16 = 29; 29 + 22 = 51. Correct.\n\nThus, solution found.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: [13, 16, 22]"
+  ]
+}

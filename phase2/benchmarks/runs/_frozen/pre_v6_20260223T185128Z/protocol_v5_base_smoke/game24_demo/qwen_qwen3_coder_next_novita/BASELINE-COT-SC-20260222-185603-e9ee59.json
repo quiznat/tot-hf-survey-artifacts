@@ -1,0 +1,93 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260222-185603-e9ee59.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24",
+        2
+      ],
+      [
+        "We are given the numbers [1, 10, 7, 6] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry using multiplication as the main operation since 24 has several factor pairs:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n\nWe have 6, so maybe aim for 6 \u00d7 4 = 24. Can we make 4 from [1, 10, 7]?  \n10 \u2212 7 = 3, 3 + 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 ((10 \u2212 7) + 1) = 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24 \ufffd",
+        1
+      ],
+      [
+        "We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 + 6 + 10 + 1 = 24? Let's check: 7 + 6 = 13, +10 = 23, +1 = 24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s just addition: 7 + 6 + 1",
+        1
+      ],
+      [
+        "We are given the numbers [1, 10, 7, 6] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24? No, 24 \u2014 wait, 11 +",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    10,
+    7,
+    6
+  ],
+  "item_id": "g24-v4-004",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15508,
+    "success": 0,
+    "tokens_in": 205,
+    "tokens_out": 523
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-185603-e9ee59",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3891199489,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-22T18:56:03Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry using multiplication as the main operation since 24 has several factor pairs:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n\nWe have 6, so maybe aim for 6 \u00d7 4 = 24. Can we make 4 from [1, 10, 7]?  \n10 \u2212 7 = 3, 3 + 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 ((10 \u2212 7) + 1) = 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24 \ufffd",
+    "SAMPLE 1 FINAL: We are given the numbers [1, 10, 7, 6] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry using multiplication as the main operation since 24 has several factor pairs:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n\nWe have 6, so maybe aim for 6 \u00d7 4 = 24. Can we make 4 from [1, 10, 7]?  \n10 \u2212 7 = 3, 3 + 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 ((10 \u2212 7) + 1) = 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24 \ufffd",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24",
+    "SAMPLE 2 FINAL: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 + 6 + 10 + 1 = 24? Let's check: 7 + 6 = 13, +10 = 23, +1 = 24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s just addition: 7 + 6 + 1",
+    "SAMPLE 3 FINAL: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 + 6 + 10 + 1 = 24? Let's check: 7 + 6 = 13, +10 = 23, +1 = 24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s just addition: 7 + 6 + 1",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24",
+    "SAMPLE 4 FINAL: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24? No, 24 \u2014 wait, 11 +",
+    "SAMPLE 5 FINAL: We are given the numbers [1, 10, 7, 6] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24? No, 24 \u2014 wait, 11 +",
+    "VOTE SUMMARY: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24 -> 2, We are given the numbers [1, 10, 7, 6] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry using multiplication as the main operation since 24 has several factor pairs:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n\nWe have 6, so maybe aim for 6 \u00d7 4 = 24. Can we make 4 from [1, 10, 7]?  \n10 \u2212 7 = 3, 3 + 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 ((10 \u2212 7) + 1) = 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24 \ufffd -> 1, We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 + 6 + 10 + 1 = 24? Let's check: 7 + 6 = 13, +10 = 23, +1 = 24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s just addition: 7 + 6 + 1 -> 1, We are given the numbers [1, 10, 7, 6] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24? No, 24 \u2014 wait, 11 + -> 1",
+    "VOTE WINNER: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 combinations:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24 (2/5)"
+  ]
+}

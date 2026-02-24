@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011951-e66c4f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      5,
+      7,
+      7,
+      10
+    ],
+    "target": 29
+  },
+  "item_id": "ss-v4-030",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12753,
+    "success": 0,
+    "tokens_in": 1452,
+    "tokens_out": 576
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011951-e66c4f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3298614460,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:51Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a way to combine the numbers [5, 5, 7, 7, 10] using basic arithmetic operations to get the target value 29. Since no tools are available, I'll need to work through this manually by trying different combinations of operations.\n\nLet me try various combinations systematically:\n\nFirst, let me see what happens if I add all numbers: 5 + 5 + 7 + 7 + 10 = 34\nThis is too high by 5, so I need to adjust.\n\nWhat if I subtract one of the 5s instead of adding it? \n5 + 5 + 7 + 7 + 10 - 5 = 29\n\nWait, that's not right. Let me reconsider.\n\nActually, I have two 5s and two 7s, plus one 10.\nLet me try: 5",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me think more carefully about this problem. I have the numbers [5, 5, 7, 7, 10] and need to combine them to make 29.\n\nLet me try different approaches:\n\nApproach 1: Try multiplication and division combinations\n- 5 \u00d7 7 = 35, then 35 - 10 + 7 - 5 = 27 (close but not quite)\n- 7 \u00d7 5 = 35, then 35 - 10 + 7 - 5 = 27 (same result)\n\nApproach 2: Try (5 + 7) \u00d7 something\n- (5 + 7) = 12, then 12 + 10 + 7 = 29, but I still have one 5 unused\n\nApproach 3: Try using division creatively\n-",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me systematically work through this step by step. I have numbers [5, 5, 7, 7, 10] and need to make 29.\n\nLet me try: (5 + 7) \u00d7 something + remaining numbers\nIf I use (5 + 7) = 12, then I need to make 29 - 12 = 17 from [5, 7, 10]\nBut 5 + 7 + 10 = 22, which is too much.\n\nLet me try: 5 \u00d7 7 = 35, then I need to subtract 6 to get 29\nI have [5, 7, 10] left. Can I make 6 from these?\n10 - 7 + 5 = 8 (no)\n10 - 5 + 7 = 12",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me try a different approach. I'll look for ways to combine the numbers using basic operations like addition, subtraction, multiplication, and division.\n\nLooking at the numbers [5, 5, 7, 7, 10], let me try:\n- 5 \u00d7 7 = 35\n- If I can make 35 - 29 = 6 from the remaining numbers [5, 7, 10]\n- From 5, 7, 10, I can make 6 as: 10 - 7 + 5 = 8 (not 6)\n- Or: 7 + 5 - 10 = 2 (not 6)\n- Or: 10 - 5 + 7 = 12 (not 6)\n\nLet me try another combination:\n- 7 \u00d7 7 = 49\n-",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Let me try a systematic approach with different combinations of operations.\n\nLet me consider: 5 \u00d7 (7 - 5) + 7 + 10\n= 5 \u00d7 2 + 7 + 10  \n= 10 + 7 + 10 = 27 (close but not 29)\n\nLet me try: (7 + 7) \u00d7 5 - 10 - 5\n= 14 \u00d7 5 - 15\n= 70 - 15 = 55 (too high)\n\nLet me try: 7 \u00d7 5 - 7 + 10 - 5\n= 35 - 7 + 10 - 5\n= 28 + 10 - 5 = 33 (too high by 4)\n\nLet me try: 7 \u00d7 5 - 10",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

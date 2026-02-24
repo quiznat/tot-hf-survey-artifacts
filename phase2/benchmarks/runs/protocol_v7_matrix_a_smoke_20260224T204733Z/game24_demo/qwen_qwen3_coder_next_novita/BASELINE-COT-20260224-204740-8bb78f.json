@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-204740-8bb78f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "- (10 + 1 + 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5398,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 294
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-204740-8bb78f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:47:40Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible strategies:\n\n- 10 + 4 = 14 \u2192 need 10 more from two 1s? Not possible.\n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 again.\n- Try multiplication: 4 \u00d7 10 = 40. Then 40 \u2212 ? = 24 \u2192 need to subtract 16, but only two 1s left \u2192 1 + 1 = 2, 40 \u2212 2 = 38. No.\n- 4 \u00d7 (10 \u2212 1) = 4 \u00d7 9 = 36. Then 36 \u2212 1 = 35. Too big.\n- (10 + 1 + 1) \u00d7 ? = 12 \u00d7 ? = 24 \u2192 need \u00d72, but we have 4 left. 12 \u00d7 2 = 24, but we have 4, not 2. But 4 = 2 \u00d7 2? No extra numbers.\n\nWait \u2014 what if we do (10 + 1 + 1) \u00d7 (4 / 2)? But no 2.\n\nAlternative: Use division.\n\nTry: (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27. Close! Off by 3.\n\nWhat about (10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33.\n\n(10 \u00d7 1 + 1) \u00d7 4 = (10 + 1) \u00d7 4 = 44.\n\nHmm.\n\nTry using exponentiation? But standard 24 game usually allows only +, \u2212, \u00d7, \u00f7, parentheses. Let\u2019s assume only those.\n\nWait \u2014 what about (10 \u2212 1) \u00d7 (1 + 1) + 6? No extra 6.\n\nLet\u2019s list all permutations and try combinations.\n\nTry: 10",
+    "FINAL: - (10 + 1 + 1)"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/subset_sum_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015608-1fa093.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 1,
+      "frontier_width": 3,
+      "generated_nodes": 3,
+      "max_depth": 3,
+      "peak_frontier_size": 1,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "2,6,7,24",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 1847,
+    "success": 1,
+    "tokens_in": 126,
+    "tokens_out": 73
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015608-1fa093",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:56:08Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 39 is close to sum of largest numbers; consider complement relative to total sum; total sum = 2+6+7+21+23+24 = 83, so complement sum =...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Try including 24: remaining target = 15; need subset of [2,6,7,21,23] summing to 15 \u2192 2+6+7=15 \u2192 works",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=True thought=FINAL: 2,6,7,24"
+  ]
+}

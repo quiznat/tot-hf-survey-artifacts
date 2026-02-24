@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-011121-f7445f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9",
+        2
+      ],
+      [
+        "We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2192 no 9",
+        1
+      ],
+      [
+        "We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try greedy or systematic approach.\n\nTry including the largest number, 2",
+        1
+      ],
+      [
+        "We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try combinations.\n\nStart with the largest number, 22:",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      10,
+      13,
+      15,
+      18,
+      18,
+      22
+    ],
+    "target": 49
+  },
+  "item_id": "ss-v4-017",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 68969,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 480
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011121-f7445f",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2665344419,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:11:21Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2192 no 9",
+    "SAMPLE 1 FINAL: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2192 no 9",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try greedy or systematic approach.\n\nTry including the largest number, 2",
+    "SAMPLE 2 FINAL: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try greedy or systematic approach.\n\nTry including the largest number, 2",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try combinations.\n\nStart with the largest number, 22:",
+    "SAMPLE 3 FINAL: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try combinations.\n\nStart with the largest number, 22:",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9",
+    "SAMPLE 4 FINAL: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9",
+    "SAMPLE 5 FINAL: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9",
+    "VOTE SUMMARY: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9 -> 2, We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2192 no 9 -> 1, We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try greedy or systematic approach.\n\nTry including the largest number, 2 -> 1, We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nEach number can be used at most once.\n\nLet\u2019s try to find a subset that sums to 49.\n\nFirst, note the total sum of all numbers:  \n6 + 7 + 10 + 13 + 15 + 18 + 18 + 22 =  \n(6+7)=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109  \nSo total is 109 \u2014 more than 49, so possible.\n\nLet\u2019s try combinations.\n\nStart with the largest number, 22: -> 1",
+    "VOTE WINNER: We are given the list: [6, 7, 10, 13, 15, 18, 18, 22]  \nTarget sum: 49  \nWe can use each number at most once (note: there are two 18s, so we can use up to two 18s).\n\nLet\u2019s try to find a combination that sums to 49.\n\nStart with the largest numbers, since 49 is relatively large.\n\nTry 22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6, 7, 10, 13, 15, 18 (one 18 used, one left).  \nCan we make 9? 6 + 7 = 13 \u2192 too big. 6 alone = 6, 7 alone = 7 \u2014 no 9 (2/5)"
+  ]
+}

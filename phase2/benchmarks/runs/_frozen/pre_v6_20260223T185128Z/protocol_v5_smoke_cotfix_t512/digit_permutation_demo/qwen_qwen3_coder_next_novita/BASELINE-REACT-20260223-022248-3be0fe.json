@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-022248-3be0fe.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "final_answer": "3300",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15169,
+    "success": 1,
+    "tokens_in": 40,
+    "tokens_out": 277
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-022248-3be0fe",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:22:48Z",
+  "tool_config": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number \u2264 oracle_max (3300) that is divisible by the given divisor (5), using only the digits [3, 0, 3, 0] \u2014 i.e., permutations of these digits to form a number. So we need to consider all permutations of [3,0,3,0] to form 4-digit numbers (allowing leading zeros? But numbers with leading zeros would be less than 1000, and oracle_max is 3300, so likely we want the largest valid number \u2264 3300 formed by permuting digits). Let's list all distinct permutations of [3,0,3,0]:\n\nDigits: two 3s and two 0s.\n\nPermutations (as numbers, ignoring leading zeros \u2014 but leading zeros would make it a shorter number, e.g., 0033 = 33, but we can consider them as numbers, not strings):\n\nAll unique permutations:\n- 3300\n- 3030\n- 3003\n- 0330 = 330\n- 0303 = 303\n- 0033 = 33\n\nSo candidate numbers: 3300, 3030, 3003, 330, 303, 33.\n\nNow check which are divisible by 5: a number is divisible by 5 iff its last digit is 0 or 5. Our digits are only 0 and 3, so only numbers ending in 0 qualify.\n\nFrom list:\n- 3300 \u2192 ends with 0 \u2192 divisible by 5? 3300 / 5 = 660 \u2192 yes.\n- 3030 \u2192 ends with 0 \u2192 3030 / 5 = 606 \u2192 yes.\n- 3003 \u2192 ends with 3 \u2192 no.\n- 330 \u2192 ends with 0 \u2192 330 / 5 = 66 \u2192 yes.\n- 303 \u2192 ends with 3 \u2192 no.\n- 33 \u2192 ends with 3 \u2192 no.\n\nNow among those divisible by 5: 3300, 3030, 330.\n\nWe need the largest \u2264 oracle_max = 33"
+  ]
+}

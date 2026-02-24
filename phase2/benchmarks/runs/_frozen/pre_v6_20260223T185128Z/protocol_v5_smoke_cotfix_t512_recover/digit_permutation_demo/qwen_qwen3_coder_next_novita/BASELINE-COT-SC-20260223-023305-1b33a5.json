@@ -1,0 +1,110 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-023305-1b33a5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "8664",
+        3
+      ],
+      [
+        "6864",
+        1
+      ],
+      [
+        "8464",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "8664",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 59247,
+    "success": 1,
+    "tokens_in": 1941,
+    "tokens_out": 1441
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-023305-1b33a5",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:33:05Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full number (so the last two digits must be a valid pair from the multiset {6, 6, 8, 4}).\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units) using the available digits (with two 6s, one 8, one 4), and check which are divisible by 4.\n\nPossible 2-digit combinations (order matters, and we can use two 6s):\n\n- 66 \u2192 66 \u00f7 4 = 16.5 \u2192 not divisible  \n- 68 \u2192 68 \u00f7 4 = 17 \u2192 \u2705  \n- 64 \u2192 64 \u00f7 4 = 16 \u2192 \u2705  \n- 86 \u2192 86 \u00f7 4 = 21.5 \u2192 \u274c  \n- 84 \u2192 84 \u00f7 4 = 21 \u2192 \u2705  \n- 46 \u2192 46 \u00f7 4 = 11.5 \u2192 \u274c  \n- 48 \u2192 48 \u00f7 4 = 12 \u2192 \u2705  \n- 88 \u2192 not possible (only one 8)  \n- 44 \u2192 not possible (only one 4)  \n- 66 already considered  \n- Also: 66 (we have two 6s, so allowed), but 66 not divisible by 4  \n- 86, 46 already checked  \n- 64, 68, 84, 48 are valid endings.\n\nSo valid endings (divisible by 4):  \n- 68  \n- 64  \n- 84  \n- 48  \n\nNow, for each valid ending, we want to maximize the full 4-digit number. So we",
+    "SAMPLE 1 FINAL: 8664",
+    "SAMPLE 1 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full number (so the last two digits must be a valid pair from the multiset {6, 6, 8, 4}).\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units) using the available digits (with two 6s, one 8, one 4), and check which are divisible by 4.\n\nPossible 2-digit combinations (order matters, and we can use two 6s):\n\n- 66 \u2192 66 \u00f7 4 = 16.5 \u2192 not divisible  \n- 68 \u2192 68 \u00f7 4 = 17 \u2192 \u2705  \n- 64 \u2192 64 \u00f7 4 = 16 \u2192 \u2705  \n- 86 \u2192 86 \u00f7 4 = 21.5 \u2192 \u274c  \n- 84 \u2192 84 \u00f7 4 = 21 \u2192 \u2705  \n- 46 \u2192 46 \u00f7 4 = 11.5 \u2192 \u274c  \n- 48 \u2192 48 \u00f7 4 = 12 \u2192 \u2705  \n- 88 \u2192 not possible (only one 8)  \n- 44 \u2192 not possible (only one 4)  \n- 66 already considered  \n- Also: 66 (we have two 6s, so allowed), but 66 not divisible by 4  \n- 86, 46 already checked  \n- 64, 68, 84, 48 are valid endings.\n\nSo valid endings (divisible by 4):  \n- 68  \n- 64  \n- 84  \n- 48  \n\nNow, for each valid ending, we want to maximize the full 4-digit number. So we\n\nAnswer only:",
+    "SAMPLE 1 OUTPUT: RECOVERY OUTPUT: 8664",
+    "SAMPLE 1 FINAL: 8664",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible **2-digit endings** formed from the digits [6, 6, 8, 4], using each digit only once overall (so the ending uses two digits, and the first two digits are the remaining two).\n\nLet\u2019s list all **distinct 2-digit combinations** (order matters) we can make from the multiset {6, 6, 8, 4}, and check which are divisible by 4.\n\nPossible 2-digit endings (last two digits):\n\n- 66 \u2192 66 \u00f7 4 = 16.5 \u2192 not divisible  \n- 68 \u2192 68 \u00f7 4 = 17 \u2192 \u2705 divisible  \n- 64 \u2192 64 \u00f7 4 = 16 \u2192 \u2705 divisible  \n- 86 \u2192 86 \u00f7 4 = 21.5 \u2192 \u274c  \n- 84 \u2192 84 \u00f7 4 = 21 \u2192 \u2705  \n- 46 \u2192 46 \u00f7 4 = 11.5 \u2192 \u274c  \n- 48 \u2192 48 \u00f7 4 = 12 \u2192 \u2705  \n- 86 (already considered)  \n- 46 (already considered)  \n- 66 (already considered)  \n- Also, with two 6s, we can have 66 only once.\n\nSo valid endings (divisible by 4): **68, 64, 84, 48**\n\nNow, for each valid ending, we check what digits remain for the first two positions, and form the **largest possible number**.\n\n#### Option 1: Ending = 68  \nDigits used: 6, 8  \nRemaining digits: [6, 4]  \nLargest arrangement of remaining digits: 64  \n\u2192 Number = 6468\n\n#### Option 2: Ending = 64  \nDigits used: 6",
+    "SAMPLE 2 FINAL: 6864",
+    "SAMPLE 2 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible **2-digit endings** formed from the digits [6, 6, 8, 4], using each digit only once overall (so the ending uses two digits, and the first two digits are the remaining two).\n\nLet\u2019s list all **distinct 2-digit combinations** (order matters) we can make from the multiset {6, 6, 8, 4}, and check which are divisible by 4.\n\nPossible 2-digit endings (last two digits):\n\n- 66 \u2192 66 \u00f7 4 = 16.5 \u2192 not divisible  \n- 68 \u2192 68 \u00f7 4 = 17 \u2192 \u2705 divisible  \n- 64 \u2192 64 \u00f7 4 = 16 \u2192 \u2705 divisible  \n- 86 \u2192 86 \u00f7 4 = 21.5 \u2192 \u274c  \n- 84 \u2192 84 \u00f7 4 = 21 \u2192 \u2705  \n- 46 \u2192 46 \u00f7 4 = 11.5 \u2192 \u274c  \n- 48 \u2192 48 \u00f7 4 = 12 \u2192 \u2705  \n- 86 (already considered)  \n- 46 (already considered)  \n- 66 (already considered)  \n- Also, with two 6s, we can have 66 only once.\n\nSo valid endings (divisible by 4): **68, 64, 84, 48**\n\nNow, for each valid ending, we check what digits remain for the first two positions, and form the **largest possible number**.\n\n#### Option 1: Ending = 68  \nDigits used: 6, 8  \nRemaining digits: [6, 4]  \nLargest arrangement of remaining digits: 64  \n\u2192 Number = 6468\n\n#### Option 2: Ending = 64  \nDigits used: 6\n\nAnswer only:",
+    "SAMPLE 2 OUTPUT: RECOVERY OUTPUT: 6864",
+    "SAMPLE 2 FINAL: 6864",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full 4-digit number (i.e., no repetition beyond what's provided \u2014 we have two 6s, so 6 can appear twice).\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units) using the available digits (with two 6s allowed), and check which are divisible by 4.\n\nAvailable digits: two 6s, one 8, one 4.\n\nPossible 2-digit endings (tens digit, units digit):\n\n- 44 \u2192 not possible (only one 4)\n- 46 \u2192 possible (4 and 6)\n- 48 \u2192 possible (4 and 8)\n- 64 \u2192 possible (6 and 4)\n- 66 \u2192 possible (we have two 6s)\n- 68 \u2192 possible (6 and 8)\n- 84 \u2192 possible (8 and 4)\n- 86 \u2192 possible (8 and 6)\n- 88 \u2192 not possible (only one 8)\n- 64 (again, same as above)\n- etc.\n\nLet\u2019s list all valid 2-digit combinations (order matters), using digits from multiset {6,6,8,4}:\n\n- 46  \n- 48  \n- 64  \n- 66  \n- 68  \n- 84  \n- 86  \n\nNow check which of these are divisible by 4:\n\n- 46 \u00f7 4 = 11.5 \u2192 no  \n- 48 \u00f7 4 = 12 \u2192 \u2705  \n- 64 \u00f7 4 = 16 \u2192 \u2705  \n- 66 \u00f7 4 = 16.5 \u2192 no  \n- 68 \u00f7 4 = 17 \u2192 \u2705  \n- 84",
+    "SAMPLE 3 FINAL: 8664",
+    "SAMPLE 3 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full 4-digit number (i.e., no repetition beyond what's provided \u2014 we have two 6s, so 6 can appear twice).\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units) using the available digits (with two 6s allowed), and check which are divisible by 4.\n\nAvailable digits: two 6s, one 8, one 4.\n\nPossible 2-digit endings (tens digit, units digit):\n\n- 44 \u2192 not possible (only one 4)\n- 46 \u2192 possible (4 and 6)\n- 48 \u2192 possible (4 and 8)\n- 64 \u2192 possible (6 and 4)\n- 66 \u2192 possible (we have two 6s)\n- 68 \u2192 possible (6 and 8)\n- 84 \u2192 possible (8 and 4)\n- 86 \u2192 possible (8 and 6)\n- 88 \u2192 not possible (only one 8)\n- 64 (again, same as above)\n- etc.\n\nLet\u2019s list all valid 2-digit combinations (order matters), using digits from multiset {6,6,8,4}:\n\n- 46  \n- 48  \n- 64  \n- 66  \n- 68  \n- 84  \n- 86  \n\nNow check which of these are divisible by 4:\n\n- 46 \u00f7 4 = 11.5 \u2192 no  \n- 48 \u00f7 4 = 12 \u2192 \u2705  \n- 64 \u00f7 4 = 16 \u2192 \u2705  \n- 66 \u00f7 4 = 16.5 \u2192 no  \n- 68 \u00f7 4 = 17 \u2192 \u2705  \n- 84\n\nAnswer only:",
+    "SAMPLE 3 OUTPUT: RECOVERY OUTPUT: 8664",
+    "SAMPLE 3 FINAL: 8664",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once (note: two 6s, so repetition of 6 is allowed up to two times), and find which endings are divisible by 4.\n\nLet\u2019s list all **distinct** 2-digit combinations (order matters) using the multiset {6, 6, 8, 4}:\n\nPossible 2-digit endings (last two digits):\n\n- 66  \n- 68  \n- 64  \n- 86  \n- 84  \n- 46  \n- 48  \n- 86 (again, but same as above)  \n- 46 (again)  \n- etc.\n\nBut let\u2019s systematically list all unique 2-digit numbers we can form with digits from [6,6,8,4], using each digit at most as many times as it appears.\n\nPossible pairs (tens, units):\n\n- (6,6) \u2192 66  \n- (6,8) \u2192 68  \n- (6,4) \u2192 64  \n- (8,6) \u2192 86  \n- (8,4) \u2192 84  \n- (4,6) \u2192 46  \n- (4,8) \u2192 48  \n\nAlso (8,6) and (6,8) are distinct, etc.\n\nNow check which of these are divisible by 4:\n\n- 66 \u00f7 4 = 16.5 \u2192 no  \n- 68 \u00f7 4 = 17 \u2192 **yes**  \n- 64 \u00f7 4 = 16 \u2192 **yes**  \n- 86 \u00f7 4 = 21.5 \u2192 no  \n- 84 \u00f7 4 = 21 \u2192 **yes**  \n- 46 \u00f7 4 = 11.5 \u2192 no  \n-",
+    "SAMPLE 4 FINAL: 8664",
+    "SAMPLE 4 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once (note: two 6s, so repetition of 6 is allowed up to two times), and find which endings are divisible by 4.\n\nLet\u2019s list all **distinct** 2-digit combinations (order matters) using the multiset {6, 6, 8, 4}:\n\nPossible 2-digit endings (last two digits):\n\n- 66  \n- 68  \n- 64  \n- 86  \n- 84  \n- 46  \n- 48  \n- 86 (again, but same as above)  \n- 46 (again)  \n- etc.\n\nBut let\u2019s systematically list all unique 2-digit numbers we can form with digits from [6,6,8,4], using each digit at most as many times as it appears.\n\nPossible pairs (tens, units):\n\n- (6,6) \u2192 66  \n- (6,8) \u2192 68  \n- (6,4) \u2192 64  \n- (8,6) \u2192 86  \n- (8,4) \u2192 84  \n- (4,6) \u2192 46  \n- (4,8) \u2192 48  \n\nAlso (8,6) and (6,8) are distinct, etc.\n\nNow check which of these are divisible by 4:\n\n- 66 \u00f7 4 = 16.5 \u2192 no  \n- 68 \u00f7 4 = 17 \u2192 **yes**  \n- 64 \u00f7 4 = 16 \u2192 **yes**  \n- 86 \u00f7 4 = 21.5 \u2192 no  \n- 84 \u00f7 4 = 21 \u2192 **yes**  \n- 46 \u00f7 4 = 11.5 \u2192 no  \n-\n\nAnswer only:",
+    "SAMPLE 4 OUTPUT: RECOVERY OUTPUT: 8664",
+    "SAMPLE 4 FINAL: 8664",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full number (so the last two digits must be a pair from the multiset {6, 6, 8, 4}, and the first two digits are the remaining two digits).\n\nWe want the **largest possible 4-digit number**, so we want the **largest possible thousands digit**, then hundreds, etc.\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units) using the digits, respecting multiplicities (we have two 6s, one 8, one 4), and check which are divisible by 4.\n\nPossible 2-digit combinations (order matters, and digits can repeat only as allowed \u2014 two 6s allowed, others only once):\n\n- 66  \n- 68  \n- 64  \n- 86  \n- 84  \n- 46  \n- 48  \n- 88 \u2192 not possible (only one 8)  \n- 44 \u2192 not possible (only one 4)  \n- 66 (already listed)  \n- 86 (already listed)  \n- etc.\n\nLet\u2019s systematically list all valid 2-digit endings using digits from {6,6,8,4} without exceeding counts:\n\n1. 66 \u2192 uses both 6s  \n2. 68 \u2192 uses one 6, one 8  \n3. 64 \u2192 uses one 6, one 4  \n4. 86 \u2192 uses one 8, one 6  \n5. 84 \u2192 uses one 8, one 4  \n6. 46 \u2192 uses one 4, one 6  \n7. 48 \u2192 uses one 4, one 8  \n\nNow check which of these are divisible by 4:\n\n- 66 \u00f7 4 = 16.5 \u2192 no",
+    "SAMPLE 5 FINAL: 8464",
+    "SAMPLE 5 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given digits: [6, 6, 8, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full number (so the last two digits must be a pair from the multiset {6, 6, 8, 4}, and the first two digits are the remaining two digits).\n\nWe want the **largest possible 4-digit number**, so we want the **largest possible thousands digit**, then hundreds, etc.\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units) using the digits, respecting multiplicities (we have two 6s, one 8, one 4), and check which are divisible by 4.\n\nPossible 2-digit combinations (order matters, and digits can repeat only as allowed \u2014 two 6s allowed, others only once):\n\n- 66  \n- 68  \n- 64  \n- 86  \n- 84  \n- 46  \n- 48  \n- 88 \u2192 not possible (only one 8)  \n- 44 \u2192 not possible (only one 4)  \n- 66 (already listed)  \n- 86 (already listed)  \n- etc.\n\nLet\u2019s systematically list all valid 2-digit endings using digits from {6,6,8,4} without exceeding counts:\n\n1. 66 \u2192 uses both 6s  \n2. 68 \u2192 uses one 6, one 8  \n3. 64 \u2192 uses one 6, one 4  \n4. 86 \u2192 uses one 8, one 6  \n5. 84 \u2192 uses one 8, one 4  \n6. 46 \u2192 uses one 4, one 6  \n7. 48 \u2192 uses one 4, one 8  \n\nNow check which of these are divisible by 4:\n\n- 66 \u00f7 4 = 16.5 \u2192 no\n\nAnswer only:",
+    "SAMPLE 5 OUTPUT: RECOVERY OUTPUT: 8464",
+    "SAMPLE 5 FINAL: 8464",
+    "VOTE SUMMARY: 8664 -> 3, 6864 -> 1, 8464 -> 1",
+    "VOTE WINNER: 8664 (3/5)"
+  ]
+}

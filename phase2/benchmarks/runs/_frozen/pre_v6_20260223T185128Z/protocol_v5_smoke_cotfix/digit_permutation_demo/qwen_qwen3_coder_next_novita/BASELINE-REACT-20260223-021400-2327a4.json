@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021400-2327a4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "final_answer": "9321",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      3,
+      2,
+      9
+    ],
+    "divisor": 3,
+    "oracle_max": 9321
+  },
+  "item_id": "perm-v4-001",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 14868,
+    "success": 1,
+    "tokens_in": 475,
+    "tokens_out": 215
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021400-2327a4",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3159455536,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:14:00Z",
+  "tool_config": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed by permuting the digits [1, 3, 2, 9] that is divisible by 3. The oracle_max is 9321, which is the maximum possible permutation (9,3,2,1). We need to check permutations in descending order until we find one divisible by 3. Since divisibility by 3 depends on the sum of digits, let's first compute the sum: 1 + 3 + 2 + 9 = 15, which is divisible by 3, so *all* permutations are divisible by 3. Therefore, the largest permutation (9321) is the answer. But let's verify using the tools as required. We can use `is_divisible` on 9321 to confirm, or directly use `best_divisible` if it's designed to return",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The sum of digits is 1 + 3 + 2 + 9 = 15, which is divisible by 3, so *every* permutation of these digits is divisible by 3. Therefore, the largest possible permutation \u2014 which is 9321 \u2014 must be divisible by 3. Since the oracle_max is 9321, and it's a valid permutation, it is the answer. We can confirm with `is_divisible(9321, 3)` or directly use `best_divisible([1,3,2,9], 3)`. To follow the ReAct loop, let\u2019s use `best_divisible` as it's designed for this exact purpose.\nACTION: best_divisible [1, 3, 2, 9] 3",
+    "STEP 2 OBSERVATION: 9321",
+    "STEP 3 MODEL: FINAL: 9321"
+  ]
+}

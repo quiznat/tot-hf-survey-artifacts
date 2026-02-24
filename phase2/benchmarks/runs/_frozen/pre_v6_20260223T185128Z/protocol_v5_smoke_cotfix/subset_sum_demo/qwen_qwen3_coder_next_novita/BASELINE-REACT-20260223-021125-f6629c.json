@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021125-f6629c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_target",
+    "sum_list"
+  ],
+  "final_answer": "[24, 6, 7, 2]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 36959,
+    "success": 1,
+    "tokens_in": 416,
+    "tokens_out": 211
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021125-f6629c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:11:25Z",
+  "tool_config": [
+    "check_target",
+    "sum_list"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The goal is to reach the target sum of 39 using some subset of the numbers [2, 6, 7, 21, 23, 24]. I can use the `sum_list` tool to compute the sum of any subset, and `check_target` to verify if a given list sums to the target (39). Let me try some combinations.\n\nFirst, try the largest numbers: 24 + 23 = 47 \u2192 too big.  \n24 + 21 = 45 \u2192 too big.  \n23 + 21 = 44 \u2192 too big.  \nTry three numbers: 2 + 6 + 21 = 29  \n2 + 7 + 21 = 30  \n6 + 7 + 21 = 34  \n2 + 6 + 23 = 3",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The previous attempt with three-number combinations didn\u2019t reach 39 yet. Let\u2019s try other combinations. Since 24 + 6 + 7 = 37 (close), and 24 + 6 + 7 + 2 = 39 \u2014 that\u2019s promising! Let me verify using `sum_list` on [24, 6, 7, 2].",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: The candidate subset [24, 6, 7, 2] sums to 24 + 6 + 7 + 2 = 39, which matches the target. I should verify this using the `sum_list` tool to confirm the sum, and then use `check_target` to validate against the target.\nACTION: sum_list [24, 6, 7, 2]",
+    "STEP 3 OBSERVATION: 39"
+  ]
+}

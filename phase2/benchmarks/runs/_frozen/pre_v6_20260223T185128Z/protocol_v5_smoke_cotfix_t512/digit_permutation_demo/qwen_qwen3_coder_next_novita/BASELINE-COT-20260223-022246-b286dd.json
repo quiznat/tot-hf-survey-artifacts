@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022246-b286dd.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "8610",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      8,
+      1,
+      6,
+      0
+    ],
+    "divisor": 3,
+    "oracle_max": 8610
+  },
+  "item_id": "perm-v4-009",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15663,
+    "success": 1,
+    "tokens_in": 41,
+    "tokens_out": 215
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022246-b286dd",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3909615603,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:22:46Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the digits: [8, 1, 6, 0], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 3**.\n\n---\n\n### Step 1: Divisibility Rule for 3  \nA number is divisible by 3 **if and only if** the **sum of its digits** is divisible by 3.\n\nLet\u2019s compute the sum of the given digits:\n\n8 + 1 + 6 + 0 = **15**\n\n15 is divisible by 3 (15 \u00f7 3 = 5), so **any permutation** of these digits will yield a number divisible by 3.\n\nSo, we just need to find the **largest possible 4-digit number** using digits 8, 1, 6, 0 exactly once.\n\n---\n\n### Step 2: Form the largest 4-digit number  \nTo maximize the number, arrange digits in **descending order**, but ensure the **first digit is not 0** (since it must be a 4-digit number).\n\nDigits in descending order: 8, 6, 1, 0  \n\u2192 Number: **8610**\n\nCheck:  \n- Uses all digits: \u2705  \n- First digit \u2260 0: \u2705  \n- Sum = 15 \u2192 divisible by 3: \u2705\n\nIs there any larger permutation? Let's list top candidates:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n- 6810  \n- ...\n\nClearly, **8610** is the largest.\n\n---\n\nFINAL: 8610",
+    "FINAL: 8610"
+  ]
+}

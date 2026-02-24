@@ -1,0 +1,91 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-173021-c5698b.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 3,
+      "frontier_width": 3,
+      "generated_nodes": 9,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(6 + 4 + 10) + 4 = 24",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 14933,
+    "success": 1,
+    "tokens_in": 1729,
+    "tokens_out": 281
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-173021-c5698b",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:30:21Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=look for combinations that yield 24 via multiplication or addition; subnodes=6\u00d74=24 | 10+4+4+6=24 | (10-4)\u00d7(4+0)=24 (invalid); recombine=filt...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Try (10 - 4) \u00d7 (4 + 0) \u2014 invalid (0 not available); instead consider (10 - 4) \u00d7 4 = 24, but 6 unused",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=FINAL: (10 - 4) \u00d7 4 = 24 \u2014 wait, 6 unused. Try 6 \u00d7 4 + (10 - 10) \u2014 no duplicate 10. Try (6 + 4) + (10 + 4) = 24 \u2192 10 + 14 = 24? No, 6+4=10, 10+4=14, 10+14=24...",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=explore subtraction and division to balance excess; subnodes=(10+4+4+6)=24 | (10\u00d74)-(6+4)=30 | (6\u00d74)+(10-4)=24+6=30; recombine=check which ex...",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Compute (6\u00d74)+(10-4)=24+6=30 \u2192 too high; reduce by subtracting 6 instead: (6\u00d74)+(4-10)=24-6=18 \u2192 too low; try (10+4)\u00d7(6\u00f74)=14\u00d71.5=21 \u2192 close; adjust to...",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=FINAL: (10 - 4) \u00d7 4 = 24 \u2014 but 6 unused; correct expression using all: (6 + 4) + (10 + 4) = 24",
+    "NODE n0007 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=use division to incorporate the 6 as a divisor or multiplier; subnodes=6\u00d74=24 (needs to use 10 and 4) | (10+4+6)\u00d7(4\u00f74)=20 (uses all but yield...",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Recognize that 6\u00d74=24, so need to neutralize 10 and 4 without changing value: try (6\u00d74)\u00d7(10\u00f710) \u2014 only one 10; instead use (6\u00d74)\u00d7(4\u00f74)=24\u00d71=24, but 10 ...",
+    "NODE n0009 parent=n0002 score=0.5000 cum=1.0000 terminal=True thought=FINAL: (6 + 4 + 10) + 4 = 24"
+  ]
+}

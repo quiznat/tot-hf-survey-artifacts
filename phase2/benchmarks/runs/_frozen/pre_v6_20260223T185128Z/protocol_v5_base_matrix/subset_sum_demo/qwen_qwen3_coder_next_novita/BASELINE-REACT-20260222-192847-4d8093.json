@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192847-4d8093.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      5,
+      7,
+      7,
+      10
+    ],
+    "target": 29
+  },
+  "item_id": "ss-v4-030",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 40037,
+    "success": 0,
+    "tokens_in": 1376,
+    "tokens_out": 552
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192847-4d8093",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3298614460,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:28:47Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given numbers [5, 5, 7, 7, 10] and need to reach target 29 using arithmetic operations (implicitly, since no tools are available and this is a classic 24-game-like puzzle). Let's explore combinations.\n\nWe need to use all numbers? In many such puzzles, yes \u2014 but sometimes not. Let's assume we must use each number exactly once.\n\nTry sum: 5 + 5 + 7 + 7 + 10 = 34 \u2192 too high.\n\nTry: 10 + 7 + 7 + 5 = 29 \u2014 that's 10+7+7+5 = 29, but we have two 5s and two 7s. So if we use 10 + 7 + 7 + 5 = 29, we have one 5 left unused. Not",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need to use all five numbers [5, 5, 7, 7, 10] exactly once, with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses), to reach 29. Sum is 34, which is 5 too high. So perhaps subtract something: 34 \u2212 5 = 29, but that would require using one 5 twice \u2014 not allowed. Try grouping: maybe (7 \u00d7 5) \u2212 (7 \u2212 5) + 10? Let's compute: 7\u00d75 = 35; 7\u22125 = 2; 35 \u2212 2 = 33; 33 + 10 = 43 \u2014 too high. Try (10 + 5) + (7 + 7) = 29? That\u2019s 15 + 14 =",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's systematically explore combinations using all five numbers [5, 5, 7, 7, 10] exactly once with +, \u2212, \u00d7, \u00f7, and parentheses.\n\nWe know total sum = 34. Target = 29, so we need to reduce by 5. That suggests maybe subtracting a 5, but we have two 5s \u2014 perhaps we can form a subexpression equal to 5 using the other numbers and subtract it? Wait, no \u2014 we must use *all* numbers.\n\nTry: (7 \u00d7 5) = 35. Then 35 \u2212 (10 \u00f7 5) = 35 \u2212 2 = 33. Then 33 \u2212 7 = 26 \u2014 too low.\n\nTry: (7 + 7) = 14; (5 + 5) = 10;",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let's try more structured combinations. We need to use all five numbers: [5, 5, 7, 7, 10] to get 29.\n\nTry: 10 \u00d7 (5 \u2212 (7 \u00f7 7)) + 5  \nCompute inner: 7 \u00f7 7 = 1  \nThen 5 \u2212 1 = 4  \n10 \u00d7 4 = 40  \n40 + 5 = 45 \u2014 too high.\n\nTry: (10 + 5 + 5) + (7 + 7) = 20 + 14 = 34 \u2014 too high.\n\nTry subtraction: 10 + 7 + 7 + 5 = 29, but we have an extra 5. So maybe: (10 + 7 + 7 + 5) \u2212 (5 \u2212 5)",
+    "STEP 4 OBSERVATION: error: unknown tool '10'",
+    "STEP 5 MODEL: THINK: We need to use all five numbers [5, 5, 7, 7, 10] exactly once with arithmetic operations to reach 29. Let\u2019s reconsider:  \nWe saw 10 + 7 + 7 + 5 = 29, leaving one 5 unused. To incorporate the extra 5, we could try to neutralize it via subtraction of zero: e.g., subtract (5 \u2212 5) = 0. So:  \n(10 + 7 + 7 + 5) \u2212 (5 \u2212 5) = 29 \u2212 0 = 29.  \nBut that uses five numbers: 10, 7, 7, 5, and both 5s \u2014 yes, all five. Wait: (5 \u2212 5) uses both 5s, and the other 5 is used in the sum \u2014 that",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

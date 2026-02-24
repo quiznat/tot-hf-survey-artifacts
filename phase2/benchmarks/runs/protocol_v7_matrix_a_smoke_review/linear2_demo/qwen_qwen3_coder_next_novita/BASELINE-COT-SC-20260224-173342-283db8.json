@@ -1,0 +1,123 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173342-283db8.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "x=7.0,y=3.0",
+        8
+      ],
+      [
+        "x=1.0,y=7.0",
+        1
+      ],
+      [
+        "x=-70.0,y=-25.0",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 8
+  },
+  "final_answer": "x=7.0,y=3.0",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        8,
+        -25
+      ],
+      [
+        -7,
+        -7,
+        -70
+      ]
+    ]
+  },
+  "item_id": "lin-v4-006",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4549,
+    "success": 1,
+    "tokens_in": 500,
+    "tokens_out": 1709
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173342-283db8",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 359837145,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:42Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003\u2003-7.0x - 7.0y = -70.0  \n\n**Step 1: Eliminate one variable.**  \nBoth equations have `-7.0x`, so subtract Equation 2 from Equation 1 to eliminate x:\n\n(Equation 1) \u2212 (Equation 2):  \n\u2003\u2003(-7.0x + 8.0y) \u2212 (-7.0x - 7.0y) = -25.0 \u2212 (-70.0)  \n\u2003\u2003-7.0x + 8.0y + 7.0x + 7.0y = -25.0 + 70.0  \n\u2003\u2003(8.0y + 7.0y) = 45.0  \n\u2003\u200315.0y = 45.0  \n\u2003\u2003y = 45.0 / 15.0 = 3.0\n\n**Step 2: Substitute y = 3.0 into one equation to solve for x.**  \nUse Equation 2:  \n\u2003\u2003-7.0x - 7.0y = -70.0  \n\u2003\u2003-7.0x - 7.0(3.0) = -70.0  \n\u2003\u2003-7.0x - 21.0 = -70.0  \n\u2003\u2003-7.0x = -70.0 + 21.0 = -49.0  \n\u2003\u2003x = (-49.0) / (-7.0) = 7.0\n\n**Check with Equation 1:**  \n-7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2705\n\nFinal values:  \nx = 7.0, y = 3.0\n\nFINAL: x=7.0,y=3.0",
+    "SAMPLE 1 FINAL: x=7.0,y=3.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003\u2003-7.0x - 7.0y = -70.0  \n\n**Step 1: Eliminate one variable.**  \nNotice both equations have -7.0x. Subtract Equation 2 from Equation 1 to eliminate x:\n\n(Equation 1) \u2212 (Equation 2):  \n\u2003(-7.0x + 8.0y) \u2212 (-7.0x - 7.0y) = -25.0 \u2212 (-70.0)  \n\u2192 -7.0x + 8.0y + 7.0x + 7.0y = -25.0 + 70.0  \n\u2192 (0x) + (15.0y) = 45.0  \n\u2192 15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0\n\n**Step 2: Substitute y = 3.0 into one equation to solve for x.**  \nUse Equation 2:  \n\u2003-7.0x - 7.0y = -70.0  \nPlug in y = 3.0:  \n\u2003-7.0x - 7.0(3.0) = -70.0  \n\u2003-7.0x - 21.0 = -70.0  \nAdd 21.0 to both sides:  \n\u2003-7.0x = -49.0  \nDivide by -7.0:  \n\u2003x = (-49.0)/(-7.0) = 7.0\n\n\u2705 Check with Equation 1:  \n-7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2714\ufe0f\n\nSo solution: x = 7.0, y = 3.0\n\nFINAL: x=7.0,y=3.0",
+    "SAMPLE 2 FINAL: x=7.0,y=3.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003-7.0x - 7.0y = -70.0\n\n**Step 1: Eliminate one variable.**  \nBoth equations have -7.0x, so subtract Equation 2 from Equation 1 to eliminate x:\n\n(\u22127.0x + 8.0y) \u2212 (\u22127.0x \u2212 7.0y) = \u221225.0 \u2212 (\u221270.0)\n\nSimplify left side:  \n\u22127.0x + 8.0y + 7.0x + 7.0y = (\u22127.0x + 7.0x) + (8.0y + 7.0y) = 15.0y\n\nRight side:  \n\u221225.0 + 70.0 = 45.0\n\nSo:  \n15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0\n\n**Step 2: Substitute y = 3.0 into one equation to solve for x.**  \nUse Equation 2:  \n\u22127.0x \u2212 7.0y = \u221270.0  \nPlug in y = 3.0:  \n\u22127.0x \u2212 7.0(3.0) = \u221270.0  \n\u22127.0x \u2212 21.0 = \u221270.0  \nAdd 21.0 to both sides:  \n\u22127.0x = \u221249.0  \nDivide by \u22127.0:  \nx = (\u221249.0) / (\u22127.0) = 7.0\n\n\u2705 Check with Equation 1:  \n\u22127.0(7.0) + 8.0(3.0) = \u221249.0 + 24.0 = \u221225.0 \u2714\ufe0f\n\nFINAL: x=7.0,y=3.0",
+    "SAMPLE 3 FINAL: x=7.0,y=3.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003-7.0x - 7.0y = -70.0  \n\n**Step 1: Eliminate one variable.**  \nBoth equations have -7.0x, so subtract Equation 2 from Equation 1 to eliminate x.\n\nEquation 1 \u2212 Equation 2:  \n(-7.0x + 8.0y) \u2212 (-7.0x - 7.0y) = -25.0 \u2212 (-70.0)  \n\u2192 -7.0x + 8.0y + 7.0x + 7.0y = -25.0 + 70.0  \n\u2192 (0x) + (15.0y) = 45.0  \n\u2192 15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0  \n\n**Step 2: Substitute y = 3.0 into one equation to solve for x.**  \nUse Equation 2 (simpler coefficients):  \n-7.0x - 7.0y = -70.0  \nPlug in y = 3.0:  \n-7.0x - 7.0(3.0) = -70.0  \n\u2192 -7.0x - 21.0 = -70.0  \n\u2192 -7.0x = -70.0 + 21.0 = -49.0  \n\u2192 x = (-49.0) / (-7.0) = 7.0  \n\n\u2705 Check with Equation 1:  \n-7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2714\ufe0f  \n\nFINAL: x=7.0,y=3.0",
+    "SAMPLE 4 FINAL: x=7.0,y=3.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given a system of two linear equations:\n\nEquation 1:  \n\u2003\u2003-7.0*x + 8.0*y = -25.0  \nEquation 2:  \n\u2003\u2003-7.0*x - 7.0*y = -70.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Eliminate one variable\nBoth equations have **-7.0*x**, so subtract one equation from the other to eliminate x.\n\nSubtract Equation 2 from Equation 1:\n\n(-7.0*x + 8.0*y) \u2212 (-7.0*x \u2212 7.0*y) = -25.0 \u2212 (-70.0)\n\nSimplify left side:\n-7.0*x + 8.0*y + 7.0*x + 7.0*y = (\u22127.0x + 7.0x) + (8.0y + 7.0y) = 0 + 15.0*y = 15.0*y\n\nRight side:\n-25.0 + 70.0 = 45.0\n\nSo:\n\u2003\u200315.0*y = 45.0  \n\u21d2\u2003y = 45.0 / 15.0 = **3.0**\n\n### Step 2: Plug y = 3.0 into one equation to find x\nUse Equation 2 (simpler coefficients):\n\n-7.0*x - 7.0*y = -70.0  \nPlug y = 3.0:\n\n-7.0*x - 7.0*(3.0) = -70.0  \n-7.0*x - 21.0 = -70.0  \nAdd 21.0 to both sides:\n\n-7.0*x = -49.0  \nDivide both sides by -7.0:\n\nx = (-49.0)/(-7.0) = **7.0**\n\n### Final check (optional):\nPlug x = 7.0, y = 3.0 into Equation 1:\n\n-7.0*(7.0) + 8.0*(3.0) = -49.0 + 24.0 = -25.0 \u2705\n\nAll checks out.\n\nFINAL: x=7.0,y=3.",
+    "SAMPLE 5 FINAL: x=7.0,y=3.0",
+    "SAMPLE 6 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003-7.0x - 7.0y = -70.0  \n\n**Step 1: Eliminate one variable.**  \nBoth equations have -7.0x, so subtract one equation from the other to eliminate x.\n\nLet\u2019s subtract Equation 2 from Equation 1:\n\n(-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0)\n\nSimplify left side:  \n-7.0x + 8.0y + 7.0x + 7.0y = ( -7.0x + 7.0x ) + (8.0y + 7.0y) = 0 + 15.0y = 15.0y\n\nRight side:  \n-25.0 + 70.0 = 45.0\n\nSo:  \n15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0\n\n**Step 2: Plug y = 3.0 into one equation to solve for x.**  \nUse Equation 2 (simpler coefficients):  \n-7.0x - 7.0y = -70.0  \nSubstitute y = 3.0:  \n-7.0x - 7.0(3.0) = -70.0  \n-7.0x - 21.0 = -70.0  \nAdd 21.0 to both sides:  \n-7.0x = -49.0  \nDivide by -7.0:  \nx = (-49.0) / (-7.0) = 7.0\n\n\u2705 Check with Equation 1:  \n-7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2714\ufe0f\n\nFINAL: x=7.0,y=3.0",
+    "SAMPLE 6 FINAL: x=7.0,y=3.0",
+    "SAMPLE 7 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003\u2003-7.0x - 7.0y = -70.0\n\nStep 1: Eliminate one variable.  \nSince both equations have -7.0x, subtract Equation 2 from Equation 1 (or vice versa) to eliminate x.\n\nLet\u2019s do Eq1 \u2212 Eq2:\n\n(-7.0x + 8.0y) \u2212 (-7.0x - 7.0y) = -25.0 \u2212 (-70.0)  \n\u2192 -7.0x + 8.0y + 7.0x + 7.0y = -25.0 + 70.0  \n\u2192 (\u22127.0x + 7.0x) + (8.0y + 7.0y) = 45.0  \n\u2192 0x + 15.0y = 45.0  \n\u2192 15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0\n\nStep 2: Substitute y = 3.0 into one of the original equations to solve for x.  \nUse Equation 2:  \n-7.0x - 7.0y = -70.0  \nPlug y = 3.0:  \n-7.0x - 7.0(3.0) = -70.0  \n\u2192 -7.0x - 21.0 = -70.0  \nAdd 21.0 to both sides:  \n-7.0x = -49.0  \nDivide by -7.0:  \nx = (-49.0) / (-7.0) = 7.0\n\nCheck with Equation 1:  \n-7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2705\n\nSo solution is x = 7.0, y = 3.0\n\nFINAL: x=7.0,y=3.0",
+    "SAMPLE 7 FINAL: x=7.0,y=3.0",
+    "SAMPLE 8 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003\u22127.0x + 8.0y = \u221225.0  \nEquation 2:  \n\u2003\u2003\u22127.0x \u2212 7.0y = \u221270.0\n\n**Step 1: Eliminate one variable**\n\nNotice that both equations have \u22127.0x. Subtract Equation 2 from Equation 1 to eliminate x:\n\n(Equation 1) \u2212 (Equation 2):  \n\u2003\u2003[\u22127.0x + 8.0y] \u2212 [\u22127.0x \u2212 7.0y] = \u221225.0 \u2212 (\u221270.0)  \n\u2003\u2003\u22127.0x + 8.0y + 7.0x + 7.0y = \u221225.0 + 70.0  \n\u2003\u2003(\u22127.0x + 7.0x) + (8.0y + 7.0y) = 45.0  \n\u2003\u20030x + 15.0y = 45.0  \n\u2003\u200315.0y = 45.0  \n\u2003\u2003y = 45.0 / 15.0 = 3.0\n\n**Step 2: Substitute y = 3.0 into one equation to solve for x**\n\nUse Equation 2 (simpler coefficients):  \n\u2003\u2003\u22127.0x \u2212 7.0y = \u221270.0  \nSubstitute y = 3.0:  \n\u2003\u2003\u22127.0x \u2212 7.0(3.0) = \u221270.0  \n\u2003\u2003\u22127.0x \u2212 21.0 = \u221270.0  \nAdd 21.0 to both sides:  \n\u2003\u2003\u22127.0x = \u221249.0  \nDivide by \u22127.0:  \n\u2003\u2003x = (\u221249.0) / (\u22127.0) = 7.0\n\n\u2705 Check with Equation 1:  \n\u22127.0(7.0) + 8.0(3.0) = \u221249.0 + 24.0 = \u221225.0 \u2714\ufe0f",
+    "SAMPLE 8 FINAL: x=1.0,y=7.0",
+    "SAMPLE 9 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003-7.0x - 7.0y = -70.0  \n\n**Step 1: Eliminate one variable.**  \nBoth equations have -7.0x, so subtract Equation 2 from Equation 1 (or vice versa) to eliminate x.\n\nLet\u2019s do: Equation 1 \u2212 Equation 2:\n\n(-7.0x + 8.0y) \u2212 (-7.0x - 7.0y) = -25.0 \u2212 (-70.0)\n\nSimplify left side:  \n-7.0x + 8.0y + 7.0x + 7.0y = (\u22127.0x + 7.0x) + (8.0y + 7.0y) = 0 + 15.0y = 15.0y\n\nRight side:  \n-25.0 + 70.0 = 45.0\n\nSo:  \n15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0\n\n**Step 2: Substitute y = 3.0 into one equation to solve for x.**  \nUse Equation 2 (simpler coefficients):  \n-7.0x - 7.0y = -70.0  \nPlug in y = 3.0:  \n-7.0x - 7.0(3.0) = -70.0  \n\u2192 -7.0x - 21.0 = -70.0  \nAdd 21.0 to both sides:  \n-7.0x = -49.0  \nDivide by -7.0:  \nx = (-49.0)/(-7.0) = 7.0\n\n**Step 3: Verify with Equation 1.**  \n-7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2705\n\nSo solution is x = 7.0, y = 3.0\n\nFINAL: x=7.0,y=3.",
+    "SAMPLE 9 FINAL: x=7.0,y=3.0",
+    "SAMPLE 10 PROMPT: Solve the linear system for x and y.\nEquation 1: -7.0*x + 8.0*y = -25.0\nEquation 2: -7.0*x + -7.0*y = -70.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003-7.0x + 8.0y = -25.0  \nEquation 2:  \n\u2003-7.0x - 7.0y = -70.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Eliminate one variable.**  \nBoth equations have -7.0x as the first term, so subtract the equations to eliminate x.\n\nSubtract Equation 2 from Equation 1:\n\n(-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0)\n\nSimplify left side:  \n-7.0x + 8.0y + 7.0x + 7.0y = (\u22127.0x + 7.0x) + (8.0y + 7.0y) = 0 + 15.0y = 15.0y\n\nRight side:  \n-25.0 + 70.0 = 45.0\n\nSo:  \n15.0y = 45.0  \n\u2192 y = 45.0 / 15.0 = 3.0\n\n**Step 2: Substitute y = 3.0 into one equation to solve for x.**  \nUse Equation 2 (or Equation 1 \u2014 pick Equation 2):\n\n-7.0x - 7.0y = -70.0  \nPlug in y = 3.0:\n\n-7.0x - 7.0(3.0) = -70.0  \n-7.0x - 21.0 = -70.0  \nAdd 21.0 to both sides:\n\n-7.0x = -70.0 + 21.0 = -49.0  \nDivide by -7.0:\n\nx = (-49.0) / (-7.0) = 7.0\n\n**Check with Equation 1:**  \n-7.0x + 8.0y = -7.0(7.0) + 8.0(3.0) = -49.0 + 24.0 = -25.0 \u2705\n\nSo solution is x = 7.",
+    "SAMPLE 10 FINAL: x=-70.0,y=-25.0",
+    "VOTE SUMMARY: x=7.0,y=3.0 -> 8, x=1.0,y=7.0 -> 1, x=-70.0,y=-25.0 -> 1",
+    "VOTE WINNER: x=7.0,y=3.0 (8/10)"
+  ]
+}

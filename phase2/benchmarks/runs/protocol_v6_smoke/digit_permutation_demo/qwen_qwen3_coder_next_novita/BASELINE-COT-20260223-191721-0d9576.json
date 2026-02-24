@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-191721-0d9576.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "88",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5324,
+    "success": 0,
+    "tokens_in": 41,
+    "tokens_out": 298
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260223-191721-0d9576",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:21Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the digits: [6, 6, 8, 4]  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full 4-digit number (so the last two digits must be a valid pair from the multiset {6, 6, 8, 4}).\n\nLet\u2019s list all possible **distinct** 2-digit endings (tens and units) using the available digits (with two 6s, one 8, one 4), and check which are divisible by 4.\n\nPossible 2-digit endings (order matters, and digits can repeat only as allowed \u2014 two 6s allowed, others only once):\n\n- 66 \u2192 digits used: two 6s  \n- 68 \u2192 6 and 8  \n- 64 \u2192 6 and 4  \n- 86 \u2192 8 and 6  \n- 84 \u2192 8 and 4  \n- 46 \u2192 4 and 6  \n- 48 \u2192 4 and 8  \n- 88 \u2192 not possible (only one 8)  \n- 44 \u2192 not possible (only one 4)  \n- 66 already listed  \n- 86, 46 already listed  \n- Also 66 again \u2014 only one unique 66.\n\nNow check which of these are divisible by 4:\n\n- 66 \u00f7 4 = 16.5 \u2192 no  \n- 68 \u00f7 4 = 17 \u2192 **yes**  \n- 64 \u00f7 4 = 16 \u2192 **yes**  \n- 86 \u00f7 4 = 21.5 \u2192 no  \n- 84 \u00f7 4 = 21 \u2192 **yes**  \n- 46 \u00f7 4 = 11.5 \u2192 no  \n- 48 \u00f7 4 = 12 \u2192 **yes**\n\nSo valid endings: **6",
+    "FINAL: 88"
+  ]
+}

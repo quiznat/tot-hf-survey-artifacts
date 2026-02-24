@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180826-b5f3f2.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: Continue evaluating candidates. 1120 is equal to oracle_max, so it's valid if divisible by 8. Check divisibility by 8: last three digits of 1120 are '120'. 120 \u00f7 8 = 15 \u2192 exact, so 1120 is divisible by 8. Since it's the largest candidate \u2264 1120 (all larger permutations exceed 1120), and it satisfies both conditions, it is the answer. No need to check smaller numbers.",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      0,
+      1,
+      1
+    ],
+    "divisor": 8,
+    "oracle_max": 1120
+  },
+  "item_id": "perm-v4-040",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 63088,
+    "success": 1,
+    "tokens_in": 811,
+    "tokens_out": 348
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180826-b5f3f2",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1044333902,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:08:26Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed by permuting the digits [2, 0, 1, 1] that is divisible by 8, and it must be \u2264 oracle_max = 1120. Since no tools are available, I need to compute this manually.\n\nFirst, recall the divisibility rule for 8: a number is divisible by 8 if its last three digits form a number divisible by 8.\n\nDigits available: [2, 0, 1, 1] \u2192 possible 4-digit numbers (since leading zero is not allowed for a 4-digit number, but numbers with fewer digits are possible, though likely smaller than 4-digit ones).\n\nWe want the *largest* such number \u2264 1120.\n\nLet\u2019s list all 4-digit permutations of [2,0,1,1] in descending order and check which is \u2264",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's systematically list all valid 4-digit numbers formed by permuting [2, 0, 1, 1] in descending order, then check divisibility by 8 and \u2264 1120.\n\nFirst, sort digits descending: [2, 1, 1, 0]. Generate permutations in descending lexicographic order (avoiding duplicates due to two 1s), and skip those with leading zero.\n\nAll unique permutations of [2,1,1,0]:\n\n- 2110  \n- 2101  \n- 2011  \n- 1210  \n- 1201  \n- 1120  \n- 1102  \n- 1021  \n- 1012  \n\nNow sort them descending:  \n2110, 2101, 2011,",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's continue evaluating the list of permutations in descending order: 2110, 2101, 2011, 1210, 1201, 1120, 1102, 1021, 1012.\n\nWe need numbers \u2264 1120. So any number > 1120 is invalid.\n\nCheck each:\n\n- 2110 > 1120 \u2192 reject  \n- 2101 > 1120 \u2192 reject  \n- 2011 > 1120 \u2192 reject  \n- 1210 > 1120 \u2192 reject  \n- 1201 > 1120 \u2192 reject  \n- 1120 = 1120 \u2192 candidate (\u2264 oracle_max)  \n- Next:",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Continue evaluating candidates. 1120 is equal to oracle_max, so it's valid if divisible by 8. Check divisibility by 8: last three digits of 1120 are '120'. 120 \u00f7 8 = 15 \u2192 exact, so 1120 is divisible by 8. Since it's the largest candidate \u2264 1120 (all larger permutations exceed 1120), and it satisfies both conditions, it is the answer. No need to check smaller numbers."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011944-612de7.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nSince 24 + 20 + 19 = 63, I need 16 more to reach 79.\nBut I can't use 16 since 24 + 20 + 19 + 16 = 79.\n\nLet me try: 24 + 20 + 19 + 16 = 7",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nIf I use 24 and 20, I need 79 - 44 = 35 more.\nCan I make 35 from [7, 16, 19]?\n16 + 19 = 35 \u2713\n\nSo: 24 + 20 + 16 + 19 = 79\n\nLet",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nSince 86 > 79, I need to exclude some numbers.\n\nThe difference is 86 - 79 = 7\n\nThis means if I exclude 7, the sum would be 86 - 7 = 79.\n\nLet me verify: 16 + 19 + 20 + 24 = 79\n\nChecking: 16 + 19 = 35\n35 + 20 = 55\n55 + 24 = 79 \u2713\n\nThis works perfectly",
+        1
+      ],
+      [
+        "1",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nThis is too large (86 > 79), so I need to exclude some numbers.\n\nLet me try excluding the largest numbers and see what combinations work:\n\nIf I exclude 24: 7 + 16 + 19 + 20 = 62 (too small)\nIf I exclude 20: 7 + 16 + 19 + 24 = 66 (too small)\nIf I exclude 19: 7 + 16 + 20 + 24 = 67 (",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nSince 24 + 20 + 19 = 63, I need 16 more to reach 79.\nBut I can't use 16 since 24 + 20 + 19 + 16 = 79.\n\nLet me try: 24 + 20 + 19 + 16 = 7",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      7,
+      16,
+      19,
+      20,
+      24
+    ],
+    "target": 79
+  },
+  "item_id": "ss-v4-033",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 14494,
+    "success": 0,
+    "tokens_in": 355,
+    "tokens_out": 540
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011944-612de7",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3443702693,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:44Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [7, 16, 19, 20, 24]\nTarget: 79\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nSince 24 + 20 + 19 = 63, I need 16 more to reach 79.\nBut I can't use 16 since 24 + 20 + 19 + 16 = 79.\n\nLet me try: 24 + 20 + 19 + 16 = 7",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nSince 24 + 20 + 19 = 63, I need 16 more to reach 79.\nBut I can't use 16 since 24 + 20 + 19 + 16 = 79.\n\nLet me try: 24 + 20 + 19 + 16 = 7",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [7, 16, 19, 20, 24]\nTarget: 79\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nIf I use 24 and 20, I need 79 - 44 = 35 more.\nCan I make 35 from [7, 16, 19]?\n16 + 19 = 35 \u2713\n\nSo: 24 + 20 + 16 + 19 = 79\n\nLet",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nIf I use 24 and 20, I need 79 - 44 = 35 more.\nCan I make 35 from [7, 16, 19]?\n16 + 19 = 35 \u2713\n\nSo: 24 + 20 + 16 + 19 = 79\n\nLet",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [7, 16, 19, 20, 24]\nTarget: 79\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nSince 86 > 79, I need to exclude some numbers.\n\nThe difference is 86 - 79 = 7\n\nThis means if I exclude 7, the sum would be 86 - 7 = 79.\n\nLet me verify: 16 + 19 + 20 + 24 = 79\n\nChecking: 16 + 19 = 35\n35 + 20 = 55\n55 + 24 = 79 \u2713\n\nThis works perfectly",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nSince 86 > 79, I need to exclude some numbers.\n\nThe difference is 86 - 79 = 7\n\nThis means if I exclude 7, the sum would be 86 - 7 = 79.\n\nLet me verify: 16 + 19 + 20 + 24 = 79\n\nChecking: 16 + 19 = 35\n35 + 20 = 55\n55 + 24 = 79 \u2713\n\nThis works perfectly",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [7, 16, 19, 20, 24]\nTarget: 79\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nSince 86 > 79, I need to exclude some numbers.\n\nThe difference is 86 - 79 = 7\nSo if I exclude 7, I get 86 - 7 = 79 \u2713\n\nLet me verify: 16 + 19 + 20 + 24 = 79\n16 + 19 = 35\n35 + 20 = 55\n55 + 24 = 79 \u2713\n\nThis works perfectly.\n\nFINAL: 1",
+    "SAMPLE 4 FINAL: 1",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [7, 16, 19, 20, 24]\nTarget: 79\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nThis is too large (86 > 79), so I need to exclude some numbers.\n\nLet me try excluding the largest numbers and see what combinations work:\n\nIf I exclude 24: 7 + 16 + 19 + 20 = 62 (too small)\nIf I exclude 20: 7 + 16 + 19 + 24 = 66 (too small)\nIf I exclude 19: 7 + 16 + 20 + 24 = 67 (",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nThis is too large (86 > 79), so I need to exclude some numbers.\n\nLet me try excluding the largest numbers and see what combinations work:\n\nIf I exclude 24: 7 + 16 + 19 + 20 = 62 (too small)\nIf I exclude 20: 7 + 16 + 19 + 24 = 66 (too small)\nIf I exclude 19: 7 + 16 + 20 + 24 = 67 (",
+    "VOTE SUMMARY: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nSince 24 + 20 + 19 = 63, I need 16 more to reach 79.\nBut I can't use 16 since 24 + 20 + 19 + 16 = 79.\n\nLet me try: 24 + 20 + 19 + 16 = 7 -> 1, I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nIf I use 24 and 20, I need 79 - 44 = 35 more.\nCan I make 35 from [7, 16, 19]?\n16 + 19 = 35 \u2713\n\nSo: 24 + 20 + 16 + 19 = 79\n\nLet -> 1, I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nSince 86 > 79, I need to exclude some numbers.\n\nThe difference is 86 - 79 = 7\n\nThis means if I exclude 7, the sum would be 86 - 7 = 79.\n\nLet me verify: 16 + 19 + 20 + 24 = 79\n\nChecking: 16 + 19 = 35\n35 + 20 = 55\n55 + 24 = 79 \u2713\n\nThis works perfectly -> 1, 1 -> 1, I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically:\n\nFirst, let me check if using all numbers works:\n7 + 16 + 19 + 20 + 24 = 86\n\nThis is too large (86 > 79), so I need to exclude some numbers.\n\nLet me try excluding the largest numbers and see what combinations work:\n\nIf I exclude 24: 7 + 16 + 19 + 20 = 62 (too small)\nIf I exclude 20: 7 + 16 + 19 + 24 = 66 (too small)\nIf I exclude 19: 7 + 16 + 20 + 24 = 67 ( -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [7, 16, 19, 20, 24] that sum to 79.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 24 + 20 = 44\n- 24 + 19 = 43\n- 24 + 16 = 40\n- 20 + 19 = 39\n\nSince 24 + 20 + 19 = 63, I need 16 more to reach 79.\nBut I can't use 16 since 24 + 20 + 19 + 16 = 79.\n\nLet me try: 24 + 20 + 19 + 16 = 7 (1/5)"
+  ]
+}

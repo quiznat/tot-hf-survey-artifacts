@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174620-813d0b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "24 + 23 + 11 - 1 = 57",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      6,
+      7,
+      11,
+      20,
+      23,
+      24
+    ],
+    "target": 57
+  },
+  "item_id": "ss-v4-024",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 23110,
+    "success": 0,
+    "tokens_in": 192,
+    "tokens_out": 212
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174620-813d0b",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2451246828,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:46:20Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We need to find a way to reach the target number 57 using the numbers [1, 6, 7, 11, 20, 23, 24] and standard arithmetic operations (addition, subtraction, multiplication, division, parentheses). Since no tools are available, this is a pure reasoning problem \u2014 likely a variant of the \"24 game\" or subset sum with operations.\n\nLet\u2019s first check if a simple subset sum works:\n- Try combinations:\n  - 24 + 23 = 47 \u2192 need 10 more \u2192 we have 1,6,7,11 \u2014 7+1+? = 8, 11-1=10? But 47 + (11 - 1) = 57 \u2192 24 + 23 + 11 - 1 = 57!",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We found a candidate expression: 24 + 23 + 11 - 1 = 57. Let's verify: 24 + 23 = 47; 47 + 11 = 58; 58 - 1 = 57. All numbers used (24, 23, 11, 1) are in the list [1, 6, 7, 11, 20, 23, 24], and only standard arithmetic operations are used. This satisfies the task. No other numbers needed \u2014 we don\u2019t have to use all numbers unless specified, and the task only asks to reach the target using *some* of the numbers and operations. So this is a valid solution.\nFINAL: 24 + 23 + 11 - 1 = 57"
+  ]
+}

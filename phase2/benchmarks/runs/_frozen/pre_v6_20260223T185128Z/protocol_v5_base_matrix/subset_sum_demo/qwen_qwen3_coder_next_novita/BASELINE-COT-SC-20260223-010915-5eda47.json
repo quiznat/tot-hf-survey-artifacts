@@ -1,0 +1,99 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-010915-5eda47.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset",
+        2
+      ],
+      [
+        "We are given numbers: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, find numbers to exclude that sum to",
+        1
+      ],
+      [
+        "We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, we can find numbers to exclude",
+        1
+      ],
+      [
+        "We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nSo total is 101. We need 76, so we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      17,
+      17,
+      18,
+      20,
+      24
+    ],
+    "target": 76
+  },
+  "item_id": "ss-v4-013",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 50684,
+    "success": 0,
+    "tokens_in": 360,
+    "tokens_out": 517
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-010915-5eda47",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2897766043,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:09:15Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 17, 17, 18, 20, 24]\nTarget: 76\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given numbers: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, find numbers to exclude that sum to",
+    "SAMPLE 1 FINAL: We are given numbers: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, find numbers to exclude that sum to",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 17, 17, 18, 20, 24]\nTarget: 76\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, we can find numbers to exclude",
+    "SAMPLE 2 FINAL: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, we can find numbers to exclude",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 17, 17, 18, 20, 24]\nTarget: 76\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nSo total is 101. We need 76, so we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76",
+    "SAMPLE 3 FINAL: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nSo total is 101. We need 76, so we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 17, 17, 18, 20, 24]\nTarget: 76\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset",
+    "SAMPLE 4 FINAL: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 17, 17, 18, 20, 24]\nTarget: 76\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset",
+    "SAMPLE 5 FINAL: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset",
+    "VOTE SUMMARY: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset -> 2, We are given numbers: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, find numbers to exclude that sum to -> 1, We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding numbers that sum to 76, we can find numbers to exclude -> 1, We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nSo total is 101. We need 76, so we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76 -> 1",
+    "VOTE WINNER: We are given the list: [5, 17, 17, 18, 20, 24]  \nTarget sum: 76  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, compute total sum:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101  \nSo we need to exclude numbers summing to 101 \u2212 76 = 25.\n\nSo instead of finding a subset that sums to 76, we can find a subset (2/5)"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011842-5be0ea.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6,",
+        2
+      ],
+      [
+        "I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 7 = 31, need 8 more (no 8 in list)\n- 24 + 6 = 30, need 9 more (no 9 in list)\n- 24 + 2 = 26, need 1",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 24 + 7 = 31, need 8 more - but 8 isn't in the list\n- 2",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 24 is close to 39, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is also large, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is another large number, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nIf I use 24, I need to make 15 from",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6,",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11938,
+    "success": 0,
+    "tokens_in": 360,
+    "tokens_out": 578
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011842-5be0ea",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:18:42Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 7 = 31, need 8 more (no 8 in list)\n- 24 + 6 = 30, need 9 more (no 9 in list)\n- 24 + 2 = 26, need 1",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 7 = 31, need 8 more (no 8 in list)\n- 24 + 6 = 30, need 9 more (no 9 in list)\n- 24 + 2 = 26, need 1",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 24 + 7 = 31, need 8 more - but 8 isn't in the list\n- 2",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 24 + 7 = 31, need 8 more - but 8 isn't in the list\n- 2",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6,",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6,",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6,",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6,",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 24 is close to 39, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is also large, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is another large number, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nIf I use 24, I need to make 15 from",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 24 is close to 39, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is also large, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is another large number, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nIf I use 24, I need to make 15 from",
+    "VOTE SUMMARY: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6, -> 2, I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 7 = 31, need 8 more (no 8 in list)\n- 24 + 6 = 30, need 9 more (no 9 in list)\n- 24 + 2 = 26, need 1 -> 1, I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 23 + 21 = 44 (too big)\n\nSo I can't use both 23 and 21 together.\n\nLet me try combinations with 24:\n- 24 + 23 = 47 (too big)\n- 24 + 21 = 45 (too big)\n- 24 + 7 = 31, need 8 more - but 8 isn't in the list\n- 2 -> 1, I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 24 is close to 39, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is also large, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is another large number, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nIf I use 24, I need to make 15 from -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [2, 6, 7, 21, 23, 24] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be close to 39:\n- 24 is the largest number, so if I use 24, I need the remaining sum to be 39 - 24 = 15\n- 23 is second largest, so if I use 23, I need the remaining sum to be 39 - 23 = 16\n- 21 is third largest, so if I use 21, I need the remaining sum to be 39 - 21 = 18\n\nLet me try using 24:\nRemaining target: 15\nAvailable numbers: [2, 6, (2/5)"
+  ]
+}

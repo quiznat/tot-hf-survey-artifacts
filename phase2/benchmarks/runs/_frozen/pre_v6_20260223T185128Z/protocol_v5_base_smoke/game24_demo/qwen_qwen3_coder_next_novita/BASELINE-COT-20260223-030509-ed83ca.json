@@ -1,0 +1,57 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-030509-ed83ca.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "(4 + 4)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    4,
+    4,
+    8
+  ],
+  "item_id": "g24-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3945,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 308
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-030509-ed83ca",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2465764240,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:05:09Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s try combinations.\n\nFirst, consider known 24 combinations:  \n- 8 \u00d7 3 = 24 \u2192 then we need to neutralize the two 4s (e.g., 4 \u2212 4 = 0, so 8 \u00d7 3 + (4 \u2212 4) = 24). That works!\n\nCheck:  \n8 \u00d7 3 = 24  \n4 \u2212 4 = 0  \n24 + 0 = 24  \nAll numbers used exactly once.\n\nSo expression:  \n**8 \u00d7 3 + (4 \u2212 4)**\n\nAlternatively, could write as:  \n8 * 3 + 4 - 4 \u2192 but order of operations would give same result (24 + 4 \u2212 4 = 24), but parentheses clarify grouping.\n\nBut to be safe and explicit, use parentheses.\n\nLet\u2019s verify no other constraints (e.g., must use all operations? No \u2014 just use numbers and standard operations).\n\nYes, this is valid.\n\nAnother possibility: (8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2. So not applicable.\n\nOr 4 \u00d7 (8 \u2212 3) + 4 = 4 \u00d7 5 + 4 = 24 \u2014 wait: 4 \u00d7 (8 \u2212 3) + 4 = 20 + 4 = 24. Numbers used: 4, 8, 3, 4 \u2014 yes! That\u2019s also valid.\n\nLet\u2019s check:  \n4 \u00d7 (8 \u2212 3) + 4  \n= 4 \u00d7 5 + 4  \n= 20 + 4 = 24  \nUses: two 4s, 8, 3 \u2014 all exactly once.\n\nWhich one to choose? Either is fine. Let\u2019s pick the cleaner one without extra parentheses:  \n**4 \u00d7 (8 \u2212 3) + 4**\n\nBut note: without parentheses, 4 \u00d7 8 \u2212 3 + 4 = 32 \u2212 3 + 4 = 33, which is wrong. So parentheses are needed.\n\nSo final expression:  \n**4 \u00d7 (8 \u2212 3) + 4**\n\nAlternatively, (4 + 4) \u00d7 3 = 24, but",
+    "FINAL: (4 + 4)"
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-205011-b1cafe.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "- (23 + 1",
+        3
+      ],
+      [
+        "- ( (10 - 2) * (10 - 3)",
+        1
+      ],
+      [
+        "- (14 + 10",
+        1
+      ],
+      [
+        "( 30 - 6",
+        1
+      ],
+      [
+        "- (20 / 2",
+        1
+      ],
+      [
+        "- (8 * 3",
+        1
+      ],
+      [
+        "- (10 + 3",
+        1
+      ],
+      [
+        "- (30 - 6",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "- (23 + 1",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    2,
+    10,
+    10,
+    3
+  ],
+  "item_id": "g24-v4-009",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 35103,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2456
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-205011-b1cafe",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1862262800,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:50:11Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve this problem, we need to use the numbers 2, 10, 10, and 3 exactly once to produce 24. Let's explore different combinations of arithmetic operations:\n\n1. **Addition and Multiplication**:\n   - \\( (10 + 10) \\times 2 = 40 \\) (too high)\n   - \\( 10 + 10 + 2 + 3 = 25 \\) (too high)\n\n2. **Subtraction and Multiplication**:\n   - \\( (10 - 2) \\times (10 - 3) = 8 \\times 7 = 56 \\) (too high)\n   - \\( (10 - 3) \\times (10 - 2) = 7 \\times 8 = 56 \\) (too high)\n\n3. **Division and Multiplication**:\n   - \\( 10 \\times (3 + 2) - 10 = 10 \\times 5 - 10 = 50 - 10 = 40 \\) (too high)\n   - \\( 10 \\times (3 - 2) + 10 = 10 \\times 1 + 10 = 10 + 10 = 20 \\) (too low)\n\n4. **Combining Different Operations**:\n   - \\( (10 + 10) / 2 \\times 3 = 20 / 2 \\times 3 = 10 \\times 3 = 30 \\) (too high)\n   - \\( (10 + 10) / 3 \\times 2 = 20 / 3 \\times 2 = 20 / 1.5 = 13.33 \\) (not an integer)\n\n5. **Using Parentheses for Grouping**:\n   - \\( (10 + 10 - 2) \\times 3 = 18 \\times 3 = 54 \\) (too high)\n   - \\( (10 + 10) / 3 + 2 = 20 / 3 + 2 = 6.67 + 2 = 8.67 \\) (not an integer)\n\n6. **Final Attempt**:\n   - \\( (10 + 10 -",
+    "SAMPLE 1 FINAL: - ( (10 - 2) * (10 - 3)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**: We need to find a combination that results in 24.\n\nLet's try different approaches:\n\n- Using multiplication and addition:\n  - \\(10 \\times 2 = 20\\)\n  - \\(20 + 3 = 23\\) (not 24)\n  - \\(20 + 10 = 30\\) (not 24)\n\n- Using division and multiplication:\n  - \\(10 \\div 2 = 5\\)\n  - \\(5 \\times 3 = 15\\) (not 24)\n  - \\(5 \\times 10 = 50\\) (not 24)\n\n- Using subtraction and multiplication:\n  - \\(10 - 2 = 8\\)\n  - \\(8 \\times 3 = 24\\) (this works, but we haven't used the other 10 yet)\n\n- Using all four numbers:\n  - \\(10 \\times 3 = 30\\)\n  - \\(30 - 10 = 20\\)\n  - \\(20 + 2 = 22\\) (not 24)\n\n- Another approach:\n  - \\(10 \\times 2 = 20\\)\n  - \\(20 + 3 = 23\\) (not 24)\n  - \\(20 + 10 - 3 = 27\\) (not 24)\n\n- Using division and addition:\n  - \\(10 \\div 2 = 5\\)\n  - \\(5 + 10 = 15\\)\n  - \\(15 + 3 = 18\\) (not 24)\n\n- Using subtraction and division:\n  - \\(10 - 3 = 7\\)\n  - \\(7 \\times 2 = 14\\) (not 24)\n  - \\(14 + 10 = 24\\) (this works)\n\nSo, the expression that uses each number exactly once to produce 24 is:\n\nFINAL: (10 - 3) * 2 +",
+    "SAMPLE 2 FINAL: - (14 + 10",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the target number 24**: We need to find a combination of operations that will result in 24 using the given numbers.\n\n2. **Evaluate possible operations**:\n   - Addition, subtraction, multiplication, and division are the basic operations we can use.\n   - We can also consider the order in which these operations are applied.\n\n3. **Start with multiplication and division**:\n   - Multiplying 10 by 2 gives 20, but we need to get to 24.\n   - Dividing 10 by 2 gives 5, which is not helpful directly but might be useful in combination with other operations.\n\n4. **Combine operations**:\n   - If we multiply 10 by 3, we get 30. We can then subtract 6 to get 24.\n   - We can get 6 by multiplying 2 by 3.\n\n5. **Formulate the expression**:\n   - Start with \\( 10 \\times 3 = 30 \\).\n   - Then, \\( 2 \\times 3 = 6 \\).\n   - Finally, \\( 30 - 6 = 24 \\).\n\n6. **Combine all steps into a single expression**:\n   - The expression \\( 10 \\times 3 - 2 \\times 3 \\) simplifies to 24.\n\nTherefore, the final answer is:\nFINAL: 10 * 3 - 2 * 3",
+    "SAMPLE 3 FINAL: ( 30 - 6",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**:\n   - Multiplying 10 and 10 gives 100, which is too large.\n   - Adding 10 and 10 gives 20, which is closer but still not enough.\n   - Subtracting 10 from 10 gives 0, which is not useful.\n   - Dividing 10 by 10 gives 1, which is also not very useful on its own.\n\n3. **Try using 2 and 3 in combination with 10 and 10**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\) (close but not 24)\n   - \\(20 + 2 = 22\\) (also close but not 24)\n\n4. **Consider using multiplication and division**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\) (still not 24)\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\)\n   - \\(20 + 2 = 22\\) (still not 24)\n\n5. **Try a different approach**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 2 = 22\\)\n   - \\(22 + 2 = 24\\) (but we already used 2 twice, so this doesn't work)\n\n6. **Re-evaluate the operations**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\)\n   - \\(23 + 1 = 24\\) (but we don't have 1, so this doesn't work)\n\n7. **Final attempt**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\)\n   - \\(23 +",
+    "SAMPLE 4 FINAL: - (23 + 1",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with simple combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 - 3 = 17\\) (not 24)\n   - \\(20 \\times 3 = 60\\) (not 24)\n   - \\(20 \\div 3 \\approx 6.67\\) (not 24)\n\n3. **Try different groupings**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 2 = 22\\) (not 24)\n   - \\(20 - 2 = 18\\) (not 24)\n   - \\(20 \\times 2 = 40\\) (not 24)\n   - \\(20 \\div 2 = 10\\) (not 24)\n\n4. **Consider using division to reduce the numbers**:\n   - \\(10 \\div 2 = 5\\)\n   - \\(5 + 10 = 15\\)\n   - \\(15 + 3 = 18\\) (not 24)\n   - \\(15 \\times 3 = 45\\) (not 24)\n   - \\(15 \\div 3 = 5\\) (not 24)\n\n5. **Try more complex combinations**:\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\)\n   - \\(20 + 2 = 22\\) (not 24)\n   - \\(20 - 2 = 18\\) (not 24)\n   - \\(20 \\times 2 = 40\\) (not 24)\n   - \\(20 \\div 2 = 10\\) (not 24)\n\n6. **Finally, consider the correct combination**:\n   - \\(10 \\times 2 = 20\\)",
+    "SAMPLE 5 FINAL: - (20 / 2",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with simple combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 + 2 = 22\\) (not 24)\n   - \\(20 - 3 = 17\\) (not 24)\n   - \\(20 - 2 = 18\\) (not 24)\n\n3. **Try different groupings**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 + 10 = 30\\) (not 24)\n\n4. **Consider using division**:\n   - \\(10 / 2 = 5\\)\n   - \\(5 \\times 10 = 50\\) (not 24)\n   - \\(5 \\times 3 = 15\\) (not 24)\n\n5. **Try more complex combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 - 2 = 18\\)\n   - \\(18 / 3 = 6\\) (not 24)\n\n6. **Re-evaluate the operations**:\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\)\n   - \\(20 + 2 = 22\\) (not 24)\n\n7. **Finally, try another approach**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(10 - 2 = 8\\)\n   - \\(8 \\times 3 = 24\\)\n\nThis combination works. Therefore, the final expression is:\n\nFINAL: \\( (10 - 2) \\times 3 \\)",
+    "SAMPLE 6 FINAL: - (8 * 3",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with simple combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 + 2 = 22\\) (not 24)\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 + 10 = 30\\) (not 24)\n\n3. **Try different groupings**:\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\)\n   - \\(20 + 2 = 22\\) (not 24)\n   - \\(30 - 2 = 28\\) (not 24)\n\n4. **Consider using division**:\n   - \\(10 \\div 2 = 5\\)\n   - \\(5 \\times 3 = 15\\)\n   - \\(15 + 10 = 25\\) (not 24)\n   - \\(10 \\div 3 \\approx 3.33\\) (not useful here)\n\n5. **Re-evaluate combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\)\n   - \\(23 + 2 = 25\\) (not 24)\n   - \\(20 - 2 = 18\\)\n   - \\(18 + 3 = 21\\) (not 24)\n\n6. **Try a different approach**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\)\n   - \\(23 + 1 = 24\\) (but we don't have 1, so this is not valid)\n\n7. **Finally, consider a more complex combination**:\n   - \\(10 \\times 2 =",
+    "SAMPLE 7 FINAL: - (23 + 1",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use the numbers 2, 10, 10, and 3 exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider different operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with basic combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 - 3 = 17\\) (not 24)\n   - \\(20 \\times 3 = 60\\) (not 24)\n   - \\(20 \\div 3 \\approx 6.67\\) (not 24)\n\n3. **Try using the number 2 in different ways**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 2 = 22\\) (not 24)\n   - \\(20 - 2 = 18\\) (not 24)\n   - \\(20 \\times 2 = 40\\) (not 24)\n   - \\(20 \\div 2 = 10\\) (not 24)\n\n4. **Combine the numbers differently**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\) (not 24)\n   - \\(20 - 3 = 17\\) (not 24)\n   - \\(20 \\times 3 = 60\\) (not 24)\n   - \\(20 \\div 3 \\approx 6.67\\) (not 24)\n\n5. **Try more complex combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 \\div 2 = 10\\)\n   - \\(10 + 3 = 13\\) (not 24)\n\n6. **Consider using parentheses for different groupings**:\n   - \\((10 + 10) \\div 2 = 10\\)\n   - \\(10 + 3 = 13\\) (not 24)\n\n7. **Finally, try a combination that involves all numbers in a different order**:\n   - \\((10",
+    "SAMPLE 8 FINAL: - (10 + 3",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve for an expression that uses each of the numbers [2, 10, 10, 3] exactly once to produce 24, let's consider the following steps:\n\n1. **Identify potential operations**: We can use addition, subtraction, multiplication, and division.\n2. **Explore combinations**:\n   - Start with the two 10s. Multiplying them together gives 100, which is too large.\n   - Adding or subtracting the 10s doesn't help much directly.\n   - Consider using division and multiplication to bring the numbers closer to 24.\n3. **Test specific combinations**:\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\) (close but not 24)\n   - \\(20 + 3 + 2 = 25\\) (too high)\n   - \\(20 - 2 = 18\\) (too low)\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\) (close but not 24)\n   - \\(20 - 3 = 17\\) (too low)\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\) (too low)\n   - \\(30 - 10 + 2 = 22\\) (close but not 24)\n   - \\(10 \\times 3 - 10 = 20\\) (too low)\n   - \\(10 \\times 3 - 10 + 2 = 22\\) (close but not 24)\n\n4. **Re-evaluate and find the correct combination**:\n   - Consider using division and multiplication more effectively.\n   - \\(10 + 10 = 20\\)\n   - \\(20 \\div 2 = 10\\)\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 6 = 24\\)\n   - But we need to use all numbers exactly once.\n\n5. **Final correct combination**:\n   - \\(10 \\times (3 - 2) + 10 = 10 \\times 1 + 10 = 10 + 10 = 2",
+    "SAMPLE 9 FINAL: - (30 - 6",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use each of the numbers [2, 10, 10, 3] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**:\n   - Multiplication and division can quickly change the scale of the result, so they are good candidates for reaching 24.\n   - Addition and subtraction can be used to adjust the result to 24.\n\n3. **Experiment with different orders and operations**:\n   - Start with the largest numbers to see if they can be combined to get close to 24.\n   - Use smaller numbers to fine-tune the result.\n\n4. **Try specific combinations**:\n   - \\(10 \\times 2 = 20\\)\n   - \\(10 + 3 = 13\\)\n   - \\(20 + 13 = 33\\) (too large, try another approach)\n   - \\(10 + 10 = 20\\)\n   - \\(20 + 3 = 23\\)\n   - \\(23 + 2 = 25\\) (too large, try another approach)\n   - \\(10 \\times 2 = 20\\)\n   - \\(10 - 3 = 7\\)\n   - \\(20 + 7 = 27\\) (too large, try another approach)\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\)\n   - \\(20 + 2 = 22\\) (too small, try another approach)\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 10 = 30\\)\n   - \\(30 - 3 = 27\\) (too large, try another approach)\n   - \\(10 \\times 3 = 30\\)\n   - \\(30 - 10 = 20\\)\n   - \\(20 + 2 = 22\\) (too small, try another approach)\n   - \\(10 \\times 2 = 20\\)\n   - \\(20 + 3 = 23\\)\n   - \\(23 + 1 = 24\\)",
+    "SAMPLE 10 FINAL: - (23 + 1",
+    "VOTE SUMMARY: - (23 + 1 -> 3, - ( (10 - 2) * (10 - 3) -> 1, - (14 + 10 -> 1, ( 30 - 6 -> 1, - (20 / 2 -> 1, - (8 * 3 -> 1, - (10 + 3 -> 1, - (30 - 6 -> 1",
+    "VOTE WINNER: - (23 + 1 (3/10)"
+  ]
+}

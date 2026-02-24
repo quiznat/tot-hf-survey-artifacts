@@ -1,0 +1,74 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021156-f8cdf9.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_xy",
+    "solve2"
+  ],
+  "final_answer": "-6 4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        8,
+        -16
+      ],
+      [
+        -5,
+        8,
+        62
+      ]
+    ]
+  },
+  "item_id": "lin-v4-008",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8286,
+    "success": 1,
+    "tokens_in": 187,
+    "tokens_out": 141
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021156-f8cdf9",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2339600001,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T02:11:56Z",
+  "tool_config": [
+    "check_xy",
+    "solve2"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task involves solving a system of two linear equations. The input provides coefficients in the form [[a1, b1, c1], [a2, b2, c2]], representing equations:  \n1) a1*x + b1*y = c1  \n2) a2*x + b2*y = c2  \n\nGiven equations:  \n1) 8x + 8y = -16  \n2) -5x + 8y = 62  \n\nI can simplify the first equation by dividing by 8: x + y = -2 \u2192 y = -2 - x  \nSubstitute into second equation:  \n-5x + 8(-2 - x) = 62  \n-5x -16 -8x = 62  \n-13x = 78 \u2192 x = -6  \nThen y = -2 - (-6) = 4",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The manual solution yields x = -6, y = 4. To verify, I should use the `check_xy` tool with x = -6 and y = 4 to confirm it satisfies both equations.\nACTION: check_xy -6 4",
+    "STEP 2 OBSERVATION: match"
+  ]
+}

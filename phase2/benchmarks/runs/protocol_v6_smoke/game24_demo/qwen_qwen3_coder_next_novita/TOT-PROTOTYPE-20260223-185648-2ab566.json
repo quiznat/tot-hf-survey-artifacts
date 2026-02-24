@@ -1,0 +1,80 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-185648-2ab566.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 5,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(7 + 5) \u00d7 (7 \u2212 5) = 24",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    5,
+    7,
+    5,
+    7
+  ],
+  "item_id": "g24-v4-002",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11997,
+    "success": 1,
+    "tokens_in": 1714,
+    "tokens_out": 285
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-185648-2ab566",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3023805780,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T18:56:48Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.2000 cum=0.2000 terminal=False thought=DECOMP: insight=recognize symmetry and use division to create fractions that combine to 24; subnodes=(7/5) | (7/5); recombine=compute (7/5 + 7/5) = 14/5, the...",
+    "NODE n0002 parent=root score=0.3000 cum=0.3000 terminal=False thought=STEP: consider (7 \u2212 5/5) \u00d7 7 = (7 \u2212 1) \u00d7 7 = 6 \u00d7 7 = 42 \u2014 too large; adjust by using both 5s in denominator: (7 \u00d7 5 \u2212 7) / 5 = (35 \u2212 7)/5 = 28/5 \u2014 no",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=False thought=FINAL: (7 \u00d7 5) \u2212 (7 \u00d7 5) = 0 \u2014 invalid; correct solution: (7 \u2212 5/5) \u00d7 7 = 42 \u2014 no; wait\u2014try (7 \u00d7 5) \u2212 (7 + 5) = 35 \u2212 12 = 23 \u2014 close; finally: (7 \u00d7 5) \u2212 (7 +...",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0003 score=1.0000 cum=2.0000 terminal=False thought=STEP: recognize that (7 + 5) = 12 and (7 \u2212 5) = 2, and 12 \u00d7 2 = 24, using all four numbers exactly once",
+    "NODE n0005 parent=n0003 score=1.0000 cum=2.0000 terminal=True thought=FINAL: (7 + 5) \u00d7 (7 \u2212 5) = 24"
+  ]
+}

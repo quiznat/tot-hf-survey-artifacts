@@ -1,0 +1,113 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-030608-0c558d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "6 * 4",
+        5
+      ],
+      [
+        "6 * (7 - 2 - 1)",
+        2
+      ],
+      [
+        "4 * 6",
+        1
+      ],
+      [
+        "7 - 2 - 1",
+        1
+      ],
+      [
+        "2. (7 - 1) * (6 - 2)",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "6 * 4",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    6,
+    2,
+    7
+  ],
+  "item_id": "g24-v4-007",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 59249,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 1758
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-030608-0c558d",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1427883711,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:06:08Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [1, 6, 2, 7] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to get close to 24 with multiplication:  \n24 = 6 \u00d7 4  \nCan we make 4 from [1, 2, 7]?  \n7 \u2212 2 \u2212 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24 \u2705\n\nCheck usage: 6, 7, 2, 1 \u2014 all used exactly once.\n\nAlternatively:  \n(7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also works.\n\nBoth are valid. Let's pick one.\n\nLet\u2019s go with:  \n(7 \u2212 1) \u00d7 (6 \u2212 2)\n\nVerify:  \n7 \u2212 1 = 6  \n6 \u2212 2 = 4  \n6 \u00d7 4 = 24 \u2705\n\nAll numbers used once.\n\nFINAL: (7-1)*(6-2)",
+    "SAMPLE 1 FINAL: 6 * 4",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [1, 6, 2, 7], and we must use **each number exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nFirst, try to find a product near 24:  \n24 = 6 \u00d7 4  \nCan we make 4 from [1, 2, 7]?  \n7 \u2212 2 \u2212 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24 \u2714\ufe0f\n\nCheck: used 6, 7, 2, 1 \u2014 all once. Valid.\n\nAlternative:  \n(7 + 1) \u00d7 (6 \u00f7 2) = 8 \u00d7 3 = 24 \u2714\ufe0f  \nAlso valid.\n\nWhich to choose? Either is fine. Let\u2019s pick the first one:  \n6 \u00d7 (7 \u2212 2 \u2212 1)\n\nBut wait \u2014 check order: 7 \u2212 2 \u2212 1 = 4, yes.\n\nAlternatively, to make it cleaner:  \n(7 \u2212 2 \u2212 1) \u00d7 6\n\nBut standard precedence is fine.\n\nLet\u2019s confirm:  \n7 \u2212 2 = 5  \n5 \u2212 1 = 4  \n4 \u00d7 6 = 24 \u2705\n\nAll numbers used once.\n\nSo final expression:\n\nFINAL: 6*(7-2-1)",
+    "SAMPLE 2 FINAL: 4 * 6",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers [1, 6, 2, 7] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to make 24.\n\nLet\u2019s try combinations:\n\nTry grouping to get close to 24.\n\nFirst, note that 6 \u00d7 4 = 24, so can we make 4 from [1, 2, 7]?  \n7 \u2212 2 \u2212 1 = 4 \u2192 yes! So 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24.\n\nCheck: uses 6, 7, 2, 1 \u2014 all exactly once. Valid.\n\nAlternatively: (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also works.\n\nLet\u2019s verify: (7 \u2212 1) = 6, (6 \u2212 2) = 4, 6 \u00d7 4 = 24. Yes.\n\nEither expression is valid. Let\u2019s pick one.\n\nChoose: (7 \u2212 1) \u00d7 (6 \u2212 2)\n\nFINAL: (7-1)*(6-2)",
+    "SAMPLE 3 FINAL: 7 - 2 - 1",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: Let's work step by step with the numbers [1, 6, 2, 7] to make 24.\n\nWe need to use each number exactly once, and combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nFirst, consider common 24 combinations:\n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 + 1 = 8, and 6 \u00d7 2 = 12 \u2192 8 \u00d7 3? Not helpful.\n\nTry combining to get 4: 7 \u2212 2 \u2212 1 = 4, then 6 \u00d7 4 = 24 \u2192 uses 6, 7, 2, 1. Yes!\n\nCheck:  \n7 \u2212 2 \u2212 1 = 4  \n6 \u00d7 4 = 24  \nSo: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24.\n\nAll numbers used once: 6, 7, 2, 1 \u2014 perfect.\n\nAlternative: (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also works.\n\nWait, (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24. Uses all numbers: 7, 1, 6, 2 \u2014 yes.\n\nEither is valid. Let's pick one.\n\nLet\u2019s go with (7 \u2212 1) \u00d7 (6 \u2212 2).\n\nFINAL: (7-1)*(6-2)",
+    "SAMPLE 4 FINAL: 6 * 4",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [1, 6, 2, 7], and we must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to make 24.\n\nLet\u2019s try to find combinations.\n\nFirst, think of factor pairs of 24:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n- 48 \u00f7 2 = 24  \n- etc.\n\nWe have 1, 2, 6, 7.\n\nTry to get 4 from remaining numbers to multiply with 6:  \n6 \u00d7 (something) = 24 \u2192 need 4 from {1,2,7}.  \nCan we make 4 from 1,2,7?  \n7 \u2212 2 \u2212 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24.\n\nCheck: uses 6, 7, 2, 1 \u2014 all exactly once.\n\nYes!\n\nAlternative: (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also works.\n\nLet\u2019s verify:  \n7 \u2212 1 = 6  \n6 \u2212 2 = 4  \n6 \u00d7 4 = 24.\n\nUses all numbers once.\n\nEither expression is valid. Let's pick one.\n\nFINAL: (7 - 1) * (6 - 2)",
+    "SAMPLE 5 FINAL: 6 * 4",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers [1, 6, 2, 7], and we must use each exactly once (and only once) with basic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s try various combinations.\n\nFirst, consider multiplication \u2014 24 factors:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n- 7 + ... maybe?\n\nTry using 6 and 2: 6 \u00d7 2 = 12. Then we have 1 and 7 left.  \n12 + 7 + 1 = 20 \u2192 too low.  \n12 \u00d7 (7 \u2212 1) = 12 \u00d7 6 = 72 \u2192 too high.  \n(7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24! Wait \u2014 that uses 7, 1, 6, 2 \u2014 all four numbers.\n\nCheck:  \n(7 \u2212 1) = 6  \n(6 \u2212 2) = 4  \n6 \u00d7 4 = 24 \u2705\n\nYes! Uses all numbers exactly once.\n\nSo expression: (7 \u2212 1) \u00d7 (6 \u2212 2)\n\nFINAL: (7-1)*(6-2)",
+    "SAMPLE 6 FINAL: 6 * 4",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers [1, 6, 2, 7] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s try to think of combinations that yield 24.\n\nFirst, note that 6 \u00d7 4 = 24, so maybe we can form 4 from the remaining numbers [1, 2, 7].\n\nCan we make 4 from 1, 2, 7?  \n- 7 \u2212 2 \u2212 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24.\n\nCheck: used 6, 7, 2, 1 \u2014 all exactly once. \u2714\ufe0f\n\nAlternative: (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also works.\n\nLet\u2019s verify:  \n(7 \u2212 1) = 6  \n(6 \u2212 2) = 4  \n6 \u00d7 4 = 24. \u2714\ufe0f\n\nBoth are valid. Let\u2019s pick one.\n\nChoose: (7 \u2212 1) \u00d7 (6 \u2212 2)\n\nFINAL: (7-1)*(6-2)",
+    "SAMPLE 7 FINAL: 6 * 4",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers [1, 6, 2, 7] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, think of factor pairs of 24:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 1, 2, 6, 7.\n\nTry to get 4 from the remaining numbers to do 6 \u00d7 4 = 24.\n\nCan we make 4 from 1, 2, 7?  \n7 \u2212 2 \u2212 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24.\n\nCheck: uses 6, 7, 2, 1 \u2014 all exactly once.\n\nYes, that works.\n\nAlternative: (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also valid.\n\nWhich one to choose? Both are valid. Let\u2019s pick the first one.\n\nFINAL: 6 * (7 - 2 - 1)",
+    "SAMPLE 8 FINAL: 6 * (7 - 2 - 1)",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers: [1, 6, 2, 7], and we must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s try to find combinations.\n\nFirst, consider possible products that give 24:\n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n- 7 \u00d7 3 + 3 = 24? Not helpful directly.\n\nWe have 1, 2, 6, 7.\n\nTry (7 \u2212 1) = 6, then 6 \u00d7 (2 + 2)? No duplicate 2.\n\nWait \u2014 (7 \u2212 1) = 6, and we have another 6? No, only one 6.\n\nWhat about (6 + 2) = 8, then 7 \u2212 1 = 6, and 8 \u00d7 3? No 3.\n\nTry (7 + 1) = 8, (6 \u2212 2) = 4, then 8 \u00d7 3? Still no 3.\n\nWait \u2014 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24? Let's compute: 7 \u2212 2 \u2212 1 = 4, yes! So:\n\n6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24 \u2705\n\nCheck usage: 6, 7, 2, 1 \u2014 all used exactly once. Perfect.\n\nAlternative: (6 \u00d7 7) \u2212 (2 \u00d7 9)? No 9.\n\nBut our expression is valid.\n\nSo final answer:  \n6 \u00d7 (7 \u2212 2 \u2212 1)\n\nFINAL: 6*(7-2-1)",
+    "SAMPLE 9 FINAL: 6 * (7 - 2 - 1)",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 6, 2, 7]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers [1, 6, 2, 7] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nTry grouping to get close to 24.\n\nFirst, note:\n- 6 \u00d7 4 = 24 \u2192 can we make 4 from [1, 2, 7]? 7 \u2212 2 \u2212 1 = 4 \u2192 yes! So: 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 4 = 24.\n\nCheck: uses 6, 7, 2, 1 \u2014 all exactly once. \u2714\ufe0f\n\nAlternative: (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24 \u2014 also works.\n\nBut let\u2019s verify both:\n\n1. 6 \u00d7 (7 \u2212 2 \u2212 1) = 6 \u00d7 (4) = 24  \n2. (7 \u2212 1) \u00d7 (6 \u2212 2) = 6 \u00d7 4 = 24\n\nBoth are valid.\n\nWe need only one expression.\n\nChoose the second one \u2014 it\u2019s symmetric and clearly uses all numbers.\n\nSo final expression:  \n**(7 \u2212 1) \u00d7 (6 \u2212 2)**\n\nFINAL: (7 - 1) * (6 - 2)",
+    "SAMPLE 10 FINAL: 2. (7 - 1) * (6 - 2)",
+    "VOTE SUMMARY: 6 * 4 -> 5, 6 * (7 - 2 - 1) -> 2, 4 * 6 -> 1, 7 - 2 - 1 -> 1, 2. (7 - 1) * (6 - 2) -> 1",
+    "VOTE WINNER: 6 * 4 (5/10)"
+  ]
+}

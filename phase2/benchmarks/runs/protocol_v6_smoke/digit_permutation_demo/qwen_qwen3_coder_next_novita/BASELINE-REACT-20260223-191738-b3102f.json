@@ -1,0 +1,67 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191738-b3102f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "4422",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7879,
+    "success": 1,
+    "tokens_in": 2103,
+    "tokens_out": 483
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191738-b3102f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:38Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: I need to form the largest possible 4-digit number using digits [4, 2, 2, 4] exactly once, such that the number is divisible by 11.\n\nFor divisibility by 11: A number is divisible by 11 if the alternating sum of its digits (sum of digits in odd positions - sum of digits in even positions) is divisible by 11 (including 0).\n\nLet me list all possible 4-digit numbers using digits [4, 2, 2, 4] exactly once, then check which ones are divisible by 11, and pick the largest.\n\nThe possible distinct permutations of [4, 2, 2, 4] are:\n- 4422\n- 4242\n- 4224\n- 2442\n- 2424\n- 2244\n\nLet me check each for divisibility by 11:\n- 4422: (4 + 2) - (4 + 2) = 6 - 6 = 0, divisible by 11 \u2713\n- 4242: (4 + 4) - (2 + 2) = 8 - 4 = 4, not divisible by 11 \u2717\n- 4224: (4 + 2) - (2 + 4) = 6 - 6 = 0, divisible by 11 \u2713\n- 2442: (2 + 4) - (4 + 2) = 6 - 6 = 0, divisible by 11 \u2713\n- 2424: (2 + 2) - (4 + 4) = 4 - 8 = -4, not divisible by 11 \u2717\n- 2244: (2 + 4) - (2 + 4) = 6 - 6 = 0, divisible by 11 \u2713\n\nAmong the divisible ones: 4422, 4224, 2442, 2244\nThe largest is 4422.\n\n<code>\nfinal_answer(4422)\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'final_answer(4422)'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\n4422",
+    "OUTPUT: 4422",
+    "FINAL: 4422"
+  ]
+}

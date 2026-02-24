@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011925-57358f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[6, 10, 17]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      6,
+      10,
+      13,
+      14,
+      17,
+      21
+    ],
+    "target": 33
+  },
+  "item_id": "ss-v4-020",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10839,
+    "success": 1,
+    "tokens_in": 864,
+    "tokens_out": 417
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011925-57358f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3431824564,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:25Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the given list that sum to the target value of 33. The numbers available are [5, 6, 10, 13, 14, 17, 21]. Since no tools are available, I'll have to solve this manually by trying different combinations.\n\nLet me start by looking for combinations systematically:\n- If I use the largest number 21, I need the remaining numbers to sum to 33-21=12\n- If I use 17, I need remaining numbers to sum to 33-17=16\n- If I use 14, I need remaining numbers to sum to 33-14=19\n- And so on...\n\nLet me try combinations that include 21:\nNeed to make 12 from [5, 6, 1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically checking combinations that include 21 (which requires making 12 from [5, 6, 10, 13, 14, 17]):\n\nFrom [5, 6, 10, 13, 14, 17], can I make 12?\n- 5 + 6 = 11 (need 1 more, but 1 isn't available)\n- 10 + 6 = 16 (too big)\n- 13 - 5 = 8 (not helpful)\n- 17 - 5 = 12! So 21 + 17 - 5 = 33\n\nWait, let me reconsider - I should only add numbers, not subtract. Let me restart with valid addition combinations.\n\nLet me try combinations with 17 (need 16 from",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me restart and think systematically about which numbers from [5, 6, 10, 13, 14, 17, 21] can be added together to equal 33.\n\nI'll look for combinations by starting with larger numbers and seeing what's needed to reach 33:\n\nIf I use 21, I need to make 12 from [5, 6, 10, 13, 14, 17]\n- Can I make 12? 5 + 6 + 1 = 12, but 1 isn't there\n- 10 + 6 = 16 (too much)\n- 13 - 1 = 12, but I can't subtract\n- Actually, 5 + 7 = 12, but 7 isn't there\n- 6 +",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me take a step back and methodically check all possible combinations of the numbers [5, 6, 10, 13, 14, 17, 21] that sum to 33. I'll start by checking if any three numbers work, then four, etc.\n\nFirst, let me try combinations of three numbers:\n- 5 + 10 + 18 = 33, but 18 is not in the list\n- 6 + 10 + 17 = 33 \u2713\n\nThis works! Let me verify: 6 + 10 + 17 = 33. This is a valid solution.\n\nFINAL: [6, 10, 17]"
+  ]
+}

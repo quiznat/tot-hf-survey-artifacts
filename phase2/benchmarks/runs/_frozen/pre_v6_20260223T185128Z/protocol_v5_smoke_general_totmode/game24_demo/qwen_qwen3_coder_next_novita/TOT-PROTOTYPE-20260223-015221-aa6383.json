@@ -1,0 +1,81 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015221-aa6383.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 6,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "5 * 5 - 7 / 7",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    5,
+    7,
+    5,
+    7
+  ],
+  "item_id": "g24-v4-002",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5045,
+    "success": 1,
+    "tokens_in": 510,
+    "tokens_out": 200
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015221-aa6383",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3023805780,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T01:52:21Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=recognize symmetry and use subtraction to create 0 or small values; subnodes=(7 - 5) | (7 - 5); recombine=compute (7 - 5) * (7 - 5) = 4, then...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Use two 5s to make 25 via 5 * 5, and two 7s to make 1 via 7 / 7, then subtract: 5 * 5 - 7",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=recognize symmetry in repeated numbers; subnodes=(5,7) | (5,7); recombine=compute (7 - 5/5) * 7",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=leverage division to reduce large numbers to small integers; subnodes=(7 / 7) | (5 * 5); recombine=compute (5 * 5) - (7 / 7)",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Compute 5 \u00d7 5 = 25 and 7 \u00f7 7 = 1, then subtract: 25 \u2212 1 = 24",
+    "NODE n0006 parent=n0001 score=1.0000 cum=1.5000 terminal=True thought=FINAL: 5 * 5 - 7 / 7"
+  ]
+}

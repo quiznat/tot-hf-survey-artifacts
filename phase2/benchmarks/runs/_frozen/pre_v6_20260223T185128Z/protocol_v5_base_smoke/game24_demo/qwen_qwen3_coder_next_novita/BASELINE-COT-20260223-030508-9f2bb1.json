@@ -1,0 +1,57 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-030508-9f2bb1.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "10 / (1 + 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 26570,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 271
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-030508-9f2bb1",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:05:08Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible strategies:\n\n- 24 = 4 \u00d7 6  \n  So can we make 6 from [10, 1, 1]?  \n  10 \u2212 1 \u2212 1 = 8 \u2192 too big  \n  10 \u00f7 (1 + 1) = 5 \u2192 not 6  \n  10 \u2212 (1 + 1) = 8  \n  (10 + 1 + 1) = 12  \n  Not promising.\n\n- 24 = 12 \u00d7 2  \n  Can we get 12 and 2?  \n  10 + 1 + 1 = 12, and 4 \u00f7 2 = 2, but we don\u2019t have a 2 \u2014 unless we make 2 from 4? Wait, 4 \u00f7 2 = 2, but no 2.\n\n- 24 = 10 + 14  \n  Can we make 14 from [4, 1, 1]? 4 \u00d7 (1 + 1) = 8 \u2192 10 + 8 = 18  \n  4 + 1 + 1 = 6 \u2192 10 + 6 = 16  \n  Not enough.\n\n- Try multiplication: 4 \u00d7 10 = 40. Then we have two 1s left.  \n  40 \u2212 ? = 24 \u2192 need to subtract 16, but only two 1s \u2192 40 \u2212 1 \u2212 1 = 38  \n  40 \u00f7 (1 + 1) = 20  \n  40 \u2212 (1 \u00d7 1) = 39  \n  Not working.\n\n- Try (10 + 1) \u00d7 something?  \n  (10 + 1) = 11  \n  11 \u00d7 ? = 24 \u2192 need ~2.18 \u2014 not likely.\n\n- Try (4 + 1) \u00d7 something",
+    "FINAL: 10 / (1 + 1)"
+  ]
+}

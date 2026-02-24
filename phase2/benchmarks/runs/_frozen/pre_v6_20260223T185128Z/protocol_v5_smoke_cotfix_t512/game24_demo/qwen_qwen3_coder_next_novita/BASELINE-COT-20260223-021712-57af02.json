@@ -1,0 +1,56 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-021712-57af02.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "- (10 + 1 + 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 14564,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 279
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-021712-57af02",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:17:12Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible strategies:\n\n- 10 + 4 = 14 \u2192 need 10 more from two 1s? Not possible.\n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 again.\n- Try multiplication: 4 \u00d7 10 = 40. Then 40 \u2212 ? = 24 \u2192 need to subtract 16, but only two 1s left \u2192 1 + 1 = 2, 40 \u2212 2 = 38. No.\n- 4 \u00d7 (10 \u2212 1) = 4 \u00d7 9 = 36. Then 36 \u2212 1 = 35. Too big.\n- (10 + 1 + 1) \u00d7 something? 10 + 1 + 1 = 12, then 12 \u00d7 2 = 24 \u2014 but we don\u2019t have a 2, we have a 4. Wait: 12 \u00d7 2 = 24, and 4 \u00f7 2 = 2, but no extra 2.\n\nWait \u2014 what if we do (10 + 1 + 1) \u00d7 (4 \u00f7 2)? No 2.\n\nAlternative: (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 close! Off by 3.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33.\n\n(10 \u00d7 1 + 1) \u00d7 4 = (10 + 1) \u00d7 4 = 44.\n\nHmm.\n\nTry division: 10 \u00f7 (1 \u2212 1/4)? That seems messy, but let\u2019s explore.\n\n1 \u2212 1/4 = 3/4, then 10 \u00f7 (3/4) = 40/3 \u2248 13.33 \u2014 no",
+    "FINAL: - (10 + 1 + 1)"
+  ]
+}

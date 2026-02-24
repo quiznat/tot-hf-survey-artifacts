@@ -1,0 +1,90 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-021404-353b52.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "9",
+        3
+      ],
+      [
+        "21",
+        2
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "9",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      9,
+      1,
+      3,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9318
+  },
+  "item_id": "perm-v4-008",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 54888,
+    "success": 0,
+    "tokens_in": 240,
+    "tokens_out": 609
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-021404-353b52",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 417856173,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:14:04Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [9, 1, 3, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [9, 1, 3, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **6**.\n\n### Step 1: Divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even.\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3.\n\n### Step 2: Check digit sum\nDigits: 9 + 1 + 3 + 8 = **21**  \n21 is divisible by 3 \u2192 \u2705 So **any** permutation of these digits will be divisible by 3.\n\nSo the only constraint left is: **last digit must be even**.\n\nEven digits among [9",
+    "SAMPLE 1 FINAL: 21",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [9, 1, 3, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [9, 1, 3, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n### Step 1: Divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even.\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3.\n\n### Step 2: Check digit sum\nDigits: 9 + 1 + 3 + 8 = **21**, which is divisible by 3 \u2192 \u2705 So **any** permutation of these digits will be divisible by 3.\n\nSo the only constraint left is: **last digit must be even**.\n\nEven digits among [9",
+    "SAMPLE 2 FINAL: 9",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [9, 1, 3, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [9, 1, 3, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n### Step 1: Understand divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The last digit must be even \u2192 possible last digits from our set: **8** (only even digit).\n- **Divisible by 3**: Sum of digits must be divisible by 3.\n\nLet\u2019s compute the sum:  \n9 + 1 + 3 + 8 = **21**, and 21 \u00f7 3 = 7 \u2192 divisible by 3 \u2705  \nSo **any permutation** of these digits will be divisible by 3.",
+    "SAMPLE 3 FINAL: 9",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [9, 1, 3, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [9, 1, 3, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n---\n\n### Step 1: Understand divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The last digit must be even \u2192 possible last digits: 8 (only even digit in the set).\n- **Divisible by 3**: Sum of digits must be divisible by 3.\n\nLet\u2019s compute the sum:  \n9 + 1 + 3 + 8 = **21**, and 21 \u00f7 3 = 7 \u2192 divisible by 3 \u2705  \nSo **any permutation** of these digits is divisible by 3.  \nTherefore",
+    "SAMPLE 4 FINAL: 9",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [9, 1, 3, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [9, 1, 3, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n---\n\n### Step 1: Understand divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The last digit must be even.\n- **Divisible by 3**: The sum of digits must be divisible by 3.\n\n---\n\n### Step 2: Check sum of digits\nDigits: 9 + 1 + 3 + 8 = **21**\n\n21 is divisible by 3 \u2192 So **any permutation** of these digits will be divisible by 3.\n\nSo the only constraint left is **divisibility by 2**, i.e., the",
+    "SAMPLE 5 FINAL: 21",
+    "VOTE SUMMARY: 9 -> 3, 21 -> 2",
+    "VOTE WINNER: 9 (3/5)"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-033446-a4f116.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "3300",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11598,
+    "success": 1,
+    "tokens_in": 52,
+    "tokens_out": 201
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-033446-a4f116",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:34:46Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: Thought 1: We are given digits [3, 0, 3, 0], a divisor 5, and an oracle_max of 3300. The task likely asks to find the largest number \u2264 oracle_max that can be formed using all the given digits (each exactly once) and is divisible by the divisor (5). Let's verify.\n\nDigits: 3, 0, 3, 0 \u2192 possible 4-digit numbers using all digits: permutations of [3,0,3,0]. Unique permutations:\n- 3030\n- 3300\n- 0330 \u2192 invalid (leading zero \u2192 330)\n- 0303 \u2192 303\n- 0033 \u2192 33\n- 3003\n\nBut since we want the largest number \u2264 3300, and using all digits (implied by \"digits\" list), we consider 4-digit numbers only (no leading zero), so candidates: 3030, 3300, 3003.\n\nCheck divisibility by 5: a number is divisible by 5 iff its last digit is 0 or 5. Our digits are only 0s and 3s, so last digit must be 0.\n\nCandidates ending in 0: 3030 (ends 0), 3300 (ends 0), 3003 (ends 3 \u2192 no).\n\nSo candidates: 3030, 3300.\n\nCheck \u2264 oracle_max = 3300: both are \u2264 3300. Largest is 3300.\n\nCheck if 3300 uses digits [3,0,3,0] \u2192 yes: digits are 3,3,0,0 \u2014 matches.\n\nSo answer is 3300.\n\nAction 1: Finish[3300]"
+  ]
+}

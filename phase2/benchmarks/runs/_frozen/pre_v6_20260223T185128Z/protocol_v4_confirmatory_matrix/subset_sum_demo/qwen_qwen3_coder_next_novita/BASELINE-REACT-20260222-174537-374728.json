@@ -1,0 +1,74 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174537-374728.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      10,
+      13,
+      15,
+      18,
+      18,
+      22
+    ],
+    "target": 49
+  },
+  "item_id": "ss-v4-017",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 14253,
+    "success": 0,
+    "tokens_in": 1044,
+    "tokens_out": 354
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174537-374728",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2665344419,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:45:37Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers [6, 7, 10, 13, 15, 18, 18, 22] that sums to the target 49. Since no tools are available, I need to solve this manually using reasoning.\n\nLet me list the numbers: 6, 7, 10, 13, 15, 18, 18, 22.\n\nTotal sum of all numbers: 6+7=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109. So total is 109.\n\nWe need subset sum = 49.\n\nLet me try combinations:\n\nStart with largest numbers:\n\n22 +",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue reasoning. Try combinations with 22:\n\n22 + 18 = 40 \u2192 need 9 more. Remaining numbers: 6,7,10,13,15,18 (one 18 used). Is 9 achievable? 6+7=13 too big, 6 alone=6, 7 alone=7 \u2014 no 9.\n\n22 + 18 + 7 = 47 \u2192 need 2 more \u2014 no 2 available.\n\n22 + 18 + 6 = 46 \u2192 need 3 \u2014 no 3.\n\n22 + 15 = 37 \u2192 need 12. Remaining: 6,7,10,13,18,18. 10+? =12 \u2192 need 2 (no). 7+6=13 too",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue systematically. Try 22 + 13 = 35 \u2192 need 14. Remaining numbers: 6,7,10,15,18,18. 7+6=13, 10+6=16, 7+10=17 \u2014 no 14. 15 is too big (35+15=50 >49).\n\nTry 22 + 10 = 32 \u2192 need 17. Remaining: 6,7,13,15,18,18. 15+? =17 \u2192 need 2 (no). 13+7=20, 13+6=19, 7+6=13 \u2014 no 17.\n\nTry 22 + 7 = 29 \u2192 need",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me continue systematically. Try 22 + 7 = 29 \u2192 need 20 more. Remaining numbers: 6,10,13,15,18,18. Can we make 20? 15+6=21 (too big), 13+6=19, 13+7 but 7 is used, 10+6=16, 10+13=23, 18+? too big. Wait \u2014 10+6+? =20 \u2192 need 4, no. 15+? =20 \u2192 need 5, no. So no.\n\nTry 22 + 6 = 28 \u2192 need 21. Remaining: 7,10,13,15,18,18. 15+7",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Let me continue systematically. Try 22 + 6 = 28 \u2192 need 21 more. Remaining numbers: 7,10,13,15,18,18. Can we make 21? 15+7=22 (too big), 13+7=20, 13+10=23, 10+7=17, 18+? too big. 10+7+? =21 \u2192 need 4, no. 13+7+? =21 \u2192 need 1, no. So no.\n\nTry without 22: start with 18+18=36 \u2192 need 13 more. Remaining: 6,7,10,13,15,22 (but we skipped 22, so 6",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

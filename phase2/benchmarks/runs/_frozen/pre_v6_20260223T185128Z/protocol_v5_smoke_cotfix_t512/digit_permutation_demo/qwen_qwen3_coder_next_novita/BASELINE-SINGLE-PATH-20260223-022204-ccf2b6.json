@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-022204-ccf2b6.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "3300",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4137,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 172
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-022204-ccf2b6",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:22:04Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.",
+    "OUTPUT: To form the largest possible 4-digit integer using the digits **[3, 0, 3, 0]** exactly once, and ensuring it's divisible by **5**, we need to consider:\n\n### Divisibility by 5:\nA number is divisible by 5 **iff** its last digit is **0 or 5**.\n\nWe only have digits: **3, 0, 3, 0** \u2014 no 5s, so the last digit **must be 0**.\n\nWe have two 0s, so using one 0 at the end is fine.\n\nNow, to maximize the number:\n- Fix the last digit as **0**.\n- Remaining digits: [3, 3, 0]\n- To make the number as large as possible, arrange the remaining digits in descending order for the first three places.\n\nSo, descending order of [3, 3, 0] is **3, 3, 0**\n\nThus, the number is: **3300**\n\n\u2705 Uses digits: 3, 3, 0, 0 \u2014 correct  \n\u2705 4-digit number \u2014 yes  \n\u2705 Divisible by 5 \u2014 ends in 0 \u2014 yes  \n\u2705 Largest possible \u2014 any other arrangement (e.g., 3030, 3003, 0330 invalid as not 4-digit) is smaller.\n\n**3300**",
+    "FINAL: 3300"
+  ]
+}

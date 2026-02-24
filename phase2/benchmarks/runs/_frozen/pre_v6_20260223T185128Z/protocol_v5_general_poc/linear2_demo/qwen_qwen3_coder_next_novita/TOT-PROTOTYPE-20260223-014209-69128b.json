@@ -1,0 +1,90 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_general_poc/linear2_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-014209-69128b.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 6,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(x, y) = (7, 3)",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        8,
+        -25
+      ],
+      [
+        -7,
+        -7,
+        -70
+      ]
+    ]
+  },
+  "item_id": "lin-v4-006",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 71539,
+    "success": 1,
+    "tokens_in": 980,
+    "tokens_out": 160
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-014209-69128b",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 359837145,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:42:09Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.8000 cum=0.8000 terminal=False thought=DECOMP: insight=Each equation represents a linear constraint; solve the system via elimination or substitution; subnodes=eq1_simplify | eq2_simplify | solve_...",
+    "NODE n0002 parent=root score=0.8000 cum=0.8000 terminal=False thought=STEP: Simplify first equation: -7x + 8y = -25 \u2192 keep as is; second: -7x -7y = -70 \u2192 divide both sides by -7 \u2192 x + y = 10",
+    "NODE n0003 parent=root score=0.0000 cum=0.0000 terminal=False thought=FINAL: (x, y) = (9, 1)",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.8000 cum=1.6000 terminal=False thought=STEP: Subtract the second simplified equation (x + y = 10) from the first original equation (-7x + 8y = -25) after aligning coefficients: multiply x + y = 10...",
+    "NODE n0005 parent=n0001 score=0.0000 cum=0.8000 terminal=False thought=STEP: Substitute y = 3 into x + y = 10 \u2192 x = 7",
+    "NODE n0006 parent=n0001 score=0.0000 cum=0.8000 terminal=True thought=FINAL: (x, y) = (7, 3)"
+  ]
+}

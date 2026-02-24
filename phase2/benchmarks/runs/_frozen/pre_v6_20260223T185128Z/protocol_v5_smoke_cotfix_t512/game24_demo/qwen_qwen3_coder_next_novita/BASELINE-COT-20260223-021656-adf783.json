@@ -1,0 +1,56 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-021656-adf783.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "6 + 4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3749,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 287
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-021656-adf783",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:16:56Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use **each number exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 6\u00d74, 8\u00d73, 12\u00d72, etc.), or sums/differences that lead to such products.\n\nGiven numbers: 6, 4, 10, 4  \nWe have two 4s \u2014 useful for subtraction or division.\n\nTry:  \n(10 - 4) = 6  \nThen we have 6, 6, 4 left \u2192 6 \u00d7 4 = 24, but we still have another 6 \u2014 wait, that\u2019s three numbers used? Let's track:\n\nIf we do (10 - 4) = 6, then we have used 10 and one 4. Remaining: 6 and 4. So total numbers used: 3 so far \u2014 need to use all 4.\n\nWhat if: (10 - 4) \u00d7 (6 - 4) = 6 \u00d7 2 = 12 \u2014 too small.\n\nWhat about: (6 + 4 + 4) + 10 = 24?  \n6 + 4 + 4 = 14, +10 = 24 \u2192 yes! That uses all numbers: 6, 4, 4, 10.\n\nCheck: 6 + 4 + 4 + 10 = 24 \u2705  \nAll numbers used exactly once.\n\nSo expression: `6 + 4 + 4 + 10`\n\nBut wait \u2014 is that too trivial? Let\u2019s verify if any hidden constraint (e.g., must use operations like \u00d7 or \u00f7). The problem says \"use each number exactly once to produce 24\" \u2014 no restriction on operations, so addition is fine.\n\nThus, valid expression: `6 + 4 + 4 + 10`\n\nBut let\u2019s double-check: 6 + 4 = 10, +4 = 14, +10 = 24 \u2014 correct.\n\nAlternative: (10 + 4 + 6) + 4 = same.\n\nSo final answer:\n\nFINAL: 6 + 4 + 4 + 10",
+    "FINAL: 6 + 4"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-033535-a9e871.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "6333",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4164,
+    "success": 0,
+    "tokens_in": 28,
+    "tokens_out": 279
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-033535-a9e871",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:35:35Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 3, 3, 3]\nThe number must be divisible by 8.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[6, 3, 3, 3]**  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **8**.\n\n---\n\n### Step 1: Divisibility Rule for 8  \nA number is divisible by 8 **if and only if** its **last three digits** form a number divisible by 8.\n\nSo, for a 4-digit number **ABCD**, we need the number **BCD** (the last three digits) to be divisible by 8.\n\nWe want the **largest possible** 4-digit number, so we want the **thousands digit (A)** to be as large as possible, then the hundreds digit (B), etc.\n\nAvailable digits: one 6 and three 3s.\n\nSo possible digits: **6, 3, 3, 3**\n\nLet\u2019s list all **distinct permutations** of these digits (since digits repeat, many permutations are identical), and check which are divisible by 8.\n\nBut better: since we want the largest number, try to put **6 in the thousands place**, then arrange the remaining digits (3,3,3) to maximize the number \u2014 but only the last three digits matter for divisibility.\n\nSo candidate numbers with 6 in front:\n\n- 6333  \n- 6333 (same \u2014 only one unique arrangement with 6 first and three 3s)\n\nWait \u2014 with digits [6,3,3,3], the only distinct 4-digit numbers are:\n\n- 6333  \n- 3633  \n- 3363  \n- 3336  \n\nBecause the three 3s are indistinguishable.\n\nSo only **4 distinct numbers** to check.\n\nLet\u2019s list them and test divisibility by 8:\n\n1. **6333**  \n   Last three digits: **333**  \n   333 \u00f7 8 = 41.625 \u2192 Not divisible.\n\n2. **3633**  \n   Last three digits: **633**  \n   633 \u00f7 8 = 79.125 \u2192 Not divisible.\n\n3. **3363**  \n   Last three digits: **363**  \n   363 \u00f7 8 = 45.3",
+    "FINAL: 6333"
+  ]
+}

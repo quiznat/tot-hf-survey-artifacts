@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174527-782309.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "7 + 14 + 17 = 38",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      9,
+      12,
+      14,
+      17
+    ],
+    "target": 38
+  },
+  "item_id": "ss-v4-016",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5084,
+    "success": 0,
+    "tokens_in": 428,
+    "tokens_out": 200
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174527-782309",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 554954239,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:45:27Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We need to find a way to reach the target number 38 using the numbers [6, 7, 9, 12, 14, 17]. Since no tools are available, this is likely a puzzle where we can use arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) on the numbers, possibly using each number at most once.\n\nLet\u2019s explore combinations:\n\nFirst, check the sum of all numbers:  \n6 + 7 + 9 + 12 + 14 + 17 =  \n6+7=13, 13+9=22, 22+12=34, 34+14=48, 48+17=65 \u2192 too high.\n\nWe need 38, which is 65 \u2212 27 = 38, so maybe exclude numbers summing",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need to reach 38 using [6, 7, 9, 12, 14, 17], possibly with arithmetic operations and using each number at most once. Let\u2019s consider subsets whose sum is 38.\n\nTry combinations:\n- 17 + 14 = 31 \u2192 need 7 more \u2192 7 is available! So 17 + 14 + 7 = 38. That\u2019s three numbers: 7, 14, 17.\n\nCheck: 7 + 14 = 21, 21 + 17 = 38. Perfect!\n\nSo a valid solution is: 7 + 14 + 17 = 38.\n\nNo need for other operations \u2014 simple addition suffices.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 7 + 14 + 17 = 38"
+  ]
+}

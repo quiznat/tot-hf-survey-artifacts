@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-062339-e09907.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[3, 6, 8]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      5,
+      6,
+      8,
+      11,
+      18,
+      19,
+      22
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v4-007",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4162,
+    "success": 1,
+    "tokens_in": 424,
+    "tokens_out": 176
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-062339-e09907",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1937262580,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T06:23:39Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers [3, 5, 6, 8, 11, 18, 19, 22] that sums to the target 17. Since no tools are available, I need to solve this manually via reasoning.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n- 3 + 5 = 8  \n- 3 + 6 = 9  \n- 3 + 8 = 11  \n- 3 + 11 = 14  \n- 3 + 18 = 21 (too big)  \n- 5 + 6 = 11  \n- 5 + 8 = 13  \n- 5 + 11 = 16  \n- 5 + 18 = 23  \n- 6 + 8 = 14",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continue exploring combinations. So far, two-number sums haven\u2019t reached 17. Try three-number combinations:\n\n- 3 + 5 + 6 = 14  \n- 3 + 5 + 8 = 16  \n- 3 + 5 + 11 = 19 (too big)  \n- 3 + 6 + 8 = 17 \u2192 success!  \n\nCheck: 3 + 6 + 8 = 17. Yes, that matches the target exactly.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: [3, 6, 8]"
+  ]
+}

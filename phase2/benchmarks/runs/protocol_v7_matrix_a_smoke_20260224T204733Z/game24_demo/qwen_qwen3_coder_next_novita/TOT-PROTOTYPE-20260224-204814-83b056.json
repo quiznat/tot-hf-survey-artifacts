@@ -1,0 +1,92 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-204814-83b056.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 4,
+      "frontier_width": 3,
+      "generated_nodes": 9,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "10 \u00d7 (1 + 1) + 4",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 27028,
+    "success": 1,
+    "tokens_in": 10779,
+    "tokens_out": 975
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-204814-83b056",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:48:14Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 24 can be approached via (a+b)\u00d7c or (a\u2212b)\u00d7c patterns; with small numbers 1,1,4,10, try combining 10 and 4 first; subnodes=10+4=14 | 1+...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 24 can be formed as 25\u22121, and 25 = 5\u00b2, but with [4,10,1,1] we can try (10 + 1 + 1) + 10? No\u2014rethink: 4 \u00d7 (10 \u2212 1 \u2212 1) = 4 \u00d7 8 = 32 too...",
+    "DEPTH 1 frontier=2",
+    "NODE n0003 parent=n0001 score=0.8000 cum=1.3000 terminal=False thought=DECOMP: insight=Target 24 can be expressed as 12 \u00d7 2; observe 4/(1+1)=2 and 10+2=12, so combine these to get 12\u00d72=24; subnodes=4/(1+1)=2 | 10+2=12 | 12\u00d72=24;...",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Compute 1+1=2, then 4\u00f72=2, then 10+2=12, finally 12\u00d72=24",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=FINAL: (10 + 4 / (1 + 1)) \u00d7 (1 + 1)",
+    "NODE n0006 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=FINAL: (10 + 4 / (1 + 1)) \u00d7 (1 + 1)",
+    "NODE n0007 parent=n0002 score=1.0000 cum=1.5000 terminal=False thought=DECOMP: insight=Target 24 can be expressed as (10 \u00d7 1 + 1) \u00d7 (4 \u2212 ?) but better: recognize 24 = 6 \u00d7 4, and 6 = 10 \u2212 4, but 4 is reused\u2014instead, build 6 from ...",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Compute (1 + 1) = 2, then 10 \u00d7 2 = 20, finally 20 + 4 = 24",
+    "DEPTH 2 frontier=3",
+    "NODE n0009 parent=n0007 score=1.0000 cum=2.5000 terminal=True thought=FINAL: 10 \u00d7 (1 + 1) + 4"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173450-d830df.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "8610",
+        10
+      ]
+    ],
+    "cot_sc_winner_votes": 10
+  },
+  "final_answer": "8610",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      8,
+      1,
+      6,
+      0
+    ],
+    "divisor": 3,
+    "oracle_max": 8610
+  },
+  "item_id": "perm-v4-009",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3528,
+    "success": 1,
+    "tokens_in": 480,
+    "tokens_out": 2087
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173450-d830df",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3909615603,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:50Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [8, 1, 6, 0], and we must use each **exactly once** to form the **largest possible 4-digit integer** that is **divisible by 3**.\n\n---\n\n### Step 1: Divisibility by 3 rule  \nA number is divisible by 3 if the **sum of its digits** is divisible by 3.\n\nSum of digits:  \n8 + 1 + 6 + 0 = **15**  \n15 \u00f7 3 = 5 \u2192 divisible by 3.\n\nSo **any** 4-digit number formed using all these digits exactly once will be divisible by 3. That simplifies things!\n\nNow, we just need to form the **largest possible 4-digit number** using digits 8, 1, 6, 0, each exactly once.\n\nTo maximize the number, arrange digits in **descending order**, but ensure it's a valid 4-digit number (i.e., cannot start with 0).\n\nDescending order: 8, 6, 1, 0 \u2192 8610  \nCheck: uses all digits once, starts with 8 (\u2260 0) \u2192 valid.\n\nIs there a larger arrangement? Let's list top candidates:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n- 6810  \n- etc.\n\nClearly, **8610** is the largest possible.\n\n\u2705 Divisible by 3? Sum = 15 \u2192 yes.\n\n---\n\nFINAL: 8610",
+    "SAMPLE 1 FINAL: 8610",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [8, 1, 6, 0], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **3**.\n\n---\n\n### Step 1: Divisibility Rule for 3  \nA number is divisible by 3 **iff** the sum of its digits is divisible by 3.\n\nLet\u2019s compute the sum of the digits:  \n8 + 1 + 6 + 0 = **15**  \n15 \u00f7 3 = 5 \u2192 remainder 0 \u2192 divisible by 3.\n\n\u2705 So **any** permutation of these digits will yield a number divisible by 3.\n\nTherefore, we just need to find the **largest possible 4-digit number** using digits [8, 1, 6, 0] exactly once.\n\n---\n\n### Step 2: Form Largest 4-digit Number  \nTo maximize the number, arrange digits in descending order, **but** ensure the first digit is not 0 (since it's a 4-digit number).\n\nDigits in descending order: 8, 6, 1, 0 \u2192 8610  \nCheck: 8610 is a 4-digit number, uses all digits once, and sum = 15 \u2192 divisible by 3.\n\nIs there a larger permutation? Let's list top candidates:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n- 6810  \n- ...\n\nClearly, **8610** is the largest.\n\n\u2705 Satisfies all conditions.\n\n---\n\nFINAL: 8610",
+    "SAMPLE 2 FINAL: 8610",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [8, 1, 6, 0], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **3**.\n\n---\n\n### Step 1: Divisibility Rule for 3  \nA number is divisible by 3 **iff** the **sum of its digits** is divisible by 3.\n\nLet\u2019s compute the sum of the given digits:  \n8 + 1 + 6 + 0 = **15**  \n15 \u00f7 3 = 5 \u2192 remainder 0 \u21d2 **15 is divisible by 3**.\n\nSo **any permutation** of these digits will yield a number divisible by 3 \u2014 because all digits are used exactly once, and the digit sum is always 15.\n\nSo now the problem reduces to:  \n**Find the largest 4-digit number that can be formed using digits 8, 1, 6, 0 exactly once.**\n\nTo maximize the number:\n- Place the **largest digit** in the **thousands place**, but **cannot be 0**.\n- Then next largest in hundreds, etc.\n\nAvailable digits: 8, 6, 1, 0  \nSorted descending: 8, 6, 1, 0\n\nSo the largest arrangement is: **8610**\n\nCheck:  \n- Uses all digits once: \u2714\ufe0f  \n- 4-digit number: \u2714\ufe0f (starts with 8)  \n- Sum of digits: 8 + 6 + 1 + 0 = 15 \u21d2 divisible by 3 \u2714\ufe0f\n\n\u2705 So 8610 is valid and is the largest possible.\n\n---\n\nFINAL: 8610",
+    "SAMPLE 3 FINAL: 8610",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [8, 1, 6, 0]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 3**.\n\n---\n\n### Step 1: Divisibility by 3 rule  \nA number is divisible by 3 if the **sum of its digits** is divisible by 3.\n\nSum of digits:  \n8 + 1 + 6 + 0 = **15**  \n15 \u00f7 3 = 5 \u2192 divisible by 3.\n\nSo **any permutation** of these digits will be divisible by 3.\n\n---\n\n### Step 2: Find the largest 4-digit number using digits [8, 1, 6, 0] exactly once.\n\nTo make the largest number, arrange digits in descending order, but ensure the first digit is not 0 (since it must be a 4-digit number).\n\nDigits in descending order: 8, 6, 1, 0  \n\u2192 8610\n\nCheck:  \n- Uses all digits once \u2705  \n- First digit is 8 (non-zero) \u2705  \n- Sum = 15 \u2192 divisible by 3 \u2705\n\nIs there any larger permutation? Let's list top candidates:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n\n Clearly, **8610** is the largest.\n\n---\n\nFINAL: 8610",
+    "SAMPLE 4 FINAL: 8610",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [8, 1, 6, 0]  \nWe must form the **largest possible 4-digit integer** using each digit exactly once, and it must be **divisible by 3**.\n\n---\n\n### Step 1: Divisibility by 3 rule  \nA number is divisible by 3 if the **sum of its digits** is divisible by 3.\n\nCompute sum of given digits:  \n8 + 1 + 6 + 0 = **15**  \n15 is divisible by 3 \u2192 So **any permutation** of these digits will yield a number divisible by 3.\n\n\u2705 So we only need to find the **largest possible 4-digit number** using digits 8, 1, 6, 0 exactly once.\n\n---\n\n### Step 2: Form largest 4-digit number  \nTo maximize the number, arrange digits in descending order, **but ensure first digit \u2260 0** (since it must be a 4-digit number).\n\nDigits in descending order: 8, 6, 1, 0  \n\u2192 Number: **8610**\n\nCheck:  \n- Uses all digits: 8, 6, 1, 0 \u2714\ufe0f  \n- 4-digit number \u2714\ufe0f  \n- Sum = 15 \u2192 divisible by 3 \u2714\ufe0f\n\nIs there any larger permutation? Let's list top candidates:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n- 6810  \n- ...\n\nClearly, **8610** is the largest.\n\n\u2705\n\nFINAL: 8610",
+    "SAMPLE 5 FINAL: 8610",
+    "SAMPLE 6 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given digits: [8, 1, 6, 0]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 3**.\n\n---\n\n### Step 1: Divisibility by 3 rule  \nA number is divisible by 3 if the **sum of its digits** is divisible by 3.\n\nSum of digits:  \n8 + 1 + 6 + 0 = **15**  \n15 \u00f7 3 = 5 \u2192 divisible by 3.\n\n\u2705 So **any permutation** of these digits will yield a number divisible by 3.\n\nTherefore, we just need to form the **largest possible 4-digit number** using digits [8, 1, 6, 0] exactly once.\n\n### Step 2: Largest 4-digit number from digits  \nTo maximize the number, arrange digits in descending order, but ensure the first digit is not 0 (since it must be a 4-digit number).\n\nDigits in descending order: 8, 6, 1, 0  \n\u2192 8610\n\nCheck:  \n- Uses all digits once? \u2714\ufe0f  \n- Is it 4-digit? \u2714\ufe0f (starts with 8)  \n- Divisible by 3? Sum = 15 \u2192 \u2714\ufe0f\n\n\u2705 So 8610 is valid and is the largest possible.\n\nLet\u2019s quickly verify other high candidates just in case:  \n- 8601 \u2192 smaller than 8610  \n- 8160 \u2192 smaller  \n- 8106 \u2192 smaller  \n- 8061 \u2192 smaller  \n- 8016 \u2192 smaller  \n- 6810 \u2192 smaller than 8610  \nSo yes, 8610 is largest.\n\nFINAL: 8610",
+    "SAMPLE 6 FINAL: 8610",
+    "SAMPLE 7 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given digits: [8, 1, 6, 0], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 3**.\n\n---\n\n### Step 1: Divisibility by 3 rule  \nA number is divisible by 3 **iff** the **sum of its digits** is divisible by 3.\n\nLet\u2019s compute the sum of the given digits:  \n8 + 1 + 6 + 0 = **15**  \n15 is divisible by 3 \u2192 So **any arrangement** of these digits will be divisible by 3.\n\n\u2705 So we don\u2019t have to worry about divisibility \u2014 all permutations are valid.\n\n---\n\n### Step 2: Form the largest possible 4-digit number  \nTo maximize the number, arrange digits in **descending order**, but ensure the **first digit is not 0** (since it must be a 4-digit number).\n\nDigits in descending order: 8, 6, 1, 0 \u2192 gives **8610**\n\nCheck:\n- Uses all digits exactly once: \u2705  \n- First digit \u2260 0: \u2705  \n- Sum = 15 \u2192 divisible by 3: \u2705\n\nIs there any larger arrangement? Let\u2019s list top candidates:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n\nClearly, **8610** is the largest.\n\n---\n\nFINAL: 8610",
+    "SAMPLE 7 FINAL: 8610",
+    "SAMPLE 8 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given digits: [8, 1, 6, 0], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **3**.\n\n---\n\n### Step 1: Divisibility Rule for 3  \nA number is divisible by 3 **iff** the **sum of its digits** is divisible by 3.\n\nLet\u2019s compute the sum of the given digits:  \n8 + 1 + 6 + 0 = **15**\n\n15 is divisible by 3 (15 \u00f7 3 = 5), so **any** permutation of these digits will yield a number divisible by 3.\n\nSo, the divisibility condition is automatically satisfied \u2014 no need to eliminate any permutations.\n\n---\n\n### Step 2: Form the Largest Possible 4-Digit Number  \nTo get the largest possible number, we want the **largest digit in the thousands place**, then next largest in hundreds, etc.\n\nDigits: [8, 6, 1, 0] in descending order \u2192 8610\n\nBut check: is 8610 a 4-digit number? Yes (starts with 8 \u2260 0).\n\nLet\u2019s verify digits used: 8, 6, 1, 0 \u2014 all used exactly once.\n\nSum: 8 + 6 + 1 + 0 = 15 \u2192 divisible by 3.\n\nSo 8610 is valid.\n\nIs there a larger permutation? Let's list top permutations in descending order:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n\nClearly, **8610** is the largest.\n\n\u2705 All conditions satisfied.\n\n---\n\nFINAL: 8610",
+    "SAMPLE 8 FINAL: 8610",
+    "SAMPLE 9 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given digits: [8, 1, 6, 0], and we must form the **largest possible 4-digit integer** using **each digit exactly once**, such that the number is **divisible by 3**.\n\n---\n\n### Step 1: Divisibility by 3 rule\nA number is divisible by 3 **if and only if** the sum of its digits is divisible by 3.\n\nLet\u2019s compute the sum of the given digits:\n\n8 + 1 + 6 + 0 = **15**\n\n15 is divisible by 3 \u2192 So **any permutation** of these digits will yield a number divisible by 3.\n\nGreat! So we just need the **largest 4-digit number** using digits 8, 1, 6, 0 exactly once.\n\nTo get the largest number, sort digits in descending order: 8, 6, 1, 0 \u2192 number = **8610**\n\nBut wait \u2014 check if it's a valid 4-digit number: leading digit is 8 \u2192 yes.\n\nSo 8610 is valid.\n\nIs there any larger arrangement? Try permutations starting with 8 (since 8 is largest digit), then among those, maximize the next digits.\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n\nAmong these, **8610** is largest.\n\n\u2705 All permutations are divisible by 3 (since digit sum = 15).\n\nSo answer is **8610**.\n\nFINAL: 8610",
+    "SAMPLE 9 FINAL: 8610",
+    "SAMPLE 10 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [8, 1, 6, 0]\nThe number must be divisible by 3.\nReturn only the integer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given digits: [8, 1, 6, 0]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 3**.\n\n### Step 1: Divisibility by 3 rule  \nA number is divisible by 3 if the **sum of its digits** is divisible by 3.\n\nLet\u2019s compute the sum of the given digits:  \n8 + 1 + 6 + 0 = **15**  \n15 \u00f7 3 = 5 \u2192 remainder 0 \u21d2 **15 is divisible by 3**\n\nSo **any** arrangement of these digits will yield a number divisible by 3. Great \u2014 no restriction beyond using all digits once and forming the largest possible 4-digit number.\n\n### Step 2: Form the largest possible 4-digit number  \nTo maximize the number, we want the **largest digits in the highest place values**, i.e., descending order, but **cannot start with 0**.\n\nDigits: 8, 6, 1, 0  \nDescending order: 8, 6, 1, 0 \u2192 8610  \nCheck: starts with 8 (non-zero), uses all digits once.\n\nIs there a larger arrangement? Let's verify:\n\n- 8610  \n- 8601  \n- 8160  \n- 8106  \n- 8061  \n- 8016  \n- 6810  \n... clearly 8610 is the largest.\n\n\u2705 8610 is divisible by 3 (sum = 15), and it's the largest possible arrangement.\n\nFINAL: 8610",
+    "SAMPLE 10 FINAL: 8610",
+    "VOTE SUMMARY: 8610 -> 10",
+    "VOTE WINNER: 8610 (10/10)"
+  ]
+}

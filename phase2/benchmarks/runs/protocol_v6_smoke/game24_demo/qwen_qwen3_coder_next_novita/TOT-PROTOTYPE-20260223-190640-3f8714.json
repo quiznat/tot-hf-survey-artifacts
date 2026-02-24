@@ -1,0 +1,80 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-190640-3f8714.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 5,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "10 \u00d7 (1 + 1) + 4",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 22908,
+    "success": 1,
+    "tokens_in": 2187,
+    "tokens_out": 560
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-190640-3f8714",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T19:06:40Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 24 can be approached by forming 25 and subtracting 1, or 23+1, or using multiplication like 6\u00d74; with numbers [4,10,1,1], try building...",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False thought=DECOMP: insight=Target 24 can be formed as 25\u22121, and 25 = 5\u00b2, but 5 = 10 \u00f7 2; however, we lack 2 directly\u2014instead, try (10 + 1 + 1) \u00d7 something; 12 \u00d7 2 = 24,...",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=False thought=STEP: Recognize 10 \u00d7 (1 + 1) = 20, then 20 + 4 = 24, using all numbers [10,1,1,4] exactly once.",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0002 score=1.0000 cum=2.0000 terminal=False thought=STEP: 10 \u00d7 (1 + 1) = 20, and 20 + 4 = 24, using all numbers [10, 1, 1, 4] exactly once.",
+    "NODE n0005 parent=n0002 score=1.0000 cum=2.0000 terminal=True thought=FINAL: 10 \u00d7 (1 + 1) + 4"
+  ]
+}

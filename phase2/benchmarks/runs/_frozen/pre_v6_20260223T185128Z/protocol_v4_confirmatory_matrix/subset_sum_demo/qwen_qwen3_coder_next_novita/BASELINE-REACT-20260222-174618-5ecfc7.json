@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174618-5ecfc7.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[8, 13, 18]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      4,
+      6,
+      8,
+      11,
+      13,
+      18
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-028",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5002,
+    "success": 1,
+    "tokens_in": 385,
+    "tokens_out": 158
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174618-5ecfc7",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2956916736,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:46:18Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We need to find a subset of the numbers [3, 4, 6, 8, 11, 13, 18] that sums to the target 39. Let's consider possible combinations.\n\nFirst, total sum of all numbers: 3+4+6+8+11+13+18 = 63. So we need to exclude numbers summing to 63\u221239 = 24.\n\nAlternatively, try to build up to 39 directly.\n\nTry including the largest number, 18: remaining target = 39\u221218 = 21.\n\nNow find subset of [3,4,6,8,11,13] summing to 21.\n\nTry 13: 21\u221213 = 8 \u2192 8 is in the list! So 18 + 1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We found a promising partial combination: 18 + 13 + 8 = 39. Let's verify: 18 + 13 = 31, 31 + 8 = 39. All three numbers (8, 13, 18) are in the input list [3, 4, 6, 8, 11, 13, 18], and no duplicates are used. So the subset {8, 13, 18} sums to 39. We have found a valid solution.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: [8, 13, 18]"
+  ]
+}

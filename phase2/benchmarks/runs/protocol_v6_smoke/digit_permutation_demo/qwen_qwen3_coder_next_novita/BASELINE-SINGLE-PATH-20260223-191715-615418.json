@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-191715-615418.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "12",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8746,
+    "success": 0,
+    "tokens_in": 28,
+    "tokens_out": 305
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-191715-615418",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:15Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[4, 2, 2, 4]**  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 if the **alternating sum** of its digits is divisible by 11 (i.e., difference between sum of digits in odd positions and sum of digits in even positions is a multiple of 11, including 0).\n\nFor a 4-digit number with digits:  \n**ABCD**,  \nwe compute:  \n**(A + C) \u2212 (B + D)** \u2261 0 mod 11  \n\u2192 (sum of digits in positions 1 and 3) \u2212 (sum of digits in positions 2 and 4) = 0 or \u00b111, \u00b122, etc.\n\nSince the total sum of all digits is:  \n4 + 2 + 2 + 4 = **12**,  \nthen (A + C) + (B + D) = 12  \nLet S\u2081 = A + C, S\u2082 = B + D  \nSo S\u2081 + S\u2082 = 12  \nWe need S\u2081 \u2212 S\u2082 \u2261 0 mod 11  \n\u2192 S\u2081 \u2212 S\u2082 = 0 or \u00b111, etc.\n\nTry S\u2081 \u2212 S\u2082 = 0 \u2192 S\u2081 = S\u2082 = 6  \nThat works since 6 + 6 = 12.\n\nTry S\u2081 \u2212 S\u2082 = 11 \u2192 then S\u2081 = (12 + 11)/2 = 23/2 = 11.5 \u2192 not integer  \nTry S\u2081 \u2212 S\u2082 = \u221211 \u2192 S\u2081 = (12 \u2212 11)/2 = 0.5 \u2192 not integer  \nSo only possible is **S\u2081 = S\u2082 = 6**\n\nSo we need to split the digits into two pairs, each summing to 6.\n\nDigits: [4, 4, 2, 2]  \nPossible pairs summing to 6:  \n- 4 + 2 = 6  \nSo we need two such pairs: (4,2) and (4,2) \u2014 perfect.\n\nSo positions:\n- A + C = 6  \n- B + D =",
+    "FINAL: 12"
+  ]
+}

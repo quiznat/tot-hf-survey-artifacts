@@ -1,0 +1,94 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-012007-c865ed.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "25,18,7,5",
+        3
+      ],
+      [
+        "I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nSo one solution is: 25 + 18 + 7 + 5 = 55\n\nLet me check if there are other combinations:\n- Using 18: need remaining to sum to 37\n  - 25 + 7 + 5 = 37 \u2713\n  - So:",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 6 - 5 = 26 (too small)\n- 18 + 7 + 6 = 31 (close, but too big by 1)\n- 18 + 7 + 5 = 30 (this works!)\n\nSo: 25 + 18 + 7 + 5 = 55\n\nLet",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "25,18,7,5",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      6,
+      7,
+      18,
+      25
+    ],
+    "target": 55
+  },
+  "item_id": "ss-v4-043",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11524,
+    "success": 1,
+    "tokens_in": 355,
+    "tokens_out": 530
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-012007-c865ed",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3075285621,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:20:07Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 7, 18, 25]\nTarget: 55\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nSo one solution is: 25 + 18 + 7 + 5 = 55\n\nLet me check if there are other combinations:\n- Using 18: need remaining to sum to 37\n  - 25 + 7 + 5 = 37 \u2713\n  - So:",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nSo one solution is: 25 + 18 + 7 + 5 = 55\n\nLet me check if there are other combinations:\n- Using 18: need remaining to sum to 37\n  - 25 + 7 + 5 = 37 \u2713\n  - So:",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 7, 18, 25]\nTarget: 55\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 6 - 5 = 26 (too small)\n- 18 + 7 + 6 = 31 (close, but too big by 1)\n- 18 + 7 + 5 = 30 (this works!)\n\nSo: 25 + 18 + 7 + 5 = 55\n\nLet",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 6 - 5 = 26 (too small)\n- 18 + 7 + 6 = 31 (close, but too big by 1)\n- 18 + 7 + 5 = 30 (this works!)\n\nSo: 25 + 18 + 7 + 5 = 55\n\nLet",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 7, 18, 25]\nTarget: 55\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nLet me verify: 25 + 18 + 7 + 5 = 55 \u2713\n\nThis uses each number exactly once and sums to the target.\n\nFINAL: 25,18,7,5",
+    "SAMPLE 3 FINAL: 25,18,7,5",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 7, 18, 25]\nTarget: 55\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nLet me verify: 25 + 18 + 7 + 5 = 55 \u2713\n\nThis uses each number at most once and sums correctly.\n\nFINAL: 25,18,7,5",
+    "SAMPLE 4 FINAL: 25,18,7,5",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 7, 18, 25]\nTarget: 55\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nLet me verify: 25 + 18 + 7 + 5 = 55 \u2713\n\nThis uses each number at most once and sums correctly.\n\nFINAL: 25,18,7,5",
+    "SAMPLE 5 FINAL: 25,18,7,5",
+    "VOTE SUMMARY: 25,18,7,5 -> 3, I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 5 = 30 \u2713\n\nSo one solution is: 25 + 18 + 7 + 5 = 55\n\nLet me check if there are other combinations:\n- Using 18: need remaining to sum to 37\n  - 25 + 7 + 5 = 37 \u2713\n  - So: -> 1, I need to find a combination of numbers from [5, 6, 7, 18, 25] that sum to 55.\n\nLet me think step by step:\n\nFirst, let me see what happens if I use the largest number 25:\n- If I include 25, I need the remaining numbers to sum to 55 - 25 = 30\n- From [5, 6, 7, 18], I need to make 30\n- 18 + 7 + 6 - 5 = 26 (too small)\n- 18 + 7 + 6 = 31 (close, but too big by 1)\n- 18 + 7 + 5 = 30 (this works!)\n\nSo: 25 + 18 + 7 + 5 = 55\n\nLet -> 1",
+    "VOTE WINNER: 25,18,7,5 (3/5)"
+  ]
+}

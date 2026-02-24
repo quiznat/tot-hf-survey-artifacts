@@ -1,0 +1,93 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-173507-697080.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 6,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "3336",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8556,
+    "success": 1,
+    "tokens_in": 1007,
+    "tokens_out": 129
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-173507-697080",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:35:07Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.8000 cum=0.8000 terminal=False thought=DECOMP: insight=Divisibility by 8 depends only on the last three digits; subnodes=permutations_of_first_digit | permutations_of_last_three_digits; recombine=...",
+    "NODE n0002 parent=root score=0.3000 cum=0.3000 terminal=False thought=STEP: Try first digit = 6 (largest possible leading digit), remaining digits [3,3,3]; only possible ending is 333; check 333 \u00f7 8 = 41.625 \u2192 not divisible",
+    "NODE n0003 parent=root score=0.0000 cum=0.0000 terminal=False thought=FINAL: 3633",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.7000 cum=1.5000 terminal=False thought=STEP: Try first digit = 3, remaining digits [6,3,3]; generate all distinct 3-digit permutations of [6,3,3]: 633, 363, 336",
+    "NODE n0005 parent=n0001 score=0.7500 cum=1.5500 terminal=False thought=STEP: Check each 3-digit ending for divisibility by 8: 633 \u00f7 8 = 79.125 (no), 363 \u00f7 8 = 45.375 (no), 336 \u00f7 8 = 42 (yes)",
+    "NODE n0006 parent=n0001 score=0.7500 cum=1.5500 terminal=True thought=FINAL: 3336"
+  ]
+}

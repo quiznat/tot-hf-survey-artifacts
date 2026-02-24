@@ -1,0 +1,96 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260222-192727-187d61.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+        3
+      ],
+      [
+        "We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude; the",
+        1
+      ],
+      [
+        "We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n3+4=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nSo total is 63. We need 39, which is 63 \u2212 39 = 24 less than total.  \nSo equivalently, we could find a subset that sums to 24 (to exclude), and",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      4,
+      6,
+      8,
+      11,
+      13,
+      18
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-028",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 34727,
+    "success": 0,
+    "tokens_in": 365,
+    "tokens_out": 484
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-192727-187d61",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2956916736,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:27:27Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+    "SAMPLE 1 FINAL: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+    "SAMPLE 2 FINAL: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude; the",
+    "SAMPLE 3 FINAL: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude; the",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+    "SAMPLE 4 FINAL: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n3+4=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nSo total is 63. We need 39, which is 63 \u2212 39 = 24 less than total.  \nSo equivalently, we could find a subset that sums to 24 (to exclude), and",
+    "SAMPLE 5 FINAL: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n3+4=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nSo total is 63. We need 39, which is 63 \u2212 39 = 24 less than total.  \nSo equivalently, we could find a subset that sums to 24 (to exclude), and",
+    "VOTE SUMMARY: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet -> 3, We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude; the -> 1, We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n3+4=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nSo total is 63. We need 39, which is 63 \u2212 39 = 24 less than total.  \nSo equivalently, we could find a subset that sums to 24 (to exclude), and -> 1",
+    "VOTE WINNER: We are given the list: [3, 4, 6, 8, 11, 13, 18]  \nTarget sum: 39  \nWe need to select a subset (each number used at most once) that sums to 39.\n\nLet\u2019s try to find such a combination.\n\nFirst, compute total sum of all numbers:  \n3 + 4 + 6 + 8 + 11 + 13 + 18 =  \n(3+4)=7, +6=13, +8=21, +11=32, +13=45, +18=63  \nTotal = 63  \nSo we need a subset summing to 39 \u2192 complement subset sums to 63 \u2212 39 = 24  \nSo equivalently, find numbers that sum to 24 to exclude.\n\nLet (3/5)"
+  ]
+}

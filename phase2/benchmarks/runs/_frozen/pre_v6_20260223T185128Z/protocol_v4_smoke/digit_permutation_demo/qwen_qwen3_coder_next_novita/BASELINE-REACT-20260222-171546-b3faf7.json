@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-171546-b3faf7.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 32413,
+    "success": 0,
+    "tokens_in": 1281,
+    "tokens_out": 474
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-171546-b3faf7",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T17:15:46Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number that can be formed using the digits [6, 3, 3, 3] that is divisible by 8, and the oracle_max is given as 3336. Let's verify if 3336 is valid: digits of 3336 are [3, 3, 3, 6] \u2014 matches the multiset [6, 3, 3, 3]. Now check divisibility by 8: a number is divisible by 8 if its last three digits form a number divisible by 8. For 3336, last three digits are 336. 336 \u00f7 8 = 42 \u2192 exact, so 3336 is divisible by 8. Is there a larger number possible? The digits sorted descending: 6,3,3,3 \u2192 largest",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The digits [6, 3, 3, 3] can form numbers up to 6333 as the largest permutation. But 6333 is odd, and divisibility by 8 requires the last three digits to form a number divisible by 8. Let\u2019s check possible permutations in descending order to find the maximum divisible by 8. The oracle_max is 3336, but is that the maximum? Let's verify larger candidates:\n\n- 6336: digits [6,3,3,6] \u2014 but we only have one 6, so invalid.\n- 6333: digits [6,3,3,3] \u2014 valid multiset. Check last three digits: 333. 333 \u00f7 8 = 41.625 \u2192 not divisible.\n- 6336 invalid (extra 6",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We need the largest number formed from digits [6, 3, 3, 3] divisible by 8. Total permutations of these digits: all arrangements of one 6 and three 3s. There are 4 positions for the 6, giving 4 distinct numbers:  \n- 6333  \n- 3633  \n- 3363  \n- 3336  \n\nWe already verified 3336 is divisible by 8 (336 \u00f7 8 = 42). Now check the others:  \n- 3363: last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u2192 not divisible  \n- 3633: last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u2192",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: We have only four distinct permutations of digits [6, 3, 3, 3]: 6333, 3633, 3363, 3336. We checked divisibility by 8 using the last-three-digits rule:\n\n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u274c  \n- 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u274c  \n- 3363 \u2192 last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u274c  \n- 3336 \u2192 last three digits = 336 \u2192 336 \u00f7 8 =",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: We have only four distinct permutations of digits [6, 3, 3, 3]: 6333, 3633, 3363, 3336. We checked divisibility by 8 using the last-three-digits rule:\n\n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u274c  \n- 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u274c  \n- 3363 \u2192 last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u274c  \n- 3336 \u2192 last three digits = 336 \u2192 336 \u00f7 8 =",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

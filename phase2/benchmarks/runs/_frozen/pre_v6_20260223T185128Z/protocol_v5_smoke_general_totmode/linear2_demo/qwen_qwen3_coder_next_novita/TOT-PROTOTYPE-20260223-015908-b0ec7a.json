@@ -1,0 +1,117 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/linear2_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015908-b0ec7a.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "error_type": "depth_limit",
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 10,
+      "frontier_width": 3,
+      "generated_nodes": 30,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "x=9.0,y=3.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        8,
+        -25
+      ],
+      [
+        -7,
+        -7,
+        -70
+      ]
+    ]
+  },
+  "item_id": "lin-v4-006",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 63181,
+    "success": 0,
+    "tokens_in": 7390,
+    "tokens_out": 769
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search reached depth limit without terminal answer",
+  "outcome": "failure",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015908-b0ec7a",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 359837145,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:59:08Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Eliminate one variable by subtracting equations; subnodes=Eq1_minus_Eq2 | Solve_for_y | Solve_for_x; recombine=Use y from Eq1_minus_Eq2 to ba...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Subtract Equation 2 from Equation 1: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0003 parent=root score=0.5520 cum=0.5520 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0003 score=0.5520 cum=1.1040 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0005 parent=n0003 score=0.5520 cum=1.1040 terminal=False thought=STEP: Substitute y = 3.0 into Equation 2: -7.0x + -7.0(3.0) = -70.0 \u2192 -7.0x - 21.0 = -70.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0006 parent=n0003 score=0.5520 cum=1.1040 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "NODE n0007 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Subtract Equation 2 from Equation 1: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0008 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0009 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Substitute y = 3.0 into Equation 2: -7.0x + -7.0(3.0) = -70.0 \u2192 -7.0x - 21.0 = -70.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0010 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0011 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Substitute y = 3.0 into Equation 1: -7.0x + 8.0(3.0) = -25.0 \u2192 -7.0x + 24.0 = -25.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0012 parent=n0002 score=0.5520 cum=1.0520 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "DEPTH 2 frontier=3",
+    "NODE n0013 parent=n0004 score=0.5520 cum=1.6560 terminal=False thought=STEP: Substitute y = 3.0 into Equation 1: -7.0x + 8.0(3.0) = -25.0 \u2192 -7.0x + 24.0 = -25.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0014 parent=n0004 score=0.5520 cum=1.6560 terminal=False thought=STEP: Add Equation 1 and Equation 2: (-7.0x + 8.0y) + (-7.0x - 7.0y) = -25.0 + (-70.0) \u2192 -14.0x + 1.0y = -95.0, then solve for y = 14.0x - 95.0",
+    "NODE n0015 parent=n0004 score=0.5520 cum=1.6560 terminal=False thought=DECOMP: insight=Express one variable in terms of the other using Equation 2; subnodes=Eq2_solve_for_x | Substitute_into_Eq1; recombine=Insert x expression in...",
+    "NODE n0016 parent=n0005 score=0.5520 cum=1.6560 terminal=False thought=STEP: Verify solution by substituting x=9.0, y=3.0 into both original equations: Eq1: -7.0(9.0)+8.0(3.0)=-63.0+24.0=-39.0? Wait, -63.0+24.0=-39.0 \u2260 -25.0 \u2014 c...",
+    "NODE n0017 parent=n0005 score=0.5520 cum=1.6560 terminal=False thought=STEP: Re-solve: Subtract Eq2 from Eq1: (-7x+8y)-(-7x-7y) = -25 - (-70) \u2192 15y = 45 \u2192 y=",
+    "NODE n0018 parent=n0005 score=0.5520 cum=1.6560 terminal=False thought=DECOMP: insight=Use matrix inversion method on coefficient matrix; subnodes=Construct_matrix | Compute_inverse | Multiply_by_constant_vector; recombine=Apply...",
+    "NODE n0019 parent=n0006 score=0.5520 cum=1.6560 terminal=False thought=STEP: Verify solution by substituting x=9.0, y=3.0 into both original equations: Eq1: -7.0(9.0)+8.0(3.0)=-63.0+24.0=-39.0 \u2260 -25.0 \u2014 contradiction! Recompute ...",
+    "NODE n0020 parent=n0006 score=0.5520 cum=1.6560 terminal=False thought=STEP: Re-solve: Subtract Eq2 from Eq1: (-7x+8y)-(-7x-7y) = -25 - (-70) \u2192 15y = 45 \u2192 y = 3.0. Then substitute y=3.0 into Eq2: -7",
+    "NODE n0021 parent=n0006 score=0.5520 cum=1.6560 terminal=False thought=STEP: Compute determinant of coefficient matrix: D = (-7.0)(-7.0) - (8.0)(-7.0) = 49.0 + 56.0 = 105.0",
+    "DEPTH 3 frontier=3",
+    "NODE n0022 parent=n0013 score=0.5520 cum=2.2080 terminal=False thought=STEP: Subtract Equation 2 from Equation 1: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0023 parent=n0013 score=0.5520 cum=2.2080 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0024 parent=n0013 score=0.5520 cum=2.2080 terminal=False thought=STEP: Substitute y = 3.0 into Equation 2: -7.0x + (-7.0)(3.0) = -70.0 \u2192 -7.0x - 21.0 = -70.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0025 parent=n0014 score=0.5520 cum=2.2080 terminal=False thought=STEP: Re-express Equation 2: -7.0x - 7.0y = -70.0 \u2192 divide both sides by -7.0 to get x + y = 10.0",
+    "NODE n0026 parent=n0014 score=0.5520 cum=2.2080 terminal=False thought=STEP: From x + y = 10.0, express x = 10.0 - y, then substitute into Equation 1: -7.0(10.0 - y) + 8.0y = -25.0 \u2192 -70.0 + 7.0y + 8.0y = -25.0 \u2192 15.0y = 45.0 \u2192 ...",
+    "NODE n0027 parent=n0014 score=0.5520 cum=2.2080 terminal=False thought=STEP: With y = 3.0, x = 10.0 - 3.0 = 7.0; verify: Eq1: -7.0(7.0)",
+    "NODE n0028 parent=n0015 score=0.5520 cum=2.2080 terminal=False thought=DECOMP: insight=Express one variable in terms of the other using Equation 2; subnodes=Eq2_solve_for_x | Substitute_into_Eq1; recombine=Insert x expression in...",
+    "NODE n0029 parent=n0015 score=0.5520 cum=2.2080 terminal=False thought=STEP: From Equation 2: -7.0x - 7.0y = -70.0 \u2192 divide by -7.0 \u2192 x + y = 10.0 \u2192 x = 10.0 - y",
+    "NODE n0030 parent=n0015 score=0.5520 cum=2.2080 terminal=False thought=STEP: Substitute x = 10.0 - y into Equation 1: -7.0(10.0 - y) + 8.0y = -25.0 \u2192 -70.0 + 7.0y + 8.0y = -25.0 \u2192 15.0y = 45.0 \u2192 y = 3.0"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-031727-83baeb.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "20,17",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      10,
+      13,
+      14,
+      17,
+      18,
+      19,
+      19,
+      20
+    ],
+    "target": 37
+  },
+  "item_id": "ss-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2228,
+    "success": 1,
+    "tokens_in": 67,
+    "tokens_out": 109
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-031727-83baeb",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 581773520,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T03:17:27Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of the numbers [10, 13, 14, 17, 18, 19, 19, 20] that sums to 37.\n\nWe can try combinations:\n\nStart with larger numbers:\n\n- 20 + 17 = 37 \u2192 \u2705 That's exactly 37.\n\nCheck if both numbers are in the list: yes, 20 and 17 are present.\n\nSo one valid solution is: 20,17\n\nAre there others? Let's verify uniqueness isn't required \u2014 just need one valid subset.\n\nBut the problem says \"Select one or more values\", and we found a valid pair.\n\nDouble-check: 20 + 17 = 37 \u2714\ufe0f\n\nNo duplicates needed \u2014 both numbers appear at least once.\n\nSo answer: 20,17\n\nFINAL: 20,17",
+    "FINAL: 20,17"
+  ]
+}

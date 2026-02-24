@@ -1,0 +1,89 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-021733-5c55e5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "(6 + 1 + 1)",
+        3
+      ],
+      [
+        "**6 * 4 * 1 * 1",
+        1
+      ],
+      [
+        "6 * (4 + 1 - 1)",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "(6 + 1 + 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    4,
+    1,
+    6
+  ],
+  "item_id": "g24-v4-010",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 36426,
+    "success": 0,
+    "tokens_in": 205,
+    "tokens_out": 1443
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-021733-5c55e5",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 878833230,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:17:33Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to get 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24. That\u2019s promising \u2014 but we still have two 1s to use. So we need to incorporate the 1s in a way that doesn\u2019t change the value \u2014 e.g., multiply by 1, or add 1 and subtract 1, etc.\n\nIdea: (6 \u00d7 4) \u00d7 (1 + 1 \u2212 1)? No \u2014 that\u2019s 24 \u00d7 1 = 24, but we used three 1s (we only have two). Wait: (1 + 1) = 2, so maybe (6 \u00d7 4) \u00d7 (1 / 1) = 24 \u00d7 1 = 24. Yes! That uses both 1s.\n\nCheck:  \n6 \u00d7 4 = 24  \n1 / 1 = 1  \n24 \u00d7 1 = 24  \nAll numbers used exactly once: 6, 4, 1, 1.\n\nSo expression:  \n**(6 \u00d7 4) \u00d7 (1 \u00f7 1)**\n\nAlternatively, we could write:  \n**6 \u00d7 4 \u00d7 (1 \u00f7 1)**\n\nBut parentheses help clarify order, though multiplication is associative \u2014 still, to be safe and clear, let\u2019s keep parentheses.\n\nAnother possibility: (6 + 6) \u00d7 2 \u2014 but we don\u2019t have two 6s or a 2.\n\nOr (6 \u00d7 1 + 6) \u00d7 2 \u2014 no.\n\nLet\u2019s verify no simpler or alternative works.\n\nTry: (6 + 1 + 1) \u00d7 something? 8 \u00d7 ? = 24 \u2192 \u00d73, but we have 4 left \u2014 no.\n\n(6 \u00d7 1) \u00d7 (4 + 1) = 6 \u00d7 5 = 30 \u2014 too big.\n\n(6 + 4) \u00d7 (1 + 1) = 10 \u00d7 2 = 20 \u2014 too small.\n\n(6 \u00d7 4) + (1 \u2212",
+    "SAMPLE 1 FINAL: (6 + 1 + 1)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24. We can use standard arithmetic operations: +, \u2212, \u00d7, \u00f7, and parentheses.\n\nLet\u2019s list the numbers: two 1s, a 4, and a 6.\n\nWe want to reach 24.\n\nFirst, consider possible products that give 24:\n- 6 \u00d7 4 = 24 \u2192 then we need to neutralize the two 1s (e.g., \u00d71\u00d71 or +1\u22121, but we must use all numbers).\n- So: (6 \u00d7 4) \u00d7 1 \u00d7 1 = 24 \u2192 valid! Uses all numbers exactly once.\n\nCheck: 6 \u00d7 4 = 24; 24 \u00d7 1 = 24; 24 \u00d7 1 = 24.\n\nYes, that works.\n\nAlternative: (6 + 1 + 1) \u00d7 something? 6+1+1=8, 24/8=3, but we have 4 left \u2014 no.\n\nOr (6 \u00d7 1 + 6) \u00d7 something \u2014 but only one 6.\n\nSo the simplest is:  \n**6 \u00d7 4 \u00d7 1 \u00d7 1 = 24**\n\nWe can write it as:  \n6 \u00d7 4 \u00d7 1 \u00d7 1\n\nBut to be safe with order of operations and clarity, parentheses aren\u2019t needed since multiplication is associative and commutative.\n\nSo final expression:  \n6 \u00d7 4 \u00d7 1 \u00d7 1\n\nLet\u2019s double-check: uses 6, 4, 1, 1 \u2014 all numbers, each exactly once. Result = 24.\n\n\u2705\n\nFINAL: 6*4*1*1",
+    "SAMPLE 2 FINAL: **6 * 4 * 1 * 1",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to get 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24. That\u2019s promising \u2014 but we still have two 1s to use. So we need to incorporate the 1s in a way that doesn\u2019t change the value \u2014 e.g., multiply by 1, or add 1 and subtract 1, etc.\n\nIdea: (6 \u00d7 4) \u00d7 (1 + 1 \u2212 1) = 24 \u00d7 1 = 24? Wait, that uses three 1s \u2014 we only have two.\n\nWe have exactly two 1s.\n\nSo maybe: (6 \u00d7 4) \u00d7 1 \u00d7 1 = 24. That uses all numbers: 6, 4, 1, 1 \u2014 each once.\n\nYes! That works.\n\nCheck: 6 \u00d7 4 = 24; 24 \u00d7 1 = 24; 24 \u00d7 1 = 24.\n\nSo expression: `6 * 4 * 1 * 1`\n\nBut is multiplication allowed? Yes.\n\nAre we using each number exactly once? Yes: 6, 4, 1, 1 \u2014 all used.\n\nAlternative: (6 + 6) \u00d7 2 \u2014 but we don\u2019t have two 6s.\n\nAnother idea: (6 + 1 + 1) \u00d7 something? 8 \u00d7 3 = 24 \u2014 but no 3.\n\nOr (4 + 1 + 1) \u00d7 3 = 6 \u00d7 3 = 18 \u2014 no.\n\nSo the simplest is indeed `6 * 4 * 1 * 1`.\n\nWe could also write `(6 * 4) * (1 + 1 - 1)` \u2014 but that uses three 1s.\n\nNo, only two 1s.\n\nSo `6 * 4 * 1 * 1` is valid.\n\nBut sometimes puzzles disallow trivial multiplication by 1 \u2014 but the problem says \u201cuse each number exactly once\u201d \u2014 and doesn\u2019t forbid using 1s multiplicatively",
+    "SAMPLE 3 FINAL: (6 + 1 + 1)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24. That\u2019s promising \u2014 but we still have two 1s left to use. So we need to incorporate the 1s in a way that doesn\u2019t change the value \u2014 e.g., multiply by 1, or add 1 \u2212 1 = 0.\n\nIdea:  \n6 \u00d7 4 \u00d7 (1 + 1 \u2212 1) = 24 \u00d7 1 = 24? Wait, that\u2019s three 1s \u2014 we only have two.\n\nWe have exactly two 1s.\n\nSo maybe:  \n6 \u00d7 4 \u00d7 1 \u00d7 1 = 24. That uses all numbers: 6, 4, 1, 1 \u2014 each once.\n\nYes! That works.\n\nCheck:  \n6 \u00d7 4 = 24  \n24 \u00d7 1 = 24  \n24 \u00d7 1 = 24\n\nSo expression: `6 * 4 * 1 * 1`\n\nBut is multiplication allowed? Yes \u2014 standard operations.\n\nAlternative: (6 + 6) \u00d7 2 \u2014 but we don\u2019t have two 6s or a 2.\n\nAnother idea: (6 + 1 + 1) \u00d7 something? 8 \u00d7 3 = 24 \u2014 but no 3.\n\nOr (6 \u00d7 1 + 6) \u00d7 2 \u2014 again, no.\n\nSo the simplest is indeed 6 \u00d7 4 \u00d7 1 \u00d7 1.\n\nWe can write it as `6 * 4 * 1 * 1`.\n\nBut maybe they want to avoid trivial multiplication by 1? The problem doesn\u2019t say so \u2014 it just says use each number exactly once.\n\nSo this is valid.\n\nLet\u2019s double-check: numbers used: 6, 4, 1, 1 \u2014 matches [1, 4, 1, 6].\n\nYes.\n\nFinal answer:\n\nFINAL: 6*4*1*1",
+    "SAMPLE 4 FINAL: (6 + 1 + 1)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to get 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24. So if we can make the two 1s cancel out or become 1 (i.e., multiply by 1), that might work.\n\nIdea: (6 \u00d7 4) \u00d7 (1 + 1) = 24 \u00d7 2 = 48 \u2192 too big.\n\n(6 \u00d7 4) \u00d7 (1 \u00d7 1) = 24 \u00d7 1 = 24 \u2192 \u2705 uses all numbers: 6, 4, 1, 1.\n\nCheck:  \n6 \u00d7 4 = 24  \n1 \u00d7 1 = 1  \n24 \u00d7 1 = 24\n\nSo expression:  \n**(6 \u00d7 4) \u00d7 (1 \u00d7 1)**\n\nAlternatively, we could write:  \n**6 \u00d7 4 \u00d7 1 \u00d7 1**\n\nBut we must use each number exactly once \u2014 and multiplication is associative and commutative, so that\u2019s fine.\n\nLet\u2019s verify:  \n6 \u00d7 4 \u00d7 1 \u00d7 1 = 24 \u00d7 1 \u00d7 1 = 24.\n\nYes.\n\nOther possibilities?  \n(6 + 6) \u00d7 2 = 24, but we don\u2019t have two 6s or a 2.  \n(6 + 1 + 1) \u00d7 something? 8 \u00d7 3 = 24, but no 3.  \n6 \u00d7 (4 + 1 \u2212 1) = 6 \u00d7 4 = 24 \u2192 that\u2019s also valid: 6 \u00d7 (4 + 1 \u2212 1) = 6 \u00d7 4 = 24.\n\nThat uses all numbers: 6, 4, 1, 1.\n\nWhich is simpler? Both are fine.\n\nLet\u2019s check:  \n6 \u00d7 (4 + 1 \u2212 1) = 6 \u00d7 (4) = 24 \u2705\n\nThis avoids an extra multiplication by 1, and clearly shows using both 1s.\n\nSo expression: **",
+    "SAMPLE 5 FINAL: 6 * (4 + 1 - 1)",
+    "VOTE SUMMARY: (6 + 1 + 1) -> 3, **6 * 4 * 1 * 1 -> 1, 6 * (4 + 1 - 1) -> 1",
+    "VOTE WINNER: (6 + 1 + 1) (3/5)"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-191716-0441ef.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "9810",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9839,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 310
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-191716-0441ef",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:16Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[1, 9, 0, 8]**  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 6**.\n\n---\n\n### Step 1: Divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even: possible even digits from the set: **0, 8**\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3  \n  Sum = 1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 \u2705 So **any** permutation of these digits will be divisible by 3.\n\nSo we only need to ensure the number ends in an **even digit** (0 or 8), and we want the **largest possible** such number.\n\n---\n\n### Step 2: Try to maximize the number  \nTo get the largest number, we want the **largest digits on the left**.\n\nLet\u2019s try to put the largest digit (9) in the thousands place, then next largest in hundreds, etc., but ensuring the last digit is even.\n\nAvailable digits: 1, 9, 0, 8  \nSorted descending: 9, 8, 1, 0\n\nTry forming numbers ending in 8 or 0.\n\n#### Try ending in 8:\nRemaining digits: 9, 1, 0  \nTo maximize, arrange them descending: 9, 1, 0 \u2192 number = **9108**\n\nCheck:  \n- Ends in 8 \u2192 even \u2705  \n- Sum = 18 \u2192 divisible by 3 \u2705  \n\u2192 So 9108 is divisible by 6.\n\nCan we get a larger number?\n\nTry ending in 0:\nRemaining digits: 9, 8, 1  \nArrange descending: 9, 8, 1 \u2192 number = **9810**\n\nCheck:\n- Ends in 0 \u2192 even \u2705  \n- Sum = 18 \u2192 divisible by 3 \u2705  \n\u2192 So 9810 is divisible by 6.\n\nCompare:  \n9810 > 9108 \u2192 so **9810 is larger**.\n\nAny larger? Let",
+    "FINAL: 9810"
+  ]
+}

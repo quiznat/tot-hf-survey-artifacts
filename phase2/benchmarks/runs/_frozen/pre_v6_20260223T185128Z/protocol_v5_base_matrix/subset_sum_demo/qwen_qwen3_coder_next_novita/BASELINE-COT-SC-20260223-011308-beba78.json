@@ -1,0 +1,92 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-011308-beba78.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "19,19",
+        4
+      ],
+      [
+        "We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use 19 up to two times).\n\nLet\u2019s try combinations that sum to 38.\n\nStart with the largest numbers:\n\n- 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nCheck: 19 + 19 = 38 \u2705  \nWe have two 19s in the list, so this is allowed.\n\nAny other combinations? Let\u2019s verify quickly to ensure uniqueness isn\u2019t required \u2014 but the problem only asks for *a* solution.\n\n- 18 + 10 + 6 + 5 = 39 \u2192 too high  \n- 18 +",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 4
+  },
+  "final_answer": "19,19",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      5,
+      6,
+      10,
+      18,
+      19,
+      19
+    ],
+    "target": 38
+  },
+  "item_id": "ss-v4-042",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 43667,
+    "success": 1,
+    "tokens_in": 365,
+    "tokens_out": 482
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011308-beba78",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1302746088,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:13:08Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 5, 6, 10, 18, 19, 19]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use 19 at most twice).\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 38 is relatively large.\n\nTry 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nWe have two 19s in the list, so this is valid.\n\nCheck: 19 + 19 = 38 \u2705\n\nNo other numbers needed.\n\nSo the answer is: 19,19\n\nFINAL: 19,19",
+    "SAMPLE 1 FINAL: 19,19",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 5, 6, 10, 18, 19, 19]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use 19 up to two times).\n\nLet\u2019s try combinations that sum to 38.\n\nStart with the largest numbers:\n\n- 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nCheck: 19 + 19 = 38 \u2705  \nWe have two 19s in the list, so this is allowed.\n\nAny other combinations? Let\u2019s verify quickly to ensure uniqueness isn\u2019t required \u2014 but the problem only asks for *a* solution.\n\n- 18 + 10 + 6 + 5 = 39 \u2192 too high  \n- 18 +",
+    "SAMPLE 2 FINAL: We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use 19 up to two times).\n\nLet\u2019s try combinations that sum to 38.\n\nStart with the largest numbers:\n\n- 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nCheck: 19 + 19 = 38 \u2705  \nWe have two 19s in the list, so this is allowed.\n\nAny other combinations? Let\u2019s verify quickly to ensure uniqueness isn\u2019t required \u2014 but the problem only asks for *a* solution.\n\n- 18 + 10 + 6 + 5 = 39 \u2192 too high  \n- 18 +",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 5, 6, 10, 18, 19, 19]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use up to two 19s).\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 38 is relatively large.\n\nTry 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nWe have two 19s in the list, so this is valid.\n\nCheck: 19 + 19 = 38 \u2705  \nNo other numbers needed.\n\nSo the answer is: 19,19\n\nFINAL: 19,19",
+    "SAMPLE 3 FINAL: 19,19",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 5, 6, 10, 18, 19, 19]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use up to two 19s).\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 38 is relatively large.\n\nTry 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nWe have two 19s in the list, so this is valid.\n\nCheck: 19 + 19 = 38 \u2705  \nNo other numbers needed.\n\nSo the answer is: 19,19\n\nFINAL: 19,19",
+    "SAMPLE 4 FINAL: 19,19",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 5, 6, 10, 18, 19, 19]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use 19 up to two times).\n\nLet\u2019s try combinations that sum to 38.\n\nStart with the largest numbers:\n\n- 19 + 19 = 38 \u2192 That\u2019s exactly the target!  \nCheck: 19 + 19 = 38 \u2705  \nWe have two 19s in the list, so this is allowed.\n\nAny other combinations? Let\u2019s verify if others exist, but the problem only asks for *one* valid selection (and we found one).\n\nSo the answer is: 19,19\n\nFINAL: 19,19",
+    "SAMPLE 5 FINAL: 19,19",
+    "VOTE SUMMARY: 19,19 -> 4, We are given the list: [2, 5, 6, 10, 18, 19, 19]  \nTarget: 38  \nWe can use each number at most once (note: there are two 19s, so we can use 19 up to two times).\n\nLet\u2019s try combinations that sum to 38.\n\nStart with the largest numbers:\n\n- 19 + 19 = 38 \u2192 that\u2019s exactly the target!  \nCheck: 19 + 19 = 38 \u2705  \nWe have two 19s in the list, so this is allowed.\n\nAny other combinations? Let\u2019s verify quickly to ensure uniqueness isn\u2019t required \u2014 but the problem only asks for *a* solution.\n\n- 18 + 10 + 6 + 5 = 39 \u2192 too high  \n- 18 + -> 1",
+    "VOTE WINNER: 19,19 (4/5)"
+  ]
+}

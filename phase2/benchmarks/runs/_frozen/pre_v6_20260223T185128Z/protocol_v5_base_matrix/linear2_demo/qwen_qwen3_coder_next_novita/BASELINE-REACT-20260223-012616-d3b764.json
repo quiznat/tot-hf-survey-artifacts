@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-012616-d3b764.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x = 9",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        2,
+        -2
+      ],
+      [
+        9,
+        7,
+        137
+      ]
+    ]
+  },
+  "item_id": "lin-v4-038",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4178,
+    "success": 0,
+    "tokens_in": 192,
+    "tokens_out": 209
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012616-d3b764",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2184075892,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:26:16Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two equations in the form of coefficient arrays: [[-2, 2, -2], [9, 7, 137]]. Each inner list likely represents a linear equation in two variables, say x and y, in the form: a*x + b*y = c. So:\n\nEquation 1: -2x + 2y = -2  \nEquation 2: 9x + 7y = 137\n\nWe need to solve this system of linear equations.\n\nLet\u2019s simplify Equation 1 first:  \n-2x + 2y = -2  \nDivide both sides by 2:  \n- x + y = -1  \n\u2192 y = x - 1\n\nNow substitute into Equation 2:  \n9x + 7(x - 1) = 137  \n9x + 7x - 7 =",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the algebra:  \n9x + 7(x - 1) = 137  \n\u2192 9x + 7x - 7 = 137  \n\u2192 16x - 7 = 137  \n\u2192 16x = 144  \n\u2192 x = 9\n\nNow substitute x = 9 into y = x - 1:  \ny = 9 - 1 = 8\n\nSo the solution is x = 9, y = 8.\n\nLet\u2019s verify in both equations:\n\nEquation 1: -2(9) + 2(8) = -18 + 16 = -2 \u2714\ufe0f  \nEquation 2: 9(9) + 7(8) = 81 + 56 = 137 \u2714\ufe0f\n\nThe solution is correct.\n\nFINAL: x = 9"
+  ]
+}

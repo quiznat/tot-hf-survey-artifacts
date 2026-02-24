@@ -1,0 +1,93 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/game24_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260222-192213-169332.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n-",
+        2
+      ],
+      [
+        "I need to use each number exactly once (1, 10, 7, 6) to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 6 \u00d7 7 = 42, then 42 - 10 - 1 = 31 (too big)\n- 10 \u00d7 7 = 70, then 70 - 6 - 1 = 63 (way too big)\n\nLet me try using division or more complex combinations:\n- (10 + 7) \u00d7 something... \n- 6 \u00d7 (10 - 7) = 6 \u00d7 3 = 18, then 18 + 1 = 19 (close but not 24)\n- 7 \u00d7 (10 - 6)",
+        1
+      ],
+      [
+        "I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try to use multiplication to get closer to 24\n- 6 \u00d7 7 = 42, then I need to subtract 18 using 1 and 10\n- 42 - 10 - 1 = 31 (too high)\n- 42 - 10 + 1 = 33 (too high)\n\nOption 2: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- 17 + 6 = 23, then multiply by 1 = 23 (close but not 24)",
+        1
+      ],
+      [
+        "I need to use each of the numbers [1, 10, 7, 6] exactly once to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- I have 1 and 6 left\n- 17 + 6 = 23 (close!)\n- 17 - 6 = 11 (too small)\n- 17 \u00d7 6 = 102 (too big)\n\nOption 2: Try 10 \u00d7 something\n- 10 \u00d7 something = 24, so something = 2.4\n- Can I make 2.4 from 1, 7, 6?\n- 7 - 6",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n-",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    10,
+    7,
+    6
+  ],
+  "item_id": "g24-v4-004",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11914,
+    "success": 0,
+    "tokens_in": 205,
+    "tokens_out": 579
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-192213-169332",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3891199489,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-22T19:22:13Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n-",
+    "SAMPLE 1 FINAL: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n-",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n-",
+    "SAMPLE 2 FINAL: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n-",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to use each number exactly once (1, 10, 7, 6) to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 6 \u00d7 7 = 42, then 42 - 10 - 1 = 31 (too big)\n- 10 \u00d7 7 = 70, then 70 - 6 - 1 = 63 (way too big)\n\nLet me try using division or more complex combinations:\n- (10 + 7) \u00d7 something... \n- 6 \u00d7 (10 - 7) = 6 \u00d7 3 = 18, then 18 + 1 = 19 (close but not 24)\n- 7 \u00d7 (10 - 6)",
+    "SAMPLE 3 FINAL: I need to use each number exactly once (1, 10, 7, 6) to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 6 \u00d7 7 = 42, then 42 - 10 - 1 = 31 (too big)\n- 10 \u00d7 7 = 70, then 70 - 6 - 1 = 63 (way too big)\n\nLet me try using division or more complex combinations:\n- (10 + 7) \u00d7 something... \n- 6 \u00d7 (10 - 7) = 6 \u00d7 3 = 18, then 18 + 1 = 19 (close but not 24)\n- 7 \u00d7 (10 - 6)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try to use multiplication to get closer to 24\n- 6 \u00d7 7 = 42, then I need to subtract 18 using 1 and 10\n- 42 - 10 - 1 = 31 (too high)\n- 42 - 10 + 1 = 33 (too high)\n\nOption 2: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- 17 + 6 = 23, then multiply by 1 = 23 (close but not 24)",
+    "SAMPLE 4 FINAL: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try to use multiplication to get closer to 24\n- 6 \u00d7 7 = 42, then I need to subtract 18 using 1 and 10\n- 42 - 10 - 1 = 31 (too high)\n- 42 - 10 + 1 = 33 (too high)\n\nOption 2: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- 17 + 6 = 23, then multiply by 1 = 23 (close but not 24)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to use each of the numbers [1, 10, 7, 6] exactly once to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- I have 1 and 6 left\n- 17 + 6 = 23 (close!)\n- 17 - 6 = 11 (too small)\n- 17 \u00d7 6 = 102 (too big)\n\nOption 2: Try 10 \u00d7 something\n- 10 \u00d7 something = 24, so something = 2.4\n- Can I make 2.4 from 1, 7, 6?\n- 7 - 6",
+    "SAMPLE 5 FINAL: I need to use each of the numbers [1, 10, 7, 6] exactly once to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- I have 1 and 6 left\n- 17 + 6 = 23 (close!)\n- 17 - 6 = 11 (too small)\n- 17 \u00d7 6 = 102 (too big)\n\nOption 2: Try 10 \u00d7 something\n- 10 \u00d7 something = 24, so something = 2.4\n- Can I make 2.4 from 1, 7, 6?\n- 7 - 6",
+    "VOTE SUMMARY: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n- -> 2, I need to use each number exactly once (1, 10, 7, 6) to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 6 \u00d7 7 = 42, then 42 - 10 - 1 = 31 (too big)\n- 10 \u00d7 7 = 70, then 70 - 6 - 1 = 63 (way too big)\n\nLet me try using division or more complex combinations:\n- (10 + 7) \u00d7 something... \n- 6 \u00d7 (10 - 7) = 6 \u00d7 3 = 18, then 18 + 1 = 19 (close but not 24)\n- 7 \u00d7 (10 - 6) -> 1, I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try to use multiplication to get closer to 24\n- 6 \u00d7 7 = 42, then I need to subtract 18 using 1 and 10\n- 42 - 10 - 1 = 31 (too high)\n- 42 - 10 + 1 = 33 (too high)\n\nOption 2: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- 17 + 6 = 23, then multiply by 1 = 23 (close but not 24) -> 1, I need to use each of the numbers [1, 10, 7, 6] exactly once to create an expression that equals 24.\n\nLet me think through different combinations of operations:\n\nFirst, let me try various arrangements of multiplication and addition/subtraction:\n\nOption 1: Try (10 + 7) \u00d7 something\n- 10 + 7 = 17\n- I have 1 and 6 left\n- 17 + 6 = 23 (close!)\n- 17 - 6 = 11 (too small)\n- 17 \u00d7 6 = 102 (too big)\n\nOption 2: Try 10 \u00d7 something\n- 10 \u00d7 something = 24, so something = 2.4\n- Can I make 2.4 from 1, 7, 6?\n- 7 - 6 -> 1",
+    "VOTE WINNER: I need to use the numbers [1, 10, 7, 6] exactly once each to create an expression that equals 24.\n\nLet me try different combinations of operations:\n\nFirst, let me see what happens if I multiply some numbers and add/subtract others:\n- 10 + 7 = 17, then I have 6 and 1 left\n- 6 \u00d7 1 = 6, so 17 + 6 = 23 (close but not 24)\n- 6 + 1 = 7, so 17 + 7 = 24 \u2713\n\nSo: (10 + 7) + (6 + 1) = 17 + 7 = 24\n\nWait, let me double-check this uses each number exactly once:\n- 10: used once \u2713\n- 7: used once \u2713  \n- (2/5)"
+  ]
+}

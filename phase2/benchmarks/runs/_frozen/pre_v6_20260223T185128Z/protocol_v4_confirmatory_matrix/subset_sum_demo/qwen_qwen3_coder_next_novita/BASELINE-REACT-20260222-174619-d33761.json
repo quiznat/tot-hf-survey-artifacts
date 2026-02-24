@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174619-d33761.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[17, 17, 18, 24]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      17,
+      17,
+      18,
+      20,
+      24
+    ],
+    "target": 76
+  },
+  "item_id": "ss-v4-013",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 56381,
+    "success": 1,
+    "tokens_in": 792,
+    "tokens_out": 285
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174619-d33761",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2897766043,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:46:19Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [5, 17, 17, 18, 20, 24] and a target sum of 76. The task is likely to find a subset (or combination) of these numbers that sums to the target. Since no tools are available, this is a reasoning-only task.\n\nLet\u2019s compute the total sum first:  \n5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \n\nTotal sum = 101. Target = 76. So we need to exclude numbers summing to 101 -",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need to find a subset of [5, 17, 17, 18, 20, 24] that sums to 76. Total sum is 101, so the excluded subset must sum to 101 \u2212 76 = 25. Let\u2019s find a subset that sums to 25.\n\nPossible candidates:\n- 5 + 20 = 25 \u2192 yes! That works.\nSo if we exclude 5 and 20, the remaining numbers are [17, 17, 18, 24]. Let\u2019s verify their sum:  \n17 + 17 = 34  \n34 + 18 = 52  \n52 + 24 = 76 \u2192 correct.\n\nThus, one valid subset is [17, 17, 18,",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We have found that excluding 5 and 20 (which sum to 25) leaves the subset [17, 17, 18, 24] summing to 76. Let\u2019s double-check: 17 + 17 = 34, 34 + 18 = 52, 52 + 24 = 76 \u2014 correct. So the answer is the subset [17, 17, 18, 24]. Since the task likely expects the subset (or just confirmation), and no tool is needed, we can now output the final answer.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: [17, 17, 18, 24]"
+  ]
+}

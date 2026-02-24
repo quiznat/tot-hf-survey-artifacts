@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180831-e754e9.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: The task likely asks for the largest number \u2264 oracle_max (1701) that can be formed using the given digits [1, 1, 7, 0] (each digit used exactly once) and divisible by 7. Let\u2019s list all valid 4-digit permutations of [1,1,7,0] (no leading zero), compute their values, and check divisibility by 7 and \u22641701.\n\nPermutations (unique due to duplicate 1s):\n- 1071\n- 1107\n- 1170\n- 1701\n- 1710\n- 7011\n- 7101\n- 7110\n\nNow filter those \u22641701:\n- 1071 (\u22641701)\n- 1107 (\u2264",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      1,
+      7,
+      0
+    ],
+    "divisor": 7,
+    "oracle_max": 1701
+  },
+  "item_id": "perm-v4-050",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8894,
+    "success": 1,
+    "tokens_in": 201,
+    "tokens_out": 202
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180831-e754e9",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3619839130,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:08:31Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to solve a benchmark problem using a ReAct loop. The input gives digits [1, 1, 7, 0], a divisor 7, and an oracle_max of 1701. Since no tools are available, this is likely a reasoning-only task.\n\nWe need to interpret what the task is asking. Given digits and a divisor, a common type of problem is: \"Find the largest number \u2264 oracle_max that can be formed using the given digits (each used at most once?) and is divisible by the divisor.\"\n\nLet\u2019s explore that.\n\nDigits: [1, 1, 7, 0] \u2192 possible numbers using all digits (permutations, no leading zero):\n- 1170\n- 1710\n- 7110\n- 1071\n- 1701\n- 7011\n-",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The task likely asks for the largest number \u2264 oracle_max (1701) that can be formed using the given digits [1, 1, 7, 0] (each digit used exactly once) and divisible by 7. Let\u2019s list all valid 4-digit permutations of [1,1,7,0] (no leading zero), compute their values, and check divisibility by 7 and \u22641701.\n\nPermutations (unique due to duplicate 1s):\n- 1071\n- 1107\n- 1170\n- 1701\n- 1710\n- 7011\n- 7101\n- 7110\n\nNow filter those \u22641701:\n- 1071 (\u22641701)\n- 1107 (\u2264"
+  ]
+}

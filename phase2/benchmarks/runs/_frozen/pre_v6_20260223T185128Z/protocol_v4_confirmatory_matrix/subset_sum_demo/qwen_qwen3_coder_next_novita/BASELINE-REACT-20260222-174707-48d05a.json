@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174707-48d05a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "4 + 4 + 12 + 16 = 36",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      4,
+      12,
+      16,
+      23,
+      24
+    ],
+    "target": 36
+  },
+  "item_id": "ss-v4-040",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6248,
+    "success": 0,
+    "tokens_in": 464,
+    "tokens_out": 302
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174707-48d05a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 255371975,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:47:07Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [4, 4, 12, 16, 23, 24] and a target: 36. The task is likely to find a subset (or some combination using arithmetic operations) that equals the target. Since no tools are available, this is a pure reasoning problem \u2014 probably subset sum or arithmetic expression.\n\nLet\u2019s explore possible combinations:\n\nFirst, check if any single number equals 36: no.\n\nCheck pairs:\n- 4 + 4 = 8  \n- 4 + 12 = 16  \n- 4 + 16 = 20  \n- 4 + 23 = 27  \n- 4 + 24 = 28  \n- 12 + 16 = 28  \n- 12 + 23 = 35  \n- 1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue exploring combinations. We saw that 12 + 23 = 35, close to 36. Adding 1 more would work, but we don\u2019t have 1. Try triples:\n\n- 4 + 4 + 24 = 32  \n- 4 + 12 + 16 = 32  \n- 4 + 12 + 23 = 39  \n- 4 + 12 + 24 = 40  \n- 4 + 16 + 23 = 43  \n- 4 + 16 + 24 = 44  \n- 4 + 23 + 24 = 51  \n- 12 + 16 + 23 = 51  \n- 12 + 16 + 24 = 52",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's continue exploring combinations. We tried pairs and triples, but none sum to 36. Try four numbers:\n\n- 4 + 4 + 12 + 16 = 36 \u2192 Yes! 4 + 4 = 8, 8 + 12 = 20, 20 + 16 = 36.\n\nThat matches the target exactly. So the subset [4, 4, 12, 16] sums to 36.\n\nSince the task likely asks for a subset (or expression) that equals the target, this is a valid solution.\n\nFINAL: 4 + 4 + 12 + 16 = 36"
+  ]
+}

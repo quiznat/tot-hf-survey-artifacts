@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-171245-4bcb25.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "(8, 2)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -8,
+        -9,
+        -82
+      ],
+      [
+        7,
+        -7,
+        42
+      ]
+    ]
+  },
+  "item_id": "lin-v4-001",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4861,
+    "success": 1,
+    "tokens_in": 452,
+    "tokens_out": 207
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-171245-4bcb25",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1711179923,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T17:12:45Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of equations in the form [a, b, c], which likely represents linear equations in two variables: a*x + b*y = c. So we have:\n1) -8x - 9y = -82  \n2) 7x - 7y = 42  \n\nWe need to solve this system of equations for x and y.\n\nLet\u2019s simplify and solve step by step.\n\nEquation 2: 7x - 7y = 42 \u2192 divide both sides by 7: x - y = 6 \u2192 so x = y + 6.\n\nSubstitute into equation 1:\n-8(y + 6) - 9y = -82  \n\u2192 -8y - 48 - 9y = -82  \n\u2192 -17y - 48 = -82  \n\u2192 -17y = -",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the solution:  \n-17y - 48 = -82  \n\u2192 -17y = -82 + 48 = -34  \n\u2192 y = (-34)/(-17) = 2  \n\nThen x = y + 6 = 2 + 6 = 8  \n\nSo the solution is x = 8, y = 2.  \nLet\u2019s verify:  \nEquation 1: -8(8) - 9(2) = -64 - 18 = -82 \u2714\ufe0f  \nEquation 2: 7(8) - 7(2) = 56 - 14 = 42 \u2714\ufe0f  \n\nThe system is solved correctly.  \nNo tools needed \u2014 final answer is (x, y) = (8, 2).",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: (8, 2)"
+  ]
+}

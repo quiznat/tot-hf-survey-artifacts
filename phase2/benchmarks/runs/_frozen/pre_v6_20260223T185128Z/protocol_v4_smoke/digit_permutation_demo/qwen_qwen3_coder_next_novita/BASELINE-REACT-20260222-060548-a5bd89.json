@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060548-a5bd89.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: Only 3336 is divisible by 8 among all permutations of [6, 3, 3, 3], and it matches the oracle_max. Since the task is to find the maximum such number, and 3336 is valid and maximal, the answer is confirmed.",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5099,
+    "success": 1,
+    "tokens_in": 459,
+    "tokens_out": 249
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060548-a5bd89",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T06:05:48Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number that can be formed using the digits [6, 3, 3, 3] (each used exactly once) that is divisible by 8. The oracle_max is given as 3336, which suggests that 3336 is the correct answer \u2014 but I need to verify this.\n\nRecall the divisibility rule for 8: A number is divisible by 8 if its last three digits form a number divisible by 8.\n\nWe have digits: 6, 3, 3, 3.\n\nAll permutations of these digits (4-digit numbers) are:\n- 3336\n- 3363\n- 3633\n- 6333\n\nLet\u2019s check each:\n\n1. 3336 \u2192 last three digits = 336. Is 336 divisible by 8",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's compute 336 \u00f7 8 = 42, which is an integer, so 336 is divisible by 8 \u2192 3336 is divisible by 8.\n\nCheck other permutations to ensure 3336 is the maximum:\n\n- 3363 \u2192 last three digits = 363. 363 \u00f7 8 = 45.375 \u2192 not divisible.\n- 3633 \u2192 last three digits = 633. 633 \u00f7 8 = 79.125 \u2192 not divisible.\n- 6333 \u2192 last three digits = 333. 333 \u00f7 8 = 41.625 \u2192 not divisible.\n\nSo only 3336 is divisible by 8, and it's the largest among the valid ones (and",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Only 3336 is divisible by 8 among all permutations of [6, 3, 3, 3], and it matches the oracle_max. Since the task is to find the maximum such number, and 3336 is valid and maximal, the answer is confirmed."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174644-e65ba0.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "7 + 10 + 22 = 39",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      7,
+      10,
+      11,
+      18,
+      21,
+      22,
+      22,
+      23
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-026",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 35463,
+    "success": 0,
+    "tokens_in": 469,
+    "tokens_out": 221
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174644-e65ba0",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2326737981,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:46:44Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a combination of numbers from the list [7, 10, 11, 18, 21, 22, 22, 23] that sum to the target 39. Since no tools are available, I need to reason manually.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 39 quickly.\n\nTry 23 + 18 = 41 \u2192 too high  \n23 + 11 = 34 \u2192 need 5 more \u2192 no 5  \n23 + 10 = 33 \u2192 need 6 \u2192 no 6  \n23 + 7 = 30 \u2192 need 9 \u2192 no 9  \n23 + 21 = 44 \u2192 too high  \n23 + 22 = 45 \u2192 too high  \n23 + 22",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue exploring combinations. Since 23 + 18 = 41 (too high by 2), maybe subtracting a small number isn\u2019t possible directly, but perhaps using three numbers.\n\nTry 22 + 18 = 40 \u2192 need -1 \u2192 no  \n22 + 11 = 33 \u2192 need 6 \u2192 no  \n22 + 10 = 32 \u2192 need 7 \u2192 yes! 22 + 10 + 7 = 39. Check if 22, 10, and 7 are in the list: list has [7, 10, 11, 18, 21, 22, 22, 23] \u2014 yes, two 22s, so using one 22, one 10, and one 7 works.\n\nThus",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 7 + 10 + 22 = 39"
+  ]
+}

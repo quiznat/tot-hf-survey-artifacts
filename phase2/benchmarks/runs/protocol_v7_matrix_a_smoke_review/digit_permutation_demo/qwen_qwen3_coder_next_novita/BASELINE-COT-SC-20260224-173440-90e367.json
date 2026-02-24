@@ -1,0 +1,119 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173440-90e367.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "76",
+        5
+      ],
+      [
+        "7652",
+        4
+      ],
+      [
+        "5276",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "76",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      5,
+      7,
+      6
+    ],
+    "divisor": 4,
+    "oracle_max": 7652
+  },
+  "item_id": "perm-v4-007",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5028,
+    "success": 0,
+    "tokens_in": 480,
+    "tokens_out": 2863
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173440-90e367",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1309011917,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:40Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [2, 5, 7, 6]  \nWe must form the **largest possible 4-digit number** using each digit **exactly once**, such that the number is **divisible by 4**.\n\n### Rule for divisibility by 4:\nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to:\n1. Consider all permutations of the digits [2, 5, 7, 6] (there are 4! = 24 permutations).\n2. Among those, keep only those where the last two digits form a number divisible by 4.\n3. Pick the **largest** such number.\n\nBut instead of listing all 24, let\u2019s be smarter.\n\nFirst, list all possible 2-digit endings using distinct digits from [2,5,7,6], and check which are divisible by 4.\n\nAll possible 2-digit combinations (order matters):\n\n- 25 \u2192 25 \u00f7 4 = 6.25 \u2192 no  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u2192 no  \n- 26 \u2192 26 \u00f7 4 = 6.5 \u2192 no  \n- 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u2192 no  \n- 56 \u2192 56 \u00f7 4 = 14 \u2192 \u2705  \n- 72 \u2192 72 \u00f7 4 = 18 \u2192 \u2705  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u2192 no  \n- 76 \u2192 76 \u00f7 4 = 19 \u2192 \u2705  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u2192 no  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u2192 no  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u2192 no  \n\nValid endings: **52, 56, 72, 76**\n\nNow for each valid ending, we can form the full 4-digit number by placing the remaining two digits in front (in descending order to maximize",
+    "SAMPLE 1 FINAL: 76",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [2, 5, 7, 6]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings (using two of the digits), check which are divisible by 4, and among those, pick the one that allows the largest full 4-digit number.\n\nDigits available: 2, 5, 6, 7\n\nLet\u2019s list all **distinct 2-digit combinations** (order matters) using these digits (no repeats), and check divisibility by 4:\n\n- 25 \u2192 25 % 4 = 1 \u274c  \n- 26 \u2192 26 % 4 = 2 \u274c  \n- 27 \u2192 27 % 4 = 3 \u274c  \n- 52 \u2192 52 % 4 = 0 \u2705  \n- 56 \u2192 56 % 4 = 0 \u2705  \n- 57 \u2192 57 % 4 = 1 \u274c  \n- 62 \u2192 62 % 4 = 2 \u274c  \n- 65 \u2192 65 % 4 = 1 \u274c  \n- 67 \u2192 67 % 4 = 3 \u274c  \n- 72 \u2192 72 % 4 = 0 \u2705  \n- 75 \u2192 75 % 4 = 3 \u274c  \n- 76 \u2192 76 % 4 = 0 \u2705  \n\nSo valid endings (last two digits) are:  \n- 52  \n- 56  \n- 72  \n- 76  \n\nNow, for each valid ending, we can form a 4-digit number by placing the remaining two digits in front, in descending order (to maximize the number).\n\nLet\u2019s evaluate each:\n\n1. **Ending: 52**  \n   Remaining digits: 6, 7  \n   Largest prefix: 76  \n   \u2192 Number: **7652**\n\n2. **Ending: 56**  \n   Remaining digits: 2, 7",
+    "SAMPLE 2 FINAL: 7652",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [2, 5, 7, 6], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4\nA number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from two of the digits {2, 5, 6, 7}, using each digit only once, and check which of those 2-digit numbers are divisible by 4.\n\nLet\u2019s list all **distinct 2-digit combinations** (without repetition) from the digits:\n\n- 25 \u2192 25 mod 4 = 1 \u274c  \n- 26 \u2192 26 mod 4 = 2 \u274c  \n- 27 \u2192 27 mod 4 = 3 \u274c  \n- 52 \u2192 52 mod 4 = 0 \u2705  \n- 56 \u2192 56 mod 4 = 0 \u2705  \n- 57 \u2192 57 mod 4 = 1 \u274c  \n- 62 \u2192 62 mod 4 = 2 \u274c  \n- 65 \u2192 65 mod 4 = 1 \u274c  \n- 67 \u2192 67 mod 4 = 3 \u274c  \n- 72 \u2192 72 mod 4 = 0 \u2705  \n- 75 \u2192 75 mod 4 = 3 \u274c  \n- 76 \u2192 76 mod 4 = 0 \u2705  \n\nSo valid endings (divisible by 4) are:  \n\u2705 52  \n\u2705 56  \n\u2705 72  \n\u2705 76  \n\nNow, for each valid ending, we can form a 4-digit number using the remaining two digits in the first two positions \u2014 and to maximize the number, we want the **largest possible prefix** (i.e., descending order of remaining digits).\n\nLet\u2019s try each:\n\n1. **Ending 76** \u2192 remaining digits: {2, 5}  \n   - Largest prefix: 52 \u2192 number = **5276**\n\n2. **Ending 72** \u2192 remaining digits: {5, 6}",
+    "SAMPLE 3 FINAL: 5276",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [2, 5, 7, 6]  \nWe must form the **largest possible 4-digit integer** using each digit exactly once, and the number must be **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo we only need to consider possible 2-digit endings made from the digits {2, 5, 7, 6}, used exactly once (i.e., no repetition), and check which of those 2-digit numbers are divisible by 4.\n\nLet\u2019s list all possible 2-digit combinations from these digits (order matters, no repetition):\n\n- 25 \u2192 25 % 4 = 1 \u274c  \n- 27 \u2192 27 % 4 = 3 \u274c  \n- 26 \u2192 26 % 4 = 2 \u274c  \n- 52 \u2192 52 % 4 = 0 \u2705  \n- 57 \u2192 57 % 4 = 1 \u274c  \n- 56 \u2192 56 % 4 = 0 \u2705  \n- 72 \u2192 72 % 4 = 0 \u2705  \n- 75 \u2192 75 % 4 = 3 \u274c  \n- 76 \u2192 76 % 4 = 0 \u2705  \n- 62 \u2192 62 % 4 = 2 \u274c  \n- 65 \u2192 65 % 4 = 1 \u274c  \n- 67 \u2192 67 % 4 = 3 \u274c  \n\nValid endings (divisible by 4):  \n\u2192 **52**, **56**, **72**, **76**\n\nNow for each valid ending, we construct the largest possible 4-digit number by placing the **remaining two digits in descending order** in the front.\n\nLet\u2019s go through each:\n\n1. Ending **52**: remaining digits are {6, 7} \u2192 largest front = 76 \u2192 number = **7652**  \n2. Ending **56**: remaining digits {2, 7} \u2192 largest front = 72 \u2192 number = **7256**  \n3. Ending **72**: remaining digits {5, 6} \u2192 largest front",
+    "SAMPLE 4 FINAL: 7652",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [2, 5, 7, 6]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings formed from the digits {2,5,6,7}, using each digit only once, and check which of those 2-digit numbers are divisible by 4.\n\nLet\u2019s list all possible 2-digit combinations (without repetition) from the digits and check divisibility by 4:\n\n- 25 \u2192 25 \u00f7 4 = 6.25 \u2192 \u274c  \n- 26 \u2192 26 \u00f7 4 = 6.5 \u2192 \u274c  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u2192 \u274c  \n- 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 56 \u2192 56 \u00f7 4 = 14 \u2192 \u2705  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u2192 \u274c  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u2192 \u274c  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u2192 \u274c  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u2192 \u274c  \n- 72 \u2192 72 \u00f7 4 = 18 \u2192 \u2705  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u2192 \u274c  \n- 76 \u2192 76 \u00f7 4 = 19 \u2192 \u2705  \n\nSo valid endings (divisible by 4): **52, 56, 72, 76**\n\nNow, for each valid ending, we can form the full 4-digit number by placing the remaining two digits in front (in descending order to maximize the number).\n\nLet\u2019s go through each:\n\n1. **Ending = 52**  \n   Remaining digits: {6, 7}  \n   Largest prefix:",
+    "SAMPLE 5 FINAL: 76",
+    "SAMPLE 6 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given digits: [2, 5, 7, 6]  \nWe must form the **largest possible 4-digit integer** using each digit exactly once, such that the number is divisible by **4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, we need to consider all possible 2-digit endings formed from the digits {2, 5, 6, 7}, using each digit only once in the full number.\n\nLet\u2019s list all **2-digit combinations** (without repetition) from these digits and check which are divisible by 4:\n\nPossible 2-digit endings (ordered, no repeat):\n\n- 25 \u2192 25 \u00f7 4 = 6.25 \u2192 no  \n- 26 \u2192 26 \u00f7 4 = 6.5 \u2192 no  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u2192 no  \n- 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 56 \u2192 56 \u00f7 4 = 14 \u2192 \u2705  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u2192 no  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u2192 no  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u2192 no  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u2192 no  \n- 72 \u2192 72 \u00f7 4 = 18 \u2192 \u2705  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u2192 no  \n- 76 \u2192 76 \u00f7 4 = 19 \u2192 \u2705  \n\nSo valid endings: **52, 56, 72, 76**\n\nNow, for each valid ending, we want to maximize the full 4-digit number.\n\nWe have digits: {2, 5, 6, 7}\n\nLet\u2019s examine each valid ending and see what the remaining digits are, then arrange them in descending order to maximize the number.\n\n#### 1. Ending = 52  \nUsed digits: 5,",
+    "SAMPLE 6 FINAL: 76",
+    "SAMPLE 7 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given digits: [2, 5, 7, 6], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits {2, 5, 6, 7}, with no repetition, and check which ones are divisible by 4.\n\nList all possible 2-digit combinations (without repetition) from the digits and check divisibility by 4:\n\n- 25 \u2192 25 \u00f7 4 = 6.25 \u2192 \u274c  \n- 26 \u2192 26 \u00f7 4 = 6.5 \u2192 \u274c  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u2192 \u274c  \n- 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 56 \u2192 56 \u00f7 4 = 14 \u2192 \u2705  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u2192 \u274c  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u2192 \u274c  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u2192 \u274c  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u2192 \u274c  \n- 72 \u2192 72 \u00f7 4 = 18 \u2192 \u2705  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u2192 \u274c  \n- 76 \u2192 76 \u00f7 4 = 19 \u2192 \u2705  \n\nSo valid endings: **52**, **56**, **72**, **76**\n\nNow, for each valid ending, we place the remaining two digits in front in descending order (to maximize the number), and compare.\n\n- Ending **52**: remaining digits are 6 and 7 \u2192 largest arrangement: **7652**  \n- Ending **56**: remaining digits are 2 and 7 \u2192 largest arrangement: **7256**",
+    "SAMPLE 7 FINAL: 7652",
+    "SAMPLE 8 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given digits: [2, 5, 7, 6], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, we only need to consider permutations of the digits where the **last two digits** form a number divisible by 4.\n\n---\n\n### Step 2: List all possible 2-digit endings using the digits [2, 5, 7, 6] (no repetition), and check which are divisible by 4.\n\nAll possible 2-digit combinations (order matters, no repeats):\n\n- 25 \u2192 25 % 4 = 1 \u274c  \n- 27 \u2192 27 % 4 = 3 \u274c  \n- 26 \u2192 26 % 4 = 2 \u274c  \n- 52 \u2192 52 % 4 = 0 \u2705  \n- 57 \u2192 57 % 4 = 1 \u274c  \n- 56 \u2192 56 % 4 = 0 \u2705  \n- 72 \u2192 72 % 4 = 0 \u2705  \n- 75 \u2192 75 % 4 = 3 \u274c  \n- 76 \u2192 76 % 4 = 0 \u2705  \n- 62 \u2192 62 % 4 = 2 \u274c  \n- 65 \u2192 65 % 4 = 1 \u274c  \n- 67 \u2192 67 % 4 = 3 \u274c  \n\nSo valid last-two-digit combinations:  \n\u2705 52, 56, 72, 76\n\nNow, for each valid ending, we can form numbers by placing the remaining two digits in the first two positions (thousands and hundreds), and we want the **largest possible** overall number.\n\nLet\u2019s examine each case:\n\n#### Case 1: Ending = 52  \nUsed digits: 5, 2  \nRemaining digits: 7, 6  \nTo maximize the number, place larger digit first: 76  \n\u2192 Number: 7652\n\n#### Case 2: Ending = 56",
+    "SAMPLE 8 FINAL: 7652",
+    "SAMPLE 9 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given digits: [2, 5, 7, 6], and we must form the **largest possible 4-digit integer** using each digit exactly once, such that the number is divisible by **4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, to maximize the 4-digit number, we want:\n- The thousands digit as large as possible \u2192 start with 7 or 6.\n- Then hundreds digit as large as possible among remaining.\n- Then check if the last two digits form a number divisible by 4.\n\nWe\u2019ll try to construct the largest possible number, but only keep those where last two digits form a multiple of 4.\n\n---\n\n### Step 2: List all possible 2-digit endings from the digits [2,5,6,7], using each digit once.\n\nAll possible **distinct 2-digit numbers** (order matters, digits from the set, no repetition):\n\n- 25, 26, 27  \n- 52, 56, 57  \n- 62, 65, 67  \n- 72, 75, 76  \n\nNow check which of these are divisible by 4:\n\n- 25 \u00f7 4 = 6.25 \u2192 no  \n- 26 \u00f7 4 = 6.5 \u2192 no  \n- 27 \u00f7 4 = 6.75 \u2192 no  \n- 52 \u00f7 4 = 13 \u2192 \u2705  \n- 56 \u00f7 4 = 14 \u2192 \u2705  \n- 57 \u00f7 4 = 14.25 \u2192 no  \n- 62 \u00f7 4 = 15.5 \u2192 no  \n- 65 \u00f7 4 = 16.25 \u2192 no  \n- 67 \u00f7 4 = 16.75 \u2192 no  \n- 72 \u00f7 4 = 18 \u2192 \u2705  \n- 75 \u00f7 4 = 18.75 \u2192 no  \n- 76 \u00f7 4 = 19 \u2192 \u2705  \n\nSo valid endings: **52, 56, 72, 76**\n\nNow,",
+    "SAMPLE 9 FINAL: 76",
+    "SAMPLE 10 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given digits: [2, 5, 7, 6], and we must form the **largest possible 4-digit integer** using each digit exactly once, such that the number is divisible by **4**.\n\n---\n\n### Step 1: Divisibility Rule for 4  \nA number is divisible by 4 **if and only if** its **last two digits** form a number divisible by 4.\n\nSo, we need to consider all possible **2-digit endings** formed from two distinct digits from the set {2, 5, 7, 6}, and check which of those are divisible by 4.\n\nList all permutations of 2 digits from the set (order matters for the ending):\n\n- 25 \u2192 25 \u00f7 4 = 6.25 \u2192 not divisible  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u2192 no  \n- 26 \u2192 26 \u00f7 4 = 6.5 \u2192 no  \n- 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u2192 no  \n- 56 \u2192 56 \u00f7 4 = 14 \u2192 \u2705  \n- 72 \u2192 72 \u00f7 4 = 18 \u2192 \u2705  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u2192 no  \n- 76 \u2192 76 \u00f7 4 = 19 \u2192 \u2705  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u2192 no  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u2192 no  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u2192 no  \n\nValid 2-digit endings: **52, 56, 72, 76**\n\nNow, for each valid ending, we can form a 4-digit number by placing the remaining two digits in front \u2014 and to maximize the number, we want the **largest possible prefix** (i.e., arrange the remaining two digits in descending order).\n\nLet\u2019s go through each valid ending:\n\n1. **Ending = 52**  \n   Remaining digits: {6, 7}  \n   Largest prefix: 76",
+    "SAMPLE 10 FINAL: 76",
+    "VOTE SUMMARY: 76 -> 5, 7652 -> 4, 5276 -> 1",
+    "VOTE WINNER: 76 (5/10)"
+  ]
+}

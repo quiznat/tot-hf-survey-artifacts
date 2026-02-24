@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-010814-f69860.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "Let's find a subset of [2, 3, 4, 9, 21] that sums to 37.\n\nTotal sum of all numbers: 2 + 3 + 4 + 9 + 21 = 39  \nWe need 37, so we need to exclude numbers summing to 2 (since 39 - 2 = 37).  \nThe only number that is 2 is just 2 itself.\n\nSo exclude 2 \u2192 include [3, 4, 9, 21]  \nCheck: 3 + 4 + 9 + 21 = 37 \u2705\n\nAlternatively, try combinations directly:\n- 21 + 9 = 30 \u2192 need 7 more \u2192 3 + 4 = 7 \u2192 21 + 9 + 3 + 4 = 37  \nSame result.",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      3,
+      4,
+      9,
+      21
+    ],
+    "target": 37
+  },
+  "item_id": "ss-v4-012",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8088,
+    "success": 0,
+    "tokens_in": 64,
+    "tokens_out": 110
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-010814-f69860",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 844725624,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:08:14Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 3, 4, 9, 21]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [2, 3, 4, 9, 21] that sums to 37.\n\nTotal sum of all numbers: 2 + 3 + 4 + 9 + 21 = 39  \nWe need 37, so we need to exclude numbers summing to 2 (since 39 - 2 = 37).  \nThe only number that is 2 is just 2 itself.\n\nSo exclude 2 \u2192 include [3, 4, 9, 21]  \nCheck: 3 + 4 + 9 + 21 = 37 \u2705\n\nAlternatively, try combinations directly:\n- 21 + 9 = 30 \u2192 need 7 more \u2192 3 + 4 = 7 \u2192 21 + 9 + 3 + 4 = 37  \nSame result.",
+    "FINAL: Let's find a subset of [2, 3, 4, 9, 21] that sums to 37.\n\nTotal sum of all numbers: 2 + 3 + 4 + 9 + 21 = 39  \nWe need 37, so we need to exclude numbers summing to 2 (since 39 - 2 = 37).  \nThe only number that is 2 is just 2 itself.\n\nSo exclude 2 \u2192 include [3, 4, 9, 21]  \nCheck: 3 + 4 + 9 + 21 = 37 \u2705\n\nAlternatively, try combinations directly:\n- 21 + 9 = 30 \u2192 need 7 more \u2192 3 + 4 = 7 \u2192 21 + 9 + 3 + 4 = 37  \nSame result."
+  ]
+}

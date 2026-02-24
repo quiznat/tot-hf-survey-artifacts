@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-033536-9a035b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "7652",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      5,
+      7,
+      6
+    ],
+    "divisor": 4,
+    "oracle_max": 7652
+  },
+  "item_id": "perm-v4-007",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4068,
+    "success": 1,
+    "tokens_in": 41,
+    "tokens_out": 261
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-033536-9a035b",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1309011917,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:35:36Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: To form the largest possible 4-digit integer using digits [2, 5, 7, 6] exactly once, and divisible by 4:\n\n**Step 1: Divisibility rule for 4**  \nA number is divisible by 4 if its **last two digits** form a number divisible by 4.\n\n**Step 2: List all possible 2-digit endings using the digits {2, 5, 6, 7} without repetition**, and check which are divisible by 4:\n\n- 25 \u2192 25 \u00f7 4 = 6.25 \u274c  \n- 26 \u2192 26 \u00f7 4 = 6.5 \u274c  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u274c  \n- 52 \u2192 52 \u00f7 4 = 13 \u2705  \n- 56 \u2192 56 \u00f7 4 = 14 \u2705  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u274c  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u274c  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u274c  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u274c  \n- 72 \u2192 72 \u00f7 4 = 18 \u2705  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u274c  \n- 76 \u2192 76 \u00f7 4 = 19 \u2705  \n\nValid endings: **52, 56, 72, 76**\n\n**Step 3: For each valid ending, form the largest possible 4-digit number using the remaining two digits in descending order (to maximize the number)**\n\n- Ending **52**: remaining digits = {6, 7} \u2192 largest prefix = 76 \u2192 number = **7652**  \n- Ending **56**: remaining digits = {2, 7} \u2192 largest prefix = 72 \u2192 number = **7256**  \n- Ending **72**: remaining digits = {5, 6} \u2192 largest prefix = 65 \u2192 number = **6572**  \n- Ending **76**: remaining digits = {",
+    "FINAL: 7652"
+  ]
+}

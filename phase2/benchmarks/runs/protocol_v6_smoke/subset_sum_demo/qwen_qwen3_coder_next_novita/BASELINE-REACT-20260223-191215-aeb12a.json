@@ -1,0 +1,70 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191215-aeb12a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "17,20",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      10,
+      13,
+      14,
+      17,
+      18,
+      19,
+      19,
+      20
+    ],
+    "target": 37
+  },
+  "item_id": "ss-v4-003",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2878,
+    "success": 1,
+    "tokens_in": 2155,
+    "tokens_out": 246
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191215-aeb12a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 581773520,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T19:12:15Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: I need to find a subset of numbers from the list [10, 13, 14, 17, 18, 19, 19, 20] that sum to 37. Let me try combinations systematically.\n\nFirst, let me check if any two numbers sum to 37:\n- 10 + 27 = 37 (27 not in list)\n- 13 + 24 = 37 (24 not in list)\n- 14 + 23 = 37 (23 not in list)\n- 17 + 20 = 37 \u2713 (both in list!)\n\nSo 17 + 20 = 37, and both numbers are in the list.\n\nLet me verify: 17 + 20 = 37. Yes, that's correct.\n\nI should check if there are other possible combinations, but since the task asks for \"one or more values\" and doesn't require all possible solutions, I can return the first valid solution I found.\n\n<code>\nfinal_answer(\"17,20\")\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'final_answer(\"17,20\")'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\n17,20",
+    "OUTPUT: 17,20",
+    "FINAL: 17,20"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011906-fa9154.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I",
+        2
+      ],
+      [
+        "I need to find a combination of numbers from the list that sum to 49.\n\nLet me work through this systematically:\n\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 22 + 18 = 40, need 9 more (but 9 isn't available)\n- 22 + 15 = 37, need 12 more (10 + 2 = 12, but 2 isn't available)\n- 22 + 13 = 35, need 14 more (10 + 4 = 14, but 4 isn't available)\n\nLet me try: 22 + 18",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 = 13, 18 =",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make selection easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available number is 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? Yes, 10 + 2, but 2 isn't there. 7 + 5, no 5",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      10,
+      13,
+      15,
+      18,
+      18,
+      22
+    ],
+    "target": 49
+  },
+  "item_id": "ss-v4-017",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12188,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 511
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011906-fa9154",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2665344419,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:06Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from the list that sum to 49.\n\nLet me work through this systematically:\n\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 22 + 18 = 40, need 9 more (but 9 isn't available)\n- 22 + 15 = 37, need 12 more (10 + 2 = 12, but 2 isn't available)\n- 22 + 13 = 35, need 14 more (10 + 4 = 14, but 4 isn't available)\n\nLet me try: 22 + 18",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from the list that sum to 49.\n\nLet me work through this systematically:\n\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 22 + 18 = 40, need 9 more (but 9 isn't available)\n- 22 + 15 = 37, need 12 more (10 + 2 = 12, but 2 isn't available)\n- 22 + 13 = 35, need 14 more (10 + 4 = 14, but 4 isn't available)\n\nLet me try: 22 + 18",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 = 13, 18 =",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 = 13, 18 =",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make selection easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available number is 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? Yes, 10 + 2, but 2 isn't there. 7 + 5, no 5",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make selection easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available number is 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? Yes, 10 + 2, but 2 isn't there. 7 + 5, no 5",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I",
+    "VOTE SUMMARY: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I -> 2, I need to find a combination of numbers from the list that sum to 49.\n\nLet me work through this systematically:\n\nNumbers: [6, 7, 10, 13, 15, 18, 18, 22]\nTarget: 49\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 22 + 18 = 40, need 9 more (but 9 isn't available)\n- 22 + 15 = 37, need 12 more (10 + 2 = 12, but 2 isn't available)\n- 22 + 13 = 35, need 14 more (10 + 4 = 14, but 4 isn't available)\n\nLet me try: 22 + 18 -> 1, I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 = 13, 18 = -> 1, I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make selection easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available number is 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? Yes, 10 + 2, but 2 isn't there. 7 + 5, no 5 -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [6, 7, 10, 13, 15, 18, 18, 22] that sum to 49.\n\nLet me work through this systematically:\n\nFirst, let me sort the numbers in descending order to make it easier: [22, 18, 18, 15, 13, 10, 7, 6]\n\nLet me try different combinations:\n\nStart with the largest numbers:\n- 22 + 18 = 40, need 9 more. Can I make 9? No available numbers sum to 9.\n- 22 + 15 = 37, need 12 more. Can I make 12? 10 + 7 = 17, 13 - 1 = 12, but I (2/5)"
+  ]
+}

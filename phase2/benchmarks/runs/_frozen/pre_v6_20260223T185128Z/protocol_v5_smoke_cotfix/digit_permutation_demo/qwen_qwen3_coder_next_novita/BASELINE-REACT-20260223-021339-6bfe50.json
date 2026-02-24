@@ -1,0 +1,77 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021339-6bfe50.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 33179,
+    "success": 0,
+    "tokens_in": 1302,
+    "tokens_out": 493
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021339-6bfe50",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:13:39Z",
+  "tool_config": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [6, 3, 3, 3] (each used exactly once) that is divisible by 8. The oracle_max is given as 3336, which suggests that 3336 is the correct answer (since it's the largest such number). But I should verify using the tools.\n\nFirst, recall the divisibility rule for 8: a number is divisible by 8 if its last three digits form a number divisible by 8.\n\nWe have digits: 6, 3, 3, 3. So possible 4-digit numbers (permutations) include: 6333, 3633, 3363, 3336.\n\nLet\u2019s list all distinct permutations (since three 3s are identical):\n- 6333\n- 3",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The task is to find the largest number formed using digits [6, 3, 3, 3] (each used exactly once) divisible by 8. Oracle_max = 3336 suggests that's the answer, but I should verify using tools. First, list all distinct permutations (since three 3s are identical):  \n- 6333  \n- 3633  \n- 3363  \n- 3336  \n\nNow apply divisibility rule for 8: last three digits must form a number divisible by 8.  \nCheck each:  \n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u2192 not divisible  \n- 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me complete the divisibility checks for all permutations. Digits are [6, 3, 3, 3], so distinct permutations are: 6333, 3633, 3363, 3336.\n\nDivisibility by 8 depends on last three digits:\n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u2192 remainder 5 \u2192 not divisible\n- 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u2192 remainder 1 \u2192 not divisible\n- 3363 \u2192 last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u2192 remainder 3 \u2192 not divisible\n-",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me complete the divisibility checks for all permutations. Digits are [6, 3, 3, 3], so distinct permutations are: 6333, 3633, 3363, 3336.\n\nDivisibility by 8 depends on last three digits:\n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u2192 remainder 5 \u2192 not divisible  \n- 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u2192 remainder 1 \u2192 not divisible  \n- 3363 \u2192 last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u2192 remainder 3 \u2192 not divisible  \n-",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Let me complete the divisibility checks for all permutations. Digits are [6, 3, 3, 3], so distinct permutations are: 6333, 3633, 3363, 3336.\n\nDivisibility by 8 depends on last three digits:\n- 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u2192 remainder 5 \u2192 not divisible  \n- 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u2192 remainder 1 \u2192 not divisible  \n- 3363 \u2192 last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u2192 remainder 3 \u2192 not divisible  \n-",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

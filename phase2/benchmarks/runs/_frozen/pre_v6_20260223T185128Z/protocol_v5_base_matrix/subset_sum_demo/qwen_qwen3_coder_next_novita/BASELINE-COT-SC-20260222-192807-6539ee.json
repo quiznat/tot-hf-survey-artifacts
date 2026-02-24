@@ -1,0 +1,102 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260222-192807-6539ee.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the numbers: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes! So 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all distinct from the list.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192",
+        1
+      ],
+      [
+        "We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \n  We have two 7s and two 5s, so using one 5, two 7s, and one 10 is allowed.\n\nCheck availability:  \n- 10: used once (available)  \n- 7: used twice (we have two)",
+        1
+      ],
+      [
+        "We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all available.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192 5",
+        1
+      ],
+      [
+        "We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \nWe have two 7s and two 5s \u2014 this uses one 10, two 7s, and one 5 \u2014 all available.\n\nSo: 10, 7, 7, 5\n\nCheck sum: 10 + 7 + 7",
+        1
+      ],
+      [
+        "We are given the list: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: one 5, one 10, two 7s \u2192 valid (we have two 5s, but only need one here)\n\nCheck: 7 + 7",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "We are given the numbers: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes! So 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all distinct from the list.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      5,
+      7,
+      7,
+      10
+    ],
+    "target": 29
+  },
+  "item_id": "ss-v4-030",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 40685,
+    "success": 0,
+    "tokens_in": 355,
+    "tokens_out": 508
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-192807-6539ee",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3298614460,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:28:07Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 5, 7, 7, 10]\nTarget: 29\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes! So 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all distinct from the list.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192",
+    "SAMPLE 1 FINAL: We are given the numbers: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes! So 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all distinct from the list.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 5, 7, 7, 10]\nTarget: 29\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \n  We have two 7s and two 5s, so using one 5, two 7s, and one 10 is allowed.\n\nCheck availability:  \n- 10: used once (available)  \n- 7: used twice (we have two)",
+    "SAMPLE 2 FINAL: We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \n  We have two 7s and two 5s, so using one 5, two 7s, and one 10 is allowed.\n\nCheck availability:  \n- 10: used once (available)  \n- 7: used twice (we have two)",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 5, 7, 7, 10]\nTarget: 29\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all available.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192 5",
+    "SAMPLE 3 FINAL: We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all available.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192 5",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 5, 7, 7, 10]\nTarget: 29\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \nWe have two 7s and two 5s \u2014 this uses one 10, two 7s, and one 5 \u2014 all available.\n\nSo: 10, 7, 7, 5\n\nCheck sum: 10 + 7 + 7",
+    "SAMPLE 4 FINAL: We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \nWe have two 7s and two 5s \u2014 this uses one 10, two 7s, and one 5 \u2014 all available.\n\nSo: 10, 7, 7, 5\n\nCheck sum: 10 + 7 + 7",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 5, 7, 7, 10]\nTarget: 29\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: one 5, one 10, two 7s \u2192 valid (we have two 5s, but only need one here)\n\nCheck: 7 + 7",
+    "SAMPLE 5 FINAL: We are given the list: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: one 5, one 10, two 7s \u2192 valid (we have two 5s, but only need one here)\n\nCheck: 7 + 7",
+    "VOTE SUMMARY: We are given the numbers: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes! So 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all distinct from the list.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192 -> 1, We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \n  We have two 7s and two 5s, so using one 5, two 7s, and one 10 is allowed.\n\nCheck availability:  \n- 10: used once (available)  \n- 7: used twice (we have two) -> 1, We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all available.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192 5 -> 1, We are given the list: [5, 5, 7, 7, 10]  \nTarget: 29  \nWe can use each number at most once.\n\nLet\u2019s try combinations:\n\n- Try using both 10s? Only one 10 available \u2192 max with 10 is 10 + rest.\n\nTry largest numbers first:\n\n- 10 + 7 + 7 + 5 = 29?  \n  10 + 7 = 17  \n  17 + 7 = 24  \n  24 + 5 = 29 \u2705  \nWe have two 7s and two 5s \u2014 this uses one 10, two 7s, and one 5 \u2014 all available.\n\nSo: 10, 7, 7, 5\n\nCheck sum: 10 + 7 + 7 -> 1, We are given the list: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes!  \n  So: 7 + 7 + 10 + 5 = 29  \n  That uses: one 5, one 10, two 7s \u2192 valid (we have two 5s, but only need one here)\n\nCheck: 7 + 7 -> 1",
+    "VOTE WINNER: We are given the numbers: [5, 5, 7, 7, 10]  \nTarget sum: 29  \nWe can use each number at most once.\n\nLet\u2019s consider possible combinations:\n\n- Try using both 10s? But only one 10 is available.\n- Try using both 7s: 7 + 7 = 14  \n  Remaining needed: 29 - 14 = 15  \n  Can we make 15 from [5, 5, 10]?  \n  Try 10 + 5 = 15 \u2192 yes! So 7 + 7 + 10 + 5 = 29  \n  That uses: 5, 7, 7, 10 \u2014 all distinct from the list.\n\nCheck: 5 + 7 + 7 + 10 = 29 \u2192 (1/5)"
+  ]
+}

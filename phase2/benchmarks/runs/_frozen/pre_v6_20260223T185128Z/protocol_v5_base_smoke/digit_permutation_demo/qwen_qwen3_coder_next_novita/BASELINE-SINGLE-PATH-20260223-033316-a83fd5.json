@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-033316-a83fd5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "8860",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      0,
+      6,
+      8,
+      8
+    ],
+    "divisor": 7,
+    "oracle_max": 8806
+  },
+  "item_id": "perm-v4-004",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12641,
+    "success": 0,
+    "tokens_in": 28,
+    "tokens_out": 224
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-033316-a83fd5",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 95857809,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:33:16Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [0, 6, 8, 8]\nThe number must be divisible by 7.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[0, 6, 8, 8]**  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 7**.\n\n---\n\n### Step 1: List all possible 4-digit numbers using digits [0, 6, 8, 8] exactly once.\n\nSince there are repeated digits (two 8s), the total number of distinct permutations is:\n\n$$\n\\frac{4!}{2!} = 12 \\text{ permutations}\n$$\n\nBut we must exclude those where the first digit is 0 (since it wouldn't be a 4-digit number).\n\nLet\u2019s generate all valid permutations in descending order (to find the largest possible that satisfies divisibility by 7).\n\nAll permutations of [0, 6, 8, 8]:\n\n1. 8860  \n2. 8806  \n3. 8680  \n4. 8608  \n5. 8086  \n6. 8068  \n7. 6880  \n8. 6808  \n9. 6088  \n10. 0886 \u2192 invalid (starts with 0)  \n11. 0868 \u2192 invalid  \n12. 0688 \u2192 invalid  \n\nSo valid numbers (descending order):\n\n- 8860  \n- 8806  \n- 8680  \n- 8608  \n- 8086  \n- 8068  \n- 6880  \n- 6808  \n- 6088  \n\nNow test each for divisibility by 7.\n\nWe can use the rule or just divide.\n\nLet\u2019s compute:\n\n1. **8860 \u00f7 7**  \n   7 \u00d7 1265 = 8855  \n   8860 \u2212 8855 = 5 \u2192 remainder 5 \u2192 \u274c\n\n2. **8806 \u00f7 7**  \n   7 \u00d7 1258 = 8806  \n   Let\u2019s check: 1258 \u00d7 7 =  \n   1200\u00d77 = 8400  \n   58\u00d77 = 40",
+    "FINAL: 8860"
+  ]
+}

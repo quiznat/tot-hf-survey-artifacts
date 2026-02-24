@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022853-8fe3d2.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "final_answer": "6,11",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      5,
+      6,
+      8,
+      11,
+      18,
+      19,
+      22
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v4-007",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2962,
+    "success": 1,
+    "tokens_in": 67,
+    "tokens_out": 176
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022853-8fe3d2",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1937262580,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:28:53Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [3, 5, 6, 8, 11, 18, 19, 22] that sums to 17.\n\nStart with smaller numbers:\n\nTry 3 + 5 = 8  \n3 + 5 + 6 = 14  \n3 + 5 + 6 + 8 = 22 \u2192 too big  \n3 + 5 + 8 = 16  \n3 + 5 + 11 = 19 \u2192 too big  \n3 + 6 + 8 = 17 \u2705\n\nCheck: 3 + 6 + 8 = 17 \u2014 yes!\n\nAny other combinations?  \n5 + 6 + 8 = 19  \n5 + 11 = 16  \n3 + 11 + 5 = 19  \n6 + 11 = 17 \u2705 \u2014 another one!\n\nWait: 6 + 11 = 17 \u2014 yes! That's simpler.\n\nSo two possible subsets: [3,6,8] and [6,11].\n\nBut the problem says \"Select one or more values\", and we just need *one* valid solution.\n\nWhich to choose? Either is valid. Let's pick the shorter one: 6,11.\n\nCheck: 6 + 11 = 17 \u2014 correct.\n\nNo duplicates, all numbers from list.\n\nSo answer: 6,11\n\nFINAL: 6,11",
+    "FINAL: 6,11"
+  ]
+}

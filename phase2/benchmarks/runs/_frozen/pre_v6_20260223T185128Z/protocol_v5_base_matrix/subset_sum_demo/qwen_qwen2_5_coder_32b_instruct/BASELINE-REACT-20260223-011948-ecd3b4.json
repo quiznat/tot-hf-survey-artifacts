@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011948-ecd3b4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "17 + 5 + 2 = 24",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      5,
+      14,
+      17,
+      18
+    ],
+    "target": 24
+  },
+  "item_id": "ss-v4-032",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4947,
+    "success": 0,
+    "tokens_in": 492,
+    "tokens_out": 236
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011948-ecd3b4",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3259560732,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:48Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a way to combine the given numbers [1, 2, 5, 14, 17, 18] to reach the target value of 24. Since no tools are available, I'll need to work through this mathematically.\n\nLet me consider different combinations:\n- I could try adding some numbers and subtracting others\n- I could look for patterns or relationships between the numbers\n\nLet me start by trying to see if I can make 24 using addition and subtraction:\n- 17 + 18 = 35 (too big)\n- 14 + 17 = 31 (too big)  \n- 14 + 18 = 32 (too big)\n- 5 + 17 = 22 (close!)\n- 5 + 18 = 23 (very close!)\n- 2",
+    "STEP 1 OBSERVATION: error: unknown tool '-'",
+    "STEP 2 MODEL: THINK: Let me reconsider the problem systematically. I need to use the numbers [1, 2, 5, 14, 17, 18] to make 24 through addition and subtraction.\n\nLet me try different combinations more carefully:\n- 17 + 5 = 22, then I need 2 more to get 24. I have 1, 2, 14, 18 left. \n- If I add 2 to 22, that gives me 24! So: 17 + 5 + 2 = 24\n- Let me verify: 17 + 5 + 2 = 24 \u2713\n\nThis uses three numbers: 17, 5, and 2. The remaining numbers (1, 14, 18) are not used, but that's fine since I just",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 17 + 5 + 2 = 24"
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-173329-f22e7f.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 1,
+      "frontier_width": 3,
+      "generated_nodes": 3,
+      "max_depth": 4,
+      "peak_frontier_size": 1,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "x=-9.0,y=1.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        7,
+        -9,
+        -72
+      ],
+      [
+        -9,
+        0,
+        81
+      ]
+    ]
+  },
+  "item_id": "lin-v4-004",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3789,
+    "success": 1,
+    "tokens_in": 379,
+    "tokens_out": 56
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-173329-f22e7f",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 2792033683,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:29Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=1.0000 cum=1.0000 terminal=False thought=STEP: Solve Equation 2 first since it has only x: -9.0*x = 81.0 \u2192 x = 81.0 / -9.0 = -9.0",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False thought=STEP: Substitute x = -9.0 into Equation 1: 7.0*(-9.0) + -9.0*y = -72.0 \u2192 -63.0 - 9.0*y = -72.0 \u2192 -9.0*y = -9.0 \u2192 y = 1.0",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=True thought=FINAL: x=-9.0,y=1.0"
+  ]
+}

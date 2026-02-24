@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-021933-8c0791.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "7,21,25",
+        2
+      ],
+      [
+        "22,11",
+        1
+      ],
+      [
+        "2,7,22",
+        1
+      ],
+      [
+        "25,7,2",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "7,21,25",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      7,
+      11,
+      16,
+      21,
+      22,
+      23,
+      25
+    ],
+    "target": 53
+  },
+  "item_id": "ss-v4-008",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 38229,
+    "success": 1,
+    "tokens_in": 370,
+    "tokens_out": 1197
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-021933-8c0791",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 305723958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:19:33Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [2, 7, 11, 16, 21, 22, 23, 25]  \nTarget sum: 53  \nWe need to select a subset (each number used at most once) that sums to 53.\n\nLet\u2019s try to find combinations.\n\nStart with larger numbers, since 53 is relatively large.\n\nTry 25 + 23 = 48 \u2192 need 5 more. Remaining numbers: 2, 7, 11, 16, 21, 22 \u2014 no 5.  \n25 + 22 = 47 \u2192 need 6 \u2192 no 6.  \n25 + 21 = 46 \u2192 need 7 \u2192 yes! 7 is in list. So 25 + 21 + 7 = 53.\n\nCheck: 25 + 21 = 46, 46 + 7 = 53 \u2705  \nAll numbers distinct and in list.\n\nSo one valid solution: 7, 21, 25  \nOrder doesn\u2019t matter, but typically ascending is clean.\n\nLet\u2019s verify no duplicates or omissions: 7, 21, 25 \u2208 original list, sum = 53.\n\nAlternative? Try 23 + 16 = 39 \u2192 need 14 \u2192 2 + 11 + ? = 13, not 14. 7 + 11 = 18 too big. 2 + 7 + 11 = 20 \u2192 39 + 20 = 59 > 53.  \n23 + 11 = 34 \u2192 need 19 \u2192 2 + 16 = 18, 2 + 7 + ? = 9 more \u2192 2+7+2? no duplicate. 7+11+25 = 43 \u2192 need 10 \u2192 no 10.  \n22 + 16 = 38 \u2192 need 15 \u2192 2 + 11 + ? = 13, 7 + 11 = 18 too big.  \n22 + 11 = 33 \u2192 need 20 \u2192 2 + 7 + 11? duplicate 11.",
+    "SAMPLE 1 FINAL: 22,11",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [2, 7, 11, 16, 21, 22, 23, 25]  \nTarget sum: 53  \nWe need to select a subset (each number used at most once) that sums to 53.\n\nLet\u2019s try to find combinations.\n\nStart with larger numbers, since 53 is relatively large.\n\nTry 25 + 23 = 48 \u2192 need 5 more. Remaining numbers: 2, 7, 11, 16, 21, 22 \u2014 no 5.  \n25 + 22 = 47 \u2192 need 6 \u2192 no 6.  \n25 + 21 = 46 \u2192 need 7 \u2192 yes! 7 is in list. So 25 + 21 + 7 = 53.\n\nCheck: 25 + 21 = 46, 46 + 7 = 53 \u2705  \nAll numbers distinct and in list.\n\nSo one valid solution: 7, 21, 25  \nOrder doesn\u2019t matter, but typically ascending is clean.\n\nLet\u2019s verify no duplicates or omissions: 7, 21, 25 \u2208 original list, sum = 53.\n\nAlternative? Try 23 + 16 = 39 \u2192 need 14 \u2192 no 14.  \n23 + 11 = 34 \u2192 need 19 \u2192 no 19.  \n23 + 7 = 30 \u2192 need 23 \u2192 already used.  \n22 + 16 = 38 \u2192 need 15 \u2192 no.  \n22 + 11 = 33 \u2192 need 20 \u2192 no.  \n22 + 7 = 29 \u2192 need 24 \u2192 no.  \n21 + 16 = 37 \u2192 need 16 \u2192 duplicate not allowed.  \n21 + 11 = 32 \u2192 need 21 \u2192 duplicate.  \n21 + 7 = 28 \u2192 need 25 \u2192 yes! That\u2019s same as before: 21 + 7 + 25.\n\nWhat about 4 numbers? Try 2 + 7 + 22 + 22 \u2014 no duplicates.  \n2 + 7 + 22",
+    "SAMPLE 2 FINAL: 2,7,22",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [2, 7, 11, 16, 21, 22, 23, 25]  \nTarget: 53  \nWe need to find a subset (each number used at most once) that sums to 53.\n\nLet\u2019s try to reason step by step.\n\nFirst, note the largest numbers:  \n25 + 23 = 48 \u2192 need 5 more \u2192 no 5 in list  \n25 + 22 = 47 \u2192 need 6 \u2192 no 6  \n25 + 21 = 46 \u2192 need 7 \u2192 yes! 7 is in list \u2192 25 + 21 + 7 = 53 \u2705\n\nCheck: 25 + 21 = 46; 46 + 7 = 53. All numbers are in the list and distinct.\n\nSo one valid solution is: 7, 21, 25\n\nLet\u2019s verify no duplicates or omissions:  \nList has 7, 21, 25 \u2014 yes.\n\nAlternative checks:  \n23 + 16 = 39 \u2192 need 14 \u2192 not directly available, but 11 + 2 = 13, 11 + 7 = 18 \u2014 no  \n22 + 16 = 38 \u2192 need 15 \u2192 11 + 2 = 13, 7 + 2 = 9 \u2014 no  \n23 + 11 + 16 = 50 \u2192 need 3 \u2014 no  \n22 + 11 + 16 = 49 \u2192 need 4 \u2014 no  \n23 + 22 = 45 \u2192 need 8 \u2014 no  \n25 + 16 = 41 \u2192 need 12 \u2192 11 + 2 = 13, 7 + 2 = 9 \u2014 no  \n25 + 11 = 36 \u2192 need 17 \u2192 16 + 2 = 18, 7 + 2 = 9 \u2014 no  \n25 + 7 + 11 = 43 \u2192 need 10 \u2014 no  \n25 + 7 + 16 = 48 \u2192 need 5 \u2014 no  \n25 + 7 + 2 = 3",
+    "SAMPLE 3 FINAL: 25,7,2",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [2, 7, 11, 16, 21, 22, 23, 25]  \nTarget: 53  \nWe need to find a subset (each number used at most once) that sums to 53.\n\nLet\u2019s try to reason step by step.\n\nFirst, note the largest numbers:  \n25 + 23 = 48 \u2192 need 5 more \u2192 no 5 in list  \n25 + 22 = 47 \u2192 need 6 \u2192 no 6  \n25 + 21 = 46 \u2192 need 7 \u2192 yes! 7 is in list \u2192 25 + 21 + 7 = 53 \u2705\n\nCheck: 25 + 21 = 46; 46 + 7 = 53. All numbers are in the list and distinct.\n\nSo one valid solution is: 7, 21, 25\n\nLet\u2019s verify no duplicates or omissions:  \n7 \u2208 list, 21 \u2208 list, 25 \u2208 list \u2014 yes.\n\nAre there others? Possibly, but the problem only asks for *one* valid selection (since it says \"select one or more values\", and the example shows a single subset). So we can return this.\n\nFINAL: 7,21,25",
+    "SAMPLE 4 FINAL: 7,21,25",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [2, 7, 11, 16, 21, 22, 23, 25]  \nTarget: 53  \nWe need to select a subset (each number used at most once) that sums to 53.\n\nLet\u2019s try to find combinations.\n\nStart with larger numbers, since 53 is relatively large.\n\nTry 25 + 23 = 48 \u2192 need 5 more. Remaining numbers: 2, 7, 11, 16, 21, 22 \u2014 no 5. 2 + 7 = 9 too big; 2 alone = 2, 7 alone = 7 \u2014 no 5.\n\n25 + 22 = 47 \u2192 need 6. No 6. 2 + 7 = 9, too big; 2 + ? = 6? Need 4 \u2014 no.\n\n25 + 21 = 46 \u2192 need 7. Yes! 7 is in the list. So 25 + 21 + 7 = 53.\n\nCheck: 25 + 21 = 46, +7 = 53 \u2705  \nAll numbers distinct and in list.\n\nSo one valid solution: 7, 21, 25\n\nLet\u2019s verify no duplicates or omissions: 7, 21, 25 \u2208 list, sum = 53.\n\nAre there others? Maybe, but the problem only asks for *one* valid selection (since it says \"select one or more values\", and sample shows a single solution). So we can return this.\n\nFINAL: 7,21,25",
+    "SAMPLE 5 FINAL: 7,21,25",
+    "VOTE SUMMARY: 7,21,25 -> 2, 22,11 -> 1, 2,7,22 -> 1, 25,7,2 -> 1",
+    "VOTE WINNER: 7,21,25 (2/5)"
+  ]
+}

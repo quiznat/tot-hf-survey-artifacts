@@ -1,0 +1,96 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-204819-996a35.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 5,
+      "frontier_width": 3,
+      "generated_nodes": 13,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "10 + 6 + 4 + 4 = 24",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 31144,
+    "success": 1,
+    "tokens_in": 10815,
+    "tokens_out": 1236
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-204819-996a35",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:48:19Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=look for factor pairs of 24 (e.g., 6\u00d74, 8\u00d73, 12\u00d72) and see if remaining numbers can form complementary values; subnodes=6\u00d74=24 (needs 10 and ...",
+    "NODE n0002 parent=root score=0.3000 cum=0.3000 terminal=False thought=STEP: Try (10 \u2212 4) \u00d7 (4 + 0) invalid; try (10 \u2212 4) \u00d7 4 = 24, but 6 unused; adjust: (10 \u2212 4) \u00d7 (6 \u2212 2) needs 2; try using division: 6 \u00f7 (10 \u00f7 (4 \u00d7 4)) = 6 \u00f7 (...",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=False thought=FINAL: (10 \u2212 4) \u00d7 4 = 24 but 6 unused \u2014 invalid; try (6 \u2212 4) \u00d7 (10 + 2) no 2; finally: (4 \u00d7 6) \u00d7 (10 \u00f7 10) = 24 but only one 10; correct: (10 \u2212 4) \u00d7 4 = 24 u...",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0003 score=0.0000 cum=1.0000 terminal=False thought=STEP: Verify (6 \u00d7 4) + (4 \u2212 4) = 24 + 0 = 24 uses all numbers [6, 4, 10, 4] \u2014 wait, 10 is missing! Recheck: numbers are [6, 4, 10, 4], so (6 \u00d7 4) + (4 \u2212 4) o...",
+    "NODE n0005 parent=n0003 score=0.5000 cum=1.5000 terminal=False thought=STEP: Use 10 and 4 to make 1 via division: 10 \u00f7 10 = 1, but only one 10. Instead, (10 + 4 \u2212 6) = 8, then 8 \u00d7 3 = 24 \u2014 need 3 from remaining 4? 4 \u2212 1 = 3, but...",
+    "NODE n0006 parent=n0003 score=0.5000 cum=1.5000 terminal=False thought=FINAL: (10 + 4 \u2212 6) \u00d7 4 = 8 \u00d7 4 = 32 no; (10 \u00d7 4 \u2212 6 \u00d7 4) = 40 \u2212 24 = 16 no; correct: (10 \u2212 6) \u00d7 4 + 4 = 4 \u00d7 4 + 4 = 20 no; finally: (4 \u00d7 10) \u2212 (6 \u00d7 4) = 40 ...",
+    "NODE n0007 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=consider using division to create fractions or integers like 1 or 2 from two numbers to combine with others; subnodes=10 \u00f7 (4 + 4) = 1.25 | 6...",
+    "NODE n0008 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=consider using division to create fractions that scale to 24, especially leveraging 10 and 4 to form 2.5 or 0.4; subnodes=10 \u00f7 4 = 2.5 (needs...",
+    "NODE n0009 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Try (6 \u2212 4/4) \u00d7 10 = (6 \u2212 1) \u00d7 10 = 5 \u00d7 10 = 50 no; adjust: (6 \u00d7 4) \u00d7 (4/10) = 24 \u00d7 0.4 = 9.6 no; instead, (10 \u00d7 4 \u2212 6 \u00d7 4) = 40 \u2212 24 = 16 no; try (10 ...",
+    "NODE n0010 parent=n0002 score=1.0000 cum=1.3000 terminal=False thought=DECOMP: insight=leverage subtraction and division to generate 1 or 2 from two numbers to scale a product; subnodes=10 \u2212 6 = 4 (leaves 4,4) | 4 \u00f7 4 = 1 (leave...",
+    "NODE n0011 parent=n0002 score=1.0000 cum=1.3000 terminal=False thought=STEP: Verify 10 + 6 + 4 + 4 = 24 \u2014 uses all numbers [6, 4, 10, 4] exactly once and sums to 24.",
+    "NODE n0012 parent=n0002 score=0.5000 cum=0.8000 terminal=False thought=DECOMP: insight=leverage 10 and 6 to form 4 via subtraction (10\u22126=4), then combine with two 4s to reach 24; subnodes=10\u22126=4 | 4\u00d74=16 | 4+4=8; recombine=try (...",
+    "DEPTH 2 frontier=3",
+    "NODE n0013 parent=n0005 score=0.5000 cum=2.0000 terminal=True thought=FINAL: 10 + 6 + 4 + 4 = 24"
+  ]
+}

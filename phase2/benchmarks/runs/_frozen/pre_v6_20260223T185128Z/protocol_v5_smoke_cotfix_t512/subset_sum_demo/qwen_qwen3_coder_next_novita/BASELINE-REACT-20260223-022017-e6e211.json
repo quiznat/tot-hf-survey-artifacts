@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-022017-e6e211.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_target",
+    "sum_list"
+  ],
+  "final_answer": "[22, 18, 10]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      10,
+      10,
+      18,
+      19,
+      22,
+      24,
+      25
+    ],
+    "target": 50
+  },
+  "item_id": "ss-v4-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4755,
+    "success": 1,
+    "tokens_in": 42,
+    "tokens_out": 268
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (action expression solved task)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-022017-e6e211",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1773078958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:20:17Z",
+  "tool_config": [
+    "check_target",
+    "sum_list"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers that sums to the target value of 50. The numbers are [2, 10, 10, 18, 19, 22, 24, 25]. I can use the `sum_list` tool to compute the sum of any subset I choose, and `check_target` to verify if a subset sums to the target. Let me first try some combinations manually.  \nLet\u2019s try the largest numbers first: 25 + 24 = 49, need 1 more \u2014 no 1.  \n25 + 22 = 47, need 3 \u2014 no 3.  \n25 + 19 = 44, need 6 \u2014 no 6.  \n25 + 18 = 43, need 7 \u2014 no 7.  \n25 + 10 + 10 = 45, need 5 \u2014 no 5.  \n25 + 10 + 10 + 2 = 47 \u2014 still need 3.  \n25 + 18 + 10 = 53 \u2014 too much.  \n24 + 22 = 46, need 4 \u2014 no 4.  \n24 + 19 = 43, need 7 \u2014 no 7.  \n24 + 18 = 42, need 8 \u2014 no 8.  \n24 + 10 + 10 = 44, need 6 \u2014 no 6.  \n24 + 10 + 10 + 2 = 46 \u2014 need 4.  \n22 + 19 = 41, need 9 \u2014 no 9.  \n22 + 18 = 40, need 10 \u2014 we have a 10! So 22 + 18 + 10 = 50. Let\u2019s verify: 22 + 18 = 40, +10 = 50. Yes! There are two 10s, so we can use one. So subset [22, 18, 10] sums to 50. Let me confirm using `sum_list`.  \nACTION: sum_list [22, 18, 10]",
+    "STEP 1 OBSERVATION: 50"
+  ]
+}

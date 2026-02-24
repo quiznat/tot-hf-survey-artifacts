@@ -1,0 +1,86 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/linear2_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-191609-0920d5.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 1,
+      "frontier_width": 3,
+      "generated_nodes": 3,
+      "max_depth": 4,
+      "peak_frontier_size": 1,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "x=6.0,y=-9.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        0,
+        6,
+        -54
+      ],
+      [
+        6,
+        2,
+        18
+      ]
+    ]
+  },
+  "item_id": "lin-v4-007",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4431,
+    "success": 1,
+    "tokens_in": 374,
+    "tokens_out": 48
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-191609-0920d5",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 1678627978,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T19:16:09Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=1.0000 cum=1.0000 terminal=False thought=DECOMP: insight=Equation 1 has no x-term, so solve for y directly; then substitute into Equation 2; subnodes=y_solve | x_solve; recombine=Use y from y_solve ...",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False thought=STEP: From Equation 1: 6.0*y = -54.0 \u2192 y = -54.0 / 6.0 = -9.0",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=True thought=FINAL: x=6.0,y=-9.0"
+  ]
+}

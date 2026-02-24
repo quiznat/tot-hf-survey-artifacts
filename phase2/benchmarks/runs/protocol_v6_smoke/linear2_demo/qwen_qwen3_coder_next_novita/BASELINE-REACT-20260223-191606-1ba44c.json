@@ -1,0 +1,71 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191606-1ba44c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x=1.0,y=6.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        -4,
+        -31
+      ],
+      [
+        -2,
+        -2,
+        -14
+      ]
+    ]
+  },
+  "item_id": "lin-v4-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4689,
+    "success": 1,
+    "tokens_in": 2132,
+    "tokens_out": 313
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191606-1ba44c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 4079773386,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T19:16:06Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nSolve the linear system for x and y.\nEquation 1: -7.0*x + -4.0*y = -31.0\nEquation 2: -2.0*x + -2.0*y = -14.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: I need to solve the linear system of equations:\n-7.0*x + -4.0*y = -31.0\n-2.0*x + -2.0*y = -14.0\n\nI can solve this using algebraic methods. Let me simplify and solve step by step.\n\nFirst, I'll rewrite the equations:\n1) -7x - 4y = -31\n2) -2x - 2y = -14\n\nI can simplify equation 2 by dividing by -2:\nx + y = 7, so y = 7 - x\n\nNow substitute y = 7 - x into equation 1:\n-7x - 4(7 - x) = -31\n-7x - 28 + 4x = -31\n-3x - 28 = -31\n-3x = -3\nx = 1\n\nThen y = 7 - x = 7 - 1 = 6\n\nLet me verify by plugging back into the original equations:\nEquation 1: -7(1) - 4(6) = -7 - 24 = -31 \u2713\nEquation 2: -2(1) - 2(6) = -2 - 12 = -14 \u2713\n\nSo the solution is x=1, y=6.\n\n<code>\nfinal_answer(\"x=1,y=6\")\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'final_answer(\"x=1,y=6\")'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\nx=1,y=6",
+    "OUTPUT: x=1,y=6",
+    "FINAL: x=1.0,y=6.0"
+  ]
+}

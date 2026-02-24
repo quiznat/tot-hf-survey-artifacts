@@ -1,0 +1,93 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260222-191149-84077b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL:",
+        2
+      ],
+      [
+        "We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first, since 24 = 4 \u00d7 6, 3 \u00d7 8, 12 \u00d7 2, etc.\n\nCheck if we can get 4 and 6:  \n- 10 - 5 = 5, 3 - 2 = 1 \u2192 not helpful.  \n- 10 + 5 = 15, 3 + 2 = 5 \u2192 15 + 5 = 20, too low.  \n- 10 + 3 + 5 + 2 = 20 \u2192 too low.\n\nTry (10 + 2) \u00d7 (5 - 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 1",
+        1
+      ],
+      [
+        "We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider common 24 patterns:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- etc.\n\nTry using multiplication of two numbers to get close.\n\nTry:  \n10 + 5 + 3 + 2 = 20 \u2192 too low  \n10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22  \n10 \u00d7 3 = 3",
+        1
+      ],
+      [
+        "We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider possible products near 24:\n- 10 + 5 + 3 + 2 = 20 \u2192 too low\n- 10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22\n- 10 \u00d7 3 = 30; 30 \u2212 5 \u2212 2 = 23\n- 10 \u00d7 3 = 30; 30 \u2212 (5 \u2212 2) = 27\n- 5 \u00d7 3 = 15; 15 + 10 + 2 = 27",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL:",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    10,
+    3,
+    5,
+    2
+  ],
+  "item_id": "g24-v4-039",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 38879,
+    "success": 0,
+    "tokens_in": 205,
+    "tokens_out": 526
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-191149-84077b",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 998173146,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-22T19:11:49Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [10, 3, 5, 2]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first, since 24 = 4 \u00d7 6, 3 \u00d7 8, 12 \u00d7 2, etc.\n\nCheck if we can get 4 and 6:  \n- 10 - 5 = 5, 3 - 2 = 1 \u2192 not helpful.  \n- 10 + 5 = 15, 3 + 2 = 5 \u2192 15 + 5 = 20, too low.  \n- 10 + 3 + 5 + 2 = 20 \u2192 too low.\n\nTry (10 + 2) \u00d7 (5 - 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 1",
+    "SAMPLE 1 FINAL: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first, since 24 = 4 \u00d7 6, 3 \u00d7 8, 12 \u00d7 2, etc.\n\nCheck if we can get 4 and 6:  \n- 10 - 5 = 5, 3 - 2 = 1 \u2192 not helpful.  \n- 10 + 5 = 15, 3 + 2 = 5 \u2192 15 + 5 = 20, too low.  \n- 10 + 3 + 5 + 2 = 20 \u2192 too low.\n\nTry (10 + 2) \u00d7 (5 - 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 1",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [10, 3, 5, 2]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider common 24 patterns:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- etc.\n\nTry using multiplication of two numbers to get close.\n\nTry:  \n10 + 5 + 3 + 2 = 20 \u2192 too low  \n10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22  \n10 \u00d7 3 = 3",
+    "SAMPLE 2 FINAL: We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider common 24 patterns:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- etc.\n\nTry using multiplication of two numbers to get close.\n\nTry:  \n10 + 5 + 3 + 2 = 20 \u2192 too low  \n10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22  \n10 \u00d7 3 = 3",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [10, 3, 5, 2]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL:",
+    "SAMPLE 3 FINAL: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL:",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [10, 3, 5, 2]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL:",
+    "SAMPLE 4 FINAL: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL:",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [10, 3, 5, 2]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider possible products near 24:\n- 10 + 5 + 3 + 2 = 20 \u2192 too low\n- 10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22\n- 10 \u00d7 3 = 30; 30 \u2212 5 \u2212 2 = 23\n- 10 \u00d7 3 = 30; 30 \u2212 (5 \u2212 2) = 27\n- 5 \u00d7 3 = 15; 15 + 10 + 2 = 27",
+    "SAMPLE 5 FINAL: We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider possible products near 24:\n- 10 + 5 + 3 + 2 = 20 \u2192 too low\n- 10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22\n- 10 \u00d7 3 = 30; 30 \u2212 5 \u2212 2 = 23\n- 10 \u00d7 3 = 30; 30 \u2212 (5 \u2212 2) = 27\n- 5 \u00d7 3 = 15; 15 + 10 + 2 = 27",
+    "VOTE SUMMARY: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL: -> 2, We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first, since 24 = 4 \u00d7 6, 3 \u00d7 8, 12 \u00d7 2, etc.\n\nCheck if we can get 4 and 6:  \n- 10 - 5 = 5, 3 - 2 = 1 \u2192 not helpful.  \n- 10 + 5 = 15, 3 + 2 = 5 \u2192 15 + 5 = 20, too low.  \n- 10 + 3 + 5 + 2 = 20 \u2192 too low.\n\nTry (10 + 2) \u00d7 (5 - 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 1 -> 1, We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider common 24 patterns:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- etc.\n\nTry using multiplication of two numbers to get close.\n\nTry:  \n10 + 5 + 3 + 2 = 20 \u2192 too low  \n10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22  \n10 \u00d7 3 = 3 -> 1, We are given the numbers [10, 3, 5, 2] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, consider possible products near 24:\n- 10 + 5 + 3 + 2 = 20 \u2192 too low\n- 10 \u00d7 2 = 20; 20 + 5 \u2212 3 = 22\n- 10 \u00d7 3 = 30; 30 \u2212 5 \u2212 2 = 23\n- 10 \u00d7 3 = 30; 30 \u2212 (5 \u2212 2) = 27\n- 5 \u00d7 3 = 15; 15 + 10 + 2 = 27 -> 1",
+    "VOTE WINNER: We are given the numbers [10, 3, 5, 2] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry multiplication first \u2014 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- 48 \u00f7 2, etc.\n\nWe have 10, 3, 5, 2.\n\nTry (10 + 2) \u00d7 (5 \u2212 3) = 12 \u00d7 2 = 24 \u2705  \nCheck: uses 10, 2, 5, 3 \u2014 all exactly once.\n\nYes! That works.\n\nLet\u2019s verify:  \n10 + 2 = 12  \n5 \u2212 3 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nFINAL: (2/5)"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-011133-76e5ba.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[3, 4, 8, 11, 13]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      4,
+      6,
+      8,
+      11,
+      13,
+      18
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-028",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11687,
+    "success": 1,
+    "tokens_in": 810,
+    "tokens_out": 282
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011133-76e5ba",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2956916736,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:11:33Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [3, 4, 6, 8, 11, 13, 18] and a target: 39. The task is likely to find a subset (or combination) of these numbers that sum to the target. Since no tools are available, this is a pure reasoning problem.\n\nLet\u2019s try to find a subset that sums to 39.\n\nFirst, total sum of all numbers:  \n3 + 4 = 7  \n7 + 6 = 13  \n13 + 8 = 21  \n21 + 11 = 32  \n32 + 13 = 45  \n45 + 18 = 63  \nTotal = 63. So we need a subset summing to 39, meaning the complement subset sums to 63 \u2212 39 =",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Total sum is 63, so complement must sum to 24. Instead of finding subset summing to 39, maybe easier to find subset summing to 24 (smaller target), then take the rest.\n\nLet\u2019s try to find a subset summing to 24.\n\nTry largest numbers first:  \n18 + 6 = 24 \u2192 yes! So {18, 6} sums to 24.  \nTherefore, the complement subset is all numbers except 6 and 18: [3, 4, 8, 11, 13].  \nCheck sum: 3 + 4 = 7; 7 + 8 = 15; 15 + 11 = 26; 26 + 13 = 39. \u2705\n\nSo subset [3, 4, 8,",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We found that the complement subset {6, 18} sums to 24, so the remaining numbers {3, 4, 8, 11, 13} sum to 39. Verification: 3 + 4 + 8 + 11 + 13 = 39. This is a valid solution. Since the task likely asks for a subset that sums to the target, we can report this subset.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: [3, 4, 8, 11, 13]"
+  ]
+}

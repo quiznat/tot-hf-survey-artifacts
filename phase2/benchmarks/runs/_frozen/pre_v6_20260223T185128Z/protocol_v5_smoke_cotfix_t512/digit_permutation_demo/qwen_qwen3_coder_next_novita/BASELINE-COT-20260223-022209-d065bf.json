@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022209-d065bf.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "9810",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3990,
+    "success": 1,
+    "tokens_in": 41,
+    "tokens_out": 313
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022209-d065bf",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:22:09Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given digits: [1, 9, 0, 8]  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n---\n\n### Step 1: Divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The last digit must be even \u2192 possible last digits: 0, 8 (since digits are 1, 9, 0, 8; even digits are 0 and 8).\n- **Divisible by 3**: Sum of digits must be divisible by 3.\n\nLet\u2019s compute the sum of all digits:  \n1 + 9 + 0 + 8 = **18**, which is divisible by 3.  \nSo **any permutation** of these digits will be divisible by 3.\n\nTherefore, we only need to ensure the number is divisible by 2 \u2192 last digit must be even: 0 or 8.\n\nWe want the **largest possible** 4-digit number, so we want the **largest possible digits in the highest place values**, subject to the last digit being even.\n\nLet\u2019s try to construct the largest number ending in 8 or 0.\n\n#### Try ending in 8:\nRemaining digits: [1, 9, 0]  \nTo maximize the number, arrange remaining digits in descending order: 9, 1, 0  \n\u2192 Number: **9108**\n\nCheck:  \n- Ends in 8 \u2192 even \u2705  \n- Sum = 18 \u2192 divisible by 3 \u2705  \n\u2192 So 9108 is divisible by 6.\n\n#### Try ending in 0:\nRemaining digits: [1, 9, 8]  \nArrange in descending order: 9, 8, 1  \n\u2192 Number: **9810**\n\nCheck:  \n- Ends in 0 \u2192 even \u2705  \n- Sum = 18 \u2192 divisible by 3 \u2705  \n\u2192 So 9810 is divisible by 6.\n\nNow compare:  \n9810 vs 9108 \u2192 9810 is larger.\n\nCan we get a larger number? Let's see if any other arrangement ending in 0 or 8 gives a larger number.\n\n- Largest possible 4-digit number",
+    "FINAL: 9810"
+  ]
+}

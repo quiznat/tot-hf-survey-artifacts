@@ -1,0 +1,105 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-031030-d3c530.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "error_type": "depth_limit",
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 10,
+      "frontier_width": 3,
+      "generated_nodes": 28,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0,
+      "tot_mode": "legacy_candidate_search"
+    }
+  },
+  "final_answer": "(10 + 4) * (1 + 1) / 1",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 198961,
+    "success": 0,
+    "tokens_in": 3978,
+    "tokens_out": 333
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot legacy candidate search reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-031030-d3c530",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:10:30Z",
+  "tool_config": [],
+  "tot_mode": "legacy_candidate_search",
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(10 - 4) * (1 + 1)",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False candidate=4 * (10 - 1 - 1)",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(1 + 1) * (10 - 4)",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=1.0000 cum=2.0000 terminal=False candidate=(10 + 1 + 1) - 4",
+    "NODE n0005 parent=n0001 score=1.0000 cum=2.0000 terminal=False candidate=10 + 4 + 1 + 1",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.5000 terminal=False candidate=(10 * 1) + (4 * 1)",
+    "NODE n0007 parent=n0002 score=0.0000 cum=1.0000 terminal=False candidate=(10 - 1) * (1 + 1) - 4",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.5000 terminal=False candidate=10 * (1 + 1) + 4 - 1",
+    "NODE n0009 parent=n0002 score=1.0000 cum=2.0000 terminal=False candidate=(4 + 1) * (10 / (1 + 1))",
+    "NODE n0010 parent=n0003 score=1.0000 cum=2.0000 terminal=False candidate=(10 + 4) * (1 + 1)",
+    "NODE n0011 parent=n0003 score=0.0000 cum=1.0000 terminal=False candidate=10 * (1 + 1 + 1) - 4",
+    "NODE n0012 parent=n0003 score=1.0000 cum=2.0000 terminal=False candidate=(10 - 1) * (4 - 1)",
+    "DEPTH 3 frontier=3",
+    "NODE n0013 parent=n0004 score=0.0000 cum=2.0000 terminal=False candidate=(10 - 1) * (1 + 1) + 4",
+    "NODE n0014 parent=n0004 score=0.5000 cum=2.5000 terminal=False candidate=10 * (4 - 1 - 1)",
+    "NODE n0015 parent=n0004 score=0.5000 cum=2.5000 terminal=False candidate=(4 * 10) - (1 + 1)",
+    "NODE n0016 parent=n0005 score=0.5000 cum=2.5000 terminal=False candidate=(10 + 1) * (1 + 1) - 4",
+    "NODE n0017 parent=n0005 score=0.5000 cum=2.5000 terminal=False candidate=10 * (1 + 1) + 4 * 1",
+    "NODE n0018 parent=n0005 score=0.0000 cum=2.0000 terminal=False candidate=(10 - 1) * 1 + 4 + 1",
+    "NODE n0019 parent=n0009 score=0.5000 cum=2.5000 terminal=False candidate=10 * (4 - 1) - 1 - 1",
+    "NODE n0020 parent=n0009 score=1.0000 cum=3.0000 terminal=False candidate=(10 - 1 - 1) * 4",
+    "NODE n0021 parent=n0009 score=0.0000 cum=2.0000 terminal=False candidate=(10 + 1) * 1 + 4 + 1",
+    "DEPTH 4 frontier=3",
+    "NODE n0022 parent=n0020 score=0.5000 cum=3.5000 terminal=False candidate=(10 + 4) * (1 + 1) / 1",
+    "NODE n0023 parent=n0020 score=0.5000 cum=3.5000 terminal=False candidate=(10 * 1 + 4) * (1 + 1)",
+    "NODE n0024 parent=n0020 score=0.5000 cum=3.5000 terminal=False candidate=(4 + 10) * 1 * (1 + 1)",
+    "NODE n0025 parent=n0014 score=0.0000 cum=2.5000 terminal=False candidate=(10 - 4) * (1 + 1 + 1)",
+    "NODE n0026 parent=n0015 score=0.0000 cum=2.5000 terminal=False candidate=(10 * 1 + 1) * (4 - 1)",
+    "NODE n0027 parent=n0015 score=0.0000 cum=2.5000 terminal=False candidate=(10 + 1) * (4 - 1) - 1",
+    "NODE n0028 parent=n0015 score=0.5000 cum=3.0000 terminal=False candidate=(10 + 1 + 1) * 4 / 1"
+  ]
+}

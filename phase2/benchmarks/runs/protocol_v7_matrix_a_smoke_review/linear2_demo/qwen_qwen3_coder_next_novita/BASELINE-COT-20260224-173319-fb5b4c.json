@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173319-fb5b4c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "x=-4.0,y=6.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        -3,
+        -10
+      ],
+      [
+        1,
+        4,
+        20
+      ]
+    ]
+  },
+  "item_id": "lin-v4-002",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2396,
+    "success": 1,
+    "tokens_in": 43,
+    "tokens_out": 132
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173319-fb5b4c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 4264802945,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:19Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the system:\n\n1) -2.0x - 3.0y = -10.0  \n2) 1.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \nx = 20.0 - 4.0y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 - 4y into Equation 1:\n\n-2(20 - 4y) - 3y = -10  \n\u2192 -40 + 8y - 3y = -10  \n\u2192 -40 + 5y = -10  \n\u2192 5y = 30  \n\u2192 y = 6.0\n\n**Step 3: Plug y = 6 into x = 20 - 4y**  \nx = 20 - 4(6) = 20 - 24 = -4.0\n\n**Check in Equation 1:**  \n-2(-4) - 3(6) = 8 - 18 = -10 \u2705  \nEquation 2: -4 + 4(6) = -4 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "FINAL: x=-4.0,y=6.0"
+  ]
+}

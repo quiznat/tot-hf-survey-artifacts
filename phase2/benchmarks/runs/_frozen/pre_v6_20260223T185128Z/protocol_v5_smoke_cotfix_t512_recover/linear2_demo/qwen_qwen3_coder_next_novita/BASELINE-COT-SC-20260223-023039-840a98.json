@@ -1,0 +1,91 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-023039-840a98.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "x=8.0,y=5.0",
+        5
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "x=8.0,y=5.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        5,
+        1,
+        45
+      ],
+      [
+        -9,
+        -7,
+        -107
+      ]
+    ]
+  },
+  "item_id": "lin-v4-010",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 18175,
+    "success": 1,
+    "tokens_in": 250,
+    "tokens_out": 943
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-023039-840a98",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4282970196,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T02:30:39Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: 5.0*x + 1.0*y = 45.0\nEquation 2: -9.0*x + -7.0*y = -107.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the system:\n\n1) $ 5.0x + 1.0y = 45.0 $  \n2) $ -9.0x - 7.0y = -107.0 $\n\nLet\u2019s solve using substitution or elimination. I\u2019ll use elimination.\n\nFrom Equation 1, solve for $ y $:\n\n$ y = 45.0 - 5.0x $\n\nNow substitute into Equation 2:\n\n$ -9.0x - 7.0(45.0 - 5.0x) = -107.0 $\n\nCompute:\n\n$ -9.0x - 7.0 \\cdot 45.0 + 7.0 \\cdot 5.0x = -107.0 $\n\n$ -9.0x - 315.0 + 35.0x = -107.0 $\n\nCombine like terms:\n\n$ ( -9.0 + 35.0 )x - 315.0 = -107.0 $  \n$ 26.0x - 315.0 = -107.0 $\n\nAdd 315.0 to both sides:\n\n$ 26.0x = 208.0 $\n\nDivide:\n\n$ x = \\frac{208.0}{26.0} = 8.0 $\n\nNow plug back into $ y = 45.0 - 5.0x $:\n\n$ y = 45.0 - 5.0 \\cdot 8.0 = 45.0 - 40.0 = 5.0 $\n\nCheck in Equation 2:\n\n$ -9.0(8.0) - 7.0(5.0) = -72.0 - 35.0 = -107.0 $ \u2705\n\nFINAL: x=8.0,y=5.0",
+    "SAMPLE 1 FINAL: x=8.0,y=5.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: 5.0*x + 1.0*y = 45.0\nEquation 2: -9.0*x + -7.0*y = -107.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the linear system:\n\n1) $ 5.0x + 1.0y = 45.0 $  \n2) $ -9.0x - 7.0y = -107.0 $\n\nLet\u2019s solve step by step.\n\n### Step 1: Solve Equation 1 for $ y $\nFrom Equation 1:\n$$\n5x + y = 45 \\Rightarrow y = 45 - 5x\n$$\n\n### Step 2: Substitute into Equation 2\nSubstitute $ y = 45 - 5x $ into Equation 2:\n\n$$\n-9x - 7(45 - 5x) = -107\n$$\n\nDistribute the -7:\n\n$$\n-9x - 315 + 35x = -107\n$$\n\nCombine like terms:\n\n$$\n( -9x + 35x ) - 315 = -107 \\Rightarrow 26x - 315 = -107\n$$\n\nAdd 315 to both sides:\n\n$$\n26x = 208\n$$\n\nDivide by 26:\n\n$$\nx = \\frac{208}{26} = 8\n$$\n\n### Step 3: Find $ y $\nRecall $ y = 45 - 5x $:\n\n$$\ny = 45 - 5(8) = 45 - 40 = 5\n$$\n\n### Final check:\nPlug $ x = 8, y = 5 $ into Equation 2:\n\n$$\n-9(8) - 7(5) = -72 - 35 = -107 \\quad \\text{\u2713}\n$$\n\n\u2705 Both equations satisfied.\n\nFINAL: x=8.0,y=5.0",
+    "SAMPLE 2 FINAL: x=8.0,y=5.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: 5.0*x + 1.0*y = 45.0\nEquation 2: -9.0*x + -7.0*y = -107.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the linear system:\n\n1) $ 5.0x + 1.0y = 45.0 $  \n2) $ -9.0x - 7.0y = -107.0 $\n\nLet\u2019s solve step by step.\n\n### Step 1: Solve Equation 1 for $ y $\nFrom Equation 1:\n$$\n5x + y = 45 \\Rightarrow y = 45 - 5x\n$$\n\n### Step 2: Substitute into Equation 2\nSubstitute $ y = 45 - 5x $ into Equation 2:\n$$\n-9x - 7(45 - 5x) = -107\n$$\n\nDistribute the -7:\n$$\n-9x - 315 + 35x = -107\n$$\n\nCombine like terms:\n$$\n( -9x + 35x ) - 315 = -107 \\Rightarrow 26x - 315 = -107\n$$\n\nAdd 315 to both sides:\n$$\n26x = 208\n$$\n\nDivide by 26:\n$$\nx = \\frac{208}{26} = 8\n$$\n\n### Step 3: Find $ y $\nRecall $ y = 45 - 5x $:\n$$\ny = 45 - 5(8) = 45 - 40 = 5\n$$\n\n### Final check:\nPlug $ x = 8, y = 5 $ into Equation 2:\n$$\n-9(8) - 7(5) = -72 - 35 = -107 \\quad \\text{\u2713}\n$$\n\n\u2705 Both equations satisfied.\n\nFINAL: x=8.0,y=5.0",
+    "SAMPLE 3 FINAL: x=8.0,y=5.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: 5.0*x + 1.0*y = 45.0\nEquation 2: -9.0*x + -7.0*y = -107.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the linear system:\n\n1) $ 5.0x + 1.0y = 45.0 $  \n2) $ -9.0x - 7.0y = -107.0 $\n\nLet\u2019s solve step by step.\n\n### Step 1: Solve Equation 1 for $ y $\nFrom Equation 1:\n$$\n5x + y = 45 \\Rightarrow y = 45 - 5x\n$$\n\n### Step 2: Substitute into Equation 2\nSubstitute $ y = 45 - 5x $ into Equation 2:\n\n$$\n-9x - 7(45 - 5x) = -107\n$$\n\nDistribute the -7:\n$$\n-9x - 315 + 35x = -107\n$$\n\nCombine like terms:\n$$\n( -9x + 35x ) - 315 = -107 \\Rightarrow 26x - 315 = -107\n$$\n\nAdd 315 to both sides:\n$$\n26x = 208\n$$\n\nDivide by 26:\n$$\nx = \\frac{208}{26} = 8\n$$\n\n### Step 3: Find $ y $\nRecall $ y = 45 - 5x $, so:\n$$\ny = 45 - 5(8) = 45 - 40 = 5\n$$\n\n### Final check:\nPlug $ x = 8, y = 5 $ into Equation 2:\n$$\n-9(8) - 7(5) = -72 - 35 = -107 \\quad \\text{\u2713}\n$$\n\n\u2705 Both equations satisfied.\n\nFINAL: x=8.0,y=5.0",
+    "SAMPLE 4 FINAL: x=8.0,y=5.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: 5.0*x + 1.0*y = 45.0\nEquation 2: -9.0*x + -7.0*y = -107.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the linear system:\n\n1) $ 5.0x + 1.0y = 45.0 $  \n2) $ -9.0x - 7.0y = -107.0 $\n\nLet\u2019s solve step by step.\n\n### Step 1: Solve Equation 1 for $ y $\nFrom Equation 1:\n$$\n5x + y = 45 \\Rightarrow y = 45 - 5x\n$$\n\n### Step 2: Substitute into Equation 2\nSubstitute $ y = 45 - 5x $ into Equation 2:\n\n$$\n-9x - 7(45 - 5x) = -107\n$$\n\nDistribute the -7:\n$$\n-9x - 315 + 35x = -107\n$$\n\nCombine like terms:\n$$\n( -9x + 35x ) - 315 = -107 \\Rightarrow 26x - 315 = -107\n$$\n\nAdd 315 to both sides:\n$$\n26x = 208\n$$\n\nDivide by 26:\n$$\nx = \\frac{208}{26} = 8\n$$\n\n### Step 3: Find $ y $\nRecall $ y = 45 - 5x $, so:\n$$\ny = 45 - 5(8) = 45 - 40 = 5\n$$\n\n### Final check:\nPlug $ x = 8, y = 5 $ into Equation 2:\n$$\n-9(8) - 7(5) = -72 - 35 = -107 \\quad \\text{\u2713}\n$$\n\n\u2705 Both equations satisfied.\n\nFINAL: x=8.0,y=5.0",
+    "SAMPLE 5 FINAL: x=8.0,y=5.0",
+    "VOTE SUMMARY: x=8.0,y=5.0 -> 5",
+    "VOTE WINNER: x=8.0,y=5.0 (5/5)"
+  ]
+}

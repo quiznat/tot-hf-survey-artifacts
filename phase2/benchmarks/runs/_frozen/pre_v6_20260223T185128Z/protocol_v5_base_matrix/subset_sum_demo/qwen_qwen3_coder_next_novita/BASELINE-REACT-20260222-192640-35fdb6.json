@@ -1,0 +1,72 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192640-35fdb6.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "13 + 18 + 18 = 49",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      10,
+      13,
+      15,
+      18,
+      18,
+      22
+    ],
+    "target": 49
+  },
+  "item_id": "ss-v4-017",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 23078,
+    "success": 0,
+    "tokens_in": 1056,
+    "tokens_out": 318
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192640-35fdb6",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2665344419,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:26:40Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers [6, 7, 10, 13, 15, 18, 18, 22] that sums to the target 49. Since no tools are available, I need to solve this manually using reasoning.\n\nLet me list the numbers: 6, 7, 10, 13, 15, 18, 18, 22.\n\nTotal sum of all numbers: 6+7=13, +10=23, +13=36, +15=51, +18=69, +18=87, +22=109. So total is 109.\n\nWe need subset sum = 49.\n\nLet me try combinations:\n\nStart with largest number 22:",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue exploring subsets that sum to 49. Starting with 22 (largest), remaining needed = 49 - 22 = 27. Now find subset of remaining [6,7,10,13,15,18,18] that sums to 27.\n\nTry 18: 27 - 18 = 9. Need 9 from [6,7,10,13,15,18] (excluding one 18). 6+7=13 too big, 6 alone=6, 7 alone=7 \u2014 no 9.\n\nTry another 18: same issue.\n\nTry 15: 27 - 15 = 12. Need 12 from remaining: 6+7=13 too big, 6+? no 6 only",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's continue exploring subsets that sum to 49. Starting with 22, remaining needed = 27. Try 13: 27 - 13 = 14. Need 14 from remaining numbers (excluding 22 and 13): [6,7,10,15,18,18]. 6+7=13, close; 6+10=16 too big; 7+10=17 too big \u2014 no 14.\n\nTry 10: 27 - 10 = 17. Need 17 from [6,7,13,15,18,18]. 6+7+? =13, need 4 more \u2014 no. 7+13=20 too big; 6+13=19;",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let's try a different starting point. Instead of 22, try without 22 first. Target = 49. Try including both 18s: 18+18=36, remaining needed = 13. Is 13 in the list? Yes! So 18 + 18 + 13 = 49. Let's verify: 18 + 18 = 36, 36 + 13 = 49. All numbers are in the list: [6, 7, 10, 13, 15, 18, 18, 22] \u2014 yes, two 18s and one 13 are present. So subset {13, 18, 18} sums to 49.",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: FINAL: 13 + 18 + 18 = 49"
+  ]
+}

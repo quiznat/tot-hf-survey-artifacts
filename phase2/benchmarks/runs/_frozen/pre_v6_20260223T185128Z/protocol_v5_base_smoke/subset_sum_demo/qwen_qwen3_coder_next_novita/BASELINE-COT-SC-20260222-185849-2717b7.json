@@ -1,0 +1,105 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260222-185849-2717b7.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37.  \nCheck availability: 20 and 17 each appear once \u2192 valid.\n\nAlternative:  \n19 + 18 = 37 \u2192 both present (19 appears twice, 18 once) \u2192 also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,1",
+        1
+      ],
+      [
+        "We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! That\u2019s exactly 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo the solution is: 20,17\n\nWe could also check other possibilities for completeness, but since the problem only requires *one* valid subset, and 20 + 17 = 37 works, that\u2019s sufficient.\n\nOther possibilities?  \n19 +",
+        1
+      ],
+      [
+        "We need to find a subset of the numbers [10, 13, 14, 17, 18, 19, 19, 20] that sums to 37, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to see if we can get close:\n\n- 20 + 17 = 37 \u2192 perfect! Both 20 and 17 are in the list.\n\nCheck: 20 + 17 = 37 \u2705\n\nAre both numbers available? Yes \u2014 list has 20 and 17.\n\nSo the solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is fine).\n\nLet\u2019s verify no duplicates needed \u2014 only one 17 and one 20 in the list.\n\nThus, valid subset: [1",
+        1
+      ],
+      [
+        "We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! 20 + 17 = 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo one valid solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is cleaner).\n\nLet\u2019s verify no duplicates needed: we\u2019re only using each once \u2014 fine.\n\nAny other combinations? Let\u2019s",
+        1
+      ],
+      [
+        "We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 37.\n\nTry 20 + 17 = 37 \u2192 perfect!  \nCheck: 20 and 17 are both in the list. Yes.\n\nSo 20 + 17 = 37.\n\nAre there other possibilities? Let\u2019s verify uniqueness:  \nList has two 19s, but 19 + 18 = 37 \u2192 also valid!  \n19 + 18 = 37 \u2014 and both 19 and 18 are present (we have two 19s, so one 19 is fine",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37.  \nCheck availability: 20 and 17 each appear once \u2192 valid.\n\nAlternative:  \n19 + 18 = 37 \u2192 both present (19 appears twice, 18 once) \u2192 also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      10,
+      13,
+      14,
+      17,
+      18,
+      19,
+      19,
+      20
+    ],
+    "target": 37
+  },
+  "item_id": "ss-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11373,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 531
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260222-185849-2717b7",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 581773520,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T18:58:49Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37.  \nCheck availability: 20 and 17 each appear once \u2192 valid.\n\nAlternative:  \n19 + 18 = 37 \u2192 both present (19 appears twice, 18 once) \u2192 also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,1",
+    "SAMPLE 1 FINAL: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37.  \nCheck availability: 20 and 17 each appear once \u2192 valid.\n\nAlternative:  \n19 + 18 = 37 \u2192 both present (19 appears twice, 18 once) \u2192 also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,1",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! That\u2019s exactly 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo the solution is: 20,17\n\nWe could also check other possibilities for completeness, but since the problem only requires *one* valid subset, and 20 + 17 = 37 works, that\u2019s sufficient.\n\nOther possibilities?  \n19 +",
+    "SAMPLE 2 FINAL: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! That\u2019s exactly 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo the solution is: 20,17\n\nWe could also check other possibilities for completeness, but since the problem only requires *one* valid subset, and 20 + 17 = 37 works, that\u2019s sufficient.\n\nOther possibilities?  \n19 +",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We need to find a subset of the numbers [10, 13, 14, 17, 18, 19, 19, 20] that sums to 37, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to see if we can get close:\n\n- 20 + 17 = 37 \u2192 perfect! Both 20 and 17 are in the list.\n\nCheck: 20 + 17 = 37 \u2705\n\nAre both numbers available? Yes \u2014 list has 20 and 17.\n\nSo the solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is fine).\n\nLet\u2019s verify no duplicates needed \u2014 only one 17 and one 20 in the list.\n\nThus, valid subset: [1",
+    "SAMPLE 3 FINAL: We need to find a subset of the numbers [10, 13, 14, 17, 18, 19, 19, 20] that sums to 37, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to see if we can get close:\n\n- 20 + 17 = 37 \u2192 perfect! Both 20 and 17 are in the list.\n\nCheck: 20 + 17 = 37 \u2705\n\nAre both numbers available? Yes \u2014 list has 20 and 17.\n\nSo the solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is fine).\n\nLet\u2019s verify no duplicates needed \u2014 only one 17 and one 20 in the list.\n\nThus, valid subset: [1",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! 20 + 17 = 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo one valid solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is cleaner).\n\nLet\u2019s verify no duplicates needed: we\u2019re only using each once \u2014 fine.\n\nAny other combinations? Let\u2019s",
+    "SAMPLE 4 FINAL: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! 20 + 17 = 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo one valid solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is cleaner).\n\nLet\u2019s verify no duplicates needed: we\u2019re only using each once \u2014 fine.\n\nAny other combinations? Let\u2019s",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [10, 13, 14, 17, 18, 19, 19, 20]\nTarget: 37\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 37.\n\nTry 20 + 17 = 37 \u2192 perfect!  \nCheck: 20 and 17 are both in the list. Yes.\n\nSo 20 + 17 = 37.\n\nAre there other possibilities? Let\u2019s verify uniqueness:  \nList has two 19s, but 19 + 18 = 37 \u2192 also valid!  \n19 + 18 = 37 \u2014 and both 19 and 18 are present (we have two 19s, so one 19 is fine",
+    "SAMPLE 5 FINAL: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 37.\n\nTry 20 + 17 = 37 \u2192 perfect!  \nCheck: 20 and 17 are both in the list. Yes.\n\nSo 20 + 17 = 37.\n\nAre there other possibilities? Let\u2019s verify uniqueness:  \nList has two 19s, but 19 + 18 = 37 \u2192 also valid!  \n19 + 18 = 37 \u2014 and both 19 and 18 are present (we have two 19s, so one 19 is fine",
+    "VOTE SUMMARY: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37.  \nCheck availability: 20 and 17 each appear once \u2192 valid.\n\nAlternative:  \n19 + 18 = 37 \u2192 both present (19 appears twice, 18 once) \u2192 also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,1 -> 1, We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! That\u2019s exactly 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo the solution is: 20,17\n\nWe could also check other possibilities for completeness, but since the problem only requires *one* valid subset, and 20 + 17 = 37 works, that\u2019s sufficient.\n\nOther possibilities?  \n19 + -> 1, We need to find a subset of the numbers [10, 13, 14, 17, 18, 19, 19, 20] that sums to 37, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to see if we can get close:\n\n- 20 + 17 = 37 \u2192 perfect! Both 20 and 17 are in the list.\n\nCheck: 20 + 17 = 37 \u2705\n\nAre both numbers available? Yes \u2014 list has 20 and 17.\n\nSo the solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is fine).\n\nLet\u2019s verify no duplicates needed \u2014 only one 17 and one 20 in the list.\n\nThus, valid subset: [1 -> 1, We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if we can reach 37.\n\nTry 20 + 17 = 37 \u2192 Yes! 20 + 17 = 37.\n\nCheck if both numbers are in the list:  \n20 is present once, 17 is present once \u2192 valid.\n\nSo one valid solution is: 17,20 (or 20,17 \u2014 order doesn\u2019t matter, but typically ascending is cleaner).\n\nLet\u2019s verify no duplicates needed: we\u2019re only using each once \u2014 fine.\n\nAny other combinations? Let\u2019s -> 1, We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget sum: 37  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 37.\n\nTry 20 + 17 = 37 \u2192 perfect!  \nCheck: 20 and 17 are both in the list. Yes.\n\nSo 20 + 17 = 37.\n\nAre there other possibilities? Let\u2019s verify uniqueness:  \nList has two 19s, but 19 + 18 = 37 \u2192 also valid!  \n19 + 18 = 37 \u2014 and both 19 and 18 are present (we have two 19s, so one 19 is fine -> 1",
+    "VOTE WINNER: We are given the list: [10, 13, 14, 17, 18, 19, 19, 20]  \nTarget: 37  \nWe need to select one or more numbers (each used at most once) that sum to 37.\n\nLet\u2019s try combinations:\n\nStart with larger numbers and see if complements exist.\n\nTry 20:  \n37 - 20 = 17 \u2192 Is 17 in the list? Yes.  \nSo 20 + 17 = 37.  \nCheck availability: 20 and 17 each appear once \u2192 valid.\n\nAlternative:  \n19 + 18 = 37 \u2192 both present (19 appears twice, 18 once) \u2192 also valid.\n\nSo two possible solutions:  \n- 17,20  \n- 18,1 (1/5)"
+  ]
+}

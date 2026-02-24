@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173428-add502.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "88",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3613,
+    "success": 0,
+    "tokens_in": 41,
+    "tokens_out": 293
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173428-add502",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:28Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the digits: [6, 6, 8, 4], and we need to form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 4**.\n\n---\n\n### Step 1: Divisibility Rule for 4\nA number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, we need to consider all possible 2-digit endings made from the digits [6, 6, 8, 4], using each digit only once in the full 4-digit number (i.e., no repetition beyond what's provided \u2014 we have two 6s, one 8, one 4).\n\nLet\u2019s list all possible **distinct 2-digit endings** (tens and units digits) using the available digits (with at most two 6s, one 8, one 4), and check which are divisible by 4.\n\nPossible 2-digit combinations (order matters, and digits can repeat only as allowed):\n\n- 66 \u2192 66 \u00f7 4 = 16.5 \u2192 not divisible  \n- 68 \u2192 68 \u00f7 4 = 17 \u2192 \u2705 divisible  \n- 64 \u2192 64 \u00f7 4 = 16 \u2192 \u2705 divisible  \n- 86 \u2192 86 \u00f7 4 = 21.5 \u2192 \u274c  \n- 84 \u2192 84 \u00f7 4 = 21 \u2192 \u2705  \n- 46 \u2192 46 \u00f7 4 = 11.5 \u2192 \u274c  \n- 48 \u2192 48 \u00f7 4 = 12 \u2192 \u2705  \n- 88 \u2192 not possible (only one 8)  \n- 44 \u2192 not possible (only one 4)  \n- 66 already considered  \n- 46, 48, etc.\n\nSo valid endings (divisible by 4) using available digits:\n- 68 (uses 6 and 8)\n- 64 (uses 6 and 4)\n- 84 (uses 8 and 4)\n- 48 (uses 4 and 8)\n\nNote: For 68 and 64, we have two 6s, so using one 6 is fine.\n\nNow",
+    "FINAL: 88"
+  ]
+}

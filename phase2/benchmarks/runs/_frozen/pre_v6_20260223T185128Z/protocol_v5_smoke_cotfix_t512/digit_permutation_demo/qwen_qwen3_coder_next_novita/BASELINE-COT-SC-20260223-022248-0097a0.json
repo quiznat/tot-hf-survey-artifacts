@@ -1,0 +1,86 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-022248-0097a0.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "12",
+        5
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "12",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 39890,
+    "success": 0,
+    "tokens_in": 240,
+    "tokens_out": 1274
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-022248-0097a0",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:22:48Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, define:\n- Sum of digits in odd positions (1st and 3rd): $ S_{\\text{odd}} = a + c $\n- Sum of digits in even positions (2nd and 4th): $ S_{\\text{even}} = b + d $\n\nWe need:  \n$$\nS_{\\text{odd}} - S_{\\text{even}} \\equiv 0 \\pmod{11}\n\\Rightarrow S_{\\text{odd}} = S_{\\text{even}} \\quad \\text{or} \\quad S_{\\text{odd}} - S_{\\text{even}} = \\pm 11, \\pm 22, \\dots\n$$\n\nBut total sum of all digits is:\n$$\n4 + 2 + 2 + 4 = 12\n\\Rightarrow S_{\\text{odd}} + S_{\\text{even}} = 12\n$$\n\nSo we need:\n- $ S_{\\text{odd}} - S_{\\text{even}} = 0 $ \u2192 then $ S_{\\text{odd}} = S_{\\text{even}} = 6 $\n- Or $ S_{\\text{odd}} - S_{\\text{even}} = 11 $ \u2192 then solving with sum = 12 gives:\n  - $ S_{\\text{odd}} = (12 + 11)/2 = 11.5 $ \u2192 not integer \u2192 impossible\n- Or $ S_{\\text{odd}} - S_{\\text{even}} = -11 $ \u2192 $ S_{\\text{odd}} = (12 - 11)/2 = 0.5 $ \u2192",
+    "SAMPLE 1 FINAL: 12",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, define:\n- Sum of digits in odd positions (1st and 3rd): $ S_{\\text{odd}} = a + c $\n- Sum of digits in even positions (2nd and 4th): $ S_{\\text{even}} = b + d $\n\nWe need:  \n$$\nS_{\\text{odd}} - S_{\\text{even}} \\equiv 0 \\pmod{11}\n\\Rightarrow S_{\\text{odd}} = S_{\\text{even}} \\quad \\text{or} \\quad S_{\\text{odd}} - S_{\\text{even}} = \\pm 11, \\pm 22, \\dots\n$$\n\nBut total sum of all digits:  \n$ 4 + 2 + 2 + 4 = 12 $  \nSo $ S_{\\text{odd}} + S_{\\text{even}} = 12 $\n\nLet\u2019s solve:\n- $ S_{\\text{odd}} - S_{\\text{even}} = 0 \\Rightarrow S_{\\text{odd}} = S_{\\text{even}} = 6 $\n- $ S_{\\text{odd}} - S_{\\text{even}} = 11 \\Rightarrow S_{\\text{odd}} = 11.5 $ \u2192 impossible (not integer)\n- $ S_{\\text{odd}} - S_{\\text{even}} = -11 \\Rightarrow S_{\\text{odd}} = 0.5 $ \u2192 impossible\n\nSo only possible case:  \n**$ S_{\\text{odd}} = S_{\\text{even}} = 6 $**\n\nSo we need to split the digits into",
+    "SAMPLE 2 FINAL: 12",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 if the **alternating sum** of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right), compute:  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo we need:  \n$$\n(a + c) - (b + d) = 0 \\quad \\text{or} \\pm 11, \\pm 22, \\dots\n$$  \nBut since digits are small (max digit = 4), the max possible sum of two digits is $4 + 4 = 8$, min is $2 + 2 = 4$. So possible values for $(a + c) - (b + d)$ range from $-4$ to $+4$. So only possible multiple of 11 in that range is **0**.\n\nThus, we require:  \n$$\na + c = b + d\n$$\n\nSo the sum of digits in odd positions (1st and 3rd) must equal the sum of digits in even positions (2nd and 4th).\n\n---\n\n### Step 2: Total digit sum  \nDigits: 4, 2, 2, 4 \u2192 total sum = $4 + 2 + 2 + 4 = 12$  \nSince $a + c = b + d$, and $a + c + b + d = 12$, then each pair must sum to $6$.\n\nSo we need to partition the digits into two pairs, each summing to 6.\n\nLet\u2019s find all possible pairs from [4, 2, 2, 4] that sum to 6:\n\n- 4 + 2 = 6  \nWe have two 4s and two 2s, so we can make two such pairs: (4,2) and (4,2)\n\nSo the only way to split into two pairs summing to 6 is:  \nOne pair for positions (",
+    "SAMPLE 3 FINAL: 12",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 if the **alternating sum** of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, define:\n- Sum of digits in odd positions (1st and 3rd): $ S_{\\text{odd}} = a + c $\n- Sum of digits in even positions (2nd and 4th): $ S_{\\text{even}} = b + d $\n\nWe need:  \n$$\nS_{\\text{odd}} - S_{\\text{even}} \\equiv 0 \\pmod{11}\n\\Rightarrow S_{\\text{odd}} = S_{\\text{even}} \\quad \\text{or} \\quad S_{\\text{odd}} - S_{\\text{even}} = \\pm 11, \\pm 22, \\dots\n$$\n\nBut total sum of all digits is:\n$$\n4 + 2 + 2 + 4 = 12\n\\Rightarrow S_{\\text{odd}} + S_{\\text{even}} = 12\n$$\n\nSo we need:\n- $ S_{\\text{odd}} - S_{\\text{even}} = 0 $ \u2192 then $ S_{\\text{odd}} = S_{\\text{even}} = 6 $\n- Or $ S_{\\text{odd}} - S_{\\text{even}} = 11 $ \u2192 then solving with sum = 12 gives:\n  $$\n  S_{\\text{odd}} = \\frac{12 + 11}{2} = 11.5 \\quad \\text{(not integer)}\n  $$\n- Or $ S_{\\text{odd}} - S_{\\text{even}} = -11 $ \u2192 $ S_{\\text{odd}} = \\frac{12 -",
+    "SAMPLE 4 FINAL: 12",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, define:\n- Sum of digits in odd positions (1st and 3rd): $ S_{\\text{odd}} = a + c $\n- Sum of digits in even positions (2nd and 4th): $ S_{\\text{even}} = b + d $\n\nWe need:  \n$$\nS_{\\text{odd}} - S_{\\text{even}} \\equiv 0 \\pmod{11}\n\\Rightarrow S_{\\text{odd}} = S_{\\text{even}} \\quad \\text{or} \\quad S_{\\text{odd}} - S_{\\text{even}} = \\pm 11, \\pm 22, \\dots\n$$\n\nBut total sum of all digits is:\n$$\n4 + 2 + 2 + 4 = 12\n\\Rightarrow S_{\\text{odd}} + S_{\\text{even}} = 12\n$$\n\nSo we need:\n- $ S_{\\text{odd}} - S_{\\text{even}} = 0 $ \u2192 then $ S_{\\text{odd}} = S_{\\text{even}} = 6 $\n- Or $ S_{\\text{odd}} - S_{\\text{even}} = 11 $ \u2192 then solving with sum = 12 gives:\n  $$\n  S_{\\text{odd}} = \\frac{12 + 11}{2} = 11.5 \\quad \\text{(not integer)}\n  $$\n- Or $ S_{\\text{odd}} - S_{\\text{even}} = -11 $ \u2192 $ S_{\\text{odd}} = \\frac{12 - 1",
+    "SAMPLE 5 FINAL: 12",
+    "VOTE SUMMARY: 12 -> 5",
+    "VOTE WINNER: 12 (5/5)"
+  ]
+}

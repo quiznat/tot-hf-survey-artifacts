@@ -1,0 +1,138 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-205015-74fa2b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "- (28 - 4",
+        2
+      ],
+      [
+        "- ( 28 - 4",
+        1
+      ],
+      [
+        "- ( 12 * 2",
+        1
+      ],
+      [
+        "- ( 36 - 12",
+        1
+      ],
+      [
+        "- (7 * (5 - 1) - 3 - 1",
+        1
+      ],
+      [
+        "- (7 * 3 - (5 - 1)",
+        1
+      ],
+      [
+        "- ((7 - 1) * (5 - 3)",
+        1
+      ],
+      [
+        "(7 + 5) * (3 - 1)",
+        1
+      ],
+      [
+        "- (5 * (7 - 3) + 1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "- (28 - 4",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    7,
+    3,
+    5,
+    1
+  ],
+  "item_id": "g24-v4-008",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 40685,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2489
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-205015-74fa2b",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4294637542,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:50:15Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve this, we need to use each number exactly once and combine them using arithmetic operations to get 24.\n\nLet's consider the numbers: 7, 3, 5, 1.\n\n1. We can start by trying to multiply or divide to get close to 24.\n2. One approach is to use multiplication and addition/subtraction to reach the target.\n\nLet's try:\n- \\( 7 \\times 3 = 21 \\)\n- Now we need 3 more to reach 24. We have 5 and 1 left.\n- \\( 5 - 1 = 4 \\)\n- Adding 4 to 21 gives us 25, which is too much.\n\nAnother approach:\n- \\( 7 \\times (5 - 3) = 7 \\times 2 = 14 \\)\n- Now we need 10 more to reach 24. We have 1 left.\n- \\( 14 + 10 = 24 \\) but we don't have 10.\n\nAnother approach:\n- \\( 7 \\times 3 = 21 \\)\n- \\( 5 - 1 = 4 \\)\n- \\( 21 + 4 = 25 \\) which is too much.\n\nFinally, let's try:\n- \\( 7 \\times (5 - 1) = 7 \\times 4 = 28 \\)\n- \\( 28 - 4 = 24 \\)\n\nThis works! So the final expression is:\n\nFINAL: \\( 7 \\times (5 - 1) - 3 \\)",
+    "SAMPLE 1 FINAL: - ( 28 - 4",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To achieve 24 using the numbers 7, 3, 5, and 1 exactly once, let's explore different combinations of arithmetic operations.\n\n1. Start with multiplication and division:\n   - \\(7 \\times 3 = 21\\)\n   - \\(5 - 1 = 4\\)\n   - \\(21 + 4 = 25\\) (not 24)\n\n2. Try different groupings:\n   - \\(7 \\times (5 - 3) = 7 \\times 2 = 14\\)\n   - \\(14 + 10\\) (need 10 more to reach 24)\n\n3. Explore other operations:\n   - \\(7 \\times 3 = 21\\)\n   - \\(5 + 1 = 6\\)\n   - \\(21 + 3\\) (not 24)\n\n4. Combine addition and subtraction:\n   - \\(7 \\times (5 - 1) = 7 \\times 4 = 28\\)\n   - \\(28 - 4\\) (not 24)\n\n5. Use division:\n   - \\(7 \\times 3 = 21\\)\n   - \\(21 + 3\\) (not 24)\n\n6. Finally, try:\n   - \\(7 \\times (5 - 1) = 7 \\times 4 = 28\\)\n   - \\(28 - 4 = 24\\)\n\nAfter checking all these combinations, the correct expression is:\n\nFINAL: \\(7 \\times (5 - 1) - 3\\)",
+    "SAMPLE 2 FINAL: - (28 - 4",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To solve this problem, we need to use each number exactly once (7, 3, 5, 1) and combine them using arithmetic operations to get the result of 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Try different combinations**:\n   - Start with multiplication and division since they can quickly scale numbers up or down.\n   - Consider the target number 24 and how it can be formed from the given numbers.\n\nLet's try some combinations:\n- \\( 7 \\times 3 = 21 \\) (close to 24, but we need 3 more)\n- \\( 21 + 5 = 26 \\) (too high)\n- \\( 21 + 1 = 22 \\) (still not 24)\n\nAnother approach:\n- \\( 5 \\times 3 = 15 \\)\n- \\( 15 + 7 = 22 \\)\n- \\( 22 + 1 = 23 \\) (still not 24)\n\nLet's try another combination:\n- \\( 7 \\times (3 + 1) = 7 \\times 4 = 28 \\) (too high)\n- \\( 28 - 5 = 23 \\) (still not 24)\n\nFinally, let's try:\n- \\( 5 \\times (7 - 3) = 5 \\times 4 = 20 \\)\n- \\( 20 + 4 = 24 \\) (but we need to use 1)\n\nLet's correct the last step:\n- \\( 5 \\times (7 - 3) = 5 \\times 4 = 20 \\)\n- \\( 20 + 4 = 24 \\) (but we need to use 1, so adjust)\n- \\( 5 \\times (7 - 3) + 1 = 20 + 1 = 21 \\) (still not 24)\n\nFinal correct combination:\n- \\( (7 - 1) \\times (5 - 3) = 6 \\times 2 = 12 \\)\n- \\( 12 \\times 2 = 24 \\)\n\nHowever, we need to use all numbers exactly once. Let's try another approach:\n- \\( (7 -",
+    "SAMPLE 3 FINAL: - ( 12 * 2",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use each of the numbers 7, 3, 5, and 1 exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Try different combinations**:\n   - Start with multiplication since it can quickly increase the value.\n   - Consider using division to adjust the result if necessary.\n\nLet's try a few combinations:\n\n- \\( 7 \\times 3 = 21 \\)\n  - We need 3 more to reach 24. Can we use 5 and 1 to get 3?\n  - \\( 5 - 1 = 4 \\) (not 3, so this doesn't work)\n\n- \\( 7 \\times 5 = 35 \\)\n  - We need to reduce 35 to 24. Can we use 3 and 1 to reduce 35 by 11?\n  - \\( 35 - 11 = 24 \\)\n  - \\( 3 + 1 = 4 \\) (not 11, so this doesn't work)\n\n- \\( 7 \\times (5 - 3) = 7 \\times 2 = 14 \\)\n  - We need 10 more to reach 24. Can we use 1 to get 10?\n  - \\( 14 + 10 = 24 \\)\n  - \\( 10 = 10 \\) (but we only have 1 left, so this doesn't work)\n\n- \\( (7 + 5) \\times 3 = 12 \\times 3 = 36 \\)\n  - We need to reduce 36 to 24. Can we use 1 to reduce 36 by 12?\n  - \\( 36 - 12 = 24 \\)\n  - \\( 12 = 12 \\) (but we only have 1 left, so this doesn't work)\n\n- \\( (7 - 1) \\times (5 - 3) = 6 \\times 2 = 12 \\)\n  - We need 12 more to reach 24. Can we use 3 and 5 to get 12?\n  - \\( 12 + 12 =",
+    "SAMPLE 4 FINAL: - ( 36 - 12",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this problem, we need to use each of the numbers 7, 3, 5, and 1 exactly once to produce the number 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with basic combinations**:\n   - \\(7 \\times 3 = 21\\)\n   - \\(5 + 1 = 6\\)\n   - \\(21 + 6 = 27\\) (too high)\n3. **Try different groupings**:\n   - \\(7 \\times (5 - 1) = 7 \\times 4 = 28\\) (too high)\n   - \\(7 \\times 3 = 21\\)\n   - \\(21 + 5 - 1 = 25\\) (too high)\n4. **Re-evaluate with division**:\n   - \\(7 \\times 3 = 21\\)\n   - \\(21 + 5 / 1 = 21 + 5 = 26\\) (too high)\n5. **Combine in a different order**:\n   - \\(7 \\times (5 - 1) = 28\\) (too high)\n   - \\(7 \\times 3 = 21\\)\n   - \\(21 + 5 - 1 = 25\\) (too high)\n6. **Final attempt**:\n   - \\(7 \\times (3 + 1) = 7 \\times 4 = 28\\) (too high)\n   - \\(7 \\times 3 + 5 - 1 = 21 + 5 - 1 = 25\\) (too high)\n   - \\(7 \\times (5 - 1) + 3 = 28 + 3 = 31\\) (too high)\n   - \\(7 \\times (5 - 1) - 3 = 28 - 3 = 25\\) (too high)\n   - \\(7 \\times (5 - 1) - 3 + 1 = 28 - 3 + 1 = 26\\) (too high)\n   - \\(7 \\times (5 - 1) - 3 - 1 = 28 - 3 - 1 = 24\\) (correct)\n\nAfter several attempts, we find that",
+    "SAMPLE 5 FINAL: - (7 * (5 - 1) - 3 - 1",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use each of the numbers 7, 3, 5, and 1 exactly once to produce the result 24. Let's break it down step by step:\n\n1. **Consider different operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with larger numbers**: Since 24 is a relatively large number, we might want to start with multiplication involving the larger numbers.\n3. **Try combinations**:\n   - \\(7 \\times 3 = 21\\)\n   - Adding 5 and 1 to 21 doesn't work directly, so let's try other combinations.\n   - \\(7 \\times (5 - 3) = 7 \\times 2 = 14\\)\n   - Adding 1 to 14 gives 15, which is not 24.\n   - \\(7 \\times (5 + 1) = 7 \\times 6 = 42\\)\n   - Subtracting 3 from 42 gives 39, which is not 24.\n   - \\(7 \\times 5 = 35\\)\n   - Subtracting 3 and 1 from 35 gives 31, which is not 24.\n   - \\(7 \\times 3 + 5 - 1 = 21 + 5 - 1 = 25\\)\n   - This is close but not 24.\n   - \\(7 \\times (3 + 1) = 7 \\times 4 = 28\\)\n   - Subtracting 5 from 28 gives 23, which is not 24.\n   - \\(7 + 3 + 5 + 1 = 16\\)\n   - This is not 24.\n   - \\(7 \\times 3 - (5 - 1) = 21 - 4 = 17\\)\n   - This is not 24.\n   - \\(7 \\times (3 + 1) - 5 = 28 - 5 = 23\\)\n   - This is not 24.\n   - \\(7 \\times 3 + (5 - 1) = 21 + 4 = 25\\)\n   - This is close but not 24.\n   - \\(7 \\times (5 - 1) +",
+    "SAMPLE 6 FINAL: - (7 * 3 - (5 - 1)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use each of the numbers [7, 3, 5, 1] exactly once to produce the result 24. Let's think through the possible operations and combinations step by step:\n\n1. **Multiplication and Addition/Subtraction:**\n   - \\(7 \\times 3 = 21\\)\n   - \\(21 + 5 = 26\\) (too high)\n   - \\(21 - 5 = 16\\) (too low)\n   - \\(21 + 1 = 22\\) (too low)\n   - \\(21 - 1 = 20\\) (too low)\n\n2. **Division and Multiplication:**\n   - \\(7 \\div 1 = 7\\)\n   - \\(7 \\times 3 = 21\\) (already considered)\n   - \\(7 \\times 5 = 35\\) (too high)\n   - \\(7 \\div 5 = 1.4\\) (not useful)\n\n3. **Combining Operations:**\n   - \\(7 \\times (3 + 1) = 7 \\times 4 = 28\\) (too high)\n   - \\(7 \\times (5 - 1) = 7 \\times 4 = 28\\) (too high)\n   - \\(7 \\times (5 - 3) = 7 \\times 2 = 14\\) (too low)\n   - \\(7 \\times (5 + 1) = 7 \\times 6 = 42\\) (too high)\n\n4. **Using Parentheses:**\n   - \\((7 - 1) \\times (5 - 3) = 6 \\times 2 = 12\\) (too low)\n   - \\((7 - 3) \\times (5 - 1) = 4 \\times 4 = 16\\) (too low)\n   - \\((7 + 1) \\times (5 - 3) = 8 \\times 2 = 16\\) (too low)\n   - \\((7 + 3) \\times (5 - 1) = 10 \\times 4 = 40\\) (too high)\n\n5. **Final Combination:**\n   - \\((7 - 1) \\times 5 + 3 = 6 \\times 5 + 3 = 3",
+    "SAMPLE 7 FINAL: - ((7 - 1) * (5 - 3)",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To achieve the target of 24 using the numbers [7, 3, 5, 1] exactly once, let's break down the problem step by step:\n\n1. **Identify potential operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider different combinations**:\n   - Multiplication is often useful for reaching higher numbers.\n   - Division can help reduce larger numbers to fit into the equation.\n3. **Start with the largest number (7)**:\n   - If we multiply 7 by another number, we need to get a result close to 24.\n   - \\(7 \\times 3 = 21\\), which is close to 24. We need 3 more to reach 24.\n4. **Use the remaining numbers (5 and 1)**:\n   - We can add 3 to 21 to get 24.\n   - To get 3 from 5 and 1, we can use \\(5 - 1 = 4\\), but this doesn't work.\n   - Instead, we can try \\(5 + 1 = 6\\), and then divide by 2 to get 3. However, we don't have a 2.\n5. **Re-evaluate the approach**:\n   - Let's try a different combination.\n   - Consider \\(7 \\times (5 - 3) = 7 \\times 2 = 14\\).\n   - We need 10 more to reach 24. Using the remaining 1, we can try \\(14 + 10\\).\n   - \\(14 + 10\\) can be achieved by adding 10 to 14, but we need to find a way to get 10 from 1 and 5.\n   - \\(5 + 1 = 6\\), and \\(6 \\times 2 = 12\\), but we don't have a 2.\n6. **Final combination**:\n   - Let's try \\(7 \\times (5 - 1) + 3\\):\n     - \\(5 - 1 = 4\\)\n     - \\(7 \\times 4 = 28\\)\n     - \\(28 - 4 = 24\\)\n\nAfter evaluating various combinations, the correct expression is:\n\nFINAL: \\(7 \\times (5 - 1) + 3\\)",
+    "SAMPLE 8 FINAL: - (28 - 4",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use each of the numbers [7, 3, 5, 1] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider multiplication and division first**:\n   - Multiplying 7 and 3 gives 21, which is close to 24 but not quite there.\n   - Dividing 7 by 3 gives a non-integer, so that's not useful.\n   - Multiplying 5 and 3 gives 15, which is also close but not enough on its own.\n\n2. **Combine operations**:\n   - If we multiply 7 and 3, we get 21. We need 3 more to reach 24.\n   - We can use the remaining numbers 5 and 1 to get 3. One way to do this is \\(5 - 1 = 4\\), but we need 3.\n   - Instead, we can use \\(5 - 1 = 4\\) and then divide by 4 to get 1, but that doesn't help.\n\n3. **Re-evaluate combinations**:\n   - Let's try another approach: \\( (7 + 5) \\times (3 - 1) \\).\n   - Calculate inside the parentheses first: \\(7 + 5 = 12\\) and \\(3 - 1 = 2\\).\n   - Then multiply: \\(12 \\times 2 = 24\\).\n\nThis combination works perfectly. \n\nFINAL: (7 + 5) * (3 - 1)",
+    "SAMPLE 9 FINAL: (7 + 5) * (3 - 1)",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use each of the numbers 7, 3, 5, and 1 exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider different combinations**:\n   - Multiplication often helps reach higher numbers quickly.\n   - Division can reduce numbers to manageable sizes.\n   - Addition and subtraction can adjust the results to the target.\n\n3. **Try different sequences**:\n   - Start with multiplication to get a high number: \\(7 \\times 3 = 21\\).\n   - We need 3 more to reach 24. Using the remaining numbers 5 and 1, we can try \\(5 - 1 = 4\\), but that doesn't work.\n   - Instead, let's try another combination: \\(5 \\times (7 - 3) = 5 \\times 4 = 20\\). We need 4 more to reach 24.\n   - Add the remaining number 1: \\(20 + 4 = 24\\).\n\n4. **Combine the steps**:\n   - \\(5 \\times (7 - 3) + 1 = 24\\).\n\nAfter verifying, this combination works correctly.\n\nFINAL: 5 * (7 - 3) + 1",
+    "SAMPLE 10 FINAL: - (5 * (7 - 3) + 1",
+    "VOTE SUMMARY: - (28 - 4 -> 2, - ( 28 - 4 -> 1, - ( 12 * 2 -> 1, - ( 36 - 12 -> 1, - (7 * (5 - 1) - 3 - 1 -> 1, - (7 * 3 - (5 - 1) -> 1, - ((7 - 1) * (5 - 3) -> 1, (7 + 5) * (3 - 1) -> 1, - (5 * (7 - 3) + 1 -> 1",
+    "VOTE WINNER: - (28 - 4 (2/10)"
+  ]
+}

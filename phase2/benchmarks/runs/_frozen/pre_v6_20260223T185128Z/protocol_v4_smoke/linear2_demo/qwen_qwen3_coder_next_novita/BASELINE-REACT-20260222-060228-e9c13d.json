@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060228-e9c13d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "(8, 5)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        5,
+        1,
+        45
+      ],
+      [
+        -9,
+        -7,
+        -107
+      ]
+    ]
+  },
+  "item_id": "lin-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4865,
+    "success": 1,
+    "tokens_in": 414,
+    "tokens_out": 181
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060228-e9c13d",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 4282970196,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T06:02:28Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides two equations in the form [a, b, c], which likely represent linear equations in the form ax + by = c. So we have:\n\n1) 5x + y = 45  \n2) -9x -7y = -107\n\nWe need to solve this system of equations for x and y.\n\nLet\u2019s solve step by step.\n\nFrom equation (1):  \n5x + y = 45 \u2192 y = 45 - 5x\n\nSubstitute into equation (2):  \n-9x - 7(45 - 5x) = -107  \n\u2192 -9x - 315 + 35x = -107  \n\u2192 (26x) - 315 = -107  \n\u2192 26x = -107 + 315 = 20",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the calculation:  \n26x = 208 (not 20 \u2014 correction: -107 + 315 = 208)  \nSo x = 208 / 26 = 8\n\nNow substitute x = 8 into y = 45 - 5x:  \ny = 45 - 5*8 = 45 - 40 = 5\n\nCheck in equation (2):  \n-9(8) - 7(5) = -72 - 35 = -107 \u2714\ufe0f\n\nSo the solution is x = 8, y = 5.  \nFinal answer: (8, 5)",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: (8, 5)"
+  ]
+}

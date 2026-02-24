@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/subset_sum_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015732-a8e092.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 6,
+      "frontier_width": 3,
+      "generated_nodes": 17,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "25,7,21",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      7,
+      11,
+      16,
+      21,
+      22,
+      23,
+      25
+    ],
+    "target": 53
+  },
+  "item_id": "ss-v4-008",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 85927,
+    "success": 1,
+    "tokens_in": 7892,
+    "tokens_out": 659
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015732-a8e092",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 305723958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:57:32Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 53 is odd, so must include odd count of odd numbers; odd numbers in list: 7,11,21,23,25 \u2192 try combinations with 1 or 3 odds; subnodes=...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Try odd1=7 \u2192 need 46 from [2,11,16,21,22,23,25]; try adding largest even 22 \u2192 need 24 from [2,11,16,21,23,25]; 2+2",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 53 is odd, so must include odd count of odd numbers; odd numbers in list are 7,11,21,23,25 \u2192 try combinations with 1 or 3 odds; subnod...",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=For odd1=25, remaining sum=28; remaining numbers: [2,7,11,16,21,22,23]; among these, evens are [2,16,22], odds are [7,11,21,23]; need sum 28 ...",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Try odd1=25, even2=22 \u2192 need 6 from [2,7,11,16,21,23]; only 2+? =6 \u2192 need 4, impossible; try even2=16 \u2192 need 12 from [2",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=After fixing one odd number, remaining target is even, so remaining subset must contain even number of odd numbers (0 or 2); for odd1=25, nee...",
+    "NODE n0007 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=For odd1=7, remaining sum=46; remaining numbers include evens [2,16,22] and odds [11,21,23,25]; need even count of odds (0 or 2 or 4) to keep...",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Try odd1=7, odd2=11,23 \u2192 need 46\u221234=12 from [2,16,22]; 2+? =12 \u2192 need 10, impossible; 16 too big; no solution",
+    "NODE n0009 parent=n0002 score=0.2000 cum=0.7000 terminal=False thought=FINAL: 7",
+    "NODE n0010 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=For odd1=7, remaining sum=46; need even count of odds from [11,21,23,25]; try 2-odd combos: 11+23=34, 21+25=46, 11+21=32, 11+25=36, 21+23=44,...",
+    "NODE n0011 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=STEP: Try odd1=7, odd2=21,25 \u2192 sum=7+21+",
+    "NODE n0012 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=For odd1=21, remaining sum=32; remaining numbers: [2,7,11,16,22,23,25]; evens=[2,16,22], odds=[7,11,23,25]; need even count of odds (0,2,4); ...",
+    "DEPTH 2 frontier=3",
+    "NODE n0013 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=For odd1=7, remaining sum=46; need even count of odds from [11,21,23,25]; try 2-odd combos: 11+23=34, 21+25=46, 11+21=32, 11+25=36, 21+23=44,...",
+    "NODE n0014 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=STEP: Try odd1=7, odd2=21,25 \u2192 sum=7+21+",
+    "NODE n0015 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=For odd1=25, remaining sum=28; remaining odds [7,11,21,23] must contribute even count (0 or 2 or 4); try 2-odd combos: 7+21=28, 11+23=34>28, ...",
+    "NODE n0016 parent=n0005 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=For odd1=25, remaining sum=28; remaining odds [7,11,21,23] must contribute even count; 7+21=28 exactly, so no evens needed; subnodes=odd2=7,2...",
+    "NODE n0017 parent=n0005 score=1.0000 cum=2.0000 terminal=True thought=FINAL: 25,7,21"
+  ]
+}

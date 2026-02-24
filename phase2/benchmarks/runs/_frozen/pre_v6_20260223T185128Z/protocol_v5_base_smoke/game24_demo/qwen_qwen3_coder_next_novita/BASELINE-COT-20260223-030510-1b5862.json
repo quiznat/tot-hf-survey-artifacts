@@ -1,0 +1,57 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-030510-1b5862.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "4) + (10 - 4)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12221,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 300
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-030510-1b5862",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:05:10Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use **each number exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 game strategies involve multiplication (e.g., 6\u00d74 = 24), but we have extra numbers: 10 and another 4.\n\nLet\u2019s try to combine 10 and 4 to get something useful.\n\nTry:  \n- 10 - 4 = 6  \nThen we\u2019d have: 6, 6, 4 \u2192 6 \u00d7 4 = 24, but we\u2019d still have a 6 left \u2014 not helpful.\n\nTry:  \n- 10 + 4 = 14  \nThen 14 + 6 + 4 = 24 \u2192 14 + 6 + 4 = 24. Wait \u2014 that\u2019s 10 + 4 + 6 + 4 = 24. Yes! That uses all numbers exactly once.\n\nCheck:  \n10 + 4 + 6 + 4 = 24  \n\u2192 10 + 4 = 14  \n\u2192 14 + 6 = 20  \n\u2192 20 + 4 = 24 \u2705\n\nThat\u2019s valid \u2014 addition only, uses all numbers once.\n\nBut wait \u2014 the problem says \"use each number exactly once\", and doesn\u2019t restrict operations, so addition is fine.\n\nSo expression:  \n**10 + 4 + 6 + 4 = 24**\n\nBut let\u2019s double-check if parentheses or other operations are required \u2014 no, since it's just sum.\n\nAlternatively, maybe they expect multiplication? Let\u2019s see if there\u2019s a more \u201cstandard\u201d 24 solution.\n\nTry:  \n(10 - 6) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.\n\nWe have two 4s \u2014 maybe (4 + 4) = 8, then 6 \u00d7 4 = 24, but we still have 10.\n\nWait: (10 - 6) = 4, then 4 \u00d7 4 + 4 = 20 \u2014 no.\n\nTry: (6 \u00d7 4) + (10 - 4) = 24 + 6 = 30 \u2014 too big.\n\n(6 + 4) + (10 +",
+    "FINAL: 4) + (10 - 4)"
+  ]
+}

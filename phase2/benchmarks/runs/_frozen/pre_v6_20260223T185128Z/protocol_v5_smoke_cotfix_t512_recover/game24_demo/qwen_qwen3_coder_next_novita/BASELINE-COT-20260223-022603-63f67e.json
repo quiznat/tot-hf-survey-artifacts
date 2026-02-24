@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022603-63f67e.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "final_answer": "(8 * 3) * (4 / 4)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    4,
+    4,
+    8
+  ],
+  "item_id": "g24-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15208,
+    "success": 1,
+    "tokens_in": 390,
+    "tokens_out": 317
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022603-63f67e",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2465764240,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:26:03Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s try to think of combinations that yield 24.\n\nSome known facts:\n- 8 \u00d7 3 = 24, so if we can make the other two numbers (4 and 4) cancel out or become 1 (e.g., via division or subtraction), that might work.\n- 4 + 4 = 8, and 8 \u00d7 3 = 24 \u2014 but then we\u2019d have used 4, 4, 3, but not 8 \u2014 wait, we have an 8 already. So 8 (given) + (4 + 4) \u00d7 3 = 8 + 24 = 32 \u2014 too big.\n- Try (8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.\n- Try (8 \u00f7 (4 \u2212 3)) \u00d7 4 = (8 \u00f7 1) \u00d7 4 = 32 \u2014 too big.\n- Try (8 \u00d7 4) \u2212 (4 \u00d7 3) = 32 \u2212 12 = 20 \u2014 no.\n- Try (8 + 4) \u00d7 (4 \u2212 3) = 12 \u00d7 1 = 12 \u2014 no.\n- Try 8 \u00d7 (4 \u2212 4 \u00f7 4) = 8 \u00d7 (4 \u2212 1) = 8 \u00d7 3 = 24 \u2014 but that uses three 4s: 4, 4, 4 \u2014 we only have two 4s.\n\nWait: 8 \u00d7 (4 \u2212 4 \u00f7 4) uses three 4s \u2014 not allowed.\n\nTry: (8 \u2212 4) \u00d7 (3 + 3) \u2014 but only one 3.\n\nTry: (4 \u00d7 4) + 8 = 16 + 8 = 24 \u2014 then we need to use 3. So (4 \u00d7 4) + 8 = 24, but 3 is unused.\n\nWe must use **all four numbers exactly once**.\n\nLet\u2019s consider division or subtraction to neutralize a number.\n\nTry: (8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2014 yes! That uses 8,",
+    "FINAL: 4) + 8",
+    "RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s try to think of combinations that yield 24.\n\nSome known facts:\n- 8 \u00d7 3 = 24, so if we can make the other two numbers (4 and 4) cancel out or become 1 (e.g., via division or subtraction), that might work.\n- 4 + 4 = 8, and 8 \u00d7 3 = 24 \u2014 but then we\u2019d have used 4, 4, 3, but not 8 \u2014 wait, we have an 8 already. So 8 (given) + (4 + 4) \u00d7 3 = 8 + 24 = 32 \u2014 too big.\n- Try (8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.\n- Try (8 \u00f7 (4 \u2212 3)) \u00d7 4 = (8 \u00f7 1) \u00d7 4 = 32 \u2014 too big.\n- Try (8 \u00d7 4) \u2212 (4 \u00d7 3) = 32 \u2212 12 = 20 \u2014 no.\n- Try (8 + 4) \u00d7 (4 \u2212 3) = 12 \u00d7 1 = 12 \u2014 no.\n- Try 8 \u00d7 (4 \u2212 4 \u00f7 4) = 8 \u00d7 (4 \u2212 1) = 8 \u00d7 3 = 24 \u2014 but that uses three 4s: 4, 4, 4 \u2014 we only have two 4s.\n\nWait: 8 \u00d7 (4 \u2212 4 \u00f7 4) uses three 4s \u2014 not allowed.\n\nTry: (8 \u2212 4) \u00d7 (3 + 3) \u2014 but only one 3.\n\nTry: (4 \u00d7 4) + 8 = 16 + 8 = 24 \u2014 then we need to use 3. So (4 \u00d7 4) + 8 = 24, but 3 is unused.\n\nWe must use **all four numbers exactly once**.\n\nLet\u2019s consider division or subtraction to neutralize a number.\n\nTry: (8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2014 yes! That uses 8,\n\nAnswer only:",
+    "RECOVERY OUTPUT: (8 \u00d7 3) \u00d7 (4 \u00f7 4)",
+    "RECOVERY FINAL: (8 * 3) * (4 / 4)"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-185524-412d39.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "8 * 3 * (4 / 4)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    4,
+    4,
+    8
+  ],
+  "item_id": "g24-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 128962,
+    "success": 1,
+    "tokens_in": 34,
+    "tokens_out": 305
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260223-185524-412d39",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2465764240,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T18:55:24Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s try to think of combinations that yield 24.\n\nSome known facts:\n- 8 \u00d7 3 = 24, so if we can make the other two numbers (4 and 4) cancel out or become 1 (e.g., via division), that might work.\n- 4 + 4 = 8, and 8 \u00d7 3 = 24 \u2014 but then we\u2019d have used 8 twice (one original 8 and the 4+4 = 8), but we only have one 8. So that\u2019s not valid unless we use the original 8 and the sum of 4+4 in a multiplication: (4 + 4) \u00d7 3 = 24 \u2014 but then we haven\u2019t used the 8. So we need to incorporate the 8.\n\nTry:  \n(8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have a 2.\n\nTry using division:  \n8 \u00f7 4 = 2, then 4 \u00d7 3 = 12, 12 \u00d7 2 = 24 \u2192 that\u2019s promising.\n\nLet\u2019s formalize:  \n(8 \u00f7 4) = 2  \n(4 \u00d7 3) = 12  \n12 \u00d7 2 = 24  \nSo: (4 \u00d7 3) \u00d7 (8 \u00f7 4) = 12 \u00d7 2 = 24  \nCheck numbers used: 4, 3, 8, 4 \u2014 yes, all used exactly once.\n\nWe can write it as:  \n**4 \u00d7 3 \u00d7 (8 \u00f7 4)**  \nBut note: multiplication is associative, but to be safe with order of operations, parentheses help.\n\nAlternatively:  \n(8 \u00f7 4) \u00d7 3 \u00d7 4 = same thing.\n\nBut let\u2019s verify:  \n8 \u00f7 4 = 2  \n2 \u00d7 3 = 6  \n6 \u00d7 4 = 24 \u2705\n\nYes, that works.\n\nWe can also write:  \n8 \u00d7 3 \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24  \nThat\u2019s even simpler!  \nCheck: 4 \u00f7 4 = 1  \n8 \u00d7 3 =",
+    "FINAL: 8 * 3 * (4 / 4)"
+  ]
+}

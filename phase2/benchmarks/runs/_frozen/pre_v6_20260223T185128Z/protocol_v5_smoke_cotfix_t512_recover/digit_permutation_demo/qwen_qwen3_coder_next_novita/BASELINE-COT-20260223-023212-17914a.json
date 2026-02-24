@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-023212-17914a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "final_answer": "3336",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10417,
+    "success": 1,
+    "tokens_in": 368,
+    "tokens_out": 275
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-023212-17914a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:32:12Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 3, 3, 3]\nThe number must be divisible by 8.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the digits: [6, 3, 3, 3]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 8**.\n\n---\n\n### Step 1: Divisibility Rule for 8  \nA number is divisible by 8 **if and only if** its **last three digits** form a number divisible by 8.\n\nSo, to maximize the 4-digit number, we want the **largest possible thousands digit**, then hundreds, etc., but the last three digits must form a number divisible by 8.\n\nDigits available: one 6 and three 3s.\n\nSo possible digits: 6, 3, 3, 3.\n\nAll permutations of these digits (unique ones):\n\n- 6333  \n- 3633  \n- 3363  \n- 3336  \n\nThese are the only distinct permutations (since three 3s are identical).\n\nLet\u2019s list them in descending order:\n\n1. **6333**  \n2. **3633**  \n3. **3363**  \n4. **3336**\n\nNow check which of these are divisible by 8.\n\nWe only need to check the last three digits:\n\n- **6333**: last three digits = **333**  \n  333 \u00f7 8 = 41.625 \u2192 Not divisible.\n\n- **3633**: last three digits = **633**  \n  633 \u00f7 8 = 79.125 \u2192 Not divisible.\n\n- **3363**: last three digits = **363**  \n  363 \u00f7 8 = 45.375 \u2192 Not divisible.\n\n- **3336**: last three digits = **336**  \n  336 \u00f7 8 = 42 \u2192 \u2705 Divisible!\n\nSo only **3336** is divisible by 8.\n\nBut wait \u2014 is there any larger number than 3336 that satisfies the condition? We considered all unique permutations, and 6333 is the largest, but it fails the divisibility test.\n\nLet\u2019s double-check if any other arrangement could be larger than 3336 and divisible by 8.\n\nWe assumed only 4",
+    "FINAL: 6333",
+    "RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 3, 3, 3]\nThe number must be divisible by 8.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given the digits: [6, 3, 3, 3]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 8**.\n\n---\n\n### Step 1: Divisibility Rule for 8  \nA number is divisible by 8 **if and only if** its **last three digits** form a number divisible by 8.\n\nSo, to maximize the 4-digit number, we want the **largest possible thousands digit**, then hundreds, etc., but the last three digits must form a number divisible by 8.\n\nDigits available: one 6 and three 3s.\n\nSo possible digits: 6, 3, 3, 3.\n\nAll permutations of these digits (unique ones):\n\n- 6333  \n- 3633  \n- 3363  \n- 3336  \n\nThese are the only distinct permutations (since three 3s are identical).\n\nLet\u2019s list them in descending order:\n\n1. **6333**  \n2. **3633**  \n3. **3363**  \n4. **3336**\n\nNow check which of these are divisible by 8.\n\nWe only need to check the last three digits:\n\n- **6333**: last three digits = **333**  \n  333 \u00f7 8 = 41.625 \u2192 Not divisible.\n\n- **3633**: last three digits = **633**  \n  633 \u00f7 8 = 79.125 \u2192 Not divisible.\n\n- **3363**: last three digits = **363**  \n  363 \u00f7 8 = 45.375 \u2192 Not divisible.\n\n- **3336**: last three digits = **336**  \n  336 \u00f7 8 = 42 \u2192 \u2705 Divisible!\n\nSo only **3336** is divisible by 8.\n\nBut wait \u2014 is there any larger number than 3336 that satisfies the condition? We considered all unique permutations, and 6333 is the largest, but it fails the divisibility test.\n\nLet\u2019s double-check if any other arrangement could be larger than 3336 and divisible by 8.\n\nWe assumed only 4\n\nAnswer only:",
+    "RECOVERY OUTPUT: 3336",
+    "RECOVERY FINAL: 3336"
+  ]
+}

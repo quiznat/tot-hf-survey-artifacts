@@ -1,0 +1,100 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/linear2_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-033303-9a3986.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-gen",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 5,
+      "frontier_width": 3,
+      "generated_nodes": 15,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "x=1.0,y=6.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        -4,
+        -31
+      ],
+      [
+        -2,
+        -2,
+        -14
+      ]
+    ]
+  },
+  "item_id": "lin-v4-009",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 125146,
+    "success": 1,
+    "tokens_in": 3311,
+    "tokens_out": 283
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-033303-9a3986",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 4079773386,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T03:33:03Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.8000 cum=0.8000 terminal=False thought=DECOMP: insight=Use elimination method by aligning coefficients of one variable; subnodes=Eliminate_x | Eliminate_y; recombine=After solving for one variable...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Multiply Equation 2 by -3.5 to match x-coefficient with Equation 1: yields 7.0*x + 7.0*y = 49.0",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=FINAL: x=3.0,y=4.0",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.0000 cum=0.8000 terminal=False thought=STEP: Multiply Equation 2 by 3.5 to get -7.0*x + -7.0*y = -49.0, then add to Equation 1: (-7.0*x + -4.0*y) + (-7.0*x + -7.0*y) = -31.0 + (-49.0) \u2192 -14.0*x -1...",
+    "NODE n0005 parent=n0001 score=0.9000 cum=1.7000 terminal=False thought=STEP: Alternatively, simplify Equation 2 first: divide by -2 \u2192 x + y = 7.0, then express x = 7.0 - y and substitute into Equation 1",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.3000 terminal=False thought=FINAL: x=3.0,y=4.0",
+    "NODE n0007 parent=n0002 score=0.8000 cum=1.3000 terminal=False thought=STEP: Add the modified Equation 2 (7.0*x + 7.0*y = 49.0) to Equation 1 (-7.0*x + -4.0*y = -31.0): (7.0*x - 7.0*x) + (7.0*y - 4.0*y) = 49.0 - 31.0 \u2192 3.0*y = 18.0",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Solve for y: y = 18.0 / 3.0 = 6.0",
+    "NODE n0009 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=FINAL: x=3.0,y=6.0",
+    "NODE n0010 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=STEP: Multiply Equation 2 by -3.5 to match x-coefficient with Equation 1: yields 7.0*x + 7.0*y = 49.0",
+    "NODE n0011 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=STEP: Add the modified Equation 2 (7.0*x + 7.0*y = 49.0) to Equation 1 (-7.0*x + -4.0*y = -31.0): (7.0*x - 7.0*x) + (7.0*y - 4.0*y) = 49.0 - 31.0 \u2192 3.0*y = 18.0",
+    "NODE n0012 parent=n0003 score=0.0000 cum=0.5000 terminal=False thought=STEP: Solve for y: y = 18.0 / 3.0 = 6.0",
+    "DEPTH 2 frontier=3",
+    "NODE n0013 parent=n0005 score=0.5000 cum=2.2000 terminal=False thought=STEP: Solve for y: y = 18.0 / 3.0 = 6.0",
+    "NODE n0014 parent=n0005 score=0.5000 cum=2.2000 terminal=False thought=STEP: Substitute y = 6.0 into simplified Equation 2 (x + y = 7.0) \u2192 x = 7.0 - 6.0 = 1.0",
+    "NODE n0015 parent=n0005 score=1.0000 cum=2.7000 terminal=True thought=FINAL: x=1.0,y=6.0"
+  ]
+}

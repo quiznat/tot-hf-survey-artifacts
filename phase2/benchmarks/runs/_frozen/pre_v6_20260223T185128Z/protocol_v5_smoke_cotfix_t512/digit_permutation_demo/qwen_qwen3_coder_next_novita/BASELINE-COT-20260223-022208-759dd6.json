@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022208-759dd6.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "3300",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3591,
+    "success": 1,
+    "tokens_in": 41,
+    "tokens_out": 282
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022208-759dd6",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:22:08Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the digits: [3, 0, 3, 0]  \nWe need to form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 5**.\n\n---\n\n### Step 1: Understand divisibility by 5  \nA number is divisible by 5 **if and only if** its last digit is **0 or 5**.\n\nWe have digits: two 3s and two 0s \u2014 **no 5s**, so the only possible last digit for divisibility by 5 is **0**.\n\nSo, the number must end in **0**.\n\n---\n\n### Step 2: Fix last digit as 0  \nWe have two 0s, so using one 0 at the end leaves us with digits: [3, 3, 0] to arrange in the first three positions.\n\nWe want the **largest possible number**, so we want the **largest possible digits in the higher place values** (thousands > hundreds > tens > units).\n\nSo, for the first three digits (thousands, hundreds, tens), using digits [3, 3, 0], the largest arrangement is:\n\n- Thousands: 3  \n- Hundreds: 3  \n- Tens: 0  \n\nSo the number would be: **3300**\n\nLet\u2019s verify:\n- Uses digits: 3, 3, 0, 0 \u2705  \n- Is 4-digit \u2705  \n- Ends in 0 \u2192 divisible by 5 \u2705  \n- Is it the largest possible?\n\nLet\u2019s consider other possibilities ending in 0:\n\n- If we put 0 in thousands place \u2192 not a 4-digit number (e.g., 0330 = 330) \u274c  \n- Other arrangements ending in 0:\n  - 3030 \u2192 smaller than 3300  \n  - 3003 \u2192 ends in 3 \u2192 not divisible by 5 \u274c  \n  - 0330 \u2192 not 4-digit  \n  - 0303 \u2192 not 4-digit  \n  - 3300 is the largest valid one.\n\n\u2705 So, **3300** is the largest possible.\n\nFINAL: 3300",
+    "FINAL: 3300"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-030707-c44724.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "24",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    2,
+    10,
+    10,
+    3
+  ],
+  "item_id": "g24-v4-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9350,
+    "success": 0,
+    "tokens_in": 47,
+    "tokens_out": 276
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-030707-c44724",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1862262800,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:07:07Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: Thought 1: The task is to solve a benchmark task with input [2, 10, 10, 3] and no tools available. Since no specific problem is described (e.g., arithmetic, sequence, puzzle), and no tools are provided, the most reasonable interpretation is that this is a standard 24 Game-style problem: use the numbers [2, 10, 10, 3] with basic arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to make 24. Let\u2019s test possibilities.\n\nWe need to combine 2, 10, 10, 3 to get 24.\n\nTry:  \n10 + 10 + 3 + 2 = 25 \u2192 too high  \n10 + 10 + (3 \u2212 2) = 21  \n10 \u00d7 2 + 10 \u2212 3 = 20 + 10 \u2212 3 = 27  \n10 \u00d7 3 \u2212 10 + 2 = 30 \u2212 10 + 2 = 22  \n(10 + 2) \u00d7 (10 \u00f7 5) \u2014 but no 5  \nTry: (10 \u2212 2) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 but we still have a 10 left unused. Must use all four numbers.\n\nTry: (10 \u00d7 3) \u2212 (10 \u2212 2) = 30 \u2212 8 = 22  \n(10 + 10) + (3 + 2) = 25  \n(10 \u00d7 2) + (10 \u2212 3) = 20 + 7 = 27  \n(10 + 3) \u00d7 2 \u2212 10 = 26 \u2212 10 = 16  \n(10 \u2212 3) \u00d7 2 + 10 = 14 + 10 = 24 \u2192 \u2705 uses all numbers: (10 \u2212 3) \u00d7 2 + 10 = 7 \u00d7 2 + 10 = 14 + 10 = 24.\n\nYes! So expression: (10 \u2212 3) \u00d7 2 + 10 = 24.\n\nThus, the solution is 24.\n\nAction 1: Finish[24]"
+  ]
+}

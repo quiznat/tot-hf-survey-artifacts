@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-011256-8ed4d5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "final_answer": "5",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      6,
+      7,
+      18,
+      25
+    ],
+    "target": 55
+  },
+  "item_id": "ss-v4-043",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 13355,
+    "success": 0,
+    "tokens_in": 64,
+    "tokens_out": 100
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-011256-8ed4d5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3075285621,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:12:56Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 6, 7, 18, 25]\nTarget: 55\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [5, 6, 7, 18, 25] that sums to 55.\n\nTotal sum of all numbers: 5 + 6 + 7 + 18 + 25 = 61  \nWe need 55, so we need to exclude numbers summing to 61 - 55 = 6.\n\nWhich single number is 6? Yes \u2014 6 itself.\n\nSo if we exclude 6, the remaining numbers sum to 55.\n\nRemaining numbers: 5, 7, 18, 25  \nCheck: 5 + 7 = 12; 12 + 18 = 30; 30 + 25 = 55 \u2705\n\nThus, the chosen numbers are: 5, 7, 18, 25\n\nFINAL: 5",
+    "FINAL: 5"
+  ]
+}

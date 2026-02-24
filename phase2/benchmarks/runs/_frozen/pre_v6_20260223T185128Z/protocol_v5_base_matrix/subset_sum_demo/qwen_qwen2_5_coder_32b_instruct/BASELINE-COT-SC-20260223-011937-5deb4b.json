@@ -1,0 +1,100 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011937-5deb4b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21?",
+        2
+      ],
+      [
+        "I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers first:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list\n- 1",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21?",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      4,
+      6,
+      8,
+      11,
+      13,
+      18
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-028",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15610,
+    "success": 0,
+    "tokens_in": 365,
+    "tokens_out": 555
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011937-5deb4b",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2956916736,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:37Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21?",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21?",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers first:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers first:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list\n- 1",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list\n- 1",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21?",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21?",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 4, 6, 8, 11, 13, 18]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list",
+    "VOTE SUMMARY: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21? -> 2, I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers first:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the -> 1, I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list\n- 1 -> 1, I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work through this systematically:\n\nFirst, let me try to build up to 39 by selecting larger numbers:\n- 18 + 13 = 31, need 8 more \u2192 18 + 13 + 8 = 39 \u2713\n\nLet me verify: 18 + 13 + 8 = 39\nThis uses each number exactly once and sums to the target.\n\nLet me double-check if there are other combinations:\n- 18 + 11 + 10 = 39, but 10 isn't in the list\n- 13 + 11 + 15 = 39, but 15 isn't in the list -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [3, 4, 6, 8, 11, 13, 18] that sum to 39.\n\nLet me work systematically:\n- The largest numbers are 18, 13, 11\n- If I use 18, I need the remaining numbers to sum to 39 - 18 = 21\n- If I use 13, I need the remaining numbers to sum to 39 - 13 = 26\n- If I use 11, I need the remaining numbers to sum to 39 - 11 = 28\n\nLet me try using 18:\nRemaining target: 21\nAvailable numbers: [3, 4, 6, 8, 11, 13]\nCan I make 21? (2/5)"
+  ]
+}

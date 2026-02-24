@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173044-ede23d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "25 - 1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    4,
+    1,
+    6
+  ],
+  "item_id": "g24-v4-010",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4439,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 296
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173044-ede23d",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 878833230,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:30:44Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe have two 1s, a 4, and a 6.\n\nSome common strategies for 24:\n- 6 \u00d7 4 = 24 \u2192 then we need to neutralize the two 1s (e.g., \u00d71, +0, etc.)\n- But we must use **all four numbers**, so we can\u2019t ignore the 1s.\n\nTry:  \n(6 + 1 + 1) \u00d7 something? 6 + 1 + 1 = 8 \u2192 8 \u00d7 3 = 24, but we don\u2019t have a 3.\n\nTry:  \n6 \u00d7 4 = 24, and then (1 \u2212 1) = 0 \u2192 24 + 0 = 24. That uses all numbers: 6, 4, 1, 1.\n\nSo expression:  \n6 \u00d7 4 + (1 \u2212 1) = 24 + 0 = 24 \u2705\n\nAlternatively:  \n(6 \u00d7 4) \u00d7 (1^1) = 24 \u00d7 1 = 24 \u2014 exponentiation is allowed? Usually in 24 game, only +, \u2212, \u00d7, \u00f7, parentheses are standard. Exponentiation may not be assumed unless specified.\n\nSo safer to use only basic operations.\n\nAnother option:  \n(6 + 6) \u00d7 2 = 24 \u2014 but we don\u2019t have two 6s.\n\nBack to:  \n6 \u00d7 4 + 1 \u2212 1 = 24 \u2014 yes, that\u2019s valid: 6 \u00d7 4 = 24, then +1 \u22121 = 0 \u2192 24.\n\nBut order of operations: multiplication first, so 6 \u00d7 4 + 1 \u2212 1 = (6 \u00d7 4) + 1 \u2212 1 = 24.\n\nThat uses all numbers exactly once.\n\nSo expression:  \n**6 \u00d7 4 + 1 \u2212 1**\n\nLet\u2019s verify:  \n6 \u00d7 4 = 24  \n24 + 1 = 25  \n25 \u2212 1 = 24 \u2705\n\nAll numbers used: 6, 4, 1, 1 \u2014 yes.\n\nSo final answer:",
+    "FINAL: 25 - 1"
+  ]
+}

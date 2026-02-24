@@ -1,0 +1,112 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-191730-5d2dce.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "12",
+        5
+      ],
+      [
+        "11",
+        4
+      ],
+      [
+        "4422",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "12",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9766,
+    "success": 0,
+    "tokens_in": 480,
+    "tokens_out": 3096
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260223-191730-5d2dce",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:30Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Understand divisibility by 11 rule  \nA number is divisible by 11 if the **difference between the sum of digits in odd positions and the sum of digits in even positions** is a multiple of 11 (including 0).\n\nFor a 4-digit number with digits:  \nPosition:\u20031\u20032\u20033\u20034  \nDigits:\u2003\u2003A\u2003B\u2003C\u2003D  \n\nThen:  \n(A + C) \u2212 (B + D) \u2261 0 (mod 11)  \ni.e., (sum of odd positions) \u2212 (sum of even positions) = 0 or \u00b111, \u00b122, etc.  \nBut since digits are small (max digit = 4), total sum = 4 + 2 + 2 + 4 = 12  \nSo the max possible for (A + C) is 4 + 4 = 8, min is 2 + 2 = 4  \nSimilarly for (B + D): same range.\n\nSo (A + C) \u2212 (B + D) can range from \u22124 to +4.  \nOnly possible multiple of 11 in that range is **0**.\n\nSo we need:  \n**(A + C) = (B + D)**  \nSince total sum = 12, each pair must sum to 6.\n\nSo we need to split the digits into two pairs, each summing to 6.\n\nDigits: [4, 4, 2, 2]  \nPossible pairs summing to 6:  \n- 4 + 2 = 6  \nSo we need two pairs of (4, 2)\n\nYes: we have two 4s and two 2s \u2192 can make two (4,2) pairs.\n\nSo any arrangement where the odd-position digits are one 4 and one 2, and the even-position digits are the other 4 and 2, will satisfy divisibility by 11.\n\nNow, we want the **largest possible 4-digit number**, so we want the digits in descending order as much as possible \u2014 i.e., start with 4, then next",
+    "SAMPLE 1 FINAL: 12",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [4, 2, 2, 4], and we must form the **largest possible 4-digit integer** using **each digit exactly once**, such that the number is divisible by **11**.\n\n---\n\n### Step 1: Divisibility Rule for 11\n\nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right), compute:\n\n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo we need:\n$$\n(a + c) - (b + d) = 0 \\quad \\text{or} \\pm 11, \\pm 22, \\dots\n$$\n\nBut since digits are small (max digit 4), the maximum possible sum of two digits is $4 + 4 = 8$, and minimum is $2 + 2 = 4$. So:\n\n- $a + c$ ranges from 4 to 8  \n- $b + d$ ranges from 4 to 8  \n- So $(a + c) - (b + d)$ ranges from $-4$ to $+4$\n\nTherefore, the only possible multiple of 11 in that range is **0**.\n\nSo we require:\n$$\na + c = b + d\n$$\n\n---\n\n### Step 2: Total Sum\n\nTotal sum of all digits:  \n$4 + 2 + 2 + 4 = 12$\n\nSince $a + c = b + d$, and $a + b + c + d = 12$, then:\n\n$$\na + c = b + d = \\frac{12}{2} = 6\n$$\n\nSo we need to split the digits into two pairs, each summing to 6.\n\nDigits available: two 4s and two 2s.\n\nPossible pairs that sum to 6:\n- 4 + 2 = 6  \nSo each pair must be (4, 2)\n\nWe have two 4s and two 2s, so we can form two (4,2) pairs \u2014 perfect.\n\nSo positions:\n- (a, c) must be one (4,2) pair  \n- (b, d)",
+    "SAMPLE 2 FINAL: 12",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Recall divisibility rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right), compute:  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, we need to arrange the digits to maximize the number, while satisfying this condition.\n\n---\n\n### Step 2: List all distinct permutations of [4, 2, 2, 4]  \nSince there are repeated digits, total distinct permutations = $ \\frac{4!}{2!2!} = 6 $\n\nLet\u2019s list them in descending order (to find the largest valid one quickly):\n\n1. **4422**  \n2. **4242**  \n3. **4224**  \n4. **2442**  \n5. **2424**  \n6. **2244**\n\nNow test each for divisibility by 11.\n\n#### 1. 4422  \nDigits: a=4, b=4, c=2, d=2  \nAlternating sum: (4 + 2) - (4 + 2) = 6 - 6 = 0 \u2192 divisible by 11 \u2705  \nSo **4422** is divisible by 11.\n\nBut wait \u2014 is this the largest possible? Let\u2019s double-check if any larger permutation exists.\n\nWait \u2014 is **4422** the largest? Let's confirm ordering.\n\nAll permutations of digits [4,4,2,2] sorted descending:\n\n- 4422  \n- 4242  \n- 4224  \n- 2442  \n- 2424  \n- 2244  \n\nYes, **4422** is the largest.\n\nNow check if **4422** is divisible by 11:  \nWe already computed alternating sum = 0 \u2192 divisible.\n\nDouble-check via",
+    "SAMPLE 3 FINAL: 4422",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits *a b c d*, compute:  \n**(a + c) \u2212 (b + d)** must be divisible by 11 (i.e., 0, \u00b111, \u00b122, ...)\n\nSince the digits are small (only 2s and 4s), the max possible sum of two digits is 4 + 4 = 8, min is 2 + 2 = 4. So (a + c) and (b + d) are each between 4 and 8. So their difference is between \u22124 and +4.  \nThus, the only possible multiple of 11 in that range is **0**.\n\nSo we need:  \n**(a + c) = (b + d)**  \ni.e., sum of digits in odd positions = sum of digits in even positions.\n\n---\n\n### Step 2: Total sum of digits  \nDigits: 4, 2, 2, 4 \u2192 total sum = 4 + 2 + 2 + 4 = **12**  \nSo if (a + c) = (b + d), then each must be **6** (since 12 / 2 = 6).\n\nSo we need to arrange the digits so that:\n- positions 1 and 3 (odd positions) sum to 6  \n- positions 2 and 4 (even positions) sum to 6\n\nDigits available: two 4s and two 2s.\n\nWhat pairs sum to 6?  \n- 4 + 2 = 6  \nSo each pair must be one 4 and one 2.\n\nSo in odd positions (a and c), we need one 4 and one 2.  \nSame for even positions (b and d): one 4 and one 2.\n\nSo possible arrangements must alternate 4 and 2 across positions, but not necessarily \u2014 just that each pair (odd, even) contains one 4 and one",
+    "SAMPLE 4 FINAL: 11",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits *a b c d*, compute:  \n**(a + c) \u2212 (b + d)** must be divisible by 11 (i.e., 0, \u00b111, \u00b122, ...).\n\nSince the digits are small (only 2s and 4s), the maximum possible sum of two digits is 4 + 4 = 8, and minimum is 2 + 2 = 4.  \nSo (a + c) and (b + d) each range from 4 to 8.  \nThus, (a + c) \u2212 (b + d) ranges from \u22124 to +4.  \nThe only multiple of 11 in that range is **0**.\n\n\u2705 So we need:  \n**(a + c) = (b + d)**\n\n---\n\n### Step 2: Total digit sum  \nTotal sum of digits = 4 + 2 + 2 + 4 = **12**  \nSo if (a + c) = (b + d), then each must be **6**, since 6 + 6 = 12.\n\nSo we need to partition the digits into two pairs, each summing to 6.\n\nPossible digit pairs that sum to 6:  \n- 4 + 2 = 6  \nWe have two 4s and two 2s, so we can make two (4,2) pairs.\n\nSo the only way to get (a + c) = (b + d) = 6 is to have one 4 and one 2 in the odd positions (a and c), and the other 4 and 2 in the even positions (b and d).\n\nSo valid digit arrangements must have exactly one 4 and one 2 in positions 1 and 3, and one 4 and one 2 in positions 2 and 4.\n\nWe want the **largest possible** 4-digit number, so we want the leftmost",
+    "SAMPLE 5 FINAL: 11",
+    "SAMPLE 6 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Understand divisibility rule for 11  \nA number is divisible by 11 if and only if the **alternating sum** of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right), compute:  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, we want:  \n$$\n(a + c) - (b + d) = 0 \\quad \\text{or} \\pm 11, \\pm 22, \\dots\n$$  \nBut since digits are small (max sum = 4+4 = 8 for two digits), the only possible value is **0**.\n\nSo we need:  \n$$\na + c = b + d\n$$\n\nWe have digits: 4, 4, 2, 2  \nTotal sum = 4 + 4 + 2 + 2 = 12  \nSo $ a + c = b + d = 6 $\n\nSo we need to split the digits into two pairs, each summing to 6.\n\nLet\u2019s find all digit pairs (unordered) from [4,4,2,2] that sum to 6:\n- 4 + 2 = 6 \u2705  \nWe have two 4s and two 2s, so we can make two such pairs: (4,2) and (4,2)\n\nSo possible groupings:\n- Positions (a,c) = (4,2) and (b,d) = (4,2)  \n- Or (a,c) = (2,4) and (b,d) = (2,4), etc.\n\nNow, to get the **largest possible number**, we want the leftmost digits as large as possible.\n\nLet\u2019s list all 4-digit numbers using digits [4,4,2,2], sorted descending, and check divisibility by 11.\n\nAll permutations of [4,4,2,2] (distinct permutations = 4! / (2!2!) =",
+    "SAMPLE 6 FINAL: 11",
+    "SAMPLE 7 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and it must be **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 if the **alternating sum** of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right), compute:  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, we need:\n$$\n(a + c) - (b + d) = 0 \\quad \\text{or} \\pm 11, \\pm 22, \\dots\n$$  \nBut since digits are small (max 9), and we\u2019re using only digits 2 and 4, the sums $ a + c $ and $ b + d $ will be between 2+2=4 and 4+4=8. So their difference can only be between -4 and +4.  \nThus, the only possible multiple of 11 in that range is **0**.\n\nSo we require:\n$$\na + c = b + d\n$$\n\nThat is, sum of digits in odd positions = sum of digits in even positions.\n\n---\n\n### Step 2: Total sum of digits  \nWe have digits: 4, 4, 2, 2 \u2192 total sum = 4 + 4 + 2 + 2 = **12**\n\nSince $ a + c = b + d $, and $ a + b + c + d = 12 $, then each pair must sum to 6.\n\nSo:\n$$\na + c = 6 \\quad \\text{and} \\quad b + d = 6\n$$\n\nWe need to assign digits to positions such that:\n- Digits used: two 4s and two 2s.\n- $ a + c = 6 $, so possible combinations for (a, c): (4,2) or (2,4)\n- Similarly, (b, d) must be (4,2) or (2,4)\n\nSo possible arrangements are permutations where odd positions (1st and 3rd",
+    "SAMPLE 7 FINAL: 12",
+    "SAMPLE 8 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the digits: [4, 2, 2, 4], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **11**.\n\n---\n\n### Step 1: Understand divisibility rule for 11\n\nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right), compute:\n\n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo we need:\n\n$$\n(a + c) = (b + d) \\quad \\text{or} \\quad (a + c) - (b + d) = \\pm 11, \\pm 22, \\dots\n$$\n\nBut since the total sum of all digits is:\n\n$$\n4 + 2 + 2 + 4 = 12\n$$\n\nThen:\n\n$$\n(a + c) + (b + d) = 12\n$$\n\nLet $ S_1 = a + c $, $ S_2 = b + d $. Then:\n\n- $ S_1 + S_2 = 12 $\n- $ S_1 - S_2 \\equiv 0 \\mod 11 $\n\nSo $ S_1 - S_2 = 0 $ or $ \\pm11 $, etc.\n\nTry $ S_1 - S_2 = 0 \\Rightarrow S_1 = S_2 = 6 $ \u2014 possible since 6 + 6 = 12.\n\nTry $ S_1 - S_2 = 11 \\Rightarrow S_1 = (12 + 11)/2 = 23/2 = 11.5 $ \u2014 not integer \u2192 impossible.\n\nTry $ S_1 - S_2 = -11 \\Rightarrow S_1 = (12 - 11)/2 = 0.5 $ \u2014 also impossible.\n\nSo only possible case:  \n**$ S_1 = S_2 = 6 $**\n\nSo we need to split the digits into two pairs:  \n- positions 1 and 3 (odd positions) sum to 6  \n- positions 2 and 4 (even",
+    "SAMPLE 8 FINAL: 12",
+    "SAMPLE 9 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, such that the number is **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is a multiple of 11 (including 0).  \nThat is, for a 4-digit number with digits $a, b, c, d$ (from left to right), compute:  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$  \nSo $(a + c) - (b + d) = 0$ or $\\pm 11$, etc. But since digits are small (max digit = 4), the max sum of two digits is 8, min is 2 (2+2), so the difference can only be between $-6$ and $+6$. So only possible multiple of 11 in that range is **0**.\n\nThus, for our case:  \n$$\na + c = b + d\n$$\n\nSo we need to partition the digits into two pairs with equal sum.\n\nDigits: two 4s and two 2s  \nTotal sum = 4 + 4 + 2 + 2 = 12  \nSo each pair must sum to 6 (since 12 / 2 = 6)\n\nWe need to split digits into two groups of two digits each, both summing to 6.\n\nPossible digit pairs that sum to 6:\n- 4 + 2 = 6  \nSo we need two pairs: (4,2) and (4,2). Perfect \u2014 we have exactly two 4s and two 2s.\n\nSo any arrangement where digits in odd positions (a, c) are one 4 and one 2, and digits in even positions (b, d) are the other 4 and 2, will satisfy the divisibility rule.\n\nNow, to get the **largest possible number**, we want the leftmost digits as large as possible.\n\nLet\u2019s try to maximize the number:  \n- First digit (thousands place) should be as large as possible \u2192 try 4  \n- Then second digit (hundreds place) as large as possible \u2192 try 4 again? But",
+    "SAMPLE 9 FINAL: 11",
+    "SAMPLE 10 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nEquivalently,  \n$$\n(a + c) \\equiv (b + d) \\pmod{11}\n$$\n\nSince all digits are small (0\u20139), the sums $a + c$ and $b + d$ range from 0 to 18, so the only possible differences divisible by 11 are 0 or \u00b111. But since max sum is 18 and min is 0, the difference can only be 0 or \u00b111. Let\u2019s check both.\n\nBut since total sum of all digits is $4 + 2 + 2 + 4 = 12$, and  \n$$\n(a + c) + (b + d) = 12\n$$  \nSo if $ (a + c) - (b + d) = 0 $, then $a + c = b + d = 6$.  \nIf $ (a + c) - (b + d) = 11 $, then solving with sum = 12 gives:\n- $a + c = (12 + 11)/2 = 23/2 = 11.5$ \u2192 not integer \u21d2 impossible  \nSimilarly, difference = -11 \u21d2 $a + c = 0.5$ \u21d2 impossible.\n\n\u2705 So only possible case:  \n$$\na + c = b + d = 6\n$$\n\nSo we need to partition the digits [4, 2, 2, 4] into two pairs, each summing to 6.\n\nLet\u2019s list all possible pairings:\n\n- 4 + 2 = 6  \n- 4 + 2 = 6 (using the other 4 and 2)  \nSo the",
+    "SAMPLE 10 FINAL: 12",
+    "VOTE SUMMARY: 12 -> 5, 11 -> 4, 4422 -> 1",
+    "VOTE WINNER: 12 (5/10)"
+  ]
+}

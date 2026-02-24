@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-191716-1dc537.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "8664",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9837,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 299
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-191716-1dc537",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T19:17:16Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.",
+    "OUTPUT: To form the **largest possible 4-digit integer** using the digits **[6, 6, 8, 4]** exactly once, and ensuring it's **divisible by 4**, we need to recall the divisibility rule for 4:\n\n> A number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\n---\n\n### Step 1: List all possible 2-digit endings using digits [6, 6, 8, 4] (each used once total, so last two digits must be a permutation of two of these digits, and the first two digits use the remaining two).\n\nWe want the **largest possible number**, so we should try to maximize the thousands and hundreds digits first \u2014 i.e., try to put the largest digits in the front.\n\nThe digits sorted descending: **8, 6, 6, 4**\n\nLet\u2019s try to construct numbers in descending order and check divisibility by 4.\n\n#### Try 8664:\n- Last two digits: **64**\n- Is 64 divisible by 4? Yes (64 \u00f7 4 = 16)\n- Digits used: 8, 6, 6, 4 \u2192 valid\n- So **8664** is a candidate.\n\nCan we get a larger number?\n\n#### Try 8646:\n- Last two digits: **46**\n- 46 \u00f7 4 = 11.5 \u2192 not divisible by 4\n\n#### Try 8466:\n- Last two digits: **66**\n- 66 \u00f7 4 = 16.5 \u2192 no\n\n#### Try 6864:\n- Less than 8664 \u2192 skip (since 8xxx > 6xxx)\n\nSo any number starting with 8 is better than those starting with 6.\n\nNow, among numbers starting with 8, what\u2019s the next largest after 8664?\n\n- 8664 (we have two 6s, so 8664 is valid)\n- Next would be 8646 (already checked \u2014 not divisible by 4)\n- Then 8466 (not divisible)\n- Then 8466, 8646, 8664 \u2014 already considered.\n\nWhat about 8664 vs 86",
+    "FINAL: 8664"
+  ]
+}

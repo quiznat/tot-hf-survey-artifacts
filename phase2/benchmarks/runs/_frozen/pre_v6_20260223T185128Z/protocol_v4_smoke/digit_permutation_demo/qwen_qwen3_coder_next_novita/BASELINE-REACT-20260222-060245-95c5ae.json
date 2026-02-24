@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060245-95c5ae.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "9321",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      3,
+      2,
+      9
+    ],
+    "divisor": 3,
+    "oracle_max": 9321
+  },
+  "item_id": "perm-v4-001",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4679,
+    "success": 1,
+    "tokens_in": 480,
+    "tokens_out": 224
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060245-95c5ae",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3159455536,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T06:02:45Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number divisible by the given divisor (3) that can be formed by rearranging the given digits [1, 3, 2, 9]. The oracle_max is 9321, which is the maximum possible number from those digits (9,3,2,1), but we need to verify if it's divisible by 3. A number is divisible by 3 if the sum of its digits is divisible by 3. Sum of digits = 1+3+2+9 = 15, which is divisible by 3, so any permutation of these digits will be divisible by 3. Therefore, the largest possible number (9321) is divisible by 3, and since oracle_max is given as 9321, that must be the answer. Let's double-check: 9321 \u00f7 3 = 3",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The task is to find the largest number divisible by the given divisor (3) that can be formed by rearranging the digits [1, 3, 2, 9]. The sum of the digits is 1+3+2+9 = 15, which is divisible by 3. Since divisibility by 3 depends only on the digit sum, *every* permutation of these digits is divisible by 3. Therefore, the largest possible permutation \u2014 which is formed by sorting digits in descending order: 9, 3, 2, 1 \u2192 9321 \u2014 is divisible by 3. The oracle_max is given as 9321, confirming this is the maximum. So the answer is 9321.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 9321"
+  ]
+}

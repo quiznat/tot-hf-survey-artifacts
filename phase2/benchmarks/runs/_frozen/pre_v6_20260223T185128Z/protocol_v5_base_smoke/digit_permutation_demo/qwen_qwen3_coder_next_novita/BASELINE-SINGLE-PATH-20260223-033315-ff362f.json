@@ -1,0 +1,61 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260223-033315-ff362f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-single-path",
+  "condition_tools_exposed": [],
+  "final_answer": "9810",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11705,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 212
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260223-033315-ff362f",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T03:33:15Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.",
+    "OUTPUT: To form the **largest possible 4-digit integer** using the digits **[1, 9, 0, 8]** exactly once, and divisible by **6**, we need to satisfy two conditions:\n\n1. **Divisible by 2** \u2192 last digit must be even (0, 8)\n2. **Divisible by 3** \u2192 sum of digits must be divisible by 3\n\nFirst, check the sum of digits:  \n1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 \u2705 So any permutation of these digits will be divisible by 3.\n\nSo we only need to ensure the number is divisible by 2 \u2192 last digit must be even: **0 or 8**\n\nWe want the **largest possible** number, so we try to maximize the number from left to right.\n\nLet\u2019s try to form the largest number ending in **8** or **0**.\n\n### Try ending in 8:\nRemaining digits: [1, 9, 0] \u2192 arrange in descending order: 9, 1, 0 \u2192 number: **9108**\n\n### Try ending in 0:\nRemaining digits: [1, 9, 8] \u2192 descending: 9, 8, 1 \u2192 number: **9810**\n\nCompare:  \n- 9810  \n- 9108  \n\n**9810 > 9108**, and 9810 ends in 0 \u2192 even \u2192 divisible by 2  \nSum = 18 \u2192 divisible by 3  \n\u2192 divisible by 6 \u2705\n\n\u2705 So the largest possible is **9810**\n\n9810",
+    "FINAL: 9810"
+  ]
+}

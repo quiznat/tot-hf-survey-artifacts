@@ -1,0 +1,111 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.tree_of_thoughts_search_reasoning_only.v1",
+  "algorithm_module_id": "algorithm_module.tree_of_thoughts_search_reasoning_only.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260224-173219-610056.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "tot-prototype",
+  "condition_key": "baseline_tree_of_thoughts_search_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "error_type": "depth_limit",
+  "evaluator_mode": "model_self_eval",
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 12,
+      "frontier_width": 3,
+      "generated_nodes": 25,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "insight=Target 24 = 4 \u00d7 6, and 6 can be formed as (10 + 1 + 1) \u00f7 2, but 2 must come from remaining numbers; since only 4 is left, use 4 \u00f7 2 = 2 \u2014 circular; instead, notice 6 = (4 \u00d7 1 + 1 + 1), so 4 \u00d7 (4 \u00d7 1 + 1 + 1) = 24, but reuses 4\u2014invalid; however, restructure using division: (10 \u2212 1/1) = 9, and 4 \u00d7 9 = 36; then 36 \u2212 12 = 24, and 12 = (10 + 1 + 1) reuses numbers\u2014invalid; instead, consider (4 \u2212 1/1) = 3, and 10 \u00d7 3 \u2212 6 = 24, but no 6; wait\u20141/1 = 1, so 4 \u2212 1 = 3, and 10 \u2212 1 = 9; 9 \u00d7 (4 \u2212 1) = 27; 27 \u2212 (10 \u2212 7) invalid; alternative: use division to get 24 directly: (10 \u2212 1) \u00d7 (4 \u2212 1) = 27; 27 \u2212 3 = 24, and 3 = (10 \u2212 7) not helpful; but what if we do (4 \u00d7 10) \u2212 (1 + 1) = 38; 38 \u2212 14 = 24, no; try (10 + 1 + 1) \u00d7 (4 \u00f7 2) but no 2; wait\u20144 \u00f7 (1 + 1) = 2, and (10 \u2212 1) = 9, then 9 \u00d7 (4 \u00f7 (1 + 1)) = 9 \u00d7 2 = 18; not enough; but (10 + 1 + 1) = 12, and 12 \u00d7 2 = 24, and 2 = 4 \u00f7 2 \u2014 circular; however, if we reuse the 4 as both divisor and operand? Not allowed. Wait\u2014what about (10 \u2212 1",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "max_depth": 4,
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 128152,
+    "success": 0,
+    "tokens_in": 200645,
+    "tokens_out": 6351
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search reached depth limit without terminal answer",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260224-173219-610056",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:32:19Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 24 can be approached by forming 25 and subtracting 1, or 23+1, or using multiplication like 6\u00d74; with numbers [4,10,1,1], try (10+1+1)...",
+    "NODE n0002 parent=root score=0.3000 cum=0.3000 terminal=False thought=DECOMP: insight=Target 24 can be formed as 25\u22121, and 25 = 5\u00b2, but 5 = 10 \u00f7 2; however, we lack 2 directly\u2014instead, try (10 + 1 + 1) \u00d7 something; subnodes=(10...",
+    "DEPTH 1 frontier=2",
+    "NODE n0003 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Use both 1s to form 2 via (1+1), then compute 10 \u2212 (1+1) = 8, and 4 \u00d7 8 = 32 \u2014 too high; instead, try (10 \u2212 1) = 9, (4 \u2212 1) = 3, 9 \u00d7 3 = 27; need to re...",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=Target 24 = 6 \u00d7 4, and 6 can be formed as 10 \u2212 (1 + 1 + 2) but no 2; instead, 6 = (10 + 1 + 1) \u00f7 2, and 2 = \u221a4 but no sqrt; however, 6 = (4 +...",
+    "NODE n0005 parent=n0002 score=0.3000 cum=0.6000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = 4 \u00d7 (10 \u2212 1 \u2212 1) \u2212 8? No\u2014better: 24 = (4 + 1) \u00d7 (10 \u2212 1) \u2212 21? Not h...",
+    "NODE n0006 parent=n0002 score=0.3000 cum=0.6000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 = 10 \u2212 4, but 4 is already used; instead, 6 = (10 + 1 + 1) \u00f7 2, and 2 = \u221a4 is disallowed, but 2 = 4 \u00f7 2 requires ano...",
+    "DEPTH 2 frontier=3",
+    "NODE n0007 parent=n0003 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = 4 \u00d7 (10 \u2212 1 \u2212 1) \u2212 8? No\u2014better: 24 = (10 \u00d7 1 + 1) \u00d7 ? = 11 \u00d7 ?; 24/...",
+    "NODE n0008 parent=n0003 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, consider 24 = (4 \u00d7 10) \u2212 (1 + 1) \u2212 14 \u2014 invalid; better: use division to scale d...",
+    "NODE n0009 parent=n0004 score=0.3000 cum=1.3000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = 4 \u00d7 (10 \u2212 1 \u2212 1) \u2212 8? No\u2014better: 24 = (4 + 10) \u00d7 (1 + 1) \u2212 4, but 4 ...",
+    "NODE n0010 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, consider 24 = (4 \u00d7 10) \u2212 (1 + 1) \u2212 14 \u2014 invalid; better: use division to scale d...",
+    "NODE n0011 parent=n0005 score=0.2000 cum=0.8000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = (4 \u00d7 10) \u2212 (1 + 1) \u2212 14 \u2014 invalid; better: use division to scale dow...",
+    "NODE n0012 parent=n0005 score=0.2000 cum=0.8000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = (4 \u00d7 10) \u2212 (1 + 1) \u2212 14 \u2014 invalid; better: use division to scale dow...",
+    "DEPTH 3 frontier=3",
+    "NODE n0013 parent=n0007 score=0.0000 cum=1.5000 terminal=False thought=FINAL: (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 (1 + 1 + 1) is invalid due to three 1s; but correct solution: (10 \u2212 1) \u00d7 (4 \u2212 1) = 27, and 27 \u2212 3 = 24, with 3 = (10 \u2212 7) invalid...",
+    "NODE n0014 parent=n0007 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 can be formed as (10 + 1 + 1) \u00f7 2, but 2 must come from remaining numbers; since only 4 is left, use 4 \u00f7 2 = 2 \u2014 cir...",
+    "NODE n0015 parent=n0008 score=0.0000 cum=1.5000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = 4 \u00d7 (10 \u2212 1 \u2212 1) \u2212 8? No\u2014better: 24 = (4 + 10) \u00d7 (1 + 1) \u2212 4, but 4 ...",
+    "NODE n0016 parent=n0008 score=0.2000 cum=1.7000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, consider using division to create a fraction that scales up: (10 \u2212 1/1) = 9, the...",
+    "NODE n0017 parent=n0008 score=0.5000 cum=2.0000 terminal=False thought=STEP: Re-express 24 as",
+    "NODE n0018 parent=n0010 score=0.2000 cum=1.7000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 = (10 + 1 + 1) \u00f7 2, but 2 can be derived from 4 \u00f7 2\u2014circular; instead, notice 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3 is invalid...",
+    "NODE n0019 parent=n0010 score=0.2000 cum=1.7000 terminal=False thought=DECOMP: insight=Target 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3, but no extra 3; instead, notice 24 = 4 \u00d7 (10 \u2212 1 \u2212 1) \u2212 8? No\u2014better: 24 = (4 + 10) \u00d7 (1 + 1) \u2212 4, but 4 ...",
+    "DEPTH 4 frontier=3",
+    "NODE n0020 parent=n0014 score=0.0000 cum=2.0000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 = 10 \u2212 (1 + 1 + 2) invalid, but 6 = (10 + 1 + 1) \u00f7 2 where 2 = 4 \u00f7 2 is circular; instead, notice 24 = (10 \u2212 1) \u00d7 (4...",
+    "NODE n0021 parent=n0014 score=0.5000 cum=2.5000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 can be formed as (10 + 1 + 1) \u00f7 2, but 2 must come from remaining numbers; since only 4 is left, use 4 \u00f7 2 = 2 \u2014 cir...",
+    "NODE n0022 parent=n0017 score=0.0000 cum=2.0000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 = 10 \u2212 (1 + 1 + 2) invalid, but 6 = (10 + 1 + 1) \u00f7 2 where 2 = 4 \u00f7 2 is circular; instead, notice 24 = (10 \u2212 1) \u00d7 (4...",
+    "NODE n0023 parent=n0016 score=0.0000 cum=1.7000 terminal=False thought=FINAL: (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 (1 + 1 + 1) is invalid due to three 1s; but correct solution: (10 \u2212 1) \u00d7 (4 \u2212 1) = 27, and 27 \u2212 3 = 24, with 3 = (10 \u2212 7) invalid...",
+    "NODE n0024 parent=n0016 score=0.5000 cum=2.2000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 = (10 + 1 + 1) \u00f7 2, where 2 = 4 \u00f7 2 is circular; instead, notice 24 = (10 \u2212 1) \u00d7 (4 \u2212 1) \u2212 3 is invalid, but correct...",
+    "NODE n0025 parent=n0016 score=0.0000 cum=1.7000 terminal=False thought=DECOMP: insight=Target 24 = 4 \u00d7 6, and 6 = (10 + 1 + 1) \u00f7 2, but 2 must be derived from remaining 4 via 4 \u00f7 2 \u2014 circular; instead, notice 6 = (4 \u00d7 1 + 1 + 1)..."
+  ]
+}

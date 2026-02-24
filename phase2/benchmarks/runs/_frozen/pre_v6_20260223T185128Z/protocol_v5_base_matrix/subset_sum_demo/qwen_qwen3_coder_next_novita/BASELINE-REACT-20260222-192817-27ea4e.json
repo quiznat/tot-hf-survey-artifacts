@@ -1,0 +1,72 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192817-27ea4e.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[9, 20, 22]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      9,
+      11,
+      11,
+      20,
+      22,
+      23
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-023",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 38710,
+    "success": 1,
+    "tokens_in": 1189,
+    "tokens_out": 342
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192817-27ea4e",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1148256203,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:28:17Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a combination of numbers from the list [1, 2, 9, 11, 11, 20, 22, 23] that sum to the target 51. Since no tools are available, I need to reason manually.\n\nLet\u2019s try to find a subset that sums to 51.\n\nFirst, sort the list (already sorted): [1, 2, 9, 11, 11, 20, 22, 23]\n\nTry large numbers first:\n\n- 23 + 22 = 45 \u2192 need 6 more. Remaining numbers: 1, 2, 9, 11, 11, 20 \u2014 can we make 6? 1 + 2 + ? = 6? 1+2=3, need 3 more",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue exploring combinations. 23 + 22 = 45, need 6 more. Available smaller numbers: 1, 2, 9, 11, 11, 20. We can't make 6 from {1,2,9,...} since 1+2=3, next smallest is 9 which is too big. So that fails.\n\nTry 23 + 20 = 43 \u2192 need 8 more. Remaining numbers: 1, 2, 9, 11, 11, 22. Can we make 8? 1+2+? = 8 \u2192 need 5, not possible. 9 is too big. So no.\n\nTry 23 + 11 = 34 \u2192 need 17 more. Remaining: 1, 2, 9,",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's continue exploring combinations. 23 + 11 = 34, need 17 more. Remaining numbers: [1, 2, 9, 11, 20, 22] (note: one 11 used, one left). Can we make 17? Try 9 + 2 + 1 = 12 \u2192 too small; 9 + 11 = 20 \u2192 too big; 20 is too big; 22 too big. What about 11 + 2 + 1 + ? = 14, need 3 more \u2014 no 3. Not working.\n\nTry 22 + 20 = 42 \u2192 need 9 more. Remaining: [1, 2, 9, 11, 11, 23]. 9 is available! So",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: 22 + 20 = 42, and 9 is available \u2192 42 + 9 = 51. Check if all numbers used are in the list: 22, 20, and 9 are all present in [1, 2, 9, 11, 11, 20, 22, 23]. Yes! So the subset {9, 20, 22} sums to 51.",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: FINAL: [9, 20, 22]"
+  ]
+}

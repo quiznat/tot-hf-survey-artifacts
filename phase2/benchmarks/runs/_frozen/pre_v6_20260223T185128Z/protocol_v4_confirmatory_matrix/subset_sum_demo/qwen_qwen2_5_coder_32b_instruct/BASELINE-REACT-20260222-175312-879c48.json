@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260222-175312-879c48.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "22 + 18 + 15 + 6 = 61",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      6,
+      7,
+      15,
+      18,
+      22,
+      22
+    ],
+    "target": 61
+  },
+  "item_id": "ss-v4-014",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6204,
+    "success": 0,
+    "tokens_in": 475,
+    "tokens_out": 225
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-175312-879c48",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1065316142,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:53:12Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the given list that sum to the target value of 61. The numbers available are [4, 6, 7, 15, 18, 22, 22]. Since no tools are available, I'll have to solve this manually by trying different combinations.\n\nLet me start by looking for combinations that might work:\n- The largest numbers are 22 and 22, so let's see if we can use those\n- 22 + 22 = 44, which leaves us with 17 more needed\n- Looking at remaining numbers [4, 6, 7, 15, 18], I need to make 17\n- 15 + 4 = 19 (too big) or 6 + 7 = 13 (too small) or 1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically checking combinations.\n\nI already considered 22 + 22 = 44, needing 17 more from [4, 6, 7, 15, 18].\nLet me try other approaches:\n\nOption 1: Try 22 + 18 = 40, need 21 more from [4, 6, 7, 15, 22]\n- 15 + 7 = 22 (close but too big)\n- 15 + 6 = 21 \u2713 So: 22 + 18 + 15 + 6 = 61\n\nLet me verify: 22 + 18 + 15 + 6 = 61\nCheck: 22 + 18 = 40, 40 + 15 = 55",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 22 + 18 + 15 + 6 = 61"
+  ]
+}

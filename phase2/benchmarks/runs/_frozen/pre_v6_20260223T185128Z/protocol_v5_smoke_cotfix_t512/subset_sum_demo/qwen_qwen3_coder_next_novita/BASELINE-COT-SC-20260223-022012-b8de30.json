@@ -1,0 +1,96 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-022012-b8de30.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "8,13",
+        3
+      ],
+      [
+        "8,11,12",
+        1
+      ],
+      [
+        "25,19,16,21",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "8,13",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      8,
+      11,
+      12,
+      13,
+      16,
+      19,
+      25
+    ],
+    "target": 21
+  },
+  "item_id": "ss-v4-010",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 69604,
+    "success": 1,
+    "tokens_in": 365,
+    "tokens_out": 788
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-022012-b8de30",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3350688739,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:20:12Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [8, 11, 12, 13, 16, 19, 25]\nTarget: 21\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We need to find a subset of [8, 11, 12, 13, 16, 19, 25] that sums to 21, using each number at most once.\n\nLet\u2019s try combinations:\n\n- Start with smaller numbers:\n  - 8 + 11 = 19 \u2192 need 2 more \u2192 no 2\n  - 8 + 12 = 20 \u2192 need 1 \u2192 no 1\n  - 8 + 13 = 21 \u2192 \u2705 Yes! 8 + 13 = 21\n\nCheck: 8 and 13 are both in the list, and 8 + 13 = 21.\n\nAny other combinations?\n- 11 + 12 = 23 \u2192 too big\n- 11 + 13 = 24 \u2192 too big\n- 12 + 13 = 25 \u2192 too big\n- 8 + 11 + ? = 21 \u2192 8+11=19 \u2192 need 2 \u2192 not available\n- 8 + 12 + ? = 20 \u2192 need 1 \u2192 no\n- Try three numbers: smallest three: 8+11+12=31 >21 \u2192 too big\n- So only valid combination is 8 and 13.\n\nFINAL: 8,13",
+    "SAMPLE 1 FINAL: 8,11,12",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [8, 11, 12, 13, 16, 19, 25]\nTarget: 21\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We need to find a subset of [8, 11, 12, 13, 16, 19, 25] that sums to 21, using each number at most once.\n\nLet\u2019s try combinations:\n\n- Start with smaller numbers:\n  - 8 + 11 = 19 \u2192 need 2 more \u2192 no 2.\n  - 8 + 12 = 20 \u2192 need 1 \u2192 no 1.\n  - 8 + 13 = 21 \u2192 \u2705 Yes! 8 + 13 = 21.\n\nCheck: 8 and 13 are both in the list, and 8 + 13 = 21.\n\nAny other combinations?\n- 11 + 12 = 23 \u2192 too big.\n- 11 + 13 = 24 \u2192 too big.\n- 12 + 13 = 25 \u2192 too big.\n- Try three numbers: smallest three: 8 + 11 + 12 = 31 \u2192 too big.\n- Any triple with smaller sum? 8 + 11 + ? \u2192 need 2 \u2192 no.\n- 8 + 12 + ? \u2192 need 1 \u2192 no.\n- So only valid subset is [8, 13].\n\nFINAL: 8,13",
+    "SAMPLE 2 FINAL: 8,13",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [8, 11, 12, 13, 16, 19, 25]\nTarget: 21\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [8, 11, 12, 13, 16, 19, 25]  \nTarget: 21  \nWe need to select one or more numbers (each used at most once) that sum to 21.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 8 + 11 = 19 \u2192 too low  \n- 8 + 12 = 20 \u2192 too low  \n- 8 + 13 = 21 \u2192 \u2705 match!\n\nCheck: 8 + 13 = 21 \u2192 valid.\n\nAny others? Let\u2019s verify uniqueness and completeness.\n\n- 11 + 12 = 23 \u2192 too high  \n- 11 + 13 = 24  \n- 12 + 13 = 25  \n- 8 + 11 + 12 = 31 \u2192 too high  \n- Any single number = 21? None equal 21.  \n- 25, 19, 16 are all >21, so can\u2019t be used alone or with positives.\n\nSo only valid combination is 8 and 13.\n\nFINAL: 8,13",
+    "SAMPLE 3 FINAL: 25,19,16,21",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [8, 11, 12, 13, 16, 19, 25]\nTarget: 21\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We need to find a subset of [8, 11, 12, 13, 16, 19, 25] that sums to 21, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 8 + 11 = 19 \u2192 need 2 more \u2192 no 2 available  \n- 8 + 12 = 20 \u2192 need 1 \u2192 no 1  \n- 8 + 13 = 21 \u2192 \u2705 Yes! 8 + 13 = 21\n\nCheck: 8 and 13 are both in the list, and 8 + 13 = 21.\n\nSo the answer is: 8,13\n\nFINAL: 8,13",
+    "SAMPLE 4 FINAL: 8,13",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [8, 11, 12, 13, 16, 19, 25]\nTarget: 21\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We need to find a subset of [8, 11, 12, 13, 16, 19, 25] that sums to 21, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 8 + 11 = 19 \u2192 need 2 more \u2192 no 2 available.\n- 8 + 12 = 20 \u2192 need 1 \u2192 no 1.\n- 8 + 13 = 21 \u2192 \u2705 Yes! 8 + 13 = 21.\n\nCheck: 8 and 13 are both in the list, and no duplicates used.\n\nAny others? Let\u2019s verify uniqueness isn\u2019t required \u2014 just need one valid subset.\n\n8 + 13 = 21 \u2192 valid.\n\nOther possibilities:\n- 11 + 12 = 23 \u2192 too big.\n- 16 + ? = 21 \u2192 need 5 \u2192 not available.\n- 19 + ? = 21 \u2192 need 2 \u2192 not available.\n- 25 is too big alone.\n\nThree-number combos:\n- 8 + 11 + ? = 21 \u2192 need 2 \u2192 no.\n- 8 + 12 + ? = 21 \u2192 need 1 \u2192 no.\n- 11 + ? + ? = 21 \u2192 e.g., 11 + 8 + 2 \u2192 no 2.\n- 12 + 8 + ? = 21 \u2192 need 1 \u2192 no.\n\nSo only valid subset is [8, 13].\n\nFINAL: 8,13",
+    "SAMPLE 5 FINAL: 8,13",
+    "VOTE SUMMARY: 8,13 -> 3, 8,11,12 -> 1, 25,19,16,21 -> 1",
+    "VOTE WINNER: 8,13 (3/5)"
+  ]
+}

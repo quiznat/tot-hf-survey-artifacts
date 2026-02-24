@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180705-60c98c.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: We have two candidate numbers: 9900 and 9090. Both use digits [0,9,0,9] and end in 0 (so divisible by 5). 9900 is larger than 9090 and equals the oracle_max (9900), so it's valid. No larger number is possible since 9900 is the maximum 4-digit number \u2264 9900, and it satisfies all constraints. Therefore, the answer is 9900.",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      0,
+      9,
+      0,
+      9
+    ],
+    "divisor": 5,
+    "oracle_max": 9900
+  },
+  "item_id": "perm-v4-029",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6600,
+    "success": 1,
+    "tokens_in": 495,
+    "tokens_out": 297
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180705-60c98c",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3574264725,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:07:05Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number that can be formed using the digits [0, 9, 0, 9] (i.e., two 0s and two 9s) that is divisible by 5 and \u2264 9900. Since the number must be divisible by 5, its last digit must be 0 or 5. We only have 0s and 9s, so the last digit must be 0.\n\nWe need to arrange the digits [0, 9, 0, 9] to form the largest possible number \u2264 9900 ending in 0.\n\nPossible 4-digit numbers using digits [0,9,0,9] ending in 0:\n- First digit can't be 0 (to be 4-digit), so first digit must be 9.\n- Last digit is 0.\n- Remaining digits: one 9",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We have digits [0, 9, 0, 9] and need the largest number \u2264 9900 divisible by 5. Divisible by 5 \u21d2 last digit must be 0 or 5; only 0 is available, so last digit = 0.\n\nWe need to maximize the number, so we want the highest possible digits in the higher places.\n\nPossible 4-digit numbers using two 9s and two 0s, ending in 0:\n- First digit must be 9 (can't be 0).\n- Last digit is 0.\n- Remaining digits: one 9 and one 0 to place in the hundreds and tens places.\n\nSo possible numbers:\n- 9 9 0 0 \u2192 9900\n- 9 0 9 0 \u2192 9090\n\nCheck which is \u2264 9900: both are",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We have two candidate numbers: 9900 and 9090. Both use digits [0,9,0,9] and end in 0 (so divisible by 5). 9900 is larger than 9090 and equals the oracle_max (9900), so it's valid. No larger number is possible since 9900 is the maximum 4-digit number \u2264 9900, and it satisfies all constraints. Therefore, the answer is 9900."
+  ]
+}

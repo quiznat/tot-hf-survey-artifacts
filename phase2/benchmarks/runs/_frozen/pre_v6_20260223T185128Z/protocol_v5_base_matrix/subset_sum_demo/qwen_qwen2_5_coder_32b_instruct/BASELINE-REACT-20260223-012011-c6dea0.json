@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-012011-c6dea0.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "22 + 16 + 13 = 51",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      5,
+      11,
+      11,
+      13,
+      16,
+      22
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-039",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5424,
+    "success": 0,
+    "tokens_in": 465,
+    "tokens_out": 223
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012011-c6dea0",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2776084078,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:20:11Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the given list that sum to the target value of 51. The numbers available are [4, 5, 11, 11, 13, 16, 22]. Let me try different combinations systematically.\n\nLet me start by looking for obvious combinations or patterns:\n- If I use the largest number 22, I need the remaining numbers to sum to 51-22=29\n- If I use 16, I need remaining numbers to sum to 51-16=35\n- If I use 13, I need remaining numbers to sum to 51-13=38\n\nLet me try combinations including 22:\nRemaining numbers: [4, 5, 11, 11, 13, 16]\nNeed to make 2",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me reconsider this more systematically. I need to find a subset of numbers that sum to 51 from [4, 5, 11, 11, 13, 16, 22].\n\nLet me try combinations with the largest numbers first:\n- Using 22: Need remaining numbers to sum to 29\n  - Using 16: Need remaining numbers to sum to 13\n    - Using 13: This works! 22 + 16 + 13 = 51\n  - Using 13: Need remaining numbers to sum to 16\n    - Using 16: This works! 22 + 13 + 16 = 51\n\nLet me verify: 22 + 16 + 13 = 51 \u2713\n\nThis uses three numbers: 22",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 22 + 16 + 13 = 51"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260222-062700-cc8cdc.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 6,
+      "frontier_width": 3,
+      "generated_nodes": 14,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1
+    }
+  },
+  "final_answer": "10,18,22",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      10,
+      10,
+      18,
+      19,
+      22,
+      24,
+      25
+    ],
+    "target": 50
+  },
+  "item_id": "ss-v4-009",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 25370,
+    "success": 1,
+    "tokens_in": 2002,
+    "tokens_out": 379
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot prototype found terminal candidate",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260222-062700-cc8cdc",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 1773078958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T06:27:00Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.0000 cum=0.0000 terminal=False candidate=2,10,18,20",
+    "NODE n0002 parent=root score=0.0000 cum=0.0000 terminal=False candidate=2,10,19,19",
+    "NODE n0003 parent=root score=0.0000 cum=0.0000 terminal=False candidate=2,24,24",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0001 score=0.0000 cum=0.0000 terminal=False candidate=2,10,10,18,10",
+    "NODE n0005 parent=n0001 score=0.5000 cum=0.5000 terminal=False candidate=Wait\u2014rechecking: numbers are [2,10,10,18,19,22,24,25]; duplicates allowed only as many times as appear (e.g., two 10s max). Target is 50.",
+    "NODE n0006 parent=n0001 score=0.0000 cum=0.0000 terminal=False candidate=Let\u2019s find valid subsets:",
+    "NODE n0007 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=Wait\u2014those are invalid per rules (20 and extra 19/24 not in list). Let's recompute properly.",
+    "NODE n0008 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=Valid subsets summing to 50 from [2,10,10,18,19,22,24,25]:",
+    "NODE n0009 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=2 + 10 + 18 + 20 \u2192 invalid (20 not in list)",
+    "NODE n0010 parent=n0003 score=0.0000 cum=0.0000 terminal=False candidate=2,10,",
+    "DEPTH 3 frontier=3",
+    "NODE n0011 parent=n0005 score=0.0000 cum=0.5000 terminal=False candidate=2,10,18,20 \u2192 invalid (20 not in list)",
+    "NODE n0012 parent=n0005 score=0.0000 cum=0.5000 terminal=False candidate=2,10,10,18,10 \u2192 uses three 10s, only two available",
+    "NODE n0013 parent=n0005 score=0.0000 cum=0.5000 terminal=False candidate=2,24,24 \u2192 only one 24 in list",
+    "NODE n0014 parent=n0004 score=0.8000 cum=0.8000 terminal=True candidate=10,18,22"
+  ]
+}

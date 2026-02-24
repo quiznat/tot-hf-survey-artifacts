@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060540-6831aa.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "8664",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4804,
+    "success": 1,
+    "tokens_in": 484,
+    "tokens_out": 223
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060540-6831aa",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T06:05:40Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by the given divisor (4) that can be formed by rearranging the given digits [6, 6, 8, 4]. The oracle_max is 8664, which suggests that 8664 is the correct answer \u2014 but I need to verify if it's indeed the maximum possible number divisible by 4 using those digits.\n\nA number is divisible by 4 if its last two digits form a number divisible by 4.\n\nDigits available: [6, 6, 8, 4]\n\nWe want the largest possible number \u2192 try descending order: 8664.\n\nCheck if 8664 is divisible by 4: last two digits = 64. 64 \u00f7 4 = 16 \u2192 yes.\n\nIs there any larger permutation? Let's list permutations in descending order:\n\n- 8664",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The largest possible number from digits [6, 6, 8, 4] is 8664 (since digits sorted descending: 8, 6, 6, 4). We verified 8664 is divisible by 4 because its last two digits, 64, form 64 \u00f7 4 = 16 (integer). Any larger permutation would require a higher digit in the thousands place, but 8 is the largest digit, and among numbers starting with 8, 8664 is the highest arrangement (next would be 8646, which is smaller). So 8664 is indeed the maximum divisible by 4. The oracle_max matches this, confirming correctness. No further checks needed.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 8664"
+  ]
+}

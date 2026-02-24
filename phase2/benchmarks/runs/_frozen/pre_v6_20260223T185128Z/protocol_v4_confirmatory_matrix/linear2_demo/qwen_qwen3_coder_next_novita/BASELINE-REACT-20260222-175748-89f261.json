@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-175748-89f261.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "(2, -8)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        0,
+        -9,
+        72
+      ],
+      [
+        -2,
+        1,
+        -12
+      ]
+    ]
+  },
+  "item_id": "lin-v4-050",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4865,
+    "success": 1,
+    "tokens_in": 478,
+    "tokens_out": 236
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-175748-89f261",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3131830855,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T17:57:48Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task provides a list of equations in the form of coefficients. Each inner list appears to represent a linear equation in two variables, say x and y, of the form: a*x + b*y = c. However, the lists have only two coefficients, not three. Wait \u2014 looking again: `[[0, -9, 72], [-2, 1, -12]]` \u2014 each has three numbers. So likely each is: a*x + b*y = c, i.e.,  \nEquation 1: 0*x + (-9)*y = 72 \u2192 -9y = 72  \nEquation 2: -2*x + 1*y = -12 \u2192 -2x + y = -12  \n\nWe can solve this system. From Eq1: -9y = 72 \u2192 y = -8.  \nPlug into Eq2: -2",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The task provides a list of equations in the form of coefficients. Each inner list has three numbers, representing a linear equation in two variables: a*x + b*y = c. So:\n\nEquation 1: 0*x + (-9)*y = 72 \u2192 -9y = 72  \nEquation 2: -2*x + 1*y = -12 \u2192 -2x + y = -12  \n\nFrom Eq1: y = 72 / (-9) = -8  \nSubstitute y = -8 into Eq2: -2x + (-8) = -12 \u2192 -2x - 8 = -12 \u2192 -2x = -4 \u2192 x = 2  \n\nThus, the solution is x = 2, y = -8. Since no tools are available and the task is to solve the system, the final answer is the ordered pair",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: (2, -8)"
+  ]
+}

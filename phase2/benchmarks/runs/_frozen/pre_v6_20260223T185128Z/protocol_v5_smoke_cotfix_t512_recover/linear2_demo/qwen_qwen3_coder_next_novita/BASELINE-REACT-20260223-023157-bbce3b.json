@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-023157-bbce3b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_xy",
+    "solve2"
+  ],
+  "final_answer": "x=7, y=3",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        8,
+        -25
+      ],
+      [
+        -7,
+        -7,
+        -70
+      ]
+    ]
+  },
+  "item_id": "lin-v4-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 39634,
+    "success": 1,
+    "tokens_in": 336,
+    "tokens_out": 256
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-023157-bbce3b",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 359837145,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T02:31:57Z",
+  "tool_config": [
+    "check_xy",
+    "solve2"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a system of two linear equations in two variables (likely x and y), represented as coefficients. Each inner list has three elements: [a, b, c] corresponding to the equation a*x + b*y = c.\n\nThe equations are:\n1. -7x + 8y = -25\n2. -7x - 7y = -70\n\nWe need to solve for x and y. Let's analyze.\n\nWe can subtract the two equations to eliminate x:\nEquation 1: -7x + 8y = -25  \nEquation 2: -7x - 7y = -70  \nSubtract Eq2 from Eq1:  \n(-7x + 8y) - (-7x - 7y) = -25 - (-70)  \n\u2192 -7x + 8y + 7x + 7y = -25 + 70  \n\u2192 15y = 45  \n\u2192 y = 3\n\nNow plug y = 3 into one equation to find x. Use Eq2:  \n-7x - 7(3) = -70  \n\u2192 -7x - 21 = -70  \n\u2192 -7x = -49  \n\u2192 x = 7\n\nSo solution is x = 7, y = 3.\n\nWe can verify with Eq1: -7(7) + 8(3) = -49 + 24 = -25 \u2713\n\nNow, which tool to use? We have `check_xy` and `solve2`. Since we already solved manually, but to be formal and ensure correctness, we could call `solve2` with the equations.\n\nAssuming `solve2` takes the list of equations as input, e.g., `solve2([[-7, 8, -25], [-7, -7, -70]])`.\n\nAlternatively, `check_xy` likely takes x, y, and equations to verify \u2014 but we want to solve, not verify.\n\nSo best to use `solve2`.\n\nACTION: solve2 [[-7, 8, -25], [-7, -7, -70]]",
+    "STEP 1 OBSERVATION: x=7.000000,y=3.000000",
+    "STEP 2 MODEL: FINAL: x=7, y=3"
+  ]
+}

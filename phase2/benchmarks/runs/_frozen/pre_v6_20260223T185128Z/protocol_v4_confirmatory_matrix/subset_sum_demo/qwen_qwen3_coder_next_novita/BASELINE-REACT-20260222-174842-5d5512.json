@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174842-5d5512.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "21 + 18 + 13 + 4 = 56",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      13,
+      18,
+      19,
+      21
+    ],
+    "target": 56
+  },
+  "item_id": "ss-v4-050",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 56866,
+    "success": 0,
+    "tokens_in": 771,
+    "tokens_out": 286
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174842-5d5512",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1467992623,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:48:42Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We need to reach the target 56 using the numbers [4, 13, 18, 19, 21] with basic arithmetic operations (addition, subtraction, multiplication, division, parentheses). Since no tools are available, we must compute manually.\n\nLet\u2019s explore combinations:\n\nFirst, sum all numbers: 4 + 13 + 18 + 19 + 21 = 75 \u2014 too high.\n\nTry to get close to 56.\n\nCheck combinations:\n\n- 21 + 19 = 40 \u2192 need 16 more. Remaining: 4, 13, 18. Can we make 16? 18 - 4 = 14, 13 + 4 = 17 \u2014 not 16. 18 - 13 + 4 = 9. No.",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's try other combinations. Consider multiplication to reach larger jumps. 4 \u00d7 13 = 52, close to 56 \u2014 need +4, but 4 is already used. Remaining numbers: 18, 19, 21 \u2014 too big to add just 4.\n\nWhat about 21 + 18 = 39 \u2192 need 17 more. Remaining: 4, 13, 19. 13 + 4 = 17! Yes! So 21 + 18 + 13 + 4 = 56. Let's verify: 21 + 18 = 39, 39 + 13 = 52, 52 + 4 = 56. That uses 21, 18, 13, 4 \u2014 all in the",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We found that 21 + 18 + 13 + 4 = 56. Let's double-check: 21 + 18 = 39; 39 + 13 = 52; 52 + 4 = 56. Yes, correct. All numbers used are from the list [4, 13, 18, 19, 21], and we didn't need to use 19 \u2014 but the task doesn't require using *all* numbers, just reaching the target using some of them with arithmetic operations. So this is a valid solution.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: 21 + 18 + 13 + 4 = 56"
+  ]
+}

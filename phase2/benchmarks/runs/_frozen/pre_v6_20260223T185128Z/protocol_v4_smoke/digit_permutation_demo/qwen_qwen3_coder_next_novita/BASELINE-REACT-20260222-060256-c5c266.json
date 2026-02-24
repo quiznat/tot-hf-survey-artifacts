@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060256-c5c266.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: From the enumeration, only 3336 has last three digits 336, and 336 \u00f7 8 = 42 (exact division). So 3336 is divisible by 8. The oracle_max is 3336, and since it's the largest permutation (6 at the end gives smallest number, but wait \u2014 actually 6333 > 3633 > 3363 > 3336, so 3336 is the *smallest* permutation). However, the task is to find the *largest* number divisible by 8, not necessarily the largest permutation overall. Among the permutations, only 3336 is divisible by 8, so it is the (unique) solution \u2014 and matches the oracle_max. Thus, the answer is 3336.",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5872,
+    "success": 1,
+    "tokens_in": 461,
+    "tokens_out": 312
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060256-c5c266",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T06:02:56Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [6, 3, 3, 3] (each used exactly once) that is divisible by 8, and the oracle says the maximum possible is 3336. Let's verify.\n\nA number is divisible by 8 if its last three digits form a number divisible by 8.\n\nWe need to consider all permutations of [6, 3, 3, 3] \u2014 there are only 4 permutations (since three 3s are identical):\n\n- 6333 \u2192 last three digits: 333 \u2192 333 \u00f7 8 = 41.625 \u2192 not divisible\n- 3633 \u2192 last three digits: 633 \u2192 633 \u00f7 8 = 79.125 \u2192 not divisible\n- 33",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue enumerating all distinct permutations of [6, 3, 3, 3]. Since three digits are identical (3s), there are 4 distinct permutations:\n\n1. 6333 \u2192 last three digits = 333 \u2192 333 \u00f7 8 = 41.625 \u2192 remainder 5 \u2192 not divisible  \n2. 3633 \u2192 last three digits = 633 \u2192 633 \u00f7 8 = 79.125 \u2192 remainder 1 \u2192 not divisible  \n3. 3363 \u2192 last three digits = 363 \u2192 363 \u00f7 8 = 45.375 \u2192 remainder 3 \u2192 not divisible  \n4. 3336 \u2192 last three digits = 336 \u2192 336 \u00f7 8 = 42",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: From the enumeration, only 3336 has last three digits 336, and 336 \u00f7 8 = 42 (exact division). So 3336 is divisible by 8. The oracle_max is 3336, and since it's the largest permutation (6 at the end gives smallest number, but wait \u2014 actually 6333 > 3633 > 3363 > 3336, so 3336 is the *smallest* permutation). However, the task is to find the *largest* number divisible by 8, not necessarily the largest permutation overall. Among the permutations, only 3336 is divisible by 8, so it is the (unique) solution \u2014 and matches the oracle_max. Thus, the answer is 3336."
+  ]
+}

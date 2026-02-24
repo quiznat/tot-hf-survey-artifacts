@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060839-ddaaea.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "3336",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      3,
+      3,
+      3
+    ],
+    "divisor": 8,
+    "oracle_max": 3336
+  },
+  "item_id": "perm-v4-010",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7731,
+    "success": 1,
+    "tokens_in": 1234,
+    "tokens_out": 350
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060839-ddaaea",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3186181750,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T06:08:39Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [6, 3, 3, 3] (each used exactly once) that is divisible by 8, and the oracle says the maximum possible is 3336. Let's verify.\n\nA number is divisible by 8 if its last three digits form a number divisible by 8.\n\nWe need to consider all permutations of [6, 3, 3, 3] \u2014 there are only 4 permutations (since three 3s are identical):\n\n- 6333 \u2192 last three digits: 333 \u2192 333 \u00f7 8 = 41.625 \u2192 not divisible\n- 3633 \u2192 last three digits: 633 \u2192 633 \u00f7 8 = 79.125 \u2192 not divisible\n- 33",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue enumerating all distinct permutations of [6, 3, 3, 3]. Since three digits are identical (3s), there are 4!/3! = 4 unique numbers:\n\n1. 6333 \u2192 last three digits = 333 \u2192 333 mod 8 = 333 \u2212 8\u00d741 = 333 \u2212 328 = 5 \u2192 not divisible  \n2. 3633 \u2192 last three digits = 633 \u2192 633 mod 8 = 633 \u2212 8\u00d779 = 633 \u2212 632 = 1 \u2192 not divisible  \n3. 3363 \u2192 last three digits = 363 \u2192 363 mod 8 = 363 \u2212 8\u00d745 = 363 \u2212",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's complete the enumeration. The four distinct permutations of [6, 3, 3, 3] are:\n\n1. 6333 \u2192 last three digits = 333 \u2192 333 mod 8 = 5  \n2. 3633 \u2192 last three digits = 633 \u2192 633 mod 8 = 1  \n3. 3363 \u2192 last three digits = 363 \u2192 363 mod 8 = 363 \u2212 8\u00d745 = 363 \u2212 360 = 3  \n4. 3336 \u2192 last three digits = 336 \u2192 336 mod 8 = 0 (since 8\u00d742 = 336) \u2192 divisible by 8  \n\nSo 3336 is divisible by 8, and",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: From the enumeration, the only permutation of [6, 3, 3, 3] divisible by 8 is 3336, and the oracle confirms the maximum is 3336. Since all other permutations fail the divisibility test, and 3336 is valid (336 \u00f7 8 = 42), it is the correct answer.",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: FINAL: 3336"
+  ]
+}

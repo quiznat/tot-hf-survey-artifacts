@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011916-d05041.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "22 - 18 + 8 -",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      8,
+      18,
+      22
+    ],
+    "target": 9
+  },
+  "item_id": "ss-v4-018",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8687,
+    "success": 0,
+    "tokens_in": 477,
+    "tokens_out": 343
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011916-d05041",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2906260670,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:16Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a way to combine the given numbers [1, 2, 8, 18, 22] to reach the target value 9. Since no tools are available, I can only use basic arithmetic operations (addition, subtraction, multiplication, division) on the numbers.\n\nLet me try different combinations systematically:\n\nFirst, let me see if I can get 9 by subtracting some numbers from others:\n- 22 - 18 = 4, then I have 1, 2, 8 left. Can I make 9 from 4, 1, 2, 8?\n- 18 - 8 = 10, then I have 1, 2, 22 left. Can I make 9 from 10, 1, 2, 22?\n\nLet me try: 22 - 18",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue exploring combinations systematically.\n\nFrom my previous attempt, I had 22 - 18 = 4, leaving me with numbers 1, 2, 8. I need to make 9 from these, but 4 + 1 + 2 + 8 = 15 which is too large, and 8 - 2 - 1 = 5, which doesn't help.\n\nLet me try another approach: 18 - 8 = 10, leaving 1, 2, 22. \nIf I take 22 - 10 = 12, I still need to incorporate 1 and 2 somehow.\n\nActually, let me reconsider: what about 22 - 18 + 8 - 2 - 1?\n= 4 + 8 - 3 = 9\n\nLet me verify: 22 -",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me verify my calculation step by step.\n\nI proposed: 22 - 18 + 8 - 2 - 1\n\nBreaking it down:\n- 22 - 18 = 4\n- 4 + 8 = 12  \n- 12 - 2 = 10\n- 10 - 1 = 9\n\nThis equals the target of 9. Let me double-check that I'm using each number exactly once:\n- 22: used once \u2713\n- 18: used once \u2713  \n- 8: used once \u2713\n- 2: used once \u2713\n- 1: used once \u2713\n\nAll numbers from the set [1, 2, 8, 18, 22] are used exactly once, and the result is 9.\n\nFINAL: 22 - 18 + 8 -"
+  ]
+}

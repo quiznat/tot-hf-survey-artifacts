@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192733-5371c9.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[1, 6, 7, 20, 23]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      6,
+      7,
+      11,
+      20,
+      23,
+      24
+    ],
+    "target": 57
+  },
+  "item_id": "ss-v4-024",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9418,
+    "success": 1,
+    "tokens_in": 789,
+    "tokens_out": 284
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192733-5371c9",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2451246828,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:27:33Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [1, 6, 7, 11, 20, 23, 24] and a target: 57. The task is likely to find a subset (or combination using arithmetic operations) that equals the target. Since no tools are available, this is a pure reasoning problem \u2014 possibly subset sum or arithmetic expression.\n\nLet\u2019s explore subset sum first: find a subset that sums to 57.\n\nTotal sum of all numbers: 1 + 6 + 7 + 11 + 20 + 23 + 24 =  \n1+6=7, +7=14, +11=25, +20=45, +23=68, +24=92. So total is 92.\n\nWe need subset summing to 57 \u2192 complement would",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need a subset of [1, 6, 7, 11, 20, 23, 24] that sums to 57. Total sum is 92, so complement must sum to 92 \u2212 57 = 35. So equivalently, find a subset summing to 35 to exclude.\n\nLet\u2019s try to find a subset summing to 35.\n\nTry largest numbers first:  \n24 + 23 = 47 \u2192 too big.  \n24 + 11 = 35 \u2192 yes! 24 + 11 = 35.\n\nSo the complement subset is {11, 24}, meaning the target subset is all numbers except 11 and 24:  \n[1, 6, 7, 20, 23] \u2192 sum = 1",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: We found that 11 + 24 = 35, so excluding them gives subset [1, 6, 7, 20, 23]. Let's verify its sum:  \n1 + 6 = 7  \n7 + 7 = 14  \n14 + 20 = 34  \n34 + 23 = 57  \n\u2705 Correct! So the subset [1, 6, 7, 20, 23] sums to 57.  \nSince the task likely asks for such a subset (or confirmation), we can now state the answer.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: [1, 6, 7, 20, 23]"
+  ]
+}

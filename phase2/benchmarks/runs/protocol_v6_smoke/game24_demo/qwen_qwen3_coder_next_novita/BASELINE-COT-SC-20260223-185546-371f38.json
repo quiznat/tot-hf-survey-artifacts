@@ -1,0 +1,127 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-185546-371f38.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "(4 + 4)",
+        3
+      ],
+      [
+        "24 * 1",
+        1
+      ],
+      [
+        "(8 * 3) + (4 - 4)",
+        1
+      ],
+      [
+        "- 4 * (8 - 3) + 4",
+        1
+      ],
+      [
+        "4 * (8 - 3) + 4",
+        1
+      ],
+      [
+        "(4 - (4",
+        1
+      ],
+      [
+        "(4 + 4) * 3",
+        1
+      ],
+      [
+        "8 * 3",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "(4 + 4)",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    4,
+    4,
+    8
+  ],
+  "item_id": "g24-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 21995,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2787
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260223-185546-371f38",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2465764240,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T18:55:46Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [3, 4, 4, 8] and need to use each exactly once to make 24.\n\nLet\u2019s explore possible combinations.\n\nFirst, note that 8 \u00d7 3 = 24, so if we can make the other two numbers (4 and 4) cancel out (i.e., combine to 0 or 1), we might get there.\n\nBut 4 \u2212 4 = 0, so (8 \u00d7 3) + (4 \u2212 4) = 24 + 0 = 24 \u2192 valid!\n\nCheck: 8 \u00d7 3 + 4 \u2212 4 = 24? Yes, order of operations: multiplication first: 8\u00d73=24, then 24 + 4 = 28, 28 \u2212 4 = 24. Correct.\n\nBut we need to use parentheses to ensure correct grouping? Actually, with standard precedence, multiplication happens before addition/subtraction, and they are left-associative, so:\n\n8 \u00d7 3 + 4 \u2212 4 = (8 \u00d7 3) + 4 \u2212 4 = 24 + 4 \u2212 4 = 24. Yes, it works without parentheses.\n\nBut let\u2019s verify all numbers are used: 8, 3, 4, 4 \u2014 yes.\n\nAlternative: (8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.\n\nOr 4 \u00d7 (8 \u2212 3) + 4 = 4\u00d75 + 4 = 20 + 4 = 24 \u2014 but that uses only one 4? Wait: 4 \u00d7 (8 \u2212 3) + 4 uses two 4s, one 8, one 3 \u2014 yes! That\u2019s valid.\n\nLet\u2019s write it: 4 \u00d7 (8 \u2212 3) + 4 = 4 \u00d7 5 + 4 = 20 + 4 = 24.\n\nThat\u2019s clean and uses all numbers exactly once.\n\nAnother possibility: (4 + 4) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 but that ignores the 8? No, wait: (4 + 4) \u00d7 3 uses two 4s and 3, but not the 8. So invalid.\n\nWe must use all four numbers: 3, 4, 4, 8.\n\nSo",
+    "SAMPLE 1 FINAL: (4 + 4)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [3, 4, 4, 8] and need to use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nWe know 8 \u00d7 3 = 24, so maybe we can get rid of the two 4s by making them cancel or become 1 (e.g., 4 \u00f7 4 = 1), then multiply by 24? Wait \u2014 but we need to use all numbers in one expression.\n\nTry:  \n(8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2705\n\nThat uses all four numbers: 8, 3, 4, 4 \u2014 each exactly once.\n\nCheck:  \n4 \u00f7 4 = 1  \n8 \u00d7 3 = 24  \n24 \u00d7 1 = 24\n\nPerfect.\n\nFINAL: (8*3)*(4/4)",
+    "SAMPLE 2 FINAL: 24 * 1",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we need to use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 combinations:\n- 8 \u00d7 3 = 24 \u2192 then need to neutralize the two 4s (e.g., +0, \u00d71, etc.)\n- 4 \u00d7 6 = 24 \u2192 can we make 6 from [3, 4, 8]? 8 \u2212 4 + 2? No 2. 3 + 4 \u2212 ? Hmm.\n- (8 \u2212 4) \u00d7 (4 + 2) = 4 \u00d7 6 = 24, but no 2.\n- Try (8 \u00f7 (4 \u2212 3)) = 8 \u00f7 1 = 8, then \u00d73? Already used 3.\n\nLet\u2019s try:  \n(8 \u2212 4) \u00d7 3 = 12, then \u00d72 needed \u2014 but we have another 4 \u2192 4/2 = 2, but no 2.\n\nWhat about:  \n(4 + 4) \u00d7 3 = 24 \u2192 that\u2019s 8 \u00d7 3 = 24, but we haven\u2019t used the 8! So we used two 4s and 3, but need to include 8.\n\nWe must use **all four numbers**: 3, 4, 4, 8 \u2014 each exactly once.\n\nTry:  \n8 \u00d7 (4 \u2212 1) = 24 \u2192 need 1 from 4 and 3? 4/4 = 1, but then 3 unused.\n\nWait: 8 \u00d7 (4 \u2212 (4 \u00f7 4)) = 8 \u00d7 (4 \u2212 1) = 24, but that uses three 4s \u2014 we only have two 4s.\n\nWhat about:  \n(8 \u2212 4) \u00d7 (4 + 2) \u2014 again no 2.\n\nTry using division:  \n(8 \u00d7 4) \u2212 (4 \u00d7 3) = 32 \u2212 12 = 20 \u2192 too low.\n\n(8 \u00d7 3) + (4 \u2212 4) = 24 + 0 = 24 \u2192 uses all: 8, 3, 4, 4. Yes!\n\nCheck:  \n8 \u00d7 3 = 2",
+    "SAMPLE 3 FINAL: (8 * 3) + (4 - 4)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each exactly once to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 combinations include:\n- 8 \u00d7 3 = 24, so if we can make the two 4s cancel out or become 1 (e.g., 4 \u00f7 4 = 1), then:\n  (8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2705\n\nLet\u2019s check: uses 8, 3, 4, 4 \u2014 each once.\n\nExpression:  \n**(8 \u00d7 3) \u00d7 (4 \u00f7 4)**  \n= 24 \u00d7 1 = 24\n\nAlternatively:  \n8 \u00d7 3 \u00d7 (4 \u00f7 4) \u2014 same thing.\n\nParentheses are needed to ensure correct order, but since multiplication and division have same precedence and left-to-right, 8 \u00d7 3 \u00d7 4 \u00f7 4 would also give 24 (because 8\u00d73=24, 24\u00d74=96, 96\u00f74=24). But to be safe and clear, we can use parentheses.\n\nHowever, the problem only asks for **one expression**, and using each number exactly once.\n\nLet\u2019s verify alternative options just in case:\n- (8 \u2212 4) \u00d7 (4 + 2) \u2192 no 2\n- 4 \u00d7 (8 \u2212 3) + 4 = 4\u00d75 +4 = 24 \u2192 20+4=24 \u2705 Wait \u2014 uses 4, 8, 3, 4 \u2014 yes!  \nLet\u2019s compute:  \n4 \u00d7 (8 \u2212 3) + 4  \n= 4 \u00d7 5 + 4  \n= 20 + 4 = 24 \u2705  \nUses: first 4, 8, 3, second 4 \u2014 all used once.\n\nThat\u2019s even simpler and avoids division.\n\nSo two valid expressions:\n1. 4 \u00d7 (8 \u2212 3) + 4  \n2. (8 \u00d7 3) \u00d7 (4 \u00f7 4)\n\nWhich to choose? Both are valid. Let\u2019s pick the one without division \u2014 integer-only operations.\n\nSo: **4 \u00d7 (8 \u2212 3) + 4**\n\nCheck: 8 \u2212",
+    "SAMPLE 4 FINAL: - 4 * (8 - 3) + 4",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each exactly once to produce 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 game tricks:\n- 8 \u00d7 3 = 24, so if we can make the remaining two 4s cancel out (e.g., 4 \u2212 4 = 0), then 8 \u00d7 3 + (4 \u2212 4) = 24. That works!\n\nCheck:  \n8 \u00d7 3 = 24  \n4 \u2212 4 = 0  \n24 + 0 = 24  \nUses all numbers: 8, 3, 4, 4 \u2014 yes.\n\nSo expression:  \n**8 \u00d7 3 + 4 \u2212 4**  \nBut order of operations: multiplication first, then addition and subtraction left to right:  \n8 \u00d7 3 = 24  \n24 + 4 = 28  \n28 \u2212 4 = 24 \u2192 correct.\n\nAlternatively, we could write (8 \u00d7 3) + (4 \u2212 4) to make grouping explicit, but the problem says \u201creturn only one expression\u201d, and standard precedence makes the first version valid.\n\nAnother possibility: (8 \u2212 4) \u00d7 (4 + 2) \u2014 but no 2. Not helpful.\n\nOr 4 \u00d7 (8 \u2212 4) + 3 = 4 \u00d7 4 + 3 = 19 \u2014 no.\n\nOr (4 + 4) \u00d7 3 = 24 \u2014 but that uses only 4, 4, 3 \u2014 missing 8.\n\nWait: (4 + 4) \u00d7 3 = 24, but 8 is unused. Not allowed.\n\nBack to first idea: 8 \u00d7 3 + 4 \u2212 4 = 24 \u2714\ufe0f\n\nAlso: 4 \u00d7 (8 \u2212 3) + 4 = 4 \u00d7 5 + 4 = 24 \u2014 uses 4, 8, 3, 4 \u2192 yes!  \n4 \u00d7 (8 \u2212 3) + 4 = 4 \u00d7 5 + 4 = 20 + 4 = 24.\n\nThat\u2019s cleaner with parentheses.\n\nWhich to choose? Both are valid.\n\nLet\u2019s verify:  \n4 \u00d7 (8 \u2212 3) + 4  \n= 4 \u00d7 5 + 4  \n=",
+    "SAMPLE 5 FINAL: 4 * (8 - 3) + 4",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to produce **24**.\n\nLet\u2019s try combinations:\n\nFirst, think of common 24 patterns:\n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- (a + b) \u00d7 c - d, etc.\n\nTry using 8 \u00d7 3 = 24 directly. Then we need to use the two 4s in a way that doesn\u2019t change the value \u2014 e.g., + (4 - 4) = 0, or \u00d7 (4/4) = 1.\n\nSo:  \n8 \u00d7 3 \u00d7 (4 / 4) = 24 \u00d7 1 = 24  \n\u2705 Uses all numbers: 8, 3, 4, 4 \u2014 each exactly once.\n\nAlternatively:  \n(8 - 4) \u00d7 (4 + 2) \u2014 but no 2.\n\nWait, let\u2019s verify:  \n8 \u00d7 3 \u00d7 (4 \u00f7 4) = 24  \nYes.\n\nAnother option: (4 + 4) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 but then 8 is unused. So need to incorporate 8.\n\nHow about: (8 \u00f7 (4 - 3)) \u00d7 4 = (8 \u00f7 1) \u00d7 4 = 32 \u2014 too big.\n\nTry: (8 - 4) \u00d7 (4 + 2) \u2014 again, no 2.\n\nWhat about: (4 \u00d7 4) + 8 = 16 + 8 = 24 \u2014 then 3 is unused.\n\nWait \u2014 (4 \u00d7 4) + 8 = 24, missing 3. So need to neutralize 3: e.g., + (3 - 3), but only one 3.\n\nAlternative idea: 8 \u00d7 (4 - (4 \u00f7 4)) = 8 \u00d7 (4 - 1) = 8 \u00d7 3 = 24 \u2014 but that uses three 4s: one in first 4, two in (4 \u00f7 4). We only have two 4s.\n\nWait, check: 4 \u00f7 4 uses two",
+    "SAMPLE 6 FINAL: (4 - (4",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possibilities.\n\nWe know 3 \u00d7 8 = 24, so if we can make the two 4s cancel out (e.g., 4 \u2212 4 = 0), then 3 \u00d7 8 + (4 \u2212 4) = 24 \u2014 but that uses all numbers and gives 24. However, is adding 0 allowed? Yes, but let's check if parentheses and operations are standard:  \n\u2192 3 \u00d7 8 + (4 \u2212 4) = 24  \nThat works.\n\nBut maybe a more \"elegant\" solution without adding zero? Let's try other combinations.\n\nTry: (8 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have a 2.  \nWe have two 4s \u2014 maybe (4 + 4) = 8, then 8 \u00d7 3 = 24 \u2014 but then we still have an 8 left. Wait: [3, 4, 4, 8] \u2192 if we do (4 + 4) = 8, then we have 8 and 8 and 3 \u2192 8 \u00d7 3 = 24, but then extra 8 remains \u2014 not allowed.\n\nTry: 8 \u00d7 (4 \u2212 4 \u00f7 4)  \nCompute inner: 4 \u00f7 4 = 1; 4 \u2212 1 = 3; 8 \u00d7 3 = 24.  \nUsed: 8, 4, 4, 4? Wait \u2014 that\u2019s three 4s! We only have two 4s. So invalid.\n\nTry: (8 \u00f7 (4 \u2212 3)) \u00d7 4 = (8 \u00f7 1) \u00d7 4 = 32 \u2014 too high.\n\nTry: (8 \u2212 4) \u00d7 (4 + 2) \u2014 again, no 2.\n\nTry: 4 \u00d7 (8 \u2212 4) + 3? That\u2019s 4 \u00d7 4 + 3 = 19.\n\nTry: 4 \u00d7 (3 + 4) \u2212 8 = 4 \u00d7 7 \u2212 8 = 28 \u2212 8 = 20.\n\nTry: (4 \u00d7 8) \u2212 (4 + 3) =",
+    "SAMPLE 7 FINAL: (4 + 4)",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each exactly once (and only once) to make 24.\n\nLet\u2019s think through possible combinations.\n\nWe know 3 \u00d7 8 = 24, so if we can make the other two numbers (4 and 4) cancel out (i.e., form 1 or 0), we might get 24.\n\nBut using 4 and 4 to make 1: 4 \u00f7 4 = 1. So:\n\n(3 \u00d7 8) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2705\n\nThat uses all numbers: 3, 8, 4, 4 \u2014 each exactly once.\n\nAlternative: (8 \u2212 4) \u00d7 (4 + 2) \u2014 but no 2.\n\nOr 8 \u00d7 (4 \u2212 4 \u00f7 4) = 8 \u00d7 (4 \u2212 1) = 8 \u00d7 3 = 24 \u2705\n\nLet\u2019s check: 4 \u00f7 4 = 1, 4 \u2212 1 = 3, 8 \u00d7 3 = 24. That uses 8, 4, 4, and 3? Wait \u2014 where\u2019s the 3?\n\nAh! In this version, we used only 8 and two 4s \u2014 missing the 3. So invalid.\n\nBut what if we do: (4 + 4) \u00d7 3 = 8 \u00d7 3 = 24, then we still have an 8 left \u2014 too many numbers.\n\nWait: (8 \u00f7 (4 \u00f7 4)) \u00d7 3 = (8 \u00f7 1) \u00d7 3 = 8 \u00d7 3 = 24 \u2705 \u2014 uses 8, 4, 4, 3.\n\nYes! That's valid.\n\nAlternatively, simpler: (8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24.\n\nThat\u2019s clean and uses all numbers.\n\nLet\u2019s write it as an expression:  \n**8 \u00d7 3 \u00d7 (4 \u00f7 4)**\n\nOrder of operations: multiplication and division left to right, but parentheses ensure (4 \u00f7 4) is 1 first, so it's safe.\n\nWe could also do: **(8 \u00d7 3) \u00d7 (4 \u00f7 4)**",
+    "SAMPLE 8 FINAL: (4 + 4)",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers: [3, 4, 4, 8], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know 3 \u00d7 8 = 24, but then we\u2019d have two 4s left \u2014 need to incorporate them without changing the value (e.g., via +0 or \u00d71). So maybe:  \n(3 \u00d7 8) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24.  \nThat uses all numbers: 3, 8, 4, 4 \u2014 each once.\n\nCheck:  \n4 \u00f7 4 = 1  \n3 \u00d7 8 = 24  \n24 \u00d7 1 = 24 \u2705\n\nThis is valid.\n\nAlternative:  \n(8 \u2212 4) \u00d7 (4 + 2) \u2014 but no 2.  \n(4 \u00d7 4) + 8 = 24, but then 3 is unused.  \n8 \u00d7 (4 \u2212 4 \u00f7 4) = 8 \u00d7 (4 \u2212 1) = 8 \u00d7 3 = 24 \u2192 uses 8, 4, 4, 3 \u2014 wait: 4 \u00f7 4 uses two 4s, and the outer 3 comes from... Hmm, in that expression, where does 3 come from? Actually:  \n8 \u00d7 (4 \u2212 4 \u00f7 4) = 8 \u00d7 (4 \u2212 1) = 8 \u00d7 3 = 24 \u2014 but we don\u2019t have a 3 *number*; the 3 arises from the computation (4 \u2212 1). So this uses only 8 and two 4s \u2014 missing the 3. So invalid unless we explicitly include the given 3.\n\nBut in our first expression:  \n(3 \u00d7 8) \u00d7 (4 \u00f7 4)  \nNumbers used: 3, 8, 4, 4 \u2014 perfect.\n\nOther possibilities:  \n4 \u00d7 (8 \u2212 4) + 3 = 4 \u00d7 4 + 3 = 16 + 3 = 19 \u274c  \n(4 + 4) \u00d7 3 = 24, but 8 is unused.  \n(8 \u00f7 (4 \u2212 3)) \u00d7 4 = (8 \u00f7 1) \u00d7 4 = 32 \ufffd",
+    "SAMPLE 9 FINAL: (4 + 4) * 3",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers [3, 4, 4, 8] and must use each exactly once to make 24.\n\nLet\u2019s try combinations:\n\nFirst, note common 24 combinations:  \n- 8 \u00d7 3 = 24 \u2192 need to neutralize the two 4s (e.g., +4\u22124 or \u00d7(4/4)), but must use all numbers.\n\nTry:  \n(8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24 \u2705  \nUses 8, 3, 4, 4 \u2014 all exactly once.\n\nAlternative:  \n8 \u00d7 (4 \u2212 4 \u00f7 4) = 8 \u00d7 (4 \u2212 1) = 8 \u00d7 3 = 24 \u2705  \nAlso uses all numbers.\n\nLet\u2019s verify the second:  \n4 \u00f7 4 = 1  \n4 \u2212 1 = 3  \n8 \u00d7 3 = 24  \nYes \u2014 uses 8, 4, 4, 3 exactly once.\n\nWhich is simpler? Both are valid. Let\u2019s pick the second one:  \n8 \u00d7 (4 \u2212 4 \u00f7 4) = 24\n\nBut wait: order of operations \u2014 division before subtraction, so parentheses are needed only around (4 \u00f7 4), and then 4 \u2212 that result. So expression:  \n8 \u00d7 (4 \u2212 (4 \u00f7 4))  \nor more cleanly:  \n8 \u00d7 (4 \u2212 4 \u00f7 4)  \nSince \u00f7 has higher precedence than \u2212, it\u2019s fine without extra parentheses.\n\nBut to be unambiguous and ensure correctness, we can write:  \n8 \u00d7 (4 \u2212 4 \u00f7 4)\n\nAlternatively, the first idea:  \n(8 \u00d7 3) \u00d7 (4 \u00f7 4) = 24 \u00d7 1 = 24  \nAlso valid.\n\nWhich one is more standard? Both are acceptable.\n\nLet\u2019s choose:  \n8 \u00d7 (4 \u2212 4 \u00f7 4)\n\nDouble-check:  \n4 \u00f7 4 = 1  \n4 \u2212 1 = 3  \n8 \u00d7 3 = 24 \u2705\n\nAll numbers used: 8, 4, 4, 3 \u2014 yes.\n\nFinal answer:\n\nFINAL: 8 \u00d7 (4 - 4 \u00f7 4)",
+    "SAMPLE 10 FINAL: 8 * 3",
+    "VOTE SUMMARY: (4 + 4) -> 3, 24 * 1 -> 1, (8 * 3) + (4 - 4) -> 1, - 4 * (8 - 3) + 4 -> 1, 4 * (8 - 3) + 4 -> 1, (4 - (4 -> 1, (4 + 4) * 3 -> 1, 8 * 3 -> 1",
+    "VOTE WINNER: (4 + 4) (3/10)"
+  ]
+}

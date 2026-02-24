@@ -1,0 +1,98 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-012517-6c037a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+        3
+      ],
+      [
+        "We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u221217.0) =",
+        1
+      ],
+      [
+        "We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u21d2 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u21d2 \u22129y \u2212 8y = \u221268  \n\u21d2 \u221217y = \u221268\n\n**Step 3: Solve for y.**  \ny = (\u221268) / (\u221217) = 4\n\n**Step 4: Find x using x = \u2212y",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        9,
+        -8,
+        -68
+      ],
+      [
+        1,
+        1,
+        0
+      ]
+    ]
+  },
+  "item_id": "lin-v4-033",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 26432,
+    "success": 0,
+    "tokens_in": 250,
+    "tokens_out": 396
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-012517-6c037a",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 174724029,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:25:17Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: 9.0*x + -8.0*y = -68.0\nEquation 2: 1.0*x + 1.0*y = 0.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u221217.0) =",
+    "SAMPLE 1 FINAL: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u221217.0) =",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: 9.0*x + -8.0*y = -68.0\nEquation 2: 1.0*x + 1.0*y = 0.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+    "SAMPLE 2 FINAL: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: 9.0*x + -8.0*y = -68.0\nEquation 2: 1.0*x + 1.0*y = 0.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u21d2 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u21d2 \u22129y \u2212 8y = \u221268  \n\u21d2 \u221217y = \u221268\n\n**Step 3: Solve for y.**  \ny = (\u221268) / (\u221217) = 4\n\n**Step 4: Find x using x = \u2212y",
+    "SAMPLE 3 FINAL: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u21d2 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u21d2 \u22129y \u2212 8y = \u221268  \n\u21d2 \u221217y = \u221268\n\n**Step 3: Solve for y.**  \ny = (\u221268) / (\u221217) = 4\n\n**Step 4: Find x using x = \u2212y",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: 9.0*x + -8.0*y = -68.0\nEquation 2: 1.0*x + 1.0*y = 0.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+    "SAMPLE 4 FINAL: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: 9.0*x + -8.0*y = -68.0\nEquation 2: 1.0*x + 1.0*y = 0.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+    "SAMPLE 5 FINAL: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212",
+    "VOTE SUMMARY: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212 -> 3, We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u221217.0) = -> 1, We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u2003x + y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u21d2 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u21d2 \u22129y \u2212 8y = \u221268  \n\u21d2 \u221217y = \u221268\n\n**Step 3: Solve for y.**  \ny = (\u221268) / (\u221217) = 4\n\n**Step 4: Find x using x = \u2212y -> 1",
+    "VOTE WINNER: We are given the system:\n\nEquation 1:  \n\u2003\u20039.0x \u2212 8.0y = \u221268.0  \nEquation 2:  \n\u2003\u20031.0x + 1.0y = 0.0\n\n**Step 1: Solve Equation 2 for one variable.**  \nFrom Equation 2:  \nx + y = 0 \u2192 x = \u2212y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x with \u2212y in Equation 1:  \n9.0(\u2212y) \u2212 8.0y = \u221268.0  \n\u2192 \u22129.0y \u2212 8.0y = \u221268.0  \n\u2192 \u221217.0y = \u221268.0\n\n**Step 3: Solve for y.**  \ny = (\u221268.0) / (\u2212 (3/5)"
+  ]
+}

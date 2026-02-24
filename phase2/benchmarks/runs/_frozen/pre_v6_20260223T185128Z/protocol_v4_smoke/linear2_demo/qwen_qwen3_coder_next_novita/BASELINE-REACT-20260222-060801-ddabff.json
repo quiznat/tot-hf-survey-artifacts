@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060801-ddabff.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: Continuing verification:  \nEquation 2: -5(-6) + 8(4) = 30 + 32 = 62 \u2713  \n\nBoth equations are satisfied. The solution is x = -6, y = 4. Since no tools are available and the task is to solve the system, the final answer is the pair (x, y) = (-6, 4).",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        8,
+        -16
+      ],
+      [
+        -5,
+        8,
+        62
+      ]
+    ]
+  },
+  "item_id": "lin-v4-008",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5340,
+    "success": 1,
+    "tokens_in": 467,
+    "tokens_out": 268
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060801-ddabff",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2339600001,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T06:08:01Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of equations in the form [a, b, c], which likely represents linear equations of the form ax + by = c. We have two equations:  \n1) 8x + 8y = -16  \n2) -5x + 8y = 62  \n\nWe need to solve this system of two linear equations for x and y. Let's solve it step by step.\n\nFirst, simplify equation (1):  \n8x + 8y = -16 \u2192 divide both sides by 8:  \nx + y = -2  \u2192 equation (1a)\n\nNow, equation (2):  \n-5x + 8y = 62\n\nWe can use substitution or elimination. From (1a), x = -2 - y. Substitute into (2):\n\n-5(-2 - y) + 8y = 62  \n\u2192",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the substitution:  \n-5(-2 - y) + 8y = 62  \n\u2192 10 + 5y + 8y = 62  \n\u2192 10 + 13y = 62  \n\u2192 13y = 52  \n\u2192 y = 4  \n\nNow substitute y = 4 into x = -2 - y:  \nx = -2 - 4 = -6  \n\nSo the solution is x = -6, y = 4. Let's verify in both original equations:  \n\nEquation 1: 8x + 8y = 8(-6) + 8(4) = -48 + 32 = -16 \u2713  \nEquation 2: -5x + 8y = -5(-6) + 8(4) = 30 + 32 =",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continuing verification:  \nEquation 2: -5(-6) + 8(4) = 30 + 32 = 62 \u2713  \n\nBoth equations are satisfied. The solution is x = -6, y = 4. Since no tools are available and the task is to solve the system, the final answer is the pair (x, y) = (-6, 4)."
+  ]
+}

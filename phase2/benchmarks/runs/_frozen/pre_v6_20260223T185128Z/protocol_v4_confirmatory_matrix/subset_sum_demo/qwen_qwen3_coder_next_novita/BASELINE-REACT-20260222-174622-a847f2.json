@@ -1,0 +1,74 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174622-a847f2.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      9,
+      11,
+      11,
+      20,
+      22,
+      23
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-023",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 25147,
+    "success": 0,
+    "tokens_in": 1174,
+    "tokens_out": 445
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174622-a847f2",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1148256203,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:46:22Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [1, 2, 9, 11, 11, 20, 22, 23] and a target sum of 51. The task likely asks to find a subset (or some combination) of these numbers that sums to the target. Since no tools are available, this is a reasoning-only task.\n\nLet\u2019s try to find a subset that sums to 51.\n\nFirst, sort the list (already sorted): [1, 2, 9, 11, 11, 20, 22, 23]\n\nTry greedy or backtracking-style reasoning.\n\nTotal sum of all numbers: 1+2+9+11+11+20+22+23 = let's compute:\n1+2 = 3  \n3+9 = 12  \n1",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue computing the total sum to get context:  \n1+2 = 3  \n3+9 = 12  \n12+11 = 23  \n23+11 = 34  \n34+20 = 54  \n54+22 = 76  \n76+23 = 99  \nSo total sum is 99. Target is 51, which is less than half of 99 (~49.5), so it's plausible.\n\nNow, try to find a subset summing to 51.\n\nLet\u2019s consider including larger numbers first (greedy/backtracking):\n\nStart with 23: 51 \u2212 23 = 28  \nNow need 28 from remaining: [1, 2, 9, 11, 11, 20, 22]",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continue subset sum search. With 23 included, need 28 from [1, 2, 9, 11, 11, 20, 22]. Try 22: 28 \u2212 22 = 6. Need 6 from [1, 2, 9, 11, 11, 20] \u2014 possible? 1+2+? = 6 \u2192 1+2=3, need 3 more \u2014 no 3. 2+? =6 \u2192 need 4 \u2014 no. 1+?=6 \u2192 need 5 \u2014 no. So 22 doesn\u2019t work with 23.\n\nTry 20 with 23: 28 \u2212 20 = 8. Need 8 from [1, 2, 9, 11, 11]",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: With 23 and 20 included (sum = 43), need 8 more from [1, 2, 9, 11, 11]. Check combinations for 8:  \n- 1 + 2 = 3  \n- 1 + 9 = 10 (too big)  \n- 2 + 9 = 11 (too big)  \n- 1 + 2 + 9 = 12 (too big)  \nNo combination gives 8. So {23,20} fails.\n\nTry 22 with 23: already tried, needed 6 \u2014 didn\u2019t work.\n\nTry 11 with 23: 28 \u2212 11 = 17. Remaining numbers: [1, 2, 9, 11, 20, 22] (note: one",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Continue subset sum search. With 23 and one 11 (sum = 34), need 17 more from remaining: [1, 2, 9, 11, 20, 22]. Try 11 again: 17 \u2212 11 = 6 \u2014 need 6 from [1, 2, 9, 20, 22]. As before, 1+2=3, no 3 or 6 \u2014 no. Try 9: 17 \u2212 9 = 8 \u2014 need 8 from [1, 2, 11, 20, 22] \u2014 again, 1+2=3, no 5 or 8. Try 2+? =8 \u2192 need 6 \u2014 no. Try 1+?=8 \u2192 need 7 \u2014 no. Try",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

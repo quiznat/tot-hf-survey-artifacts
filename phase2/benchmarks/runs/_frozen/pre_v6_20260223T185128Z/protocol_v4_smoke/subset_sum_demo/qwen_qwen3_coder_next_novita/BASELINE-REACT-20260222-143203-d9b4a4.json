@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-143203-d9b4a4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "(17, 20)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      10,
+      13,
+      14,
+      17,
+      18,
+      19,
+      19,
+      20
+    ],
+    "target": 37
+  },
+  "item_id": "ss-v4-003",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 16546,
+    "success": 1,
+    "tokens_in": 194,
+    "tokens_out": 202
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-143203-d9b4a4",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 581773520,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T14:32:03Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a pair of numbers from the list `[10, 13, 14, 17, 18, 19, 19, 20]` that sum to the target `37`. Let's check possible pairs:\n\n- 10 + 27 = 37 \u2192 27 not in list  \n- 13 + 24 = 37 \u2192 24 not in list  \n- 14 + 23 = 37 \u2192 23 not in list  \n- 17 + 20 = 37 \u2192 20 is in the list! \u2705  \n- 18 + 19 = 37 \u2192 19 appears twice in the list, so 18 + 19 = 37 is also valid \u2705  \n\nSo there are at least",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The task is to find a pair of numbers from the list `[10, 13, 14, 17, 18, 19, 19, 20]` that sum to the target `37`. From earlier reasoning:\n\n- 17 + 20 = 37, and both numbers are present (20 appears once)\n- 18 + 19 = 37, and 19 appears twice, so we have two 19s available \u2014 sufficient for one pair\n\nThus, valid pairs exist: (17, 20) and (18, 19). Since the task likely expects *any* valid pair (or confirmation that a pair exists), we can report one such pair.\n\nFINAL: (17, 20)"
+  ]
+}

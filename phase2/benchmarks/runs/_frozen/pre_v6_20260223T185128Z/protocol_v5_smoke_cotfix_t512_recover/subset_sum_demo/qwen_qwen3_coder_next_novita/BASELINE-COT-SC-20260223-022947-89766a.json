@@ -1,0 +1,106 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-022947-89766a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "22,18,10",
+        4
+      ],
+      [
+        "10,18,22",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 4
+  },
+  "final_answer": "22,18,10",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      10,
+      10,
+      18,
+      19,
+      22,
+      24,
+      25
+    ],
+    "target": 50
+  },
+  "item_id": "ss-v4-009",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 41877,
+    "success": 1,
+    "tokens_in": 1821,
+    "tokens_out": 1423
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-022947-89766a",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1773078958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:29:47Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget: 50  \nWe need to select a subset (each number used at most once) that sums to 50.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 50 is moderately large.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 18? Too big. So no.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no 13.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\n25 + 19 + 2 = 46 \u2192 need 4 \u2192 no.\n\n25 + 22 + 2 = 49 \u2192 need 1 \u2192 no.\n\nTry without 25:\n\n24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18? too big. 19? too big. No.\n\n24 + 18 + 2 = 44 \u2192 need 6 \u2192 no.\n\n22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10.\n\nSo: 2",
+    "SAMPLE 1 FINAL: 22,18,10",
+    "SAMPLE 1 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget: 50  \nWe need to select a subset (each number used at most once) that sums to 50.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 50 is moderately large.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 18? Too big. So no.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no 13.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\n25 + 19 + 2 = 46 \u2192 need 4 \u2192 no.\n\n25 + 22 + 2 = 49 \u2192 need 1 \u2192 no.\n\nTry without 25:\n\n24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18? too big. 19? too big. No.\n\n24 + 18 + 2 = 44 \u2192 need 6 \u2192 no.\n\n22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10.\n\nSo: 2\n\nAnswer only:",
+    "SAMPLE 1 OUTPUT: RECOVERY OUTPUT: 22,18,10",
+    "SAMPLE 1 FINAL: 22,18,10",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget: 50  \nWe need to select a subset (each number used at most once) that sums to 50.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 50 quickly.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 2 + 10 + 3? No.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no 4.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 too big, 19 too big, 22 too big \u2014 no.\n\n24 + 10 + 10 + 2 = 46 \u2192 need 4 \u2192 no.\n\nTry 22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10 available.\n\nSo: 22 + 18 + 10 = 50.\n\nCheck availability: numbers are [2, 10, 10, 18",
+    "SAMPLE 2 FINAL: 22,18,10",
+    "SAMPLE 2 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget: 50  \nWe need to select a subset (each number used at most once) that sums to 50.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 50 quickly.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 2 + 10 + 3? No.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no 4.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 too big, 19 too big, 22 too big \u2014 no.\n\n24 + 10 + 10 + 2 = 46 \u2192 need 4 \u2192 no.\n\nTry 22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10 available.\n\nSo: 22 + 18 + 10 = 50.\n\nCheck availability: numbers are [2, 10, 10, 18\n\nAnswer only:",
+    "SAMPLE 2 OUTPUT: RECOVERY OUTPUT: 22,18,10",
+    "SAMPLE 2 FINAL: 22,18,10",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget: 50  \nWe need to select a subset (each number used at most once) that sums to 50.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 50 quickly.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 2 + 10 + 3? No.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 too big, 19 too big, 22 too big. No.\n\n24 + 10 + 10 + 2 = 46 \u2192 need 4 \u2192 no.\n\nTry 22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10.\n\nSo: 22 + 18 + 10 = 50.\n\nCheck availability: numbers include two 10s \u2014 we only need one 10. So 2",
+    "SAMPLE 3 FINAL: 22,18,10",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget sum: 50  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 50 is moderately large.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 18 - 3? Not helpful.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no 13.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\n25 + 19 + 2 = 46 \u2192 need 4 \u2192 no.\n\n25 + 22 + 2 = 49 \u2192 need 1 \u2192 no.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 - 4? No. 19 - 5? No.\n\n24 + 10 + 10 + 2 = 46 \u2192 need 4 \u2192 no.\n\nTry 22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10 available.\n\nSo: 22 + 18 +",
+    "SAMPLE 4 FINAL: 22,18,10",
+    "SAMPLE 4 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget sum: 50  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with the largest numbers, since 50 is moderately large.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 18 - 3? Not helpful.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no 13.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\n25 + 19 + 2 = 46 \u2192 need 4 \u2192 no.\n\n25 + 22 + 2 = 49 \u2192 need 1 \u2192 no.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 - 4? No. 19 - 5? No.\n\n24 + 10 + 10 + 2 = 46 \u2192 need 4 \u2192 no.\n\nTry 22 + 19 = 41 \u2192 need 9 \u2192 no.\n\n22 + 18 = 40 \u2192 need 10 \u2192 yes! There\u2019s a 10 available.\n\nSo: 22 + 18 +\n\nAnswer only:",
+    "SAMPLE 4 OUTPUT: RECOVERY OUTPUT: 22,18,10",
+    "SAMPLE 4 FINAL: 22,18,10",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget sum: 50  \nEach number can be used at most once.\n\nLet\u2019s try to find a combination that sums to 50.\n\nStart by considering larger numbers, since 50 is relatively large.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 2 + 10 + 3? No 3.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no 13.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\n25 + 19 + 2 = 46 \u2192 need 4 \u2192 no.\n\n25 + 22 + 2 = 49 \u2192 need 1 \u2192 no.\n\nTry without 25.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 too big, 19 too big, 22 too big \u2014 no.\n\n24 + 18 + 2 = 44 \u2192 need 6 \u2192 no.\n\n24 + 18 + 10 = 52 \u2192 too big.\n\n24 + 10 + 10 + 2 = 46 \u2192 need",
+    "SAMPLE 5 FINAL: 10,18,22",
+    "SAMPLE 5 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 10, 10, 18, 19, 22, 24, 25]\nTarget: 50\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given the list: [2, 10, 10, 18, 19, 22, 24, 25]  \nTarget sum: 50  \nEach number can be used at most once.\n\nLet\u2019s try to find a combination that sums to 50.\n\nStart by considering larger numbers, since 50 is relatively large.\n\nTry 25 + 24 = 49 \u2192 need 1 more \u2192 no 1 available.\n\n25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n\n25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n\n25 + 18 = 43 \u2192 need 7 \u2192 no 7.\n\n25 + 10 = 35 \u2192 need 15 \u2192 possible? 15 = 2 + 13? No 13. 10 + 5? No 5. 2 + 10 + 3? No 3.\n\n25 + 10 + 10 = 45 \u2192 need 5 \u2192 no 5.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 no 13.\n\n25 + 18 + 2 = 45 \u2192 need 5 \u2192 no.\n\n25 + 19 + 2 = 46 \u2192 need 4 \u2192 no.\n\n25 + 22 + 2 = 49 \u2192 need 1 \u2192 no.\n\nTry without 25.\n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no.\n\n24 + 19 = 43 \u2192 need 7 \u2192 no.\n\n24 + 18 = 42 \u2192 need 8 \u2192 no.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 possible? 14 = ? 18 too big, 19 too big, 22 too big \u2014 no.\n\n24 + 18 + 2 = 44 \u2192 need 6 \u2192 no.\n\n24 + 18 + 10 = 52 \u2192 too big.\n\n24 + 10 + 10 + 2 = 46 \u2192 need\n\nAnswer only:",
+    "SAMPLE 5 OUTPUT: RECOVERY OUTPUT: 10,18,22",
+    "SAMPLE 5 FINAL: 10,18,22",
+    "VOTE SUMMARY: 22,18,10 -> 4, 10,18,22 -> 1",
+    "VOTE WINNER: 22,18,10 (4/5)"
+  ]
+}

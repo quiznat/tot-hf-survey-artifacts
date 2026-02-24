@@ -1,0 +1,115 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173420-f96b0d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "9810",
+        9
+      ],
+      [
+        "9",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 9
+  },
+  "final_answer": "9810",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      1,
+      9,
+      0,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9810
+  },
+  "item_id": "perm-v4-002",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5040,
+    "success": 1,
+    "tokens_in": 480,
+    "tokens_out": 2991
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173420-f96b0d",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1908637814,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:20Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [1, 9, 0, 8]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 6**.\n\n---\n\n### Step 1: Divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: the last digit must be even \u2192 possible last digits: 0, 8 (since digits are 1, 9, 0, 8; even digits are 0 and 8).\n- **Divisible by 3**: sum of digits must be divisible by 3.\n\nSum of digits: 1 + 9 + 0 + 8 = **18**, which is divisible by 3. \u2705  \nSo any permutation of these digits will be divisible by 3 \u2014 only need to ensure it's even (last digit 0 or 8).\n\n---\n\n### Step 2: Find the largest possible 4-digit number  \nTo get the largest number, we want the digits in descending order, but constrained by the last digit being even.\n\nDigits in descending order: 9, 8, 1, 0 \u2192 9810  \nCheck: ends with 0 \u2192 even \u2705  \nSum = 18 \u2192 divisible by 3 \u2705  \nSo 9810 is divisible by 6.\n\nBut can we get a larger number? Let's see if any number larger than 9810 is possible.\n\nNext candidate: try putting 9 in thousands, 8 in hundreds, 0 in tens, 1 in units \u2192 9801 \u2192 ends with 1 (odd) \u274c  \nNext: 9810 (we have it)  \nWhat about 99xx? Not possible \u2014 only one 9.\n\nTry 9-8-0-1 \u2192 9801 (odd) \u274c  \n9-1-8-0 \u2192 9180 (ends with 0 \u2705, but smaller than 9810)  \n9-1-0-8 \u2192 9108 (ends with 8 \u2705, but 9108 < 9810)  \n9-0-8-1 \u2192 9081 (odd) \u274c  \n9-",
+    "SAMPLE 1 FINAL: 9810",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [1, 9, 0, 8], and we must form the **largest possible 4-digit integer** using each digit exactly once, such that the number is divisible by **6**.\n\n---\n\n### Step 1: Divisibility by 6\n\nA number is divisible by 6 **if and only if** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even.\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3.\n\nLet\u2019s check the sum of digits:\n\n1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 \u2705 So any permutation of these digits will satisfy divisibility by 3.\n\nSo the only condition we need to enforce is: **last digit must be even** (i.e., 0 or 8, since those are the only even digits in the list).\n\n---\n\n### Step 2: Find the largest possible 4-digit number ending in an even digit (0 or 8), using digits [1, 9, 0, 8] exactly once.\n\nWe want the **largest** number, so we want the **largest possible digits in the higher place values** (thousands \u2192 hundreds \u2192 tens \u2192 units).\n\n#### Try ending with 8 (larger even digit than 0):\n\nRemaining digits: [1, 9, 0]\n\nTo maximize the number, arrange remaining digits in descending order: 9, 1, 0\n\nSo candidate: **9108**\n\nCheck: digits used: 9,1,0,8 \u2192 \u2705  \nEven last digit \u2192 \u2705  \nSum = 18 \u2192 divisible by 3 \u2192 \u2705  \nSo 9108 is divisible by 6.\n\n#### Try ending with 0:\n\nRemaining digits: [1, 9, 8] \u2192 descending order: 9, 8, 1 \u2192 number: **9810**\n\nCheck: digits used: 9,8,1,0 \u2192 \u2705  \nEven last digit (0) \u2192 \u2705  \nSum = 18 \u2192 divisible by 3 \u2192 \u2705  \nSo 9810 is divisible by 6.\n\nNow compare 9810 vs 9108 \u2192 **9810 is larger**.\n\nIs there any larger possibility?\n\nLet\u2019s",
+    "SAMPLE 2 FINAL: 9810",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [1, 9, 0, 8]  \nWe need to form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 6**.\n\n---\n\n### Step 1: Divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even: possible even digits from the set: **0, 8**\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3.\n\nLet\u2019s compute sum of digits:  \n1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 any permutation of these digits will satisfy divisibility by 3.\n\nSo the only constraint left is: **last digit must be even** \u2192 either 0 or 8.\n\nWe want the **largest possible 4-digit number**, so we want the **largest possible digits in the highest places**, i.e., left to right: thousands > hundreds > tens > units.\n\nLet\u2019s consider possible endings:\n\n#### Case 1: Last digit = 8  \nThen remaining digits: [1, 9, 0]  \nTo maximize the number, arrange remaining digits in descending order: 9, 1, 0  \nSo number = **9108**\n\n#### Case 2: Last digit = 0  \nRemaining digits: [1, 9, 8]  \nArrange in descending order: 9, 8, 1  \nSo number = **9810**\n\nCompare 9810 and 9108 \u2192 9810 is larger.\n\nCheck divisibility:\n- 9810 is even \u2192 divisible by 2  \n- Sum = 9+8+1+0 = 18 \u2192 divisible by 3  \n\u21d2 divisible by 6 \u2705\n\nIs there any larger? Let's check if any other arrangement with last digit 0 gives a larger number \u2014 but 9810 is the max with last digit 0, since we sorted remaining digits descending.\n\nWhat about last digit 8 with different ordering? 9108 is the max with last digit 8, but it's less than 9810.\n\nSo **9810** is the largest possible.\n\nFINAL: 9",
+    "SAMPLE 3 FINAL: 9",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [1, 9, 0, 8], and need to form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **6**.\n\n### Step 1: Divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: last digit must be even \u2192 possible last digits from our set: **0, 8**\n- **Divisible by 3**: sum of digits must be divisible by 3  \n  Sum = 1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 \u2705 So **any permutation** of these digits will satisfy divisibility by 3.\n\nThus, we only need to ensure the number ends in **0 or 8**, and is as large as possible.\n\n### Step 2: Find largest possible 4-digit number with these digits ending in 0 or 8\n\nWe want the **largest** number, so we want the **leftmost digits as large as possible**.\n\n#### Case 1: Ends in 0  \nThen remaining digits: [1, 9, 8] \u2192 arrange in descending order: 9, 8, 1 \u2192 number = **9810**\n\n#### Case 2: Ends in 8  \nRemaining digits: [1, 9, 0] \u2192 arrange in descending order: 9, 1, 0 \u2192 number = **9108**\n\nCompare:  \n- 9810  \n- 9108  \n\u2192 9810 > 9108\n\nCheck if 9810 is divisible by 6:  \n- Even? Yes (ends in 0)  \n- Sum = 18 \u2192 divisible by 3  \n\u2192 \u2705 divisible by 6\n\nIs there any larger number? Try other endings:  \n- Ends in 0: other permutations like 9180, 8910, etc., but 9810 is the largest arrangement with last digit 0.\n\nSo the largest possible is **9810**.\n\nFINAL: 9810",
+    "SAMPLE 4 FINAL: 9810",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the digits: [1, 9, 0, 8], and we must form the **largest possible 4-digit integer** using each digit exactly once, such that the number is divisible by **6**.\n\n### Step 1: Understand divisibility by 6\nA number is divisible by 6 **if and only if** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The last digit must be even \u2192 possible last digits: 0, 8 (since 1 and 9 are odd).\n- **Divisible by 3**: Sum of digits must be divisible by 3.\n\nLet\u2019s compute the sum of digits:  \n1 + 9 + 0 + 8 = **18**, and 18 \u00f7 3 = 6 \u2192 divisible by 3.  \n\u2705 So **any permutation** of these digits will be divisible by 3.\n\nTherefore, we only need to ensure the number is divisible by 2 \u2192 last digit is even: 0 or 8.\n\n### Step 2: Find the largest 4-digit number possible with these digits and ending in even digit\n\nWe want the largest possible number \u2192 maximize thousands digit, then hundreds, etc.\n\nAvailable digits: 1, 9, 0, 8\n\nThe largest possible arrangement overall is **9810**, but let\u2019s check all candidates ending in even digits (0 or 8), sorted descending:\n\n- Try ending in **0**: Then remaining digits are [9, 8, 1] \u2192 largest arrangement is **9810**\n- Try ending in **8**: Remaining digits [9, 1, 0] \u2192 largest arrangement is **9108**\n\nCompare:\n- 9810 vs 9108 \u2192 9810 is larger.\n\nCheck if 9810 is divisible by 6:\n- Ends in 0 \u2192 even \u2705\n- Digit sum = 18 \u2192 divisible by 3 \u2705  \n\u2192 So divisible by 6.\n\n\u2705 Valid.\n\nIs there any larger number? Let's list all permutations ending in even digits in descending order:\n\n- 9810 \u2705\n- 9180 (ends in 0; 9180 < 9810)\n- 8910 (ends in 0; smaller)\n- 9108 (ends in",
+    "SAMPLE 5 FINAL: 9810",
+    "SAMPLE 6 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given digits: [1, 9, 0, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n---\n\n### Step 1: Understand divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even (0, 2, 4, 6, 8). Among our digits, possible even digits are: **0, 8**.\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3.\n\nLet\u2019s compute the sum of all digits:  \n1 + 9 + 0 + 8 = **18**, which is divisible by 3.  \nSo **any** 4-digit number formed using all four digits exactly once will be divisible by 3.\n\nTherefore, the only condition we need to enforce is: **last digit is even** (i.e., 0 or 8), and the number is as large as possible.\n\n---\n\n### Step 2: Generate largest possible numbers ending with even digits\n\nWe want the **largest** 4-digit number, so we prefer larger digits in higher places (thousands > hundreds > tens > units).\n\nLet\u2019s consider two cases based on last digit:\n\n#### Case 1: Last digit = 8  \nRemaining digits: [1, 9, 0] \u2192 arrange them in descending order for largest number: 9, 1, 0  \nSo number = 9108\n\n#### Case 2: Last digit = 0  \nRemaining digits: [1, 9, 8] \u2192 descending order: 9, 8, 1  \nSo number = 9810\n\nNow compare:  \n- 9810 vs 9108 \u2192 9810 is larger.\n\nCheck divisibility:\n- Ends with 0 \u2192 even \u2192 divisible by 2 \u2705  \n- Sum = 18 \u2192 divisible by 3 \u2705  \n\u2192 So divisible by 6 \u2705\n\nThus, **9810** is valid and is the largest possible.\n\n---\n\nFINAL: 9810",
+    "SAMPLE 6 FINAL: 9810",
+    "SAMPLE 7 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given digits: [1, 9, 0, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **6**.\n\n---\n\n### Step 1: Understand divisibility by 6\n\nA number is divisible by 6 **if and only if** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The last digit must be even \u2192 possible last digits: 0, 8 (since digits are 1, 9, 0, 8; even digits available: 0 and 8)\n- **Divisible by 3**: Sum of digits must be divisible by 3  \n  Sum = 1 + 9 + 0 + 8 = **18**, and 18 \u00f7 3 = 6 \u2192 divisible by 3  \n  \u2705 So any permutation of these digits will be divisible by 3.  \n  So we only need to ensure the number is even (i.e., ends in 0 or 8), and then pick the **largest** such 4-digit number.\n\n---\n\n### Step 2: Find largest 4-digit number ending in 0 or 8 using digits [1,9,0,8]\n\nWe want the **largest possible number**, so we want the leftmost digits to be as large as possible.\n\n#### Option A: Ends in **0**\n\nThen remaining digits to arrange in first three positions: [1, 9, 8]  \nTo maximize the number, sort descending: 9, 8, 1 \u2192 9810\n\n#### Option B: Ends in **8**\n\nThen remaining digits: [1, 9, 0]  \nTo maximize, sort descending: 9, 1, 0 \u2192 9108\n\nCompare:\n- 9810 vs 9108 \u2192 9810 is larger.\n\nAlso check: 9810 uses digits 9, 8, 1, 0 \u2014 all used once \u2705  \nEnds in 0 \u2192 even \u2705  \nSum = 18 \u2192 divisible by 3 \u2705  \nSo divisible by 6 \u2705\n\nIs there any larger number ending in 0? Let's double-check permutations ending in 0:\n\nPossible 4-digit numbers ending in 0 (using all digits):",
+    "SAMPLE 7 FINAL: 9810",
+    "SAMPLE 8 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given digits: [1, 9, 0, 8]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 6**.\n\n---\n\n### Step 1: Divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even \u2192 possible last digits: 0, 8 (since digits are 1, 9, 0, 8; even digits are 0 and 8).\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3.\n\nSum of digits: 1 + 9 + 0 + 8 = **18**, and 18 \u00f7 3 = 6 \u2192 divisible by 3.  \n\u2705 So **any** permutation of these digits is divisible by 3.\n\nTherefore, we only need to ensure the number ends in an even digit (0 or 8), and among such numbers, pick the **largest possible**.\n\n---\n\n### Step 2: Find largest 4-digit number ending in even digit (0 or 8)\n\nWe want the largest number \u2192 maximize thousands digit, then hundreds, etc.\n\nAvailable digits: 1, 9, 0, 8\n\n#### Try ending with 8:\nThen remaining digits: [1, 9, 0] \u2192 to maximize number, arrange in descending order: 9, 1, 0  \nSo number = 9 1 0 8 = **9108**\n\n#### Try ending with 0:\nRemaining digits: [1, 9, 8] \u2192 descending order: 9, 8, 1  \nSo number = 9 8 1 0 = **9810**\n\nCompare:  \n- 9108  \n- 9810  \n\n9810 > 9108  \nAlso, 9810 ends in 0 \u2192 even \u2192 divisible by 2  \nSum = 18 \u2192 divisible by 3  \n\u2192 divisible by 6 \u2705\n\nSo **9810** is larger and valid.\n\n---\n\nFINAL: 9810",
+    "SAMPLE 8 FINAL: 9810",
+    "SAMPLE 9 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given digits: [1, 9, 0, 8]  \nWe need to form the **largest possible 4-digit integer** using **each digit exactly once**, such that the number is **divisible by 6**.\n\n---\n\n### Step 1: Understand divisibility by 6  \nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2** \u2192 last digit must be even (i.e., 0, 8 \u2014 since digits are [1, 9, 0, 8], even digits available: 0, 8)\n- **Divisible by 3** \u2192 sum of digits must be divisible by 3  \n  Sum = 1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u2192 \u2714\ufe0f  \n  So **any permutation** of these digits is divisible by 3.  \n  Therefore, only need to ensure **even last digit** (for divisibility by 2) to guarantee divisibility by 6.\n\nSo our task reduces to:  \n\u2192 Form the **largest possible 4-digit number** using digits [1, 9, 0, 8] **exactly once**, ending in **0 or 8**.\n\n---\n\n### Step 2: Try to maximize the number  \nTo get the largest number, we want the **largest digits in the highest places** (thousands \u2192 hundreds \u2192 tens \u2192 units), with the constraint that the units digit must be 0 or 8.\n\nLet\u2019s consider both cases:\n\n#### Case A: Last digit = 8  \nRemaining digits: [1, 9, 0]  \nTo maximize, arrange remaining digits in descending order: 9, 1, 0  \n\u2192 Number = 9108\n\n#### Case B: Last digit = 0  \nRemaining digits: [1, 9, 8]  \nArrange in descending order: 9, 8, 1  \n\u2192 Number = 9810\n\nCompare:  \n- 9810 vs 9108  \n\u2192 **9810 is larger**\n\nCheck 9810:\n- Uses digits 9, 8, 1, 0 \u2014 all used once \u2714\ufe0f  \n- Ends with 0 \u2192 even \u2714\ufe0f  \n- Sum = 18 \u2192 divisible by 3 \u2714\ufe0f  \n\u2192",
+    "SAMPLE 9 FINAL: 9810",
+    "SAMPLE 10 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [1, 9, 0, 8]\nThe number must be divisible by 6.\nReturn only the integer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given digits: [1, 9, 0, 8], and we must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is **divisible by 6**.\n\n---\n\n### Step 1: Understand divisibility by 6\nA number is divisible by 6 **iff** it is divisible by both **2** and **3**.\n\n- **Divisible by 2**: The number must be **even** \u2192 last digit must be even.\n- **Divisible by 3**: Sum of digits must be divisible by 3.\n\nLet\u2019s compute the sum of the digits:\n1 + 9 + 0 + 8 = **18**, which is divisible by 3 \u21d2 any permutation of these digits will be divisible by 3.\n\nSo the only constraint we need to enforce is that the number is **even** (i.e., ends in 0 or 8 \u2014 the only even digits available).\n\n---\n\n### Step 2: Find the largest possible 4-digit number using these digits, ending in an even digit.\n\nWe want the **largest** number, so we want the **largest possible digits in the highest place values**, but ending in an even digit (0 or 8).\n\nLet\u2019s consider possible endings:\n\n#### Option A: Ends in 8\nThen remaining digits: [1, 9, 0] \u2192 arrange them in descending order for largest number: 9, 1, 0 \u2192 so number = 9108\n\n#### Option B: Ends in 0\nRemaining digits: [1, 9, 8] \u2192 descending order: 9, 8, 1 \u2192 so number = 9810\n\nNow compare:\n- 9810 vs 9108 \u2192 9810 is larger.\n\nCheck: Is 9810 divisible by 6?\n- Even? Yes (ends in 0).\n- Sum of digits = 9+8+1+0 = 18 \u2192 divisible by 3.\n\u2705 Yes.\n\nSo 9810 is valid and larger than 9108.\n\nAny larger? Let's confirm there\u2019s no larger arrangement ending in 0 or 8.\n\nWhat if we try ending in 0, but different ordering? To maximize, we want thousands digit as large as possible \u2192 9 is max, then hundreds as large as possible \u2192 8",
+    "SAMPLE 10 FINAL: 9810",
+    "VOTE SUMMARY: 9810 -> 9, 9 -> 1",
+    "VOTE WINNER: 9810 (9/10)"
+  ]
+}

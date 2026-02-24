@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-191146-bc53fa.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "3,6,8",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      3,
+      5,
+      6,
+      8,
+      11,
+      18,
+      19,
+      22
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v4-007",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6985,
+    "success": 1,
+    "tokens_in": 67,
+    "tokens_out": 175
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260223-191146-bc53fa",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1937262580,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T19:11:46Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [3, 5, 6, 8, 11, 18, 19, 22]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [3, 5, 6, 8, 11, 18, 19, 22] that sums to 17.\n\nTry combinations:\n\n- 3 + 5 = 8 \u2192 need 9 more \u2192 no 9  \n- 3 + 6 = 9 \u2192 need 8 \u2192 8 is available! \u2192 3 + 6 + 8 = 17 \u2705  \nCheck: 3 + 6 = 9, 9 + 8 = 17. All numbers in list, no repeats.\n\nAny others? Try:\n- 5 + 11 = 16 \u2192 need 1 \u2192 no 1  \n- 3 + 11 = 14 \u2192 need 3 \u2192 already used 3  \n- 5 + 6 = 11 \u2192 need 6 \u2192 already used  \n- 8 + 11 = 19 \u2192 too big  \n- 18, 19, 22 are all >17, can't use alone  \n- 3 + 5 + 6 = 14 \u2192 need 3 \u2192 no second 3  \n- 3 + 5 + 8 = 16 \u2192 need 1  \n- 5 + 6 + 8 = 19 \u2192 too big  \n\nOnly valid combination: 3, 6, 8\n\nFINAL: 3,6,8",
+    "FINAL: 3,6,8"
+  ]
+}

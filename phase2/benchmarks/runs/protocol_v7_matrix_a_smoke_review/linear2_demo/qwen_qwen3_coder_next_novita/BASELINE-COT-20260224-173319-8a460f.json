@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173319-8a460f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "x=1.0,y=0.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -6,
+        -7,
+        -6
+      ],
+      [
+        -8,
+        1,
+        -8
+      ]
+    ]
+  },
+  "item_id": "lin-v4-003",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3064,
+    "success": 1,
+    "tokens_in": 43,
+    "tokens_out": 188
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173319-8a460f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2104316266,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:19Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the system:\n\n1) $-6.0x - 7.0y = -6.0$  \n2) $-8.0x + 1.0y = -8.0$\n\nLet\u2019s solve step by step.\n\n### Step 1: Simplify equations (optional \u2014 divide by -1 to make leading coefficients positive)\n\nEquation 1 becomes:  \n$6x + 7y = 6$  \u2014 (1a)\n\nEquation 2 becomes:  \n$8x - y = 8$  \u2014 (2a)\n\n### Step 2: Solve one equation for one variable  \nFrom (2a):  \n$8x - y = 8 \\Rightarrow y = 8x - 8$  \u2014 (3)\n\n### Step 3: Substitute into (1a)\n\nSubstitute $y = 8x - 8$ into $6x + 7y = 6$:\n\n$$\n6x + 7(8x - 8) = 6\n$$\n$$\n6x + 56x - 56 = 6\n$$\n$$\n62x - 56 = 6\n$$\n$$\n62x = 62\n$$\n$$\nx = 1\n$$\n\n### Step 4: Plug back to find $y$\n\nFrom (3):  \n$y = 8x - 8 = 8(1) - 8 = 0$\n\n### Final check:\n\nPlug $x = 1, y = 0$ into original equations:\n\nEquation 1: $-6(1) - 7(0) = -6$ \u2714\ufe0f  \nEquation 2: $-8(1) + 1(0) = -8$ \u2714\ufe0f\n\n\u2705 Correct.\n\nFINAL: x=1.0,y=0.0",
+    "FINAL: x=1.0,y=0.0"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022638-f86b1f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "final_answer": "(10 * 3) - (10 / 2)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    2,
+    10,
+    10,
+    3
+  ],
+  "item_id": "g24-v4-009",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 35092,
+    "success": 0,
+    "tokens_in": 352,
+    "tokens_out": 279
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022638-f86b1f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1862262800,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:26:38Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [2, 10, 10, 3], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 72 \u00f7 3 = 24  \n- (a + b) \u00d7 (c \u2212 d), etc.\n\nWe have two 10s, a 2, and a 3.\n\nTry:  \n- 10 + 10 + 3 + 2 = 25 \u2192 too high  \n- 10 + 10 + (3 \u2212 2) = 21  \n- 10 \u00d7 2 + 10 \u2212 3 = 20 + 10 \u2212 3 = 27  \n- 10 \u00d7 3 \u2212 10 + 2 = 30 \u2212 10 + 2 = 22  \n- 10 \u00d7 3 \u2212 (10 \u2212 2) = 30 \u2212 8 = 22  \n- (10 + 2) \u00d7 (10 \u2212 3) = 12 \u00d7 7 = 84  \n- (10 \u2212 2) \u00d7 3 = 24 \u2192 but we still have a 10 left unused.\n\nWe need to use **all four numbers**.\n\nTry using division or subtraction cleverly.\n\nWhat about:  \n(10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25  \nClose.\n\n(10 + 2) \u00d7 (3) \u2212 10 = 12 \u00d7 3 \u2212 10 = 36 \u2212 10 = 26  \nStill off.\n\n(10 + 10) + (3 + 2) = 25  \n(10 \u00d7 2) + (10 \u00f7 2) = 20 + 5 = 25 \u2014 again 25.\n\nHmm.\n\nTry:  \n(10 \u2212 (3 \u2212 2)) \u00d7 something?  \n3 \u2212 2 = 1 \u2192 10 \u2212 1 = 9",
+    "FINAL: - (10 - 2) * 3",
+    "RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers: [2, 10, 10, 3], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 72 \u00f7 3 = 24  \n- (a + b) \u00d7 (c \u2212 d), etc.\n\nWe have two 10s, a 2, and a 3.\n\nTry:  \n- 10 + 10 + 3 + 2 = 25 \u2192 too high  \n- 10 + 10 + (3 \u2212 2) = 21  \n- 10 \u00d7 2 + 10 \u2212 3 = 20 + 10 \u2212 3 = 27  \n- 10 \u00d7 3 \u2212 10 + 2 = 30 \u2212 10 + 2 = 22  \n- 10 \u00d7 3 \u2212 (10 \u2212 2) = 30 \u2212 8 = 22  \n- (10 + 2) \u00d7 (10 \u2212 3) = 12 \u00d7 7 = 84  \n- (10 \u2212 2) \u00d7 3 = 24 \u2192 but we still have a 10 left unused.\n\nWe need to use **all four numbers**.\n\nTry using division or subtraction cleverly.\n\nWhat about:  \n(10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25  \nClose.\n\n(10 + 2) \u00d7 (3) \u2212 10 = 12 \u00d7 3 \u2212 10 = 36 \u2212 10 = 26  \nStill off.\n\n(10 + 10) + (3 + 2) = 25  \n(10 \u00d7 2) + (10 \u00f7 2) = 20 + 5 = 25 \u2014 again 25.\n\nHmm.\n\nTry:  \n(10 \u2212 (3 \u2212 2)) \u00d7 something?  \n3 \u2212 2 = 1 \u2192 10 \u2212 1 = 9\n\nAnswer only:",
+    "RECOVERY OUTPUT: (10 \u00d7 3) \u2212 (10 \u00f7 2)",
+    "RECOVERY FINAL: (10 * 3) - (10 / 2)"
+  ]
+}

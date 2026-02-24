@@ -1,0 +1,104 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-011315-534ec6.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more \u2192 38 + 13 = 51 \u2705  \nCheck: 22 + 16 + 13 = 51  \nAll numbers are in the list: 22, 16, 13 are present \u2014 yes.\n\nSo one valid combination is: 13, 16, 22  \nOrder doesn\u2019t matter, but we can list in ascending order: 13,16,22",
+        1
+      ],
+      [
+        "22,16,13",
+        1
+      ],
+      [
+        "We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nTry including the largest number, 22:  \n51 \u2212 22 = 29  \nNow find a subset of remaining numbers [4, 5, 11, 11, 13, 16] that sums to 29.\n\nTry 16: 29 \u2212 16 = 13  \nRemaining: need 13 \u2192 we have 13! So: 22",
+        1
+      ],
+      [
+        "We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more. 13 is in the list!  \n22 + 16 + 13 = 51 \u2705\n\nCheck: 22 + 16 = 38; 38 + 13 = 51. Yes.\n\nAll numbers used are distinct and present in the list: 22, 16, 13 \u2014 all available once.\n\nSo the answer is: 22,16,13\n\nFINAL",
+        1
+      ],
+      [
+        "We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nLet\u2019s consider the largest numbers first (greedy approach), then adjust.\n\nTry 22 + 16 = 38 \u2192 need 51 \u2212 38 = 13 \u2192 13 is available!  \nSo: 22 + 16 + 13 = 51 \u2705\n\nCheck availability:  \n22 (yes), 16 (yes), 13 (yes) \u2014 all distinct and",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more \u2192 38 + 13 = 51 \u2705  \nCheck: 22 + 16 + 13 = 51  \nAll numbers are in the list: 22, 16, 13 are present \u2014 yes.\n\nSo one valid combination is: 13, 16, 22  \nOrder doesn\u2019t matter, but we can list in ascending order: 13,16,22",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      5,
+      11,
+      11,
+      13,
+      16,
+      22
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-039",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 49568,
+    "success": 0,
+    "tokens_in": 365,
+    "tokens_out": 480
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011315-534ec6",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2776084078,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:13:15Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 5, 11, 11, 13, 16, 22]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more \u2192 38 + 13 = 51 \u2705  \nCheck: 22 + 16 + 13 = 51  \nAll numbers are in the list: 22, 16, 13 are present \u2014 yes.\n\nSo one valid combination is: 13, 16, 22  \nOrder doesn\u2019t matter, but we can list in ascending order: 13,16,22",
+    "SAMPLE 1 FINAL: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more \u2192 38 + 13 = 51 \u2705  \nCheck: 22 + 16 + 13 = 51  \nAll numbers are in the list: 22, 16, 13 are present \u2014 yes.\n\nSo one valid combination is: 13, 16, 22  \nOrder doesn\u2019t matter, but we can list in ascending order: 13,16,22",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 5, 11, 11, 13, 16, 22]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more. 13 is in the list \u2192 22 + 16 + 13 = 51 \u2705\n\nCheck: 22 + 16 = 38; 38 + 13 = 51. All numbers are in the list and used once.\n\nSo the answer is: 22,16,13\n\nFINAL: 22,16,13",
+    "SAMPLE 2 FINAL: 22,16,13",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 5, 11, 11, 13, 16, 22]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nTry including the largest number, 22:  \n51 \u2212 22 = 29  \nNow find a subset of remaining numbers [4, 5, 11, 11, 13, 16] that sums to 29.\n\nTry 16: 29 \u2212 16 = 13  \nRemaining: need 13 \u2192 we have 13! So: 22",
+    "SAMPLE 3 FINAL: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nTry including the largest number, 22:  \n51 \u2212 22 = 29  \nNow find a subset of remaining numbers [4, 5, 11, 11, 13, 16] that sums to 29.\n\nTry 16: 29 \u2212 16 = 13  \nRemaining: need 13 \u2192 we have 13! So: 22",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 5, 11, 11, 13, 16, 22]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more. 13 is in the list!  \n22 + 16 + 13 = 51 \u2705\n\nCheck: 22 + 16 = 38; 38 + 13 = 51. Yes.\n\nAll numbers used are distinct and present in the list: 22, 16, 13 \u2014 all available once.\n\nSo the answer is: 22,16,13\n\nFINAL",
+    "SAMPLE 4 FINAL: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more. 13 is in the list!  \n22 + 16 + 13 = 51 \u2705\n\nCheck: 22 + 16 = 38; 38 + 13 = 51. Yes.\n\nAll numbers used are distinct and present in the list: 22, 16, 13 \u2014 all available once.\n\nSo the answer is: 22,16,13\n\nFINAL",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [4, 5, 11, 11, 13, 16, 22]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nLet\u2019s consider the largest numbers first (greedy approach), then adjust.\n\nTry 22 + 16 = 38 \u2192 need 51 \u2212 38 = 13 \u2192 13 is available!  \nSo: 22 + 16 + 13 = 51 \u2705\n\nCheck availability:  \n22 (yes), 16 (yes), 13 (yes) \u2014 all distinct and",
+    "SAMPLE 5 FINAL: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nLet\u2019s consider the largest numbers first (greedy approach), then adjust.\n\nTry 22 + 16 = 38 \u2192 need 51 \u2212 38 = 13 \u2192 13 is available!  \nSo: 22 + 16 + 13 = 51 \u2705\n\nCheck availability:  \n22 (yes), 16 (yes), 13 (yes) \u2014 all distinct and",
+    "VOTE SUMMARY: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more \u2192 38 + 13 = 51 \u2705  \nCheck: 22 + 16 + 13 = 51  \nAll numbers are in the list: 22, 16, 13 are present \u2014 yes.\n\nSo one valid combination is: 13, 16, 22  \nOrder doesn\u2019t matter, but we can list in ascending order: 13,16,22 -> 1, 22,16,13 -> 1, We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nTry including the largest number, 22:  \n51 \u2212 22 = 29  \nNow find a subset of remaining numbers [4, 5, 11, 11, 13, 16] that sums to 29.\n\nTry 16: 29 \u2212 16 = 13  \nRemaining: need 13 \u2192 we have 13! So: 22 -> 1, We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a subset that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more. 13 is in the list!  \n22 + 16 + 13 = 51 \u2705\n\nCheck: 22 + 16 = 38; 38 + 13 = 51. Yes.\n\nAll numbers used are distinct and present in the list: 22, 16, 13 \u2014 all available once.\n\nSo the answer is: 22,16,13\n\nFINAL -> 1, We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nFirst, sort the numbers (already mostly sorted):  \n4, 5, 11, 11, 13, 16, 22\n\nLet\u2019s consider the largest numbers first (greedy approach), then adjust.\n\nTry 22 + 16 = 38 \u2192 need 51 \u2212 38 = 13 \u2192 13 is available!  \nSo: 22 + 16 + 13 = 51 \u2705\n\nCheck availability:  \n22 (yes), 16 (yes), 13 (yes) \u2014 all distinct and -> 1",
+    "VOTE WINNER: We are given the list: [4, 5, 11, 11, 13, 16, 22]  \nTarget sum: 51  \nWe can use each number at most once.\n\nLet\u2019s try to find a combination that sums to 51.\n\nStart with the largest numbers, since 51 is relatively large.\n\nTry 22 + 16 = 38 \u2192 need 13 more \u2192 38 + 13 = 51 \u2705  \nCheck: 22 + 16 + 13 = 51  \nAll numbers are in the list: 22, 16, 13 are present \u2014 yes.\n\nSo one valid combination is: 13, 16, 22  \nOrder doesn\u2019t matter, but we can list in ascending order: 13,16,22 (1/5)"
+  ]
+}

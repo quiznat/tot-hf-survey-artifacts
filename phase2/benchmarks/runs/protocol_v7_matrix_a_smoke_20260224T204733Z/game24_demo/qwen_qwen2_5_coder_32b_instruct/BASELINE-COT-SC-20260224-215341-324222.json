@@ -1,0 +1,142 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260224-215341-324222.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "(1/(1 - 2/3)",
+        1
+      ],
+      [
+        "(10 - 4) / 1 * (1 + 1) * 4",
+        1
+      ],
+      [
+        "(10 - 4) / (1 - 1/4)",
+        1
+      ],
+      [
+        "(1 - 1/10)",
+        1
+      ],
+      [
+        "- (10 - 4) * 4",
+        1
+      ],
+      [
+        "(10 - 4) / (1/1)",
+        1
+      ],
+      [
+        "(10 - 4) / 1 * 1",
+        1
+      ],
+      [
+        "- (10 - 4) * (1 + 1 + 1)",
+        1
+      ],
+      [
+        "4 * (10 - 4) + 1 + 1",
+        1
+      ],
+      [
+        "- (10 - 1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "(1/(1 - 2/3)",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 21174,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 3397
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-215341-324222",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T21:53:41Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to form an expression that equals 24. Here is a step-by-step approach:\n\n1. Start by examining if any combination of addition, subtraction, multiplication, and division can yield 24 directly or through intermediate steps.\n2. Consider the order of operations (parentheses) to group terms and change the sequence of calculations.\n3. Notice that multiplying 10 by 2.4 would give us 24, but since we only have 4 and 1s, we need to find a way to create a factor close to 2.4 using these numbers.\n4. Recognize that 4 divided by (10 minus 4) gives 2/3, which is useful because it can interact with the remaining 1s and 4 to approach our target.\n5. Try to combine the numbers in a way that might lead to the required result. One effective combination is to first calculate 10 minus 4, then take the reciprocal of the result, and multiply by 4. Finally, add the remaining 1 to adjust the result to 24.\n\nLet's construct this step by step:\n\n- Calculate \\(10 - 4 = 6\\).\n- Take the reciprocal of 6, which is \\(1/6\\), and multiply by 4: \\(4 \\times (1/6) = 4/6 = 2/3\\).\n- To get closer to 24, we need to find a way to scale \\(2/3\\) up significantly. Notice that \\(1/(1 - 2/3) = 1/(1/3) = 3\\).\n- Multiply 4 by 3: \\(4 \\times 3 = 12\\).\n- Now, we need to reach 24 from 12. Adding the remaining 1 twice won't work, so instead, consider scaling 12 up to 24 by multiplying by 2. We can achieve this by recognizing that \\(10 - 4 \\times 1 = 6\\), and then taking the reciprocal of \\(1 - 1/6 = 5/6\\) and multiplying by 12 does not directly help.\n- Instead, let's reconsider the grouping: \\(4 \\div (10 - 4) \\times (1 + 1) = 4 \\",
+    "SAMPLE 1 FINAL: (1/(1 - 2/3)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to produce the number 24. Let's approach this step by step:\n\n1. First, consider the operations that can be used: addition (+), subtraction (-), multiplication (*), and division (/).\n2. We need to manipulate these numbers to reach 24. Since 24 is a relatively small number, it makes sense to look at multiplication as a key operation.\n3. Notice that 4 * 6 = 24, so we need to create the number 6 using the remaining numbers 10, 1, and 1.\n4. We can try to get close to 6 by using subtraction or division. A useful combination might be (10 - 4) / 1 = 6, but we still have an extra 1.\n5. Instead, let's try using the 1s in a way that they cancel out without altering the result. One effective way is to multiply by 1 or divide by 1, which won't change the value.\n6. Consider (10 - 4) * 1 / 1 = 6, then we just need to multiply this result by 4 to get 24.\n7. However, since we must use all numbers including two 1s, we should reconsider the placement of the 1s.\n8. Another possibility is to use the 1s in the denominator or numerator in a way that simplifies to 1. For example, (10 - 4) / (1 / 1) = 6.\n9. Now, we can multiply this result by 4 to get 24.\n\nThus, the expression becomes:\n(10 - 4) / (1 / 1) * 4 = 24\n\nHowever, we need to ensure we use all numbers exactly once. The correct placement while using all numbers is:\n(10 - 4) / 1 * (1 + 1) * 4 = 24\n\nBut simplifying this further, we realize:\n(10 - 4) * (1 + 1) * 1 = 6 * 2 * 1 = 12 * 1 = 12 (incorrect)\n\nSo, let's re-evaluate:\n(10 - 4) * (1 + 1) = 6 *",
+    "SAMPLE 2 FINAL: (10 - 4) / 1 * (1 + 1) * 4",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To solve this problem, we need to use the four numbers 4, 10, 1, and 1 exactly once to create an expression that equals 24. Let's think through this step by step:\n\n1. We start with the larger numbers and see if we can manipulate them to reach 24.\n2. Consider using the 10 as part of a multiplication or division since it's large enough to be a significant factor in reaching 24.\n3. We can try 10 - 4 = 6, which is a simple subtraction.\n4. Now we need to use the two 1s to manipulate the result of 6 to get 24.\n5. One way could be to multiply 6 by something that gives us 24. Since we have two 1s, we can use one to add to a fraction involving the other to create a multiplier.\n6. Notice that (1 + 1/1) = 2, and 6 * 2 = 12, which isn't our target.\n7. However, if we consider (1 + 1/4) = 1.25, and try to incorporate the 10 in a different way, we can explore 10 / (1 + 1/4) = 10 / 1.25 = 8.\n8. Then, multiplying 8 by the remaining 3 (which we can get by 4 - 1) would give us 24. But we don't have a 3, so we'll adjust our approach.\n9. Instead, let's directly try to use the two 1s in a way that manipulates the 4 and 10 effectively.\n10. If we do (10 - 4) / (1 - 1/4), we get 6 / (3/4) = 6 * (4/3) = 8.\n11. Now, we need to multiply 8 by 3 to get 24. Since we don't have a 3, but we can make 3 by using the two 1s with the 4: 4 - (1/1) = 3.\n12. However, a simpler manipulation exists: just multiply the 8 by 3 directly, and we notice we already have the 8 from our previous step, so we need to find a way to bring the 3",
+    "SAMPLE 3 FINAL: (10 - 4) / (1 - 1/4)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to create an expression that equals 24. Let's approach this step by step:\n\n1. First, consider what operations could be used to combine these numbers to reach 24. Since we have a 10, which is relatively close to 24, we might want to use it in a way that it can be increased or decreased to reach 24.\n\n2. We can try to multiply 10 by another number to get close to 24, but since the other numbers are 4, 1, and 1, multiplying by any of them will not help us reach 24 directly.\n\n3. Another approach is to use subtraction or addition in conjunction with multiplication or division. For example, if we subtract 1 from 10, we get 9. But 9 multiplied by 4 is 36, which is too high.\n\n4. We can try subtracting 1 from 10 to get 9, then divide 4 by 1 (which does not change its value), and add 1 to get a closer expression. However, 9 * 4 + 1 = 37, which is still too high.\n\n5. Let's consider using division differently. If we divide 4 by (1 - 1/10), we get a decimal number, but it\u2019s not useful in this context.\n\n6. Another angle to explore is using the numbers in a different combination with the operations. We know that 4 multiplied by 6 equals 24, so let\u2019s think about how we can get 6 from the numbers 10, 1, and 1.\n\n7. We can subtract 4 from 10 to get 6, but we need to incorporate the 1s. If we subtract 1 from 1, we get 0, which won't help us. However, if we add 1 to 1, we get 2, and if we subtract 2 from 10, we get 8, which is not useful either.\n\n8. The key insight here is to use the 1s in a way that they don\u2019t affect the multiplication of 4 and 6. One such way is to use the 1s in a division that equals 1, which does not change the product.\n\n9. If we do (",
+    "SAMPLE 4 FINAL: (1 - 1/10)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this problem, we need to use the four numbers 4, 10, 1, and 1 exactly once to create an expression that equals 24. Let's approach this step-by-step:\n\n1. **Identify potential operations**: We can use addition (+), subtraction (-), multiplication (*), and division (/) to manipulate the numbers.\n\n2. **Look for multiplication opportunities**: Since 24 is a relatively small number that can be obtained through multiplication, let's see if we can multiply any of the numbers together:\n   - 4 * 6 = 24\n   - 10 * 2.4 = 24 (not possible with integer operations)\n   - No other simple multiplications seem to work directly with the given numbers.\n\n3. **Consider combinations with addition and subtraction**:\n   - We can try to get closer to 24 by adding or subtracting numbers:\n     - (10 - 4) = 6, which could help if we then multiply by 4\n     - But we have two 1s left, and using them in a way that doesn't disrupt the equation is tricky.\n\n4. **Incorporate division to adjust results**:\n   - Division can often be used to create fractions or adjustments that might help us reach our target:\n     - (10 - 4) / 1 = 6 (same as above)\n     - We need to use the remaining 1 somehow, perhaps in the denominator to avoid changing the value.\n\n5. **Formulate a working expression**:\n   - Let's try to use the two 1s in a way that doesn\u2019t affect the primary multiplication:\n     - (10 - 4) * (1 + 1) = 6 * 2 = 12 (still not 24)\n     - We need to multiply by another factor to get from 12 to 24, but we've already used all our numbers.\n\n6. **Re-evaluate the approach**:\n   - Another way is to think about using the division to make a fraction that can be multiplied by another number to reach 24:\n     - (10 - 4) * 4 = 24, but we still have two 1s unused.\n     - If we can somehow incorporate the two 1s without changing the result of the multiplication, we might succeed.\n\n7. **Final attempt**:\n   - By putting the two",
+    "SAMPLE 5 FINAL: - (10 - 4) * 4",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to get a result of 24. Let's think through this step-by-step:\n\n1) First, let's consider if there is a straightforward way to combine these numbers using basic arithmetic operations (addition, subtraction, multiplication, division).\n2) Since 24 is 4 times 6, using the 4 directly in multiplication seems promising. So, we need to find a way to make the number 6 from the remaining numbers (10, 1, 1).\n3) One approach could be to subtract a smaller number from a larger one to get close to 6. Subtracting 1 from 10 gives us 9.\n4) Now we have 9 and 1, and we need to manipulate them further to reach 6. We can subtract 1 from 9, which gives us 8, or add them, which gives us 10, but neither of these is helpful.\n5) Another approach is to see if we can form fractions or use division effectively. Dividing 10 by 10 gives us 1, which doesn't help. But dividing 10 by 1 and then subtracting 1 gives us 9.\n6) To get from 9 to 6, we can subtract 3. We don't have a 3 directly, but we can subtract 1 + 1 from 9 to get 7, and then subtract 1 more to reach 6.\n7) However, we need to use the numbers exactly once, and subtracting 1+1 and then another 1 uses up all the 1s, leaving us with no way to use the 4.\n8) Let's reconsider the order and grouping of operations. If we subtract 1 from 10 first to get 9, and then subtract 1/1 (which equals 1), we indeed get 8. But we still need to reach 6.\n9) A different strategy involves using the 1s as denominators in fractions that might help simplify our equation.\n10) If we use 10 - 4/1, we get 9.6, which isn't useful. But what if we try (10 - 4) / (1/1)?\n11) This simplifies to 6 / 1, which equals 6. Now",
+    "SAMPLE 6 FINAL: (10 - 4) / (1/1)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to produce the result 24. Let's think through this step-by-step:\n\n1. First, let's consider the larger numbers and how they might be used to get close to 24. Multiplying 10 and 4 would give us 40, which is too large, but subtracting something from 40 could help.\n2. Subtracting 16 from 40 would give us 24, so we need to find a way to get 16 using the remaining numbers (1 and 1).\n3. We can multiply 4 by (10 - 1 - 1) to get 4 * 8 = 32, which is still too large.\n4. Let's try another approach: we can use division to reduce the value of 10. Dividing 10 by 1 gives us 10, but dividing 10 by the product of 1 and 1 (which is 1) also gives us 10, so this doesn't help.\n5. Instead, let's try to use subtraction and multiplication together. If we subtract 1 from 10, we get 9. Multiplying 9 by 4 gives us 36, which is still too large.\n6. Another approach would be to use the numbers in a different order. Let's try subtracting 1 from 10 first, then using the result in some way with the other numbers.\n7. If we subtract 1 from 10, we get 9. Then, if we multiply 9 by 4, we get 36. We are 12 away from 24, and we have one 1 left. However, we need to use the 1 in a way that reduces our total by 12, which is not possible directly.\n8. Let's rethink our approach by trying to use the numbers in a combination of addition, subtraction, multiplication, and division. One effective method is to use the formula often seen in such puzzles: (a - b) / c * d.\n9. Applying this formula: if we do (10 - 4) / 1 * 1, it simplifies incorrectly as 6 * 1 = 6, which is not helpful.\n10. Another try: (10 -",
+    "SAMPLE 7 FINAL: (10 - 4) / 1 * 1",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use each of the numbers 4, 10, 1, and 1 exactly once to create an expression that equals 24. Let's reason through this step by step:\n\n1. We have four numbers: 4, 10, 1, and 1.\n2. The target result is 24, which suggests we might need to perform multiplication or addition operations.\n3. Considering the numbers, using the 1s might complicate reaching 24 directly as they don't change the value when added or multiplied.\n4. A potential strategy is to manipulate the larger number (10) and combine it with the other numbers to reach 24.\n\nLet's try to form an expression:\n\n- If we subtract 1 from 10, we get 9.\n- Multiplying 9 by 4 gives us 36.\n- Subtracting 1 from 36 gives us 35, which is close but not quite 24.\n- Instead, let's consider using one of the 1s in another way.\n\nAnother approach could be:\n\n- Subtract 1 from 10, resulting in 9.\n- Multiply 9 by 4, resulting in 36.\n- Now, if we can somehow reduce 36 by 12, we will reach 24.\n- However, we only have a second 1 available, so let's consider other operations.\n\nGiven these attempts, let's reassess with a different combination:\n\n- We could try adding the numbers together in various ways and then applying operations.\n- One effective approach involves recognizing that 10 - 4 = 6.\n- Now, we need to use the two 1s to manipulate 6 into 24.\n\nA possible solution:\n\n- Take 10 - 4 to get 6.\n- Then, multiply by (1 + 1 + 1) * 4, but since we only have two 1s, we need a different approach.\n- Consider dividing 4 by (1 - 1) doesn't work due to division by zero.\n- Instead, think about 10 - 4, then use the remaining 1s in a way that can amplify the result.\n\nAfter further consideration:\n\n- (10 - 4) * (1 + 1 + 1) gives 6 * 3 = 18, which is still not 24.",
+    "SAMPLE 8 FINAL: - (10 - 4) * (1 + 1 + 1)",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to form an expression that equals 24. Let's think through it step by step.\n\nFirst, consider the numbers and their potential operations:\n- We have two 1s, which can be useful for making adjustments or balancing the equation.\n- The number 10 is relatively large, so it might need to be part of a multiplication or division operation.\n- The number 4 is also significant and could be used in multiplication or subtraction to reach 24.\n\nLet's try a combination involving multiplication and addition/subtraction:\n\n1. Multiplying 4 and 10 gives us 40, which is too large, but if we subtract something from it, we might get closer to 24.\n2. Subtracting 10 from 40 does not help because it would result in 30, still too large.\n3. However, subtracting a smaller number obtained from using the other 1 might work. If we multiply 4 by (10 - 1), we get 4 * 9 = 36, which is close to 24 but still too large.\n4. To reduce 36 to 24, we need to subtract 12. But since we only have one more 1 available, we need to see if we can adjust our approach.\n5. Instead, let's try a different approach: adding the two 1s together to make 2, then multiplying the result by another number to get close to 24.\n6. If we subtract 10 from 36, we get 26, which is still too large, but if we adjust our initial multiplication, we might find success.\n7. Consider 4 * (10 - 1) - 1*2 = 36 - 2 = 34, which is incorrect.\n8. Adjusting further: 4 * (10 - 4) + 1 + 1 = 4 * 6 + 2 = 24 + 2 = 26, which is incorrect.\n9. Correct approach: 4 * (10 - 8) + 1 + 1 = 4 * 2 + 1 + 1 = 8 + 1 + 1 = 10, incorrect.\n10. Final attempt: 4 * (",
+    "SAMPLE 9 FINAL: 4 * (10 - 4) + 1 + 1",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use the numbers 4, 10, 1, and 1 exactly once to produce the number 24. Let's break down the steps:\n\n1. **Identify potential operations**: We can use addition (+), subtraction (-), multiplication (*), and division (/).\n2. **Consider the size of the target number (24)**: Since 24 is relatively large compared to our numbers, multiplication will likely be a key operation.\n3. **Explore combinations**: Let's try multiplying the larger number (10) by the smaller number (4) to see if we can get close to 24 or if the result can be adjusted to 24 using the other two numbers (1 and 1).\n\n   - \\(10 \\times 4 = 40\\)\n   - This is too large, so let's try to reduce it using subtraction or division.\n   \n   - \\(40 - 10 = 30\\) (still too large)\n   - \\(40 - 4 = 36\\) (still too large)\n   - \\(40 / 10 = 4\\) (too small)\n   - \\(40 / 4 = 10\\) (too small)\n\nSince direct multiplication and division didn't yield results close to 24, let's explore other possibilities by using the numbers in different positions and operations:\n\n- Let's try \\(10 - 4 = 6\\). Now we need to use 1 and 1 to transform 6 into 24.\n  \n  - \\(6 + 1 + 1 = 8\\) (too small)\n  - \\(6 \\times 1 \\times 1 = 6\\) (too small)\n  - \\(6 * (1 + 1) = 6 \\times 2 = 12\\) (still too small)\n\n- Let's try another approach by manipulating the subtraction differently:\n  \n  - \\(10 - 1 = 9\\). Now we need to use 4 and 1 to transform 9 into 24.\n    \n    - \\(9 + 4 + 1 = 14\\) (too small)\n    - \\(9 \\times 4 - 1 = 36 - 1 = 35\\) (too large)\n    - \\(9 \\times (4 - 1) = 9 \\times 3 = 27\\) (close",
+    "SAMPLE 10 FINAL: - (10 - 1",
+    "VOTE SUMMARY: (1/(1 - 2/3) -> 1, (10 - 4) / 1 * (1 + 1) * 4 -> 1, (10 - 4) / (1 - 1/4) -> 1, (1 - 1/10) -> 1, - (10 - 4) * 4 -> 1, (10 - 4) / (1/1) -> 1, (10 - 4) / 1 * 1 -> 1, - (10 - 4) * (1 + 1 + 1) -> 1, 4 * (10 - 4) + 1 + 1 -> 1, - (10 - 1 -> 1",
+    "VOTE WINNER: (1/(1 - 2/3) (1/10)"
+  ]
+}

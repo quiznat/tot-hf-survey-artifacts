@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-175535-a63766.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x = 9, y = -7",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -6,
+        -5,
+        -19
+      ],
+      [
+        5,
+        -2,
+        59
+      ]
+    ]
+  },
+  "item_id": "lin-v4-023",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 20512,
+    "success": 1,
+    "tokens_in": 733,
+    "tokens_out": 247
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-175535-a63766",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2560085455,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T17:55:35Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of two linear equations in the form [a, b, c], representing ax + by = c. So we have:\nEquation 1: -6x - 5y = -19  \nEquation 2: 5x - 2y = 59  \n\nWe need to solve this system for x and y. Let's solve using elimination or substitution.\n\nLet\u2019s use elimination. Multiply Equation 1 by 2 and Equation 2 by 5 to eliminate y:\n\nEq1 \u00d7 2: -12x - 10y = -38  \nEq2 \u00d7 5: 25x - 10y = 295  \n\nNow subtract the first from the second (or subtract Eq1\u00d72 from Eq2\u00d75):\n\n(25x - (-12x)) + (-10y - (-10y))",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the elimination method:  \n(25x - (-12x)) = 37x  \n(-10y - (-10y)) = 0  \nRight-hand side: 295 - (-38) = 333  \nSo: 37x = 333 \u2192 x = 333 / 37 = 9  \n\nNow substitute x = 9 into one of the original equations to find y. Use Equation 1:  \n-6x - 5y = -19  \n-6(9) - 5y = -19  \n-54 - 5y = -19  \n-5y = -19 + 54 = 35  \ny = 35 / (-5) = -7  \n\nCheck with Equation 2:  \n5x - 2y = 5(9)",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continuing the check with Equation 2:  \n5x - 2y = 5(9) - 2(-7) = 45 + 14 = 59, which matches the right-hand side. So the solution is correct: x = 9, y = -7.  \nFinal answer: x = 9, y = -7.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: x = 9, y = -7"
+  ]
+}

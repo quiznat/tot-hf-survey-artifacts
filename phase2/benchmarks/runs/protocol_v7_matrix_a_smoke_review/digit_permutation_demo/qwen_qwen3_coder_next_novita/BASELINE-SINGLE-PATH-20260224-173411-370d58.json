@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.single_path_direct_answer.v1",
+  "algorithm_module_id": "algorithm_module.baseline_single_path_direct_answer.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260224-173411-370d58.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-single-path",
+  "condition_key": "baseline_single_path_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "4422",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3866,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 256
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260224-173411-370d58",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:11Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.",
+    "OUTPUT: We are given the digits: **[4, 2, 2, 4]**  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, such that the number is divisible by **11**.\n\n---\n\n### Step 1: Divisibility Rule for 11  \nA number is divisible by 11 if the **alternating sum** of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $, compute:  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\n---\n\n### Step 2: List all unique permutations of [4, 2, 2, 4]  \nSince digits repeat, total unique permutations = $ \\frac{4!}{2!2!} = 6 $\n\nLet\u2019s list them in descending order (since we want the **largest** possible number):\n\n1. **4422**  \n2. **4242**  \n3. **4224**  \n4. **2442**  \n5. **2424**  \n6. **2244**\n\nNow test each for divisibility by 11.\n\n---\n\n#### Test 4422  \nDigits: 4, 4, 2, 2  \nAlternating sum: (4 + 2) - (4 + 2) = 6 - 6 = **0** \u2192 divisible by 11 \u2705\n\n#### Test 4242  \nDigits: 4, 2, 4, 2  \n(4 + 4) - (2 + 2) = 8 - 4 = **4** \u2192 not divisible by 11 \u274c\n\n#### Test 4224  \nDigits: 4, 2, 2, 4  \n(4 + 2) - (2 + 4) = 6 - 6 = **0** \u2192 divisible by 11 \u2705\n\nBut 4422 > 4224, so 4422 is better.\n\nLet\u2019s still verify the rest for completeness.\n\n#### 2442  \n(2 + 4) - (4 + 2) = 6 - 6 = 0 \u2705  \nBut 2",
+    "FINAL: 4422"
+  ]
+}

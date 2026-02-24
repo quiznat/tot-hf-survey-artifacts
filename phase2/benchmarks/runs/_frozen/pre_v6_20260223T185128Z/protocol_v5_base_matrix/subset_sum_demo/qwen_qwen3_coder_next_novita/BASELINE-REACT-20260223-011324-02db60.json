@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-011324-02db60.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "22 + 16 + 13 = 51",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      5,
+      11,
+      11,
+      13,
+      16,
+      22
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-039",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9254,
+    "success": 0,
+    "tokens_in": 448,
+    "tokens_out": 203
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011324-02db60",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2776084078,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:13:24Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers: [4, 5, 11, 11, 13, 16, 22] and a target: 51. The task is likely to find a subset (or some combination) of these numbers that sum to the target. Since no tools are available, this is a pure reasoning problem.\n\nLet\u2019s try to find a subset that sums to 51.\n\nFirst, total sum of all numbers:  \n4 + 5 = 9  \n9 + 11 = 20  \n20 + 11 = 31  \n31 + 13 = 44  \n44 + 16 = 60  \n60 + 22 = 82  \nTotal = 82. So 51 is less than total, possible.\n\nTry greedy or backtracking.\n\nLet\u2019s try including",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need to find a subset of [4, 5, 11, 11, 13, 16, 22] that sums to 51. Let\u2019s try combinations systematically.\n\nStart with the largest number, 22:  \n51 \u2212 22 = 29. Now find subset of remaining [4,5,11,11,13,16] summing to 29.\n\nTry 16: 29 \u2212 16 = 13 \u2192 and 13 is in the list! So: 22 + 16 + 13 = 51. Check: 22+16=38, 38+13=51. Yes! All numbers are present: 22, 16, and 13 are in the original list.\n\nThus",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 22 + 16 + 13 = 51"
+  ]
+}

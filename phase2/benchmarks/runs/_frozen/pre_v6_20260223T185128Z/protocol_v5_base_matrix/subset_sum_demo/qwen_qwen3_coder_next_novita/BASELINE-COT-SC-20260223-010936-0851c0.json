@@ -1,0 +1,105 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-010936-0851c0.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705  \n- 3 + 5 = 8  \n- 3 + 8 = 11  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705  \n\nSo two possible solutions:  \n- [1, 8]  \n- [1, 3, 5]\n\nBut the problem says \"Select one or more values\", and doesn\u2019t require minimal or maximal count \u2014 any valid subset is acceptable.\n\nWe can choose either. Let\u2019s pick the",
+        1
+      ],
+      [
+        "We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s consider small combinations:\n\n- Try two numbers:  \n  1 + 3 = 4  \n  1 + 5 = 6  \n  1 + 8 = 9 \u2705  \n  So 1 and 8 sum to 9.\n\nCheck if both are in the list: yes, 1 and 8 are present.\n\nAny other combinations?  \n3 + 5 = 8  \n3 + 8 = 11  \n5 + 8 = 13  \nThree numbers:  \n1 + 3 + 5 = 9 \u2705  \nSo 1, 3, and 5 also sum to 9.\n\nNow we have two valid subsets:",
+        1
+      ],
+      [
+        "We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- Single numbers: 9 is not in the list \u2192 no.\n- Two numbers:\n  - 1 + 3 = 4  \n  - 1 + 5 = 6  \n  - 1 + 8 = 9 \u2705  \n  - 3 + 5 = 8  \n  - 3 + 8 = 11  \n  - 5 + 8 = 13  \n  - Others are larger (e.g., 1 + 16 = 17, etc.) \u2192 too big.\n\nSo 1 + 8 = 9 works.\n\nCheck if any other 2-number combos work:  \n- 3 +",
+        1
+      ],
+      [
+        "We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705 Found! 1 + 8 = 9\n\nCheck if any other combinations work (just to be thorough):\n\n- 3 + 5 = 8  \n- 3 + 8 = 11 (too big)  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705 Also works!\n\nWait \u2014 1 + 3 + 5 =",
+        1
+      ],
+      [
+        "We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 + 5 = 9 \u2192 \u2705  \nCheck: 1 + 3 = 4, 4 + 5 = 9 \u2192 correct.\n\nAny other combinations? Let\u2019s verify uniqueness and completeness:\n\n- 1 + 8 = 9 \u2192 also works!  \nWait: 1 + 8 = 9 \u2192 valid.\n\nSo we have at least two valid subsets:  \n{1, 3, 5} and {1, 8}\n\nBut the instruction says: \"Select one or more values... Return only a comma-separated list",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705  \n- 3 + 5 = 8  \n- 3 + 8 = 11  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705  \n\nSo two possible solutions:  \n- [1, 8]  \n- [1, 3, 5]\n\nBut the problem says \"Select one or more values\", and doesn\u2019t require minimal or maximal count \u2014 any valid subset is acceptable.\n\nWe can choose either. Let\u2019s pick the",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      3,
+      5,
+      8,
+      16,
+      17,
+      18,
+      20
+    ],
+    "target": 9
+  },
+  "item_id": "ss-v4-015",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 34230,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 566
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-010936-0851c0",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1678118783,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:09:36Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705  \n- 3 + 5 = 8  \n- 3 + 8 = 11  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705  \n\nSo two possible solutions:  \n- [1, 8]  \n- [1, 3, 5]\n\nBut the problem says \"Select one or more values\", and doesn\u2019t require minimal or maximal count \u2014 any valid subset is acceptable.\n\nWe can choose either. Let\u2019s pick the",
+    "SAMPLE 1 FINAL: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705  \n- 3 + 5 = 8  \n- 3 + 8 = 11  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705  \n\nSo two possible solutions:  \n- [1, 8]  \n- [1, 3, 5]\n\nBut the problem says \"Select one or more values\", and doesn\u2019t require minimal or maximal count \u2014 any valid subset is acceptable.\n\nWe can choose either. Let\u2019s pick the",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s consider small combinations:\n\n- Try two numbers:  \n  1 + 3 = 4  \n  1 + 5 = 6  \n  1 + 8 = 9 \u2705  \n  So 1 and 8 sum to 9.\n\nCheck if both are in the list: yes, 1 and 8 are present.\n\nAny other combinations?  \n3 + 5 = 8  \n3 + 8 = 11  \n5 + 8 = 13  \nThree numbers:  \n1 + 3 + 5 = 9 \u2705  \nSo 1, 3, and 5 also sum to 9.\n\nNow we have two valid subsets:",
+    "SAMPLE 2 FINAL: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s consider small combinations:\n\n- Try two numbers:  \n  1 + 3 = 4  \n  1 + 5 = 6  \n  1 + 8 = 9 \u2705  \n  So 1 and 8 sum to 9.\n\nCheck if both are in the list: yes, 1 and 8 are present.\n\nAny other combinations?  \n3 + 5 = 8  \n3 + 8 = 11  \n5 + 8 = 13  \nThree numbers:  \n1 + 3 + 5 = 9 \u2705  \nSo 1, 3, and 5 also sum to 9.\n\nNow we have two valid subsets:",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- Single numbers: 9 is not in the list \u2192 no.\n- Two numbers:\n  - 1 + 3 = 4  \n  - 1 + 5 = 6  \n  - 1 + 8 = 9 \u2705  \n  - 3 + 5 = 8  \n  - 3 + 8 = 11  \n  - 5 + 8 = 13  \n  - Others are larger (e.g., 1 + 16 = 17, etc.) \u2192 too big.\n\nSo 1 + 8 = 9 works.\n\nCheck if any other 2-number combos work:  \n- 3 +",
+    "SAMPLE 3 FINAL: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- Single numbers: 9 is not in the list \u2192 no.\n- Two numbers:\n  - 1 + 3 = 4  \n  - 1 + 5 = 6  \n  - 1 + 8 = 9 \u2705  \n  - 3 + 5 = 8  \n  - 3 + 8 = 11  \n  - 5 + 8 = 13  \n  - Others are larger (e.g., 1 + 16 = 17, etc.) \u2192 too big.\n\nSo 1 + 8 = 9 works.\n\nCheck if any other 2-number combos work:  \n- 3 +",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705 Found! 1 + 8 = 9\n\nCheck if any other combinations work (just to be thorough):\n\n- 3 + 5 = 8  \n- 3 + 8 = 11 (too big)  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705 Also works!\n\nWait \u2014 1 + 3 + 5 =",
+    "SAMPLE 4 FINAL: We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705 Found! 1 + 8 = 9\n\nCheck if any other combinations work (just to be thorough):\n\n- 3 + 5 = 8  \n- 3 + 8 = 11 (too big)  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705 Also works!\n\nWait \u2014 1 + 3 + 5 =",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 + 5 = 9 \u2192 \u2705  \nCheck: 1 + 3 = 4, 4 + 5 = 9 \u2192 correct.\n\nAny other combinations? Let\u2019s verify uniqueness and completeness:\n\n- 1 + 8 = 9 \u2192 also works!  \nWait: 1 + 8 = 9 \u2192 valid.\n\nSo we have at least two valid subsets:  \n{1, 3, 5} and {1, 8}\n\nBut the instruction says: \"Select one or more values... Return only a comma-separated list",
+    "SAMPLE 5 FINAL: We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 + 5 = 9 \u2192 \u2705  \nCheck: 1 + 3 = 4, 4 + 5 = 9 \u2192 correct.\n\nAny other combinations? Let\u2019s verify uniqueness and completeness:\n\n- 1 + 8 = 9 \u2192 also works!  \nWait: 1 + 8 = 9 \u2192 valid.\n\nSo we have at least two valid subsets:  \n{1, 3, 5} and {1, 8}\n\nBut the instruction says: \"Select one or more values... Return only a comma-separated list",
+    "VOTE SUMMARY: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705  \n- 3 + 5 = 8  \n- 3 + 8 = 11  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705  \n\nSo two possible solutions:  \n- [1, 8]  \n- [1, 3, 5]\n\nBut the problem says \"Select one or more values\", and doesn\u2019t require minimal or maximal count \u2014 any valid subset is acceptable.\n\nWe can choose either. Let\u2019s pick the -> 1, We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s consider small combinations:\n\n- Try two numbers:  \n  1 + 3 = 4  \n  1 + 5 = 6  \n  1 + 8 = 9 \u2705  \n  So 1 and 8 sum to 9.\n\nCheck if both are in the list: yes, 1 and 8 are present.\n\nAny other combinations?  \n3 + 5 = 8  \n3 + 8 = 11  \n5 + 8 = 13  \nThree numbers:  \n1 + 3 + 5 = 9 \u2705  \nSo 1, 3, and 5 also sum to 9.\n\nNow we have two valid subsets: -> 1, We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- Single numbers: 9 is not in the list \u2192 no.\n- Two numbers:\n  - 1 + 3 = 4  \n  - 1 + 5 = 6  \n  - 1 + 8 = 9 \u2705  \n  - 3 + 5 = 8  \n  - 3 + 8 = 11  \n  - 5 + 8 = 13  \n  - Others are larger (e.g., 1 + 16 = 17, etc.) \u2192 too big.\n\nSo 1 + 8 = 9 works.\n\nCheck if any other 2-number combos work:  \n- 3 + -> 1, We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705 Found! 1 + 8 = 9\n\nCheck if any other combinations work (just to be thorough):\n\n- 3 + 5 = 8  \n- 3 + 8 = 11 (too big)  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705 Also works!\n\nWait \u2014 1 + 3 + 5 = -> 1, We are given the list: [1, 3, 5, 8, 16, 17, 18, 20]  \nTarget sum: 9  \nWe need to select one or more numbers (each used at most once) that sum to 9.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n\n- 1 + 3 + 5 = 9 \u2192 \u2705  \nCheck: 1 + 3 = 4, 4 + 5 = 9 \u2192 correct.\n\nAny other combinations? Let\u2019s verify uniqueness and completeness:\n\n- 1 + 8 = 9 \u2192 also works!  \nWait: 1 + 8 = 9 \u2192 valid.\n\nSo we have at least two valid subsets:  \n{1, 3, 5} and {1, 8}\n\nBut the instruction says: \"Select one or more values... Return only a comma-separated list -> 1",
+    "VOTE WINNER: We need to select numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9, using each at most once.\n\nLet\u2019s try small combinations:\n\n- 1 + 3 = 4  \n- 1 + 5 = 6  \n- 1 + 8 = 9 \u2192 \u2705  \n- 3 + 5 = 8  \n- 3 + 8 = 11  \n- 5 + 8 = 13  \n- 1 + 3 + 5 = 9 \u2192 \u2705  \n\nSo two possible solutions:  \n- [1, 8]  \n- [1, 3, 5]\n\nBut the problem says \"Select one or more values\", and doesn\u2019t require minimal or maximal count \u2014 any valid subset is acceptable.\n\nWe can choose either. Let\u2019s pick the (1/5)"
+  ]
+}

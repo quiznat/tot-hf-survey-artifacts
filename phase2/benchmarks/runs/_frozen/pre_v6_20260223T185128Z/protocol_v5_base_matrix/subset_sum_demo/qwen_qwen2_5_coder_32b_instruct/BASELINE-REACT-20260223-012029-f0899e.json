@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-012029-f0899e.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "21 + 18 + 13 + 4 = 56",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      13,
+      18,
+      19,
+      21
+    ],
+    "target": 56
+  },
+  "item_id": "ss-v4-050",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6083,
+    "success": 0,
+    "tokens_in": 888,
+    "tokens_out": 350
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012029-f0899e",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1467992623,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:20:29Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of the given numbers [4, 13, 18, 19, 21] that sum to the target 56. Since I don't have any tools available, I'll need to work through this manually by trying different combinations.\n\nLet me start by examining what numbers might be useful:\n- The largest numbers are 18, 19, and 21\n- If I use 21, I need the remaining numbers to sum to 35\n- If I use 19, I need the remaining numbers to sum to 37\n- If I use 18, I need the remaining numbers to sum to 38\n\nLet me try combinations systematically:\n\nFirst, let's see if I can make 56 with just some of these numbers:\n- 21 + 19 = 40, need",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue working through this systematically. I need to find which combination of the numbers [4, 13, 18, 19, 21] sums to 56.\n\nLet me try different combinations:\n\nStarting with the largest numbers:\n- 21 + 19 = 40, need 16 more. Can I make 16 from [4, 13, 18]? \n  - 13 + 4 = 17 (too big)\n  - 18 = 18 (too big)\n  - No valid combination here.\n\n- 21 + 18 = 39, need 17 more. Can I make 17 from [4, 13, 19]?\n  - 13 + 4 = 17 \u2713 This works!\n  - So: 21",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue with my systematic approach to find the combination that sums to 56.\n\nI found that 21 + 18 = 39, and I need 17 more. From the remaining numbers [4, 13, 19], I can make 17 by using 13 + 4 = 17.\n\nSo the combination is: 21 + 18 + 13 + 4 = 56\n\nLet me verify: 21 + 18 + 13 + 4 = 39 + 13 + 4 = 52 + 4 = 56 \u2713\n\nThis uses four of the five numbers: 21, 18, 13, and 4. The number 19 is not used.\n\nLet me double-check if there are other possible combinations:\n\nWhat about using",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: 21 + 18 + 13 + 4 = 56"
+  ]
+}

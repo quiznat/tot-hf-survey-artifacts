@@ -1,0 +1,115 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173324-38a58b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "x=-4.0,y=6.0",
+        10
+      ]
+    ],
+    "cot_sc_winner_votes": 10
+  },
+  "final_answer": "x=-4.0,y=6.0",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        -3,
+        -10
+      ],
+      [
+        1,
+        4,
+        20
+      ]
+    ]
+  },
+  "item_id": "lin-v4-002",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5407,
+    "success": 1,
+    "tokens_in": 500,
+    "tokens_out": 1646
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173324-38a58b",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4264802945,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:24Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve one equation for one variable.**  \nEquation 2 looks simplest; solve for x:\n\nx = 20.0 \u2212 4.0y\n\n**Step 2: Substitute into Equation 1.**  \nReplace x in Equation 1 with (20.0 \u2212 4.0y):\n\n\u22122.0(20.0 \u2212 4.0y) \u2212 3.0y = \u221210.0\n\nCompute:\n\n\u221240.0 + 8.0y \u2212 3.0y = \u221210.0  \n\u2192 \u221240.0 + 5.0y = \u221210.0\n\n**Step 3: Solve for y**  \nAdd 40.0 to both sides:\n\n5.0y = 30.0  \n\u2192 y = 30.0 / 5.0 = 6.0\n\n**Step 4: Solve for x**  \nPlug y = 6.0 into x = 20.0 \u2212 4.0y:\n\nx = 20.0 \u2212 4.0\u00d76.0 = 20.0 \u2212 24.0 = \u22124.0\n\n\u2705 Check in Equation 1:  \n\u22122(\u22124.0) \u2212 3(6.0) = 8.0 \u2212 18.0 = \u221210.0 \u2714\ufe0f  \nEquation 2: \u22124.0 + 4\u00d76.0 = \u22124.0 + 24.0 = 20.0 \u2714\ufe0f\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 1 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0  \n\nLet\u2019s solve using substitution or elimination. Elimination is straightforward here.\n\n**Step 1: Align equations for elimination**\n\nEquation 1:\u2003\u22122x \u2212 3y = \u221210  \nEquation 2:\u2003\u2003x + 4y = 20  \n\nLet\u2019s eliminate x. Multiply Equation 2 by 2 to match coefficients of x with Equation 1:\n\n2 \u00d7 (Equation 2):  \n\u2003\u20032x + 8y = 40  \n\nNow add this to Equation 1:\n\n(\u22122x \u2212 3y) + (2x + 8y) = \u221210 + 40  \n\u21d2 (0x + 5y) = 30  \n\u21d2 5y = 30  \n\u21d2 y = 6\n\n**Step 2: Substitute y = 6 into Equation 2 to find x**\n\nEquation 2: x + 4y = 20  \nx + 4(6) = 20  \nx + 24 = 20  \nx = 20 \u2212 24 = \u22124\n\n**Check in Equation 1**:  \n\u22122(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2714\ufe0f\n\nSo solution is x = \u22124.0, y = 6.0\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 2 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the system:\n\nEquation 1: -2.0x - 3.0y = -10.0  \nEquation 2: 1.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Eliminate one variable.**  \nIt\u2019s easy to eliminate x by making coefficients opposites.  \nEquation 2 has +1.0x, so multiply Equation 2 by 2 to get +2.0x, then add to Equation 1.\n\nMultiply Equation 2 by 2:  \n2*(1.0x + 4.0y) = 2*20.0  \n\u2192 2.0x + 8.0y = 40.0  (Equation 2\u2032)\n\nNow add Equation 1 and Equation 2\u2032:\n\nEquation 1: -2.0x - 3.0y = -10.0  \nEquation 2\u2032: +2.0x + 8.0y = +40.0  \n--------------------------------  \nAdd: (\u22122.0x + 2.0x) + (\u22123.0y + 8.0y) = \u221210.0 + 40.0  \n\u2192 0x + 5.0y = 30.0  \n\u2192 5.0y = 30.0  \n\u2192 y = 30.0 / 5.0 = **6.0**\n\n**Step 2: Substitute y = 6.0 into one of the original equations to find x.**  \nUse Equation 2: x + 4y = 20  \n\u2192 x + 4*(6.0) = 20  \n\u2192 x + 24.0 = 20  \n\u2192 x = 20 \u2212 24 = **\u22124.0**\n\n**Check with Equation 1:**  \n\u22122x \u2212 3y = \u22122*(\u22124.0) \u2212 3*(6.0) = 8.0 \u2212 18.0 = \u221210.0 \u2714\ufe0f\n\n\u2705 Solution is consistent.\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 3 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = -10.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step-by-step.\n\n**Step 1: Solve Equation 2 for x**  \nFrom Equation 2:  \n\u2003x = 20.0 \u2212 4.0y\n\n**Step 2: Substitute into Equation 1**  \nPlug x = 20 \u2212 4y into Equation 1:\n\n\u2003-2.0(20 \u2212 4y) \u2212 3.0y = -10.0  \n\u2192 -40.0 + 8.0y \u2212 3.0y = -10.0  \n\u2192 -40.0 + 5.0y = -10.0\n\n**Step 3: Solve for y**  \nAdd 40.0 to both sides:  \n\u20035.0y = 30.0  \n\u2192 y = 30.0 / 5.0 = 6.0\n\n**Step 4: Solve for x**  \nUse x = 20 \u2212 4y = 20 \u2212 4(6) = 20 \u2212 24 = -4.0\n\n\u2705 Check in Equation 1:  \n-2.0(-4.0) \u2212 3.0(6.0) = 8.0 \u2212 18.0 = -10.0 \u2714\ufe0f  \nEquation 2: -4.0 + 4(6.0) = -4.0 + 24.0 = 20.0 \u2714\ufe0f\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 4 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-2.0x \u2212 3.0y = \u221210.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve using substitution or elimination. Elimination is straightforward here.\n\n**Step 1: Align equations for elimination**\n\nEquation 1:\u2003\u22122x \u2212 3y = \u221210  \nEquation 2:\u2003\u2003x + 4y = 20\n\nLet\u2019s eliminate x. Multiply Equation 2 by 2 so that the x-coefficients become opposites:\n\n2 \u00d7 (Equation 2):  \n\u2003\u20032x + 8y = 40\n\nNow add this to Equation 1:\n\n(\u22122x \u2212 3y) + (2x + 8y) = \u221210 + 40  \n\u21d2 (\u22122x + 2x) + (\u22123y + 8y) = 30  \n\u21d2 0x + 5y = 30  \n\u21d2 5y = 30  \n\u21d2 y = 6\n\n**Step 2: Substitute y = 6 into Equation 2 to find x**\n\nEquation 2: x + 4y = 20  \n\u21d2 x + 4(6) = 20  \n\u21d2 x + 24 = 20  \n\u21d2 x = 20 \u2212 24 = \u22124\n\n**Check with Equation 1**:\n\n\u22122x \u2212 3y = \u22122(\u22124) \u2212 3(6) = 8 \u2212 18 = \u221210 \u2705\n\nSo solution is x = \u22124.0, y = 6.0\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 5 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 6 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-2.0x - 3.0y = -10.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve this step by step.\n\n**Step 1: Simplify or rearrange for substitution or elimination.**\n\nEquation 2 has a coefficient of 1 for x, so it\u2019s convenient to solve Equation 2 for x:\n\nFrom Equation 2:  \n\u2003x = 20.0 - 4.0y\n\n**Step 2: Substitute into Equation 1.**\n\nSubstitute x = 20 - 4y into Equation 1:\n\n-2.0(20 - 4y) - 3.0y = -10.0  \n\u2192 -40.0 + 8.0y - 3.0y = -10.0  \n\u2192 -40.0 + 5.0y = -10.0\n\n**Step 3: Solve for y**\n\nAdd 40.0 to both sides:  \n5.0y = 30.0  \n\u2192 y = 30.0 / 5.0 = 6.0\n\n**Step 4: Plug y = 6 into expression for x**\n\nx = 20.0 - 4.0y = 20.0 - 4.0\u00d76.0 = 20.0 - 24.0 = -4.0\n\n**Step 5: Verify in both equations**\n\nEquation 1: -2(-4) - 3(6) = 8 - 18 = -10 \u2714\ufe0f  \nEquation 2: -4 + 4\u00d76 = -4 + 24 = 20 \u2714\ufe0f\n\n\u2705 Both equations satisfied.\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 6 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 7 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003-2.0x - 3.0y = -10.0  \n\nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0  \n\nLet\u2019s solve step by step.\n\n**Step 1: Eliminate one variable.**  \nLet\u2019s eliminate x by making coefficients of x opposites.\n\nEquation 2 has +1.0x. Multiply Equation 2 by 2 to get +2.0x, then add to Equation 1 (which has -2.0x):\n\nMultiply Equation 2 by 2:  \n\u20032*(1.0x + 4.0y) = 2*20.0  \n\u2192\u20032.0x + 8.0y = 40.0  (Equation 2\u2032)\n\nNow add Equation 1 and Equation 2\u2032:\n\nEquation 1:\u2003-2.0x - 3.0y = -10.0  \nEquation 2\u2032: +2.0x + 8.0y = 40.0  \n-------------------------------  \n\u2003\u2003\u2003\u2003\u2003\u20030x + 5.0y = 30.0  \n\nSo:  \n\u20035.0y = 30.0  \n\u2192\u2003y = 30.0 / 5.0 = 6.0\n\n**Step 2: Substitute y = 6.0 into one of the original equations to find x.**  \nUse Equation 2:  \n\u20031.0x + 4.0y = 20.0  \n\u2192\u2003x + 4.0*(6.0) = 20.0  \n\u2192\u2003x + 24.0 = 20.0  \n\u2192\u2003x = 20.0 - 24.0 = -4.0\n\n**Check with Equation 1:**  \n-2.0x - 3.0y = -2.0*(-4.0) - 3.0*(6.0) = 8.0 - 18.0 = -10.0 \u2705\n\nSo solution is x = -4.0, y = 6.0\n\nFINAL: x=-4.0,y=",
+    "SAMPLE 7 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 8 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the system:\n\n1) -2.0x - 3.0y = -10.0  \n2) 1.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x (since coefficient of x is 1).**\n\nFrom Equation 2:  \nx = 20.0 - 4.0y\n\n**Step 2: Substitute into Equation 1.**\n\nSubstitute x = 20 - 4y into Equation 1:\n\n-2.0(20 - 4y) - 3.0y = -10.0  \n\u2192 -40 + 8y - 3y = -10  \n\u2192 -40 + 5y = -10\n\n**Step 3: Solve for y.**\n\n5y = -10 + 40 = 30  \ny = 30 / 5 = 6.0\n\n**Step 4: Plug y = 6 into x = 20 - 4y.**\n\nx = 20 - 4(6) = 20 - 24 = -4.0\n\n**Check in Equation 1:**  \n-2(-4) - 3(6) = 8 - 18 = -10 \u2714\ufe0f  \nEquation 2: -4 + 4(6) = -4 + 24 = 20 \u2714\ufe0f\n\n\u2705 Solution verified.\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 8 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 9 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the system:\n\n1) -2.0x - 3.0y = -10.0  \n2) 1.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x.**  \nFrom Equation 2:  \nx = 20.0 - 4.0y\n\n**Step 2: Substitute into Equation 1.**  \nPlug x = 20 - 4y into Equation 1:\n\n-2(20 - 4y) - 3y = -10  \n\u2192 -40 + 8y - 3y = -10  \n\u2192 -40 + 5y = -10  \n\u2192 5y = 30  \n\u2192 y = 6.0\n\n**Step 3: Plug y = 6 into expression for x.**  \nx = 20 - 4(6) = 20 - 24 = -4.0\n\n**Check in Equation 1:**  \n-2(-4) - 3(6) = 8 - 18 = -10 \u2705  \n**Check in Equation 2:**  \n-4 + 4(6) = -4 + 24 = 20 \u2705\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 9 FINAL: x=-4.0,y=6.0",
+    "SAMPLE 10 PROMPT: Solve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-2.0x - 3.0y = -10.0  \nEquation 2:  \n\u2003\u20031.0x + 4.0y = 20.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Solve Equation 2 for x (since coefficient is 1, easy).**\n\nFrom Equation 2:  \n\u2003x = 20.0 - 4.0y\n\n**Step 2: Substitute into Equation 1.**\n\nPlug x = 20 - 4y into Equation 1:\n\n-2.0(20 - 4y) - 3.0y = -10.0  \n\u2192 -40.0 + 8.0y - 3.0y = -10.0  \n\u2192 -40.0 + 5.0y = -10.0\n\n**Step 3: Solve for y.**\n\nAdd 40.0 to both sides:  \n5.0y = 30.0  \n\u2192 y = 30.0 / 5.0 = 6.0\n\n**Step 4: Plug y = 6.0 back into x = 20 - 4y.**\n\nx = 20.0 - 4.0\u00d76.0 = 20.0 - 24.0 = -4.0\n\n\u2705 Check in Equation 1:  \n-2.0(-4.0) - 3.0(6.0) = 8.0 - 18.0 = -10.0 \u2714\ufe0f  \nEquation 2: -4.0 + 4\u00d76.0 = -4.0 + 24.0 = 20.0 \u2714\ufe0f\n\nFINAL: x=-4.0,y=6.0",
+    "SAMPLE 10 FINAL: x=-4.0,y=6.0",
+    "VOTE SUMMARY: x=-4.0,y=6.0 -> 10",
+    "VOTE WINNER: x=-4.0,y=6.0 (10/10)"
+  ]
+}

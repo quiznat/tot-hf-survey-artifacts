@@ -1,0 +1,87 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-023228-cfc362.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "3300",
+        5
+      ]
+    ],
+    "cot_sc_winner_votes": 5
+  },
+  "final_answer": "3300",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      0,
+      3,
+      0
+    ],
+    "divisor": 5,
+    "oracle_max": 3300
+  },
+  "item_id": "perm-v4-006",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 25726,
+    "success": 1,
+    "tokens_in": 240,
+    "tokens_out": 1453
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-023228-cfc362",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3402333466,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:32:28Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given digits: [3, 0, 3, 0]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 5**.\n\n### Step 1: Divisibility by 5\nA number is divisible by 5 **iff** its last digit is **0 or 5**.  \nWe have digits: two 3s and two 0s \u2014 **no 5**, so the only possible last digit is **0**.\n\nSo the number must end in **0**.\n\n### Step 2: Use remaining digits to maximize the number\nWe have digits: [3, 3, 0, 0]  \nFix last digit = 0 \u2192 remaining digits to arrange in the first three positions: [3, 3, 0]\n\nTo make the number as large as possible, we want the **largest digits in the highest place values** (thousands \u2192 hundreds \u2192 tens).\n\nSo arrange [3, 3, 0] in descending order: **3, 3, 0**\n\nThus, the number is: **3300**\n\nCheck:\n- Uses digits: 3, 3, 0, 0 \u2014 \u2705\n- Is 4-digit: yes (starts with 3) \u2014 \u2705\n- Ends with 0 \u2192 divisible by 5 \u2014 \u2705\n- Is it the largest possible? Let's consider other possibilities ending in 0:\n\nOther arrangements ending in 0:\n- 3300 (we have)\n- 3030\n- 3003 \u2192 ends with 3 \u2192 not divisible by 5 \u274c\n- 0330 \u2192 not 4-digit (starts with 0) \u274c\n- 0303 \u2192 not 4-digit \u274c\n- 0033 \u2192 not 4-digit \u274c\n\nSo valid 4-digit numbers ending in 0:  \n- 3300  \n- 3030  \n- 3000? Wait \u2014 do we have three 0s? No, only two 0s. So 3000 would need three 0s \u2014 not possible.\n\nWait: digits are [3, 0, 3, 0] \u2192 exactly two 3s and two 0s.\n\nSo possible 4-digit numbers ending in",
+    "SAMPLE 1 FINAL: 3300",
+    "SAMPLE 2 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given digits: [3, 0, 3, 0]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 5**.\n\n---\n\n### Step 1: Understand divisibility by 5  \nA number is divisible by 5 **iff** its last digit is **0 or 5**.  \nWe only have digits: 3, 0, 3, 0 \u2192 no 5s. So the only possible last digit is **0**.\n\nSo the number must end in **0**.\n\nWe have two 0s, so using one 0 at the end is fine.\n\nRemaining digits to use for the first three positions: [3, 3, 0] (since we used one 0 at the end).\n\nWe want the **largest possible** number, so we want the **largest digits in the highest place values**.\n\nSo for the first three digits, arrange [3, 3, 0] in descending order: **3, 3, 0**\n\nSo candidate number: **3300**\n\nLet\u2019s verify:\n- Uses digits: 3, 3, 0, 0 \u2192 matches given digits \u2705  \n- Is 4-digit: yes (starts with 3) \u2705  \n- Ends with 0 \u2192 divisible by 5 \u2705  \n- Is it the largest possible?\n\nLet\u2019s consider other possibilities.\n\nCould we have 3030? That\u2019s smaller than 3300.  \nWhat about 3003? Ends with 3 \u2192 not divisible by 5 \u274c  \nWhat about 0330? Not a 4-digit number (leading zero) \u274c  \nWhat about 0033? Not valid (leading zeros, not 4-digit) \u274c  \nWhat about 3300 vs 3030 vs 3003 (invalid) \u2014 only 3300 and 3030 are valid 4-digit numbers ending in 0.\n\n3300 > 3030, so 3300 is larger.\n\nIs there a way to get 3330? No \u2014 we only have two 3s.\n\nSo **3300** is the largest possible.\n\nFINAL: 3300",
+    "SAMPLE 2 FINAL: 3300",
+    "SAMPLE 3 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given digits: [3, 0, 3, 0]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 5**.\n\n---\n\n### Step 1: Divisibility by 5  \nA number is divisible by 5 **iff** its last digit is **0 or 5**.  \nWe have digits: two 3s and two 0s \u2014 **no 5**, so the only possible last digit is **0**.\n\nSo the number must end in **0**.\n\nWe have two 0s, so using one 0 at the end is fine; the other 0 can be used elsewhere.\n\n---\n\n### Step 2: Maximize the number  \nTo make the largest possible number, we want the **leftmost digits to be as large as possible**.\n\nAvailable digits after fixing last digit = 0: remaining digits are [3, 3, 0] (since we used one 0 at the end).\n\nWe want to arrange [3, 3, 0] in the first three positions to maximize the number.\n\nThe largest arrangement of [3, 3, 0] is: **3, 3, 0**\n\nSo the full number would be: **3300**\n\nLet\u2019s verify:\n- Uses digits: 3, 3, 0, 0 \u2192 \u2705\n- Is 4-digit: yes (starts with 3) \u2192 \u2705\n- Ends in 0 \u2192 divisible by 5 \u2192 \u2705\n- Is it the largest possible?\n\nLet\u2019s consider other possibilities ending in 0:\n\n- If we put 0 in the thousands place \u2192 not allowed (would be 3-digit or less). So thousands digit must be 3.\n\nRemaining digits for hundreds, tens, units (units fixed as 0): [3, 0]\n\nSo possible numbers:\n- 3 3 0 0 \u2192 3300  \n- 3 0 3 0 \u2192 3030  \n\n3300 > 3030, so 3300 is larger.\n\nAny other arrangement? We only have two 3s and two 0s, and last digit must be 0, so only two valid 4-digit numbers: 3300 and 3030.\n\nThus, **3300**",
+    "SAMPLE 3 FINAL: 3300",
+    "SAMPLE 4 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given digits: [3, 0, 3, 0]  \nWe must form the **largest possible 4-digit integer** using each digit **exactly once**, and the number must be **divisible by 5**.\n\n---\n\n### Step 1: Divisibility by 5  \nA number is divisible by 5 **iff** its last digit is **0 or 5**.  \nWe have digits: two 3s and two 0s \u2014 **no 5**, so the only possible last digit is **0**.\n\nSo the number must end in **0**.\n\nWe have two 0s, so using one 0 at the end is fine; the other 0 can be used elsewhere.\n\n---\n\n### Step 2: Maximize the number  \nTo make the largest possible number, we want the **leftmost digits to be as large as possible**.\n\nAvailable digits after fixing last digit = 0: remaining digits are [3, 3, 0] (since we used one 0 at the end).\n\nWe want to arrange [3, 3, 0] in the first three positions to maximize the number.\n\nThe best arrangement is: **3, 3, 0** \u2192 i.e., 3300.\n\nLet\u2019s verify:\n- Digits used: 3, 3, 0, 0 \u2705  \n- 4-digit number: 3300 \u2705  \n- Ends in 0 \u2192 divisible by 5 \u2705  \n- Is there a larger possibility?\n\nWhat if we try 3030? That\u2019s smaller than 3300.  \nWhat about 3003? Ends in 3 \u2192 not divisible by 5 \u274c  \nWhat about 0330? Not a 4-digit number (leading zero) \u274c  \nWhat about 0033? Not valid (leading zeros) \u274c  \nWhat about 3300 vs 3030 vs 3003 vs 0330 \u2014 only 3300 and 3030 are valid 4-digit numbers ending in 0.\n\n3300 > 3030.\n\nSo 3300 is the largest.\n\n---\n\nFINAL: 3300",
+    "SAMPLE 4 FINAL: 3300",
+    "SAMPLE 5 PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [3, 0, 3, 0]\nThe number must be divisible by 5.\nReturn only the integer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given digits: [3, 0, 3, 0]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 5**.\n\n---\n\n### Step 1: Understand divisibility by 5  \nA number is divisible by 5 **iff** its last digit is **0 or 5**.\n\nWe have digits: two 3s and two 0s \u2014 **no 5s**, so the only possible last digit for divisibility by 5 is **0**.\n\nSo the number must end in **0**.\n\nWe have two 0s, so using one 0 at the end is fine; the other 0 can be used elsewhere.\n\n---\n\n### Step 2: Maximize the number  \nWe want the **largest possible 4-digit number**, so we want the **largest digits in the highest place values**.\n\nPlace values: **Thousands > Hundreds > Tens > Units**\n\nWe already know the **units digit must be 0**.\n\nRemaining digits to assign to thousands, hundreds, and tens: [3, 3, 0]\n\nTo maximize the number, we want the largest digits first:\n\n- Thousands place: largest remaining digit = **3**\n- Hundreds place: next largest = **3**\n- Tens place: remaining digit = **0**\n- Units place: **0**\n\nSo candidate number: **3300**\n\nLet\u2019s verify:\n- Uses digits: 3, 3, 0, 0 \u2192 matches given digits \u2705  \n- Ends in 0 \u2192 divisible by 5 \u2705  \n- Is it the largest possible?\n\nLet\u2019s consider other possibilities ending in 0:\n\n- If we put 0 in thousands place \u2192 not a 4-digit number (leading zero not allowed) \u274c  \n- Other arrangements ending in 0:\n  - 3030 \u2192 smaller than 3300  \n  - 3003 \u2192 ends in 3 \u2192 not divisible by 5 \u274c  \n  - 0330 \u2192 not a 4-digit number \u274c  \n  - 0033 \u2192 not valid \u274c  \n  - 3300 is the only valid 4-digit number ending in 0 using both 3s and both 0s that is largest.\n\nCheck 3300 vs 3030:  \n3300",
+    "SAMPLE 5 FINAL: 3300",
+    "VOTE SUMMARY: 3300 -> 5",
+    "VOTE WINNER: 3300 (5/5)"
+  ]
+}

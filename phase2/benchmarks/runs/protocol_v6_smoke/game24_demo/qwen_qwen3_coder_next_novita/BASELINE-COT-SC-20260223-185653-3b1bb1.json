@@ -1,0 +1,131 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-185653-3b1bb1.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "(10 + 2) * (10 - 3)",
+        2
+      ],
+      [
+        "(10 - 2) * 3",
+        1
+      ],
+      [
+        "2) + (10",
+        1
+      ],
+      [
+        "(10 - 2) * 3 * (10 / 10)",
+        1
+      ],
+      [
+        "(10 / 10)",
+        1
+      ],
+      [
+        "- 10 / 2",
+        1
+      ],
+      [
+        "24 * 1",
+        1
+      ],
+      [
+        "- 10 + 10",
+        1
+      ],
+      [
+        "(10 + 2)",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "(10 + 2) * (10 - 3)",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    2,
+    10,
+    10,
+    3
+  ],
+  "item_id": "g24-v4-009",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7230,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2740
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260223-185653-3b1bb1",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1862262800,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T18:56:53Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [2, 10, 10, 3], and need to use each exactly once to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know 10 + 10 = 20, and 3 \u00d7 2 = 6, and 20 + 6 = 26 \u2014 too high.\n\nWhat about 10 \u00d7 2 = 20, 10 \u2212 3 = 7, 20 + 7 = 27 \u2014 too high.\n\n10 \u00d7 3 = 30, 10 \u2212 2 = 8, 30 \u2212 8 = 22 \u2014 close.\n\n10 \u00d7 3 = 30, 30 \u2212 10 = 20, 20 + 2 = 22 \u2014 same.\n\nHow about (10 + 2) \u00d7 (10 \u00f7 5)? But we don\u2019t have 5.\n\nWait \u2014 maybe use division: 10 \u00f7 10 = 1, then 3 \u00d7 2 = 6, 6 + 1 = 7 \u2014 no.\n\n(10 \u2212 2) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 oh! That\u2019s 24, but we used only 10, 2, and 3 \u2014 missing one 10.\n\nWe must use both 10s.\n\nSo can we incorporate the second 10 in a neutral way? Like \u00d71 or +0.\n\nIf we can make 1 from the two 10s: 10 \u00f7 10 = 1.\n\nThen: (10 \u00f7 10) = 1  \nAnd (10 \u2212 2) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 but now we used three 10s (two in the division, one in subtraction), but we only have two 10s total.\n\nWait \u2014 let\u2019s count: (10 \u2212 2) \u00d7 3 uses one 10, one 2, one 3. Remaining: one 10.\n\nSo we could do: ((10 \u2212 2) \u00d7 3) \u00d7 (10 \u00f7 10) = 24 \u00d7 1 = 24.\n\nThat uses: two 10s (one in subtraction, two in division",
+    "SAMPLE 1 FINAL: (10 - 2) * 3",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [2, 10, 10, 3] and must use each **exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 2, 10, 10, and 3 with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nTry combinations:\n\n- 10 + 10 = 20 \u2192 need 4 more \u2192 3 + 2 = 5 \u2192 too much.\n- 10 + 10 + 3 = 23 \u2192 +2 = 25 \u2192 too much.\n- 10 + 10 + 2 = 22 \u2192 +3 = 25.\n- 10 \u00d7 2 = 20 \u2192 need 4 more \u2192 10 \u2212 3 = 7 \u2192 too big.\n- 10 \u00d7 3 = 30 \u2192 30 \u2212 10 = 20 \u2192 +2 = 22.\n- 10 \u00d7 3 = 30 \u2192 30 \u2212 2 = 28 \u2192 \u221210 = 18.\n- (10 + 2) = 12, (10 + 3) = 13 \u2192 too big.\n- Try division: 10 \u00f7 2 = 5 \u2192 10 + 3 = 13 \u2192 13 + 5 = 18.\n- 10 \u00f7 (10 \u2212 3) = 10 \u00f7 7 \u2248 1.428 \u2014 not helpful.\n\nTry: (10 \u2212 3) = 7, then 10 + 7 = 17, +2 = 19.\n\nTry multiplication and subtraction:  \nTry (10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25 \u2014 close!\n\nWhat about (10 \u00d7 2) + (10 \u00f7 ?) \u2014 20 + ? = 24 \u2192 need 4 \u2192 10 \u00f7 ? = 4 \u2192 ? = 2.5 \u2014 not possible.\n\nTry (10 + 10) = 20, (3 \u2212 2) = 1 \u2192 20 \u00d7 1 = 20.\n\n(10 +",
+    "SAMPLE 2 FINAL: 2) + (10",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [2, 10, 10, 3], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possibilities.\n\nWe know 24 = 12 \u00d7 2, 8 \u00d7 3, 6 \u00d7 4, etc.\n\nWe have two 10s \u2014 maybe we can subtract them to get 0, but that seems unhelpful.\n\nWhat if we do 10 + 10 = 20, then 20 + 3 + 2 = 25 \u2014 too big.\n\n20 + 3 \u00d7 2 = 26 \u2014 too big.\n\n10 \u00d7 3 = 30, then 30 \u2212 10 = 20, 20 + 2 = 22 \u2014 close.\n\n10 \u00d7 2 = 20, 10 + 3 = 13 \u2014 no.\n\n(10 + 2) \u00d7 (10 \u2212 3) = 12 \u00d7 7 = 84 \u2014 too big.\n\n(10 \u2212 2) \u00d7 (10 \u2212 3) = 8 \u00d7 7 = 56.\n\n(10 \u00f7 2) = 5, 10 + 3 = 13, 13 + 5 = 18.\n\nWhat about (10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25 \u2014 close.\n\n(10 \u00d7 3) \u2212 (10 \u2212 2) = 30 \u2212 8 = 22.\n\n(10 + 10 + 2) \u00d7 ? \u2014 22, need \u00d7(12/11) \u2014 no.\n\nTry using division: 10 \u00f7 (10 \u00f7 (3 \u00d7 2)) = ?\n\n3 \u00d7 2 = 6  \n10 \u00f7 6 = 5/3  \n10 \u00f7 (5/3) = 6 \u2014 not helpful.\n\nTry: (10 + 2) \u00d7 3 \u2212 10 = 12 \u00d7 3 \u2212 10 = 36 \u2212 10 = 26.\n\n(10 + 3) \u00d7 2 \u2212 10 = 13 \u00d7 2 \u2212 10 = 26 \u2212 10",
+    "SAMPLE 3 FINAL: (10 + 2) * (10 - 3)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [2, 10, 10, 3], and we need to use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe want to combine 2, 10, 10, 3 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible combinations.\n\nFirst, note that 10 + 10 = 20. Then 20 + 3 + 2 = 25 \u2014 too big.  \n20 + 3 \u2212 2 = 21  \n20 \u2212 3 + 2 = 19  \n20 + (3 \u00d7 2) = 26  \n20 \u2212 (3 \u00d7 2) = 14  \n(10 + 2) \u00d7 (3 \u2212 something?) \u2192 12 \u00d7 2 = 24, but we have two 10s and a 3 \u2014 maybe use one 10 as 2? No, can't change numbers.\n\nWait \u2014 10 \u00f7 10 = 1. Then we have 2, 3, and 1 left.  \n2 \u00d7 3 \u00d7 1 = 6 \u2014 too small.  \n(2 + 3) \u00d7 (10 \u00f7 10) = 5 \u00d7 1 = 5.\n\nWhat about (10 \u2212 2) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 but we haven\u2019t used the second 10.\n\nSo need to incorporate the second 10 in a neutral way, like \u00d71 or +0.\n\nCan we make 1 from the two 10s? Yes: 10 \u00f7 10 = 1.\n\nSo maybe:  \n(10 \u2212 2) \u00d7 3 \u00d7 (10 \u00f7 10) = 8 \u00d7 3 \u00d7 1 = 24.\n\nBut that uses both 10s, 2, and 3 \u2014 exactly once. Wait, but we have two 10s, so 10 \u00f7 10 uses both 10s, and (10 \u2212 2) \u2014 oh, that would be a *third* 10! Not allowed.\n\nWe only have two 10s. So if we do 10 \u00f7 1",
+    "SAMPLE 4 FINAL: (10 - 2) * 3 * (10 / 10)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [2, 10, 10, 3]  \nWe must use **each number exactly once** to produce **24**, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore possibilities.\n\nWe know 10 + 10 = 20, and 3 + 2 = 5 \u2192 20 + 5 = 25 (too high)  \n10 + 10 + 3 = 23, +2 = 25  \n10 + 10 + 2 = 22, +3 = 25  \n10 \u00d7 2 = 20, then 10 \u2212 3 = 7 \u2192 20 + 7 = 27  \n10 \u00d7 3 = 30, 10 \u2212 2 = 8 \u2192 30 \u2212 8 = 22  \n10 \u00d7 2 + 10 \u2212 3 = 20 + 10 \u2212 3 = 27  \n(10 + 2) \u00d7 (10 \u2212 3) = 12 \u00d7 7 = 84 \u2192 too big  \n(10 \u2212 2) \u00d7 (10 \u2212 3) = 8 \u00d7 7 = 56  \n(10 \u00f7 2) = 5; 5 \u00d7 (10 \u2212 3) = 5 \u00d7 7 = 35  \n(10 \u00f7 (10 \u2212 3)) \u00d7 2 = (10/7) \u00d7 2 \u2248 2.86 \u2014 no\n\nTry using division to reduce:  \n(10 + 10 + 2) \u00d7 3 = 22 \u00d7 3 = 66  \n(10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25  \nClose! 25 \u2014 just 1 off.\n\nWhat about:  \n(10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25  \nStill 25.\n\nTry: (10 + 10) + (3 + 2) = 25 again.\n\nHow to get 24? 24 = 12 \u00d7 2, or 8 \u00d7 3, or",
+    "SAMPLE 5 FINAL: (10 + 2) * (10 - 3)",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers: [2, 10, 10, 3] and must use each exactly once to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 2, 10, 10, and 3 using +, \u2212, \u00d7, \u00f7, parentheses as needed.\n\nFirst, note that 24 is close to 25 = 10 + 10 + 3 + 2 = 25 \u2014 too big by 1.\n\nWhat about 10 + 10 + 3 + 2 = 25 \u2192 too high.\n\nTry subtraction: 10 + 10 + 3 \u2212 2 = 21 \u2192 too low.\n\nHow about multiplication? 3 \u00d7 2 = 6; 10 + 10 + 6 = 26.\n\n10 \u00d7 2 = 20; 10 + 3 = 13 \u2192 20 + 13 = 33.\n\n10 \u00d7 3 = 30; 30 \u2212 10 = 20; 20 + 2 = 22.\n\n10 \u00d7 3 = 30; 30 \u2212 2 = 28; 28 \u2212 10 = 18.\n\nWhat about (10 \u2212 2) \u00d7 3 = 8 \u00d7 3 = 24 \u2014 that\u2019s promising! But we still have another 10 unused.\n\nWe must use **all four numbers** exactly once.\n\nSo (10 \u2212 2) \u00d7 3 = 24 uses only three numbers: 10, 2, 3 \u2014 missing one 10.\n\nCan we incorporate the second 10 in a neutral way? For example, \u00d7 (10/10) = \u00d71, or + (10\u221210) = +0.\n\nYes! That\u2019s a common trick: multiply by 1 or add 0 using the extra numbers.\n\nSo: ((10 \u2212 2) \u00d7 3) \u00d7 (10 / 10) = 24 \u00d7 1 = 24.\n\nBut wait: 10 / 10 uses both 10s, plus 2 and 3 \u2014 that\u2019s all four numbers: two 10s, 2, and 3.\n\nLet\u2019s verify:  \n(",
+    "SAMPLE 6 FINAL: (10 / 10)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers: [2, 10, 10, 3], and we must use each number exactly once (no more, no less) to make 24.\n\nLet\u2019s think of common 24 strategies:  \n- 24 = 6 \u00d7 4  \n- 24 = 8 \u00d7 3  \n- 24 = 12 \u00d7 2  \n- 24 = 48 \u00f7 2  \n- 24 = (a + b) \u00d7 (c \u2212 d), etc.\n\nWe have two 10s, a 2, and a 3.\n\nTry combining the 10s:  \n- 10 + 10 = 20 \u2192 then need 4 more \u21d2 20 + 4 = 24. Can we make 4 from 2 and 3? 2 + 3 = 5, 3 \u2212 2 = 1, 2 \u00d7 3 = 6, 3 \u00f7 2 = 1.5 \u2014 no 4.  \n- 10 \u00d7 10 = 100 \u2192 too big; maybe subtract something: 100 \u2212 ? = 24 \u2192 need to subtract 76, not possible with 2 and 3.  \n- 10 \u2212 10 = 0 \u2192 not helpful.\n\nTry using division:  \n- 10 \u00f7 2 = 5. Then we have 10 and 3 left: 5, 10, 3. Can we get 24? 10 + 3 + 5 = 18. 10 \u00d7 3 \u2212 5 = 25 \u2014 close! 10 \u00d7 3 \u2212 5 = 25. Off by 1.  \nWait: (10 \u00d7 3) \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25 \u2014 still 25.\n\nWhat about (10 + 2) \u00d7 (10 \u2212 3)? That\u2019s 12 \u00d7 7 = 84 \u2014 too big.\n\nTry (10 + 10 + 3) + 2 = 25 \u2014 again 25.\n\nHmm. Try using subtraction and multiplication:  \nWhat if we do (10 \u00d7 2) + (10 \u00f7 something)? 10",
+    "SAMPLE 7 FINAL: - 10 / 2",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers: [2, 10, 10, 3], and we must use **each number exactly once** to make **24**.\n\nLet\u2019s explore combinations.\n\nWe want to reach 24. Common strategies:\n- Try multiplying large numbers: 10 + 10 = 20, then 20 + 3 + 2 = 25 \u2192 too much.\n- 10 \u00d7 2 = 20, 10 + 3 = 13 \u2192 not helpful.\n- 10 + 10 + 3 + 2 = 25 \u2192 too high.\n- 10 \u00d7 3 = 30, 30 \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25 \u2192 close.\n- 10 \u00d7 3 = 30, 30 \u2212 2 \u2212 10 = 18 \u2192 no.\n- (10 + 2) \u00d7 (10 \u2212 3) = 12 \u00d7 7 = 84 \u2192 too big.\n- (10 \u2212 2) \u00d7 3 = 24, but we still have a 10 left unused \u2192 invalid.\n\nWe must use all four numbers.\n\nTry:  \n(10 + 2) \u00d7 3 = 36 \u2192 too big.  \n(10 \u2212 2) \u00d7 3 = 24 \u2192 uses 10, 2, 3 \u2014 missing one 10.\n\nHow to incorporate the second 10? Maybe subtract or divide by something involving it.\n\nIdea: Use division to neutralize extra 10: e.g., \u00d7 (10/10) = \u00d71.\n\nSo: (10 \u2212 2) \u00d7 3 \u00d7 (10 / 10) = 24 \u00d7 1 = 24. But that uses 10, 2, 3, 10 \u2014 yes! All four numbers used exactly once.\n\nCheck:  \n(10 \u2212 2) = 8  \n8 \u00d7 3 = 24  \n10 / 10 = 1  \n24 \u00d7 1 = 24 \u2705\n\nBut is multiplication by 1 allowed? Yes \u2014 standard 24 game rules allow any operations (+, \u2212, \u00d7, \u00f7, parentheses), and using numbers as divisors is",
+    "SAMPLE 8 FINAL: 24 * 1",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers: [2, 10, 10, 3], and we must use **each exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nFirst, note common 24 combinations:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 48 \u00f7 2  \n- 30 \u2212 6  \n- 27 \u2212 3  \n- etc.\n\nWe have two 10s \u2014 maybe combine them:  \n- 10 + 10 = 20  \n- 10 \u2212 10 = 0  \n- 10 \u00d7 10 = 100  \n- 10 \u00f7 10 = 1  \n\nTry using 10 + 10 = 20, then need 4 more from [2, 3] \u2192 2 + 3 = 5 \u2192 20 + 5 = 25 (too big), 3 \u2212 2 = 1 \u2192 21, 3 \u00d7 2 = 6 \u2192 26, 3 \u00f7 2 = 1.5 \u2192 21.5 \u2014 no.\n\nTry 10 \u00d7 2 = 20, then need 4 from [10, 3].  \n- 10 \u2212 3 = 7 \u2192 20 + 7 = 27  \n- 10 \u00f7 3 \u2248 3.33 \u2192 23.33  \n- 3 \u2212 10 = \u22127 \u2192 13  \n- 3 \u00d7 10 = 30 \u2192 50 \u2014 too big  \n- 10 + 3 = 13 \u2192 33  \nNo.\n\nTry 10 \u00d7 3 = 30, then need \u22126 from [10, 2]  \n- 10 \u2212 2 = 8 \u2192 30 \u2212 8 = 22  \n- 2 \u2212 10 = \u22128 \u2192 30 + (\u22128) = 22  \n- 10 \u00f7 2 = 5 \u2192 30 \u2212 5 = 25  \n- 2 \u00d7 10 = 20 \u2192 30 \u2212 20 = 10  \nNo.\n\nTry (10 + 2) =",
+    "SAMPLE 9 FINAL: - 10 + 10",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [2, 10, 10, 3]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers [2, 10, 10, 3] and must use each exactly once to make 24.\n\nLet\u2019s explore possibilities.\n\nWe need to combine 2, 10, 10, 3 using +, \u2212, \u00d7, \u00f7, and parentheses.\n\nTry common strategies:\n\n- 24 = 6 \u00d7 4  \n- 24 = 8 \u00d7 3  \n- 24 = 12 \u00d7 2  \n- 24 = 48 \u00f7 2  \n- 24 = 30 \u2212 6  \n- 24 = 27 \u2212 3  \n- 24 = 20 + 4  \n- etc.\n\nWe have two 10s \u2014 maybe 10 + 10 = 20, then need +4 \u2192 can we make 4 from 3 and 2? 3 + 2 = 5 (too big), 3 \u2212 2 = 1, 3 \u00d7 2 = 6, 3 \u00f7 2 = 1.5 \u2014 no 4.\n\nTry 10 \u00d7 3 = 30, then 30 \u2212 (10 \u00f7 2) = 30 \u2212 5 = 25 \u2014 close.\n\n30 \u2212 (2 + 10) = 30 \u2212 12 = 18.\n\n10 \u00d7 2 = 20, then need +4 from 10 and 3 \u2192 10 \u2212 3 = 7, 10 + 3 = 13, 10 \u00f7 3 \u2248 3.33 \u2014 no.\n\nHow about (10 + 2) \u00d7 (3 \u2212 10/10)? Wait: 10/10 = 1, so 3 \u2212 1 = 2, then (10 + 2) \u00d7 2 = 12 \u00d7 2 = 24! \u2705\n\nCheck:  \n- Use both 10s: one in numerator of 10/10, one in 10 + 2  \n- Use 2: in 10 + 2  \n- Use 3: in (3 \u2212 10/10)\n\nYes! Expression:  \n(10 + 2) \u00d7 (3 \u2212 10 \u00f7",
+    "SAMPLE 10 FINAL: (10 + 2)",
+    "VOTE SUMMARY: (10 + 2) * (10 - 3) -> 2, (10 - 2) * 3 -> 1, 2) + (10 -> 1, (10 - 2) * 3 * (10 / 10) -> 1, (10 / 10) -> 1, - 10 / 2 -> 1, 24 * 1 -> 1, - 10 + 10 -> 1, (10 + 2) -> 1",
+    "VOTE WINNER: (10 + 2) * (10 - 3) (2/10)"
+  ]
+}

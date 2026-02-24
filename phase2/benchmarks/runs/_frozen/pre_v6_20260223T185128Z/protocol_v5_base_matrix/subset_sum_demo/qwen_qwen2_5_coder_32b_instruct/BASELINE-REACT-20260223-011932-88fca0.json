@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011932-88fca0.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "22 + 20 + 9 = 51",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      9,
+      11,
+      11,
+      20,
+      22,
+      23
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-023",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 9808,
+    "success": 0,
+    "tokens_in": 876,
+    "tokens_out": 339
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011932-88fca0",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1148256203,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:32Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the given list that sum up to the target value of 51. Let me analyze the numbers: [1, 2, 9, 11, 11, 20, 22, 23]. \n\nI should look for combinations that add up to 51. Let me try different approaches:\n- Start with larger numbers since they get me closer to 51 faster\n- 23 + 22 = 45, need 6 more (but 6 isn't in the list)\n- 23 + 20 = 43, need 8 more (but 8 isn't in the list)\n- 22 + 20 = 42, need 9 more (9 is in the list)\n- So: 22 + 20 + 9 = 5",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me reconsider this more systematically. I need to find numbers that sum to 51 from the list [1, 2, 9, 11, 11, 20, 22, 23].\n\nLet me try: 23 + 22 + 9 - 11 + 11 - 20 + 1 + 2 = 51\nWait, that's not right - I'm adding and subtracting incorrectly.\n\nLet me try: 23 + 22 + 9 - 11 + 11 - 20 + 1 + 2 = 51\nActually, let me just add numbers directly:\n23 + 22 + 9 = 54, which is too much by 3\n23 + 22 + 11 - 11 + 9 =",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me approach this systematically by trying different combinations of the numbers [1, 2, 9, 11, 11, 20, 22, 23] to sum to 51.\n\nLet me start by looking for large numbers that get close to 51:\n- 23 + 22 = 45, need 6 more. The number 6 is not available.\n- 23 + 20 = 43, need 8 more. The number 8 is not available.\n- 22 + 20 = 42, need 9 more. The number 9 is available.\nSo: 22 + 20 + 9 = 51\n\nLet me verify: 22 + 20 + 9 = 42 + 9 = 51 \u2713\n\nThis works! I",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: 22 + 20 + 9 = 51"
+  ]
+}

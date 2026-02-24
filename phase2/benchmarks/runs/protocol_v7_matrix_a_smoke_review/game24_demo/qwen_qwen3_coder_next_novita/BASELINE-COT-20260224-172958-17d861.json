@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-172958-17d861.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "20 + 4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3922,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 200
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-172958-17d861",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:29:58Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use **each number exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 game strategies involve multiplication (e.g., 6\u00d74 = 24), but we have extra numbers: 10 and another 4.\n\nLet\u2019s try to combine 10 and 4 to get something useful.\n\nTry:  \n- 10 - 4 = 6  \nThen we\u2019d have: 6, 6, 4 \u2192 6 \u00d7 4 = 24, but we\u2019d still have a 6 left \u2014 not helpful.\n\nTry:  \n- 10 + 4 = 14  \nThen 14 + 6 + 4 = 24 \u2192 14 + 6 + 4 = 24! Wait: 10 + 4 + 6 + 4 = 24. That\u2019s just sum: 10 + 6 + 4 + 4 = 24. Yes! That uses all numbers exactly once.\n\nCheck:  \n10 + 6 = 16  \n16 + 4 = 20  \n20 + 4 = 24 \u2705\n\nSo the expression is:  \n**10 + 6 + 4 + 4**\n\nBut wait \u2014 the problem says \"use each number exactly once\", and we have two 4s, so using both 4s is fine.\n\nThus, the expression is valid.\n\nFINAL: 10 + 6 + 4 + 4",
+    "FINAL: 20 + 4"
+  ]
+}

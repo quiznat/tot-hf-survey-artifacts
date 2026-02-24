@@ -1,0 +1,97 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-020940-947f49.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "(1 + 1",
+        1
+      ],
+      [
+        "6 * 4 * (1 + 1 - 1)",
+        1
+      ],
+      [
+        "- 6 * 4",
+        1
+      ],
+      [
+        "- (6 * 4) + (1 - 1)",
+        1
+      ],
+      [
+        "(6 * 4) * (1 * 1)",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "(1 + 1",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    4,
+    1,
+    6
+  ],
+  "item_id": "g24-v4-010",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10160,
+    "success": 0,
+    "tokens_in": 205,
+    "tokens_out": 582
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-020940-947f49",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 878833230,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:09:40Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s explore possible combinations.\n\nFirst, note that 6 \u00d7 4 = 24. That\u2019s promising \u2014 but we still have two 1s left to use. So we need to incorporate the 1s in a way that doesn\u2019t change the value \u2014 e.g., multiply by 1, or add 1 and subtract 1, etc.\n\nIdea: (6 \u00d7 4) \u00d7 (1 + 1 \u2212 1) = 24 \u00d7 1 = 24 \u2014 but that uses three 1s;",
+    "SAMPLE 1 FINAL: (1 + 1",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24. That\u2019s promising \u2014 but we still have two 1s to use. So we need to incorporate the 1s in a way that doesn\u2019t change the value \u2014 e.g., multiply by 1, or add 1 \u2212 1 = 0.\n\nIdea:  \n6 \u00d7 4 \u00d7 (1 + 1 \u2212 1) = 24 \u00d7 1 = 24? Wait, that uses three 1s \u2014 we only",
+    "SAMPLE 2 FINAL: 6 * 4 * (1 + 1 - 1)",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24. We can use standard arithmetic operations: +, \u2212, \u00d7, \u00f7, and parentheses.\n\nLet\u2019s list the numbers: two 1s, a 4, and a 6.\n\nWe want to reach 24.\n\nFirst, consider possible products that give 24:\n- 6 \u00d7 4 = 24 \u2192 then we need to neutralize the two 1s (e.g., \u00d71\u00d71, or +1\u22121, etc.)\nBut 6 \u00d7 4 \u00d7 1 \u00d7 1 = 24. That works!\n\nCheck: 6 \u00d7 4 \u00d7 1 \u00d7 1 = 24 \u2705  \nUses all numbers: 6, 4, 1, 1 \u2014 each exactly once.\n\nSo",
+    "SAMPLE 3 FINAL: - 6 * 4",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24. We can use standard arithmetic operations: +, \u2212, \u00d7, \u00f7, and parentheses.\n\nLet\u2019s list the numbers: two 1s, a 4, and a 6.\n\nWe want to reach 24.\n\nFirst, consider possible products that give 24:\n- 6 \u00d7 4 = 24 \u2192 then we need to incorporate the two 1s without changing the value.\n  - Can we do something like (6 \u00d7 4) \u00d7 (1 + 1) = 24 \u00d7 2 = 48 \u2192 too big.\n  - (6 \u00d7 4) + (1 \u2212 1) = 24 + 0 = 24 \u2705\n\nThat works! Let\u2019s verify:\n- Use",
+    "SAMPLE 4 FINAL: - (6 * 4) + (1 - 1)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [1, 4, 1, 6], and we must use **each number exactly once** to make 24.\n\nLet\u2019s list the numbers: two 1s, one 4, one 6.\n\nWe need to combine them with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to get 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24. So if we can make the two 1s cancel out or become 1 (i.e., multiply by 1), that might work.\n\nIdea: (6 \u00d7 4) \u00d7 (1 + 1) = 24 \u00d7 2 = 48 \u2192 too big.\n\n(6 \u00d7 4) \u00d7 (1 \u00d7 1) = 24 \u00d7 1 = 24 \u2192 \u2705 uses all numbers: 6",
+    "SAMPLE 5 FINAL: (6 * 4) * (1 * 1)",
+    "VOTE SUMMARY: (1 + 1 -> 1, 6 * 4 * (1 + 1 - 1) -> 1, - 6 * 4 -> 1, - (6 * 4) + (1 - 1) -> 1, (6 * 4) * (1 * 1) -> 1",
+    "VOTE WINNER: (1 + 1 (1/5)"
+  ]
+}

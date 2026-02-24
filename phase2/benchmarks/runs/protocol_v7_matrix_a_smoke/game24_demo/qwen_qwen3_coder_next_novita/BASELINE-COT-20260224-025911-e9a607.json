@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "alg.reasoning.cot.v1",
+  "algorithm_module_id": "algmod.baseline_cot_v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-025911-e9a607.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "exec.prompt_loop.v1",
+  "final_answer": "(10 - 1) * (1 + 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "memory_surface_id": "memory.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3776,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 281
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-025911-e9a607",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T02:59:11Z",
+  "tool_config": [],
+  "tool_surface_id": "tools.none.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible strategies:\n\n- 24 = 4 \u00d7 6  \n  So can we make 6 from [10, 1, 1]?  \n  10 \u2212 1 \u2212 1 = 8 \u2192 too big  \n  10 \u00f7 (1 + 1) = 5 \u2192 not 6  \n  10 \u2212 (1 + 1) = 8  \n  (10 + 1 + 1) = 12  \n  Not promising.\n\n- 24 = 12 \u00d7 2  \n  Can we get 12 and 2?  \n  10 + 1 + 1 = 12, and 4 \u00f7 2 = 2, but we don\u2019t have a 2 \u2014 unless we make 2 from 4? Wait, 4 \u00f7 2 = 2, but no 2.\n\n- 24 = 4 \u00d7 (10 \u2212 1 \u2212 1) = 4 \u00d7 8 = 32 \u2192 too big  \n- 24 = (10 + 1 + 1) \u00d7 something? 12 \u00d7 2 = 24 \u2192 need 2 from 4? 4 \u00f7 2 = 2, but no 2.\n\nWait \u2014 what if we do:  \n(10 + 1 + 1) \u00d7 (4 \u00f7 2) \u2014 but no 2.\n\nHold on \u2014 maybe use division or subtraction cleverly.\n\nTry:  \n(10 \u2212 1) \u00d7 (1 + 1) = 9 \u00d7 2 = 18 \u2192 too small  \n(10 + 1) \u00d7 (1 + 1) = 11 \u00d7 2 = 22  \n(10 \u00d7 1) + (1 \u00d7 4) = 10 + 4 = 14  \n(10 \u00d7 1 + 1) \u00d7 4 = (10 + 1) \u00d7 4 = 44  \n(1",
+    "FINAL: (10 - 1) * (1 + 1)"
+  ]
+}

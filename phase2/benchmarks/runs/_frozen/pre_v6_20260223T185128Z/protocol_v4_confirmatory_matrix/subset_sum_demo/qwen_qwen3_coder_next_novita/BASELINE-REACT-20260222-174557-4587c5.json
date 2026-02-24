@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-174557-4587c5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[6, 10, 17]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      6,
+      10,
+      13,
+      14,
+      17,
+      21
+    ],
+    "target": 33
+  },
+  "item_id": "ss-v4-020",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 30399,
+    "success": 1,
+    "tokens_in": 472,
+    "tokens_out": 222
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-174557-4587c5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3431824564,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:45:57Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a subset of the given numbers [5, 6, 10, 13, 14, 17, 21] that sums to the target 33. Since no tools are available, I need to solve this manually via reasoning.\n\nLet\u2019s try combinations:\n\nStart with larger numbers to get close to 33:\n\n- 21 + 13 = 34 \u2192 too high by 1  \n- 21 + 10 = 31 \u2192 need 2 more \u2192 no 2  \n- 21 + 6 = 27 \u2192 need 6 more \u2192 we have 6, but 21+6+6 would need two 6s (only one 6 available)  \n- 21 + 5 = 26 \u2192 need 7 \u2192 no 7  \n- 21 +",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue exploring combinations systematically.\n\nWe need sum = 33.\n\nTry 17 as the largest element:\n- 17 + 14 = 31 \u2192 need 2 more \u2192 no 2  \n- 17 + 13 = 30 \u2192 need 3 \u2192 no 3  \n- 17 + 10 = 27 \u2192 need 6 \u2192 yes! 17 + 10 + 6 = 33  \nCheck: 17 + 10 = 27, 27 + 6 = 33. All numbers (6, 10, 17) are in the list.\n\nFound a valid subset: [6, 10, 17].\n\nLet\u2019s verify: 6 + 10 + 17 = 33 \u2714\ufe0f\n\nNo need to check further \u2014 we have",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: [6, 10, 17]"
+  ]
+}

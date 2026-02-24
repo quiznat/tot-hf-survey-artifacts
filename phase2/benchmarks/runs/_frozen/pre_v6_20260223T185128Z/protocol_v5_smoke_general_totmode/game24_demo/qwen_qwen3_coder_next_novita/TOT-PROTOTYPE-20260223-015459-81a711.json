@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015459-81a711.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 8,
+      "frontier_width": 3,
+      "generated_nodes": 24,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(6+4+4)+10",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 118523,
+    "success": 1,
+    "tokens_in": 17380,
+    "tokens_out": 798
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015459-81a711",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T01:54:59Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=look for factor pairs of 24 (e.g., 6\u00d74, 8\u00d73, 12\u00d72) and see if remaining numbers can form the complementary factor; subnodes=6\u00d74=24 (uses 6,4)...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=look for factor pairs of 24 (e.g., 6\u00d74, 8\u00d73, 12\u00d72) and see if remaining numbers can form complementary factors; subnodes=6\u00d74=24 (uses 6,4) | ...",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=consider (a op b) op (c op d) structure; subnodes=6+4=10 | 10+4=14 \u2192 10+14=24? no; 10\u22124=6 | 6+",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=explore (a\u2212b)\u00d7c+d or similar structures where subtraction creates a useful intermediate; subnodes=10\u22126=4 | 4\u00d74=16 | 16+?=24 \u2192 need +8 (not po...",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: try division: 10\u00f7(6\u00f7(4",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=explore division-based structures like 24 = A \u00f7 B where A and B are expressions using subsets of [6,4,10,4]; subnodes= (10\u00d74\u22126\u00d74)=16 \u2192 16? no...",
+    "NODE n0007 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=explore structures where division creates a fraction that scales a product to 24; subnodes=6\u00f7(10\u00f74)=2.4 | 2.4\u00d74=9.6 no; (10\u00d74)\u00f7(6\u00f74)=40\u00f71.5\u22482...",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: try (10\u00d74\u2212",
+    "NODE n0009 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=consider (a\u00d7b)\u2212(c\u2212d) or (a\u00d7b)+(d\u2212c) to adjust products downward/upward; subnodes=6\u00d74=24 | 10\u22124=6 \u2192 24\u22126=18 no; 10\u00d74=40 | 6+4=10 \u2192 40\u221210=30 no...",
+    "NODE n0010 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=explore (a\u00f7b + c) \u00d7 d structures where division yields a fraction that combines additively; subnodes=6\u00f74=1.5 | 1.5+10=11.5 | 11.5\u00d74=46 no; 10...",
+    "NODE n0011 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=explore (a+b)\u00d7c\u2212d or (a\u2212b)\u00d7c+d with grouping to reach 24; subnodes= (10+4)=14 | (6\u22124)=2 | 14\u00d72=28 \u2192 28\u2212?=24? need \u22124 (used); recombine=try (1...",
+    "NODE n0012 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=STEP: consider (4\u00d76)+(10\u22124)=24+6=30 no; (4\u00d76)+(4\u221210)=24\u2212",
+    "DEPTH 2 frontier=3",
+    "NODE n0013 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=explore (a\u00d7b)\u00f7(c\u00f7d) structures where nested division yields integer 24; subnodes=6\u00d74=24 | 10\u00f74=2.5 \u2192 24\u00f72.5=9.6 no; 10\u00d74=40 | 6\u00f74=1.5 \u2192 40\u00f71....",
+    "NODE n0014 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=consider (a + b) \u00d7 (c \u2212 d) where sum and difference yield factors of 24; subnodes= (10 + 6)=16 | (4 \u2212 4)=0 \u2192 16\u00d70=0 no; (10 + 4)=14 | (6 \u2212 4)...",
+    "NODE n0015 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=STEP: evaluate (4 \u00d7 6) + (10 \u2212 4) = 24 +",
+    "NODE n0016 parent=n0005 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=explore (a\u00f7b + c) \u00d7 d where division yields integer or useful fraction; subnodes=6\u00f74=1.5 | 1.5+10=11.5 | 11.5\u00d74=46 no; 10\u00f74=2.5 | 2.5+6=8.5 |...",
+    "NODE n0017 parent=n0005 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=explore (a + b) \u00d7 c \u2212 d where sum yields 10 or 12 to pair with factor; subnodes= (6+4)=10 | 10\u00d7(10\u00f74)=25 no; (4+4)=8 | 8\u00d7(10\u22126)=32 no; (10+4)...",
+    "NODE n0018 parent=n0005 score=0.5000 cum=1.5000 terminal=False thought=STEP: verify (6+4+4)+10=24: 6+4=10,",
+    "NODE n0019 parent=n0006 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=explore (a + b + c) + d structure where sum of three numbers plus the fourth equals 24; subnodes=6+4+4=14 | 14+10=24; recombine=combine all n...",
+    "NODE n0020 parent=n0006 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=explore (a\u00d7b)\u2212(c\u00d7d) structures where products differ by 24; subnodes=10\u00d74=40 | 6\u00d74=24 | 40\u221224=16 no; 10\u00d76=60 | 4\u00d74=16 | 60\u221216=44 no; recombin...",
+    "NODE n0021 parent=n0006 score=0.5000 cum=1.5000 terminal=False thought=STEP: consider (4\u00d7(10",
+    "DEPTH 3 frontier=3",
+    "NODE n0022 parent=n0013 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=explore (a + b + c) + d structure where sum of three numbers plus the fourth equals 24; subnodes=6+4+4=14 | 14+10=24; recombine=combine all n...",
+    "NODE n0023 parent=n0013 score=0.5000 cum=2.0000 terminal=False thought=STEP: verify (6+4+4)+10 = 14+10 = 24, uses all numbers exactly once",
+    "NODE n0024 parent=n0013 score=1.0000 cum=2.5000 terminal=True thought=FINAL: (6+4+4)+10"
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260224-205405-d4d34f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "(8 / (4/3))",
+        1
+      ],
+      [
+        "(8 / 4) * 4 * 3",
+        1
+      ],
+      [
+        "- (8 * 3",
+        1
+      ],
+      [
+        "(4 * 4 - 8) * 3",
+        1
+      ],
+      [
+        "(8 * 3) / 1",
+        1
+      ],
+      [
+        "(32 - 12",
+        1
+      ],
+      [
+        "(8 / (4 / 3)) * 4",
+        1
+      ],
+      [
+        "8/4",
+        1
+      ],
+      [
+        "8 * 3",
+        1
+      ],
+      [
+        "8 / (4/4) * 3",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "(8 / (4/3))",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    3,
+    4,
+    4,
+    8
+  ],
+  "item_id": "g24-v4-005",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 30619,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2495
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-205405-d4d34f",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2465764240,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:54:05Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve this problem, we need to use the numbers 3, 4, 4, and 8 exactly once to create an expression that equals 24. Let's approach this step-by-step:\n\n1) First, consider the multiplication of 4 and 8, which gives us 32. This is too large, but it might be useful if we can subtract something from it.\n2) Next, think about how we can use the smaller numbers (3 and 4) to reach or adjust to 24. If we subtract 8 from 32, we get 24, which is our target. So, we need to find a way to use the two 4s and the 3 to make 8.\n3) We can achieve 8 by adding 4 to the result of 4 divided by 3, but since we can't use fractional results directly, let's try another combination.\n4) A more feasible approach is to multiply 3 by 8 and then adjust using the two 4s. However, 3 * 8 = 24 already meets our target, so we need to incorporate both 4s.\n5) Instead, let's try dividing 8 by the result of 4 divided by 3, which would be (8 / (4/3)). This simplifies to (8 * 3 / 4) = 6. Multiplying this by the remaining 4 gives us 24.\n\nTherefore, the expression that uses all the numbers exactly once and equals 24 is:\n\nFINAL: (8 / (4/3)) * 4",
+    "SAMPLE 1 FINAL: (8 / (4/3))",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this problem, we need to use the given numbers [3, 4, 4, 8] exactly once to form an equation that equals 24. Let's approach this step-by-step:\n\n1. First, we should consider the operations that can be used: addition (+), subtraction (-), multiplication (*), and division (/).\n2. We know that multiplication can quickly increase the value, so it might be useful to use it with larger numbers.\n3. One effective strategy is to try combining numbers to get a result close to 24 and then adjust with the remaining numbers.\n4. Let's start by trying to multiply 8 and 3, which gives us 24. However, we still have two 4s left, and we must use them.\n5. Since multiplying or dividing by 4 with 24 would not help (either giving us 96 or 6, respectively), we need to see if we can manipulate the 4s to get a different intermediate result.\n6. Another idea is to see if we can combine the 4s in some way to create a multiplier or divisor that helps us reach 24 when used with 8.\n7. If we add the two 4s together, we get 8. Multiplying 8 (from the sum of 4s) by 3 gives us 24, but we still have an extra 8 left.\n8. Instead of adding the 4s, let's try subtracting 4 from 8, which gives us 4. Now, we have three 4s and one 3.\n9. We can then multiply these three 4s together, resulting in 64. Dividing 64 by 4 gives us 16, and multiplying 16 by 3 gives us 48, which is too high.\n10. A different approach involves using the 4s in a division to reduce the impact of the large number 8.\n11. If we divide 8 by 4, we get 2. Now, we have 2, 4, and 3 left.\n12. Multiplying 2 by 4 gives us 8, and then multiplying that by 3 results in 24.\n\nThus, the expression that uses each number exactly once to produce 24 is:\nFINAL: (8 / 4) * 4 * 3",
+    "SAMPLE 2 FINAL: (8 / 4) * 4 * 3",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To solve this problem, we need to use the numbers 3, 4, 4, and 8 exactly once to form an expression that equals 24. Let's approach this step-by-step.\n\nFirst, let's consider the possible operations: addition, subtraction, multiplication, and division. We should aim to use multiplication because it can quickly increase the value of our expression, which is necessary to reach 24.\n\nLet's start by trying to multiply two of the numbers:\n- \\(4 \\times 4 = 16\\)\n- \\(4 \\times 8 = 32\\)\n- \\(4 \\times 3 = 12\\)\n- \\(8 \\times 3 = 24\\) (This looks promising)\n\nSince \\(8 \\times 3 = 24\\), we've reached our goal directly using two of the numbers. Now we need to incorporate the remaining two 4s into the expression without changing the result. One way to do this is to multiply and divide by 4, which will cancel out and not affect the result.\n\nThus, we can write the expression as:\n\\[8 \\times 3 \\times \\frac{4}{4}\\]\n\nThis expression uses all four numbers exactly once and simplifies to 24.\n\nFINAL: 8 * 3 * (4 / 4)",
+    "SAMPLE 3 FINAL: - (8 * 3",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, I need to use the numbers [3, 4, 4, 8] exactly once to create an expression that equals 24. Let's think through this step by step:\n\n1. First, consider the multiplication and division operations since they can significantly alter the size of the numbers we're working with.\n2. Notice that 8 is the largest number, and multiplying it by 3 gives 24, which is our target. However, we need to incorporate the two 4s in the expression as well.\n3. One way to use the 4s is to multiply them together to get 16, but that doesn't help us reach 24 when used with 8 or 3.\n4. Another approach could be to divide one of the 4s by 3 or 8, but that would result in a fraction, which complicates reaching an integer solution of 24.\n5. Consider the possibility of using the 4s in subtraction or addition, possibly in conjunction with 8, to create a value that can then be multiplied by 3 to reach 24.\n6. By subtracting 4 from 8, we get 4. If we then add the other 4, we get 8 again, which doesn't help.\n7. However, if we subtract 4 from 8 and then multiply the result by 3, we get 12. We still need to incorporate the last 4.\n8. To reach 24 from 12, we can simply add the remaining 4 to 12 and then multiply by 2, but since we don't have a 2, we need another way.\n9. Instead, let's try adding the remaining 4 to the result before multiplying by 3. So, we add 4 to 8 (which gives us 12) and then subtract 4 to get back to 8, and finally multiply by 3 to get 24.\n10. This doesn't directly work either, so let's try another combination. We can multiply 4 by 4 to get 16, then subtract 8 from 16 to get 8, and finally multiply by 3 to get 24.\n\nThus, the expression (4 * 4 - 8) * 3 uses each number exactly once and equals 24.\n\nFINAL: (4 * 4 - 8) *",
+    "SAMPLE 4 FINAL: (4 * 4 - 8) * 3",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this problem, I'll try to use the numbers 3, 4, 4, and 8 in various arithmetic operations to see if I can get the result 24. \n\nFirst, let's consider using multiplication since it can quickly increase the value of the expression:\n- Multiplying 8 by 3 gives us 24, but we still have two 4s left which need to be incorporated in a way that doesn't change the result.\n\nA way to incorporate the remaining 4s without changing the result is to multiply and divide by them:\n- We can use the expression (8 * 3) / (4 / 4).\n- Simplifying the division first, 4 / 4 equals 1.\n- Then the expression becomes (8 * 3) / 1, which is simply 8 * 3 = 24.\n\nThis uses all four numbers exactly once and results in 24.\n\nFINAL: (8 * 3) / (4 / 4)",
+    "SAMPLE 5 FINAL: (8 * 3) / 1",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use the numbers 3, 4, 4, and 8 exactly once to create an expression that equals 24. Let's break it down step-by-step:\n\n1. **Initial Observation**: We have two 4s, which might be useful for multiplication or division, given that multiplying any number by 4 can quickly increase its value.\n2. **Exploring Multiplication**: Since multiplying by 8 is also a straightforward way to reach 24, we should consider how we can manipulate the other numbers to make them work with 8.\n3. **Combining Numbers**: Noticing that \\(4 + 4 = 8\\), we can replace one of the 8s with this sum to see if it leads us to a solution.\n4. **Forming the Expression**: If we use \\(4 + 4\\) where we would use 8, then we need to find a way to get the remaining part of the equation to equal 3, since \\(8 \\times 3 = 24\\).\n\nLet's try this approach:\n- We already have \\(4 + 4 = 8\\).\n- We need to form an expression using 3 and 8 that equals 24.\n\nConsidering the expression \\(8 \\div (3 - 4 + 4)\\):\n- Simplify inside the parentheses first: \\(3 - 4 + 4 = 3\\).\n- Then, divide 8 by 3: \\(8 \\div 3\\), but this doesn't help as it doesn't equal 24.\n\nInstead, let's try another combination:\n- Use \\(4 \\times 8 = 32\\).\n- Now, we need a way to reduce this 32 by 8 to get 24, which can be done by subtracting \\(3 \\times 4 = 12\\).\n\nThus, the expression becomes:\n\\[ (4 \\times 8) - (3 \\times 4) \\]\n- Calculate \\(4 \\times 8 = 32\\).\n- Calculate \\(3 \\times 4 = 12\\).\n- Subtract to get \\(32 - 12 = 24\\).\n\nTherefore, the correct expression is:\n\nFINAL: (4 * 8) - (3 * 4)",
+    "SAMPLE 6 FINAL: (32 - 12",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use the given numbers [3, 4, 4, 8] exactly once to create an expression that equals 24. Let's consider various operations and combinations:\n\n1. We can start by trying multiplication since it can quickly increase the value of our expression.\n2. The largest product we can get with these numbers is 8 * 4 = 32, which is too large.\n3. Another possibility is to use 4 * 4 = 16, and then try to combine it with 8 and 3 to get 24.\n4. If we have 16 from 4 * 4, we need to find a way to incorporate 8 and 3 to reach 24.\n5. One approach could be to add or subtract smaller numbers to adjust our total.\n6. Considering (4 * 4) + 8 = 24 - 3, we see that adding 8 to 16 gives us 24, but we still need to use 3.\n7. Instead, let's try using 3 in a multiplication or division role.\n8. If we look at (8 / (4 / 3)) * 4, we first calculate 4 / 3 \u2248 1.33, then 8 / 1.33 \u2248 6, and finally 6 * 4 = 24.\n9. This combination uses all the numbers exactly once and results in 24.\n\nFINAL: (8 / (4 / 3)) * 4",
+    "SAMPLE 7 FINAL: (8 / (4 / 3)) * 4",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use each of the numbers 3, 4, 4, and 8 exactly once to create an expression that equals 24. Let's think through this step-by-step:\n\n1. First, consider the multiplication facts involving these numbers since 24 is a product of smaller numbers.\n2. Notably, 8 * 3 = 24, which could be a useful starting point.\n3. However, we have two 4s left to incorporate into the equation.\n4. One approach is to manipulate the two 4s so that they don't directly affect the product of 8 and 3.\n5. A possible manipulation is to add or subtract something from one of the 4s to achieve a neutral element for multiplication (like 1), or to create another component that can be used in conjunction with 8*3.\n6. Another useful fact is that 4 + 4 = 8, but this would not be helpful as it would cancel out the original 8 we have.\n7. Instead, let's try dividing 8 by 4, which gives us 2.\n8. Now we have the components: 8/4 = 2 and we need to somehow combine 3 and the remaining 4 to make 12, so that 2 * 12 = 24.\n9. Multiplying 3 by 4 directly gives us 12, which is what we need.\n\nTherefore, a valid expression using all numbers exactly once and achieving the result of 24 is:\n\nFINAL: (8 / 4) * (3 * 4)",
+    "SAMPLE 8 FINAL: 8/4",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use all four numbers (3, 4, 4, 8) exactly once and combine them using arithmetic operations to get the result of 24. Let's think through this step by step.\n\nFirst, observe the numbers and consider that multiplication will be crucial because it can quickly increase the value, which is necessary to reach 24 from the given set of numbers. We also notice that there are two 4s, which might be useful for creating a multiplication factor that could simplify the problem.\n\n1. One potential approach is to see if we can form a product close to 24 and then adjust it using addition or subtraction:\n   - Multiplying 8 and 3 gives 24, but we still have two 4s unused.\n   \n2. Since 8 * 3 = 24, we need to incorporate the two 4s in a way that they do not change the total:\n   - We can try to multiply or divide the 4s in such a way that their net effect on the equation is neutral (multiplying by 1 or dividing by itself).\n\n3. A possible combination is to use the two 4s to form a fraction or an operation that equals 1:\n   - If we divide 4 by 4, we get 1. This can be used to not alter the product of 8 and 3.\n\n4. Thus, we can construct the expression as follows:\n   - (8 * 3) * (4 / 4)\n\nThis expression uses all four numbers exactly once and simplifies to 24.\n\nFINAL: (8 * 3) * (4 / 4)",
+    "SAMPLE 9 FINAL: 8 * 3",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [3, 4, 4, 8]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, I need to use the numbers 3, 4, 4, and 8 exactly once to get the result 24. Let's break down the possibilities:\n\n1. First, I notice that multiplying 4 and 6 would give me 24, but I don't have a 6 directly. So, I need to find a way to make 6 using the other numbers.\n2. Next, I consider the number 8. Multiplying 8 by 3 gives 24, but then I'm left with two 4s which I can't ignore.\n3. Looking for another approach, I think about using division and multiplication together. For instance, if I could get 3 from the two 4s, I could multiply it by 8, but that doesn't seem straightforward.\n4. Then, I realize that dividing 8 by (4/4) and then multiplying by 3 could work because 4/4 equals 1, and 8/1 is just 8.\n5. So, the expression becomes 8 / (4/4) * 3, which simplifies to 8 / 1 * 3 = 8 * 3 = 24.\n\nThus, after carefully considering the operations and the given numbers, I arrive at the following expression that satisfies the condition of using each number exactly once:\n\nFINAL: 8 / (4/4) * 3",
+    "SAMPLE 10 FINAL: 8 / (4/4) * 3",
+    "VOTE SUMMARY: (8 / (4/3)) -> 1, (8 / 4) * 4 * 3 -> 1, - (8 * 3 -> 1, (4 * 4 - 8) * 3 -> 1, (8 * 3) / 1 -> 1, (32 - 12 -> 1, (8 / (4 / 3)) * 4 -> 1, 8/4 -> 1, 8 * 3 -> 1, 8 / (4/4) * 3 -> 1",
+    "VOTE WINNER: (8 / (4/3)) (1/10)"
+  ]
+}

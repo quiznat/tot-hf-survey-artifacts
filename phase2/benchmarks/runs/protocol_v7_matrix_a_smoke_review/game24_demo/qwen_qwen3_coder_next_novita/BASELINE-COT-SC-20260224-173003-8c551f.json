@@ -1,0 +1,134 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173003-8c551f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "10 + 6 + 4 + 4",
+        3
+      ],
+      [
+        "(10 + 6) + (4 + 4)",
+        1
+      ],
+      [
+        "6 * 4",
+        1
+      ],
+      [
+        "10 + 4 + 6 + 4",
+        1
+      ],
+      [
+        "10 + 6",
+        1
+      ],
+      [
+        "10 + 4 + 4 + 6",
+        1
+      ],
+      [
+        "- 6 * 4",
+        1
+      ],
+      [
+        "10 + 4",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "10 + 6 + 4 + 4",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    6,
+    4,
+    10,
+    4
+  ],
+  "item_id": "g24-v4-003",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4975,
+    "success": 1,
+    "tokens_in": 410,
+    "tokens_out": 2453
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173003-8c551f",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4241489037,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T17:30:03Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know 6 \u00d7 4 = 24, but then we\u2019d have 10 and 4 left \u2014 need to use them all.\n\nTry grouping: maybe (10 + 4 + 6) + 4 = 24? That\u2019s 10+4+6+4 = 24. Yes! That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2705  \nAll numbers used once: 10, 4, 6, 4 \u2014 yes.\n\nSo the expression is:  \n**10 + 4 + 6 + 4**\n\nBut wait \u2014 the problem says \u201cuse each number exactly once\u201d, and we have two 4s, so using both 4s is fine.\n\nAlternative: (6 \u00d7 4) + (10 - 4) = 24 + 6 = 30 \u2014 too big.\n\n(10 - 4) \u00d7 (6 - 4) = 6 \u00d7 2 = 12 \u2014 too small.\n\n(10 + 6) + (4 + 4) = 16 + 8 = 24 \u2014 same as before.\n\nSo multiple ways, but simplest is addition.\n\nThus, one valid expression is:  \n**10 + 6 + 4 + 4**\n\nFINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 1 FINAL: (10 + 6) + (4 + 4)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s consider possible combinations.\n\nWe know common 24 tricks:  \n- 6 \u00d7 4 = 24 \u2192 so if we can make the other numbers cancel or become 1, but we have 10 and 4 left.  \n- 10 + 6 + 4 + 4 = 24 \u2192 10 + 6 = 16, +4 +4 = 24. Wait, that\u2019s exactly 24!  \nCheck: 10 + 6 + 4 + 4 = 24. Yes! Uses all numbers exactly once.\n\nSo expression: 10 + 6 + 4 + 4 = 24.\n\nBut is that allowed? Yes \u2014 addition is associative and commutative, and we use each number once.\n\nLet me double-check: numbers used: 10, 6, 4, 4 \u2014 matches input.\n\nSo simplest expression: 10 + 6 + 4 + 4.\n\nAlternatively, maybe they expect parentheses or operations, but this is valid.\n\nAnother possibility: (10 - 4) \u00d7 (6 - 4) = 6 \u00d7 2 = 12 \u2192 too small.  \n(10 + 4) \u00d7 (6 \u00f7 4) = 14 \u00d7 1.5 = 21 \u2192 not 24.  \n6 \u00d7 4 + (4 - 10) = 24 - 6 = 18  \n6 \u00d7 (4 + 4) - 10 = 6 \u00d7 8 - 10 = 48 - 10 = 38  \n(6 + 4) \u00d7 (10 \u00f7 4) = 10 \u00d7 2.5 = 25  \n(10 - 4/4) \u00d7 ? Hmm: 4/4 = 1, 10 - 1 = 9, 9 \u00d7 ? = 24 \u2192 need 24/9 = 8/3, not available.  \n6 \u00d7 4 = 24, and then 10 and 4 must combine to 0: 10 - 10 = 0, but we don\u2019t have two 1",
+    "SAMPLE 2 FINAL: 6 * 4",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use **each number exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s try to reason step by step.\n\nWe need to combine 6, 4, 10, and 4.\n\nFirst, consider possible combinations:\n\n- 10 + 6 = 16 \u2192 need 8 more \u2192 we have two 4s: 4 + 4 = 8 \u2192 16 + 8 = 24.  \n  So: (10 + 6) + (4 + 4) = 24 \u2192 16 + 8 = 24 \u2705\n\nThat works! And uses each number exactly once.\n\nLet\u2019s verify:  \n10 + 6 = 16  \n4 + 4 = 8  \n16 + 8 = 24\n\nYes.\n\nSo expression:  \n(10 + 6) + (4 + 4) = 24\n\nWe can write it without extra parentheses as:  \n10 + 6 + 4 + 4 = 24  \nBut since addition is associative and commutative, that\u2019s valid.\n\nBut let\u2019s confirm: 10 + 6 + 4 + 4 = 24 \u2192 24 = 24 \u2705\n\nHowever, the problem says \"use each number exactly once\", and this does.\n\nSo one valid expression is:  \n10 + 6 + 4 + 4\n\nBut maybe they expect using operations meaningfully (though addition alone is fine). Let\u2019s see if any trickier expressions exist \u2014 but this is simplest.\n\nAlternative:  \n(10 \u2212 4) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.\n\nOr: 6 \u00d7 4 = 24, then need to neutralize 10 and 4: e.g., 6 \u00d7 4 + (4 \u2212 10) = 24 \u2212 6 = 18 \u274c  \n6 \u00d7 4 + (10 \u2212 10) \u2014 but only one 10.\n\nTry: (10 \u2212 4) \u00d7 4 \u2212 6 = 6 \u00d7 4 \u2212 6 = 24 \u2212 6 = 18 \u274c  \n(10 +",
+    "SAMPLE 3 FINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24 \u2014 but we have two 4s and a 10 left unused. So we need to incorporate all four numbers.\n\nTry grouping: maybe (10 \u2212 4) = 6, then 6 \u00d7 4 = 24, but then 6 is unused \u2014 wait, we have two 4s, one 6, one 10.\n\nWhat if: (10 \u2212 4) = 6, and we have another 4 and 6. So two 6s and a 4? Not helpful.\n\nTry: 6 \u00d7 (10 \u2212 4) = 6 \u00d7 6 = 36 \u2014 too big, and we still have a 4 to use.\n\n36 \u2212 4 = 32 \u2014 no.\n\nHow about: (6 + 4) \u00d7 (10 \u2212 4) = 10 \u00d7 6 = 60 \u2014 too big.\n\n(10 + 4) = 14, 14 + 6 + 4 = 24! Wait \u2014 10 + 4 + 6 + 4 = 24. Yes! That uses all numbers: 10, 4, 6, 4 \u2014 sum is 24.\n\nCheck: 10 + 4 = 14; 14 + 6 = 20; 20 + 4 = 24. Perfect.\n\nSo expression: 10 + 4 + 6 + 4 = 24.\n\nBut we must use each number exactly once \u2014 which we are.\n\nSo final expression: 10 + 4 + 6 + 4\n\nBut order can be any \u2014 let\u2019s write it cleanly.\n\nFINAL: 10 + 4 + 6 + 4",
+    "SAMPLE 4 FINAL: 10 + 4 + 6 + 4",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 6 \u00d7 4 = 24, so if we can make the other two numbers (10 and 4) cancel or become 1 (so multiplying by 1 doesn\u2019t change), or combine to 0 (add/subtract), but we must use all four numbers.\n\nTry:  \n(10 - 6) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.  \nWe have two 4s, a 6, and a 10.\n\nTry grouping:  \n10 + 6 + 4 + 4 = 24 \u2192 10 + 6 = 16, +4 = 20, +4 = 24 \u2192 **Yes!**\n\nWait: 10 + 6 + 4 + 4 = 24. That uses all numbers exactly once.\n\nBut check: are we allowed to just add? Yes \u2014 the problem says \"use each number exactly once\" and standard 24 game allows +, \u2212, \u00d7, \u00f7, parentheses.\n\nSo 10 + 6 + 4 + 4 = 24 is valid.\n\nBut wait \u2014 is there any restriction against using only addition? No.\n\nSo the simplest expression is:  \n10 + 6 + 4 + 4\n\nBut order doesn\u2019t matter; let\u2019s write it cleanly.\n\nFINAL: 10+6+4+4",
+    "SAMPLE 5 FINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s think step by step.\n\nWe have two 4s, a 6, and a 10.\n\nTry some combinations:\n\n- 10 + 6 + 4 + 4 = 24 \u2192 10+6=16, +4=20, +4=24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s straightforward: 10 + 6 + 4 + 4 = 24.\n\nBut check: Are we allowed to just add them? Yes \u2014 standard 24 game rules allow any operations, and using each number exactly once.\n\nSo expression: `10 + 6 + 4 + 4`\n\nBut wait \u2014 is there any restriction against just addition? No.\n\nLet\u2019s verify: 10 + 6 = 16, 16 + 4 = 20, 20 + 4 = 24. \u2705\n\nAll numbers used exactly once.\n\nAlternative: Could there be a trick? Maybe the problem expects multiplication/division, but no \u2014 the rules just require using each number once and getting 24.\n\nSo simplest solution is:\n\n**10 + 6 + 4 + 4**\n\nBut let\u2019s double-check if subtraction or other operations might be needed \u2014 no, this works.\n\nWait \u2014 is there any chance the problem expects parentheses or specific formatting? The instruction says: \"Return only one expression in the final answer\", and sample format shows just an expression.\n\nSo final answer is:\n\nFINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 6 FINAL: 10 + 6",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each number exactly once (and only once) to make 24. We can use standard arithmetic operations: +, \u2212, \u00d7, \u00f7, and parentheses as needed.\n\nLet\u2019s explore possibilities.\n\nFirst, note the numbers: two 4s, a 6, and a 10.\n\nTry to think of combinations that get close to 24.\n\nSome ideas:\n\n- 6 \u00d7 4 = 24 \u2014 but then we have 10 and 4 left, which we must use. So we can\u2019t just do 6\u00d74 alone.\n\n- 10 + 6 + 4 + 4 = 24 \u2192 10 + 6 = 16, +4 = 20, +4 = 24. That works! And uses all numbers exactly once.\n\nWait \u2014 is that allowed? Yes, addition is commutative, and we\u2019re using each number once.\n\nSo: 10 + 6 + 4 + 4 = 24.\n\nThat\u2019s a valid expression.\n\nBut let\u2019s double-check: numbers used: 10, 6, 4, 4 \u2014 yes, all exactly once.\n\nSo the simplest solution is:\n\n10 + 6 + 4 + 4 = 24\n\nWe can write it as: 10 + 6 + 4 + 4\n\nBut to be formal and clear, just write the expression.\n\nSo final answer:\n\nFINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 7 FINAL: 10 + 6 + 4 + 4",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to produce **24**.\n\nLet\u2019s explore possible combinations.\n\nWe know 6 \u00d7 4 = 24, but we have two 4s and a 10 left, so we need to incorporate all four numbers.\n\nTry to form something like:\n- (10 - 4) \u00d7 (6 - 4) = 6 \u00d7 2 = 12 \u2192 too small.\n- (10 + 4 + 4) + 6 = 24? 10+4+4+6 = 24 \u2192 yes! That uses all numbers exactly once.\n\nLet\u2019s verify:  \n10 + 4 + 4 + 6 = 24  \nOrder doesn\u2019t matter for addition, and we used each number once.\n\nSo expression:  \n**10 + 4 + 4 + 6**\n\nBut wait \u2014 the problem says \u201cuse each number exactly once\u201d \u2014 and we have two 4s, so using both 4s is fine.\n\nYes, this works.\n\nAlternative expressions? Let's check if multiplication/division could also work, but addition is simplest and valid.\n\nSo final answer:\n\nFINAL: 10 + 4 + 4 + 6",
+    "SAMPLE 8 FINAL: 10 + 4 + 4 + 6",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 tricks:  \n- 6 \u00d7 4 = 24 \u2192 need to neutralize the other two numbers (10 and 4)  \n- 10 + 4 + 6 + 4 = 24? Let's check: 10 + 4 = 14, +6 = 20, +4 = 24 \u2192 **Yes!**\n\nWait, that\u2019s simply: 10 + 4 + 6 + 4 = 24.\n\nBut hold on\u2014does it use each number exactly once? Yes: 10, 4, 6, 4 \u2014 two 4s, and we have two 4s. So that\u2019s valid.\n\nBut wait\u2014are parentheses or operations required? The problem says \"use each number exactly once\", and typically in 24 game, you must use operations (like +, \u2212, \u00d7, \u00f7, parentheses), but **just summing** is allowed if it uses all numbers.\n\nHowever, in many versions, you must use **four numbers and three operations**, which is satisfied here if we write:  \n10 + 4 + 6 + 4 = 24  \nThat uses three '+' operations and all four numbers.\n\nSo this is valid.\n\nBut let\u2019s verify there\u2019s no trick: maybe subtraction or other constraints? The problem says \u201cuse each number exactly once to produce 24\u201d \u2014 no further restrictions.\n\nSo the simplest is:  \n10 + 4 + 6 + 4 = 24\n\nBut let\u2019s double-check if any alternative is expected (e.g., using multiplication). Try:\n\n- (10 \u2212 6) \u00d7 (4 + 2) \u2014 but we don\u2019t have 2.  \n- 6 \u00d7 4 = 24, then need to neutralize 10 and 4: (6 \u00d7 4) + (4 \u2212 10) = 24 \u2212 6 = 18 \u2192 no.  \n- (10 \u2212 6) \u00d7 4 + 4 = 4 \u00d7 4 + 4 = 20 \u2192 no.  \n- 10 \u00d7 4 \u2212 6 \u00d7 4 = 40 \u2212 2",
+    "SAMPLE 9 FINAL: - 6 * 4",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [6, 4, 10, 4]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers: [6, 4, 10, 4], and we must use each exactly once to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nFirst, note that 6 \u00d7 4 = 24, but we have two 4s and a 10 left, so we need to \u201cneutralize\u201d the extra numbers (e.g., make them cancel or multiply to 1).\n\nIdea: Try to form 24 as (something) \u00d7 (something else), or via sum/difference.\n\nTry: (10 \u2212 4) = 6, then we have 6, 4, and 6 left \u2192 6 \u00d7 4 = 24, but we still have another 6 \u2014 not helpful.\n\nTry: 10 + 4 + 6 + 4 = 24? 10 + 4 = 14, +6 = 20, +4 = 24 \u2192 yes! Wait, 10 + 4 + 6 + 4 = 24. That uses all numbers exactly once.\n\nCheck: 10 + 4 + 6 + 4 = 24 \u2705\n\nSo expression is: 10 + 4 + 6 + 4\n\nBut let\u2019s verify: numbers used: 10, 4, 6, 4 \u2014 yes, both 4s used, each exactly once.\n\nNo need for parentheses or other ops \u2014 addition is associative and commutative, so order doesn\u2019t matter.\n\nSo simplest is: 10 + 4 + 6 + 4\n\nBut wait \u2014 is there any restriction against just adding? The problem says \"use each number exactly once to produce 24\" \u2014 no other constraints. So this is valid.\n\nAlternative: maybe they expect multiplication? But addition works.\n\nDouble-check: 10 + 4 = 14, 14 + 6 = 20, 20 + 4 = 24 \u2014 correct.\n\nThus, final answer is:\n\nFINAL: 10 + 4 + 6 + 4",
+    "SAMPLE 10 FINAL: 10 + 4",
+    "VOTE SUMMARY: 10 + 6 + 4 + 4 -> 3, (10 + 6) + (4 + 4) -> 1, 6 * 4 -> 1, 10 + 4 + 6 + 4 -> 1, 10 + 6 -> 1, 10 + 4 + 4 + 6 -> 1, - 6 * 4 -> 1, 10 + 4 -> 1",
+    "VOTE WINNER: 10 + 6 + 4 + 4 (3/10)"
+  ]
+}

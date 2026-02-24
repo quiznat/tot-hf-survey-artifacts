@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011850-f4f836.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "21 + 24 - 6 = 39",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7626,
+    "success": 0,
+    "tokens_in": 487,
+    "tokens_out": 315
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011850-f4f836",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:18:50Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a way to combine the given numbers [2, 6, 7, 21, 23, 24] using basic arithmetic operations to reach the target value 39. Since no tools are available, I'll need to work through this manually by trying different combinations of addition, subtraction, multiplication, and division.\n\nLet me start by looking for obvious combinations:\n- 21 + 23 = 44 (too high by 5)\n- 24 + 23 = 47 (too high by 8)\n- 21 + 24 = 45 (too high by 6)\n- 6 + 21 = 27 (need 12 more)\n- 7 + 21 = 28 (need 11 more)\n\nLet me try combinations with multiple numbers:\n- 2 + 6",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me systematically work through combinations of the given numbers [2, 6, 7, 21, 23, 24] to reach the target 39.\n\nI'll try different approaches:\n\nFirst, let me see if I can use two numbers that are close to the target:\n- 24 + 23 = 47 (too high by 8)\n- 21 + 23 = 44 (too high by 5)\n- 24 + 21 = 45 (too high by 6)\n\nLet me try combinations with subtraction:\n- 24 + 23 - 7 = 40 (close! just 1 too much)\n- 24 + 23 - 6 = 41 (close! just 2 too much)\n- 24 + 23 - 2 = 4",
+    "STEP 2 OBSERVATION: error: unknown tool '-'",
+    "STEP 3 MODEL: THINK: Let me reconsider the problem and try different combinations systematically. I need to use the numbers [2, 6, 7, 21, 23, 24] to make 39.\n\nLet me try:\n- 21 + 24 = 45, which is 6 more than 39\n- So I need to subtract 6: 21 + 24 - 6 = 39\n\nLet me verify: 21 + 24 - 6 = 45 - 6 = 39 \u2713\n\nThis uses three numbers: 21, 24, and 6.\n\nFINAL: 21 + 24 - 6 = 39"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191603-3ffbf4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x=-6.0,y=4.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        8,
+        -16
+      ],
+      [
+        -5,
+        8,
+        62
+      ]
+    ]
+  },
+  "item_id": "lin-v4-008",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3304,
+    "success": 1,
+    "tokens_in": 2132,
+    "tokens_out": 335
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191603-3ffbf4",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2339600001,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T19:16:03Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nSolve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: I need to solve the linear system of equations:\n1) 8.0*x + 8.0*y = -16.0\n2) -5.0*x + 8.0*y = 62.0\n\nI can solve this using algebraic methods. Since both equations have 8.0*y, I can subtract equation 2 from equation 1 to eliminate y.\n\nLet me calculate step by step.\n\nFirst, I'll rewrite the equations:\nEquation 1: 8x + 8y = -16\nEquation 2: -5x + 8y = 62\n\nSubtracting equation 2 from equation 1:\n(8x - (-5x)) + (8y - 8y) = -16 - 62\n13x + 0y = -78\n13x = -78\nx = -78/13 = -6\n\nNow substitute x = -6 into equation 1:\n8*(-6) + 8y = -16\n-48 + 8y = -16\n8y = -16 + 48 = 32\ny = 32/8 = 4\n\nSo x = -6, y = 4\n\nLet me verify with equation 2:\n-5*(-6) + 8*4 = 30 + 32 = 62 \u2713\n\n<code>\nx = -6\ny = 4\nfinal_answer(f\"x={x},y={y}\")\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'x = -6\\ny = 4\\nfinal_answer(f\"x={x},y={y}\")'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\nx=-6,y=4",
+    "OUTPUT: x=-6,y=4",
+    "FINAL: x=-6.0,y=4.0"
+  ]
+}

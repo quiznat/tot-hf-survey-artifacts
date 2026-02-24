@@ -1,0 +1,68 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191210-647ee5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "2,14,22,24",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      14,
+      18,
+      22,
+      24
+    ],
+    "target": 62
+  },
+  "item_id": "ss-v4-004",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6538,
+    "success": 1,
+    "tokens_in": 2145,
+    "tokens_out": 227
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191210-647ee5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1288386879,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T19:12:10Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: I need to find a subset of the numbers [2, 6, 14, 18, 22, 24] that sums to 62. Let me try combinations systematically.\n\nFirst, let me check the total sum: 2 + 6 + 14 + 18 + 22 + 24 = 86, which is greater than 62, so a subset exists.\n\nLet me try combinations starting with larger numbers:\n- 24 + 22 + 18 = 64 (too high)\n- 24 + 22 + 14 = 60, need 2 more \u2192 24 + 22 + 14 + 2 = 62 \u2713\n\nThis works! Let me verify: 24 + 22 = 46, 46 + 14 = 60, 60 + 2 = 62.\n\n<code>\nfinal_answer(\"2,14,22,24\")\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'final_answer(\"2,14,22,24\")'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\n2,14,22,24",
+    "OUTPUT: 2,14,22,24",
+    "FINAL: 2,14,22,24"
+  ]
+}

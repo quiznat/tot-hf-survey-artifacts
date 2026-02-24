@@ -1,0 +1,95 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011904-913594.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "17,14,7",
+        3
+      ],
+      [
+        "I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 17 + 14 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\n- All numbers are from the given list\n- Each number is used at most once\n- Sum equals target\n\nLet me double-check by trying other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 - 6 = 38, but this uses subtraction which isn't allowed\n\nActually",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 31 + 7 = 38 \u2713\n- Let me verify: 17 + 14 + 7 = 38\n\nLet me check if there are other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 = 38 \u2713\n- 17 + 12 + 9 = 38 \u2713\n\nThe first combination I found works: 17, 14, 7\n\nFINAL:",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "17,14,7",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      9,
+      12,
+      14,
+      17
+    ],
+    "target": 38
+  },
+  "item_id": "ss-v4-016",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11981,
+    "success": 1,
+    "tokens_in": 360,
+    "tokens_out": 521
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011904-913594",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 554954239,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:04Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 9, 12, 14, 17]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically by trying different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 17 + 14 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\nCheck: 17 + 14 + 7 = 31 + 7 = 38 \u2713\n\nThis works and uses each number at most once.\n\nFINAL: 17,14,7",
+    "SAMPLE 1 FINAL: 17,14,7",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 9, 12, 14, 17]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 17 + 14 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\n- All numbers are from the given list\n- Each number is used at most once\n- Sum equals target\n\nLet me double-check by trying other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 - 6 = 38, but this uses subtraction which isn't allowed\n\nActually",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 17 + 14 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\n- All numbers are from the given list\n- Each number is used at most once\n- Sum equals target\n\nLet me double-check by trying other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 - 6 = 38, but this uses subtraction which isn't allowed\n\nActually",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 9, 12, 14, 17]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 31 + 7 = 38 \u2713\n- Let me verify: 17 + 14 + 7 = 38\n\nLet me check if there are other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 = 38 \u2713\n- 17 + 12 + 9 = 38 \u2713\n\nThe first combination I found works: 17, 14, 7\n\nFINAL:",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 31 + 7 = 38 \u2713\n- Let me verify: 17 + 14 + 7 = 38\n\nLet me check if there are other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 = 38 \u2713\n- 17 + 12 + 9 = 38 \u2713\n\nThe first combination I found works: 17, 14, 7\n\nFINAL:",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 9, 12, 14, 17]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me try combinations starting with the largest numbers to see if I can get close to 38:\n\n17 + 14 = 31, need 7 more \u2192 17 + 14 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\nCheck: 17 + 14 + 7 = 31 + 7 = 38 \u2713\n\nThis uses each number at most once and sums to the target.\n\nFINAL: 17,14,7",
+    "SAMPLE 4 FINAL: 17,14,7",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [6, 7, 9, 12, 14, 17]\nTarget: 38\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 31 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\nChecking the available numbers: 17, 14, 7 are all in the list.\nEach number is used at most once.\n\nLet me double-check: 17 + 14 + 7 = 38\nThis works perfectly.\n\nFINAL: 17,14,7",
+    "SAMPLE 5 FINAL: 17,14,7",
+    "VOTE SUMMARY: 17,14,7 -> 3, I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 17 + 14 + 7 = 38 \u2713\n\nLet me verify: 17 + 14 + 7 = 38\n- All numbers are from the given list\n- Each number is used at most once\n- Sum equals target\n\nLet me double-check by trying other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 - 6 = 38, but this uses subtraction which isn't allowed\n\nActually -> 1, I need to find a combination of numbers from [6, 7, 9, 12, 14, 17] that sum to 38.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I try the largest numbers:\n- 17 + 14 = 31, need 7 more \u2192 31 + 7 = 38 \u2713\n- Let me verify: 17 + 14 + 7 = 38\n\nLet me check if there are other combinations:\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 9 + 7 = 38 \u2713\n- 17 + 12 + 9 = 38 \u2713\n\nThe first combination I found works: 17, 14, 7\n\nFINAL: -> 1",
+    "VOTE WINNER: 17,14,7 (3/5)"
+  ]
+}

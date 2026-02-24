@@ -1,0 +1,134 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-204949-74f770.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "- ( 6 * 4",
+        3
+      ],
+      [
+        "- ( 6 * 4 * 1 * 1",
+        1
+      ],
+      [
+        "- ( (6 - 1) * 4 + 1",
+        1
+      ],
+      [
+        "- ( 6 * 4 * 1 / 1",
+        1
+      ],
+      [
+        "- ( (6 * 4) * (1 / 1)",
+        1
+      ],
+      [
+        "- (6 * 4",
+        1
+      ],
+      [
+        "- ( 6 * 4 / 1 / 1",
+        1
+      ],
+      [
+        "- ( (6 - 1) * (4 - 1) * 1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "- ( 6 * 4",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    4,
+    1,
+    6
+  ],
+  "item_id": "g24-v4-010",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 16958,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 1973
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204949-74f770",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 878833230,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:49:49Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To solve the problem of using each number exactly once to produce 24 with the numbers [1, 4, 1, 6], let's break it down step by step:\n\n1. **Identify the target**: We need to produce 24.\n2. **Consider the operations**: Addition, subtraction, multiplication, and division.\n3. **Explore combinations**:\n   - Start with the largest number, 6, and see if we can use it effectively.\n   - Try to form expressions that might lead to 24.\n\nLet's try different combinations:\n\n- \\( 6 \\times 4 = 24 \\)\n  - We need to use the remaining 1s without changing the result.\n  - \\( 6 \\times 4 \\times 1 \\times 1 = 24 \\)\n\nThis combination works and uses all the numbers exactly once.\n\nFINAL: \\( 6 \\times 4 \\times 1 \\times 1 \\)",
+    "SAMPLE 1 FINAL: - ( 6 * 4 * 1 * 1",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this problem, we need to use the numbers 1, 4, 1, and 6 exactly once to produce 24. Let's consider different operations and combinations:\n\n1. **Addition and Multiplication**: \n   - \\( (1 + 1) \\times 6 \\times 4 = 2 \\times 6 \\times 4 = 12 \\times 4 = 48 \\) (too high)\n   - \\( (1 + 1) \\times 4 \\times 6 = 2 \\times 4 \\times 6 = 8 \\times 6 = 48 \\) (too high)\n\n2. **Subtraction and Multiplication**:\n   - \\( (6 - 1) \\times (4 + 1) = 5 \\times 5 = 25 \\) (close but not 24)\n   - \\( (6 - 1) \\times 4 + 1 = 5 \\times 4 + 1 = 20 + 1 = 21 \\) (not 24)\n   - \\( (6 - 1) \\times 4 - 1 = 5 \\times 4 - 1 = 20 - 1 = 19 \\) (not 24)\n\n3. **Division and Multiplication**:\n   - \\( (6 \\div 1) \\times (4 + 1) = 6 \\times 5 = 30 \\) (too high)\n   - \\( (6 \\div 1) \\times 4 + 1 = 6 \\times 4 + 1 = 24 + 1 = 25 \\) (not 24)\n   - \\( (6 \\div 1) \\times 4 - 1 = 6 \\times 4 - 1 = 24 - 1 = 23 \\) (not 24)\n\n4. **Combining Operations**:\n   - \\( (6 - 1) \\times (4 + 1) = 5 \\times 5 = 25 \\) (not 24)\n   - \\( (6 - 1) \\times 4 + 1 = 5 \\times 4 + 1 = 20 + 1 = 21 \\) (not 24)\n   - \\( (6 - 1)",
+    "SAMPLE 2 FINAL: - ( (6 - 1) * 4 + 1",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To solve this problem, we need to use each of the numbers [1, 4, 1, 6] exactly once to produce 24. Let's think through the steps:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider the target value**: We need to reach 24.\n3. **Explore combinations**:\n   - Multiplication is key since 24 is a multiple of several smaller numbers.\n   - We have two 1s, which can be used to maintain or adjust values without changing them significantly.\n   - The number 6 is a factor of 24, so it's useful to include it in a multiplication.\n\nLet's try different combinations:\n\n- \\( 6 \\times 4 = 24 \\) (but we need to use the 1s)\n- \\( 6 \\times (4 + 1) = 6 \\times 5 = 30 \\) (too high)\n- \\( 6 \\times (4 - 1) = 6 \\times 3 = 18 \\) (too low)\n- \\( 6 \\times 4 \\div 1 = 24 \\) (but we need to use both 1s)\n\nWe can use one 1 to multiply and the other to divide without changing the value:\n\n- \\( 6 \\times 4 \\times 1 \\div 1 = 24 \\)\n\nThis uses all the numbers exactly once and produces 24.\n\nFINAL: \\( 6 \\times 4 \\times 1 \\div 1 \\)",
+    "SAMPLE 3 FINAL: - ( 6 * 4 * 1 / 1",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use each of the numbers [1, 4, 1, 6] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider the target**: We need to reach 24.\n3. **Experiment with combinations**:\n   - Multiplication often helps in reaching larger numbers.\n   - Division can be tricky but useful in simplifying expressions.\n   - Addition and subtraction can adjust the results.\n\nLet's try different combinations:\n\n- \\( (6 \\times 4) + (1 - 1) = 24 + 0 = 24 \\)\n- \\( (6 \\times 4) \\times (1 \\div 1) = 24 \\times 1 = 24 \\)\n- \\( (6 + 1 + 1) \\times 4 = 8 \\times 4 = 32 \\) (too high)\n- \\( (6 - 1 - 1) \\times 4 = 4 \\times 4 = 16 \\) (too low)\n\nThe first combination works correctly:\n\nFINAL: \\( (6 \\times 4) \\times (1 \\div 1) \\)",
+    "SAMPLE 4 FINAL: - ( (6 * 4) * (1 / 1)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this problem, we need to use each of the numbers [1, 4, 1, 6] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Identify potential combinations**:\n   - \\(6 \\times 4 = 24\\), but we need to use the 1s as well.\n   - \\(6 + 18 = 24\\), but we need to find a way to get 18 using 1, 4, and 1.\n3. **Try different groupings**:\n   - \\(6 \\times (4 + 1 + 1) = 6 \\times 6 = 36\\) (too high).\n   - \\(6 \\times (4 - 1 + 1) = 6 \\times 4 = 24\\) (this works).\n\nLet's verify:\n- \\(4 - 1 + 1 = 4\\)\n- \\(6 \\times 4 = 24\\)\n\nThis uses all the numbers exactly once and produces 24.\n\nFINAL: \\(6 \\times (4 - 1 + 1)\\)",
+    "SAMPLE 5 FINAL: - (6 * 4",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use the numbers 1, 4, 1, and 6 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Multiplication:**\n   - \\( (1 + 1) \\times 4 \\times 6 = 2 \\times 4 \\times 6 = 48 \\) (too high)\n   - \\( (1 + 1) \\times 6 \\times 4 = 2 \\times 6 \\times 4 = 48 \\) (too high)\n\n2. **Subtraction and Multiplication:**\n   - \\( (6 - 1) \\times 4 \\times 1 = 5 \\times 4 \\times 1 = 20 \\) (not enough)\n   - \\( (6 - 1) \\times 1 \\times 4 = 5 \\times 1 \\times 4 = 20 \\) (not enough)\n\n3. **Division and Multiplication:**\n   - \\( 6 \\times 4 \\div (1 + 1) = 24 \\div 2 = 12 \\) (not enough)\n   - \\( 6 \\times 4 \\div 1 \\div 1 = 24 \\) (correct)\n\nLet's verify the correct solution:\n- \\( 6 \\times 4 \\div 1 \\div 1 = 24 \\)\n\nThis is a valid solution using each number exactly once.\n\nFINAL: \\( 6 \\times 4 \\div 1 \\div 1 \\)",
+    "SAMPLE 6 FINAL: - ( 6 * 4 / 1 / 1",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use each of the numbers [1, 4, 1, 6] exactly once to produce 24. Let's think through the possible operations and combinations:\n\n1. **Addition and Multiplication:**\n   - \\( 6 \\times 4 = 24 \\)\n   - This uses 6 and 4, but we still have two 1s left. We can use the 1s in a way that doesn't change the result, such as multiplying by 1 or adding 0 (which is 1 - 1).\n\n2. **Combining the 1s:**\n   - We can use the 1s to create a neutral operation, like \\( 1 \\times 1 = 1 \\) or \\( 1 + (1 - 1) = 1 \\).\n\n3. **Final Expression:**\n   - We can combine these ideas to form the expression: \\( 6 \\times 4 \\times (1 \\times 1) \\).\n\nHowever, we can simplify it further to ensure all numbers are used exactly once without unnecessary operations:\n\n\\[ 6 \\times 4 \\times (1 + 1 - 1) \\]\n\nThis simplifies to:\n\n\\[ 6 \\times 4 \\times 1 = 24 \\]\n\nThus, the final expression is:\n\nFINAL: 6 * 4 * (1 + 1 - 1)",
+    "SAMPLE 7 FINAL: - ( 6 * 4",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use each of the numbers [1, 4, 1, 6] exactly once and combine them using arithmetic operations to get the result 24.\n\nLet's break it down step by step:\n\n1. **Consider the target number**: We need to reach 24.\n2. **Explore possible operations**: Addition, subtraction, multiplication, and division.\n3. **Try different combinations**:\n   - Start with multiplication since it can quickly increase the value.\n   - Use the largest number (6) as a starting point.\n\nLet's try:\n- \\( 6 \\times 4 = 24 \\)\n- We have used 6 and 4, and we still need to use the two 1s.\n\nSince multiplying 6 by 4 already gives us 24, we need to ensure that the remaining 1s do not change the result. One way to do this is to use them in a way that they effectively become 1 (since any number multiplied or divided by 1 remains unchanged).\n\nSo, we can write:\n\\[ 6 \\times 4 \\times \\frac{1}{1} = 24 \\]\n\nThis uses all the numbers exactly once and results in 24.\n\n FINAL: \\( 6 \\times 4 \\times \\frac{1}{1} \\)",
+    "SAMPLE 8 FINAL: - ( 6 * 4",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use the numbers 1, 4, 1, and 6 exactly once to produce 24. Let's explore different combinations of arithmetic operations to achieve this.\n\n1. Start by considering the basic operations: addition, subtraction, multiplication, and division.\n2. Try different groupings and operations to see if we can get close to 24.\n\nLet's break it down:\n\n- \\( (1 + 1) \\times 4 \\times 6 = 2 \\times 4 \\times 6 = 8 \\times 6 = 48 \\) (too high)\n- \\( (1 + 1) \\times (6 - 4) = 2 \\times 2 = 4 \\) (too low)\n- \\( 6 \\times (4 - 1) + 1 = 6 \\times 3 + 1 = 18 + 1 = 19 \\) (too low)\n- \\( 6 \\times (4 + 1) - 1 = 6 \\times 5 - 1 = 30 - 1 = 29 \\) (too high)\n\nNow, let's try a different approach:\n\n- \\( (6 - 1) \\times (4 + 1) = 5 \\times 5 = 25 \\) (too high)\n- \\( (6 - 1) \\times 4 + 1 = 5 \\times 4 + 1 = 20 + 1 = 21 \\) (too low)\n- \\( (6 - 1) \\times 4 - 1 = 5 \\times 4 - 1 = 20 - 1 = 19 \\) (too low)\n\nFinally, let's try another combination:\n\n- \\( (6 - 1) \\times (4 - 1) \\times 1 = 5 \\times 3 \\times 1 = 15 \\) (too low)\n- \\( (6 + 1) \\times (4 - 1) = 7 \\times 3 = 21 \\) (too low)\n- \\( (6 + 1) \\times 4 - 1 = 7 \\times 4 - 1 = 28 - 1 = 27 \\) (too high)\n\nAfter trying various combinations, we find that:\n\n- \\( (6 -",
+    "SAMPLE 9 FINAL: - ( (6 - 1) * (4 - 1) * 1",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 4, 1, 6]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use the numbers 1, 4, 1, and 6 exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider different combinations**:\n   - \\( 6 \\times 4 = 24 \\) is a straightforward combination, but we need to use the two 1s as well.\n   - We can try to use the 1s in a way that doesn't change the result, such as \\( 1 \\times 1 = 1 \\).\n\n3. **Combine the results**:\n   - Since \\( 6 \\times 4 = 24 \\), we can multiply this by \\( 1 \\times 1 \\) to keep the result unchanged.\n\nThus, the expression that uses all the numbers exactly once to produce 24 is:\n\\[ (6 \\times 4) \\times (1 \\times 1) \\]\n\nHowever, since \\( 1 \\times 1 = 1 \\), we can simplify this to:\n\\[ 6 \\times 4 \\times 1 \\times 1 \\]\n\nFinal answer:\nFINAL: \\( 6 \\times 4 \\times 1 \\times 1 \\)",
+    "SAMPLE 10 FINAL: - ( 6 * 4",
+    "VOTE SUMMARY: - ( 6 * 4 -> 3, - ( 6 * 4 * 1 * 1 -> 1, - ( (6 - 1) * 4 + 1 -> 1, - ( 6 * 4 * 1 / 1 -> 1, - ( (6 * 4) * (1 / 1) -> 1, - (6 * 4 -> 1, - ( 6 * 4 / 1 / 1 -> 1, - ( (6 - 1) * (4 - 1) * 1 -> 1",
+    "VOTE WINNER: - ( 6 * 4 (3/10)"
+  ]
+}

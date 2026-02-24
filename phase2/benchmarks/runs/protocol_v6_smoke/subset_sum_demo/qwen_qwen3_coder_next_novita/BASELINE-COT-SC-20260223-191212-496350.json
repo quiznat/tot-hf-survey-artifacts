@@ -1,0 +1,123 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-191212-496350.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "2,15",
+        6
+      ],
+      [
+        "13,2",
+        1
+      ],
+      [
+        "2,7,2,7,12",
+        1
+      ],
+      [
+        "2,7,12",
+        1
+      ],
+      [
+        "2,7,13",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 6
+  },
+  "final_answer": "2,15",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      7,
+      12,
+      13,
+      15,
+      19,
+      20,
+      24
+    ],
+    "target": 17
+  },
+  "item_id": "ss-v4-002",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6977,
+    "success": 1,
+    "tokens_in": 740,
+    "tokens_out": 1762
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260223-191212-496350",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2869929960,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T19:12:12Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We need to select numbers from [2, 7, 12, 13, 15, 19, 20, 24] that sum to 17, using each at most once.\n\nLet\u2019s try combinations:\n\n- Start with smaller numbers:\n  - 2 + 7 = 9 \u2192 need 8 more \u2192 no 8.\n  - 2 + 12 = 14 \u2192 need 3 \u2192 no 3.\n  - 2 + 13 = 15 \u2192 need 2 \u2192 already used 2, can't reuse.\n  - 2 + 15 = 17 \u2192 yes! 2 + 15 = 17.\n\nCheck: 2 and 15 are both in the list, distinct, sum to 17.\n\nAlternative checks:\n- 7 + 12 = 19 \u2192 too big.\n- 13 + 2 = 15 \u2192 need 2 more, but 2 used.\n- 17 alone? Not in list.\n\nSo only valid combination: 2 and 15.\n\nFINAL: 2,15",
+    "SAMPLE 1 FINAL: 13,2",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the list: [2, 7, 12, 13, 15, 19, 20, 24]  \nTarget: 17  \nWe need to find a subset (each number used at most once) that sums to 17.\n\nLet\u2019s try combinations:\n\nStart with smallest numbers:\n- 2 + 7 = 9 \u2192 need 8 more \u2014 no 8 in list.\n- 2 + 12 = 14 \u2192 need 3 \u2014 no 3.\n- 2 + 13 = 15 \u2192 need 2 \u2014 but 2 is already used, and only one 2 exists.\n- 2 + 15 = 17 \u2192 yes! 2 + 15 = 17.\n\nCheck: 2 and 15 are both in the list, and used once.\n\nAlternative:\n- 7 + 12 = 19 \u2192 too big.\n- 7 + 13 = 20 \u2192 too big.\n- 12 + 13 = 25 \u2192 too big.\n- Any three numbers? Try 2 + 7 + 12 = 21 \u2192 too big.  \n2 + 7 + 13 = 22 \u2192 too big.  \n2 + 7 + smaller? Already smallest three: 2+7+12=21 >17. So no 3-number combo with 2 and 7.\n\nWhat about 17 alone? Not in list.\n\nSo only valid combination is 2 + 15 = 17.\n\nFINAL: 2,15",
+    "SAMPLE 2 FINAL: 2,7,2,7,12",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the list: [2, 7, 12, 13, 15, 19, 20, 24]  \nTarget sum: 17  \nEach number can be used at most once.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 2 + 7 = 9 \u2192 need 8 more \u2192 no 8 in list  \n- 2 + 12 = 14 \u2192 need 3 \u2192 no 3  \n- 2 + 13 = 15 \u2192 need 2 \u2192 already used 2, can't reuse  \n- 2 + 15 = 17 \u2192 yes! 2 + 15 = 17  \nCheck: 2 and 15 are both in the list, and used once.\n\nAny other combinations?  \n- 7 + 12 = 19 \u2192 too big  \n- 7 + 13 = 20 \u2192 too big  \n- 12 + 13 = 25 \u2192 too big  \n- Try three numbers:  \n  - 2 + 7 + 12 = 21 \u2192 too big  \n  - 2 + 7 + 13 = 22  \n  - 2 + 7 + anything else \u226515 \u2192 even larger  \nSo only valid combination is 2 and 15.\n\nWait \u2014 what about 17 alone? Not in list.  \n13 + 2 + ? = 17 \u2192 13 + 2 = 15 \u2192 need 2 more, but 2 already used.\n\nSo only valid subset: [2, 15]\n\nAnswer format: comma-separated, no spaces.\n\nFINAL: 2,15",
+    "SAMPLE 3 FINAL: 2,15",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We need to find a subset of the numbers [2, 7, 12, 13, 15, 19, 20, 24] that sums to 17, using each number at most once.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 2 + 7 = 9  \n- 2 + 12 = 14  \n- 2 + 13 = 15  \n- 2 + 15 = 17 \u2192 \u2705\n\nCheck: 2 + 15 = 17. Both numbers are in the list, and each used once.\n\nSo the solution is: 2,15\n\nFINAL: 2,15",
+    "SAMPLE 4 FINAL: 2,15",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We need to find a subset of [2, 7, 12, 13, 15, 19, 20, 24] that sums to 17.\n\nLet\u2019s try combinations:\n\n- Start with smallest numbers:\n  - 2 + 7 = 9 \u2192 need 8 more \u2192 no 8.\n  - 2 + 12 = 14 \u2192 need 3 \u2192 no 3.\n  - 2 + 13 = 15 \u2192 need 2 \u2192 already used 2 (can\u2019t reuse).\n  - 2 + 15 = 17 \u2192 yes! 2 + 15 = 17.\n\nCheck: 2 and 15 are both in the list, and each used once.\n\nAlternative: \n- 7 + 12 = 19 \u2192 too big.\n- 7 + 13 = 20 \u2192 too big.\n- 12 + 13 = 25 \u2192 too big.\n\nAny 3-number combos?\n- 2 + 7 + 12 = 21 \u2192 too big.\n- 2 + 7 + ? = 17 \u2192 need 8 \u2192 no.\n- 2 + 12 + ? = 17 \u2192 need 3 \u2192 no.\n- 7 + ? + ? = 17 \u2192 need 10 from two numbers: possible? 2+8 (no 8), 12-2? Already checked.\n\nSo only valid subset is [2, 15].\n\nFINAL: 2,15",
+    "SAMPLE 5 FINAL: 2,15",
+    "SAMPLE 6 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the list: [2, 7, 12, 13, 15, 19, 20, 24]  \nTarget: 17  \nWe need to select numbers (each used at most once) that sum to 17.\n\nLet\u2019s try combinations:\n\nStart with smaller numbers:\n\n- 2 + 7 = 9 \u2192 need 8 more \u2192 no 8 in list  \n- 2 + 12 = 14 \u2192 need 3 \u2192 no 3  \n- 2 + 13 = 15 \u2192 need 2 \u2192 2 already used (can\u2019t reuse), and no other 2  \n- 2 + 15 = 17 \u2192 yes! 2 + 15 = 17  \nCheck: 2 and 15 are both in the list, and used only once.\n\nSo [2, 15] works.\n\nAny others?  \n- 7 + 12 = 19 \u2192 too big  \n- 7 + 13 = 20 \u2192 too big  \n- 12 + 13 = 25 \u2192 too big  \n- Try three numbers:  \n  - 2 + 7 + 12 = 21 \u2192 too big  \n  - 2 + 7 + ? = 17 \u2192 need 8 \u2192 no  \n  - 2 + 7 + smaller? Already smallest three  \n  - 2 + 13 + ? = 17 \u2192 need 2 more \u2192 but 2 used  \n  - 7 + 12 + ? = 17 \u2192 need -2 \u2192 impossible  \nSo only valid combination is 2 and 15.\n\nFINAL: 2,15",
+    "SAMPLE 6 FINAL: 2,7,12",
+    "SAMPLE 7 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We need to find a subset of [2, 7, 12, 13, 15, 19, 20, 24] that sums to 17, using each number at most once.\n\nLet\u2019s try combinations:\n\n- Start with smaller numbers:\n  - 2 + 7 = 9 \u2192 need 8 more (not available)\n  - 2 + 12 = 14 \u2192 need 3 (not available)\n  - 2 + 13 = 15 \u2192 need 2 (2 already used; can\u2019t reuse)\n  - 2 + 15 = 17 \u2192 yes! 2 + 15 = 17.\n\nCheck: 2 and 15 are both in the list, distinct, sum to 17.\n\nAlternative checks:\n- 7 + 12 = 19 \u2192 too big\n- 17 alone? Not in list.\n- 13 + 2 = 15 \u2192 need 2 more, but 2 used.\n- 12 + 7 = 19 \u2192 too big.\n- 19, 20, 24 too large alone.\n\nSo only valid combination is [2, 15].\n\nFINAL: 2,15",
+    "SAMPLE 7 FINAL: 2,15",
+    "SAMPLE 8 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the list: [2, 7, 12, 13, 15, 19, 20, 24]  \nTarget sum: 17  \nWe need to select one or more numbers (each used at most once) that sum to 17.\n\nLet\u2019s try combinations:\n\nStart with small numbers:\n- 2 + 7 = 9 \u2192 need 8 more \u2014 no 8 in list.\n- 2 + 12 = 14 \u2192 need 3 \u2014 no 3.\n- 2 + 13 = 15 \u2192 need 2 \u2014 already used 2, can't reuse.\n- 2 + 15 = 17 \u2192 yes! 2 + 15 = 17. Both are in the list, distinct.\n\nCheck: 2 and 15 are both present.  \n2 + 15 = 17 \u2705\n\nAny others? Let\u2019s verify if there\u2019s another valid combination (though only one solution is needed, but for thoroughness):\n- 7 + 12 = 19 \u2192 too big.\n- 7 + 13 = 20 \u2192 too big.\n- 12 + ? = 17 \u2192 need 5 \u2014 not in list.\n- 13 + ? = 17 \u2192 need 4 \u2014 not in list.\n- Single number: 17 not in list.\n- 2 + 7 + 12 = 21 \u2192 too big.\n- 2 + 7 + 13 = 22 \u2192 too big.\n\nOnly valid combination: 2 and 15.\n\nFINAL: 2,15",
+    "SAMPLE 8 FINAL: 2,7,13",
+    "SAMPLE 9 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the list: [2, 7, 12, 13, 15, 19, 20, 24] and target: 17.\n\nWe need to find a subset of these numbers (each used at most once) that sum to 17.\n\nLet\u2019s try combinations:\n\nStart with smallest numbers:\n\n- 2 + 7 = 9 \u2192 need 8 more \u2014 no 8.\n- 2 + 12 = 14 \u2192 need 3 \u2014 no 3.\n- 2 + 13 = 15 \u2192 need 2 \u2014 but 2 already used.\n- 2 + 15 = 17 \u2192 yes! 2 + 15 = 17.\n\nCheck: 2 and 15 are both in the list, and each used once.\n\nSo the solution is: 2,15\n\nLet\u2019s double-check no other smaller combo? Also check 7 + 12 = 19 > 17 \u2192 too big.  \n7 + 13 = 20 \u2192 too big.  \n12 + anything \u22652 is \u226514, but 12+2=14, 12+7=19 \u2014 no exact match except 2+15.\n\nAlso check single number: 17 not in list.\n\nTriples? 2+7+12=21 >17  \n2+7+13=22  \n2+7+? \u2014 too big.\n\nSo only valid subset is {2,15}.\n\nFINAL: 2,15",
+    "SAMPLE 9 FINAL: 2,15",
+    "SAMPLE 10 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 12, 13, 15, 19, 20, 24]\nTarget: 17\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We need to find a subset of [2, 7, 12, 13, 15, 19, 20, 24] that sums to 17, using each number at most once.\n\nLet\u2019s try small combinations:\n\n- Single numbers: none equal 17.\n- Two numbers:\n  - 2 + 15 = 17 \u2705\n\nCheck: 2 and 15 are both in the list, and 2 + 15 = 17.\n\nSo the solution is: 2,15\n\nWe should confirm no duplicate issues or constraints violated \u2014 each used once, sum is correct.\n\nOther possibilities? Let\u2019s just verify if any others exist (though only one solution is needed):\n\n- 7 + 12 = 19 \u2192 too big  \n- 2 + 13 = 15  \n- 2 + 12 = 14  \n- 7 + 13 = 20  \n- 12 + 13 = 25  \n- 2 + 7 + ? = 17 \u2192 2+7=9, need 8 \u2192 not available  \n- 2 + 12 + ? = 14 + ? = 17 \u2192 need 3 \u2192 not available  \n- 7 + 12 = 19 >17  \n- Three smallest: 2+7+12=21 >17  \nSo only valid subset is [2,15].\n\nFINAL: 2,15",
+    "SAMPLE 10 FINAL: 2,15",
+    "VOTE SUMMARY: 2,15 -> 6, 13,2 -> 1, 2,7,2,7,12 -> 1, 2,7,12 -> 1, 2,7,13 -> 1",
+    "VOTE WINNER: 2,15 (6/10)"
+  ]
+}

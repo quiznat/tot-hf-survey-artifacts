@@ -1,0 +1,117 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-030607-611eb3.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_samples": 10,
+  "extra": {
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "7 + 5",
+        3
+      ],
+      [
+        "12 * 2",
+        3
+      ],
+      [
+        "(7 + 5)",
+        1
+      ],
+      [
+        "(7 + 5) * (3 - 1)",
+        1
+      ],
+      [
+        "(5 + 1)",
+        1
+      ],
+      [
+        "4 * 6",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "7 + 5",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    7,
+    3,
+    5,
+    1
+  ],
+  "item_id": "g24-v4-008",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 60875,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 1666
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-030607-611eb3",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 4294637542,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T03:06:07Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [7, 3, 5, 1] and must use each exactly once to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations:\n\nTry (7 \u2212 1) \u00d7 (5 \u2212 3) = 6 \u00d7 2 = 12 \u2192 too small.\n\nTry (7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24 \u2192 bingo!\n\nCheck: 7 + 5 = 12; 3 \u2212 1 = 2; 12 \u00d7 2 = 24. Uses all numbers exactly once.\n\nSo the expression is (7 + 5) \u00d7 (3 \u2212 1).\n\nFINAL: (7+5)*(3-1)",
+    "SAMPLE 1 FINAL: 7 + 5",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [7, 3, 5, 1], and we must use each **exactly once** to make 24. We can use basic arithmetic operations: +, \u2212, \u00d7, \u00f7, and parentheses.\n\nLet\u2019s explore combinations.\n\nFirst, try common strategies:\n\n- 24 = 6 \u00d7 4  \n- 24 = 8 \u00d7 3  \n- 24 = 12 \u00d7 2  \n- 24 = 48 \u00f7 2  \n- 24 = 7 \u00d7 3 + 3 \u2192 but we don\u2019t have two 3s.\n\nTry using multiplication heavily.\n\nTry: (7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24 \u2705  \nCheck: 7 + 5 = 12; 3 \u2212 1 = 2; 12 \u00d7 2 = 24.  \nUsed numbers: 7, 5, 3, 1 \u2014 all exactly once.\n\nYes! That works.\n\nFINAL: (7 + 5) * (3 - 1)",
+    "SAMPLE 2 FINAL: 7 + 5",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: Let's try to make 24 using [7, 3, 5, 1], each exactly once.\n\nWe know common strategies for 24: factors like 3\u00d78, 4\u00d76, 12\u00d72, etc.\n\nTry combining numbers:\n\n- 7 + 5 = 12; 3 + 1 = 4; 12 \u00d7 2 = 24, but no 2.\n- 7 \u00d7 3 = 21; 21 + 5 = 26; 26 \u2212 1 = 25 \u2014 close.\n- 7 \u00d7 3 = 21; 5 \u2212 1 = 4; 21 + 4 = 25 \u2014 same.\n- 5 \u00d7 3 = 15; 7 + 1 = 8; 15 + 8 = 23 \u2014 close.\n- 5 \u00d7 3 = 15; 7 \u2212 1 = 6; 15 + 6 = 21.\n- (7 \u2212 1) \u00d7 3 = 6 \u00d7 3 = 18; 18 + 5 = 23.\n- (5 + 1) \u00d7 3 = 6 \u00d7 3 = 18; 18 + 7 = 25.\n- (7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24 \u2014 yes! That uses all numbers: 7, 5, 3, 1.\n\nCheck: (7 + 5) = 12; (3 \u2212 1) = 2; 12 \u00d7 2 = 24.\n\nAll numbers used exactly once.\n\nFINAL: (7 + 5) * (3 - 1)",
+    "SAMPLE 3 FINAL: (7 + 5)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: Let's try to reach 24 using [7, 3, 5, 1], each exactly once.\n\nWe can consider common strategies: multiplication is key to reach 24 (e.g., 6\u00d74, 8\u00d73, 12\u00d72, 24\u00d71).\n\nTry combining numbers:\n\n- 7 + 5 = 12  \n- 3 + 1 = 4  \n\u2192 12 \u00d7 2 = 24, but we don\u2019t have 2. However, 12 \u00d7 (3 \u2013 1) = 12 \u00d7 2 = 24. That uses 7, 5, 3, 1:  \n(7 + 5) \u00d7 (3 \u2013 1) = 12 \u00d7 2 = 24 \u2705\n\nCheck: uses all numbers exactly once: 7, 5, 3, 1 \u2014 yes.\n\nFINAL: (7 + 5) * (3 - 1)",
+    "SAMPLE 4 FINAL: (7 + 5) * (3 - 1)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [7, 3, 5, 1], and we must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nTry common strategies:\n- 7 \u00d7 3 = 21, then 21 + 5 = 26, 26 \u2212 1 = 25 \u2192 too high.\n- 7 \u00d7 3 = 21, 21 + 1 = 22, 22 + 5 = 27 \u2192 too high.\n- 5 \u00d7 3 = 15, 15 + 7 = 22, 22 + 1 = 23 \u2192 close.\n- 5 \u00d7 3 = 15, 15 + 7 + 1 = 23 again.\n- 7 + 5 + 3 + 1 = 16 \u2192 too low.\n\nTry multiplication combined with subtraction:\n- (7 \u2212 1) = 6, then 6 \u00d7 3 = 18, 18 + 5 = 23.\n- (5 \u2212 1) = 4, 7 \u00d7 3 = 21, 21 + 4 = 25.\n- (7 + 1) = 8, 8 \u00d7 3 = 24, then need to use 5 \u2014 but can't ignore it.\n\nWait \u2014 we must use all four numbers exactly once.\n\nTry (7 \u2212 1) \u00d7 (5 \u2212 3) = 6 \u00d7 2 = 12 \u2192 too low.\n\nTry (7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24! \u2705  \nCheck: 7 + 5 = 12, 3 \u2212 1 = 2, 12 \u00d7 2 = 24. Uses all numbers: 7, 5, 3, 1 \u2014 each exactly once.\n\nYes! That works.\n\nFINAL: (7+5)*(3-1)",
+    "SAMPLE 5 FINAL: 7 + 5",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers [7, 3, 5, 1] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to make 24.\n\nLet\u2019s try combinations:\n\nTry (7 \u2212 3) \u00d7 (5 + 1) = 4 \u00d7 6 = 24 \u2705  \nCheck: uses 7, 3, 5, 1 \u2014 each exactly once.  \nOperations: subtraction, addition, multiplication \u2014 all allowed.\n\nYes, this works.\n\nFINAL: (7-3)*(5+1)",
+    "SAMPLE 6 FINAL: (5 + 1)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers [7, 3, 5, 1], and we must use each **exactly once** to make 24. Allowed operations are typically +, \u2212, \u00d7, \u00f7, and parentheses (standard 24-game rules).\n\nLet\u2019s explore combinations.\n\nTry to think of factor pairs of 24:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- Also, 7 \u00d7 3 = 21 \u2192 need +3, but we have 5 and 1 left: 5 \u2212 1 = 4, too big; 5 + 1 = 6; 7 \u00d7 3 + (5 \u2212 1) = 21 + 4 = 25  \n- Try (7 + 1) \u00d7 3 = 24 \u2192 that\u2019s 8 \u00d7 3 = 24! But we haven\u2019t used 5 yet. So need to incorporate 5 in a neutral way, like \u00d71 or +0.\n\nCan we make 1 from 5 and something? But all numbers must be used exactly once. So we need to use 7, 3, 5, and 1.\n\nWhat if we do:  \n(7 \u2212 1) \u00d7 (5 \u2212 3) = 6 \u00d7 2 = 12 \u2192 too small.\n\n(7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24 \u2192 YES! That uses all numbers: 7, 5, 3, 1.\n\nCheck:  \n7 + 5 = 12  \n3 \u2212 1 = 2  \n12 \u00d7 2 = 24\n\nPerfect.\n\nSo expression: (7 + 5) \u00d7 (3 \u2212 1)\n\nFINAL: (7+5)*(3-1)",
+    "SAMPLE 7 FINAL: 12 * 2",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers [7, 3, 5, 1] and must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore possible combinations.\n\nFirst, note that 24 factors:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- Also, 7 \u00d7 3 = 21, and 21 + 3 = 24, but we only have one 3.\n\nTry combining 7 and 3:  \n7 + 3 = 10  \nThen with 5 and 1: 10 + 5 + 1 = 16 \u2014 too small  \n10 \u00d7 (5 \u2212 1) = 10 \u00d7 4 = 40 \u2014 too big  \n(7 \u2212 3) \u00d7 (5 + 1) = 4 \u00d7 6 = 24 \u2705\n\nLet\u2019s verify:  \n(7 \u2212 3) = 4  \n(5 + 1) = 6  \n4 \u00d7 6 = 24  \nUsed 7, 3, 5, 1 \u2014 each exactly once.\n\nYes! That works.\n\nFINAL: (7 - 3) * (5 + 1)",
+    "SAMPLE 8 FINAL: 4 * 6",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers [7, 3, 5, 1] and must use each exactly once to make 24.\n\nLet\u2019s explore combinations:\n\nWe know common strategies for 24 include:\n- 8 \u00d7 3 = 24  \n- 6 \u00d7 4 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24 (but only one 3)  \n- Try (7 \u2212 1) \u00d7 (5 \u2212 3) = 6 \u00d7 2 = 12 \u2192 too small  \n- Try (7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24 \u2705\n\nCheck:  \n7 + 5 = 12  \n3 \u2212 1 = 2  \n12 \u00d7 2 = 24  \nUses all numbers: 7, 5, 3, 1 \u2014 each exactly once.\n\nSo expression is:  \n**(7 + 5) \u00d7 (3 \u2212 1)**\n\nFINAL: (7+5)*(3-1)",
+    "SAMPLE 9 FINAL: 12 * 2",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [7, 3, 5, 1]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers: [7, 3, 5, 1], and we must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry multiplication first, since 24 has several factor pairs:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- Also, 7 + 5 + 3 + 1 = 16 \u2014 too low  \n- 7 \u00d7 3 = 21; 21 + 5 = 26; 26 \u2212 1 = 25  \n- 7 \u00d7 3 = 21; 21 + 1 = 22; 22 + 5 = 27  \n- 5 \u00d7 3 = 15; 15 + 7 + 1 = 23  \n- 5 \u00d7 3 = 15; 15 + 7 = 22; 22 + 1 = 23  \n- Try (7 \u2212 1) \u00d7 (5 \u2212 3) = 6 \u00d7 2 = 12 \u2014 too low  \n- (7 + 1) \u00d7 3 = 24, but we haven\u2019t used 5 yet  \n- (7 + 1) \u00d7 (5 \u2212 3) = 8 \u00d7 2 = 16  \n- (5 + 1) \u00d7 3 = 18; 18 + 7 = 25  \n- (5 \u2212 1) \u00d7 7 = 4 \u00d7 7 = 28; 28 \u2212 3 = 25  \n- (7 \u2212 3) \u00d7 5 = 4 \u00d7 5 = 20; 20 + 1 = 21  \n- (7 + 5) \u00d7 (3 \u2212 1) = 12 \u00d7 2 = 24 \u2705\n\nCheck:  \n7 + 5 = 12  \n3 \u2212 1 = 2  \n12 \u00d7 2 = 24  \nUsed all numbers: 7, 5, 3, 1 \u2014 exactly once.\n\nSo expression: (7 + 5) \u00d7 (3 \u2212 1)\n\nFINAL: (7",
+    "SAMPLE 10 FINAL: 12 * 2",
+    "VOTE SUMMARY: 7 + 5 -> 3, 12 * 2 -> 3, (7 + 5) -> 1, (7 + 5) * (3 - 1) -> 1, (5 + 1) -> 1, 4 * 6 -> 1",
+    "VOTE WINNER: 7 + 5 (3/10)"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173435-01a70d.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "76",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      2,
+      5,
+      7,
+      6
+    ],
+    "divisor": 4,
+    "oracle_max": 7652
+  },
+  "item_id": "perm-v4-007",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4086,
+    "success": 0,
+    "tokens_in": 41,
+    "tokens_out": 288
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173435-01a70d",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 1309011917,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:35Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [2, 5, 7, 6]\nThe number must be divisible by 4.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: To form the **largest possible 4-digit integer** using the digits **[2, 5, 7, 6]** exactly once, and ensuring it's **divisible by 4**, we need to recall the divisibility rule for 4:\n\n> A number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\nSo, our strategy is:\n\n1. **List all permutations** of the digits [2, 5, 7, 6] (there are 4! = 24 permutations).\n2. For each permutation, check if the last two digits form a number divisible by 4.\n3. Among those that satisfy the condition, pick the **largest** number.\n\nBut instead of listing all 24, we can be smarter:\n\n- To get the **largest** number, we want the **leftmost digits as large as possible**, i.e., start with 7, then 6, etc.\n- So try descending order permutations and check the last two digits.\n\nLet\u2019s list possible **last two digits** (from the digits 2, 5, 6, 7), in descending order of the full number, and check which combinations are divisible by 4.\n\nFirst, list all **2-digit combinations** (without repetition) from [2,5,6,7], and check divisibility by 4:\n\n- 76 \u2192 76 \u00f7 4 = 19 \u2192 \u2705 divisible  \n- 75 \u2192 75 \u00f7 4 = 18.75 \u2192 \u274c  \n- 72 \u2192 72 \u00f7 4 = 18 \u2192 \u2705  \n- 67 \u2192 67 \u00f7 4 = 16.75 \u2192 \u274c  \n- 65 \u2192 65 \u00f7 4 = 16.25 \u2192 \u274c  \n- 62 \u2192 62 \u00f7 4 = 15.5 \u2192 \u274c  \n- 57 \u2192 57 \u00f7 4 = 14.25 \u2192 \u274c  \n- 56 \u2192 56 \u00f7 4 = 14 \u2192 \u2705  \n- 52 \u2192 52 \u00f7 4 = 13 \u2192 \u2705  \n- 27 \u2192 27 \u00f7 4 = 6.75 \u2192",
+    "FINAL: 76"
+  ]
+}

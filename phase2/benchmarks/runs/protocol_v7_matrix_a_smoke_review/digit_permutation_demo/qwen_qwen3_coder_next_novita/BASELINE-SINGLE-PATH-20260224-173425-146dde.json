@@ -1,0 +1,68 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.single_path_direct_answer.v1",
+  "algorithm_module_id": "algorithm_module.baseline_single_path_direct_answer.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-SINGLE-PATH-20260224-173425-146dde.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 10000,
+    "token_budget": 2000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-single-path",
+  "condition_key": "baseline_single_path_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "8664",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      6,
+      6,
+      8,
+      4
+    ],
+    "divisor": 4,
+    "oracle_max": 8664
+  },
+  "item_id": "perm-v4-005",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3588,
+    "success": 1,
+    "tokens_in": 28,
+    "tokens_out": 279
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "single-path baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-SINGLE-PATH-20260224-173425-146dde",
+  "search_config": {
+    "breadth": 0,
+    "depth": 0,
+    "pruning": "none",
+    "stop_policy": "single-pass"
+  },
+  "seed": 2493019071,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-24T17:34:25Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [6, 6, 8, 4]\nThe number must be divisible by 4.\nReturn only the integer.",
+    "OUTPUT: To form the **largest possible 4-digit integer** using the digits **[6, 6, 8, 4]** exactly once, and ensuring it's **divisible by 4**, we need to recall the divisibility rule for 4:\n\n> A number is divisible by 4 **if and only if** the number formed by its **last two digits** is divisible by 4.\n\n---\n\n### Step 1: List all possible 2-digit endings using the digits [6, 6, 8, 4], using each digit exactly once overall.\n\nWe need to consider all **distinct 2-digit combinations** (order matters) that can be formed from the multiset {6, 6, 8, 4}, and check which are divisible by 4.\n\nPossible 2-digit endings (last two digits), using digits without repetition beyond what's available (i.e., two 6s allowed):\n\n- 66 \u2192 66 \u00f7 4 = 16.5 \u2192 \u274c  \n- 68 \u2192 68 \u00f7 4 = 17 \u2192 \u2705  \n- 64 \u2192 64 \u00f7 4 = 16 \u2192 \u2705  \n- 86 \u2192 86 \u00f7 4 = 21.5 \u2192 \u274c  \n- 84 \u2192 84 \u00f7 4 = 21 \u2192 \u2705  \n- 46 \u2192 46 \u00f7 4 = 11.5 \u2192 \u274c  \n- 48 \u2192 48 \u00f7 4 = 12 \u2192 \u2705  \n- 86 (already listed)  \n- 46 (already listed)  \n- 66 (already listed)\n\nValid endings: **68, 64, 84, 48**\n\nNow, for each valid ending, we want to use the remaining two digits to form the **largest possible 4-digit number**, i.e., arrange the remaining digits in descending order for the first two places.\n\nLet\u2019s test each:\n\n1. **Ending = 68**  \n   Remaining digits: [6, 4]  \n   Largest prefix: 64 \u2192 number = **6468**\n\n2. **Ending = 64**  \n   Remaining digits: [6, 8]  \n   Largest prefix: 86 \u2192 number = **8664**\n\n3. **Ending = 8",
+    "FINAL: 8664"
+  ]
+}

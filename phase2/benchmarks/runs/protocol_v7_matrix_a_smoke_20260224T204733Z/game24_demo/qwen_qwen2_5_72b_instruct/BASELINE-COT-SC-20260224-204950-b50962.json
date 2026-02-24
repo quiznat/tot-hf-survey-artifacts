@@ -1,0 +1,134 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-204950-b50962.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "- ((7 + 5) * (7 - 5)",
+        3
+      ],
+      [
+        "- ( 12 * 2",
+        1
+      ],
+      [
+        "- (7 * (5 - (7 - 5))",
+        1
+      ],
+      [
+        "((7 + 5)",
+        1
+      ],
+      [
+        "- (5 + 7 + 5 + 7",
+        1
+      ],
+      [
+        "- (5 + 5 + 7 + 7",
+        1
+      ],
+      [
+        "- (2 * 12",
+        1
+      ],
+      [
+        "- (12 * 2",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "- ((7 + 5) * (7 - 5)",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    5,
+    7,
+    5,
+    7
+  ],
+  "item_id": "g24-v4-002",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 20293,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 1876
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204950-b50962",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3023805780,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:49:50Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: To achieve the result of 24 using the numbers [5, 7, 5, 7] exactly once, let's explore different combinations and operations:\n\n1. Start by considering the basic arithmetic operations: addition, subtraction, multiplication, and division.\n2. Try to form pairs or groups that can be combined to get close to 24.\n\nOne approach is to use multiplication and addition/subtraction to balance the equation:\n\n- Consider the expression \\( (7 + 5) \\times (7 - 5) \\):\n  - \\( 7 + 5 = 12 \\)\n  - \\( 7 - 5 = 2 \\)\n  - \\( 12 \\times 2 = 24 \\)\n\nThis uses all the numbers exactly once and produces the desired result.\n\nFINAL: (7 + 5) * (7 - 5)",
+    "SAMPLE 1 FINAL: - ( 12 * 2",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this problem, we need to use each of the numbers 5, 7, 5, and 7 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Multiplication**:\n   - \\(5 + 5 = 10\\)\n   - \\(7 + 7 = 14\\)\n   - \\(10 + 14 = 24\\) (This doesn't work because we are using the numbers more than once)\n\n2. **Subtraction and Addition**:\n   - \\(7 - 5 = 2\\)\n   - \\(7 - 5 = 2\\)\n   - \\(2 + 2 = 4\\) (This doesn't help)\n\n3. **Multiplication and Division**:\n   - \\(7 \\times 5 = 35\\)\n   - \\(35 \\div 5 = 7\\) (This doesn't help)\n   - \\(7 \\times 7 = 49\\)\n   - \\(49 \\div 5 = 9.8\\) (This doesn't help)\n\n4. **Combining Different Operations**:\n   - \\(7 \\times (5 + 5) = 7 \\times 10 = 70\\) (This is too large)\n   - \\(7 + 7 + 5 + 5 = 24\\) (This works, but we need to check if it uses each number exactly once)\n\nLet's try another approach:\n   - \\(7 \\times 5 = 35\\)\n   - \\(35 - 7 = 28\\)\n   - \\(28 - 5 = 23\\) (Close, but not 24)\n\nFinally, let's try:\n   - \\(7 \\times 5 = 35\\)\n   - \\(35 - (7 - 5) = 35 - 2 = 33\\) (Close, but not 24)\n\nAfter exploring these options, the correct combination is:\n   - \\(7 \\times (5 + 5 - 7) = 7 \\times 3 = 21\\) (Close, but not 24)\n\nThe correct solution is:\n   - \\(7 \\times (5 - (7 - 5)) = 7 \\times 3 = 21\\) (Close, but not 24)\n\nAfter re-evaluating, the correct",
+    "SAMPLE 2 FINAL: - (7 * (5 - (7 - 5))",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To achieve the result of 24 using the numbers [5, 7, 5, 7] exactly once, let's explore different operations and combinations:\n\n1. **Addition and Multiplication:**\n   - \\(5 + 7 + 5 + 7 = 24\\) (This uses addition only, but we need to use each number exactly once and explore other operations.)\n\n2. **Subtraction and Multiplication:**\n   - \\(7 \\times 5 - 7 + 5 = 35 - 7 + 5 = 33 - 7 = 24\\) (This works, but let's check if there's a simpler or more direct way.)\n\n3. **Combining Multiplication and Division:**\n   - \\((7 + 5) \\times (7 - 5) = 12 \\times 2 = 24\\) (This is a valid and straightforward solution.)\n\nAfter evaluating different combinations, the simplest and most effective solution is:\n\nFINAL: \\((7 + 5) \\times (7 - 5) = 24\\)",
+    "SAMPLE 3 FINAL: ((7 + 5)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use each of the numbers [5, 7, 5, 7] exactly once to produce 24. Let's explore different combinations and operations to find a solution.\n\n1. **Addition and Subtraction**:\n   - \\(5 + 7 + 5 + 7 = 24\\) (This uses addition, but it doesn't use each number exactly once in a unique way.)\n\n2. **Multiplication and Division**:\n   - \\(5 \\times (7 - 5) \\times 7 = 5 \\times 2 \\times 7 = 70\\) (This is too large.)\n   - \\(7 \\times (7 - 5) \\times 5 = 7 \\times 2 \\times 5 = 70\\) (This is also too large.)\n\n3. **Combination of Operations**:\n   - \\(7 \\times (5 + 5) - 7 = 7 \\times 10 - 7 = 70 - 7 = 63\\) (This is too large.)\n   - \\(5 \\times (7 + 7) - 5 = 5 \\times 14 - 5 = 70 - 5 = 65\\) (This is too large.)\n\n4. **Using Division**:\n   - \\((7 + 7) \\times (5 / 5) = 14 \\times 1 = 14\\) (This is too small.)\n   - \\((7 + 7) \\times (5 - 5) = 14 \\times 0 = 0\\) (This is zero.)\n\n5. **Using Factorials** (if allowed):\n   - \\(5! = 120\\), which is too large for any combination with 7 and 5.\n\n6. **Using Parentheses and Order of Operations**:\n   - \\((7 + 5) \\times (7 - 5) = 12 \\times 2 = 24\\) (This works!)\n\nAfter exploring various combinations and operations, we find that the expression \\((7 + 5) \\times (7 - 5)\\) produces 24 using each number exactly once.\n\nFINAL: \\((7 + 5) \\times (7 - 5)\\)",
+    "SAMPLE 4 FINAL: - ((7 + 5) * (7 - 5)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this, we need to use each of the numbers 5, 7, 5, and 7 exactly once to produce 24. Let's explore different operations and combinations:\n\n1. **Addition and Subtraction:**\n   - \\(5 + 7 + 5 + 7 = 24\\) (This is the simplest and most straightforward combination.)\n\n2. **Multiplication and Division:**\n   - \\(5 \\times 7 = 35\\), which is too large.\n   - \\(5 \\times 5 = 25\\), which is also too large.\n   - \\(7 \\times 7 = 49\\), which is much too large.\n   - \\(5 \\times 7 / 5 = 7\\), which is too small.\n   - \\(5 \\times 5 / 7 \\approx 3.57\\), which is too small.\n   - \\(7 \\times 7 / 5 = 9.8\\), which is too small.\n\n3. **Combining Operations:**\n   - \\(5 \\times (7 - 5) + 7 = 5 \\times 2 + 7 = 10 + 7 = 17\\), which is too small.\n   - \\(5 \\times (7 + 5) - 7 = 5 \\times 12 - 7 = 60 - 7 = 53\\), which is too large.\n   - \\(7 \\times (5 + 5) / 7 = 7 \\times 10 / 7 = 10\\), which is too small.\n   - \\(7 \\times (7 - 5) + 5 = 7 \\times 2 + 5 = 14 + 5 = 19\\), which is too small.\n\nAfter evaluating these combinations, the simplest and correct solution is:\n\nFINAL: \\(5 + 7 + 5 + 7\\)",
+    "SAMPLE 5 FINAL: - (5 + 7 + 5 + 7",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use each of the numbers 5, 7, 5, and 7 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Subtraction**:\n   - \\(5 + 5 + 7 + 7 = 24\\) (This uses addition, but we need to use each number exactly once in a more complex way.)\n\n2. **Multiplication and Division**:\n   - \\(5 \\times 5 = 25\\)\n   - \\(7 \\times 7 = 49\\)\n   - These don't directly help, but we can try combining them with other operations.\n\n3. **Combining Operations**:\n   - \\(7 \\times (5 - \\frac{5}{7})\\)\n     - Calculate inside the parentheses first: \\(5 - \\frac{5}{7} = 5 - 0.714 = 4.286\\)\n     - Then multiply: \\(7 \\times 4.286 = 30\\)\n     - This is not 24, so let's try another approach.\n\n4. **Using Factorials or Other Advanced Operations**:\n   - Factorials can sometimes help, but they are not typically used in these types of problems without explicit permission.\n\n5. **Revisiting Combinations**:\n   - \\(5 \\times 7 = 35\\)\n   - \\(35 - 7 - 5 = 23\\)\n   - This is close but not 24.\n\n6. **Final Attempt**:\n   - \\(7 \\times (5 - \\frac{5}{7})\\)\n     - Simplify the expression inside the parentheses: \\(5 - \\frac{5}{7} = \\frac{35}{7} - \\frac{5}{7} = \\frac{30}{7}\\)\n     - Then multiply: \\(7 \\times \\frac{30}{7} = 30\\)\n     - This is still not 24, so let's try another combination.\n\nAfter several attempts, the correct solution is:\n\n\\[ (5 + 7) \\times (5 - \\frac{7}{7}) \\]\n\nLet's verify:\n- Inside the first set of parentheses: \\(5 + 7 = 12\\)\n- Inside the second set of parentheses: \\(5 - \\frac{7}{",
+    "SAMPLE 6 FINAL: - (5 + 5 + 7 + 7",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use each of the numbers 5, 7, 5, and 7 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Subtraction**:\n   - \\(5 + 7 + 5 + 7 = 24\\) (This is too simple and doesn't use all numbers uniquely)\n\n2. **Multiplication and Division**:\n   - \\(5 \\times 7 \\times \\frac{5}{7} = 35 \\times \\frac{5}{7} = 35 \\times \\frac{5}{7} = 25\\) (Not 24)\n   - \\(7 \\times 5 - 7 + 5 = 35 - 7 + 5 = 33\\) (Not 24)\n\n3. **Combining Addition, Subtraction, Multiplication, and Division**:\n   - \\((7 + 5) \\times (7 - 5) = 12 \\times 2 = 24\\) (This works)\n\nAfter evaluating various combinations, the correct expression that uses each number exactly once to produce 24 is:\n\nFINAL: \\((7 + 5) \\times (7 - 5)\\)",
+    "SAMPLE 7 FINAL: - ((7 + 5) * (7 - 5)",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem using the numbers [5, 7, 5, 7] exactly once to produce 24, let's consider different arithmetic operations and combinations:\n\n1. **Addition and Subtraction:**\n   - \\(5 + 7 + 5 + 7 = 24\\) (This is incorrect because it doesn't use the numbers exactly once in a single operation.)\n\n2. **Multiplication and Division:**\n   - \\(5 \\times 7 = 35\\)\n   - \\(35 \\div 5 = 7\\)\n   - \\(7 + 7 = 14\\) (This doesn't work.)\n\n3. **Combining Operations:**\n   - \\( (7 - 5) \\times (7 + 5) = 2 \\times 12 = 24 \\)\n\nThis combination works correctly. Let's verify the steps:\n- \\(7 - 5 = 2\\)\n- \\(7 + 5 = 12\\)\n- \\(2 \\times 12 = 24\\)\n\nThus, the correct expression is:\n\nFINAL: \\((7 - 5) \\times (7 + 5)\\)",
+    "SAMPLE 8 FINAL: - (2 * 12",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve this problem, we need to use each of the numbers 5, 7, 5, and 7 exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Subtraction**:\n   - \\(5 + 7 + 5 + 7 = 24\\) (This is not valid because it doesn't use each number exactly once.)\n\n2. **Multiplication and Division**:\n   - \\(5 \\times 7 = 35\\)\n   - \\(35 \\div 5 = 7\\)\n   - \\(7 + 7 = 14\\) (Not 24)\n\n3. **Combining Operations**:\n   - \\(5 \\times 7 = 35\\)\n   - \\(35 - 7 = 28\\)\n   - \\(28 - 5 = 23\\) (Not 24)\n\n4. **Using Parentheses for Grouping**:\n   - \\((5 + 7) \\times (7 - 5)\\)\n     - \\(5 + 7 = 12\\)\n     - \\(7 - 5 = 2\\)\n     - \\(12 \\times 2 = 24\\)\n\nThis combination works. Therefore, the final answer is:\n\nFINAL: (5 + 7) * (7 - 5)",
+    "SAMPLE 9 FINAL: - (12 * 2",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, we need to use each of the numbers [5, 7, 5, 7] exactly once to produce 24. Let's explore different combinations and operations:\n\n1. **Addition and Subtraction**:\n   - \\(5 + 5 + 7 + 7 = 24\\) (This uses addition only, but it doesn't involve all four numbers uniquely.)\n\n2. **Multiplication and Division**:\n   - \\(5 \\times 7 = 35\\)\n   - \\(35 \\div 5 = 7\\)\n   - \\(7 + 7 = 14\\) (This doesn't work as it doesn't reach 24.)\n\n3. **Combining Multiplication and Addition**:\n   - \\(5 \\times 5 = 25\\)\n   - \\(25 - 7 = 18\\)\n   - \\(18 + 7 = 25\\) (This doesn't work as it doesn't reach 24.)\n\n4. **Using Parentheses for Grouping**:\n   - \\((7 + 5) \\times (7 - 5) = 12 \\times 2 = 24\\) (This works!)\n\nAfter exploring these options, the correct expression that uses each number exactly once to produce 24 is:\n\nFINAL: \\((7 + 5) \\times (7 - 5)\\)",
+    "SAMPLE 10 FINAL: - ((7 + 5) * (7 - 5)",
+    "VOTE SUMMARY: - ((7 + 5) * (7 - 5) -> 3, - ( 12 * 2 -> 1, - (7 * (5 - (7 - 5)) -> 1, ((7 + 5) -> 1, - (5 + 7 + 5 + 7 -> 1, - (5 + 5 + 7 + 7 -> 1, - (2 * 12 -> 1, - (12 * 2 -> 1",
+    "VOTE WINNER: - ((7 + 5) * (7 - 5) (3/10)"
+  ]
+}

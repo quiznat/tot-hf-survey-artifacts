@@ -1,0 +1,73 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-021229-c3a44e.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [
+    "check_xy",
+    "solve2"
+  ],
+  "final_answer": "x=8,y=2",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -8,
+        -9,
+        -82
+      ],
+      [
+        7,
+        -7,
+        42
+      ]
+    ]
+  },
+  "item_id": "lin-v4-001",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 23306,
+    "success": 1,
+    "tokens_in": 196,
+    "tokens_out": 184
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": true,
+  "run_id": "BASELINE-REACT-20260223-021229-c3a44e",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1711179923,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T02:12:29Z",
+  "tool_config": [
+    "check_xy",
+    "solve2"
+  ],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task provides a system of two linear equations in two variables, represented as coefficients and constants. The equations are:\n1. -8x - 9y = -82  \n2. 7x - 7y = 42  \n\nI need to solve for x and y. I can either use algebraic methods or use the available tools. Let's consider using `solve2`, which likely solves a 2x2 linear system. The input format for `solve2` is probably the coefficient matrix and constants vector. For equation 1: coefficients [-8, -9], constant -82; equation 2: [7, -7], constant 42. So the input would be [[-8, -9, -82], [7, -7, 42]], which matches the given input. I'll use `solve2` directly.\n\nACTION: solve2 [[-8",
+    "STEP 1 OBSERVATION: x=8.000000,y=2.000000",
+    "STEP 2 MODEL: THINK: The `solve2` tool returned the solution x = 8.000000, y = 2.000000. I should verify this solution using the `check_xy` tool to ensure it satisfies both original equations:  \n1. -8x - 9y = -8\u00b78 - 9\u00b72 = -64 - 18 = -82 \u2714\ufe0f  \n2. 7x - 7y = 7\u00b78 - 7\u00b72 = 56 - 14 = 42 \u2714\ufe0f  \nVerification confirms the solution is correct.\n\nACTION: check_xy 8 2  \nFINAL: x=8,y=2"
+  ]
+}

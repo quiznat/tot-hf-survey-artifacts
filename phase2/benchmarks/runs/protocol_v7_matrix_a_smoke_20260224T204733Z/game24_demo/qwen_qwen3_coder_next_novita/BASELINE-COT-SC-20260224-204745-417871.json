@@ -1,0 +1,138 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-204745-417871.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "10 + 7 + 6 + 1",
+        2
+      ],
+      [
+        "23 + 1",
+        1
+      ],
+      [
+        "6 * 4",
+        1
+      ],
+      [
+        "14 + 10",
+        1
+      ],
+      [
+        "(7 - 1) * (10 - 6)",
+        1
+      ],
+      [
+        "(10-6)*(7-1)",
+        1
+      ],
+      [
+        "1 + 6",
+        1
+      ],
+      [
+        "6 * (10 + 1 - 7)",
+        1
+      ],
+      [
+        "10 + 1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "10 + 7 + 6 + 1",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    1,
+    10,
+    7,
+    6
+  ],
+  "item_id": "g24-v4-004",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6119,
+    "success": 1,
+    "tokens_in": 410,
+    "tokens_out": 1761
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204745-417871",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3891199489,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:47:45Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [1, 10, 7, 6], and we must use each **exactly once** to produce 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s try to find a combination.\n\nFirst, consider common patterns for 24:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24 (but we don\u2019t have two 3s)  \n- Try combining large numbers: 10 + 7 + 6 + 1 = 24 \u2192 that\u2019s 24! Wait:  \n10 + 7 + 6 + 1 = 24. Yes! That uses all numbers exactly once.\n\nCheck:  \n10 + 7 = 17  \n17 + 6 = 23  \n23 + 1 = 24 \u2705\n\nSo the expression is simply:  \n10 + 7 + 6 + 1\n\nThat\u2019s valid \u2014 no need for multiplication or parentheses.\n\nFINAL: 10 + 7 + 6 + 1",
+    "SAMPLE 1 FINAL: 23 + 1",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of factor pairs of 24:  \n- 6 \u00d7 4  \n- 8 \u00d7 3  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- etc.\n\nWe have 6 and 10 and 7 and 1.\n\nTry:  \n(10 + 7 + 6 + 1) = 24?  \n10 + 7 = 17, +6 = 23, +1 = 24 \u2192 yes!\n\nWait \u2014 that\u2019s just sum: 10 + 7 + 6 + 1 = 24.\n\nCheck: each number used exactly once? Yes: 10, 7, 6, 1 \u2014 all used once. No repetition, no omission.\n\nSo expression is:  \n10 + 7 + 6 + 1\n\nThat\u2019s valid.\n\nBut is there any restriction? Usually in 24 game, you must use all four numbers, each exactly once, and only basic operations \u2014 addition is allowed. So this is acceptable.\n\nThus, final answer:\n\nFINAL: 10 + 7 + 6 + 1",
+    "SAMPLE 2 FINAL: 10 + 7 + 6 + 1",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers [1, 10, 7, 6], and we must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s explore combinations.\n\nWe want to reach 24.\n\nTry combinations involving multiplication, since 24 has many factor pairs:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 24 \u00d7 1 = 24  \n- 48 \u00f7 2 = 24  \n- etc.\n\nWe have 6, 10, 7, 1.\n\nLet\u2019s try to make 4 from remaining numbers to pair with 6:  \nWe need 6 \u00d7 (something) = 24 \u2192 something = 4.  \nCan we make 4 from 10, 7, 1?  \n10 \u2212 7 = 3; 3 + 1 = 4 \u2192 yes!  \nSo: 6 \u00d7 ((10 \u2212 7) + 1) = 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24.\n\nCheck: numbers used: 6, 10, 7, 1 \u2014 all exactly once. \u2714\ufe0f\n\nExpression:  \n6 \u00d7 ((10 \u2212 7) + 1) = 24\n\nWe can simplify parentheses: 6 \u00d7 (10 \u2212 7 + 1) is also valid since subtraction and addition are left-associative but in this case order doesn\u2019t matter: 10 \u2212 7 = 3, +1 = 4.\n\nSo final expression:  \n6 \u00d7 (10 \u2212 7 + 1)\n\nLet\u2019s verify:  \n10 \u2212 7 = 3  \n3 + 1 = 4  \n6 \u00d7 4 = 24 \u2705\n\nFINAL: 6*(10-7+1)",
+    "SAMPLE 3 FINAL: 6 * 4",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [1, 10, 7, 6], and we must use each exactly once to make 24.\n\nLet\u2019s explore combinations.\n\nWe know common 24 patterns:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 + 6 + 10 + 1 = 24? Let's check: 7 + 6 = 13, +10 = 23, +1 = 24 \u2192 Yes!\n\nWait \u2014 that\u2019s it:  \n7 + 6 + 10 + 1 = 24  \nAll numbers used exactly once.\n\nSo the expression is:  \n1 + 6 + 7 + 10 = 24  \n(Order doesn\u2019t matter for addition.)\n\nLet\u2019s double-check:  \n1 + 6 = 7  \n7 + 7 = 14  \n14 + 10 = 24 \u2705\n\nYes.\n\nFINAL: 1+6+7+10",
+    "SAMPLE 4 FINAL: 14 + 10",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [1, 10, 7, 6] and need to use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s try to reason step by step.\n\nWe want to reach 24. Common strategies include:\n- Try to get 6 \u00d7 4 = 24 \u2192 can we make 4 from [1, 10, 7]?\n  - 10 \u2212 7 = 3, 3 + 1 = 4 \u2192 yes!\n  - Then: 6 \u00d7 ((10 \u2212 7) + 1) = 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24 \u2705\n\nCheck: used 6, 10, 7, 1 \u2014 all exactly once.\n\nSo expression:  \n6 \u00d7 ((10 \u2212 7) + 1)\n\nSimplify: 6 \u00d7 (3 + 1) = 6 \u00d7 4 = 24.\n\nThat works.\n\nAlternative: (10 + 1) \u00d7 (7 \u2212 6) = 11 \u00d7 1 = 11 \u2192 no.  \n(7 \u2212 1) \u00d7 (10 \u2212 6) = 6 \u00d7 4 = 24 \u2014 wait! That\u2019s even cleaner: (7 \u2212 1) \u00d7 (10 \u2212 6) = 6 \u00d7 4 = 24.\n\nYes! Uses all numbers: 7, 1, 10, 6 \u2014 each once.\n\nThat\u2019s simpler and more symmetric.\n\nSo final expression:  \n(7 \u2212 1) \u00d7 (10 \u2212 6)\n\nFINAL: (7 - 1) * (10 - 6)",
+    "SAMPLE 5 FINAL: (7 - 1) * (10 - 6)",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: Let's try to use the numbers [1, 10, 7, 6] exactly once to make 24.\n\nWe can consider common strategies for 24:  \n- 24 = 6 \u00d7 4  \n- 24 = 8 \u00d7 3  \n- 24 = 12 \u00d7 2  \n- 24 = 48 \u00f7 2  \n- 24 = 30 \u2212 6  \n- etc.\n\nLet\u2019s test combinations.\n\nTry (10 + 1) = 11; 7 + 6 = 13 \u2192 not helpful.\n\nTry (10 \u2212 6) = 4; 7 \u2212 1 = 6 \u2192 4 \u00d7 6 = 24! Yes!\n\nCheck: (10 \u2212 6) = 4, (7 \u2212 1) = 6, and 4 \u00d7 6 = 24.\n\nSo expression: (10 \u2212 6) \u00d7 (7 \u2212 1) = 24.\n\nAll numbers used exactly once: 10, 6, 7, 1.\n\nYes, valid.\n\nFINAL: (10-6)*(7-1)",
+    "SAMPLE 6 FINAL: (10-6)*(7-1)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers [1, 10, 7, 6] and must use each exactly once (and only once) with standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed) to make 24.\n\nLet\u2019s explore combinations.\n\nTry to think of known 24 patterns:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 30 \u2212 6 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry combining 10 and 6:  \n10 + 6 = 16 \u2192 need 8 more \u2192 7 + 1 = 8 \u2192 16 + 8 = 24 \u2192 (10 + 6) + (7 + 1) = 24.  \nYes! That uses all numbers once.\n\nCheck: 10 + 6 = 16; 7 + 1 = 8; 16 + 8 = 24.\n\nSo expression: (10 + 6) + (7 + 1) = 24.\n\nBut we can write more cleanly as: 10 + 6 + 7 + 1 = 24. Since addition is associative and commutative, and uses each number once.\n\nWait \u2014 is that allowed? Yes, standard 24 game allows adding all four numbers if they sum to 24.\n\nCheck sum: 1 + 6 + 7 + 10 = 24. Yes!\n\nSo simplest expression: 1 + 6 + 7 + 10\n\nBut let\u2019s verify: 1 + 6 = 7; 7 + 7 = 14; 14 + 10 = 24. Correct.\n\nAll numbers used exactly once.\n\nSo the answer is: 1 + 6 + 7 + 10\n\nBut to be safe and match typical formatting (maybe with parentheses?), it's not required, but since the problem says \"use each number exactly once\", and allows standard operations, this is valid.\n\nAlternative: Maybe they expect non-trivial use, but no \u2014 sum works.\n\nLet\u2019s double-check:",
+    "SAMPLE 7 FINAL: 1 + 6",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers: [1, 10, 7, 6], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe want to reach 24 using +, \u2212, \u00d7, \u00f7, parentheses as needed.\n\nTry common strategies:\n\n- 6 \u00d7 4 = 24 \u2192 can we make 4 from [1, 10, 7]?\n  - 10 \u2212 7 \u2212 1 = 2 \u2192 no.\n  - (10 + 1) \u2212 7 = 4 \u2192 yes! So (10 + 1 \u2212 7) = 4, then 6 \u00d7 4 = 24.\n\nSo:  \n6 \u00d7 (10 + 1 \u2212 7) = 6 \u00d7 4 = 24 \u2705\n\nCheck usage: 6, 10, 1, 7 \u2014 all used exactly once.\n\nYes!\n\nFINAL: 6*(10+1-7)",
+    "SAMPLE 8 FINAL: 6 * (10 + 1 - 7)",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers: [1, 10, 7, 6], and we must use each **exactly once** to make 24.\n\nLet\u2019s try to explore combinations.\n\nFirst, think of common ways to get 24:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have 1, 6, 7, 10.\n\nTry:  \n(10 + 1) = 11  \n7 + 6 = 13 \u2192 11 + 13 = 24? No, 24, but that\u2019s 10 + 1 + 7 + 6 = 24! Wait \u2014 10 + 1 + 7 + 6 = 24. Yes!\n\nCheck: 10 + 1 = 11, 11 + 7 = 18, 18 + 6 = 24. All numbers used exactly once.\n\nSo the expression is:  \n**10 + 1 + 7 + 6**\n\nThat\u2019s valid \u2014 simple addition, all numbers used once.\n\nLet\u2019s double-check no constraints against just addition \u2014 problem says \"use each number exactly once to produce 24\", and standard 24 game allows +, \u2212, \u00d7, \u00f7, parentheses. Addition is fine.\n\nSo answer is:  \nFINAL: 10 + 1 + 7 + 6",
+    "SAMPLE 9 FINAL: 10 + 1",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [1, 10, 7, 6]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers: [1, 10, 7, 6], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore combinations.\n\nWe want to reach 24 using basic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nTry some combinations:\n\n- 10 + 7 + 6 + 1 = 24?  \n  10 + 7 = 17, +6 = 23, +1 = 24 \u2192 **Yes!**\n\nCheck: 10 + 7 + 6 + 1 = 24  \nUses all numbers exactly once. \u2714\ufe0f\n\nThat\u2019s straightforward.\n\nNo need for multiplication or division \u2014 simple addition works.\n\nFINAL: 10 + 7 + 6 + 1",
+    "SAMPLE 10 FINAL: 10 + 7 + 6 + 1",
+    "VOTE SUMMARY: 10 + 7 + 6 + 1 -> 2, 23 + 1 -> 1, 6 * 4 -> 1, 14 + 10 -> 1, (7 - 1) * (10 - 6) -> 1, (10-6)*(7-1) -> 1, 1 + 6 -> 1, 6 * (10 + 1 - 7) -> 1, 10 + 1 -> 1",
+    "VOTE WINNER: 10 + 7 + 6 + 1 (2/10)"
+  ]
+}

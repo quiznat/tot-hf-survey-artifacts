@@ -1,0 +1,77 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v6_smoke/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-190005-d1ba9c.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-gen",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 1,
+      "frontier_width": 3,
+      "generated_nodes": 3,
+      "max_depth": 4,
+      "peak_frontier_size": 1,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "(7 + 5) \u00d7 (3 - 1)",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    7,
+    3,
+    5,
+    1
+  ],
+  "item_id": "g24-v4-008",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8622,
+    "success": 1,
+    "tokens_in": 446,
+    "tokens_out": 156
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-190005-d1ba9c",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 4294637542,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T19:00:05Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.8000 cum=0.8000 terminal=False thought=DECOMP: insight=Target 24 can be formed as 3\u00d78, 4\u00d76, 12\u00d72, etc.; with numbers [7,3,5,1], try to build 8 from 7,5,1 and multiply by 3; subnodes=build8 | use3;...",
+    "NODE n0002 parent=root score=1.0000 cum=1.0000 terminal=False thought=STEP: From [7,5,1], compute (7 + 1) = 8, leaving [8,3,5] \u2192 but 5 unused; instead, (7 - 5 + 1) = 3, not helpful; try (5 - 1) = 4, then 7 - 3 = 4, 4\u00d76=24 but n...",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=True thought=FINAL: (7 + 5) \u00d7 (3 - 1)"
+  ]
+}

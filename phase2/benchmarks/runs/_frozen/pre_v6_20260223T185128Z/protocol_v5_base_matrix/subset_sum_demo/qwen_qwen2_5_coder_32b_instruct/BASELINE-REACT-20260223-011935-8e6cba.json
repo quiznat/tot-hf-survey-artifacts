@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260223-011935-8e6cba.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[21, 18]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      7,
+      10,
+      11,
+      18,
+      21,
+      22,
+      22,
+      23
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-026",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10969,
+    "success": 1,
+    "tokens_in": 773,
+    "tokens_out": 365
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011935-8e6cba",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2326737981,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:35Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a subset of the given numbers that sum to the target value of 39. The numbers available are [7, 10, 11, 18, 21, 22, 22, 23]. \n\nLet me think about this systematically by trying different combinations:\n- If I use 23, I need to make 39-23=16 from the remaining numbers [7, 10, 11, 18, 21, 22, 22]\n- If I use 22, I need to make 39-22=17 from the remaining numbers [7, 10, 11, 18, 21, 22, 23]\n- If I use 21, I need to make 39-2",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically with the combinations:\n\nIf I use 23, I need to make 16 from [7, 10, 11, 18, 21, 22, 22]\n- 7 + 10 - 1 = 16, but I don't have 1\n- 11 + 5 = 16, but I don't have 5\n\nIf I use 22, I need to make 17 from [7, 10, 11, 18, 21, 22, 23]\n- 10 + 7 = 17 \u2713\n\nSo 22 + 10 + 7 = 39\n\nLet me verify: 22 + 10 + 7 = 39 \u2713\n\nACTION: FINAL: [",
+    "STEP 2 OBSERVATION: error: unknown tool 'FINAL:'",
+    "STEP 3 MODEL: THINK: I need to find a subset of the given numbers that sum to the target value of 39. The numbers available are [7, 10, 11, 18, 21, 22, 22, 23]. Let me try different combinations systematically.\n\nIf I use 23, I need to make 39-23=16 from the remaining numbers [7, 10, 11, 18, 21, 22, 22].\n- Can I make 16 from [7, 10, 11, 18, 21, 22, 22]? \n- 7 + 10 = 17 (too high by 1)\n- 11 + 5 = 16 (but I don't have 5)\n\nIf",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me reconsider the problem more carefully. I need to find a subset of [7, 10, 11, 18, 21, 22, 22, 23] that sums to 39.\n\nLet me try a different approach:\n- 22 + 18 = 40 (too high by 1)\n- 22 + 11 = 33 (need 6 more)\n- 21 + 18 = 39 \u2713\n\nSo 21 + 18 = 39. Let me double-check: 21 + 18 = 39 \u2713\n\nThis uses two numbers: 21 and 18.\n\nACTION: FINAL: [21, 18]"
+  ]
+}

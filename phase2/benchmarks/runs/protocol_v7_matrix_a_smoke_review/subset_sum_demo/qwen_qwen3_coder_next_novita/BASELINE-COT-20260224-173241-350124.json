@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-173241-350124.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "2,6,7,24",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4752,
+    "success": 1,
+    "tokens_in": 65,
+    "tokens_out": 223
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-173241-350124",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-24T17:32:41Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [2, 6, 7, 21, 23, 24] that sums to 39.\n\nTry combinations:\n\n- 24 + 23 = 47 \u2192 too big  \n- 24 + 21 = 45 \u2192 too big  \n- 24 + 7 = 31 \u2192 need 8 more \u2192 remaining: 2, 6, 21, 23 \u2192 2 + 6 = 8 \u2192 24 + 7 + 2 + 6 = 39 \u2705  \nCheck: 24 + 7 = 31, 31 + 2 = 33, 33 + 6 = 39 \u2192 yes.\n\nAlternative: 23 + 21 = 44 \u2192 too big  \n23 + 7 = 30 \u2192 need 9 \u2192 2 + 6 = 8, not enough; 2 + 6 + ? no other small numbers  \n23 + 6 + 2 = 31 \u2192 need 8 \u2192 no 8  \n21 + 7 + 6 + 2 = 36 \u2192 need 3 \u2192 no  \n21 + 7 + 6 + 2 + ? only 23 or 24 left \u2192 too big  \n21 + 6 + 2 = 29 \u2192 need 10 \u2192 no  \n7 + 6 + 2 = 15 \u2192 need 24 \u2192 15 + 24 = 39 \u2705 same as before: 24, 7, 6, 2\n\nSo valid subset: 2, 6, 7, 24  \nOrder doesn\u2019t matter, but typically ascending.\n\nCheck uniqueness: all numbers used once \u2014 yes.\n\nFINAL: 2,6,7,24",
+    "FINAL: 2,6,7,24"
+  ]
+}

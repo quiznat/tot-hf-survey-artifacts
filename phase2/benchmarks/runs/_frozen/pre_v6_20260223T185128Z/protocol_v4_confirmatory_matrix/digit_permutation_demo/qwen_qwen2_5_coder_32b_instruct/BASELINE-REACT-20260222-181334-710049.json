@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260222-181334-710049.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "7308",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      3,
+      8,
+      0,
+      7
+    ],
+    "divisor": 7,
+    "oracle_max": 7308
+  },
+  "item_id": "perm-v4-012",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8625,
+    "success": 1,
+    "tokens_in": 488,
+    "tokens_out": 323
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-181334-710049",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2684380037,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:13:34Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a number that can be formed using the digits [3, 8, 0, 7] that is divisible by 7 and is less than or equal to 7308.\n\nLet me think about this systematically. I need to:\n1. Form numbers using the digits 3, 8, 0, 7 (each digit can be used at most once)\n2. Check which of these numbers are divisible by 7\n3. Among those, find the largest one that doesn't exceed 7308\n\nSince I have 4 digits, I can form 4-digit numbers. The maximum possible 4-digit number using these digits would be 8730 (using all digits in descending order).\n\nLet me check if 8730 is divisible by 7:\n8730 \u00f7 7 = 1247.14...",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically. Since 8730 is not divisible by 7, I need to try other combinations. I should work with numbers less than or equal to 7308 since that's the oracle_max limit.\n\nThe largest possible 4-digit number using digits 3,8,0,7 is 8730, but it exceeds our limit of 7308. So I need to consider numbers starting with 7 (since 7308 is the upper bound).\n\nLet me try forming numbers starting with 7:\n- 7830: This uses all digits once, but let me check divisibility\n- 7803: \n- 7380: \n- 7308: This is exactly our limit\n\nLet me check 7308 first since it's our maximum allowed value:\n7308 \u00f7",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue checking if 7308 is divisible by 7:\n7308 \u00f7 7 = 1044\n\nSince 7308 is exactly divisible by 7 (with no remainder), and it's within our constraint of being \u2264 7308, this is our answer. \n\nHowever, let me double-check that 7308 can actually be formed using the digits [3, 8, 0, 7]. Looking at the digits: 7, 3, 0, 8 - yes, we can form 7308 using each digit exactly once.\n\nSince 7308 is divisible by 7 and equals our maximum allowed value, it's the optimal solution.\n\nFINAL: 7308"
+  ]
+}

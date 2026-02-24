@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/linear2_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260222-180339-dac77f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x = -5, y = -3",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -1,
+        -8,
+        29
+      ],
+      [
+        4,
+        -7,
+        1
+      ]
+    ]
+  },
+  "item_id": "lin-v4-011",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 10395,
+    "success": 1,
+    "tokens_in": 445,
+    "tokens_out": 287
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180339-dac77f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3364211354,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-22T18:03:39Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to solve a system of linear equations. The input provides two equations in the form [a, b, c] representing ax + by = c.\n\nEquation 1: -1x + (-8)y = 29  \u2192  -x - 8y = 29\nEquation 2: 4x + (-7)y = 1   \u2192  4x - 7y = 1\n\nI'll solve this system using elimination method.\n\nFirst, I'll multiply equation 1 by 4 to align coefficients for x:\n-4x - 32y = 116\n\nNow I'll add this to equation 2:\n(-4x - 32y) + (4x - 7y) = 116 + 1\n-4x + 4x - 32y - 7y = 117",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue solving the system of equations using the elimination method.\n\nFrom my previous step:\n-4x - 32y = 116\n4x - 7y = 1\n\nAdding these equations:\n0x - 39y = 117\n-39y = 117\ny = 117/(-39) = -3\n\nNow I'll substitute y = -3 back into one of the original equations to find x.\nUsing equation 2: 4x - 7y = 1\n4x - 7(-3) = 1\n4x + 21 = 1\n4x = 1 - 21\n4x = -20\nx = -5\n\nLet me verify this solution with both original equations:\nEquation 1: -x - 8y = 29 \u2192",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue verifying the solution with both original equations to ensure accuracy.\n\nEquation 1: -x - 8y = 29\nSubstituting x = -5, y = -3:\n-(-5) - 8(-3) = 5 + 24 = 29 \u2713\n\nEquation 2: 4x - 7y = 1\nSubstituting x = -5, y = -3:\n4(-5) - 7(-3) = -20 + 21 = 1 \u2713\n\nBoth equations are satisfied, so the solution is correct.\n\nFINAL: x = -5, y = -3"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-012605-9c70e4.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x = 3, y = -4",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        -5,
+        14
+      ],
+      [
+        -9,
+        8,
+        -59
+      ]
+    ]
+  },
+  "item_id": "lin-v4-036",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 30201,
+    "success": 1,
+    "tokens_in": 783,
+    "tokens_out": 287
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012605-9c70e4",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2265137935,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:26:05Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task input provides a list of two linear equations in the form [a, b, c], representing ax + by = c. So we have:\n- Equation 1: -2x - 5y = 14\n- Equation 2: -9x + 8y = -59\n\nWe need to solve this system of two linear equations in two variables (x and y). Let's solve using elimination or substitution.\n\nLet\u2019s use elimination.\n\nEquation 1: -2x - 5y = 14  \nEquation 2: -9x + 8y = -59\n\nMultiply Equation 1 by 9 and Equation 2 by 2 to eliminate x:\n\nEq1 \u00d7 9: -18x - 45y = 126  \nEq2 \u00d7 2: -18x + 16y = -118",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Now that we have:\n- Eq1 \u00d7 9: -18x - 45y = 126  \n- Eq2 \u00d7 2: -18x + 16y = -118  \n\nSubtract the second equation from the first to eliminate x:\n(-18x - 45y) - (-18x + 16y) = 126 - (-118)  \n\u2192 -18x - 45y + 18x - 16y = 126 + 118  \n\u2192 -61y = 244  \n\u2192 y = 244 / (-61) = -4\n\nNow substitute y = -4 into one of the original equations to solve for x. Use Equation 1: -2x - 5y = 14  \n\u2192 -2",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Continuing from y = -4, substitute into Equation 1: -2x - 5(-4) = 14 \u2192 -2x + 20 = 14 \u2192 -2x = 14 - 20 = -6 \u2192 x = (-6)/(-2) = 3. So the solution is x = 3, y = -4. Let's verify with Equation 2: -9x + 8y = -9(3) + 8(-4) = -27 - 32 = -59, which matches the RHS. Correct. Final answer is x = 3, y = -4.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: x = 3, y = -4"
+  ]
+}

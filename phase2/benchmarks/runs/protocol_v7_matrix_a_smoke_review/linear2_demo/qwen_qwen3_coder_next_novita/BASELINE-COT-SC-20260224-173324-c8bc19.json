@@ -1,0 +1,123 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173324-c8bc19.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "x=1.0,y=0.0",
+        8
+      ],
+      [
+        "x=-620.0,y=-6.0",
+        1
+      ],
+      [
+        "x=-62.0,y=-6.0",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 8
+  },
+  "final_answer": "x=1.0,y=0.0",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -6,
+        -7,
+        -6
+      ],
+      [
+        -8,
+        1,
+        -8
+      ]
+    ]
+  },
+  "item_id": "lin-v4-003",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4906,
+    "success": 1,
+    "tokens_in": 500,
+    "tokens_out": 2069
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173324-c8bc19",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2104316266,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:24Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003-6.0x - 7.0y = -6.0  \nEquation 2:  \n\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Simplify equations (optional, but helpful)\nWe can multiply both equations by -1 to make leading coefficients positive (not required, but clearer):\n\nEq1 \u00d7 (-1):  \n\u20036x + 7y = 6  \nEq2 \u00d7 (-1):  \n\u20038x - y = 8\n\nNow we have:\n(1)\u20036x + 7y = 6  \n(2)\u20038x - y = 8\n\n### Step 2: Solve one equation for one variable  \nFrom equation (2):  \n\u20038x - y = 8  \n\u2192\u2003-y = 8 - 8x  \n\u2192\u2003y = 8x - 8\n\n### Step 3: Substitute into equation (1)  \nPlug y = 8x - 8 into 6x + 7y = 6:\n\n6x + 7(8x - 8) = 6  \n6x + 56x - 56 = 6  \n(6 + 56)x - 56 = 6  \n62x - 56 = 6  \n62x = 6 + 56 = 62  \nx = 62 / 62 = 1.0\n\n### Step 4: Find y  \ny = 8x - 8 = 8(1.0) - 8 = 8 - 8 = 0.0\n\n### Step 5: Verify in original equations  \nOriginal Eq1: -6x -7y = -6 \u2192 -6(1) -7(0) = -6 \u2714  \nOriginal Eq2: -8x + y = -8 \u2192 -8(1) + 0 = -8 \u2714\n\n\u2705 Solution checks out.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 1 FINAL: x=1.0,y=0.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the system:\n\n1) -6.0x - 7.0y = -6.0  \n2) -8.0x + 1.0y = -8.0  \n\nLet\u2019s solve step by step.\n\n### Step 1: Solve Equation 2 for y (since coefficient of y is +1, easy to isolate)\nFrom Equation 2:  \n-8.0x + y = -8.0  \n\u2192 y = 8.0x - 8.0\n\n### Step 2: Substitute into Equation 1\nSubstitute y = 8.0x - 8.0 into Equation 1:\n\n-6.0x - 7.0(8.0x - 8.0) = -6.0\n\nCompute:\n\n-6.0x - 56.0x + 56.0 = -6.0  \n\u2192 (-62.0x) + 56.0 = -6.0\n\nSubtract 56.0 from both sides:\n\n-62.0x = -62.0\n\nDivide:\n\nx = (-62.0)/(-62.0) = 1.0\n\n### Step 3: Plug x = 1.0 into y = 8.0x - 8.0\n\ny = 8.0(1.0) - 8.0 = 8.0 - 8.0 = 0.0\n\n### Step 4: Verify in both equations\n\nEquation 1: -6.0(1.0) - 7.0(0.0) = -6.0 \u2705  \nEquation 2: -8.0(1.0) + 1.0(0.0) = -8.0 \u2705\n\nCorrect.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 2 FINAL: x=1.0,y=0.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-6.0x - 7.0y = -6.0  \nEquation 2:  \n\u2003\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve using substitution or elimination. I\u2019ll use elimination.\n\nFirst, let\u2019s simplify by multiplying both equations to eliminate decimals (though not strictly necessary, but helpful for clarity). Multiply both equations by 10 to eliminate decimals:\n\nEq1 \u00d710:  \n\u2003\u2003-60x - 70y = -60  \nEq2 \u00d710:  \n\u2003\u2003-80x + 10y = -80\n\nNow, let\u2019s eliminate one variable. Let\u2019s eliminate y.\n\nWe have:\n-60x - 70y = -60\u2003\u2003(1)  \n-80x + 10y = -80\u2003\u2003(2)\n\nTo eliminate y, make coefficients of y opposites. Multiply equation (2) by 7:\n\n7 \u00d7 Eq2:  \n\u2003\u2003-560x + 70y = -560\u2003\u2003(2a)\n\nNow add Eq1 and (2a):\n\n(-60x - 70y) + (-560x + 70y) = -60 + (-560)  \n\u2192 (-60x - 560x) + (-70y + 70y) = -620  \n\u2192 -620x + 0 = -620  \n\u2192 -620x = -620  \n\u2192 x = (-620)/(-620) = 1\n\nNow plug x = 1 into one of the original equations to find y. Use Equation 2 (simpler coefficients):\n\nOriginal Eq2:  \n\u2003\u2003-8.0x + 1.0y = -8.0  \nPlug x = 1:  \n\u2003\u2003-8.0(1) + y = -8.0  \n\u2003\u2003-8 + y = -8  \n\u2192 y = -8 + 8 = 0\n\nCheck with Equation 1:  \n-6.0x - 7.0y = -6.0  \n-6.0",
+    "SAMPLE 3 FINAL: x=-620.0,y=-6.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-6.0x \u2212 7.0y = \u22126.0  \nEquation 2:  \n\u2003\u2003-8.0x + 1.0y = \u22128.0  \n\nLet\u2019s solve this step by step.\n\n### Step 1: Simplify equations (optional, but helpful)\nWe can multiply both equations by -1 to make leading coefficients positive (not required, but may reduce sign errors):\n\nEq1 \u00d7 (\u22121):\u2003\u20036x + 7y = 6  \nEq2 \u00d7 (\u22121):\u2003\u20038x \u2212 y = 8  \n\nLet\u2019s work with these simplified forms:\n\n(1)\u20036x + 7y = 6  \n(2)\u20038x \u2212 y = 8  \n\n### Step 2: Solve using substitution or elimination  \nLet\u2019s use elimination. From equation (2), solve for y:\n\nFrom (2):  \n\u20038x \u2212 y = 8  \n\u21d2\u2003\u2212y = 8 \u2212 8x  \n\u21d2\u2003y = 8x \u2212 8  \n\n### Step 3: Substitute into equation (1)\n\nSubstitute y = 8x \u2212 8 into (1):\n\n6x + 7(8x \u2212 8) = 6  \n6x + 56x \u2212 56 = 6  \n62x \u2212 56 = 6  \n62x = 62  \nx = 1\n\n### Step 4: Find y\n\nRecall y = 8x \u2212 8  \nPlug in x = 1:  \ny = 8(1) \u2212 8 = 0\n\n### Step 5: Verify in original equations\n\nOriginal Eq1: \u22126x \u2212 7y = \u22126  \nPlug in x = 1, y = 0:  \n\u22126(1) \u2212 7(0) = \u22126 \u2192 \u22126 = \u22126 \u2705  \n\nOriginal Eq2: \u22128x + y = \u22128  \n\u22128(1) + 0 = \u22128 \u2192 \u22128 = \u22128 \u2705  \n\nSolution is correct.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 4 FINAL: x=1.0,y=0.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-6.0x \u2212 7.0y = -6.0  \nEquation 2:  \n\u2003\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Simplify equations (optional \u2014 we can keep as is)\nLet\u2019s write them more cleanly:\n\n(1)\u2003-6x \u2212 7y = -6  \n(2)\u2003-8x + y = -8\n\n### Step 2: Solve one equation for one variable  \nFrom Equation (2):  \n\u2003y = 8x \u2212 8  \n*(Add 8x to both sides: y = -8 + 8x \u2192 y = 8x \u2212 8)*\n\n### Step 3: Substitute into Equation (1)\nSubstitute y = 8x \u2212 8 into Equation (1):\n\n-6x \u2212 7(8x \u2212 8) = -6  \n\u2192 -6x \u2212 56x + 56 = -6  \n\u2192 (-6 \u2212 56)x + 56 = -6  \n\u2192 -62x + 56 = -6\n\nNow solve for x:\n\n-62x = -6 \u2212 56 = -62  \n\u2192 x = (-62)/(-62) = 1\n\n### Step 4: Plug back to find y  \ny = 8x \u2212 8 = 8(1) \u2212 8 = 0\n\n### Step 5: Verify in both equations\n\nCheck Equation 1:  \n-6(1) \u2212 7(0) = -6 \u2212 0 = -6 \u2705\n\nCheck Equation 2:  \n-8(1) + 1(0) = -8 + 0 = -8 \u2705\n\nBoth satisfied.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 5 FINAL: x=1.0,y=0.0",
+    "SAMPLE 6 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u2003-6.0x - 7.0y = -6.0  \nEquation 2:  \n\u2003\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Simplify equations (optional, but helpful)\nWe can multiply both equations by -1 to make leading coefficients positive (optional, but may reduce sign errors):\n\nEquation 1 \u00d7 (-1):  \n\u2003\u20036x + 7y = 6  \nEquation 2 \u00d7 (-1):  \n\u2003\u20038x - y = 8\n\nNow solve this equivalent system:\n\n(1)\u20036x + 7y = 6  \n(2)\u20038x - y = 8\n\n### Step 2: Solve one equation for one variable  \nFrom equation (2):  \n\u2003\u20038x - y = 8  \n\u2192\u2003-y = 8 - 8x  \n\u2192\u2003y = 8x - 8\n\n### Step 3: Substitute into equation (1)  \nPlug y = 8x - 8 into 6x + 7y = 6:\n\n6x + 7(8x - 8) = 6  \n\u2192 6x + 56x - 56 = 6  \n\u2192 62x - 56 = 6  \n\u2192 62x = 62  \n\u2192 x = 1\n\n### Step 4: Find y  \ny = 8x - 8 = 8(1) - 8 = 0\n\n### Step 5: Verify in original equations  \nOriginal Equation 1: -6x -7y = -6  \n\u2192 -6(1) -7(0) = -6 \u2714\n\nOriginal Equation 2: -8x + y = -8  \n\u2192 -8(1) + 0 = -8 \u2714\n\n\u2705 Solution checks out.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 6 FINAL: x=1.0,y=0.0",
+    "SAMPLE 7 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the linear system:\n\n1) -6.0x - 7.0y = -6.0  \n2) -8.0x + 1.0y = -8.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Simplify equations (optional, but helpful)\nWe can multiply both equations by -1 to make leading coefficients positive (not required, but often easier):\n\nEquation 1 \u00d7 (-1):  \n\u20036x + 7y = 6 \u2003\u2192\u2003 (1a)\n\nEquation 2 \u00d7 (-1):  \n\u20038x - y = 8 \u2003\u2192\u2003 (2a)\n\nNow solve the simplified system:\n\n(1a) 6x + 7y = 6  \n(2a) 8x - y = 8\n\n### Step 2: Solve one equation for a variable  \nFrom (2a):  \n\u20038x - y = 8  \n\u2192\u2003-y = 8 - 8x  \n\u2192\u2003y = 8x - 8 \u2003\u2192\u2003 (3)\n\n### Step 3: Substitute into (1a)  \nPlug (3) into (1a):\n\n6x + 7(8x - 8) = 6  \n\u2192 6x + 56x - 56 = 6  \n\u2192 62x - 56 = 6  \n\u2192 62x = 62  \n\u2192 x = 62 / 62 = 1.0\n\n### Step 4: Find y  \nUse (3): y = 8x - 8 = 8(1.0) - 8 = 8 - 8 = 0.0\n\n### Step 5: Verify in original equations  \nOriginal Equation 1: -6x -7y = -6  \n\u2192 -6(1) -7(0) = -6 - 0 = -6 \u2705  \nOriginal Equation 2: -8x + y = -8  \n\u2192 -8(1) + 0 = -8 \u2705\n\n\u2705 Both equations satisfied.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 7 FINAL: x=1.0,y=0.0",
+    "SAMPLE 8 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-6.0x - 7.0y = -6.0  \nEquation 2:  \n\u2003\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Eliminate one variable  \nLet\u2019s eliminate **y**. To do that, make the coefficients of y opposites.\n\nEquation 1 has -7.0y  \nEquation 2 has +1.0y  \nMultiply Equation 2 by 7 to make coefficient of y = +7.0, which will cancel with -7.0y.\n\nMultiply Equation 2 by 7:\n\n7 \u00d7 (-8.0x + 1.0y) = 7 \u00d7 (-8.0)  \n\u2192 -56.0x + 7.0y = -56.0 \u2003(Equation 2\u2032)\n\nNow add Equation 1 and Equation 2\u2032:\n\nEquation 1:\u2003-6.0x - 7.0y = -6.0  \nEquation 2\u2032: -56.0x + 7.0y = -56.0  \n--------------------------------  \nAdd:\u2003(-6.0 - 56.0)x + (-7.0 + 7.0)y = -6.0 + (-56.0)  \n\u2192 -62.0x + 0y = -62.0  \n\u2192 -62.0x = -62.0\n\nSolve for x:  \nx = (-62.0)/(-62.0) = 1.0\n\n### Step 2: Plug x = 1.0 into one equation to find y  \nUse Equation 2 (simpler, since coefficient of y is 1):\n\n-8.0x + 1.0y = -8.0  \nPlug x = 1.0:  \n-8.0(1.0) + y = -8.0  \n\u2192 -8.0 + y = -8.0  \n\u2192 y = -8.0 + 8.0 = 0.0\n\n\u2705 Check with Equation 1:  \n-6.0(1.0) - 7.0(0.0) = -6.0 - 0",
+    "SAMPLE 8 FINAL: x=-62.0,y=-6.0",
+    "SAMPLE 9 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u2003-6.0x \u2212 7.0y = -6.0  \nEquation 2:  \n\u2003\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve step by step.\n\n### Step 1: Simplify equations (optional \u2014 keep as is for clarity)\n\nEquation 1:  \n\u2003\u2003-6x \u2212 7y = -6  \nEquation 2:  \n\u2003\u2003-8x + y = -8\n\n### Step 2: Solve Equation 2 for y  \nFrom Equation 2:  \n\u2003\u2003y = 8x \u2212 8  \n*(Add 8x to both sides: y = -8 + 8x \u2192 y = 8x \u2212 8)*\n\n### Step 3: Substitute into Equation 1  \nSubstitute y = 8x \u2212 8 into Equation 1:\n\n\u2003\u2003-6x \u2212 7(8x \u2212 8) = -6  \nCompute:\n\n\u2003\u2003-6x \u2212 56x + 56 = -6  \n\u2003\u2003(-6 \u2212 56)x + 56 = -6  \n\u2003\u2003-62x + 56 = -6\n\nNow solve for x:\n\n\u2003\u2003-62x = -6 \u2212 56 = -62  \n\u2003\u2003x = (-62)/(-62) = 1\n\n### Step 4: Find y  \nUse y = 8x \u2212 8:\n\n\u2003\u2003y = 8(1) \u2212 8 = 0\n\n### Step 5: Verify in both equations\n\nEquation 1: -6(1) \u2212 7(0) = -6 \u2714  \nEquation 2: -8(1) + 1(0) = -8 \u2714\n\n\u2705 Both satisfied.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 9 FINAL: x=1.0,y=0.0",
+    "SAMPLE 10 PROMPT: Solve the linear system for x and y.\nEquation 1: -6.0*x + -7.0*y = -6.0\nEquation 2: -8.0*x + 1.0*y = -8.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003-6.0x - 7.0y = -6.0  \nEquation 2:  \n\u2003-8.0x + 1.0y = -8.0\n\nLet\u2019s solve this step by step.\n\n### Step 1: Simplify equations (optional \u2014 keep decimals for now)\n\nEquation 1:  \n\u2003-6x - 7y = -6  \nEquation 2:  \n\u2003-8x + y = -8\n\n### Step 2: Solve one equation for one variable\n\nFrom Equation 2:  \n\u2003-8x + y = -8  \n\u2192 y = 8x - 8  *(Add 8x to both sides)*\n\n### Step 3: Substitute into Equation 1\n\nSubstitute y = 8x - 8 into Equation 1:\n\n\u2003-6x - 7(8x - 8) = -6  \n\u2192 -6x - 56x + 56 = -6  \n\u2192 -62x + 56 = -6  \n\u2192 -62x = -6 - 56 = -62  \n\u2192 x = (-62)/(-62) = 1\n\n### Step 4: Plug x = 1 into y = 8x - 8\n\ny = 8(1) - 8 = 8 - 8 = 0\n\n### Step 5: Verify solution in both equations\n\nCheck Equation 1:  \n-6(1) - 7(0) = -6 - 0 = -6 \u2714\ufe0f\n\nCheck Equation 2:  \n-8(1) + 1(0) = -8 + 0 = -8 \u2714\ufe0f\n\n\u2705 Solution is correct.\n\nFINAL: x=1.0,y=0.0",
+    "SAMPLE 10 FINAL: x=1.0,y=0.0",
+    "VOTE SUMMARY: x=1.0,y=0.0 -> 8, x=-620.0,y=-6.0 -> 1, x=-62.0,y=-6.0 -> 1",
+    "VOTE WINNER: x=1.0,y=0.0 (8/10)"
+  ]
+}

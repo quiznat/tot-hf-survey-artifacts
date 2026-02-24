@@ -1,0 +1,69 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-012500-5b9bf1.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "(3, 8)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        9,
+        9,
+        99
+      ],
+      [
+        -7,
+        5,
+        19
+      ]
+    ]
+  },
+  "item_id": "lin-v4-026",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 27947,
+    "success": 1,
+    "tokens_in": 442,
+    "tokens_out": 203
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-012500-5b9bf1",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 621247319,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:25:00Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task provides a list of equations in the form [a, b, c], which likely represents linear equations of the form ax + by = c. The input is [[9, 9, 99], [-7, 5, 19]]. So we have:\n\n1) 9x + 9y = 99  \n2) -7x + 5y = 19\n\nWe need to solve this system of equations for x and y.\n\nFirst, simplify equation (1): divide both sides by 9 \u2192 x + y = 11 \u2192 so y = 11 - x.\n\nSubstitute into equation (2):  \n-7x + 5(11 - x) = 19  \n-7x + 55 - 5x = 19  \n-12x + 55 = 19  \n-12x =",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Continuing the algebra:  \n-12x + 55 = 19  \n\u2192 -12x = 19 - 55 = -36  \n\u2192 x = (-36)/(-12) = 3  \n\nThen y = 11 - x = 11 - 3 = 8  \n\nSo the solution is x = 3, y = 8. Let\u2019s verify with the second equation:  \n-7(3) + 5(8) = -21 + 40 = 19 \u2714\ufe0f  \n\nThus, the answer is x = 3, y = 8. Since the task likely expects the solution as an ordered pair or values, I\u2019ll present it as (3, 8).",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: (3, 8)"
+  ]
+}

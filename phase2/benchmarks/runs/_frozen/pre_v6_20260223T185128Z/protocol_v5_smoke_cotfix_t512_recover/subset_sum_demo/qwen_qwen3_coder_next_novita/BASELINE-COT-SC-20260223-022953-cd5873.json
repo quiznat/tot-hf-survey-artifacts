@@ -1,0 +1,98 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-022953-cd5873.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "2,6,14,18,22",
+        3
+      ],
+      [
+        "2,14,22,24",
+        2
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "2,6,14,18,22",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      14,
+      18,
+      22,
+      24
+    ],
+    "target": 62
+  },
+  "item_id": "ss-v4-004",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 53147,
+    "success": 1,
+    "tokens_in": 984,
+    "tokens_out": 1187
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-022953-cd5873",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1288386879,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T02:29:53Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given numbers: [2, 6, 14, 18, 22, 24]  \nTarget: 62  \nWe need to select a subset (each used at most once) that sums to 62.\n\nLet\u2019s try combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 = 8  \n8 + 14 = 22  \n22 + 18 = 40  \n40 + 22 = 62  \n62 + 24 = 86  \nSo total is 86. We need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo if we exclude numbers that sum to 24, the rest sum to 62.\n\nWhich numbers sum to 24?  \nLook at list: 24 itself is there. So exclude just 24 \u2192 remaining numbers: [2, 6, 14, 18, 22]  \nSum: 2 + 6 = 8; 8 + 14 = 22; 22 + 18 = 40; 40 + 22 = 62 \u2705\n\nSo the subset is: 2, 6, 14, 18, 22\n\nCheck: 2 + 6 = 8; 8 + 14 = 22; 22 + 18 = 40; 40 + 22 = 62 \u2014 correct.\n\nAlternative: try direct combinations.\n\nTry largest numbers: 24 + 22 = 46; 62 \u2212 46 = 16 \u2192 need 16 from remaining [2,6,14,18]  \n14 + 2 = 16 \u2192 so 24 + 22 + 14 + 2 = 62  \nCheck: 24 + 22 = 46; 14 + 2 = 16; 46 + 16 = 62 \u2705  \nThat\u2019s another valid subset: 2, 14, 22, 24\n\nWait \u2014 conflict? Let's verify both.\n\nFirst subset: 2, 6, 14, 18, 22",
+    "SAMPLE 1 FINAL: 2,6,14,18,22",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given numbers: [2, 6, 14, 18, 22, 24]  \nTarget sum: 62  \nWe need to select a subset (each number used at most once) that sums to 62.\n\nLet\u2019s try to find combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 + 14 + 18 + 22 + 24 =  \n2+6=8, 8+14=22, 22+18=40, 40+22=62, 62+24=86  \nSo total is 86. We need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo instead of finding a subset that sums to 62, we can find a subset to *exclude* that sums to 24 \u2014 then the rest sum to 62.\n\nWhich numbers sum to 24?  \nLook at list: 24 itself is there. So exclude 24 \u2192 remaining numbers: [2, 6, 14, 18, 22]  \nSum: 2+6=8, +14=22, +18=40, +22=62 \u2705\n\nSo the subset is: 2, 6, 14, 18, 22\n\nCheck: 2 + 6 = 8; 8 + 14 = 22; 22 + 18 = 40; 40 + 22 = 62 \u2714\ufe0f\n\nAlternative: try other combinations?  \nWhat about including 24? Then need 62 \u2212 24 = 38 from remaining [2,6,14,18,22]  \nTry 22 + 14 = 36, need 2 more \u2192 2 \u2192 22+14+2 = 38 \u2192 so 24 + 22 + 14 + 2 = 62  \nThat\u2019s: 2, 14, 22, 24 \u2192 sum: 2+14=16, +22=38, +24=62 \u2705  \nSo another valid subset: 2",
+    "SAMPLE 2 FINAL: 2,6,14,18,22",
+    "SAMPLE 2 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given numbers: [2, 6, 14, 18, 22, 24]  \nTarget sum: 62  \nWe need to select a subset (each number used at most once) that sums to 62.\n\nLet\u2019s try to find combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 + 14 + 18 + 22 + 24 =  \n2+6=8, 8+14=22, 22+18=40, 40+22=62, 62+24=86  \nSo total is 86. We need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo instead of finding a subset that sums to 62, we can find a subset to *exclude* that sums to 24 \u2014 then the rest sum to 62.\n\nWhich numbers sum to 24?  \nLook at list: 24 itself is there. So exclude 24 \u2192 remaining numbers: [2, 6, 14, 18, 22]  \nSum: 2+6=8, +14=22, +18=40, +22=62 \u2705\n\nSo the subset is: 2, 6, 14, 18, 22\n\nCheck: 2 + 6 = 8; 8 + 14 = 22; 22 + 18 = 40; 40 + 22 = 62 \u2714\ufe0f\n\nAlternative: try other combinations?  \nWhat about including 24? Then need 62 \u2212 24 = 38 from remaining [2,6,14,18,22]  \nTry 22 + 14 = 36, need 2 more \u2192 2 \u2192 22+14+2 = 38 \u2192 so 24 + 22 + 14 + 2 = 62  \nThat\u2019s: 2, 14, 22, 24 \u2192 sum: 2+14=16, +22=38, +24=62 \u2705  \nSo another valid subset: 2\n\nAnswer only:",
+    "SAMPLE 2 OUTPUT: RECOVERY OUTPUT: 2,6,14,18,22",
+    "SAMPLE 2 FINAL: 2,6,14,18,22",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given numbers: [2, 6, 14, 18, 22, 24]  \nTarget sum: 62  \nWe need to select a subset (each number used at most once) that sums to 62.\n\nLet\u2019s try to find combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 + 14 + 18 + 22 + 24 =  \n= (2+6) + (14+18) + (22+24) = 8 + 32 + 46 = 86  \nSo we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo instead of finding numbers that sum to 62, we can find numbers to exclude that sum to 24.\n\nWhich subsets of the list sum to 24?\n\nCheck possible subsets:\n\n- 24 alone \u2192 yes! So exclude 24 \u2192 remaining numbers: [2, 6, 14, 18, 22]  \nSum = 2+6+14+18+22 = 62 \u2705\n\nSo one valid solution is: 2, 6, 14, 18, 22\n\nLet\u2019s verify:  \n2 + 6 = 8  \n8 + 14 = 22  \n22 + 18 = 40  \n40 + 22 = 62 \u2705\n\nAre there other solutions? Let\u2019s check quickly.\n\nTry excluding other combos that sum to 24:\n\n- 2 + 22 = 24 \u2192 exclude 2 and 22 \u2192 remaining: [6, 14, 18, 24]  \nSum = 6+14=20, +18=38, +24=62 \u2705  \nSo another solution: 6, 14, 18, 24\n\n- 6 + 18 = 24 \u2192 exclude 6 and 18 \u2192 remaining: [2, 14, 22, 24]  \nSum = 2+14=16, +22=38, +24=62 \u2705  \n\u2192 2, 14, 22, 24\n\n- 2 +",
+    "SAMPLE 3 FINAL: 2,14,22,24",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given numbers: [2, 6, 14, 18, 22, 24]  \nTarget: 62  \nWe need to select a subset (each used at most once) that sums to 62.\n\nLet\u2019s try to find combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 = 8  \n8 + 14 = 22  \n22 + 18 = 40  \n40 + 22 = 62  \n62 + 24 = 86  \nSo total is 86. We need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo instead of finding numbers that sum to 62, we can find numbers to exclude that sum to 24.\n\nWhich numbers sum to 24?  \nLook at list: 2, 6, 14, 18, 22, 24  \n24 itself is in the list \u2192 exclude 24 \u2192 remaining sum = 86 \u2212 24 = 62  \nSo the subset is all numbers except 24: [2, 6, 14, 18, 22]\n\nCheck sum:  \n2 + 6 = 8  \n8 + 14 = 22  \n22 + 18 = 40  \n40 + 22 = 62 \u2705\n\nAlternative: Could there be other subsets? Let\u2019s verify quickly.\n\nTry including 24: then need 62 \u2212 24 = 38 from remaining [2,6,14,18,22]  \nCan we make 38?  \nTry 22 + 14 = 36, need 2 more \u2192 2 \u2192 22+14+2 = 38 \u2705  \nSo 24 + 22 + 14 + 2 = 62  \nCheck: 24+22=46, +14=60, +2=62 \u2705  \nThat\u2019s another valid subset: [2,14,22,24]\n\nWait \u2014 conflict? Let\u2019s double-check.\n\nEarlier we had [2,6,14,18,22] = 62  \nNow [2,1",
+    "SAMPLE 4 FINAL: 2,6,14,18,22",
+    "SAMPLE 4 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nSelect one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nPrevious reasoning:\nWe are given numbers: [2, 6, 14, 18, 22, 24]  \nTarget: 62  \nWe need to select a subset (each used at most once) that sums to 62.\n\nLet\u2019s try to find combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 = 8  \n8 + 14 = 22  \n22 + 18 = 40  \n40 + 22 = 62  \n62 + 24 = 86  \nSo total is 86. We need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo instead of finding numbers that sum to 62, we can find numbers to exclude that sum to 24.\n\nWhich numbers sum to 24?  \nLook at list: 2, 6, 14, 18, 22, 24  \n24 itself is in the list \u2192 exclude 24 \u2192 remaining sum = 86 \u2212 24 = 62  \nSo the subset is all numbers except 24: [2, 6, 14, 18, 22]\n\nCheck sum:  \n2 + 6 = 8  \n8 + 14 = 22  \n22 + 18 = 40  \n40 + 22 = 62 \u2705\n\nAlternative: Could there be other subsets? Let\u2019s verify quickly.\n\nTry including 24: then need 62 \u2212 24 = 38 from remaining [2,6,14,18,22]  \nCan we make 38?  \nTry 22 + 14 = 36, need 2 more \u2192 2 \u2192 22+14+2 = 38 \u2705  \nSo 24 + 22 + 14 + 2 = 62  \nCheck: 24+22=46, +14=60, +2=62 \u2705  \nThat\u2019s another valid subset: [2,14,22,24]\n\nWait \u2014 conflict? Let\u2019s double-check.\n\nEarlier we had [2,6,14,18,22] = 62  \nNow [2,1\n\nAnswer only:",
+    "SAMPLE 4 OUTPUT: RECOVERY OUTPUT: 2,6,14,18,22",
+    "SAMPLE 4 FINAL: 2,6,14,18,22",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 14, 18, 22, 24]\nTarget: 62\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the list: [2, 6, 14, 18, 22, 24]  \nTarget sum: 62  \nWe need to select a subset (each number used at most once) that sums to 62.\n\nLet\u2019s try to find combinations.\n\nFirst, total sum of all numbers:  \n2 + 6 + 14 + 18 + 22 + 24 =  \n(2+6)=8, (8+14)=22, (22+18)=40, (40+22)=62, (62+24)=86  \nSo total is 86. We need 62, so we need to exclude numbers summing to 86 \u2212 62 = 24.\n\nSo instead of finding numbers that sum to 62, we can find numbers to *exclude* that sum to 24 \u2014 then the rest sum to 62.\n\nWhich subset of the list sums to 24?\n\nCheck possible subsets:\n\n- 24 itself \u2192 yes! So exclude 24 \u2192 remaining numbers: [2, 6, 14, 18, 22]  \nSum: 2+6=8, +14=22, +18=40, +22=62 \u2192 \u2705\n\nSo one valid solution is: 2, 6, 14, 18, 22\n\nAre there others? Let\u2019s check if any other subset sums to 24 (to see if alternative solutions exist):\n\n- 2 + 22 = 24 \u2192 exclude 2 and 22 \u2192 remaining: [6, 14, 18, 24]  \nSum: 6+14=20, +18=38, +24=62 \u2192 \u2705  \nSo another solution: 6, 14, 18, 24\n\n- 6 + 18 = 24 \u2192 exclude 6 and 18 \u2192 remaining: [2, 14, 22, 24]  \nSum: 2+14=16, +22=38, +24=62 \u2192 \u2705  \nSo: 2, 14, 22, 24\n\n-",
+    "SAMPLE 5 FINAL: 2,14,22,24",
+    "VOTE SUMMARY: 2,6,14,18,22 -> 3, 2,14,22,24 -> 2",
+    "VOTE WINNER: 2,6,14,18,22 (3/5)"
+  ]
+}

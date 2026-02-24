@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-191557-b9d93f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "x=-9.0,y=-3.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        1,
+        -3,
+        0
+      ],
+      [
+        1,
+        7,
+        -30
+      ]
+    ]
+  },
+  "item_id": "lin-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8745,
+    "success": 1,
+    "tokens_in": 43,
+    "tokens_out": 124
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260223-191557-b9d93f",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3768981616,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T19:15:57Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve the linear system for x and y.\nEquation 1: 1.0*x + -3.0*y = 0.0\nEquation 2: 1.0*x + 7.0*y = -30.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the system:\n\n1) $ 1.0x - 3.0y = 0.0 $  \n2) $ 1.0x + 7.0y = -30.0 $\n\n**Step 1: Subtract Equation 1 from Equation 2**  \nThis eliminates $ x $:\n\n$$\n(1.0x + 7.0y) - (1.0x - 3.0y) = -30.0 - 0.0\n$$\n$$\n1.0x - 1.0x + 7.0y + 3.0y = -30.0\n$$\n$$\n10.0y = -30.0\n$$\n\n**Step 2: Solve for $ y $**  \n$$\ny = \\frac{-30.0}{10.0} = -3.0\n$$\n\n**Step 3: Plug $ y = -3.0 $ into Equation 1 to solve for $ x $**  \nEquation 1:  \n$$\nx - 3y = 0 \\Rightarrow x = 3y = 3(-3.0) = -9.0\n$$\n\nSo, $ x = -9.0 $, $ y = -3.0 $\n\nFINAL: x=-9.0,y=-3.0",
+    "FINAL: x=-9.0,y=-3.0"
+  ]
+}

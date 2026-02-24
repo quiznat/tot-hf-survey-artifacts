@@ -1,0 +1,142 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen2_5_72b_instruct/BASELINE-COT-SC-20260224-204958-05b432.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "- ( 20 + 4",
+        1
+      ],
+      [
+        "10 + 4 * (1 + 1) + 1",
+        1
+      ],
+      [
+        "+ 1 - 1",
+        1
+      ],
+      [
+        "- ((10 - 1) * (4 + 1)",
+        1
+      ],
+      [
+        "- (30 - 6",
+        1
+      ],
+      [
+        "( 36 - 1",
+        1
+      ],
+      [
+        "(4 - 1) + 1 - 1",
+        1
+      ],
+      [
+        "- (4 * 10",
+        1
+      ],
+      [
+        "- (10 * 4",
+        1
+      ],
+      [
+        "(1 + 1) + 4",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "- ( 20 + 4",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 22790,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2697
+  },
+  "model_name": "Qwen/Qwen2.5-72B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204958-05b432",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:49:58Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: Let's approach this step-by-step:\n\n1. We have the numbers: 4, 10, 1, 1.\n2. We need to use each number exactly once to get 24.\n3. We can use arithmetic operations: addition (+), subtraction (-), multiplication (*), and division (/).\n\nLet's explore different combinations:\n\n- **Multiplication and Addition**:\n  - \\( 10 \\times 4 = 40 \\)\n  - \\( 40 - 1 = 39 \\)\n  - \\( 39 - 1 = 38 \\) (This doesn't work)\n\n- **Division and Multiplication**:\n  - \\( 10 / 1 = 10 \\)\n  - \\( 10 \\times 4 = 40 \\)\n  - \\( 40 - 1 = 39 \\) (This doesn't work)\n\n- **Combining all operations**:\n  - \\( 10 \\times (4 - 1) = 30 \\)\n  - \\( 30 - 1 = 29 \\) (This doesn't work)\n\n- **Using parentheses and different orders**:\n  - \\( (10 + 1) \\times (4 - 1) = 11 \\times 3 = 33 \\)\n  - \\( 33 - 1 = 32 \\) (This doesn't work)\n\n- **Another combination**:\n  - \\( (10 - 1) \\times (4 - 1) = 9 \\times 3 = 27 \\)\n  - \\( 27 - 1 = 26 \\) (This doesn't work)\n\n- **Trying a different approach**:\n  - \\( 10 \\times (1 + 1) = 10 \\times 2 = 20 \\)\n  - \\( 20 + 4 = 24 \\) (This works!)\n\nSo, the correct expression is:\n\nFINAL: \\( 10 \\times (1 + 1) + 4 \\)",
+    "SAMPLE 1 FINAL: - ( 20 + 4",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: To solve this, let's consider the numbers and operations that can lead to 24. We need to use each of 4, 10, 1, and 1 exactly once.\n\n1. Start by considering the number 10. It's a large number, so it might be useful to multiply it by something to get close to 24.\n2. Multiplying 10 by 2.4 would give us 24, but we don't have a 2.4. However, we can get 2.4 by dividing 4 by 1.67, but that's not possible with the given numbers.\n3. Another approach is to use addition and subtraction. If we can get 14 and add 10, we would have 24.\n4. We can get 14 by using 4 and 1. Specifically, 4 * (1 + 1) + 10 = 4 * 2 + 10 = 8 + 10 = 18. This is close but not 24.\n5. Instead, let's try a different approach: 10 + 4 * (1 + 1) = 10 + 4 * 2 = 10 + 8 = 18. Again, not 24.\n6. Let's try using division: 10 * (4 / (1 + 1)) = 10 * (4 / 2) = 10 * 2 = 20. Still not 24.\n7. Finally, let's try a combination of addition and multiplication: 10 + 4 * (1 + 1) = 10 + 4 * 2 = 10 + 8 = 18. This is close, but we need to add 6 more.\n8. We can use the remaining 1 to adjust: 10 + 4 * (1 + 1) + 1 = 10 + 8 + 1 = 19. Still not 24.\n9. Let's try another approach: 10 * (4 - 1) + 1 = 10 * 3 + 1 = 30 + 1 = 31. Too high.\n10. Finally, let's try: (10 - 1) * (4 - 1)",
+    "SAMPLE 2 FINAL: 10 + 4 * (1 + 1) + 1",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: To achieve 24 using the numbers [4, 10, 1, 1] exactly once, let's explore different combinations and operations:\n\n1. Start by considering the multiplication of 4 and 10:\n   - \\(4 \\times 10 = 40\\)\n   - We need to reduce this to 24 using the remaining 1s. \n\n2. Consider adding or subtracting the 1s:\n   - \\(40 - 1 - 1 = 38\\) (too high)\n   - \\(40 - 1 + 1 = 40\\) (unchanged)\n\n3. Try dividing 40 by a combination of the 1s:\n   - \\(40 \\div (1 + 1) = 20\\) (not 24)\n\n4. Consider other operations like addition and subtraction:\n   - \\(10 + 4 + 1 + 1 = 16\\) (too low)\n   - \\(10 \\times 4 - 1 - 1 = 38\\) (too high)\n\n5. Explore using division and subtraction:\n   - \\(10 \\div (1 + 1) + 4 = 7\\) (too low)\n   - \\(10 \\div (1 + 1) \\times 4 = 20\\) (not 24)\n\n6. Finally, consider a combination of multiplication and addition:\n   - \\(10 \\times (4 - 1) + 1 = 31\\) (too high)\n   - \\(10 \\times (4 - 1) - 1 = 29\\) (too high)\n   - \\(10 \\times (4 - 1) - 1 - 1 = 27\\) (too high)\n\nAfter exploring various combinations, it seems we need a different approach. Let's try a factorial or another operation:\n\n7. Use factorial:\n   - \\(4! = 24\\)\n   - We can use the 1s to make up the difference:\n   - \\(4! + 1 - 1 = 24\\)\n\nHowever, since we need to use all numbers exactly once, let's re-evaluate:\n\n8. Reconsider the initial approach with a different combination:\n   - \\(10 \\times (4 - 1) - 1 = 29\\) (too high)\n   - \\(10 \\times",
+    "SAMPLE 3 FINAL: + 1 - 1",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: To solve this problem, we need to use each of the numbers [4, 10, 1, 1] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider combinations**: We need to find a combination that results in 24.\n\nLet's try different combinations:\n\n- **Multiplication and Addition**:\n  - \\(4 \\times 10 = 40\\)\n  - \\(40 - 1 = 39\\)\n  - \\(39 - 1 = 38\\) (This doesn't work)\n\n- **Multiplication and Division**:\n  - \\(4 \\times 10 = 40\\)\n  - \\(40 \\div 1 = 40\\) (This doesn't work)\n\n- **Addition and Subtraction**:\n  - \\(10 + 4 = 14\\)\n  - \\(14 + 1 = 15\\)\n  - \\(15 + 1 = 16\\) (This doesn't work)\n\n- **Combining all operations**:\n  - \\(10 - 1 = 9\\)\n  - \\(9 - 1 = 8\\)\n  - \\(8 \\times 4 = 32\\) (This doesn't work)\n\n- **Another approach**:\n  - \\(10 - 1 = 9\\)\n  - \\(9 + 1 = 10\\)\n  - \\(10 \\times 4 = 40\\) (This doesn't work)\n\n- **Final attempt**:\n  - \\(10 - 1 = 9\\)\n  - \\(9 \\times 4 = 36\\)\n  - \\(36 - 1 = 35\\) (This doesn't work)\n\nAfter several attempts, let's try a different approach:\n\n- **Using division and subtraction**:\n  - \\(10 - 1 = 9\\)\n  - \\(9 \\times 4 = 36\\)\n  - \\(36 - 1 = 35\\) (This doesn't work)\n\nFinally, let's try:\n\n- **Using parentheses and division**:\n  - \\((10 - 1) \\times (4 + 1) = 9 \\times 5 = 45\\) (This doesn't",
+    "SAMPLE 4 FINAL: - ((10 - 1) * (4 + 1)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: To solve this problem, we need to use each of the numbers [4, 10, 1, 1] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify the target**: We need to reach 24.\n2. **Consider basic operations**: Addition, subtraction, multiplication, and division.\n3. **Explore combinations**:\n   - Multiplication and division can help us reach larger numbers more quickly.\n   - Addition and subtraction can fine-tune the result.\n\nLet's try different combinations:\n\n- **Multiplication and Addition**:\n  - \\(10 \\times 4 = 40\\)\n  - \\(40 - 1 = 39\\)\n  - \\(39 - 1 = 38\\) (not 24)\n\n- **Division and Addition**:\n  - \\(10 \\div 1 = 10\\)\n  - \\(10 + 4 = 14\\)\n  - \\(14 + 1 = 15\\) (not 24)\n\n- **Multiplication and Subtraction**:\n  - \\(10 \\times 4 = 40\\)\n  - \\(40 - 1 = 39\\)\n  - \\(39 - 1 = 38\\) (not 24)\n\n- **Combining all operations**:\n  - \\(10 \\times (4 - 1) = 10 \\times 3 = 30\\)\n  - \\(30 + 1 = 31\\) (not 24)\n\n- **Another approach**:\n  - \\(10 \\times (4 - 1) = 10 \\times 3 = 30\\)\n  - \\(30 - 6 = 24\\) (but we don't have 6)\n\n- **Correct combination**:\n  - \\(10 \\times (4 - 1 + 1) = 10 \\times 4 = 40\\)\n  - \\(40 - 16 = 24\\) (but we don't have 16)\n\n- **Final correct combination**:\n  - \\(10 \\times (4 - 1) = 10 \\times 3 = 30\\)\n  - \\(30 - 6 = 24\\) (but we don't have 6)\n\nAfter re-evalu",
+    "SAMPLE 5 FINAL: - (30 - 6",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: To solve this problem, we need to use each of the numbers [4, 10, 1, 1] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider the target number**: We need to reach 24.\n3. **Explore combinations**:\n   - Multiplication and addition often help in reaching larger numbers.\n   - Division and subtraction can be used to adjust the values to reach the target.\n\nLet's try different combinations:\n\n- **Combination 1**: \\( (10 - 1) \\times 4 + 1 \\)\n  - Calculate inside the parentheses first: \\( 10 - 1 = 9 \\)\n  - Multiply by 4: \\( 9 \\times 4 = 36 \\)\n  - Add 1: \\( 36 + 1 = 37 \\) (This is not 24)\n\n- **Combination 2**: \\( (10 + 1) \\times (4 - 1) \\)\n  - Calculate inside the parentheses: \\( 10 + 1 = 11 \\) and \\( 4 - 1 = 3 \\)\n  - Multiply: \\( 11 \\times 3 = 33 \\) (This is not 24)\n\n- **Combination 3**: \\( (10 - 1) \\times (4 + 1) \\)\n  - Calculate inside the parentheses: \\( 10 - 1 = 9 \\) and \\( 4 + 1 = 5 \\)\n  - Multiply: \\( 9 \\times 5 = 45 \\) (This is not 24)\n\n- **Combination 4**: \\( (10 - 1) \\times 4 - 1 \\)\n  - Calculate inside the parentheses: \\( 10 - 1 = 9 \\)\n  - Multiply by 4: \\( 9 \\times 4 = 36 \\)\n  - Subtract 1: \\( 36 - 1 = 35 \\) (This is not 24)\n\n- **Combination 5**: \\( (10 - 1) \\times (4 - 1) + 1 \\)\n  - Calculate inside the parentheses: \\( 10 - 1 = 9",
+    "SAMPLE 6 FINAL: ( 36 - 1",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: To solve this problem, we need to use each of the numbers [4, 10, 1, 1] exactly once to produce 24. Let's break it down step by step:\n\n1. **Identify possible operations**: We can use addition, subtraction, multiplication, and division.\n2. **Consider the numbers**: We have two 1s, which can be combined in different ways (e.g., 1 + 1 = 2, 1 * 1 = 1).\n3. **Explore combinations**:\n   - Using the two 1s: \\(1 + 1 = 2\\)\n   - Now we have the numbers 4, 10, and 2.\n   - We need to find a way to combine these to get 24.\n   - One approach is to multiply 10 by 2.4, but since we only have integers, we need to find another way.\n   - Another approach is to use division and multiplication: \\(10 \\times (4 - 1) = 10 \\times 3 = 30\\), but this is too large.\n   - Let's try using the two 1s differently: \\(10 \\times 4 - 1 - 1 = 40 - 2 = 38\\), still not correct.\n   - Let's try another combination: \\(10 \\times (4 - 1 + 1) = 10 \\times 4 = 40\\), still not correct.\n   - Finally, let's try: \\(10 \\times (4 - 1) + 1 = 10 \\times 3 + 1 = 30 + 1 = 31\\), still not correct.\n   - Another combination: \\(10 \\times (4 - 1) - 1 = 10 \\times 3 - 1 = 30 - 1 = 29\\), still not correct.\n   - Let's try: \\(10 \\times (4 - 1) + 1 - 1 = 10 \\times 3 = 30\\), still not correct.\n   - Finally, let's try: \\(10 \\times (4 - 1) - 1 + 1 = 10 \\times 3 = 30\\), still not correct.\n   - Let's try: \\(10",
+    "SAMPLE 7 FINAL: (4 - 1) + 1 - 1",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: To solve this problem, we need to use each of the numbers [4, 10, 1, 1] exactly once to produce 24. Let's break it down step by step:\n\n1. **Consider the operations**: We can use addition, subtraction, multiplication, and division.\n2. **Start with simple combinations**:\n   - \\(4 \\times 10 = 40\\)\n   - \\(4 + 10 = 14\\)\n   - \\(4 - 10 = -6\\)\n   - \\(10 - 4 = 6\\)\n3. **Incorporate the remaining 1s**:\n   - Using \\(10 - 1 = 9\\) and \\(4 \\times 9 = 36\\) (too high)\n   - Using \\(10 + 1 = 11\\) and \\(4 \\times 11 = 44\\) (too high)\n   - Using \\(10 / 1 = 10\\) and \\(4 \\times 10 = 40\\) (too high)\n4. **Try more complex combinations**:\n   - \\(10 - 1 = 9\\) and \\(9 \\times 4 = 36\\) (too high)\n   - \\(10 + 1 = 11\\) and \\(11 \\times 4 = 44\\) (too high)\n5. **Consider using division and addition/subtraction together**:\n   - \\(10 - 1 = 9\\) and \\(9 \\times 4 = 36\\) (too high)\n   - \\(10 + 1 = 11\\) and \\(11 \\times 4 = 44\\) (too high)\n6. **Use the second 1 in a different way**:\n   - \\(10 - 1 = 9\\) and \\(9 \\times 4 = 36\\) (too high)\n   - \\(10 + 1 = 11\\) and \\(11 \\times 4 = 44\\) (too high)\n7. **Try a different approach**:\n   - \\(10 - 1 = 9\\) and \\(9 \\times 4 = 36\\) (too high)\n   - \\(10 + 1 = 11\\) and \\(11 \\times 4 = 44\\) (too high)\n8. **Finally,",
+    "SAMPLE 8 FINAL: - (4 * 10",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: To solve the problem of using the numbers [4, 10, 1, 1] exactly once to produce 24, let's break it down step by step:\n\n1. **Identify the target**: We need to reach 24.\n2. **Consider operations**: Addition, subtraction, multiplication, and division can be used.\n3. **Explore combinations**:\n   - Start with the largest number, 10, and see if we can use it effectively.\n   - Consider using the smaller numbers (4, 1, 1) to modify 10 or combine with each other.\n\nLet's try different approaches:\n\n- **Approach 1**: Use 10 as a base and modify it with the other numbers.\n  - \\(10 \\times 4 = 40\\), but we need to reduce this to 24.\n  - \\(10 + 4 = 14\\), which is too small.\n  - \\(10 - 4 = 6\\), which is also too small.\n  - \\(10 \\div 4 = 2.5\\), which is too small.\n\n- **Approach 2**: Combine smaller numbers first.\n  - \\(4 + 1 + 1 = 6\\)\n  - \\(10 \\times 6 = 60\\), which is too large.\n  - \\(10 + 6 = 16\\), which is too small.\n  - \\(10 - 6 = 4\\), which is too small.\n  - \\(10 \\div 6 \\approx 1.67\\), which is too small.\n\n- **Approach 3**: Use division and multiplication creatively.\n  - \\(10 \\times (4 - 1 + 1) = 10 \\times 4 = 40\\), which is too large.\n  - \\(10 \\times (4 - 1) = 10 \\times 3 = 30\\), which is too large.\n  - \\(10 \\times (4 + 1 - 1) = 10 \\times 4 = 40\\), which is too large.\n\n- **Approach 4**: Use fractions or more complex operations.\n  - \\(10 \\times \\left( \\frac{4}{1} + 1 \\right) = 10 \\times 5 = 50\\",
+    "SAMPLE 9 FINAL: - (10 * 4",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: To solve this problem, let's consider the numbers and operations that can be used to reach 24.\n\nGiven numbers: 4, 10, 1, 1\n\n1. Start by considering the largest number, 10, and see if we can use it in a way that helps us get closer to 24.\n2. Since we have two 1s, they can be used to either add or multiply without changing the value much, or they can be combined in a division or subtraction to create a useful intermediate result.\n3. The number 4 can be used in multiplication or addition to help reach 24.\n\nLet's try different combinations:\n\n- \\(10 \\times 4 = 40\\) is too large.\n- \\(10 + 4 = 14\\) is too small.\n- \\(10 - 4 = 6\\) is too small.\n- \\(10 / 4 = 2.5\\) is not useful here.\n\nNow, let's try using the 1s:\n\n- \\(10 + 1 + 1 = 12\\), then \\(12 \\times 2 = 24\\), but we don't have another 2.\n- \\(10 - 1 - 1 = 8\\), then \\(8 \\times 3 = 24\\), but we don't have another 3.\n- \\(10 \\times (1 + 1) = 20\\), then \\(20 + 4 = 24\\).\n\nThis works! Let's verify:\n\n\\[ 10 \\times (1 + 1) + 4 = 10 \\times 2 + 4 = 20 + 4 = 24 \\]\n\nSo, the final expression is:\n\nFINAL: \\(10 \\times (1 + 1) + 4\\)",
+    "SAMPLE 10 FINAL: (1 + 1) + 4",
+    "VOTE SUMMARY: - ( 20 + 4 -> 1, 10 + 4 * (1 + 1) + 1 -> 1, + 1 - 1 -> 1, - ((10 - 1) * (4 + 1) -> 1, - (30 - 6 -> 1, ( 36 - 1 -> 1, (4 - 1) + 1 - 1 -> 1, - (4 * 10 -> 1, - (10 * 4 -> 1, (1 + 1) + 4 -> 1",
+    "VOTE WINNER: - ( 20 + 4 (1/10)"
+  ]
+}

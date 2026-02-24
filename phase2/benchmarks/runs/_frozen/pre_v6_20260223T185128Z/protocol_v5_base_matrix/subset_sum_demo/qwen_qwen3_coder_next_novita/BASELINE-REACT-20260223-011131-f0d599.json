@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-011131-f0d599.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "10 + 11 + 13 + 17 = 51",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      10,
+      11,
+      13,
+      17
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-019",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 30098,
+    "success": 0,
+    "tokens_in": 474,
+    "tokens_out": 236
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260223-011131-f0d599",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 3129763266,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:11:31Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to reach the target number 51 using the numbers [5, 10, 11, 13, 17] with no tools available \u2014 implying we must use arithmetic operations (addition, subtraction, multiplication, division, parentheses) on the given numbers, likely each used exactly once. Let's explore combinations.\n\nFirst, sum all numbers: 5 + 10 + 11 + 13 + 17 = 56 \u2014 close to 51, but 5 more.\n\n56 - 5 = 51 \u2192 so if we could subtract one 5, but we only have one 5, and it's already used in the sum.\n\nWait \u2014 maybe (10 + 11 + 13 + 17) = 51! Let's check: 10 + 11 = 21,",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's verify: 10 + 11 = 21, 21 + 13 = 34, 34 + 17 = 51. Yes! That's exactly 51. So using 10, 11, 13, and 17 (all used once), we get 51. The remaining number is 5, but the problem doesn\u2019t explicitly require using *all* numbers \u2014 only that we reach the target using the given numbers (typically in such puzzles, not all numbers need be used unless specified). However, to be safe, let\u2019s double-check if the task implies using all numbers. Since no tools are available and the standard \"countdown\" style puzzle usually allows subset usage unless stated otherwise, and 10+11+13+17=51 is exact, this is a valid solution. Final",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 10 + 11 + 13 + 17 = 51"
+  ]
+}

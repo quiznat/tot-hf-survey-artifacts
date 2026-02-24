@@ -1,0 +1,130 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-204745-63c0e8.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "(10 + 1 + 1)",
+        3
+      ],
+      [
+        "1 + 1)",
+        2
+      ],
+      [
+        "(1/2.4)",
+        1
+      ],
+      [
+        "(1 + 1)",
+        1
+      ],
+      [
+        "- (10 + 1 + 1)",
+        1
+      ],
+      [
+        "20 + 4",
+        1
+      ],
+      [
+        "10 + 1 + 1",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 3
+  },
+  "final_answer": "(10 + 1 + 1)",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5521,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 2740
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-204745-63c0e8",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:47:45Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe need to combine 4, 10, 1, 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nFirst, note that 10 + 4 = 14, and we have two 1s left \u2014 not enough.\n\nWhat about multiplication? 4 \u00d7 10 = 40, then 40 \u2212 ? = 24 \u2192 need to subtract 16, but we only have two 1s \u2192 1 + 1 = 2 \u2192 40 \u2212 2 = 38. Too big.\n\n4 \u00d7 (10 \u2212 1) = 4 \u00d7 9 = 36, then subtract the last 1: 36 \u2212 1 = 35.\n\n(10 + 1 + 1) \u00d7 ? = 12 \u00d7 ? = 24 \u2192 need \u00d72, but we have 4 left \u2014 12 \u00d7 2 = 24, but we don\u2019t have 2, we have 4.\n\nWait: (10 + 1 + 1) = 12, and 12 \u00d7 2 = 24 \u2014 can we get 2 from 4? 4 \u00f7 2 = 2, but no extra 2.\n\nAlternative: (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 close.\n\n(10 \u2212 1 \u2212 1) \u00d7 4 = 8 \u00d7 4 = 32.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33.\n\nHow about division: 10 \u00f7 (1/2.4) = 24, but not helpful.\n\nTry using concatenation? No \u2014 standard 24 game doesn\u2019t allow concatenation unless specified, and the problem says \"use each number exactly once\", implying digits, but here numbers are [4,10,1,1] \u2014 10 is two-digit but treated as one number.\n\nLet\u2019s think: maybe (10 \u00d7 1 + 1) \u00d7 something? 10\u00d71 + 1 =",
+    "SAMPLE 1 FINAL: (1/2.4)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each exactly once to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, 1 using basic arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nFirst, consider that 24 = 4 \u00d7 6, or 12 \u00d7 2, or 8 \u00d7 3, or 48 \u00f7 2, etc.\n\nWe have two 1s \u2014 they can be used to make 2 (1 + 1), or 11 (if concatenation were allowed, but standard 24 game rules usually don\u2019t allow concatenation unless specified; here, since it\u2019s numbers [4,10,1,1], likely only basic operations, no concatenation), so assume no concatenation.\n\nSo possible uses of 1s: 1 + 1 = 2, 1 \u00d7 1 = 1, 1 \u2212 1 = 0, 1 \u00f7 1 = 1.\n\n0 is likely unhelpful. 1 \u00d7 1 = 1 doesn\u2019t help much. 1 + 1 = 2 is promising.\n\nSo try to get 2 from the two 1s \u2192 (1 + 1) = 2.\n\nNow we have 4, 10, and 2 left.\n\nCan we make 24 from 4, 10, 2?\n\nTry: 10 + 4 = 14, 14 + 2 = 16 \u2192 too low.\n\n10 \u00d7 2 = 20, 20 + 4 = 24 \u2192 YES!\n\nSo: (10 \u00d7 (1 + 1)) + 4 = 10 \u00d7 2 + 4 = 20 + 4 = 24.\n\nCheck: uses 10, 1, 1, 4 \u2014 all exactly once.\n\nOrder of operations: parentheses first: (1 + 1) = 2; then 10 \u00d7 2 = 20; then +4 = 24.\n\nPerfect.\n\nAlternative: 4 \u00d7 (10 \u2212 (1 + 1)) = 4 \u00d7 (10 \u2212 2) = 4 \u00d7 8 = 32 \u2192 too high.",
+    "SAMPLE 2 FINAL: (1 + 1)",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know 24 = 4 \u00d7 6, or 12 \u00d7 2, or 8 \u00d7 3, or 48 \u00f7 2, etc.\n\nWe have two 1s, a 4, and a 10.\n\nLet\u2019s consider using subtraction or addition with multiplication.\n\nTry:  \n(10 + 1 + 1) \u00d7 something? That\u2019s 12 \u00d7 2 = 24, but we don\u2019t have a 2 \u2014 unless we make 2 from 4? Wait, 4 \u00f7 2 = 2, but we don\u2019t have a 2.\n\nWait: 4 \u00d7 (10 \u2212 1 \u2212 1) = 4 \u00d7 8 = 32 \u2192 too big.\n\n(10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2192 too big.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33.\n\n10 \u00d7 (4 \u2212 1) \u2212 1 = 10 \u00d7 3 \u2212 1 = 30 \u2212 1 = 29.\n\n10 \u00d7 (4 \u2212 1 \u2212 1) = 10 \u00d7 2 = 20.\n\nHmm.\n\nWhat about (10 \u2212 1) + (4 \u00d7 1) = 9 + 4 = 13.\n\nTry division: 10 \u2212 (4 + 1 + 1) = 4.\n\nNot helpful.\n\nTry: (10 \u00d7 1 + 1) \u00d7 ? \u2192 11 \u00d7 ? = 24? No.\n\nWhat about (10 + 1) \u00d7 1 + 4 = 15.\n\nTry using factorial? But the problem doesn\u2019t mention allowed operations \u2014 typically only +, \u2212, \u00d7, \u00f7, parentheses.\n\nWait: maybe (4 + 1) \u00d7 (10 \u2212 1 \u2212 ?) \u2014 but we only have four numbers.\n\nHold on \u2014 maybe exponentiation? But unless allowed, avoid.\n\nLet\u2019s list all permutations with operations.\n\nWhat if we do:  \n(10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7",
+    "SAMPLE 3 FINAL: 1 + 1)",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each exactly once** to make 24. Only standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) are allowed.\n\nLet\u2019s brainstorm:\n\n- 10 + 4 = 14 \u2192 need 10 more from two 1s \u2192 impossible.\n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 \u2192 no.\n- 10 + 1 + 1 = 12, 12 \u00d7 2 = 24 \u2014 but we don\u2019t have a 2.\n- Can we make 2 from 4 and something? 4 \u00f7 2 = 2, but no 2.\n- Try (10 + 1 + 1) \u00d7 something = 12 \u00d7 2 = 24 \u2192 need 2 from 4? 4 \u00f7 2 = 2, but no extra 2.\n- Wait \u2014 maybe (10 \u2212 4) = 6, and 1 + 1 = 2, then 6 \u00d7 2 = 12 \u2192 too small.\n- (10 + 1) \u00d7 (1 + 1) = 11 \u00d7 2 = 22 \u2192 close.\n- (10 + 1 + 1) \u00d7 something? Already tried.\n- What if we use division: 10 \u00f7 (1 \u2212 1/4)? Let's test that.\n\nCompute 1 \u2212 1/4 = 3/4  \nThen 10 \u00f7 (3/4) = 10 \u00d7 4/3 = 40/3 \u2248 13.33 \u2014 no.\n\nTry (4 + 1) \u00d7 (10 \u2212 1) = 5 \u00d7 9 = 45 \u2014 too big.\n\n(4 \u00d7 10) \u2212 (1 + 1) = 40 \u2212 2 = 38.\n\n(4 \u00d7 10) \u2212 (1 \u00d7 1) = 40 \u2212 1 = 39.\n\n(4 + 10) + (1 \u00d7 1) = 14 + 1 = 15.\n\nWhat about exponentiation? Not allowed unless specified \u2014 standard 24 game uses only +",
+    "SAMPLE 4 FINAL: (10 + 1 + 1)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24.\n\nLet\u2019s consider possible approaches:\n\n- 10 + 4 = 14, then we have two 1s left \u2192 14 + 1 + 1 = 16 \u2192 too small.\n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 again.\n- 10 + 1 + 1 = 12, 12 \u00d7 2 = 24 \u2014 but we don\u2019t have a 2. However, 4 \u00f7 2 = 2, but no 2.\n- Try (10 + 1) \u00d7 (1 + ?) \u2014 11 \u00d7 ? = 24 \u2192 not integer.\n- Try (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2192 close.\n- (10 + 1 + 1) \u00d7 ? = 12 \u00d7 ? = 24 \u2192 need \u00d72, and 4 \u00f7 2 = 2, but again no 2.\nWait \u2014 what if we do 4 \u00d7 (10 \u2212 1 \u2212 1) = 4 \u00d7 8 = 32 \u2192 too big.\n4 \u00d7 (10 \u2212 (1 + 1)) = same as above = 32.\n\nTry division: (10 \u2212 1) \u00d7 (1 + 1) = 9 \u00d7 2 = 18 \u2192 not enough.\n\nWhat about (10 + 4) \u00d7 (1 + 1) = 14 \u00d7 2 = 28.\n\n(10 \u00d7 1) + (4 \u00d7 1) = 14.\n\nHow about (10 + 1) \u00d7 1 + 4 = 15.\n\nTry using exponentiation? But standard 24 game usually allows only +, \u2212, \u00d7, \u00f7, parentheses \u2014 no exponents unless specified. Problem doesn\u2019t specify, but standard assumption is basic operations.\n\nWait \u2014 maybe (4 + 1) \u00d7 (10 \u2212 1) = 5 \u00d7 9 = 45.\n\nHmm.\n\nLet\u2019s consider concatenation? Usually not allowed unless specified. Numbers are given as [4,",
+    "SAMPLE 5 FINAL: - (10 + 1 + 1)",
+    "SAMPLE 6 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nSome observations:\n- 10 + 4 = 14, and we have two 1s left \u2192 14 + 1 + 1 = 16 \u2192 too small.\n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 again.\n- Try multiplication: 4 \u00d7 10 = 40, then subtract something: 40 \u2212 ? = 24 \u2192 need to subtract 16, but we only have two 1s \u2192 1 + 1 = 2, not enough.\n- What if we do (10 + 1 + 1) \u00d7 something? 10 + 1 + 1 = 12, then 12 \u00d7 2 = 24 \u2014 but we don\u2019t have a 2, we have a 4. But 4 / 2 = 2 \u2014 circular.\n\nWait: 12 \u00d7 2 = 24, and we have a 4 \u2014 can we make 2 from 4 and something? 4 / 2 = 2, but no 2.\n\nAlternative: (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 too high.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33 \u2014 too high.\n\n(10 \u2212 1 \u2212 1) \u00d7 4 = 8 \u00d7 4 = 32 \u2014 too high.\n\n(10 \u00d7 1 + 1) \u00d7 something? 10 + 1 = 11, \u00d7 ? = 24? Not helpful.\n\nTry division: 10 / (1/ something). For example, 10 / (1/ (4 + 1)) = 10 \u00d7 5 = 50 \u2014 too big.\n\nWait \u2014 what about (10 + 1) \u00d7 (4 \u2212 1) = 33 again",
+    "SAMPLE 6 FINAL: 1 + 1)",
+    "SAMPLE 7 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24, using standard arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses allowed).\n\nLet\u2019s think step by step.\n\nWe want to reach 24. Some known 24 combos:\n- 6 \u00d7 4 = 24\n- 8 \u00d7 3 = 24\n- 12 \u00d7 2 = 24\n- 48 \u00f7 2 = 24\n- 25 \u2212 1 = 24\n- 20 + 4 = 24\n- 10 + 10 + 4 = 24 (but only one 10)\n\nGiven numbers: 10, 4, 1, 1.\n\nTry combining 10 and 4 first:  \n- 10 + 4 = 14 \u2192 need 10 more from two 1s? Impossible (1+1=2).  \n- 10 \u2212 4 = 6 \u2192 need 4 more? But only two 1s left: 1+1=2 \u2192 6 \u00d7 2 = 12. Not enough.  \n- 10 \u00d7 4 = 40 \u2192 need to subtract 16 using two 1s? 1+1=2 \u2192 40 \u2212 2 = 38. No.  \n- 10 \u00f7 4 = 2.5 \u2192 messy.\n\nTry using both 1s together:  \n- 1 + 1 = 2  \nThen we have: 10, 4, 2  \n\u2192 10 + 4 + 2 = 16  \n\u2192 10 \u00d7 2 + 4 = 24! Wait: 10 \u00d7 2 = 20, +4 = 24. Yes!\n\nBut we used 10, 2 (from 1+1), and 4 \u2014 that\u2019s all four numbers: 10, 4, 1, 1.\n\nExpression: 10 \u00d7 (1 + 1) + 4\n\nCheck:  \n1 + 1 = 2  \n10 \u00d7 2 = 20  \n20 + 4 = 24 \u2705\n\nAll numbers used exactly once.\n\nAnswer",
+    "SAMPLE 7 FINAL: 20 + 4",
+    "SAMPLE 8 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 10 + 4 = 14, and we have two 1s left. 14 + 1 + 1 = 16 \u2192 too small.\n\n10 \u00d7 4 = 40, then 40 \u2212 (1 + 1) = 38 \u2192 too big.\n\n10 \u00d7 (1 + 1) = 20, then 20 + 4 = 24! \u2705  \nCheck: 10 \u00d7 (1 + 1) + 4 = 10 \u00d7 2 + 4 = 20 + 4 = 24.\n\nUsed numbers: 10, 1, 1, 4 \u2014 all exactly once.\n\nYes, this works.\n\nAlternative: (10 + 1 + 1) \u00d7 something? 12 \u00d7 2 = 24, but we don\u2019t have a 2 unless we do 4/2 \u2014 but no 2.\n\nSo the expression above is valid.\n\nFINAL: 10*(1+1)+4",
+    "SAMPLE 8 FINAL: (10 + 1 + 1)",
+    "SAMPLE 9 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the numbers [4, 10, 1, 1] and must use each **exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, 1 using +, \u2212, \u00d7, \u00f7, parentheses, etc., to get 24.\n\nTry some approaches:\n\n- 10 + 4 = 14, then 14 + 1 + 1 = 16 \u2192 too small  \n- 10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14  \n- 10 + 1 = 11, 11 + 4 = 15, +1 = 16  \n- Try multiplication: 4 \u00d7 10 = 40, then 40 \u2212 (1 + 1) = 38 \u2192 too big  \n- 4 \u00d7 (10 \u2212 1) = 36, then \u22121 = 35  \n- (10 + 1 + 1) \u00d7 ? \u2192 12 \u00d7 2 = 24, but we don\u2019t have 2. Can we make 2? 4 / 2 = 2, but no 2. Wait \u2014 we have 4 and two 1s. 1 + 1 = 2, so 4 / (1 + 1) = 2. Then 10 + 2 = 12? No, need 24.\n\nWait \u2014 try: (10 + 1 + 1) \u00d7 (4 / 2) but we only have one 4 and two 1s \u2014 4 / (1 + 1) = 2, yes.\n\nBut (10 + 1 + 1) = 12, and 4 / (1 + 1) = 2, and 12 \u00d7 2 = 24.\n\nLet\u2019s check numbers used: 10, 1, 1, 4 \u2014 all used exactly once.\n\nExpression:  \n(10 + 1 + 1) \u00d7 (4 / (1 + 1)) \u2014 wait! That uses *three* 1s: two in the first sum, two in the denominator \u2014 no! That\u2019s four 1s total \u2014 not allowed. We",
+    "SAMPLE 9 FINAL: (10 + 1 + 1)",
+    "SAMPLE 10 PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possibilities.\n\nFirst, note that 24 factors:  \n- 4 \u00d7 6  \n- 3 \u00d7 8  \n- 12 \u00d7 2  \n- 24 \u00d7 1  \n- etc.\n\nWe have two 1s, a 4, and a 10.\n\nLet\u2019s consider combining the 1s:  \n- 1 + 1 = 2  \n- 1 \u00d7 1 = 1  \n- 1^1 = 1  \n- 1 \u2212 1 = 0 (not helpful)  \n- 1 / 1 = 1  \n\nUsing 10 and 4:  \n- 10 + 4 = 14  \n- 10 \u2212 4 = 6  \n- 4 \u2212 10 = \u22126  \n- 10 \u00d7 4 = 40  \n- 10 / 4 = 2.5  \n- 4 / 10 = 0.4  \n\nWe need to reach 24.\n\nTry: (10 \u2212 4) = 6. Then 6 \u00d7 something = 24 \u2192 need \u00d74. Do we have a 4? No \u2014 already used 10 and 4. But we have two 1s: can we get 4 from two 1s? Not directly.\n\nTry: 10 + 1 + 1 = 12, then 12 \u00d7 2 = 24. Can we get 2 from 4? Yes: 4 / 2 = 2, but no 2. Wait \u2014 we used 10 and both 1s already, leaving 4. So 10 + 1 + 1 = 12, and 4 left \u2192 12 \u00d7 ? = 24 \u2192 need \u00d72, but only 4 left. So 12 \u00d7 (4 / 2) \u2014 no 2.\n\nTry: 4 \u00d7 (10 \u2212 1 \u2212 1) = 4 \u00d7 8 = 32 \u2014 too big.\n\n4 \u00d7 (10 \u2212 (1 + 1)) = 4 \u00d7 8 = 32.\n\nHow about (10 + 1) \u00d7 (1 + ?",
+    "SAMPLE 10 FINAL: 10 + 1 + 1",
+    "VOTE SUMMARY: (10 + 1 + 1) -> 3, 1 + 1) -> 2, (1/2.4) -> 1, (1 + 1) -> 1, - (10 + 1 + 1) -> 1, 20 + 4 -> 1, 10 + 1 + 1 -> 1",
+    "VOTE WINNER: (10 + 1 + 1) (3/10)"
+  ]
+}

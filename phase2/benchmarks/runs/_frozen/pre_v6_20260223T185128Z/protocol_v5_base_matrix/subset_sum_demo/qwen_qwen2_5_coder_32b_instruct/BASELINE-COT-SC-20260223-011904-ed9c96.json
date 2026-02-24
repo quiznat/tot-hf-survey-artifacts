@@ -1,0 +1,105 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011904-ed9c96.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest number less than 9 is 8\n- If I use 8, I need the remaining sum to be 1\n- I have 1 in my list, so 8 + 1 = 9 \u2713\n\nLet me verify there are no other combinations:\n- Using 5: I'd need 4 more, but 4 isn't in the list\n- Using 3: I'd need 6 more, but 6 isn't in the list  \n- Using 1: I'd need 8 more, and 8 is available, giving us 1 + 8 = 9 \u2713\n\nSo",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to use smaller numbers to get to 9\n- Let me try combinations of small numbers:\n  - 1 + 3 = 4 (need 5 more)\n  - 1 + 5 = 6 (need 3 more)\n  - 3 + 5 = 8 (need 1 more)\n\nLet me check if any of these can work:\n- 1 + 3 + 5 = 9 \u2713\n\nThis works perfectly. Let me verify there",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to work with smaller numbers\n- Let me try combinations of 2 numbers:\n  - 1 + 3 = 4 (too small)\n  - 1 + 5 = 6 (too small)\n  - 1 + 8 = 9 (this works!)\n  - 3 + 5 = 8 (too small)\n  - 3 + 8 = 11 (too large)\n  - 5 + 8 = 13 (",
+        1
+      ],
+      [
+        "1,3,5",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think through this systematically:\n\nFirst, I'll look for individual numbers that equal 9: None of the numbers in the list is 9.\n\nNext, I'll look for pairs of numbers that sum to 9:\n- 1 + 8 = 9 \u2713\n\nLet me verify there are no other combinations:\n- 3 + 5 = 8 (not 9)\n- 1 + 3 = 4 (not 9)\n- 1 + 5 = 6 (not 9)\n- 3 + 8 = 11 (not 9)\n- Other combinations would involve larger numbers that would exceed 9 when added to smaller ones\n\nThe only valid combination is",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 1
+  },
+  "final_answer": "I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest number less than 9 is 8\n- If I use 8, I need the remaining sum to be 1\n- I have 1 in my list, so 8 + 1 = 9 \u2713\n\nLet me verify there are no other combinations:\n- Using 5: I'd need 4 more, but 4 isn't in the list\n- Using 3: I'd need 6 more, but 6 isn't in the list  \n- Using 1: I'd need 8 more, and 8 is available, giving us 1 + 8 = 9 \u2713\n\nSo",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      3,
+      5,
+      8,
+      16,
+      17,
+      18,
+      20
+    ],
+    "target": 9
+  },
+  "item_id": "ss-v4-015",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12277,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 601
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011904-ed9c96",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1678118783,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:04Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest number less than 9 is 8\n- If I use 8, I need the remaining sum to be 1\n- I have 1 in my list, so 8 + 1 = 9 \u2713\n\nLet me verify there are no other combinations:\n- Using 5: I'd need 4 more, but 4 isn't in the list\n- Using 3: I'd need 6 more, but 6 isn't in the list  \n- Using 1: I'd need 8 more, and 8 is available, giving us 1 + 8 = 9 \u2713\n\nSo",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest number less than 9 is 8\n- If I use 8, I need the remaining sum to be 1\n- I have 1 in my list, so 8 + 1 = 9 \u2713\n\nLet me verify there are no other combinations:\n- Using 5: I'd need 4 more, but 4 isn't in the list\n- Using 3: I'd need 6 more, but 6 isn't in the list  \n- Using 1: I'd need 8 more, and 8 is available, giving us 1 + 8 = 9 \u2713\n\nSo",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to use smaller numbers to get to 9\n- Let me try combinations of small numbers:\n  - 1 + 3 = 4 (need 5 more)\n  - 1 + 5 = 6 (need 3 more)\n  - 3 + 5 = 8 (need 1 more)\n\nLet me check if any of these can work:\n- 1 + 3 + 5 = 9 \u2713\n\nThis works perfectly. Let me verify there",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to use smaller numbers to get to 9\n- Let me try combinations of small numbers:\n  - 1 + 3 = 4 (need 5 more)\n  - 1 + 5 = 6 (need 3 more)\n  - 3 + 5 = 8 (need 1 more)\n\nLet me check if any of these can work:\n- 1 + 3 + 5 = 9 \u2713\n\nThis works perfectly. Let me verify there",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to work with smaller numbers\n- Let me try combinations of 2 numbers:\n  - 1 + 3 = 4 (too small)\n  - 1 + 5 = 6 (too small)\n  - 1 + 8 = 9 (this works!)\n  - 3 + 5 = 8 (too small)\n  - 3 + 8 = 11 (too large)\n  - 5 + 8 = 13 (",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to work with smaller numbers\n- Let me try combinations of 2 numbers:\n  - 1 + 3 = 4 (too small)\n  - 1 + 5 = 6 (too small)\n  - 1 + 8 = 9 (this works!)\n  - 3 + 5 = 8 (too small)\n  - 3 + 8 = 11 (too large)\n  - 5 + 8 = 13 (",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to use smaller numbers to get to 9\n- Let me try combinations of small numbers:\n\nStarting with 1:\n- 1 + 3 = 4, need 5 more \u2192 1 + 3 + 5 = 9 \u2713\n\nLet me verify: 1 + 3 + 5 = 9 \u2713\n\nThis uses each number at most once and sums to the target.\n\nFINAL: 1,3,5",
+    "SAMPLE 4 FINAL: 1,3,5",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 3, 5, 8, 16, 17, 18, 20]\nTarget: 9\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think through this systematically:\n\nFirst, I'll look for individual numbers that equal 9: None of the numbers in the list is 9.\n\nNext, I'll look for pairs of numbers that sum to 9:\n- 1 + 8 = 9 \u2713\n\nLet me verify there are no other combinations:\n- 3 + 5 = 8 (not 9)\n- 1 + 3 = 4 (not 9)\n- 1 + 5 = 6 (not 9)\n- 3 + 8 = 11 (not 9)\n- Other combinations would involve larger numbers that would exceed 9 when added to smaller ones\n\nThe only valid combination is",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think through this systematically:\n\nFirst, I'll look for individual numbers that equal 9: None of the numbers in the list is 9.\n\nNext, I'll look for pairs of numbers that sum to 9:\n- 1 + 8 = 9 \u2713\n\nLet me verify there are no other combinations:\n- 3 + 5 = 8 (not 9)\n- 1 + 3 = 4 (not 9)\n- 1 + 5 = 6 (not 9)\n- 3 + 8 = 11 (not 9)\n- Other combinations would involve larger numbers that would exceed 9 when added to smaller ones\n\nThe only valid combination is",
+    "VOTE SUMMARY: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest number less than 9 is 8\n- If I use 8, I need the remaining sum to be 1\n- I have 1 in my list, so 8 + 1 = 9 \u2713\n\nLet me verify there are no other combinations:\n- Using 5: I'd need 4 more, but 4 isn't in the list\n- Using 3: I'd need 6 more, but 6 isn't in the list  \n- Using 1: I'd need 8 more, and 8 is available, giving us 1 + 8 = 9 \u2713\n\nSo -> 1, I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to use smaller numbers to get to 9\n- Let me try combinations of small numbers:\n  - 1 + 3 = 4 (need 5 more)\n  - 1 + 5 = 6 (need 3 more)\n  - 3 + 5 = 8 (need 1 more)\n\nLet me check if any of these can work:\n- 1 + 3 + 5 = 9 \u2713\n\nThis works perfectly. Let me verify there -> 1, I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest numbers are 16, 17, 18, 20, which are all too large by themselves\n- I need to work with smaller numbers\n- Let me try combinations of 2 numbers:\n  - 1 + 3 = 4 (too small)\n  - 1 + 5 = 6 (too small)\n  - 1 + 8 = 9 (this works!)\n  - 3 + 5 = 8 (too small)\n  - 3 + 8 = 11 (too large)\n  - 5 + 8 = 13 ( -> 1, 1,3,5 -> 1, I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think through this systematically:\n\nFirst, I'll look for individual numbers that equal 9: None of the numbers in the list is 9.\n\nNext, I'll look for pairs of numbers that sum to 9:\n- 1 + 8 = 9 \u2713\n\nLet me verify there are no other combinations:\n- 3 + 5 = 8 (not 9)\n- 1 + 3 = 4 (not 9)\n- 1 + 5 = 6 (not 9)\n- 3 + 8 = 11 (not 9)\n- Other combinations would involve larger numbers that would exceed 9 when added to smaller ones\n\nThe only valid combination is -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from the list [1, 3, 5, 8, 16, 17, 18, 20] that sum to 9.\n\nLet me think step by step:\n\nFirst, I'll look for combinations systematically:\n- The largest number less than 9 is 8\n- If I use 8, I need the remaining sum to be 1\n- I have 1 in my list, so 8 + 1 = 9 \u2713\n\nLet me verify there are no other combinations:\n- Using 5: I'd need 4 more, but 4 isn't in the list\n- Using 3: I'd need 6 more, but 6 isn't in the list  \n- Using 1: I'd need 8 more, and 8 is available, giving us 1 + 8 = 9 \u2713\n\nSo (1/5)"
+  ]
+}

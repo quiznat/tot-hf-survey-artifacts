@@ -1,0 +1,87 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/digit_permutation_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015959-61b7c8.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 3,
+      "frontier_width": 3,
+      "generated_nodes": 7,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "8806",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      0,
+      6,
+      8,
+      8
+    ],
+    "divisor": 7,
+    "oracle_max": 8806
+  },
+  "item_id": "perm-v4-004",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 34511,
+    "success": 1,
+    "tokens_in": 1412,
+    "tokens_out": 273
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015959-61b7c8",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 95857809,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T01:59:59Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=largest 4-digit number from digits requires descending order, but must satisfy divisibility by 7; decompose by fixing thousands digit first; ...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: generate all permutations of [0,6,8,8], filter to 4-digit numbers (no leading zero), sort descending, check divisibility by 7",
+    "NODE n0003 parent=root score=0.0500 cum=0.0500 terminal=False thought=FINAL: 8820",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=for thousands=8, remaining digits [0,6,8] can form 6 permutations; to maximize number, prioritize hundreds digit as 8 then 6 then 0; subnodes...",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: test 8860 \u00f7 7 = 1265.714\u2026 (not integer); 8806 \u00f7 7 = 1258 (integer? 7\u00d71258=8806 \u2192 yes); 8680 \u00f7 7 = 1240 (7\u00d71240=8680 \u2192 yes); 8608 \u00f7 7 = 1229.71",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=for thousands=8, remaining digits [0,6,8] form 3-digit suffixes; to maximize number, prioritize larger hundreds digit; subnodes=hundreds=8 | ...",
+    "NODE n0007 parent=n0002 score=1.0000 cum=1.5000 terminal=True thought=FINAL: 8806"
+  ]
+}

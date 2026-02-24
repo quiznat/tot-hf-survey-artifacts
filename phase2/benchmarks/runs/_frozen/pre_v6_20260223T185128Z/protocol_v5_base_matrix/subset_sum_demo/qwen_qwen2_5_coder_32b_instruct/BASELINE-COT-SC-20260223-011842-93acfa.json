@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011842-93acfa.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need",
+        2
+      ],
+      [
+        "I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 53 - 25 = 28\n- If I use 23, I need the remaining sum to be 53 - 23 = 30\n- If I use 22, I need the remaining sum to be 53 - 22 = 31\n- If I use 21, I need the remaining sum to be 53 - 21 = 32\n\nLet me try using 25:\nRemaining target:",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target = 53 - 25 = 28\nLooking for numbers that sum to 28 from [2, 7, 11,",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers and work backwards:\n- 25 + 23 = 48, need 5 more\n- 25 + 22 = 47, need 6 more  \n- 25 + 21 = 46, need 7 more\n- 23 + 22 = 45, need 8 more\n\nLet me try combinations with 25:\n- 25 + 23 + 7 = 55 (too big by 2)\n- 25 + 23 + 2 = 50 (too small",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      7,
+      11,
+      16,
+      21,
+      22,
+      23,
+      25
+    ],
+    "target": 53
+  },
+  "item_id": "ss-v4-008",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11912,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 534
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011842-93acfa",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 305723958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:18:42Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 53 - 25 = 28\n- If I use 23, I need the remaining sum to be 53 - 23 = 30\n- If I use 22, I need the remaining sum to be 53 - 22 = 31\n- If I use 21, I need the remaining sum to be 53 - 21 = 32\n\nLet me try using 25:\nRemaining target:",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 53 - 25 = 28\n- If I use 23, I need the remaining sum to be 53 - 23 = 30\n- If I use 22, I need the remaining sum to be 53 - 22 = 31\n- If I use 21, I need the remaining sum to be 53 - 21 = 32\n\nLet me try using 25:\nRemaining target:",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target = 53 - 25 = 28\nLooking for numbers that sum to 28 from [2, 7, 11,",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target = 53 - 25 = 28\nLooking for numbers that sum to 28 from [2, 7, 11,",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 7, 11, 16, 21, 22, 23, 25]\nTarget: 53\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers and work backwards:\n- 25 + 23 = 48, need 5 more\n- 25 + 22 = 47, need 6 more  \n- 25 + 21 = 46, need 7 more\n- 23 + 22 = 45, need 8 more\n\nLet me try combinations with 25:\n- 25 + 23 + 7 = 55 (too big by 2)\n- 25 + 23 + 2 = 50 (too small",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers and work backwards:\n- 25 + 23 = 48, need 5 more\n- 25 + 22 = 47, need 6 more  \n- 25 + 21 = 46, need 7 more\n- 23 + 22 = 45, need 8 more\n\nLet me try combinations with 25:\n- 25 + 23 + 7 = 55 (too big by 2)\n- 25 + 23 + 2 = 50 (too small",
+    "VOTE SUMMARY: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need -> 2, I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 53 - 25 = 28\n- If I use 23, I need the remaining sum to be 53 - 23 = 30\n- If I use 22, I need the remaining sum to be 53 - 22 = 31\n- If I use 21, I need the remaining sum to be 53 - 21 = 32\n\nLet me try using 25:\nRemaining target: -> 1, I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target = 53 - 25 = 28\nLooking for numbers that sum to 28 from [2, 7, 11, -> 1, I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work through this systematically:\n\nFirst, let me see what happens if I start with the largest numbers and work backwards:\n- 25 + 23 = 48, need 5 more\n- 25 + 22 = 47, need 6 more  \n- 25 + 21 = 46, need 7 more\n- 23 + 22 = 45, need 8 more\n\nLet me try combinations with 25:\n- 25 + 23 + 7 = 55 (too big by 2)\n- 25 + 23 + 2 = 50 (too small -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [2, 7, 11, 16, 21, 22, 23, 25] that sum to 53.\n\nLet me work systematically:\n- The largest numbers are 25, 23, 22, 21\n- If I use 25, I need the remaining sum to be 28\n- If I use 23, I need the remaining sum to be 30\n- If I use 22, I need the remaining sum to be 31\n- If I use 21, I need the remaining sum to be 32\n\nLet me try using 25:\nRemaining target: 28\nFrom [2, 7, 11, 16, 21, 22, 23], I need (2/5)"
+  ]
+}

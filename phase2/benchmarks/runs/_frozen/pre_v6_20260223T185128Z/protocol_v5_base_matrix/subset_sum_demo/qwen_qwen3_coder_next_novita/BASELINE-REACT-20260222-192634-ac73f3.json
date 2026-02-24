@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192634-ac73f3.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "4 + 11 + 22 + 24 = 61",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      4,
+      11,
+      18,
+      22,
+      24
+    ],
+    "target": 61
+  },
+  "item_id": "ss-v4-021",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 8035,
+    "success": 0,
+    "tokens_in": 455,
+    "tokens_out": 215
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192634-ac73f3",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1878051845,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:26:34Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers [4, 11, 18, 22, 24] and a target 61. We need to find a way to combine these numbers (likely using arithmetic operations) to reach the target. Since no tools are available, this is a pure reasoning problem \u2014 possibly a subset sum (sum of some numbers), or using +, \u2212, \u00d7, \u00f7, parentheses, etc.\n\nFirst, check if any subset sums to 61:\n- 4 + 11 + 18 + 22 + 24 = 79 \u2192 too big\n- Try largest numbers: 24 + 22 = 46; 61 \u2212 46 = 15 \u2192 need 15 from [4, 11, 18] \u2192 4 + 11 = 15 \u2192 yes",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We found that 24 + 22 = 46, and 4 + 11 = 15, and 46 + 15 = 61. So the combination is 24 + 22 + 4 + 11 = 61. That uses four numbers, leaving out 18. Let's verify: 24 + 22 = 46; 46 + 4 = 50; 50 + 11 = 61. Correct. So the solution is to sum 4, 11, 22, and 24. Since the task likely expects an expression or confirmation, and no tools are available, we can now state the answer.",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: 4 + 11 + 22 + 24 = 61"
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260223-022659-e19d2b.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "(7+5)*(7-5)",
+        2
+      ],
+      [
+        "5 + 5 + 7 + 7",
+        2
+      ],
+      [
+        "(7 + 5) * (7 - 5)",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "(7+5)*(7-5)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    5,
+    7,
+    5,
+    7
+  ],
+  "item_id": "g24-v4-002",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 61119,
+    "success": 1,
+    "tokens_in": 1534,
+    "tokens_out": 1122
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "success",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-022659-e19d2b",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 3023805780,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:26:59Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 tricks:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have two 5s and two 7s.\n\nTry:  \n(7 - 5/5) \u00d7 ? \u2192 5/5 = 1, so 7 - 1 = 6. Then we have one 7 left: 6 \u00d7 7 = 42 \u2014 too big.\n\nWhat about (7 \u00d7 5) - (7 + 5) = 35 - 12 = 23 \u2014 close.\n\n(7 \u00d7 5) - (7 - 5) = 35 - 2 = 33.\n\n(7 + 5) \u00d7 (7 - 5) = 12 \u00d7 2 = 24 \u2014 YES!\n\nCheck:  \n(7 + 5) = 12  \n(7 - 5) = 2  \n12 \u00d7 2 = 24  \nUsed: 7, 5, 7, 5 \u2014 all exactly once.\n\nPerfect.\n\nFINAL: (7+5)*(7-5)",
+    "SAMPLE 1 FINAL: (7+5)*(7-5)",
+    "SAMPLE 1 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 tricks:  \n- 6 \u00d7 4 = 24  \n- 8 \u00d7 3 = 24  \n- 12 \u00d7 2 = 24  \n- 48 \u00f7 2 = 24  \n- 7 \u00d7 3 + 3 = 24, etc.\n\nWe have two 5s and two 7s.\n\nTry:  \n(7 - 5/5) \u00d7 ? \u2192 5/5 = 1, so 7 - 1 = 6. Then we have one 7 left: 6 \u00d7 7 = 42 \u2014 too big.\n\nWhat about (7 \u00d7 5) - (7 + 5) = 35 - 12 = 23 \u2014 close.\n\n(7 \u00d7 5) - (7 - 5) = 35 - 2 = 33.\n\n(7 + 5) \u00d7 (7 - 5) = 12 \u00d7 2 = 24 \u2014 YES!\n\nCheck:  \n(7 + 5) = 12  \n(7 - 5) = 2  \n12 \u00d7 2 = 24  \nUsed: 7, 5, 7, 5 \u2014 all exactly once.\n\nPerfect.\n\nFINAL: (7+5)*(7-5)\n\nAnswer only:",
+    "SAMPLE 1 OUTPUT: RECOVERY OUTPUT: (7+5)*(7-5)",
+    "SAMPLE 1 FINAL: (7+5)*(7-5)",
+    "SAMPLE 2 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication, addition, subtraction, division, and parentheses.\n\nFirst, note:\n- 5 + 5 = 10, 7 + 7 = 14 \u2192 10 + 14 = 24 \u2192 **Wait!** That\u2019s 5 + 5 + 7 + 7 = 24. But that uses all numbers once and sums to 24.\n\nCheck: 5 + 5 = 10, 7 + 7 = 14, 10 + 14 = 24. Yes!\n\nSo expression: `5 + 5 + 7 + 7 = 24`\n\nBut wait \u2014 the problem says \"use each number exactly once\", and we have two 5s and two 7s \u2014 so using both 5s and both 7s is fine.\n\nThus, the simplest expression is:\n\n`5 + 5 + 7 + 7`\n\nLet\u2019s verify: 5 + 5 = 10, 7 + 7 = 14, 10 + 14 = 24 \u2705\n\nNo need for multiplication or parentheses.\n\nSo final answer:\n\nFINAL: 5 + 5 + 7 + 7",
+    "SAMPLE 2 FINAL: 5 + 5 + 7 + 7",
+    "SAMPLE 2 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication, addition, subtraction, division, and parentheses.\n\nFirst, note:\n- 5 + 5 = 10, 7 + 7 = 14 \u2192 10 + 14 = 24 \u2192 **Wait!** That\u2019s 5 + 5 + 7 + 7 = 24. But that uses all numbers once and sums to 24.\n\nCheck: 5 + 5 = 10, 7 + 7 = 14, 10 + 14 = 24. Yes!\n\nSo expression: `5 + 5 + 7 + 7 = 24`\n\nBut wait \u2014 the problem says \"use each number exactly once\", and we have two 5s and two 7s \u2014 so using both 5s and both 7s is fine.\n\nThus, the simplest expression is:\n\n`5 + 5 + 7 + 7`\n\nLet\u2019s verify: 5 + 5 = 10, 7 + 7 = 14, 10 + 14 = 24 \u2705\n\nNo need for multiplication or parentheses.\n\nSo final answer:\n\nFINAL: 5 + 5 + 7 + 7\n\nAnswer only:",
+    "SAMPLE 2 OUTPUT: RECOVERY OUTPUT: 5 + 5 + 7 + 7",
+    "SAMPLE 2 FINAL: 5 + 5 + 7 + 7",
+    "SAMPLE 3 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 game strategies involve multiplication, addition, subtraction, division, and grouping.\n\nFirst, note:\n- 5 + 5 = 10, 7 + 7 = 14 \u2192 10 + 14 = 24. Wait \u2014 that\u2019s 5 + 5 + 7 + 7 = 24!  \nBut that uses all four numbers exactly once: 5 + 5 + 7 + 7 = 24.\n\nLet\u2019s verify:  \n5 + 5 = 10  \n7 + 7 = 14  \n10 + 14 = 24 \u2705\n\nSo the expression is:  \n**5 + 5 + 7 + 7 = 24**\n\nBut wait \u2014 the problem says \"use each number exactly once\", and we have two 5s and two 7s \u2014 so yes, using both 5s and both 7s once each is valid.\n\nNo need for parentheses or other operations \u2014 simple addition works.\n\nSo final answer:\n\nFINAL: 5 + 5 + 7 + 7",
+    "SAMPLE 3 FINAL: 5 + 5 + 7 + 7",
+    "SAMPLE 3 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 game strategies involve multiplication, addition, subtraction, division, and grouping.\n\nFirst, note:\n- 5 + 5 = 10, 7 + 7 = 14 \u2192 10 + 14 = 24. Wait \u2014 that\u2019s 5 + 5 + 7 + 7 = 24!  \nBut that uses all four numbers exactly once: 5 + 5 + 7 + 7 = 24.\n\nLet\u2019s verify:  \n5 + 5 = 10  \n7 + 7 = 14  \n10 + 14 = 24 \u2705\n\nSo the expression is:  \n**5 + 5 + 7 + 7 = 24**\n\nBut wait \u2014 the problem says \"use each number exactly once\", and we have two 5s and two 7s \u2014 so yes, using both 5s and both 7s once each is valid.\n\nNo need for parentheses or other operations \u2014 simple addition works.\n\nSo final answer:\n\nFINAL: 5 + 5 + 7 + 7\n\nAnswer only:",
+    "SAMPLE 3 OUTPUT: RECOVERY OUTPUT: 5 + 5 + 7 + 7",
+    "SAMPLE 3 FINAL: 5 + 5 + 7 + 7",
+    "SAMPLE 4 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the numbers [5, 7, 5, 7] and must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe need to combine two 5s and two 7s using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s try some ideas:\n\n- 7 + 7 + 5 + 5 = 24?  \n  7 + 7 = 14, 5 + 5 = 10, 14 + 10 = **24** \u2705\n\nWait \u2014 that\u2019s straightforward!  \n7 + 7 + 5 + 5 = 24.\n\nBut we must use each number **exactly once**, and we have two 5s and two 7s \u2014 yes, that\u2019s satisfied.\n\nSo expression:  \n**7 + 7 + 5 + 5 = 24**\n\nBut let\u2019s double-check: Are we allowed to just add? Yes \u2014 no restriction on operations.\n\nAlternative: (7 \u00d7 5) \u2212 (7 + 5) = 35 \u2212 12 = 23 \u274c  \n(7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24 \u2705  \nThat\u2019s also valid: (7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24.\n\nWhich to choose? Both are correct. But the problem says \u201cuse each number exactly once\u201d \u2014 both expressions do.\n\nLet\u2019s verify the second one:  \n(7 + 5) \u00d7 (7 \u2212 5)  \nUses: 7, 5, 7, 5 \u2014 yes, each once.\n\nFirst one: 7 + 7 + 5 + 5 \u2014 also uses each once.\n\nWhich is more \u201celegant\u201d? The multiplication version is often preferred in 24-game puzzles, but both are valid.\n\nBut wait \u2014 the problem says \u201cReturn only one expression in the final answer.\u201d So either is acceptable.\n\nLet\u2019s pick the multiplication one:  \n**(7 + 5) \u00d7 (7 \u2212 5)**\n\nLet\u2019s compute: (7 + 5) = 12, (7 \u2212 5) = 2, 12 \u00d7 2 = 24 \u2705\n\nYes.\n\nFINAL: (7+5)*(7-",
+    "SAMPLE 4 FINAL: (7+5)*(7-5)",
+    "SAMPLE 4 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers [5, 7, 5, 7] and must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe need to combine two 5s and two 7s using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s try some ideas:\n\n- 7 + 7 + 5 + 5 = 24?  \n  7 + 7 = 14, 5 + 5 = 10, 14 + 10 = **24** \u2705\n\nWait \u2014 that\u2019s straightforward!  \n7 + 7 + 5 + 5 = 24.\n\nBut we must use each number **exactly once**, and we have two 5s and two 7s \u2014 yes, that\u2019s satisfied.\n\nSo expression:  \n**7 + 7 + 5 + 5 = 24**\n\nBut let\u2019s double-check: Are we allowed to just add? Yes \u2014 no restriction on operations.\n\nAlternative: (7 \u00d7 5) \u2212 (7 + 5) = 35 \u2212 12 = 23 \u274c  \n(7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24 \u2705  \nThat\u2019s also valid: (7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24.\n\nWhich to choose? Both are correct. But the problem says \u201cuse each number exactly once\u201d \u2014 both expressions do.\n\nLet\u2019s verify the second one:  \n(7 + 5) \u00d7 (7 \u2212 5)  \nUses: 7, 5, 7, 5 \u2014 yes, each once.\n\nFirst one: 7 + 7 + 5 + 5 \u2014 also uses each once.\n\nWhich is more \u201celegant\u201d? The multiplication version is often preferred in 24-game puzzles, but both are valid.\n\nBut wait \u2014 the problem says \u201cReturn only one expression in the final answer.\u201d So either is acceptable.\n\nLet\u2019s pick the multiplication one:  \n**(7 + 5) \u00d7 (7 \u2212 5)**\n\nLet\u2019s compute: (7 + 5) = 12, (7 \u2212 5) = 2, 12 \u00d7 2 = 24 \u2705\n\nYes.\n\nFINAL: (7+5)*(7-\n\nAnswer only:",
+    "SAMPLE 4 OUTPUT: RECOVERY OUTPUT: (7+5)*(7-5)",
+    "SAMPLE 4 FINAL: (7+5)*(7-5)",
+    "SAMPLE 5 PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 3\u00d78, 4\u00d76, 12\u00d72), or addition/subtraction with clever grouping.\n\nGiven two 5s and two 7s, let\u2019s try some ideas:\n\n- 7 + 7 + 5 + 5 = 24?  \n  7+7=14, 5+5=10, 14+10=24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s straightforward: 7 + 7 + 5 + 5 = 24.\n\nBut we must use **each number exactly once**, and we have two 5s and two 7s \u2014 so using both 5s and both 7s in addition works.\n\nSo expression:  \n**7 + 7 + 5 + 5 = 24**\n\nThat\u2019s valid.\n\nBut let\u2019s double-check: Are there any hidden rules? The problem says \u201cuse each number exactly once\u201d \u2014 no restriction on operations, so addition is fine.\n\nYes, this works.\n\nAlternative: (7 \u00d7 5) \u2212 (7 + 5) = 35 \u2212 12 = 23 \u2192 no.  \n(7 \u2212 5/5) \u00d7 ? \u2192 5/5 = 1, 7 \u2212 1 = 6, need \u00d74 \u2192 not possible.  \n(7 \u00d7 5) \u2212 (7 \u2212 5) = 35 \u2212 2 = 33 \u2192 no.  \n(7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24 \u2192 **also works!**\n\nWait \u2014 (7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24  \nUses: 7, 5, 7, 5 \u2014 exactly once.\n\nThat\u2019s more elegant and uses multiplication/subtraction.\n\nSo two valid expressions:\n- 7 + 7 + 5 + 5  \n- (7 + 5) \u00d7 (7 \u2212 5)\n\nWhich to choose? Both are correct. Let\u2019s verify the second:\n\n(7 + 5) = 12  \n(7 \u2212 5) = 2  \n12",
+    "SAMPLE 5 FINAL: (7 + 5) * (7 - 5)",
+    "SAMPLE 5 PROMPT: RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers [5, 7, 5, 7], and we must use each **exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe know common 24 strategies involve multiplication (e.g., 3\u00d78, 4\u00d76, 12\u00d72), or addition/subtraction with clever grouping.\n\nGiven two 5s and two 7s, let\u2019s try some ideas:\n\n- 7 + 7 + 5 + 5 = 24?  \n  7+7=14, 5+5=10, 14+10=24 \u2192 **Yes!**\n\nWait \u2014 that\u2019s straightforward: 7 + 7 + 5 + 5 = 24.\n\nBut we must use **each number exactly once**, and we have two 5s and two 7s \u2014 so using both 5s and both 7s in addition works.\n\nSo expression:  \n**7 + 7 + 5 + 5 = 24**\n\nThat\u2019s valid.\n\nBut let\u2019s double-check: Are there any hidden rules? The problem says \u201cuse each number exactly once\u201d \u2014 no restriction on operations, so addition is fine.\n\nYes, this works.\n\nAlternative: (7 \u00d7 5) \u2212 (7 + 5) = 35 \u2212 12 = 23 \u2192 no.  \n(7 \u2212 5/5) \u00d7 ? \u2192 5/5 = 1, 7 \u2212 1 = 6, need \u00d74 \u2192 not possible.  \n(7 \u00d7 5) \u2212 (7 \u2212 5) = 35 \u2212 2 = 33 \u2192 no.  \n(7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24 \u2192 **also works!**\n\nWait \u2014 (7 + 5) \u00d7 (7 \u2212 5) = 12 \u00d7 2 = 24  \nUses: 7, 5, 7, 5 \u2014 exactly once.\n\nThat\u2019s more elegant and uses multiplication/subtraction.\n\nSo two valid expressions:\n- 7 + 7 + 5 + 5  \n- (7 + 5) \u00d7 (7 \u2212 5)\n\nWhich to choose? Both are correct. Let\u2019s verify the second:\n\n(7 + 5) = 12  \n(7 \u2212 5) = 2  \n12\n\nAnswer only:",
+    "SAMPLE 5 OUTPUT: RECOVERY OUTPUT: (7 + 5) \u00d7 (7 \u2212 5)",
+    "SAMPLE 5 FINAL: (7 + 5) * (7 - 5)",
+    "VOTE SUMMARY: (7+5)*(7-5) -> 2, 5 + 5 + 7 + 7 -> 2, (7 + 5) * (7 - 5) -> 1",
+    "VOTE WINNER: (7+5)*(7-5) (2/5)"
+  ]
+}

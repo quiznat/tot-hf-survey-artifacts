@@ -1,0 +1,60 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-022619-503dc5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "final_answer": "(10 + 1 + 1) * (4 - 1)",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    4,
+    10,
+    1,
+    1
+  ],
+  "item_id": "g24-v4-001",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 21400,
+    "success": 0,
+    "tokens_in": 367,
+    "tokens_out": 561
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-022619-503dc5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 791307926,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T02:26:19Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible combinations.\n\nFirst, note that 10 + 4 = 14, and we have two 1s left. 14 + 1 + 1 = 16 \u2014 too small.\n\n10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 \u2014 still too small.\n\nWhat about (10 + 1 + 1) \u00d7 something? That\u2019s 12 \u00d7 2 = 24 \u2014 but we don\u2019t have a 2. But wait: 4 \u00f7 2 = 2, but no 2.\n\nWait \u2014 maybe (10 + 1) \u00d7 something? 11 \u00d7 ? = 24? Not integer.\n\nTry using subtraction or division.\n\nWhat if we do (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 close.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33 \u2014 too big.\n\n(10 \u2212 1 \u2212 1) \u00d7 4 = 8 \u00d7 4 = 32.\n\n(10 + 1) \u00d7 1 + 4 = 15.\n\nHmm.\n\nTry using division: 10 \u00f7 (1 \u2212 1/4)? Wait, 1/4 = 0.25, so 1 \u2212 0.25 = 0.75, 10 \u00f7 0.75 = 13.33 \u2014 no.\n\nWhat about (4 + 1) \u00d7 (10 \u2212 1) = 5 \u00d7 9 = 45 \u2014 too big.\n\nWait \u2014 maybe (10 \u00d7 1 + 1) \u00d7 something? 11 \u00d7 ? = 24? No.\n\nTry using factorial? Not allowed \u2014 only basic operations.\n\nWait \u2014 maybe (10 + 1) \u00d7 1 + 4 = 15 \u2014 no.\n\nLet\u2019s try",
+    "FINAL: 1 + 1)",
+    "RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nUse each number exactly once to produce 24. Numbers: [4, 10, 1, 1]. Return only one expression in the final answer.\n\nPrevious reasoning:\nWe are given the numbers: [4, 10, 1, 1], and we must use **each number exactly once** to make 24.\n\nLet\u2019s think step by step.\n\nWe need to combine 4, 10, 1, and 1 using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s consider possible combinations.\n\nFirst, note that 10 + 4 = 14, and we have two 1s left. 14 + 1 + 1 = 16 \u2014 too small.\n\n10 \u00d7 1 = 10, 4 \u00d7 1 = 4 \u2192 10 + 4 = 14 \u2014 still too small.\n\nWhat about (10 + 1 + 1) \u00d7 something? That\u2019s 12 \u00d7 2 = 24 \u2014 but we don\u2019t have a 2. But wait: 4 \u00f7 2 = 2, but no 2.\n\nWait \u2014 maybe (10 + 1) \u00d7 something? 11 \u00d7 ? = 24? Not integer.\n\nTry using subtraction or division.\n\nWhat if we do (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 close.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 11 \u00d7 3 = 33 \u2014 too big.\n\n(10 \u2212 1 \u2212 1) \u00d7 4 = 8 \u00d7 4 = 32.\n\n(10 + 1) \u00d7 1 + 4 = 15.\n\nHmm.\n\nTry using division: 10 \u00f7 (1 \u2212 1/4)? Wait, 1/4 = 0.25, so 1 \u2212 0.25 = 0.75, 10 \u00f7 0.75 = 13.33 \u2014 no.\n\nWhat about (4 + 1) \u00d7 (10 \u2212 1) = 5 \u00d7 9 = 45 \u2014 too big.\n\nWait \u2014 maybe (10 \u00d7 1 + 1) \u00d7 something? 11 \u00d7 ? = 24? No.\n\nTry using factorial? Not allowed \u2014 only basic operations.\n\nWait \u2014 maybe (10 + 1) \u00d7 1 + 4 = 15 \u2014 no.\n\nLet\u2019s try\n\nAnswer only:",
+    "RECOVERY OUTPUT: (10 + 1 + 1) \u00d7 (4 \u2212 1) = 12 \u00d7 3 = 36 \u2014 no, too big.\n\nWait \u2014 reconsider.\n\nWhat about (10 \u2212 1) \u00d7 (4 \u2212 1) = 9 \u00d7 3 = 27 \u2014 still not 24.\n\nTry: (10 \u00d7 1) + (4 \u00d7 1) = 14.\n\nHmm.\n\nLet\u2019s try: (4 + 10) \u00d7 (1 + 1) = 14 \u00d7 2 = 28.\n\nClose.\n\nWhat about (10 + 4 + 1) \u00d7 1 = 15.\n\nWait \u2014 maybe division: 10 \u00d7 (4 \u2212 1) \u2212 1 = 10 \u00d7 3 \u2212 1 = 30 \u2212 1 = 29.\n\n10 \u00d7 (4 \u2212 1 \u2212 1) = 10 \u00d7 2 = 20.\n\n10 \u00d7 (4 \u2212 1) \u2212 1 = 29.\n\n(10 + 1) \u00d7 (4 \u2212 1) = 33.\n\nWait \u2014 what if we do: (10 \u2212 1) \u00d7 (4 \u2212 1) = 27.\n\nStill off.\n\nTry: (10 \u00d7 1 + 4) \u00d7 1 = 14.\n\nHmm.\n\nLet\u2019s try: (10 + 1) \u00d7 (4 \u2212 1) = 33.\n\nWait \u2014 maybe (10 \u2212 1/1) \u00d7 something? 1/1 = 1, so 10 \u2212 1 = 9.\n\n9 \u00d7 ? = 24? 24/9 = 8/3 \u2014 not helpful.\n\nWait \u2014 what about (4 \u00d7 10) \u2212 (1 + 1) = 40 \u2212 2 = 38.\n\n(4 \u00d7 10) \u2212 (1 \u00d7 1) = 40 \u2212 1 = 39.\n\n(4 + 1) \u00d7 (10 \u2212 1) = 5 \u00d7 9 = 45.\n\nWait \u2014 maybe (10 \u00d7 1 \u2212 1) \u00d7 4 = (10 \u2212 1) \u00d7 4 = 9 \u00d7 4 = 36.\n\nHmm.\n\nLet\u2019s try: (10 + 4) \u00d7 1 +",
+    "RECOVERY FINAL: (10 + 1 + 1) * (4 - 1)"
+  ]
+}

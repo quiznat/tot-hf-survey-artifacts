@@ -1,0 +1,115 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_self_consistency_majority_vote.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_self_consistency_majority_vote.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_review/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-SC-20260224-173348-19735f.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot-sc",
+  "condition_key": "baseline_chain_of_thought_self_consistency_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "cot_sc_parallel_workers": 10,
+  "cot_sc_samples": 10,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "extra": {
+    "cot_sc_parallel_workers": 10,
+    "cot_sc_samples": 10,
+    "cot_sc_vote_counts": [
+      [
+        "x=-6.0,y=4.0",
+        10
+      ]
+    ],
+    "cot_sc_winner_votes": 10
+  },
+  "final_answer": "x=-6.0,y=4.0",
+  "hf_temperature": 0.7,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        8,
+        8,
+        -16
+      ],
+      [
+        -5,
+        8,
+        62
+      ]
+    ]
+  },
+  "item_id": "lin-v4-008",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5226,
+    "success": 1,
+    "tokens_in": 500,
+    "tokens_out": 1590
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot self-consistency baseline execution (samples=10)",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-SC-20260224-173348-19735f",
+  "search_config": {
+    "breadth": 10,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2339600001,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-24T17:33:48Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "SAMPLE 1 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 1/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: We are given the linear system:\n\nEquation 1:  \n\u2003\u20038.0x + 8.0y = -16.0  \nEquation 2:  \n\u2003\u2003-5.0x + 8.0y = 62.0\n\n**Step 1: Eliminate one variable.**  \nNotice both equations have +8.0y. Subtract Equation 2 from Equation 1 to eliminate y:\n\n(Equation 1) \u2212 (Equation 2):  \n(8.0x \u2212 (\u22125.0x)) + (8.0y \u2212 8.0y) = \u221216.0 \u2212 62.0  \n\u2192 8.0x + 5.0x + 0 = \u221278.0  \n\u2192 13.0x = \u221278.0  \n\u2192 x = \u221278.0 / 13.0 = \u22126.0\n\n**Step 2: Substitute x = \u22126.0 into one equation to find y.**  \nUse Equation 1:  \n8.0x + 8.0y = \u221216.0  \n8.0(\u22126.0) + 8.0y = \u221216.0  \n\u221248.0 + 8.0y = \u221216.0  \nAdd 48.0 to both sides:  \n8.0y = 32.0  \n\u2192 y = 32.0 / 8.0 = 4.0\n\n**Check with Equation 2:**  \n\u22125.0(\u22126.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 \u2705\n\nSo the solution is x = \u22126.0, y = 4.0.\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 1 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 2 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 2/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: We are given the system:\n\n1) 8.0x + 8.0y = -16.0  \n2) -5.0x + 8.0y = 62.0\n\nStep 1: Subtract Equation 2 from Equation 1 to eliminate y.\n\nEquation 1:\u20038.0x + 8.0y = -16.0  \nMinus Equation 2: -(-5.0x + 8.0y) = -(62.0)  \n\u2192\u20038.0x + 8.0y + 5.0x - 8.0y = -16.0 - 62.0  \n\u2192\u2003(8.0 + 5.0)x + (8.0 - 8.0)y = -78.0  \n\u2192\u200313.0x = -78.0\n\nStep 2: Solve for x:\n\nx = -78.0 / 13.0 = -6.0\n\nStep 3: Plug x = -6.0 into Equation 1 to find y:\n\n8.0(-6.0) + 8.0y = -16.0  \n\u2192 -48.0 + 8.0y = -16.0  \n\u2192 8.0y = -16.0 + 48.0 = 32.0  \n\u2192 y = 32.0 / 8.0 = 4.0\n\nCheck with Equation 2:\n\n-5.0(-6.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 \u2705\n\nSo solution is x = -6.0, y = 4.0\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 2 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 3 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 3/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: We are given the system:\n\n1) 8.0x + 8.0y = -16.0  \n2) -5.0x + 8.0y = 62.0\n\nStep 1: Simplify Equation 1 by dividing all terms by 8.0:\n\n\u2192 x + y = -2.0  (Equation 1 simplified)\n\nStep 2: Solve for one variable. From simplified Equation 1:\n\nx = -2.0 - y\n\nStep 3: Substitute into Equation 2:\n\n-5.0(-2.0 - y) + 8.0y = 62.0  \n\u2192 10.0 + 5.0y + 8.0y = 62.0  \n\u2192 10.0 + 13.0y = 62.0  \n\u2192 13.0y = 52.0  \n\u2192 y = 52.0 / 13.0 = 4.0\n\nStep 4: Plug y = 4.0 into x = -2.0 - y:\n\nx = -2.0 - 4.0 = -6.0\n\nCheck in original equations:\n\nEquation 1: 8.0*(-6.0) + 8.0*4.0 = -48.0 + 32.0 = -16.0 \u2705  \nEquation 2: -5.0*(-6.0) + 8.0*4.0 = 30.0 + 32.0 = 62.0 \u2705\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 3 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 4 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 4/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20038.0x + 8.0y = -16.0  \nEquation 2:  \n\u2003\u2003-5.0x + 8.0y = 62.0  \n\n**Step 1: Simplify Equation 1**  \nDivide both sides of Equation 1 by 8.0:  \n\u2003\u2003x + y = -2.0  \nSo,  \n\u2003\u2003x = -2.0 - y \u2003(Equation 1 simplified)\n\n**Step 2: Substitute into Equation 2**  \nReplace x in Equation 2 with (-2.0 - y):  \n\u2003\u2003-5.0(-2.0 - y) + 8.0y = 62.0  \nCompute:  \n\u2003\u2003(-5.0)(-2.0) = 10.0  \n\u2003\u2003(-5.0)(-y) = +5.0y  \nSo:  \n\u2003\u200310.0 + 5.0y + 8.0y = 62.0  \n\u2003\u200310.0 + 13.0y = 62.0  \n\n**Step 3: Solve for y**  \nSubtract 10.0 from both sides:  \n\u2003\u200313.0y = 52.0  \nDivide by 13.0:  \n\u2003\u2003y = 52.0 / 13.0 = 4.0  \n\n**Step 4: Solve for x**  \nRecall x = -2.0 - y = -2.0 - 4.0 = -6.0  \n\n**Check:**  \nPlug x = -6.0, y = 4.0 into both original equations:\n\nEquation 1: 8.0(-6.0) + 8.0(4.0) = -48.0 + 32.0 = -16.0 \u2714\ufe0f  \nEquation 2: -5.0(-6.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 \u2714\ufe0f  \n\n\u2705 Correct.\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 4 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 5 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 5/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: We are given the system:\n\nEquation 1:  \n\u2003\u20038.0x + 8.0y = -16.0  \nEquation 2:  \n\u2003\u2003-5.0x + 8.0y = 62.0\n\n**Step 1: Eliminate one variable**  \nBoth equations have +8.0y, so subtract Equation 2 from Equation 1 to eliminate y.\n\nEquation 1 \u2212 Equation 2:  \n(8.0x \u2212 (\u22125.0x)) + (8.0y \u2212 8.0y) = \u221216.0 \u2212 62.0  \n\u2192 (8.0x + 5.0x) + 0 = \u221278.0  \n\u2192 13.0x = \u221278.0  \n\u2192 x = \u221278.0 / 13.0 = \u22126.0\n\n**Step 2: Substitute x = \u22126.0 into one equation to find y**  \nUse Equation 1:  \n8.0x + 8.0y = \u221216.0  \n8.0(\u22126.0) + 8.0y = \u221216.0  \n\u221248.0 + 8.0y = \u221216.0  \n8.0y = \u221216.0 + 48.0 = 32.0  \ny = 32.0 / 8.0 = 4.0\n\n\u2705 Check with Equation 2:  \n\u22125.0(\u22126.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 \u2714\ufe0f\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 5 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 6 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 6/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 6 OUTPUT: We are given the system:\n\n1) 8.0x + 8.0y = -16.0  \n2) -5.0x + 8.0y = 62.0\n\nLet\u2019s solve step by step.\n\n**Step 1: Eliminate one variable.**  \nBoth equations have +8.0y, so subtract Equation 2 from Equation 1 to eliminate y:\n\n(8.0x + 8.0y) \u2212 (\u22125.0x + 8.0y) = (\u221216.0) \u2212 (62.0)\n\nCompute left side:  \n8.0x + 8.0y + 5.0x \u2212 8.0y = (8.0 + 5.0)x + (8.0 \u2212 8.0)y = 13.0x\n\nRight side:  \n\u221216.0 \u2212 62.0 = \u221278.0\n\nSo:  \n13.0x = \u221278.0  \n\u2192 x = \u221278.0 / 13.0 = \u22126.0\n\n**Step 2: Plug x = \u22126.0 into one equation to find y.**  \nUse Equation 1:  \n8.0x + 8.0y = \u221216.0  \n8.0(\u22126.0) + 8.0y = \u221216.0  \n\u221248.0 + 8.0y = \u221216.0  \nAdd 48.0 to both sides:  \n8.0y = 32.0  \n\u2192 y = 32.0 / 8.0 = 4.0\n\n\u2705 Check with Equation 2:  \n\u22125.0(\u22126.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 \u2714\ufe0f\n\nSo solution is x = \u22126.0, y = 4.0\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 6 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 7 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 7/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 7 OUTPUT: We are given the system:\n\n1) $ 8.0x + 8.0y = -16.0 $  \n2) $ -5.0x + 8.0y = 62.0 $\n\n**Step 1: Simplify Equation 1**  \nDivide Equation 1 by 8.0:  \n$ x + y = -2 $ \u2192 Equation 1\u2032\n\n**Step 2: Solve for one variable**  \nFrom Equation 1\u2032:  \n$ x = -2 - y $\n\n**Step 3: Substitute into Equation 2**  \nSubstitute $ x = -2 - y $ into Equation 2:  \n$ -5(-2 - y) + 8y = 62 $  \nCompute:  \n$ 10 + 5y + 8y = 62 $  \n$ 10 + 13y = 62 $  \nSubtract 10:  \n$ 13y = 52 $  \nDivide by 13:  \n$ y = 4 $\n\n**Step 4: Find x**  \nFrom $ x = -2 - y $:  \n$ x = -2 - 4 = -6 $\n\n**Check** (optional but recommended):  \nEquation 1: $ 8(-6) + 8(4) = -48 + 32 = -16 $ \u2705  \nEquation 2: $ -5(-6) + 8(4) = 30 + 32 = 62 $ \u2705\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 7 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 8 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 8/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 8 OUTPUT: We are given the system:\n\n1) $ 8.0x + 8.0y = -16.0 $  \n2) $ -5.0x + 8.0y = 62.0 $\n\n---\n\n**Step 1: Eliminate one variable.**  \nBoth equations have $ +8.0y $, so subtract Equation 2 from Equation 1 to eliminate $ y $:\n\nEquation 1:  \n$ 8.0x + 8.0y = -16.0 $  \nMinus Equation 2:  \n$ -(-5.0x + 8.0y) = -(62.0) $ \u2192 $ +5.0x - 8.0y = -62.0 $\n\nAdd them:\n\n$ (8.0x + 5.0x) + (8.0y - 8.0y) = -16.0 - 62.0 $  \n\u2192 $ 13.0x + 0 = -78.0 $  \n\u2192 $ 13.0x = -78.0 $\n\nSolve for $ x $:  \n$ x = \\frac{-78.0}{13.0} = -6.0 $\n\n---\n\n**Step 2: Substitute $ x = -6.0 $ into one equation to find $ y $.**  \nUse Equation 1:  \n$ 8.0x + 8.0y = -16.0 $  \nPlug in $ x = -6.0 $:\n\n$ 8.0(-6.0) + 8.0y = -16.0 $  \n\u2192 $ -48.0 + 8.0y = -16.0 $\n\nAdd 48.0 to both sides:  \n$ 8.0y = 32.0 $\n\nDivide by 8.0:  \n$ y = \\frac{32.0}{8.0} = 4.0 $\n\n---\n\n**Check with Equation 2:**  \n$ -5.0x + 8.0y = -5.0(-6.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 $ \u2713\n\n---\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 8 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 9 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 9/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 9 OUTPUT: We are given the system:\n\n1) $ 8.0x + 8.0y = -16.0 $  \n2) $ -5.0x + 8.0y = 62.0 $\n\n**Step 1: Simplify Equation 1**  \nDivide Equation 1 by 8.0:  \n$ x + y = -2 $  \u2192 Equation 1\u2032\n\n**Step 2: Solve for one variable**  \nFrom Equation 1\u2032:  \n$ x = -2 - y $\n\n**Step 3: Substitute into Equation 2**  \nSubstitute $ x = -2 - y $ into Equation 2:  \n$ -5(-2 - y) + 8y = 62 $  \n\u2192 $ 10 + 5y + 8y = 62 $  \n\u2192 $ 10 + 13y = 62 $  \n\u2192 $ 13y = 52 $  \n\u2192 $ y = 4 $\n\n**Step 4: Find x**  \nPlug $ y = 4 $ into $ x = -2 - y $:  \n$ x = -2 - 4 = -6 $\n\n**Check**  \nEquation 1: $ 8(-6) + 8(4) = -48 + 32 = -16 $ \u2713  \nEquation 2: $ -5(-6) + 8(4) = 30 + 32 = 62 $ \u2713\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 9 FINAL: x=-6.0,y=4.0",
+    "SAMPLE 10 PROMPT: Solve the linear system for x and y.\nEquation 1: 8.0*x + 8.0*y = -16.0\nEquation 2: -5.0*x + 8.0*y = 62.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nSample 10/10: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 10 OUTPUT: We are given the system:\n\n1) 8.0x + 8.0y = -16.0  \n2) -5.0x + 8.0y = 62.0\n\n**Step 1: Eliminate one variable.**  \nBoth equations have +8.0y, so subtract Equation 2 from Equation 1 to eliminate y.\n\nEquation 1 \u2212 Equation 2:  \n(8.0x \u2212 (\u22125.0x)) + (8.0y \u2212 8.0y) = \u221216.0 \u2212 62.0  \n\u2192 (8.0x + 5.0x) + 0 = \u221278.0  \n\u2192 13.0x = \u221278.0  \n\u2192 x = \u221278.0 / 13.0 = \u22126.0\n\n**Step 2: Substitute x = \u22126.0 into one of the original equations to find y.**  \nUse Equation 1:  \n8.0x + 8.0y = \u221216.0  \n8.0(\u22126.0) + 8.0y = \u221216.0  \n\u221248.0 + 8.0y = \u221216.0  \nAdd 48.0 to both sides:  \n8.0y = 32.0  \ny = 32.0 / 8.0 = 4.0\n\n**Check with Equation 2:**  \n\u22125.0(\u22126.0) + 8.0(4.0) = 30.0 + 32.0 = 62.0 \u2705\n\nSo solution is x = \u22126.0, y = 4.0\n\nFINAL: x=-6.0,y=4.0",
+    "SAMPLE 10 FINAL: x=-6.0,y=4.0",
+    "VOTE SUMMARY: x=-6.0,y=4.0 -> 10",
+    "VOTE WINNER: x=-6.0,y=4.0 (10/10)"
+  ]
+}

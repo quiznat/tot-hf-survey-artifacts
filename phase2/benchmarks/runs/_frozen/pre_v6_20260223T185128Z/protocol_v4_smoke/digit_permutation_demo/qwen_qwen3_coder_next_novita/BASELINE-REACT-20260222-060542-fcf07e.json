@@ -1,0 +1,67 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_smoke/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-060542-fcf07e.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "9318",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      9,
+      1,
+      3,
+      8
+    ],
+    "divisor": 6,
+    "oracle_max": 9318
+  },
+  "item_id": "perm-v4-008",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 7396,
+    "success": 1,
+    "tokens_in": 883,
+    "tokens_out": 340
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-060542-fcf07e",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 417856173,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T06:05:42Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the maximum number divisible by the given divisor (6) that can be formed by rearranging the given digits [9, 1, 3, 8]. The oracle_max is given as 9318, which suggests that 9318 is the correct answer \u2014 but I need to verify if 9318 is indeed divisible by 6 and can be formed from the digits [9,1,3,8].\n\nFirst, check divisibility by 6: a number divisible by 6 must be divisible by both 2 and 3.\n\n- Divisible by 2: last digit must be even. 9318 ends in 8 \u2192 even \u2192 OK.\n- Divisible by 3: sum of digits must be divisible by 3. Sum = 9+3+1+8 = 21 \u2192 21 \u00f7 3 =",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Sum of digits = 9 + 3 + 1 + 8 = 21, which is divisible by 3 (21 \u00f7 3 = 7). So 9318 is divisible by both 2 and 3 \u2192 divisible by 6. Also, digits of 9318 are exactly [9, 3, 1, 8], matching the given digits [9, 1, 3, 8] (order differs, but rearrangement allowed). So 9318 is a valid candidate. Since the oracle_max is 9318, and it satisfies all conditions, it is likely the maximum such number. To be thorough, I should confirm no larger permutation of [9,1,3,8] is divisible by 6. The largest possible permutation is 9831, then 9813, 93",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: The largest possible permutation of [9,1,3,8] is 9831. Let\u2019s list descending permutations and check divisibility by 6 (i.e., even and digit sum divisible by 3 \u2014 digit sum is always 21, so always divisible by 3; only need to check evenness \u2192 last digit must be even: only 8 is even in the digits, so the number must end in 8). So valid candidates must end in 8. Among permutations ending in 8, the largest is formed by arranging the remaining digits [9,1,3] in descending order: 9318. Next would be 9138, then 3918, etc. So 9318 is indeed the largest permutation ending in 8 \u2192 largest possible divisible-by-6 number. Confirmed.",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: FINAL: 9318"
+  ]
+}

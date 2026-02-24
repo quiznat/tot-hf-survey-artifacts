@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-180712-2b9823.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "THINK: The oracle says the maximum is 8140. We verified that 8140 uses exactly the digits [0,1,8,4] once each and is divisible by 11. To confirm it's indeed the maximum, consider all 4-digit permutations of these digits in descending order: 8410, 8401, 8140, 8104, 8041, 8014, ... Let's quickly check if any larger than 8140 is divisible by 11.\n\n- 8410: digits (8+1) - (4+0) = 9 - 4 = 5 \u2192 not divisible by 11  \n- 8401: (8+0) - (4+1) = 8 - 5 = 3 \u2192 no  \n-",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      0,
+      1,
+      8,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 8140
+  },
+  "item_id": "perm-v4-030",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 12167,
+    "success": 1,
+    "tokens_in": 198,
+    "tokens_out": 203
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution (fallback expression parse)",
+  "outcome": "success",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-180712-2b9823",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1318256768,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-22T18:07:12Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find the largest number that can be formed using the digits [0, 1, 8, 4] (each used at most once, presumably) that is divisible by 11, and the oracle says the maximum is 8140. Let's verify if 8140 is divisible by 11 and uses only those digits.\n\nCheck divisibility by 11: For a number, compute alternating sum of digits: (8 + 4) - (1 + 0) = 12 - 1 = 11, which is divisible by 11 \u2192 yes, 8140 is divisible by 11.\n\nDigits of 8140: 8, 1, 4, 0 \u2014 exactly the given digits [0,1,8,4], each used once.\n\nIs there a larger number using these digits?",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: The oracle says the maximum is 8140. We verified that 8140 uses exactly the digits [0,1,8,4] once each and is divisible by 11. To confirm it's indeed the maximum, consider all 4-digit permutations of these digits in descending order: 8410, 8401, 8140, 8104, 8041, 8014, ... Let's quickly check if any larger than 8140 is divisible by 11.\n\n- 8410: digits (8+1) - (4+0) = 9 - 4 = 5 \u2192 not divisible by 11  \n- 8401: (8+0) - (4+1) = 8 - 5 = 3 \u2192 no  \n-"
+  ]
+}

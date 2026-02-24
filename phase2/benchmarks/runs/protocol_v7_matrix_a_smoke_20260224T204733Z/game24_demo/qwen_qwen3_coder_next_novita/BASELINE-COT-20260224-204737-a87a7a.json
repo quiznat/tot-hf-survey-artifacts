@@ -1,0 +1,64 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "algorithm_id": "algorithm.reasoning.chain_of_thought_single_trajectory.v1",
+  "algorithm_module_id": "algorithm_module.baseline_chain_of_thought_single_trajectory.v1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v7_matrix_a_smoke_20260224T204733Z/game24_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260224-204737-a87a7a.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "strict",
+  "condition_id": "baseline-cot",
+  "condition_key": "baseline_chain_of_thought_reasoning_only_v1",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "execution_surface_id": "execution_surface.prompt_reasoning_loop.v1",
+  "final_answer": "14 + 10",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    5,
+    7,
+    5,
+    7
+  ],
+  "item_id": "g24-v4-002",
+  "memory_surface_id": "memory_surface.item_stateless.v1",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 2685,
+    "success": 0,
+    "tokens_in": 34,
+    "tokens_out": 173
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "parity_profile_id": "matrix_a_reasoning_only",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "BASELINE-COT-20260224-204737-a87a7a",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3023805780,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-24T20:47:37Z",
+  "tool_config": [],
+  "tool_surface_id": "tool_surface.no_tools.v1",
+  "trace": [
+    "PROMPT: Use each number exactly once to produce 24. Numbers: [5, 7, 5, 7]. Return only one expression in the final answer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the numbers: [5, 7, 5, 7], and we must use **each number exactly once** to make 24.\n\nLet\u2019s explore possible combinations.\n\nWe need to combine two 5s and two 7s using arithmetic operations (+, \u2212, \u00d7, \u00f7, parentheses) to get 24.\n\nLet\u2019s try some ideas:\n\n- 7 \u00d7 5 = 35  \n  35 \u2212 7 = 28  \n  28 \u2212 5 = 23 \u2192 close, but not 24.\n\n- 7 + 7 = 14  \n  5 + 5 = 10  \n  14 + 10 = 24 \u2192 **Wait!** That\u2019s 7 + 7 + 5 + 5 = 24.  \n  But that uses all numbers once: 7, 7, 5, 5 \u2192 sum is 24.\n\nYes!  \n7 + 7 + 5 + 5 = 24.\n\nThat\u2019s valid \u2014 uses each number exactly once, only addition.\n\nSo the expression is:  \n**7 + 7 + 5 + 5**\n\nBut let\u2019s double-check:  \n7 + 7 = 14  \n5 + 5 = 10  \n14 + 10 = 24 \u2705\n\nAll numbers used once.\n\nFINAL: 7 + 7 + 5 + 5",
+    "FINAL: 14 + 10"
+  ]
+}

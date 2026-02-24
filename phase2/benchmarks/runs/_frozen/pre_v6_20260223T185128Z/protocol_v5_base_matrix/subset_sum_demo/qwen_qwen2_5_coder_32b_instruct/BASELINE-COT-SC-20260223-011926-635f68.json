@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011926-635f68.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 +",
+        2
+      ],
+      [
+        "25,15,8",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 25 is close to 48, so if I use 25, I need the remaining sum to be 23\n- 24 is also close, so if I use 24, I need the remaining sum to be 24\n\nLet me try using 25:\nIf I use 25, I need to make 23 from [1, 5, 8, 15, 16, 19, 24]\nLooking at what adds up to 23:\n- 19 + 5 -",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are close to half of 48 (which would be 24):\n- 24 is in the list and 48 - 24 = 24\n- So I could try 24 + 24, but I can only use each number once\n\nLet me try combinations:\n- 25 + 19 = 44, need 4 more \u2192 25 + 19 + 8 - 5 + 1 = 48? No, that's not right.\n- Let me try: 25 + 19 + 8 - 5 + 1 =",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 +",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      5,
+      8,
+      15,
+      16,
+      19,
+      24,
+      25
+    ],
+    "target": 48
+  },
+  "item_id": "ss-v4-025",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 15098,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 551
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011926-635f68",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 2330009668,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:26Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 5, 8, 15, 16, 19, 24, 25]\nTarget: 48\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: Let me work through this step by step to find numbers that sum to 48.\n\nI'll look for combinations systematically:\n\nStarting with the largest numbers to get closer to 48 quickly:\n- 25 + 19 = 44, need 4 more. But 4 isn't in the list.\n- 25 + 16 = 41, need 7 more. But 7 isn't in the list.\n- 25 + 15 = 40, need 8 more. 8 is in the list.\n  So: 25 + 15 + 8 = 48 \u2713\n\nLet me verify: 25 + 15 + 8 = 48\nCheck if all numbers are used at most once: Yes, each appears once.\n\nFINAL: 25,15,8",
+    "SAMPLE 1 FINAL: 25,15,8",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 5, 8, 15, 16, 19, 24, 25]\nTarget: 48\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 +",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 +",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 5, 8, 15, 16, 19, 24, 25]\nTarget: 48\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 25 is close to 48, so if I use 25, I need the remaining sum to be 23\n- 24 is also close, so if I use 24, I need the remaining sum to be 24\n\nLet me try using 25:\nIf I use 25, I need to make 23 from [1, 5, 8, 15, 16, 19, 24]\nLooking at what adds up to 23:\n- 19 + 5 -",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 25 is close to 48, so if I use 25, I need the remaining sum to be 23\n- 24 is also close, so if I use 24, I need the remaining sum to be 24\n\nLet me try using 25:\nIf I use 25, I need to make 23 from [1, 5, 8, 15, 16, 19, 24]\nLooking at what adds up to 23:\n- 19 + 5 -",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 5, 8, 15, 16, 19, 24, 25]\nTarget: 48\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are close to half of 48 (which would be 24):\n- 24 is in the list and 48 - 24 = 24\n- So I could try 24 + 24, but I can only use each number once\n\nLet me try combinations:\n- 25 + 19 = 44, need 4 more \u2192 25 + 19 + 8 - 5 + 1 = 48? No, that's not right.\n- Let me try: 25 + 19 + 8 - 5 + 1 =",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are close to half of 48 (which would be 24):\n- 24 is in the list and 48 - 24 = 24\n- So I could try 24 + 24, but I can only use each number once\n\nLet me try combinations:\n- 25 + 19 = 44, need 4 more \u2192 25 + 19 + 8 - 5 + 1 = 48? No, that's not right.\n- Let me try: 25 + 19 + 8 - 5 + 1 =",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 5, 8, 15, 16, 19, 24, 25]\nTarget: 48\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 +",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 +",
+    "VOTE SUMMARY: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 + -> 2, 25,15,8 -> 1, I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 25 is close to 48, so if I use 25, I need the remaining sum to be 23\n- 24 is also close, so if I use 24, I need the remaining sum to be 24\n\nLet me try using 25:\nIf I use 25, I need to make 23 from [1, 5, 8, 15, 16, 19, 24]\nLooking at what adds up to 23:\n- 19 + 5 - -> 1, I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are close to half of 48 (which would be 24):\n- 24 is in the list and 48 - 24 = 24\n- So I could try 24 + 24, but I can only use each number once\n\nLet me try combinations:\n- 25 + 19 = 44, need 4 more \u2192 25 + 19 + 8 - 5 + 1 = 48? No, that's not right.\n- Let me try: 25 + 19 + 8 - 5 + 1 = -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from [1, 5, 8, 15, 16, 19, 24, 25] that sum to 48.\n\nLet me work through this systematically:\n\nFirst, let me identify which numbers are closest to 48:\n- 25 is the largest number, so I'll likely need it\n- If I use 25, I need the remaining sum to be 48 - 25 = 23\n\nNow I need to make 23 from the remaining numbers [1, 5, 8, 15, 16, 19, 24]\n\nLooking for combinations that sum to 23:\n- 19 + 5 = 24 (too big)\n- 16 + 8 = 24 (too big)\n- 15 + (2/5)"
+  ]
+}

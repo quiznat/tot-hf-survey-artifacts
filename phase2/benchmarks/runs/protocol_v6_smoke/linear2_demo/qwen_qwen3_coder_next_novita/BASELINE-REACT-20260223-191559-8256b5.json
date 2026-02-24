@@ -1,0 +1,71 @@
+{
+  "agent_framework": "smolagents-codeagent@hf",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/linear2_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260223-191559-8256b5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "x=-4.0,y=6.0",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -2,
+        -3,
+        -10
+      ],
+      [
+        1,
+        4,
+        20
+      ]
+    ]
+  },
+  "item_id": "lin-v4-002",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 4084,
+    "success": 1,
+    "tokens_in": 2132,
+    "tokens_out": 354
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution via smolagents CodeAgent",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "react_enable_tools": false,
+  "react_strict_mode": true,
+  "run_id": "BASELINE-REACT-20260223-191559-8256b5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 4264802945,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T19:15:59Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Solve this benchmark item using iterative reasoning with optional tool calls.\nTask:\nSolve the linear system for x and y.\nEquation 1: -2.0*x + -3.0*y = -10.0\nEquation 2: 1.0*x + 4.0*y = 20.0\nReturn only: x=<value>,y=<value>\nUse decimal values when needed.\n\nAvailable tools: none\nWhen finished, return only the final answer in the exact task-required format.",
+    "STEP 2 step MODEL: Thought: I need to solve the linear system of equations:\n-2.0*x + -3.0*y = -10.0\n1.0*x + 4.0*y = 20.0\n\nI can solve this using substitution or elimination. Let me use the elimination method.\n\nFirst, I'll multiply the second equation by 2 to eliminate x:\n2*(1.0*x + 4.0*y) = 2*20.0\n\u2192 2.0*x + 8.0*y = 40.0\n\nNow add this to the first equation:\n(-2.0*x + -3.0*y) + (2.0*x + 8.0*y) = -10.0 + 40.0\n\u2192 5.0*y = 30.0\n\u2192 y = 6.0\n\nNow substitute y = 6.0 into the second equation:\n1.0*x + 4.0*6.0 = 20.0\n\u2192 x + 24.0 = 20.0\n\u2192 x = 20.0 - 24.0 = -4.0\n\nSo x = -4.0, y = 6.0\n\nLet me verify by substituting into the first equation:\n-2.0*(-4.0) + -3.0*(6.0) = 8.0 - 18.0 = -10.0 \u2713\n\nThe solution is correct.\n<code>\nx = -4.0\ny = 6.0\nfinal_answer(f\"x={x},y={y}\")\n</code>",
+    "STEP 2 TOOL_CALLS: [{'id': 'call_1', 'type': 'function', 'function': {'name': 'python_interpreter', 'arguments': 'x = -4.0\\ny = 6.0\\nfinal_answer(f\"x={x},y={y}\")'}}]",
+    "STEP 2 OBSERVATION: Execution logs:\nLast output from code snippet:\nx=-4.0,y=6.0",
+    "OUTPUT: x=-4.0,y=6.0",
+    "FINAL: x=-4.0,y=6.0"
+  ]
+}

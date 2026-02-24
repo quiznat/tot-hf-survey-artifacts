@@ -1,0 +1,70 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v4_confirmatory_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-REACT-20260222-175321-633ac5.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "17 + 14 + 7 = 38 or 17 + 12 + 9 = 38",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      9,
+      12,
+      14,
+      17
+    ],
+    "target": 38
+  },
+  "item_id": "ss-v4-016",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 11937,
+    "success": 0,
+    "tokens_in": 1365,
+    "tokens_out": 451
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-175321-633ac5",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 554954239,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T17:53:21Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: I need to find a combination of numbers from the given list that sum to the target value of 38. The numbers available are [6, 7, 9, 12, 14, 17]. Since no tools are available, I'll need to work through this manually by trying different combinations.\n\nLet me start by looking for combinations systematically:\n- If I use the largest number 17, I need to make 38 - 17 = 21 from the remaining numbers [6, 7, 9, 12, 14]\n- If I use 14, I need to make 38 - 14 = 24 from [6, 7, 9, 12, 17]\n- If I use 12, I need to make 38 - 12 = 26 from [",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let me continue systematically checking combinations that sum to 38.\n\nStarting with the largest numbers:\n- Using 17: Need 21 from [6, 7, 9, 12, 14]\n  - 12 + 9 = 21 \u2713 So 17 + 12 + 9 = 38\n\nLet me verify: 17 + 12 + 9 = 38\nChecking: 17 + 12 = 29, then 29 + 9 = 38 \u2713\n\nThis is one valid combination. Let me see if there are others:\n\n- Using 14: Need 24 from [6, 7, 9, 12, 17]\n  - 17 + 7 = 24 \u2713 So 14 + 17 + 7 =",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let me continue checking for other combinations that sum to 38.\n\nFrom the previous step, I found that 17 + 12 + 9 = 38 works.\n\nNow checking combinations starting with 14:\n- Using 14: Need 24 from [6, 7, 9, 12, 17]\n  - 17 + 7 = 24 \u2713 So 14 + 17 + 7 = 38\n\nLet me check if there are any other combinations:\n- Using 12: Need 26 from [6, 7, 9, 14, 17]\n  - 17 + 9 = 26 \u2713 So 12 + 17 + 9 = 38 (this is the same as the first combination, just reordered)\n\nLet me try combinations with three",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let me systematically check all possible combinations of three numbers from the list [6, 7, 9, 12, 14, 17] that sum to 38.\n\nFirst, I'll sort the numbers in descending order to make it easier: [17, 14, 12, 9, 7, 6]\n\nNow I'll check combinations:\n- 17 + 14 + 7 = 38 \u2713\n- 17 + 12 + 9 = 38 \u2713\n- 14 + 12 + 12 would require two 12s, but we only have one\n- Other combinations either exceed 38 or don't reach it\n\nSo the valid combinations are:\n1. 17 + 14 + 7 = 38\n2. 17 + 12",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: FINAL: 17 + 14 + 7 = 38 or 17 + 12 + 9 = 38"
+  ]
+}

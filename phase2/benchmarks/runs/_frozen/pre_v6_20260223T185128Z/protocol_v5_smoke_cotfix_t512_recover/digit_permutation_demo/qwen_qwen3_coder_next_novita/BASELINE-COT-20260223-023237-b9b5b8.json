@@ -1,0 +1,65 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_cotfix_t512_recover/digit_permutation_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-023237-b9b5b8.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": true,
+  "final_answer": "4224",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "digits": [
+      4,
+      2,
+      2,
+      4
+    ],
+    "divisor": 11,
+    "oracle_max": 4422
+  },
+  "item_id": "perm-v4-003",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 35707,
+    "success": 0,
+    "tokens_in": 410,
+    "tokens_out": 317
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "failure",
+  "panel_id": "digit-permutation-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-023237-b9b5b8",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 2062023123,
+  "task_id": "digit-permutation-demo",
+  "task_tools_available": [
+    "best_divisible",
+    "is_divisible"
+  ],
+  "timestamp_utc": "2026-02-23T02:32:37Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Form the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 11**.\n\n---\n\n### Step 1: Understand divisibility rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, we need:\n$$\n(a + c) - (b + d) = 0 \\quad \\text{or} \\pm 11, \\pm 22, \\dots\n$$\nBut since digits are small (max digit = 4), the max possible sum of two digits is $4 + 4 = 8$, and min is $2 + 2 = 4$. So:\n- $a + c$ \u2208 [4, 8]\n- $b + d$ \u2208 [4, 8]\n- So $(a + c) - (b + d)$ \u2208 [-4, 4]\n\nThus, the only possible multiple of 11 in that range is **0**.\n\nSo we need:\n$$\na + c = b + d\n$$\n\n---\n\n### Step 2: Total sum of digits  \nDigits: 4, 2, 2, 4 \u2192 total sum = 4 + 2 + 2 + 4 = **12**\n\nSince $a + c = b + d$, and $a + b + c + d = 12$, then:\n$$\na + c = b + d = 6\n$$\n\nSo we need to split the digits into two pairs, each summing to 6.\n\nLet\u2019s list all possible pairs (unordered) from [4, 2, 2, 4] that sum to 6:\n- 4 + 2 = 6  \nWe have two 4s and two 2s, so we can make two such pairs: (4,2) and (4,2)\n\nSo the only way to split digits into two pairs summing to 6 is:  \nOne pair for positions (a,",
+    "FINAL: 12",
+    "RECOVERY PROMPT: You previously attempted this task but may have provided extra reasoning text.\nReturn ONLY the final answer in task-required format.\n\nTask:\nForm the largest possible 4-digit integer using the provided digits exactly once.\nDigits: [4, 2, 2, 4]\nThe number must be divisible by 11.\nReturn only the integer.\n\nPrevious reasoning:\nWe are given digits: [4, 2, 2, 4]  \nWe must form the **largest possible 4-digit integer** using **each digit exactly once**, and the number must be **divisible by 11**.\n\n---\n\n### Step 1: Understand divisibility rule for 11  \nA number is divisible by 11 **iff** the alternating sum of its digits is divisible by 11 (including 0).  \nThat is, for a 4-digit number with digits $ a, b, c, d $ (from left to right),  \n$$\n(a + c) - (b + d) \\equiv 0 \\pmod{11}\n$$\n\nSo, we need:\n$$\n(a + c) - (b + d) = 0 \\quad \\text{or} \\pm 11, \\pm 22, \\dots\n$$\nBut since digits are small (max digit = 4), the max possible sum of two digits is $4 + 4 = 8$, and min is $2 + 2 = 4$. So:\n- $a + c$ \u2208 [4, 8]\n- $b + d$ \u2208 [4, 8]\n- So $(a + c) - (b + d)$ \u2208 [-4, 4]\n\nThus, the only possible multiple of 11 in that range is **0**.\n\nSo we need:\n$$\na + c = b + d\n$$\n\n---\n\n### Step 2: Total sum of digits  \nDigits: 4, 2, 2, 4 \u2192 total sum = 4 + 2 + 2 + 4 = **12**\n\nSince $a + c = b + d$, and $a + b + c + d = 12$, then:\n$$\na + c = b + d = 6\n$$\n\nSo we need to split the digits into two pairs, each summing to 6.\n\nLet\u2019s list all possible pairs (unordered) from [4, 2, 2, 4] that sum to 6:\n- 4 + 2 = 6  \nWe have two 4s and two 2s, so we can make two such pairs: (4,2) and (4,2)\n\nSo the only way to split digits into two pairs summing to 6 is:  \nOne pair for positions (a,\n\nAnswer only:",
+    "RECOVERY OUTPUT: 4224",
+    "RECOVERY FINAL: 4224"
+  ]
+}

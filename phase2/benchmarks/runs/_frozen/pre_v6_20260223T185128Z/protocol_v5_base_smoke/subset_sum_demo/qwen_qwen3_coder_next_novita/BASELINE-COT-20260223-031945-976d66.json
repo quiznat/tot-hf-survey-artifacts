@@ -1,0 +1,62 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-031945-976d66.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "19,19,19",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      14,
+      19,
+      19,
+      19
+    ],
+    "target": 57
+  },
+  "item_id": "ss-v4-005",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 13636,
+    "success": 1,
+    "tokens_in": 64,
+    "tokens_out": 281
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-031945-976d66",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3940183932,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T03:19:45Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [5, 14, 19, 19, 19]\nTarget: 57\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: We are given the list: [5, 14, 19, 19, 19]  \nTarget: 57  \nWe may use each number at most once.\n\nLet\u2019s consider combinations:\n\n- Try three 19s: 19 + 19 + 19 = 57 \u2192 \u2705 matches target exactly.\n\nWe have three 19s available, so this is valid.\n\nAny other combinations? Let\u2019s check quickly:\n\n- 19 + 19 + 14 = 52 \u2192 too low  \n- 19 + 19 + 5 = 43  \n- 19 + 14 + 5 = 38  \n- 14 + 5 = 19  \n- All five: 5 + 14 + 19 + 19 + 19 = 76 \u2192 too high  \n- Two 19s + 14 + 5 = 57? 19+19=38, +14=52, +5=57 \u2192 \u2705 also works!\n\nWait \u2014 19 + 19 + 14 + 5 = 57  \nThat\u2019s four numbers: two 19s, 14, and 5.\n\nBut we have three 19s, so using two is allowed.\n\nSo we have at least two valid subsets:\n1. 19, 19, 19  \n2. 19, 19, 14, 5\n\nBut the problem says: \u201cSelect one or more values...\u201d and \u201cReturn only a comma-separated list of chosen numbers.\u201d\n\nIt doesn\u2019t say to find *all* solutions \u2014 just *a* solution.\n\nWe can choose either.\n\nWhich one to pick? Let\u2019s verify both:\n\n- 19 + 19 + 19 = 57 \u2714  \n- 19 + 19 + 14 + 5 = 57 \u2714\n\nBoth are valid.\n\nBut the instruction says: \u201cSelect one or more values from the provided list so their sum equals the target.\u201d So any valid subset is acceptable.\n\nWe should return one solution.\n\nLet\u2019s pick the simplest: three 19s.\n\nSo: 19,19,19\n\nNote: Since there are three 19s in the list, using all three is allowed",
+    "FINAL: 19,19,19"
+  ]
+}

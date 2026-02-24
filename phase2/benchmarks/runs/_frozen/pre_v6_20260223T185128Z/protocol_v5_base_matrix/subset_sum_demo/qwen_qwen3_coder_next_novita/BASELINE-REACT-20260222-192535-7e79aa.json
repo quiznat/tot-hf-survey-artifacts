@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192535-7e79aa.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "[17, 17, 18, 24]",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      5,
+      17,
+      17,
+      18,
+      20,
+      24
+    ],
+    "target": 76
+  },
+  "item_id": "ss-v4-013",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 5510,
+    "success": 1,
+    "tokens_in": 453,
+    "tokens_out": 209
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192535-7e79aa",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 2897766043,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:25:35Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers [5, 17, 17, 18, 20, 24] and a target sum of 76. The task is likely to find a subset (or combination) of these numbers that sums to the target. Since no tools are available, we must compute manually.\n\nLet\u2019s try to find a subset that sums to 76.\n\nFirst, total sum of all numbers: 5 + 17 + 17 + 18 + 20 + 24 =  \n5 + 17 = 22  \n22 + 17 = 39  \n39 + 18 = 57  \n57 + 20 = 77  \n77 + 24 = 101  \nTotal = 101. So we need to exclude numbers summing to",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Total sum is 101, target is 76, so we need to exclude numbers summing to 101 - 76 = 25. Let's find a subset of the numbers that sums to 25 to exclude.\n\nNumbers: [5, 17, 17, 18, 20, 24]\n\nTry small combinations:\n- 5 + 20 = 25 \u2192 yes! So exclude 5 and 20.\n\nThen the remaining numbers are: 17, 17, 18, 24  \nSum: 17 + 17 = 34; 34 + 18 = 52; 52 + 24 = 76 \u2192 matches target.\n\nThus, subset [17, 17, 18, 24] sums to",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: FINAL: [17, 17, 18, 24]"
+  ]
+}

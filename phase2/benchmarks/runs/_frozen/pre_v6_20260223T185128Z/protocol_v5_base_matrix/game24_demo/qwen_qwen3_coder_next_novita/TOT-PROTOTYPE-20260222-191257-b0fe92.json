@@ -1,0 +1,90 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260222-191257-b0fe92.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "error_type": "depth_limit",
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "expanded_nodes": 7,
+      "frontier_width": 3,
+      "generated_nodes": 16,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0
+    }
+  },
+  "final_answer": "Wait, 1 not in list. Invalid.",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    9,
+    3,
+    5,
+    4
+  ],
+  "item_id": "g24-v4-041",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 79759,
+    "success": 0,
+    "tokens_in": 2352,
+    "tokens_out": 500
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot prototype reached depth limit without terminal candidate",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260222-191257-b0fe92",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 4225857931,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-22T19:12:57Z",
+  "tool_config": [],
+  "trace": [
+    "DEPTH 1 frontier=1",
+    "NODE n0001 parent=root score=0.0000 cum=0.0000 terminal=False candidate=(9 - 3) * (5 - 1)",
+    "NODE n0002 parent=root score=0.0000 cum=0.0000 terminal=False candidate=9 * 3 - 5 + 4",
+    "NODE n0003 parent=root score=1.0000 cum=1.0000 terminal=False candidate=(4 + 5) * 3 - 9",
+    "DEPTH 2 frontier=3",
+    "NODE n0004 parent=n0003 score=1.0000 cum=2.0000 terminal=False candidate=(5 * 4) + (9 - 3)",
+    "NODE n0005 parent=n0003 score=0.0000 cum=1.0000 terminal=False candidate=(9 - 5) * (4 + 2)",
+    "NODE n0006 parent=n0003 score=0.0000 cum=1.0000 terminal=False candidate=Wait, 2 not in list. Invalid.",
+    "NODE n0007 parent=n0001 score=1.0000 cum=1.0000 terminal=False candidate=(4 * 5) + (9 - 3)",
+    "NODE n0008 parent=n0001 score=0.5000 cum=0.5000 terminal=False candidate=9 * (3 - 5 / 5)",
+    "NODE n0009 parent=n0001 score=0.5000 cum=0.5000 terminal=False candidate=(9 + 3) * (5 - 4)",
+    "NODE n0010 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=(9 - 5) * (4 + 3)",
+    "NODE n0011 parent=n0002 score=0.0000 cum=0.0000 terminal=False candidate=(5 - 3) * (9 + 3)",
+    "NODE n0012 parent=n0002 score=1.0000 cum=1.0000 terminal=False candidate=9 + 5 + 4 + 3",
+    "DEPTH 3 frontier=3",
+    "NODE n0013 parent=n0004 score=0.0000 cum=2.0000 terminal=False candidate=Wait, 1 not in list. Invalid.",
+    "NODE n0014 parent=n0004 score=0.0000 cum=2.0000 terminal=False candidate=Wait, that's already excluded.",
+    "NODE n0015 parent=n0004 score=0.0000 cum=2.0000 terminal=False candidate=Already excluded.",
+    "NODE n0016 parent=n0005 score=1.0000 cum=2.0000 terminal=False candidate=(5 * 3) + (9 - 4)",
+    "NODE n0006 generated no candidates"
+  ]
+}

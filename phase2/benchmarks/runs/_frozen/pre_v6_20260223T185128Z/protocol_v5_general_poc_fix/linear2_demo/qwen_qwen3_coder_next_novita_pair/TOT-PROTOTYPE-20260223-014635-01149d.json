@@ -1,0 +1,109 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_general_poc_fix/linear2_demo/qwen_qwen3_coder_next_novita_pair/TOT-PROTOTYPE-20260223-014635-01149d.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 8,
+      "frontier_width": 3,
+      "generated_nodes": 23,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "x=7.0,y=3.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -7,
+        8,
+        -25
+      ],
+      [
+        -7,
+        -7,
+        -70
+      ]
+    ]
+  },
+  "item_id": "lin-v4-006",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 71628,
+    "success": 1,
+    "tokens_in": 4732,
+    "tokens_out": 479
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-014635-01149d",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 359837145,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T01:46:35Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=eliminate one variable by subtracting equations; subnodes=eq1_minus_eq2 | solve_for_y | solve_for_x; recombine=use y from eq1_minus_eq2 to ba...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: Subtract Equation 2 from Equation 1: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0003 parent=root score=0.5520 cum=0.5520 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0003 score=0.5520 cum=1.1040 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0005 parent=n0003 score=0.5520 cum=1.1040 terminal=False thought=STEP: Substitute y = 3.0 into Equation 2: -7.0x + -7.0(3.0) = -70.0 \u2192 -7.0x - 21.0 = -70.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0006 parent=n0003 score=0.5520 cum=1.1040 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "NODE n0007 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Verify solution by substituting x=9.0, y=3.0 into Equation 1: -7.0(9.0) + 8.0(3.0) = -63.0 + 24.0 = -39.0 \u2260 -25.0 \u2192 contradiction, so earlier step must...",
+    "NODE n0008 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=use elimination via coefficient matching for x; subnodes=eq1_scaled | eq2_scaled | subtract_scaled; recombine=eliminate x to solve for y, the...",
+    "NODE n0009 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=STEP: Multiply Equation 2 by -1 to get 7.0x + 7.0y = 70.0, then add to Equation 1: (-7.0x + 8.0y) + (7.0x + 7.0y) = -25.0 +",
+    "NODE n0010 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0011 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: Substitute y = 3.0 into Equation 2: -7.0x + -7.0(3.0) = -70.0 \u2192 -7.0x - 21.0 = -70.0 \u2192 -7.0x = -49.0 \u2192 x = 9.0",
+    "NODE n0012 parent=n0002 score=0.5520 cum=1.0520 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "DEPTH 2 frontier=3",
+    "NODE n0013 parent=n0004 score=0.5520 cum=1.6560 terminal=False thought=STEP: Verify solution by substituting x=9.0, y=3.0 into Equation 1: -7.0(9.0) + 8.0(3.0) = -63.0 + 24.0 = -39.0 \u2260 -25.0 \u2192 contradiction, so earlier step must...",
+    "NODE n0014 parent=n0004 score=0.5520 cum=1.6560 terminal=False thought=STEP: Compute Equation 1 minus Equation 2: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0015 parent=n0004 score=0.5520 cum=1.6560 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0016 parent=n0005 score=0.5520 cum=1.6560 terminal=False thought=STEP: Subtract Equation 2 from Equation 1: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0017 parent=n0005 score=0.5520 cum=1.6560 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "NODE n0018 parent=n0005 score=0.5520 cum=1.6560 terminal=False thought=FINAL: x=9.0,y=3.0",
+    "NODE n0019 parent=n0006 score=0.5520 cum=1.6560 terminal=False thought=STEP: Subtract Equation 2 from Equation 1: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0020 parent=n0006 score=0.5520 cum=1.6560 terminal=False thought=STEP: Compute Equation 1 minus Equation 2: (-7.0x + 8.0y) - (-7.0x - 7.0y) = -25.0 - (-70.0) \u2192 15.0y = 45.0",
+    "NODE n0021 parent=n0006 score=0.5520 cum=1.6560 terminal=False thought=STEP: Solve 15.0y = 45.0 to get y = 3.0",
+    "DEPTH 3 frontier=3",
+    "NODE n0022 parent=n0013 score=0.5520 cum=2.2080 terminal=False thought=STEP: Re-express Equation 2 as -7.0x = -70.0 + 7.0y \u2192 x = 10.0 - y, then substitute into Equation 1: -7.0(10.0 - y) + 8.0y = -25.0 \u2192 -70.0 + 7.0y + 8.0y = -2...",
+    "NODE n0023 parent=n0013 score=1.0000 cum=2.6560 terminal=True thought=FINAL: x=7.0,y=3.0"
+  ]
+}

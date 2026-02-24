@@ -1,0 +1,104 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_smoke_general_totmode/game24_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-015428-f799f0.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-prototype",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "error_type": "depth_limit",
+  "evaluator_mode": "rule_based",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 10,
+      "frontier_width": 3,
+      "generated_nodes": 26,
+      "max_depth": 3,
+      "peak_frontier_size": 3,
+      "stop_reason": "depth_limit",
+      "terminal_nodes": 0,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "insight=realize (10 + 2) \u00d7 (10 / (3 + 2)) = 12 \u00d7 2 = 24 uses all numbers exactly once; subnodes=12 | 2; recombine=12 \u00d7 2 = 24",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": [
+    2,
+    10,
+    10,
+    3
+  ],
+  "item_id": "g24-v4-009",
+  "max_depth": 3,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 129772,
+    "success": 0,
+    "tokens_in": 35528,
+    "tokens_out": 1608
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search reached depth limit without terminal answer",
+  "outcome": "failure",
+  "panel_id": "game24-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-015428-f799f0",
+  "search_config": {
+    "breadth": 3,
+    "depth": 3,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 1862262800,
+  "task_id": "game24-demo",
+  "task_tools_available": [
+    "calc"
+  ],
+  "timestamp_utc": "2026-02-23T01:54:28Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=Target 24 can be approached via (a op b) * (c op d) or (a + b) * (c - d) forms; try pairing 10s and 2,3; subnodes=10+10=20 | 3-2=1 | 20+?; re...",
+    "NODE n0002 parent=root score=0.5000 cum=0.5000 terminal=False thought=DECOMP: insight=recognize that 10 + 10 = 20, leaving 3 and 2 to make 4; 20 + 4 = 24; subnodes=20 | 4; recombine=20 + 4",
+    "NODE n0003 parent=root score=0.5000 cum=0.5000 terminal=False thought=STEP: compute 10 + 10 = 20, then 3 - 2 = 1, but 20 + 1 = 21 \u2260 24 \u2014 discard",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=consider using division to create fractions that scale up; 10 / (10 / (3 * 2)) = 10 / (10 / 6) = 10 * (6 / 10) = 6 \u2014 too small, but reverse: ...",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=consider using division to create fractions that scale to 24; 10/2 = 5, 10/3 \u2248 3.333, but 5 \u00d7 (10/3) \u2248 16.67; instead, try (10 \u00d7 3) = 30, the...",
+    "NODE n0006 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=recognize that 10 + 10 = 20, leaving 3 and 2 to make 4; 20 + 4 = 24; subnodes=20 | 4; recombine=20 + 4",
+    "NODE n0007 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=STEP: 3 \u00d7 2 = 6, but need 4 \u2014 try 10 / (10 / (3 \u00d7 2)) = 6, not helpful; instead, (10 \u00d7 3) \u2212 (10 + 2) = 30 \u2212 12 = 18; (10 + 2) \u00d7 (10 \u2212 3) = 12 \u00d7 7 = 84; (10 \u2212...",
+    "NODE n0008 parent=n0002 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=use multiplication to reach 24 directly: 3 \u00d7 8 = 24, so aim to make 8 from [10, 10, 2]; 10 \u2212 (10 \u2212 2) = 2, no; (10 + 2) \u2212 10 = 2, no; 10 \u2212 2 ...",
+    "NODE n0009 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=use multiplication to reach 24 directly: 3 \u00d7 8 = 24, so aim to make 8 from [10, 10, 2]; 10 \u2212 (10 \u2212 2) = 2, no; (10 + 2) \u2212 10 = 2, no; 10 \u2212 2 ...",
+    "NODE n0010 parent=n0003 score=0.5000 cum=1.0000 terminal=False thought=DECOMP: insight=leverage division to create a scaling factor: (10 \u00d7 3) = 30, and (10 / 2) = 5, then 30 \u2212 5 = 25 \u2014 overshoot by 1; adjust by using (10 \u00d7 2) = ...",
+    "DEPTH 2 frontier=3",
+    "NODE n0011 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=leverage division to create a scaling factor: (10 \u00d7 3) = 30, and (10 / 2) = 5, then 30 \u2212 5 = 25 \u2014 overshoot by 1; adjust by using (10 \u00d7 2) = ...",
+    "NODE n0012 parent=n0004 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=aim for 24 = 12 \u00d7 2; make 12 from [10, 10, 3] and use 2 as multiplier; 10 + (10 \u2212 3) = 17, too big; (10 \u00d7 3) \u2212 10 = 20, then \u00d72 = 40; instead...",
+    "NODE n0013 parent=n0005 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=use multiplication to reach 24 directly: 3 \u00d7 8 = 24, so aim to make 8 from [10, 10, 2]; 10 \u2212 (10 \u2212 2) = 2, no; (10 + 2) \u2212 10 = 2, no; 10 \u2212 2 ...",
+    "NODE n0014 parent=n0005 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=aim for 24 = (10 \u00d7 2) + 4, and make 4 from remaining 10 and 3: 10 \u2212 3 = 7, too big; 10 / 3 \u2248 3.33, not 4; but (10 + 2) = 12, and 12 \u00d7 2 = 24 ...",
+    "NODE n0015 parent=n0006 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=use multiplication to reach 24 directly: 3 \u00d7 8 = 24, so aim to make 8 from [10, 10, 2]; 10 \u2212 2 = 8, then multiply by 3, and use the second 10...",
+    "NODE n0016 parent=n0006 score=0.5000 cum=1.5000 terminal=False thought=DECOMP: insight=realize (10 \u00d7 2) + (10 \u2212 3) = 27 overshoots by 3; instead, (10 \u00d7 3) \u2212 (10 \u2212 2) = 30 \u2212 8 = 22, still short; but (10 + 2) \u00d7 (10 / (3 + 2)) = 12...",
+    "NODE n0017 parent=n0006 score=0.0500 cum=1.0500 terminal=False thought=FINAL: (10 + 2) \u00d7 (10 / (3 + 2)) = 24",
+    "DEPTH 3 frontier=3",
+    "NODE n0018 parent=n0011 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=realize (10 + 2) \u00d7 (10 / (3 + 2)) = 12 \u00d7 2 = 24 uses all numbers exactly once; subnodes=12 | 2; recombine=12 \u00d7 2 = 24",
+    "NODE n0019 parent=n0011 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=recognize 24 = 12 \u00d7 2; form 12 as (10 + 2), and form 2 as (10 / 5) where 5 = 3 + 2 \u2014 but 2 is reused; instead, use (10 + 2) \u00d7 (10 / (3 + 2)) ...",
+    "NODE n0020 parent=n0011 score=0.5000 cum=2.0000 terminal=False thought=STEP: verify: 3 + 2 = 5; 10 / 5 = 2; 10 + 2 = 12; 12 \u00d7 2 = 24 \u2014 uses all numbers",
+    "NODE n0021 parent=n0012 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=recognize (10 \u2212 2) \u00d7 3 = 24 uses 10, 2, 3; incorporate the second 10 via multiplication by (10/10)=1 without changing value; subnodes=8 | 3 |...",
+    "NODE n0022 parent=n0012 score=0.0500 cum=1.5500 terminal=False thought=FINAL: (10 \u2212 2) \u00d7 3 \u00d7 (10 / 10) = 24",
+    "NODE n0023 parent=n0012 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=realize 24 = (10 \u00d7 3) \u2212 (10 \u2212 2) = 30 \u2212 8 = 22 is close; adjust by swapping subtraction: (10 \u00d7 3) \u2212 (2 \u2212 10) = 30 \u2212 (\u22128) = 38 \u2014 too big; inst...",
+    "NODE n0024 parent=n0013 score=0.0500 cum=1.5500 terminal=False thought=FINAL: (10 + 2) \u00d7 (10 / (3 + 2)) = 24",
+    "NODE n0025 parent=n0013 score=0.5000 cum=2.0000 terminal=False thought=DECOMP: insight=leverage division to form a fraction that scales to 24: (10 \u00d7 3) = 30, (10 / 2) = 5, then 30 \u2212 5 = 25 \u2014 overshoot by 1; instead, (10 \u00d7 2) = 2...",
+    "NODE n0026 parent=n0013 score=0.5000 cum=2.0000 terminal=False thought=STEP: compute inner: 3 + 2 = 5; 10 / 5 = 2; 10"
+  ]
+}

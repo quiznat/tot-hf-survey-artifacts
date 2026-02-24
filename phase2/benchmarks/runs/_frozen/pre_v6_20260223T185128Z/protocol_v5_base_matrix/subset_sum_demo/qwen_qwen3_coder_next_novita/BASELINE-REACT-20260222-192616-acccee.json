@@ -1,0 +1,66 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192616-acccee.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "final_answer": "7 + 14 + 17 = 38",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      6,
+      7,
+      9,
+      12,
+      14,
+      17
+    ],
+    "target": 38
+  },
+  "item_id": "ss-v4-016",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 6205,
+    "success": 0,
+    "tokens_in": 450,
+    "tokens_out": 300
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192616-acccee",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 554954239,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:26:16Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: We are given a list of numbers [6, 7, 9, 12, 14, 17] and a target of 38. The task is likely to find a subset (or combination) of these numbers that sum to the target. Since no tools are available, this is a pure reasoning problem.\n\nLet\u2019s try to find a subset that sums to 38.\n\nFirst, total sum of all numbers: 6 + 7 + 9 + 12 + 14 + 17 =  \n6+7=13, +9=22, +12=34, +14=48, +17=65. So total is 65. We need 38, which is less than half of 65 (~32.5), actually 38 > 32.5, so more",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: We need a subset of [6, 7, 9, 12, 14, 17] that sums to 38. Total sum is 65, so complement would sum to 65 \u2212 38 = 27. So equivalently, find a subset summing to 27, and the rest sum to 38.\n\nLet\u2019s try to find a subset summing to 27.\n\nTry largest numbers first: 17 + 14 = 31 \u2192 too big.  \n17 + 12 = 29 \u2192 too big.  \n17 + 9 = 26 \u2192 need +1 \u2192 no 1.  \n17 + 7 = 24 \u2192 need +3 \u2192 no 3.  \n17 + 6 = 23 \u2192 need +4 \u2192 no 4.\n\nTry 1",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's continue systematically. We want a subset summing to 38. Try combinations:\n\nStart with 17 (largest):\n- 17 + 14 = 31 \u2192 need 7 more \u2192 7 is available! So 17 + 14 + 7 = 38.  \nCheck: 17 + 14 = 31, 31 + 7 = 38. Yes! All numbers are in the list: 7, 14, 17 \u2208 [6, 7, 9, 12, 14, 17].\n\nSo subset {7, 14, 17} sums to 38.\n\nWe can stop here \u2014 solution found.\nFINAL: 7 + 14 + 17 = 38"
+  ]
+}

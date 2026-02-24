@@ -1,0 +1,90 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "phase2/benchmarks/runs/protocol_v6_smoke/linear2_demo/qwen_qwen3_coder_next_novita/TOT-PROTOTYPE-20260223-191634-411c81.json"
+  ],
+  "branch_factor": 3,
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 15000,
+    "token_budget": 4000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "tot-gen",
+  "condition_tools_exposed": [],
+  "decomposition_rounds": 1,
+  "evaluator_mode": "model_self_eval",
+  "extra": {
+    "search_summary": {
+      "branch_factor": 3,
+      "decomposition_rounds": 1,
+      "expanded_nodes": 2,
+      "frontier_width": 3,
+      "generated_nodes": 6,
+      "max_depth": 4,
+      "peak_frontier_size": 3,
+      "stop_reason": "terminal_solution",
+      "terminal_nodes": 1,
+      "tot_mode": "model_decompose_search"
+    }
+  },
+  "final_answer": "x=1.0,y=0.0",
+  "frontier_width": 3,
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "equations": [
+      [
+        -6,
+        -7,
+        -6
+      ],
+      [
+        -8,
+        1,
+        -8
+      ]
+    ]
+  },
+  "item_id": "lin-v4-003",
+  "max_depth": 4,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 16607,
+    "success": 1,
+    "tokens_in": 942,
+    "tokens_out": 105
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "tot model-decompose search found terminal candidate",
+  "outcome": "success",
+  "panel_id": "linear2-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "smolagents-inference",
+  "run_id": "TOT-PROTOTYPE-20260223-191634-411c81",
+  "search_config": {
+    "breadth": 3,
+    "depth": 4,
+    "pruning": "topk_cumulative_score",
+    "stop_policy": "first_terminal_or_depth_limit"
+  },
+  "seed": 2104316266,
+  "task_id": "linear2-demo",
+  "task_tools_available": [
+    "check_xy",
+    "solve2"
+  ],
+  "timestamp_utc": "2026-02-23T19:16:34Z",
+  "tool_config": [],
+  "tot_mode": "model_decompose_search",
+  "trace": [
+    "DECOMPOSE 1 frontier=1",
+    "NODE n0001 parent=root score=0.9000 cum=0.9000 terminal=False thought=DECOMP: insight=Use elimination method by aligning coefficients of y; subnodes=Eliminate_y | Solve_for_x | Back_substitute; recombine=Use Eliminate_y output ...",
+    "NODE n0002 parent=root score=0.8000 cum=0.8000 terminal=False thought=STEP: Multiply Equation 2 by 7 to make coefficients of y opposites: -56.0*x + 7.0*y = -56.0",
+    "NODE n0003 parent=root score=0.0000 cum=0.0000 terminal=False thought=FINAL: x=0.875,y=-1.25",
+    "DEPTH 1 frontier=3",
+    "NODE n0004 parent=n0001 score=0.8000 cum=1.7000 terminal=False thought=STEP: Multiply Equation 1 by 1 and Equation 2 by 7 to align y-coefficients: -6.0*x - 7.0*y = -6.0 and -56.0*x + 7.0*y = -56.0",
+    "NODE n0005 parent=n0001 score=0.5000 cum=1.4000 terminal=False thought=STEP: Add the two equations: (-6.0*x - 56.0*x) + (-7.0*y + 7.0*y) = -6.0 + (-56.0) \u2192 -62.0*x = -62.0",
+    "NODE n0006 parent=n0001 score=0.5000 cum=1.4000 terminal=True thought=FINAL: x=1.0,y=0.0"
+  ]
+}

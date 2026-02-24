@@ -1,0 +1,74 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-REACT-20260222-192528-271485.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-react",
+  "condition_tools_exposed": [],
+  "error_type": "max_steps_exceeded",
+  "final_answer": "",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      10,
+      10,
+      18,
+      19,
+      22,
+      24,
+      25
+    ],
+    "target": 50
+  },
+  "item_id": "ss-v4-009",
+  "max_steps": 5,
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 41332,
+    "success": 0,
+    "tokens_in": 1270,
+    "tokens_out": 515
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "react baseline execution reached max_steps without FINAL",
+  "outcome": "timeout",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "react_enable_tools": false,
+  "run_id": "BASELINE-REACT-20260222-192528-271485",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "max_steps_or_final"
+  },
+  "seed": 1773078958,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-22T19:25:28Z",
+  "tool_config": [],
+  "trace": [
+    "STEP 1 MODEL: THINK: The task is to find a combination of numbers from the list [2, 10, 10, 18, 19, 22, 24, 25] that sum to the target 50. Since no tools are available, I need to reason manually.\n\nLet\u2019s try to find a subset that sums to 50.\n\nFirst, sort the list (already sorted): [2, 10, 10, 18, 19, 22, 24, 25]\n\nTry large numbers first:\n- 25 + 24 = 49 \u2192 need 1 more \u2192 no 1.\n- 25 + 22 = 47 \u2192 need 3 \u2192 no 3.\n- 25 + 19 = 44 \u2192 need 6 \u2192 no 6.\n-",
+    "STEP 1 OBSERVATION: no-action",
+    "STEP 2 MODEL: THINK: Let's continue exploring combinations.  \n25 + 18 = 43 \u2192 need 7 \u2192 no 7.  \n25 + 10 = 35 \u2192 need 15 \u2192 possible? Remaining numbers: 2,10,18,19,22,24 (but 10 used once, we have two 10s). So 35 + 10 = 45 \u2192 need 5 \u2192 no 5.  \n35 + 2 = 37 \u2192 need 13 \u2192 no 13.  \n\nTry 24 + 22 = 46 \u2192 need 4 \u2192 no 4.  \n24 + 19 = 43 \u2192 need 7 \u2192 no 7.  \n24 + 18 = 42 \u2192 need 8 \u2192 no 8.  \n24 +",
+    "STEP 2 OBSERVATION: no-action",
+    "STEP 3 MODEL: THINK: Let's continue exploring combinations more systematically. Since brute-force is tedious, let\u2019s consider possible 3-number sums first.\n\nTry 25 + 10 + 10 = 45 \u2192 need 5 more \u2192 remaining numbers: 2,18,19,22,24 \u2014 no 5.\n\n25 + 10 + 18 = 53 \u2192 too big.\n\n25 + 10 + 2 = 37 \u2192 need 13 \u2192 remaining: 10,18,19,22,24 \u2014 no 13.\n\n24 + 10 + 10 = 44 \u2192 need 6 \u2192 no 6.\n\n24 + 10 + 2 = 36 \u2192 need 14 \u2192 no 14.\n\n22 + 10 + 10 = 42",
+    "STEP 3 OBSERVATION: no-action",
+    "STEP 4 MODEL: THINK: Let's try 4-number combinations.  \n25 + 10 + 10 + 2 = 47 \u2192 need 3 more \u2192 no 3.  \n24 + 10 + 10 + 2 = 46 \u2192 need 4 \u2192 no 4.  \n22 + 10 + 10 + 2 = 44 \u2192 need 6 \u2192 no 6.  \n19 + 10 + 10 + 2 = 41 \u2192 need 9 \u2192 no 9.  \n\nTry including 18:  \n25 + 18 + 2 + 10 = 55 \u2192 too big.  \n24 + 18 + 2 + 10 = 54 \u2192 too big.  \n22 + 18 + 2 + 10 = 52 \u2192 too big",
+    "STEP 4 OBSERVATION: no-action",
+    "STEP 5 MODEL: THINK: Let's try a different approach \u2014 consider combinations with 5 numbers.  \nWe have small numbers like 2 and two 10s, which can help adjust sums.  \n\nTry: 25 + 10 + 10 + 2 + ? = 47 + ? \u2192 need 3 more \u2192 no 3.  \n\nTry: 24 + 10 + 10 + 2 + ? = 46 + ? \u2192 need 4 \u2192 no 4.  \n\nTry: 22 + 10 + 10 + 2 + ? = 44 + ? \u2192 need 6 \u2192 no 6.  \n\nTry: 19 + 10 + 10 + 2 + ? = 41 + ? \u2192 need 9 \u2192 no 9.  \n\nWhat about 18 + 10 + 10 + 2",
+    "STEP 5 OBSERVATION: no-action"
+  ]
+}

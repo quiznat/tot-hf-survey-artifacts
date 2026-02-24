@@ -1,0 +1,101 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_matrix/subset_sum_demo/qwen_qwen2_5_coder_32b_instruct/BASELINE-COT-SC-20260223-011922-cb3716.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 16000,
+    "token_budget": 6000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot-sc",
+  "condition_tools_exposed": [],
+  "cot_sc_samples": 5,
+  "extra": {
+    "cot_sc_samples": 5,
+    "cot_sc_vote_counts": [
+      [
+        "I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 +",
+        2
+      ],
+      [
+        "I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 23 + 22 = 45, need 6 more. I have 1, 2, 9, 11, 11, 20 left.\n- 23 + 20 = 43, need 8 more. I have 1, 2, 9, 11, 11, 22 left.\n- 22 + 20 = 42, need 9 more. I have 1, 2",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from [1, 2, 9, 11, 11, 20, 22, 23] that sum to 51.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 23 is close to 51, so I need the remaining sum to be 51 - 23 = 28\n- 22 is also large, so I'd need 51 - 22 = 29 remaining\n- 20 is another large number, so I'd need 51 - 20 = 31 remaining\n\nLet me try starting with 23:\nRemaining target: 28\nAvailable numbers: [1, 2, 9, 11, 11, 20, 2",
+        1
+      ],
+      [
+        "I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 20 + 9 = 52 (too big by 1)\nLet me try 23 + 20 + 8 = 51, but 8 isn't in the list.\n\nLet me try 2",
+        1
+      ]
+    ],
+    "cot_sc_winner_votes": 2
+  },
+  "final_answer": "I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 +",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      1,
+      2,
+      9,
+      11,
+      11,
+      20,
+      22,
+      23
+    ],
+    "target": 51
+  },
+  "item_id": "ss-v4-023",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 14604,
+    "success": 0,
+    "tokens_in": 370,
+    "tokens_out": 534
+  },
+  "model_name": "Qwen/Qwen2.5-Coder-32B-Instruct",
+  "notes": "cot self-consistency baseline execution (samples=5)",
+  "outcome": "failure",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-SC-20260223-011922-cb3716",
+  "search_config": {
+    "breadth": 5,
+    "depth": 1,
+    "pruning": "majority_vote",
+    "stop_policy": "sample_consensus"
+  },
+  "seed": 1148256203,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T01:19:22Z",
+  "tool_config": [],
+  "trace": [
+    "SAMPLE 1 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 1/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 1 OUTPUT: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 +",
+    "SAMPLE 1 FINAL: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 +",
+    "SAMPLE 2 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 2/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 2 OUTPUT: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 +",
+    "SAMPLE 2 FINAL: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 +",
+    "SAMPLE 3 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 3/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 3 OUTPUT: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 23 + 22 = 45, need 6 more. I have 1, 2, 9, 11, 11, 20 left.\n- 23 + 20 = 43, need 8 more. I have 1, 2, 9, 11, 11, 22 left.\n- 22 + 20 = 42, need 9 more. I have 1, 2",
+    "SAMPLE 3 FINAL: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 23 + 22 = 45, need 6 more. I have 1, 2, 9, 11, 11, 20 left.\n- 23 + 20 = 43, need 8 more. I have 1, 2, 9, 11, 11, 22 left.\n- 22 + 20 = 42, need 9 more. I have 1, 2",
+    "SAMPLE 4 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 4/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 4 OUTPUT: I need to find a combination of numbers from [1, 2, 9, 11, 11, 20, 22, 23] that sum to 51.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 23 is close to 51, so I need the remaining sum to be 51 - 23 = 28\n- 22 is also large, so I'd need 51 - 22 = 29 remaining\n- 20 is another large number, so I'd need 51 - 20 = 31 remaining\n\nLet me try starting with 23:\nRemaining target: 28\nAvailable numbers: [1, 2, 9, 11, 11, 20, 2",
+    "SAMPLE 4 FINAL: I need to find a combination of numbers from [1, 2, 9, 11, 11, 20, 22, 23] that sum to 51.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 23 is close to 51, so I need the remaining sum to be 51 - 23 = 28\n- 22 is also large, so I'd need 51 - 22 = 29 remaining\n- 20 is another large number, so I'd need 51 - 20 = 31 remaining\n\nLet me try starting with 23:\nRemaining target: 28\nAvailable numbers: [1, 2, 9, 11, 11, 20, 2",
+    "SAMPLE 5 PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nSample 5/5: produce an independently reasoned attempt.\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "SAMPLE 5 OUTPUT: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 20 + 9 = 52 (too big by 1)\nLet me try 23 + 20 + 8 = 51, but 8 isn't in the list.\n\nLet me try 2",
+    "SAMPLE 5 FINAL: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 20 + 9 = 52 (too big by 1)\nLet me try 23 + 20 + 8 = 51, but 8 isn't in the list.\n\nLet me try 2",
+    "VOTE SUMMARY: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 + -> 2, I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I start with the largest numbers:\n- 23 + 22 = 45, need 6 more. I have 1, 2, 9, 11, 11, 20 left.\n- 23 + 20 = 43, need 8 more. I have 1, 2, 9, 11, 11, 22 left.\n- 22 + 20 = 42, need 9 more. I have 1, 2 -> 1, I need to find a combination of numbers from [1, 2, 9, 11, 11, 20, 22, 23] that sum to 51.\n\nLet me work through this systematically:\n\nFirst, let me look for large numbers that might be part of the solution:\n- 23 is close to 51, so I need the remaining sum to be 51 - 23 = 28\n- 22 is also large, so I'd need 51 - 22 = 29 remaining\n- 20 is another large number, so I'd need 51 - 20 = 31 remaining\n\nLet me try starting with 23:\nRemaining target: 28\nAvailable numbers: [1, 2, 9, 11, 11, 20, 2 -> 1, I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 20 + 9 = 52 (too big by 1)\nLet me try 23 + 20 + 8 = 51, but 8 isn't in the list.\n\nLet me try 2 -> 1",
+    "VOTE WINNER: I need to find a combination of numbers from the list that sum to 51.\n\nLet me work through this systematically:\n\nNumbers: [1, 2, 9, 11, 11, 20, 22, 23]\nTarget: 51\n\nLet me try different combinations:\n\nFirst, let me see what happens if I use the largest numbers:\n- 23 + 22 = 45, need 6 more\n- 23 + 20 = 43, need 8 more\n- 22 + 20 = 42, need 9 more\n\nLet me try 23 + 22 + 9 = 54 (too big by 3)\nLet me try 23 + 22 + 11 = 56 (too big by 5)\nLet me try 23 + (2/5)"
+  ]
+}

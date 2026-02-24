@@ -1,0 +1,63 @@
+{
+  "agent_framework": "phase2-baselines@0.1",
+  "artifact_paths": [
+    "/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/runs/protocol_v5_base_smoke/subset_sum_demo/qwen_qwen3_coder_next_novita/BASELINE-COT-20260223-031934-7f76a9.json"
+  ],
+  "budget": {
+    "cost_budget_usd": 0.0,
+    "time_budget_ms": 12000,
+    "token_budget": 3000
+  },
+  "capability_parity_policy": "equalize_react_to_tot",
+  "condition_id": "baseline-cot",
+  "condition_tools_exposed": [],
+  "cot_answer_recovery": false,
+  "final_answer": "2,6,7,24",
+  "hf_temperature": 0.0,
+  "hf_top_p": 1.0,
+  "input_data": {
+    "numbers": [
+      2,
+      6,
+      7,
+      21,
+      23,
+      24
+    ],
+    "target": 39
+  },
+  "item_id": "ss-v4-006",
+  "metrics": {
+    "cost_usd": 0.0,
+    "latency_ms": 3764,
+    "success": 1,
+    "tokens_in": 65,
+    "tokens_out": 207
+  },
+  "model_name": "Qwen/Qwen3-Coder-Next:novita",
+  "notes": "cot baseline execution",
+  "outcome": "success",
+  "panel_id": "subset-sum-lockset-v4",
+  "prompt_template_version": "v1",
+  "provider": "huggingface-inference",
+  "run_id": "BASELINE-COT-20260223-031934-7f76a9",
+  "search_config": {
+    "breadth": 1,
+    "depth": 1,
+    "pruning": "none",
+    "stop_policy": "single-cot-pass"
+  },
+  "seed": 3818761862,
+  "task_id": "subset-sum-demo",
+  "task_tools_available": [
+    "check_target",
+    "sum_list"
+  ],
+  "timestamp_utc": "2026-02-23T03:19:34Z",
+  "tool_config": [],
+  "trace": [
+    "PROMPT: Select one or more values from the provided list so their sum equals the target.\nNumbers: [2, 6, 7, 21, 23, 24]\nTarget: 39\nRules:\n- You may use each listed number at most once.\n- Return only a comma-separated list of chosen numbers (example: 4,9,2).\n- Do not include explanation text.\n\nThink step by step before answering.\nEnd with exactly one line:\nFINAL: <answer>\n",
+    "OUTPUT: Let's find a subset of [2, 6, 7, 21, 23, 24] that sums to 39.\n\nTry combinations:\n\n- 24 + 23 = 47 \u2192 too big  \n- 24 + 21 = 45 \u2192 too big  \n- 24 + 7 = 31 \u2192 need 8 more \u2192 remaining: 2,6,21,23 \u2014 6+2=8 \u2192 24+7+6+2 = 39?  \n  24+7=31, +6=37, +2=39 \u2192 yes!\n\nCheck: 24 + 7 + 6 + 2 = 39  \nAll numbers used are in the list and used once.\n\nAlternative: 23 + 21 = 44 \u2192 too big  \n23 + 7 = 30 \u2192 need 9 \u2192 6+2=8, 2+6+? no 9  \n23 + 6 + 2 = 31 \u2192 need 8 \u2192 7+? no  \n21 + 7 + 6 + 2 = 36 \u2192 need 3 more \u2192 no  \n21 + 23 = 44 \u2192 too big  \n21 + 7 + 6 = 34 \u2192 need 5 \u2192 no  \n21 + 7 + 2 = 30 \u2192 need 9 \u2192 no  \n21 + 6 + 2 = 29 \u2192 need 10 \u2192 no  \n7 + 6 + 2 = 15 \u2192 need 24 \u2192 yes! 7+6+2+24 = 39 \u2014 same as before.\n\nSo valid subset: 2, 6, 7, 24  \nOrder doesn\u2019t matter, but typically ascending.\n\nFINAL: 2,6,7,24",
+    "FINAL: 2,6,7,24"
+  ]
+}
