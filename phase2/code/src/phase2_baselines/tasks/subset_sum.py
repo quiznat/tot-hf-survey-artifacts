@@ -40,6 +40,23 @@ class SubsetSumTask(BaseTask):
             return False
         return sum(selected) == int(payload["target"])
 
+    def extract_final_answer(self, raw_output: str) -> str:
+        direct = super().extract_final_answer(raw_output).strip()
+        candidates = _extract_subset_candidates(raw_output)
+
+        # Prefer lines closer to the end of the output.
+        for candidate in reversed(candidates):
+            selected = _parse_selected_numbers(candidate)
+            if selected:
+                return ",".join(str(x) for x in selected)
+
+        # Conservative fallback: only accept direct when it already looks list-like.
+        if re.search(r"-?\d+\s*,\s*-?\d+", direct):
+            selected = _parse_selected_numbers(direct)
+            if selected:
+                return ",".join(str(x) for x in selected)
+        return direct if direct else raw_output.strip()
+
     def build_tot_candidate_prompt(
         self,
         input_data: Any,
@@ -129,3 +146,45 @@ def _parse_selected_numbers(raw: str) -> list[int]:
     if not matches:
         return []
     return [int(x) for x in matches]
+
+
+def _extract_subset_candidates(raw_output: str) -> list[str]:
+    candidates: list[str] = []
+    lines = [line.strip() for line in raw_output.splitlines() if line.strip()]
+
+    for line in lines:
+        text = re.sub(r"^\d+\s*[\)\.\-:]\s*", "", line)
+        text = re.sub(r"^[\-\*\•]\s*", "", text)
+        if ":" in text:
+            prefix, rest = text.split(":", 1)
+            if prefix.strip().lower() in {"final", "answer", "subset", "result"}:
+                text = rest.strip()
+
+        bracket_match = re.findall(r"\[[^\]]+\]", text)
+        if bracket_match:
+            candidates.extend(bracket_match)
+
+        if "=" in text:
+            left, _right = text.split("=", 1)
+            if "+" in left or "," in left:
+                text = left.strip()
+        if "+" in text and "," not in text:
+            nums = re.findall(r"-?\d+", text)
+            if len(nums) >= 2:
+                candidates.append(",".join(nums))
+        if re.search(r"-?\d+\s*,\s*-?\d+", text):
+            candidates.append(text)
+
+    # Also scan full output for bracketed lists.
+    for match in re.finditer(r"\[[^\]]+\]", raw_output):
+        candidates.append(match.group(0))
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        cleaned = candidate.strip()
+        if not cleaned or cleaned in seen:
+            continue
+        seen.add(cleaned)
+        deduped.append(cleaned)
+    return deduped

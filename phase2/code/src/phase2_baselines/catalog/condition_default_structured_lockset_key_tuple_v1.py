@@ -1,0 +1,26 @@
+"""Default canonical condition-key tuple for structured lockset runs."""
+
+from .condition_key_baseline_chain_of_thought_reasoning_only_v1 import CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_REASONING_ONLY_V1
+from .condition_key_baseline_chain_of_thought_self_consistency_reasoning_only_v1 import (
+    CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_SELF_CONSISTENCY_REASONING_ONLY_V1,
+)
+from .condition_key_baseline_react_code_agent_with_task_tools_v1 import (
+    CONDITION_KEY_BASELINE_REACT_CODE_AGENT_WITH_TASK_TOOLS_V1,
+)
+from .condition_key_baseline_single_path_reasoning_only_v1 import CONDITION_KEY_BASELINE_SINGLE_PATH_REASONING_ONLY_V1
+from .condition_key_baseline_tree_of_thoughts_generalized_recursive_reasoning_only_v1 import (
+    CONDITION_KEY_BASELINE_TREE_OF_THOUGHTS_GENERALIZED_RECURSIVE_REASONING_ONLY_V1,
+)
+from .condition_key_baseline_tree_of_thoughts_search_reasoning_only_v1 import (
+    CONDITION_KEY_BASELINE_TREE_OF_THOUGHTS_SEARCH_REASONING_ONLY_V1,
+)
+
+
+DEFAULT_STRUCTURED_LOCKSET_CANONICAL_KEYS = (
+    CONDITION_KEY_BASELINE_SINGLE_PATH_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_SELF_CONSISTENCY_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_REACT_CODE_AGENT_WITH_TASK_TOOLS_V1,
+    CONDITION_KEY_BASELINE_TREE_OF_THOUGHTS_SEARCH_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_TREE_OF_THOUGHTS_GENERALIZED_RECURSIVE_REASONING_ONLY_V1,
+)

@@ -2,6 +2,7 @@
 
 __all__ = [
     "adapters",
+    "catalog",
     "interfaces",
     "manifest",
     "metrics",

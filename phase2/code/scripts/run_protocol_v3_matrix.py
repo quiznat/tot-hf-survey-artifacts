@@ -8,11 +8,13 @@ from datetime import datetime, timezone
 import os
 from pathlib import Path
 import subprocess
+import sys
 from typing import Dict, List
 
 
 ROOT = Path("/Users/quiznat/Desktop/Tree_of_Thought/phase2")
 RUN_SCRIPT = ROOT / "code/scripts/run_structured_lockset.py"
+DEFAULT_PYTHON_BIN = str(ROOT / ".venv311/bin/python") if (ROOT / ".venv311/bin/python").exists() else sys.executable
 
 PANEL_MAP = {
     "game24-demo": ROOT / "benchmarks/panels/game24_lockset_v1.json",
@@ -40,9 +42,21 @@ def parse_args() -> argparse.Namespace:
         default=",".join(MODEL_DEFAULT),
         help="Comma-separated model IDs (no fallback allowed)",
     )
-    parser.add_argument("--conditions", default="single,react,tot")
+    parser.add_argument(
+        "--conditions",
+        default=(
+            "baseline_single_path_reasoning_only_v1,"
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
+    )
     parser.add_argument("--limit", type=int, default=50)
     parser.add_argument("--max-workers", type=int, default=8)
+    parser.add_argument(
+        "--python-bin",
+        default=DEFAULT_PYTHON_BIN,
+        help="Python executable used for launching run_structured_lockset.py.",
+    )
     parser.add_argument("--tot-evaluator-mode", default="model_self_eval")
     parser.add_argument("--tot-max-depth", type=int, default=3)
     parser.add_argument("--tot-branch-factor", type=int, default=3)
@@ -86,14 +100,14 @@ def _build_command(task_id: str, model_id: str, args: argparse.Namespace) -> Lis
     run_log = ROOT / "reproducibility/run-log-protocol-v3.md"
 
     cmd = [
-        "python3",
+        args.python_bin,
         str(RUN_SCRIPT),
         "--task-id",
         task_id,
         "--panel-file",
         str(panel_file),
         "--provider",
-        "hf",
+        "smolagents",
         "--model-id",
         model_id,
         "--conditions",

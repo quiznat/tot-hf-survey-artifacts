@@ -28,6 +28,34 @@ class Arithmetic24Task(BaseTask):
         analysis = self.analyze_candidate(final_answer, input_data)
         return bool(analysis["is_exact"])
 
+    def extract_final_answer(self, raw_output: str) -> str:
+        direct = super().extract_final_answer(raw_output).strip()
+
+        # Strong signal for Game24: equations that explicitly conclude with 24.
+        lines = [line.strip() for line in raw_output.splitlines() if line.strip()]
+        for line in reversed(lines):
+            if "=" not in line:
+                continue
+            left, right = line.split("=", 1)
+            if not re.search(r"\b24(?:\.0+)?\b", right):
+                continue
+            candidate = _normalize_expression(left)
+            if _looks_like_expression(candidate):
+                return candidate
+            for chunk in re.findall(r"[\d\(\)\+\-\*/\.\s]{5,}", left):
+                chunk_candidate = _normalize_expression(chunk)
+                if _looks_like_expression(chunk_candidate):
+                    return chunk_candidate
+
+        candidates = _extract_expression_candidates(raw_output)
+        best = _select_best_expression(candidates)
+        if best:
+            return best
+        normalized_direct = _normalize_expression(direct)
+        if _looks_like_expression(normalized_direct):
+            return normalized_direct
+        return direct if direct else raw_output.strip()
+
     def build_tot_candidate_prompt(
         self,
         input_data: Any,
@@ -122,6 +150,14 @@ def _safe_expression(expr: str) -> bool:
     return bool(re.fullmatch(r"[\d\s\+\-\*/\(\)\.]+", expr))
 
 
+def _looks_like_expression(expr: str) -> bool:
+    if not _safe_expression(expr):
+        return False
+    if len(re.findall(r"\d+", expr)) < 2:
+        return False
+    return bool(re.search(r"[\+\-\*/]", expr))
+
+
 def _normalize_expression(raw: str) -> str:
     expr = raw.strip()
 
@@ -173,3 +209,62 @@ def _normalize_expression(raw: str) -> str:
     expr = expr.replace("\\", "")
 
     return expr
+
+
+def _extract_expression_candidates(raw_output: str) -> list[str]:
+    candidates: list[str] = []
+    lines = [line.strip() for line in raw_output.splitlines() if line.strip()]
+
+    for line in lines:
+        text = line
+        text = re.sub(r"^\*+\s*", "", text)
+        text = re.sub(r"^\d+\s*[\)\.\-:]\s*", "", text)
+        if ":" in text:
+            prefix, rest = text.split(":", 1)
+            if prefix.strip().lower() in {"final", "answer", "result", "expression"}:
+                text = rest.strip()
+        if "=" in text:
+            left, right = text.split("=", 1)
+            # Keep the side that looks more expression-like.
+            if re.search(r"[\+\-\*/\(\)]", left) and re.search(r"\d", left):
+                text = left.strip()
+            elif re.search(r"[\+\-\*/\(\)]", right) and re.search(r"\d", right):
+                text = right.strip()
+
+        variants = [text]
+        for chunk in re.findall(r"[\d\(\)\+\-\*/\.\s]{5,}", text):
+            variants.append(chunk.strip())
+        for variant in variants:
+            normalized = _normalize_expression(variant)
+            if _looks_like_expression(normalized):
+                candidates.append(normalized)
+
+    # Backtick/code candidates often hold the intended final expression.
+    for match in re.finditer(r"`([^`]+)`", raw_output):
+        normalized = _normalize_expression(match.group(1))
+        if _looks_like_expression(normalized):
+            candidates.append(normalized)
+
+    # Dedupe while preserving order.
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        deduped.append(candidate)
+    return deduped
+
+
+def _select_best_expression(candidates: list[str]) -> str:
+    valid = [candidate for candidate in candidates if _looks_like_expression(candidate)]
+    if not valid:
+        return ""
+
+    def _rank(expr: str) -> tuple[int, int, int, int]:
+        op_count = len(re.findall(r"[\+\-\*/]", expr))
+        num_count = len(re.findall(r"\d+", expr))
+        paren_count = expr.count("(") + expr.count(")")
+        return (op_count, num_count, paren_count, len(expr))
+
+    return max(valid, key=_rank)

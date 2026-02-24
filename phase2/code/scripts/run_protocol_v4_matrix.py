@@ -8,12 +8,14 @@ from datetime import datetime, timezone
 import os
 from pathlib import Path
 import subprocess
+import sys
 import time
 from typing import List
 
 
 ROOT = Path("/Users/quiznat/Desktop/Tree_of_Thought/phase2")
 RUN_SCRIPT = ROOT / "code/scripts/run_structured_lockset.py"
+DEFAULT_PYTHON_BIN = str(ROOT / ".venv311/bin/python") if (ROOT / ".venv311/bin/python").exists() else sys.executable
 
 PANEL_MAP = {
     "game24-demo": ROOT / "benchmarks/panels/game24_lockset_v4.json",
@@ -41,14 +43,38 @@ def parse_args() -> argparse.Namespace:
         default=",".join(MODEL_DEFAULT),
         help="Comma-separated model IDs (no substitution in-run)",
     )
-    parser.add_argument("--conditions", default="single,react,tot")
+    parser.add_argument(
+        "--conditions",
+        default=(
+            "baseline_single_path_reasoning_only_v1,"
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
+    )
     parser.add_argument("--limit", type=int, default=50)
     parser.add_argument("--max-workers", type=int, default=8)
+    parser.add_argument(
+        "--python-bin",
+        default=DEFAULT_PYTHON_BIN,
+        help="Python executable used for launching run_structured_lockset.py.",
+    )
     parser.add_argument("--tot-evaluator-mode", default="model_self_eval")
+    parser.add_argument(
+        "--tot-mode",
+        choices=["model_decompose_search"],
+        default="model_decompose_search",
+    )
+    parser.add_argument("--tot-decomposition-rounds", type=int, default=1)
     parser.add_argument("--tot-max-depth", type=int, default=3)
     parser.add_argument("--tot-branch-factor", type=int, default=3)
     parser.add_argument("--tot-frontier-width", type=int, default=3)
     parser.add_argument("--hf-timeout-seconds", type=int, default=180)
+    parser.add_argument(
+        "--hf-max-new-tokens",
+        type=int,
+        default=512,
+        help="Generation cap per call. Raise for CoT/COT-SC to reduce truncation.",
+    )
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
     parser.add_argument(
@@ -115,20 +141,24 @@ def _build_command(task_id: str, model_id: str, args: argparse.Namespace) -> Lis
     report_json = ROOT / "benchmarks/analysis" / f"{task_slug}_confirmatory_report_{model_slug}_{args.report_tag}.json"
 
     cmd = [
-        "python3",
+        args.python_bin,
         str(RUN_SCRIPT),
         "--task-id",
         task_id,
         "--panel-file",
         str(panel_file),
         "--provider",
-        "hf",
+        "smolagents",
         "--model-id",
         model_id,
         "--conditions",
         args.conditions,
         "--tot-evaluator-mode",
         args.tot_evaluator_mode,
+        "--tot-mode",
+        args.tot_mode,
+        "--tot-decomposition-rounds",
+        str(args.tot_decomposition_rounds),
         "--tot-max-depth",
         str(args.tot_max_depth),
         "--tot-branch-factor",
@@ -137,6 +167,8 @@ def _build_command(task_id: str, model_id: str, args: argparse.Namespace) -> Lis
         str(args.tot_frontier_width),
         "--hf-timeout-seconds",
         str(args.hf_timeout_seconds),
+        "--hf-max-new-tokens",
+        str(args.hf_max_new_tokens),
         "--hf-temperature",
         str(args.hf_temperature),
         "--hf-top-p",

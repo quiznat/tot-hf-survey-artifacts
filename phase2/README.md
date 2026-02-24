@@ -15,10 +15,11 @@ This directory is the execution workspace for the novel contribution track: impl
   - protocol: `phase2/benchmarks/evaluation-protocol-v4.md`
   - matrix: `phase2/benchmarks/benchmark-matrix-v4.md`
   - execution guide: `phase2/benchmarks/protocol-v4-execution.md`
-- Active expansion track:
-  - base patterns protocol: `phase2/benchmarks/evaluation-protocol-v5.md`
-  - base patterns matrix: `phase2/benchmarks/benchmark-matrix-v5.md`
-  - base + hybrid execution guide: `phase2/benchmarks/protocol-v5-execution.md`
+- Locked reset strategy (active):
+  - protocol: `phase2/benchmarks/evaluation-protocol-v7.md`
+  - matrix: `phase2/benchmarks/benchmark-matrix-v7.md`
+  - execution guide: `phase2/benchmarks/protocol-v7-execution.md`
+  - sequence: Matrix A (reasoning-only) -> Matrix B (tool-calling parity) -> Matrix C (engineering extension)
 
 ## Dashboard
 - Service installer: `phase2/dashboard/install_service.sh`

@@ -1,6 +1,6 @@
 # Phase 2 Task Backlog
 
-Status date: 2026-02-22
+Status date: 2026-02-24
 
 ## P0 (Locked Foundations)
 - [x] Build deterministic baseline + ToT harness with manifested run outputs.
@@ -59,3 +59,22 @@ Status date: 2026-02-22
 - [x] Freeze v5.1 profile grid and add execution + summary tooling.
 - [ ] Execute v5.1 hybrid matrix (`4 tasks x 3 models x 4 profiles x 5 conditions x 50`).
 - [ ] Build hybrid summary and choose profile policy for publication claims.
+
+## P8 (Protocol-v6 Reset and Fresh Smoke)
+- [x] Freeze all pre-v6 run artifacts into a timestamped archive.
+- [x] Add protocol-v6 smoke/matrix orchestration scripts.
+- [x] Update dashboard progress/report ingestion for v6 smoke + v6 matrix.
+- [x] Execute full protocol-v6 smoke (`4 tasks x 1 model x 6 conditions x 10`) and generate per-task reports.
+- [x] Build consolidated v6 smoke summary artifacts (`protocol_v6_smoke_summary.{md,json}`).
+- [ ] Execute full protocol-v6 matrix (`4 tasks x 3 models x 6 conditions x 50`) with locked settings.
+
+## P9 (Protocol-v7 Causal-Clarity Reset)
+- [x] Lock canonical sequence: Matrix A (reasoning-only) -> Matrix B (tool-calling parity) -> Matrix C (engineering extension).
+- [x] Publish protocol-v7 docs (`evaluation-protocol-v7.md`, `benchmark-matrix-v7.md`, `protocol-v7-execution.md`) as the new source of truth.
+- [x] Implement Matrix A text-only ReAct path (no CodeAgent/tool execution) for parity with single/CoT/CoT-SC/ToT reasoning-only conditions.
+- [x] Add Matrix A capability-gate checks (hard-fail when tools/execution/memory surfaces differ across conditions).
+- [ ] Run Matrix A smoke (`n=10`) for all tasks/models and archive parity audit report.
+- [ ] Execute full Matrix A confirmatory matrix (`4 tasks x 3 models x 5 conditions x 50`) with no substitutions.
+- [ ] Build Matrix A summary and freeze claim scope for manuscript integration.
+- [ ] Prepare Matrix B tool-calling parity freeze (shared tool registry hash, call budget, and agent policy).
+- [ ] Run Matrix B smoke only after Matrix A is stable.

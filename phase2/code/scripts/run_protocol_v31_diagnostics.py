@@ -8,11 +8,13 @@ from datetime import datetime, timezone
 import os
 from pathlib import Path
 import subprocess
+import sys
 from typing import Dict, List
 
 
 ROOT = Path("/Users/quiznat/Desktop/Tree_of_Thought/phase2")
 RUN_SCRIPT = ROOT / "code/scripts/run_structured_lockset.py"
+DEFAULT_PYTHON_BIN = str(ROOT / ".venv311/bin/python") if (ROOT / ".venv311/bin/python").exists() else sys.executable
 
 PANEL_MAP = {
     "linear2-demo": ROOT / "benchmarks/panels/linear2_lockset_v1.json",
@@ -27,28 +29,40 @@ MODEL_DEFAULT = [
 
 PROFILE_CONFIG: Dict[str, Dict[str, object]] = {
     "tot_model_self_eval": {
-        "conditions": "react,tot",
+        "conditions": (
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
         "tot_evaluator_mode": "model_self_eval",
         "tot_max_depth": 3,
         "tot_branch_factor": 3,
         "tot_frontier_width": 3,
     },
     "tot_hybrid": {
-        "conditions": "react,tot",
+        "conditions": (
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
         "tot_evaluator_mode": "hybrid",
         "tot_max_depth": 3,
         "tot_branch_factor": 3,
         "tot_frontier_width": 3,
     },
     "tot_rule_based": {
-        "conditions": "react,tot",
+        "conditions": (
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
         "tot_evaluator_mode": "rule_based",
         "tot_max_depth": 3,
         "tot_branch_factor": 3,
         "tot_frontier_width": 3,
     },
     "tot_model_self_eval_lite": {
-        "conditions": "react,tot",
+        "conditions": (
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
         "tot_evaluator_mode": "model_self_eval",
         "tot_max_depth": 2,
         "tot_branch_factor": 2,
@@ -76,6 +90,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--limit", type=int, default=50)
     parser.add_argument("--max-workers", type=int, default=8)
+    parser.add_argument(
+        "--python-bin",
+        default=DEFAULT_PYTHON_BIN,
+        help="Python executable used for launching run_structured_lockset.py.",
+    )
     parser.add_argument("--hf-timeout-seconds", type=int, default=180)
     parser.add_argument("--hf-temperature", type=float, default=0.0)
     parser.add_argument("--hf-top-p", type=float, default=1.0)
@@ -145,14 +164,14 @@ def _build_command(task_id: str, model_id: str, profile_id: str, args: argparse.
     run_log = Path(args.run_log)
 
     cmd = [
-        "python3",
+        args.python_bin,
         str(RUN_SCRIPT),
         "--task-id",
         task_id,
         "--panel-file",
         str(panel_file),
         "--provider",
-        "hf",
+        "smolagents",
         "--model-id",
         model_id,
         "--conditions",

@@ -8,12 +8,13 @@ Lightweight local dashboard for monitoring experiment execution and result artif
 ## Features
 - protocol-v4 smoke and protocol-v4 confirmatory matrix block/pair progress tracking
 - protocol-v5 smoke and protocol-v5 base-pattern matrix progress tracking
+- protocol-v6 smoke and protocol-v6 base-pattern matrix progress tracking
 - protocol-v5.1 hybrid matrix progress tracking
 - protocol-v4 gate status visibility from `protocol_v4_gate_report.json`
 - protocol-v3.1 and protocol-v3.2 block/pair progress tracking (`done/partial/not started`)
 - runtime process status from PID/log files
 - protocol-v3 directional snapshot (ToT vs ReAct)
-- unified series explorer for v3.1/v3.2, v4, v5, and v5.1 reports with filters and click-through detail
+- unified series explorer for v3.1/v3.2, v4, v5, v6, and v5.1 reports with filters and click-through detail
 - latest analysis artifacts table
 - log-tail viewer for runtime logs
 

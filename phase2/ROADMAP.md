@@ -1,6 +1,6 @@
 # Phase 2 Roadmap: Novel ToT-HF Contribution
 
-Last updated: 2026-02-22
+Last updated: 2026-02-24
 
 ## Objective
 Deliver a reproducible implementation and empirical evaluation of Tree-of-Thought-style reasoning integrated with Hugging Face agent frameworks.
@@ -28,6 +28,14 @@ Deliver a reproducible implementation and empirical evaluation of Tree-of-Though
 - Base-pattern protocol ID: `TOT-HF-P2-EPV5-2026-02-22`
 - Active hybrid profile protocol: `phase2/benchmarks/evaluation-protocol-v51.md`
 - Hybrid protocol ID: `TOT-HF-P2-EPV51-2026-02-22`
+- Active refreshed smoke/matrix protocol: `protocol-v6` execution scripts under `phase2/code/scripts/`
+- Pre-v6 freeze archive: `phase2/benchmarks/runs/_frozen/pre_v6_20260223T185128Z`
+- Active reset protocol: `phase2/benchmarks/evaluation-protocol-v7.md`
+- Reset protocol ID: `TOT-HF-P2-EPV7-2026-02-24`
+- Locked sequence for publication-grade causal clarity:
+  - Matrix A (reasoning-only) first and canonical for baseline claims.
+  - Matrix B (tool-calling parity) second after Matrix A passes launch gates.
+  - Matrix C (code-execution engineering extension) only after A/B stability.
 
 ## Gate Model
 
@@ -82,7 +90,7 @@ Acceptance criteria:
 3. Reproducibility: protocol freeze, run logging, artifact packaging.
 4. Writing: manuscript updates grounded in measured results.
 
-## Immediate Next Actions (Sprint 4)
-1. Execute protocol-v5 smoke and full base-pattern matrix (`single,cot,cot_sc,react,tot`) with frozen controls.
-2. Build protocol-v5 matrix summary and compare ToT against all base comparators (not only ReAct).
-3. Execute protocol-v5.1 hybrid profile matrix and summarize task/model/profile effects.
+## Immediate Next Actions (Sprint 6)
+1. Execute Matrix A smoke (`n=10`) across all tasks/models with parity profile `matrix_a_reasoning_only`.
+2. Launch full Matrix A confirmatory run (`4 tasks x 3 models x 5 conditions x 50`) only if smoke passes.
+3. Build Matrix A consolidated summary and freeze manuscript claim scope to Matrix A evidence.

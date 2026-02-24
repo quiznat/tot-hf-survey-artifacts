@@ -15,7 +15,7 @@ import random
 from statistics import NormalDist
 from typing import Any, Dict, Iterable, List, Tuple
 
-from phase2_baselines.adapters import HuggingFaceInferenceModel, ScriptedModel
+from phase2_baselines.adapters import SmolagentsInferenceModel
 from phase2_baselines.manifest import append_run_log, write_manifest
 from phase2_baselines.pipeline import create_baseline_setup
 from phase2_baselines.reporting import summarize_by_condition
@@ -30,9 +30,17 @@ def parse_args() -> argparse.Namespace:
         default="/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/panels/game24_lockset_v1.json",
         help="JSON panel file with item_id + numbers entries",
     )
-    parser.add_argument("--conditions", default="single,react,tot", help="Comma-separated: single,react,tot")
-    parser.add_argument("--provider", choices=["scripted", "hf"], default="hf")
-    parser.add_argument("--model-id", default="", help="Model identifier for --provider hf")
+    parser.add_argument(
+        "--conditions",
+        default=(
+            "baseline_single_path_reasoning_only_v1,"
+            "baseline_react_code_agent_with_task_tools_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
+        help="Comma-separated condition keys/aliases for {single, react, tot}.",
+    )
+    parser.add_argument("--provider", choices=["smolagents"], default="smolagents")
+    parser.add_argument("--model-id", default="", help="Model identifier for --provider smolagents")
     parser.add_argument("--hf-token-env", default="HF_TOKEN", help="Env var name for Hugging Face API token")
     parser.add_argument("--hf-timeout-seconds", type=int, default=120)
     parser.add_argument("--hf-max-new-tokens", type=int, default=192)
@@ -161,6 +169,31 @@ def _seed_for_item(item_id: str, item_index: int, seed_policy: str) -> int:
     return item_index
 
 
+def _normalize_condition_aliases(raw_conditions: List[str]) -> List[str]:
+    alias_to_legacy = {
+        "single": "single",
+        "baseline_single_path_reasoning_only_v1": "single",
+        "baseline-single-path": "single",
+        "react": "react",
+        "react_codeagent": "react",
+        "baseline_react_code_agent_with_task_tools_v1": "react",
+        "baseline-react": "react",
+        "tot": "tot",
+        "baseline_tree_of_thoughts_search_reasoning_only_v1": "tot",
+        "tot-prototype": "tot",
+    }
+
+    normalized: List[str] = []
+    for condition in raw_conditions:
+        key = condition.strip()
+        legacy = alias_to_legacy.get(key)
+        if not legacy:
+            raise RuntimeError(f"unsupported conditions: {key}")
+        if legacy not in normalized:
+            normalized.append(legacy)
+    return normalized
+
+
 def _resolve_capability_plan(conditions: List[str], policy: str) -> Dict[str, Any]:
     task_tools = sorted(Arithmetic24Task().available_tools().keys())
 
@@ -250,23 +283,12 @@ def _load_latest_existing_manifests(
 
 
 def _build_model(args: argparse.Namespace):
-    if args.provider == "scripted":
-        return (
-            ScriptedModel(
-                responses=[
-                    "CANDIDATE: (10+4)+10+4\nCANDIDATE: (10*10-4)/4",
-                ]
-            ),
-            "scripted-tot-v1",
-            "local-scripted",
-        )
-
     model_id = args.model_id or "Qwen/Qwen3-Coder-Next:novita"
     token = os.getenv(args.hf_token_env, "").strip()
     if not token:
-        raise RuntimeError(f"Hugging Face provider requires ${args.hf_token_env} with a valid API token.")
+        raise RuntimeError(f"smolagents provider requires ${args.hf_token_env} with a valid API token.")
     return (
-        HuggingFaceInferenceModel(
+        SmolagentsInferenceModel(
             model_id=model_id,
             api_token=token,
             timeout_seconds=args.hf_timeout_seconds,
@@ -275,7 +297,7 @@ def _build_model(args: argparse.Namespace):
             top_p=args.hf_top_p,
         ),
         model_id,
-        "huggingface-inference",
+        "smolagents-inference",
     )
 
 
@@ -627,11 +649,11 @@ def main() -> int:
         print("error: selected item slice is empty")
         return 2
 
-    conditions = [name.strip() for name in args.conditions.split(",") if name.strip()]
-    valid = {"single", "react", "tot"}
-    unknown = [name for name in conditions if name not in valid]
-    if unknown:
-        print(f"error: unsupported conditions: {unknown}")
+    raw_conditions = [name.strip() for name in args.conditions.split(",") if name.strip()]
+    try:
+        conditions = _normalize_condition_aliases(raw_conditions)
+    except RuntimeError as exc:
+        print(f"error: {exc}")
         return 2
 
     try:

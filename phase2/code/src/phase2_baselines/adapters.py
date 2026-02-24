@@ -1,4 +1,4 @@
-"""Model adapters for scripted and Hugging Face inference backends."""
+"""Model adapters used by phase2 runners."""
 
 from __future__ import annotations
 
@@ -120,3 +120,64 @@ class HuggingFaceInferenceModel:
         if stripped.startswith(prompt):
             stripped = stripped[len(prompt):].strip()
         return stripped
+
+
+@dataclass
+class SmolagentsInferenceModel:
+    """smolagents InferenceClientModel adapter with phase2's generate(prompt) interface."""
+
+    model_id: str
+    api_token: str
+    timeout_seconds: int = 120
+    max_new_tokens: int = 192
+    temperature: float = 0.0
+    top_p: float = 1.0
+    provider: str | None = None
+
+    def __post_init__(self) -> None:
+        try:
+            from smolagents import InferenceClientModel  # type: ignore
+        except Exception as exc:  # pragma: no cover - exercised only when dependency missing
+            raise RuntimeError(
+                "smolagents provider requires Python >=3.10 and the `smolagents` package. "
+                "Use phase2/.venv311 or another compatible runtime."
+            ) from exc
+
+        resolved_model_id = self.model_id
+        resolved_provider = self.provider
+        if resolved_provider is None and ":" in resolved_model_id:
+            # Support router-style model IDs used elsewhere in this repo, e.g.:
+            # Qwen/Qwen3-Coder-Next:novita -> model_id=Qwen/Qwen3-Coder-Next, provider=novita
+            maybe_model, maybe_provider = resolved_model_id.rsplit(":", 1)
+            if maybe_model and maybe_provider:
+                resolved_model_id = maybe_model
+                resolved_provider = maybe_provider
+
+        # InferenceClientModel accepts generation kwargs through **kwargs.
+        self._model = InferenceClientModel(
+            model_id=resolved_model_id,
+            provider=resolved_provider,
+            token=self.api_token,
+            timeout=self.timeout_seconds,
+            max_tokens=self.max_new_tokens,
+            temperature=self.temperature,
+            top_p=self.top_p,
+        )
+        self._resolved_model_id = resolved_model_id
+
+    def generate(self, prompt: str) -> str:
+        message = self._model.generate(messages=[{"role": "user", "content": prompt}])
+        content = getattr(message, "content", "")
+        if isinstance(content, list):
+            # Defensive join for multimodal content payloads.
+            joined = []
+            for part in content:
+                if isinstance(part, dict):
+                    text = str(part.get("text", "")).strip()
+                    if text:
+                        joined.append(text)
+            content = "\n".join(joined)
+        output = str(content or "").strip()
+        if not output:
+            raise RuntimeError(f"smolagents returned empty output for model {self._resolved_model_id}")
+        return output

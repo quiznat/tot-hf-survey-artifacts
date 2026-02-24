@@ -1,6 +1,6 @@
 # AGENT CONTEXT (Phase 2)
 
-Last updated: 2026-02-21
+Last updated: 2026-02-24
 
 ## Mission
 Build a publication-grade, reproducible implementation and evaluation of Tree of Thoughts integration with Hugging Face agent frameworks.
@@ -16,6 +16,11 @@ Build a publication-grade, reproducible implementation and evaluation of Tree of
 - Preserve anonymization-safe and camera-ready variants separately.
 - Primary ToT claim condition must use LLM in-chain evaluation (`model_self_eval`); treat `rule_based` as control/ablation only.
 - Phase 1/survey edits are handled in a separate thread; this workspace pass is Phase 2 only.
+- Publication-grade causal clarity sequence is fixed:
+  - Matrix A first: reasoning-only canonical baseline.
+  - Matrix B second: tool-calling parity.
+  - Matrix C third: engineering-forward extension only after A/B stability.
+- Do not make cross-condition inferential claims when capability surfaces differ (tool access, execution environment, memory policy, or parser affordances).
 
 ## Canonical Inputs (Phase 1 Dependencies)
 - Survey manuscript: `/Users/quiznat/Desktop/Tree_of_Thought/paper.html`

@@ -42,6 +42,22 @@ class DigitPermutationTask(BaseTask):
             return True
         return candidate == oracle
 
+    def extract_final_answer(self, raw_output: str) -> str:
+        direct = super().extract_final_answer(raw_output).strip()
+        direct_is_single_number = bool(re.fullmatch(r"\s*-?\d+\s*", direct))
+        direct_value = _parse_integer(direct) if direct_is_single_number else None
+        if direct_value is not None and len(str(abs(direct_value))) >= 4:
+            return str(direct_value)
+
+        answer_line_candidates, all_candidates = _extract_integer_candidates(raw_output)
+        if answer_line_candidates:
+            return str(answer_line_candidates[-1])
+        candidates = all_candidates
+        if candidates:
+            return str(max(candidates))
+
+        return direct if direct else raw_output.strip()
+
     def build_tot_candidate_prompt(
         self,
         input_data: Any,
@@ -158,3 +174,51 @@ def _best_valid_number(digits: list[int], divisor: int) -> int | None:
         if best is None or value > best:
             best = value
     return best
+
+
+def _extract_integer_candidates(raw_output: str) -> tuple[list[int], list[int]]:
+    answer_line_candidates: list[int] = []
+    all_candidates: list[int] = []
+
+    # Prefer explicit answer-like lines.
+    lines = [line.strip() for line in raw_output.splitlines() if line.strip()]
+    for line in lines:
+        text = re.sub(r"^\d+\s*[\)\.\-:]\s*", "", line)
+        answer_like = False
+        if ":" in text:
+            prefix, rest = text.split(":", 1)
+            if prefix.strip().lower() in {"final", "answer", "result"}:
+                text = rest.strip()
+                answer_like = True
+        if re.search(r"\b(answer|final|result)\b", text, flags=re.IGNORECASE):
+            answer_like = True
+        value = _parse_integer(text)
+        if value is not None:
+            all_candidates.append(value)
+            if answer_like:
+                answer_line_candidates.append(value)
+
+    # Fallback: scan all 4+ digit integers in full text.
+    for match in re.finditer(r"(?<!\d)\d{4,}(?!\d)", raw_output):
+        try:
+            all_candidates.append(int(match.group(0)))
+        except ValueError:
+            continue
+
+    # Preserve order, remove duplicates.
+    deduped_answers: list[int] = []
+    seen_answers: set[int] = set()
+    for value in answer_line_candidates:
+        if value in seen_answers:
+            continue
+        seen_answers.add(value)
+        deduped_answers.append(value)
+
+    deduped_all: list[int] = []
+    seen_all: set[int] = set()
+    for value in all_candidates:
+        if value in seen_all:
+            continue
+        seen_all.add(value)
+        deduped_all.append(value)
+    return deduped_answers, deduped_all
