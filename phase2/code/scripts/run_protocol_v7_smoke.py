@@ -1,0 +1,424 @@
+#!/usr/bin/env python3
+"""Run protocol-v7 Matrix A smoke checks (reasoning-only parity)."""
+
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import time
+from typing import Dict, List, Tuple
+
+
+ROOT = Path("/Users/quiznat/Desktop/Tree_of_Thought/phase2")
+RUN_SCRIPT = ROOT / "code/scripts/run_structured_lockset.py"
+DEFAULT_PYTHON_BIN = str(ROOT / ".venv311/bin/python") if (ROOT / ".venv311/bin/python").exists() else sys.executable
+MODEL_DEFAULT = [
+    "Qwen/Qwen3-Coder-Next:novita",
+    "Qwen/Qwen2.5-72B-Instruct",
+    "Qwen/Qwen2.5-Coder-32B-Instruct",
+]
+
+PANEL_MAP = {
+    "game24-demo": ROOT / "benchmarks/panels/game24_lockset_v4.json",
+    "subset-sum-demo": ROOT / "benchmarks/panels/subset_sum_lockset_v4.json",
+    "linear2-demo": ROOT / "benchmarks/panels/linear2_lockset_v4.json",
+    "digit-permutation-demo": ROOT / "benchmarks/panels/digit_permutation_lockset_v4.json",
+}
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Run protocol-v7 Matrix A smoke matrix")
+    parser.add_argument(
+        "--tasks",
+        default="game24-demo,subset-sum-demo,linear2-demo,digit-permutation-demo",
+        help="Comma-separated task IDs",
+    )
+    parser.add_argument(
+        "--models",
+        default=",".join(MODEL_DEFAULT),
+        help="Comma-separated model IDs. Default runs all locked Matrix-A models.",
+    )
+    parser.add_argument(
+        "--model-id",
+        default="",
+        help="Deprecated single-model override. If set, --models is ignored.",
+    )
+    parser.add_argument("--provider", choices=["smolagents"], default="smolagents")
+    parser.add_argument("--python-bin", default=DEFAULT_PYTHON_BIN)
+    parser.add_argument(
+        "--conditions",
+        default=(
+            "baseline_single_path_reasoning_only_v1,"
+            "baseline_chain_of_thought_reasoning_only_v1,"
+            "baseline_chain_of_thought_self_consistency_reasoning_only_v1,"
+            "baseline_react_reasoning_text_loop_only_v1,"
+            "baseline_tree_of_thoughts_search_reasoning_only_v1"
+        ),
+    )
+    parser.add_argument("--limit", type=int, default=10)
+    parser.add_argument("--max-workers", type=int, default=12)
+    parser.add_argument("--tot-evaluator-mode", default="model_self_eval")
+    parser.add_argument("--tot-mode", choices=["model_decompose_search"], default="model_decompose_search")
+    parser.add_argument("--tot-decomposition-rounds", type=int, default=1)
+    parser.add_argument("--tot-max-depth", type=int, default=4)
+    parser.add_argument("--tot-branch-factor", type=int, default=3)
+    parser.add_argument("--tot-frontier-width", type=int, default=3)
+    parser.add_argument("--cot-sc-samples", type=int, default=10)
+    parser.add_argument("--hf-timeout-seconds", type=int, default=180)
+    parser.add_argument("--hf-max-new-tokens", type=int, default=512)
+    parser.add_argument("--hf-temperature", type=float, default=0.0)
+    parser.add_argument("--hf-top-p", type=float, default=1.0)
+    parser.add_argument("--cot-temperature", type=float, default=0.0)
+    parser.add_argument("--cot-sc-temperature", type=float, default=0.7)
+    parser.add_argument("--react-temperature", type=float, default=0.0)
+    parser.add_argument("--seed-policy", default="item_hash")
+    parser.add_argument("--bootstrap-samples", type=int, default=10000)
+    parser.add_argument("--confidence-level", type=float, default=0.95)
+    parser.add_argument("--series-id", default="protocol_v7_matrix_a_smoke")
+    parser.add_argument("--report-tag", default="v7a_smoke")
+    parser.add_argument(
+        "--run-log",
+        default=str(ROOT / "reproducibility/run-log-protocol-v7.md"),
+        help="Run log path",
+    )
+    parser.add_argument(
+        "--capability-audit-md",
+        default="",
+        help="Optional explicit output path for consolidated capability-audit markdown.",
+    )
+    parser.add_argument(
+        "--capability-audit-json",
+        default="",
+        help="Optional explicit output path for consolidated capability-audit JSON.",
+    )
+    parser.add_argument("--max-attempts-per-task", type=int, default=3)
+    parser.add_argument("--retry-backoff-seconds", type=int, default=20)
+    parser.add_argument("--report-only", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
+    return parser.parse_args()
+
+
+def _slug(text: str) -> str:
+    return text.replace("/", "_").replace(":", "_").replace(".", "_").replace("-", "_").lower()
+
+
+def _utcstamp() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _build_command(task_id: str, model_id: str, args: argparse.Namespace) -> Tuple[List[str], Path, Path]:
+    panel_file = PANEL_MAP.get(task_id)
+    if panel_file is None:
+        raise RuntimeError(f"No panel mapping configured for task: {task_id}")
+    if not panel_file.exists():
+        raise RuntimeError(f"Missing panel file for task {task_id}: {panel_file}")
+
+    task_slug = _slug(task_id)
+    model_slug = _slug(model_id)
+    runs_dir = ROOT / "benchmarks/runs" / args.series_id / task_slug / model_slug
+    report_md = ROOT / "benchmarks/analysis" / f"{task_slug}_matrix_a_smoke_report_{model_slug}_{args.report_tag}.md"
+    report_json = ROOT / "benchmarks/analysis" / f"{task_slug}_matrix_a_smoke_report_{model_slug}_{args.report_tag}.json"
+
+    cmd = [
+        args.python_bin,
+        str(RUN_SCRIPT),
+        "--task-id",
+        task_id,
+        "--panel-file",
+        str(panel_file),
+        "--provider",
+        args.provider,
+        "--model-id",
+        model_id,
+        "--conditions",
+        args.conditions,
+        "--tot-evaluator-mode",
+        args.tot_evaluator_mode,
+        "--tot-mode",
+        args.tot_mode,
+        "--tot-gen-mode",
+        args.tot_mode,
+        "--tot-decomposition-rounds",
+        str(args.tot_decomposition_rounds),
+        "--tot-max-depth",
+        str(args.tot_max_depth),
+        "--tot-legacy-max-depth",
+        str(args.tot_max_depth),
+        "--tot-gen-max-depth",
+        str(args.tot_max_depth),
+        "--tot-branch-factor",
+        str(args.tot_branch_factor),
+        "--tot-frontier-width",
+        str(args.tot_frontier_width),
+        "--cot-sc-samples",
+        str(args.cot_sc_samples),
+        "--hf-timeout-seconds",
+        str(args.hf_timeout_seconds),
+        "--hf-max-new-tokens",
+        str(args.hf_max_new_tokens),
+        "--hf-temperature",
+        str(args.hf_temperature),
+        "--hf-top-p",
+        str(args.hf_top_p),
+        "--cot-temperature",
+        str(args.cot_temperature),
+        "--cot-sc-temperature",
+        str(args.cot_sc_temperature),
+        "--react-temperature",
+        str(args.react_temperature),
+        "--capability-parity-policy",
+        "strict",
+        "--parity-profile",
+        "matrix_a_reasoning_only",
+        "--seed-policy",
+        args.seed_policy,
+        "--limit",
+        str(args.limit),
+        "--max-workers",
+        str(args.max_workers),
+        "--confidence-level",
+        str(args.confidence_level),
+        "--bootstrap-samples",
+        str(args.bootstrap_samples),
+        "--runs-dir",
+        str(runs_dir),
+        "--run-log",
+        str(args.run_log),
+        "--report-md",
+        str(report_md),
+        "--report-json",
+        str(report_json),
+    ]
+    if args.report_only:
+        cmd.append("--report-only")
+    return cmd, report_md, report_json
+
+
+def _run_with_retries(
+    *,
+    cmd: List[str],
+    env: dict,
+    cwd: Path,
+    max_attempts: int,
+    retry_backoff_seconds: int,
+    label: str,
+) -> int:
+    attempts = max(1, int(max_attempts))
+    base_backoff = max(0, int(retry_backoff_seconds))
+    last_rc = 0
+    for attempt in range(1, attempts + 1):
+        print(f"run={label} attempt={attempt}/{attempts}")
+        proc = subprocess.run(cmd, env=env, cwd=str(cwd), check=False)
+        last_rc = int(proc.returncode)
+        if last_rc == 0:
+            return 0
+        if attempt < attempts:
+            wait_seconds = base_backoff * (2 ** (attempt - 1))
+            print(f"warn: run={label} returncode={last_rc}; retry_in={wait_seconds}s")
+            if wait_seconds > 0:
+                time.sleep(wait_seconds)
+    return last_rc
+
+
+def _build_capability_audit(
+    *,
+    report_json_paths: List[Path],
+    args: argparse.Namespace,
+) -> Tuple[Path, Path, bool]:
+    expected_condition_keys = sorted([key.strip() for key in args.conditions.split(",") if key.strip()])
+    required_execution_surface = "execution_surface.prompt_reasoning_loop.v1"
+    required_tool_surface = "tool_surface.no_tools.v1"
+    required_memory_surface = "memory_surface.item_stateless.v1"
+    required_parity_profile = "matrix_a_reasoning_only"
+
+    block_reports: List[Dict[str, object]] = []
+    all_issues: List[str] = []
+
+    for report_json in sorted(report_json_paths):
+        payload = json.loads(report_json.read_text(encoding="utf-8"))
+        task_id = str(payload.get("task_id", "")).strip()
+        model_id = str(payload.get("model_id", "")).strip()
+        parity_profile = str(payload.get("parity_profile", "")).strip()
+        condition_tools = dict(payload.get("condition_tools_exposed", {}) or {})
+        condition_surfaces = dict(payload.get("condition_surfaces", {}) or {})
+
+        block_issues: List[str] = []
+        selected_keys = sorted(list(condition_surfaces.keys()) or list(condition_tools.keys()))
+        if selected_keys != expected_condition_keys:
+            block_issues.append(
+                "condition-key mismatch "
+                f"(expected={expected_condition_keys}, got={selected_keys})"
+            )
+        if parity_profile != required_parity_profile:
+            block_issues.append(
+                f"parity_profile mismatch (expected={required_parity_profile}, got={parity_profile})"
+            )
+
+        for condition_key in expected_condition_keys:
+            tools = condition_tools.get(condition_key, [])
+            if tools:
+                block_issues.append(f"{condition_key} exposes tools={tools}; expected []")
+
+            surface = condition_surfaces.get(condition_key, {})
+            execution_surface_id = str(surface.get("execution_surface_id", "")).strip()
+            tool_surface_id = str(surface.get("tool_surface_id", "")).strip()
+            memory_surface_id = str(surface.get("memory_surface_id", "")).strip()
+            if execution_surface_id != required_execution_surface:
+                block_issues.append(
+                    f"{condition_key} execution_surface_id={execution_surface_id} "
+                    f"(expected={required_execution_surface})"
+                )
+            if tool_surface_id != required_tool_surface:
+                block_issues.append(
+                    f"{condition_key} tool_surface_id={tool_surface_id} "
+                    f"(expected={required_tool_surface})"
+                )
+            if memory_surface_id != required_memory_surface:
+                block_issues.append(
+                    f"{condition_key} memory_surface_id={memory_surface_id} "
+                    f"(expected={required_memory_surface})"
+                )
+
+        passed = len(block_issues) == 0
+        block_reports.append(
+            {
+                "task_id": task_id,
+                "model_id": model_id,
+                "report_json": str(report_json),
+                "parity_profile": parity_profile,
+                "passed": passed,
+                "issues": block_issues,
+            }
+        )
+        if block_issues:
+            all_issues.extend([f"{task_id} | {model_id} | {issue}" for issue in block_issues])
+
+    if args.capability_audit_md:
+        capability_audit_md = Path(args.capability_audit_md)
+    else:
+        capability_audit_md = (
+            ROOT / "benchmarks/analysis" / f"protocol_v7_matrix_a_smoke_capability_audit_{args.report_tag}.md"
+        )
+    if args.capability_audit_json:
+        capability_audit_json = Path(args.capability_audit_json)
+    else:
+        capability_audit_json = (
+            ROOT / "benchmarks/analysis" / f"protocol_v7_matrix_a_smoke_capability_audit_{args.report_tag}.json"
+        )
+
+    capability_audit_md.parent.mkdir(parents=True, exist_ok=True)
+    capability_audit_json.parent.mkdir(parents=True, exist_ok=True)
+
+    generated_utc = _utcstamp()
+    payload = {
+        "generated_utc": generated_utc,
+        "protocol": "TOT-HF-P2-EPV7-2026-02-24",
+        "series_id": args.series_id,
+        "report_tag": args.report_tag,
+        "required_parity_profile": required_parity_profile,
+        "required_execution_surface": required_execution_surface,
+        "required_tool_surface": required_tool_surface,
+        "required_memory_surface": required_memory_surface,
+        "expected_condition_keys": expected_condition_keys,
+        "all_passed": len(all_issues) == 0,
+        "blocks": block_reports,
+    }
+    capability_audit_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+    lines = [
+        "# Protocol v7 Matrix A Smoke Capability Audit",
+        "",
+        f"Generated UTC: {generated_utc}",
+        f"Series ID: {args.series_id}",
+        f"Report tag: {args.report_tag}",
+        f"Expected condition keys: {', '.join(expected_condition_keys)}",
+        f"All blocks passed: {str(len(all_issues) == 0).lower()}",
+        "",
+        "| Task | Model | Passed | Issues |",
+        "|---|---|---:|---|",
+    ]
+    for block in block_reports:
+        issues = "; ".join([str(issue) for issue in block["issues"]]) if block["issues"] else "-"
+        lines.append(
+            f"| {block['task_id']} | {block['model_id']} | {str(block['passed']).lower()} | {issues} |"
+        )
+    if all_issues:
+        lines.extend(
+            [
+                "",
+                "## Failures",
+                "",
+            ]
+        )
+        for issue in all_issues:
+            lines.append(f"- {issue}")
+
+    capability_audit_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return capability_audit_md, capability_audit_json, len(all_issues) == 0
+
+
+def main() -> int:
+    args = parse_args()
+    tasks = [task.strip() for task in args.tasks.split(",") if task.strip()]
+    model_id_override = str(args.model_id or "").strip()
+    if model_id_override:
+        models = [model_id_override]
+    else:
+        models = [model.strip() for model in args.models.split(",") if model.strip()]
+    if not tasks:
+        raise RuntimeError("No tasks selected")
+    if not models:
+        raise RuntimeError("No models selected")
+
+    print(f"protocol_v7_matrix_a_smoke_start={_utcstamp()}")
+    print(f"tasks={tasks}")
+    print(f"models={models}")
+    print(f"conditions={args.conditions}")
+    print(f"report_only={args.report_only} dry_run={args.dry_run}")
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(ROOT / "code/src")
+
+    report_json_paths: List[Path] = []
+    for task_id in tasks:
+        for model_id in models:
+            cmd, _, report_json = _build_command(task_id=task_id, model_id=model_id, args=args)
+            report_json_paths.append(report_json)
+            print("\n### EXEC")
+            print(" ".join(cmd))
+            if args.dry_run:
+                continue
+            rc = _run_with_retries(
+                cmd=cmd,
+                env=env,
+                cwd=ROOT,
+                max_attempts=args.max_attempts_per_task,
+                retry_backoff_seconds=args.retry_backoff_seconds,
+                label=f"task={task_id} model={model_id}",
+            )
+            if rc != 0:
+                print(f"error: task={task_id} model={model_id} returncode={rc}")
+                return rc
+
+    if not args.dry_run:
+        audit_md, audit_json, passed = _build_capability_audit(
+            report_json_paths=report_json_paths,
+            args=args,
+        )
+        print(f"capability_audit_md={audit_md}")
+        print(f"capability_audit_json={audit_json}")
+        if not passed:
+            print("error: consolidated capability audit failed")
+            return 2
+
+    print(f"protocol_v7_matrix_a_smoke_done={_utcstamp()}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

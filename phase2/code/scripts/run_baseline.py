@@ -6,14 +6,24 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from phase2_baselines.catalog import (
+    condition_names,
+    resolve_conditions,
+)
 from phase2_baselines.pipeline import execute_and_record
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run phase2 baseline scaffold")
-    parser.add_argument("--runner", choices=["single", "cot", "cot_sc", "react"], default="single")
-    parser.add_argument("--provider", choices=["scripted", "hf"], default="scripted")
-    parser.add_argument("--model-id", default="", help="Model identifier for --provider hf")
+    parser.add_argument(
+        "--condition",
+        choices=condition_names(),
+        default="baseline_single_path_reasoning_only_v1",
+        help="Condition key or legacy alias from the catalog.",
+    )
+    parser.add_argument("--runner", dest="condition", help=argparse.SUPPRESS)
+    parser.add_argument("--provider", choices=["smolagents"], default="smolagents")
+    parser.add_argument("--model-id", default="", help="Model identifier for --provider smolagents")
     parser.add_argument("--hf-token-env", default="HF_TOKEN", help="Env var name for Hugging Face API token")
     parser.add_argument("--hf-timeout-seconds", type=int, default=120)
     parser.add_argument("--hf-max-new-tokens", type=int, default=192)
@@ -37,9 +47,16 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     numbers = [int(part.strip()) for part in args.numbers.split(",") if part.strip()]
+    condition_spec = resolve_conditions([args.condition])[0]
+    if condition_spec.tot_variant:
+        print(
+            "error: run_baseline.py supports baseline runners only. "
+            "Use run_tot_demo.py or run_structured_lockset.py for ToT conditions."
+        )
+        return 2
     try:
         manifest = execute_and_record(
-            runner_name=args.runner,
+            runner_name=condition_spec.runner_name,
             input_numbers=numbers,
             runs_dir=Path(args.runs_dir),
             run_log=Path(args.run_log),
@@ -52,6 +69,7 @@ def main() -> int:
             hf_temperature=args.hf_temperature,
             hf_top_p=args.hf_top_p,
             cot_sc_samples=args.cot_sc_samples,
+            react_execution_mode=condition_spec.react_execution_mode,
         )
     except Exception as exc:
         print(f"error: {exc}")

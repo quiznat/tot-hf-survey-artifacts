@@ -37,6 +37,18 @@ class LinearSystem2Task(BaseTask):
         x_val, y_val = solution
         return _residual_ok(payload["equations"], x_val, y_val)
 
+    def extract_final_answer(self, raw_output: str) -> str:
+        direct = super().extract_final_answer(raw_output).strip()
+        candidates = _extract_xy_candidates(raw_output)
+        if candidates:
+            x_val, y_val = candidates[-1]
+            return _format_solution(x_val, y_val)
+
+        direct_solution = _parse_solution(direct)
+        if direct_solution is not None:
+            return _format_solution(*direct_solution)
+        return direct if direct else raw_output.strip()
+
     def build_tot_candidate_prompt(
         self,
         input_data: Any,
@@ -147,3 +159,35 @@ def _residual_ok(equations: list[tuple[float, float, float]], x_val: float, y_va
     if not math.isfinite(x_val) or not math.isfinite(y_val):
         return False
     return _residual_sum(equations, x_val, y_val) < 1e-6
+
+
+def _format_solution(x_val: float, y_val: float) -> str:
+    return f"x={x_val},y={y_val}"
+
+
+def _extract_xy_candidates(raw_output: str) -> list[tuple[float, float]]:
+    candidates: list[tuple[float, float]] = []
+
+    # Primary pattern: x=<...>, y=<...>
+    pattern_xy = re.compile(
+        r"x\s*=\s*([-+]?\d*\.?\d+)\s*[,; ]+\s*y\s*=\s*([-+]?\d*\.?\d+)",
+        flags=re.IGNORECASE,
+    )
+    for match in pattern_xy.finditer(raw_output):
+        try:
+            candidates.append((float(match.group(1)), float(match.group(2))))
+        except ValueError:
+            continue
+
+    # Secondary pattern: y=<...>, x=<...>
+    pattern_yx = re.compile(
+        r"y\s*=\s*([-+]?\d*\.?\d+)\s*[,; ]+\s*x\s*=\s*([-+]?\d*\.?\d+)",
+        flags=re.IGNORECASE,
+    )
+    for match in pattern_yx.finditer(raw_output):
+        try:
+            candidates.append((float(match.group(2)), float(match.group(1))))
+        except ValueError:
+            continue
+
+    return candidates

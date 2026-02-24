@@ -7,7 +7,7 @@ import argparse
 import os
 from pathlib import Path
 
-from phase2_baselines.adapters import HuggingFaceInferenceModel, ScriptedModel
+from phase2_baselines.adapters import SmolagentsInferenceModel
 from phase2_baselines.manifest import append_run_log, write_manifest
 from phase2_baselines.reporting import write_variance_report
 from phase2_baselines.runners.tot import ToTRunner
@@ -17,8 +17,8 @@ from phase2_baselines.tasks import Arithmetic24Task
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run repeated ToT sweep and build variance report")
     parser.add_argument("--runs-per-condition", type=int, default=5)
-    parser.add_argument("--provider", choices=["scripted", "hf"], default="scripted")
-    parser.add_argument("--model-id", default="", help="Model identifier for --provider hf")
+    parser.add_argument("--provider", choices=["smolagents"], default="smolagents")
+    parser.add_argument("--model-id", default="", help="Model identifier for --provider smolagents")
     parser.add_argument("--hf-token-env", default="HF_TOKEN", help="Env var name for Hugging Face API token")
     parser.add_argument("--hf-timeout-seconds", type=int, default=120)
     parser.add_argument("--hf-max-new-tokens", type=int, default=192)
@@ -55,25 +55,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def _build_model(args: argparse.Namespace):
-    if args.provider == "scripted":
-        return (
-            ScriptedModel(
-                responses=[
-                    "CANDIDATE: (10+4)+10+4\\nCANDIDATE: (10*10-4)/4",
-                ]
-            ),
-            "scripted-tot-v1",
-            "local-scripted",
-        )
-
     model_id = args.model_id or "Qwen/Qwen3-Coder-Next:novita"
     token = os.getenv(args.hf_token_env, "").strip()
     if not token:
         raise RuntimeError(
-            f"Hugging Face provider requires ${args.hf_token_env} with a valid API token."
+            f"smolagents provider requires ${args.hf_token_env} with a valid API token."
         )
     return (
-        HuggingFaceInferenceModel(
+        SmolagentsInferenceModel(
             model_id=model_id,
             api_token=token,
             timeout_seconds=args.hf_timeout_seconds,
@@ -82,7 +71,7 @@ def _build_model(args: argparse.Namespace):
             top_p=args.hf_top_p,
         ),
         model_id,
-        "huggingface-inference",
+        "smolagents-inference",
     )
 
 

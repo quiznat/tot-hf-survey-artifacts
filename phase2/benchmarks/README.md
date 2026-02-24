@@ -7,15 +7,18 @@ Use this directory for benchmark definitions, run results, and analysis summarie
 - `benchmark-matrix-v3.md`: expanded multi-task matrix (protocol-v3 scope).
 - `benchmark-matrix-v4.md`: confirmatory multi-task matrix (protocol-v4 scope).
 - `benchmark-matrix-v5.md`: base reasoning-pattern matrix (protocol-v5 scope).
+- `benchmark-matrix-v7.md`: causal-clarity reset matrix sequence (`A -> B -> C`) with claim-scope boundaries.
 - `evaluation-protocol-v1.md`: fixed protocol settings for Evaluation v1 runs.
 - `evaluation-protocol-v2.md`: frozen protocol for v2 matrix and ablations.
 - `evaluation-protocol-v3.md`: expanded multi-task protocol for deeper pre-publication evidence.
 - `evaluation-protocol-v4.md`: pre-registered confirmatory reset protocol after exploratory invalidation.
 - `evaluation-protocol-v5.md`: base-pattern expansion protocol (`single,cot,cot_sc,react,tot`).
 - `evaluation-protocol-v51.md`: hybrid profile protocol layered on v5 base conditions.
+- `evaluation-protocol-v7.md`: frozen reset protocol with mandatory capability-parity gates and staged matrix progression.
 - `protocol-v3-execution.md`: canonical matrix execution and summary commands.
 - `protocol-v4-execution.md`: canonical confirmatory-gate + matrix execution commands.
 - `protocol-v5-execution.md`: canonical v5 smoke/matrix and v5.1 hybrid execution commands.
+- `protocol-v7-execution.md`: canonical Matrix A/B/C execution plan with stage-entry gate checks.
 - `panels/game24_lockset_v1.json`: fixed 50-item paired Game24 panel for lockset evaluation.
 - `panels/subset_sum_lockset_v1.json`: fixed 50-item paired subset-sum panel.
 - `panels/linear2_lockset_v1.json`: fixed 50-item paired 2x2 linear-system panel.
@@ -49,3 +52,6 @@ Use this directory for benchmark definitions, run results, and analysis summarie
   - `analysis/protocol_v4_gate_report.json`: machine-readable gate report.
 
 All benchmark claims in manuscript drafts must trace back to files in this directory.
+
+Protocol-v7 governance rule:
+- Primary causal claims must come from Matrix A (reasoning-only) unless a later matrix explicitly demonstrates matched capability parity.

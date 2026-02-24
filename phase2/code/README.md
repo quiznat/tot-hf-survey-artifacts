@@ -5,14 +5,17 @@ This directory will contain the executable implementation for baseline and ToT-i
 ## Current Layout
 - `src/phase2_baselines/runners/`: baseline runner implementations.
   - includes `CoTRunner`, `CoTSelfConsistencyRunner`, and `ToTRunner`.
-- `src/phase2_baselines/adapters.py`: scripted and Hugging Face inference model adapters.
+- `src/phase2_baselines/catalog/`: atomic condition catalog (algorithm IDs + capability surfaces).
+  - `catalog/condition_registry.py` composes canonical condition specs from one-file atomic modules.
+  - each atomic element has its own file, e.g. `condition_baseline_*`, `algorithm_*`, `runner_adapter_*`, `execution_surface_*`, `tool_surface_*`, `memory_surface_*`.
+- `src/phase2_baselines/adapters.py`: smolagents inference model adapter.
 - `src/phase2_baselines/tasks/`: benchmark task adapters.
   - includes `subset-sum`, `linear2`, and `digit-permutation` tasks for protocol-v3.
 - `src/phase2_baselines/metrics.py`: unified metric and cost estimation helpers.
 - `src/phase2_baselines/manifest.py`: run manifest generation/validation/writing.
 - `src/phase2_baselines/pipeline.py`: shared baseline execution/recording pipeline.
 - `src/phase2_baselines/reporting.py`: condition-level variance summary utilities.
-- `configs/hf-default.json`: pinned default Hugging Face provider profile.
+- `configs/hf-default.json`: pinned default generation profile shared by smolagents/HF inference.
 - `scripts/run_baseline.py`: local baseline execution entry point.
 - `scripts/run_baseline_sweep.py`: repeated baseline execution + variance report generation.
 - `scripts/run_tot_demo.py`: ToT prototype demo run with manifest output.
@@ -32,6 +35,8 @@ This directory will contain the executable implementation for baseline and ToT-i
 - `scripts/build_protocol_v5_matrix_summary.py`: consolidated summary across protocol-v5 base reports.
 - `scripts/run_protocol_v51_hybrid_matrix.py`: protocol-v5.1 hybrid profile matrix orchestrator.
 - `scripts/build_protocol_v51_hybrid_summary.py`: consolidated summary across protocol-v5.1 hybrid reports.
+- `scripts/run_protocol_v7_smoke.py`: protocol-v7 Matrix A smoke launcher (`single,cot,cot_sc,react_text,tot`).
+- `scripts/run_protocol_v7_matrix.py`: protocol-v7 Matrix A full launcher with hard parity profile gates.
 - `scripts/build_metrics_table.py`: aggregate manifest-driven evaluation metrics tables.
 - `scripts/build_failure_taxonomy.py`: heuristic failure taxonomy from run manifests.
 - `scripts/build_search_ablation_summary.py`: consolidate primary + A1 + A2 lockset reports into one search-ablation summary.
@@ -47,10 +52,40 @@ Each runner should support:
 Runner output must map directly to the manifest fields defined in:
 - `/Users/quiznat/Desktop/Tree_of_Thought/phase2/reproducibility/run-manifest-schema.md`
 
+## smolagents Runtime (Recommended)
+`smolagents` requires Python >= 3.10. This repo includes a local 3.11 venv path:
+
+```bash
+cd /Users/quiznat/Desktop/Tree_of_Thought
+uv python install 3.11
+uv venv phase2/.venv311 --python 3.11
+source phase2/.venv311/bin/activate
+python -m ensurepip --upgrade
+python -m pip install --upgrade pip
+python -m pip install smolagents huggingface-hub
+```
+
+When `--provider smolagents` is selected:
+- `baseline_react_code_agent_with_task_tools_v1` runs through `smolagents.CodeAgent`.
+- `baseline_react_reasoning_text_loop_only_v1` runs through reasoning-only text-loop ReAct mode with no code execution surface.
+- Atomic condition identity and capability surfaces are cataloged in `src/phase2_baselines/catalog/condition_registry.py`.
+
+## Canonical Condition Keys
+- `baseline_single_path_reasoning_only_v1`
+- `baseline_chain_of_thought_reasoning_only_v1`
+- `baseline_chain_of_thought_self_consistency_reasoning_only_v1`
+- `baseline_react_code_agent_with_task_tools_v1`
+- `baseline_react_reasoning_text_loop_only_v1`
+- `baseline_tree_of_thoughts_search_reasoning_only_v1`
+- `baseline_tree_of_thoughts_generalized_recursive_reasoning_only_v1`
+
+Legacy aliases (`single`, `cot`, `cot_sc`, `react`, `react_text`, `tot`, `tot_gen`) are still accepted, but canonical keys are recommended.
+
 ## Local Smoke Run
 ```bash
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
-python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.py --runner single
+python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.py \
+  --condition baseline_single_path_reasoning_only_v1
 ```
 
 ## Repeated-Run Sweep
@@ -67,22 +102,22 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_sweep
   --evaluator-mode rule_based
 ```
 
-## Hugging Face Baseline Run
+## smolagents Baseline Run
 ```bash
 export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline.py \
-  --runner single \
-  --provider hf \
+  --condition baseline_single_path_reasoning_only_v1 \
+  --provider smolagents \
   --model-id Qwen/Qwen2.5-7B-Instruct
 ```
 
-## Hugging Face Sweep
+## smolagents Sweep
 ```bash
 export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_baseline_sweep.py \
-  --provider hf \
+  --provider smolagents \
   --model-id Qwen/Qwen2.5-7B-Instruct \
   --runs-per-condition 3
 ```
@@ -94,12 +129,12 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.
   --evaluator-mode rule_based
 ```
 
-## ToT Prototype With Hugging Face
+## ToT Prototype With smolagents
 ```bash
 export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.py \
-  --provider hf \
+  --provider smolagents \
   --model-id Qwen/Qwen3-Coder-Next:novita \
   --evaluator-mode model_self_eval
 ```
@@ -109,9 +144,9 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_tot_demo.
 export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lockset.py \
-  --provider hf \
+  --provider smolagents \
   --model-id Qwen/Qwen3-Coder-Next:novita \
-  --conditions single,react,tot \
+  --conditions baseline_single_path_reasoning_only_v1,baseline_react_code_agent_with_task_tools_v1,baseline_tree_of_thoughts_search_reasoning_only_v1 \
   --tot-evaluator-mode model_self_eval \
   --hf-temperature 0.0 \
   --seed-policy item_hash \
@@ -125,9 +160,9 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
 export HF_TOKEN=your_token_here
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lockset.py \
-  --provider hf \
+  --provider smolagents \
   --model-id Qwen/Qwen3-Coder-Next:novita \
-  --conditions single,react,tot \
+  --conditions baseline_single_path_reasoning_only_v1,baseline_react_code_agent_with_task_tools_v1,baseline_tree_of_thoughts_search_reasoning_only_v1 \
   --tot-evaluator-mode model_self_eval \
   --hf-temperature 0.0 \
   --seed-policy item_hash \
@@ -144,9 +179,9 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lockset.py \
   --report-only \
-  --provider hf \
+  --provider smolagents \
   --model-id Qwen/Qwen3-Coder-Next:novita \
-  --conditions single,react,tot \
+  --conditions baseline_single_path_reasoning_only_v1,baseline_react_code_agent_with_task_tools_v1,baseline_tree_of_thoughts_search_reasoning_only_v1 \
   --tot-evaluator-mode model_self_eval \
   --hf-temperature 0.0 \
   --seed-policy item_hash \
@@ -158,9 +193,9 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_game24_lo
 ```
 
 Active protocol reference:
-- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v5.md`
-- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v51.md`
-- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/protocol-v5-execution.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/evaluation-protocol-v7.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/benchmark-matrix-v7.md`
+- `/Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/protocol-v7-execution.md`
 
 ## Local Tests
 ```bash
@@ -173,7 +208,7 @@ python3 -m unittest discover /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_metrics_table.py \
   --task-id game24-demo \
-  --provider huggingface-inference \
+  --provider smolagents-inference \
   --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/evaluation_v1_metrics_hf.md \
   --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/evaluation_v1_metrics_hf.json
 ```
@@ -183,7 +218,7 @@ python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_metrics
 PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/build_failure_taxonomy.py \
   --task-id game24-demo \
-  --provider huggingface-inference \
+  --provider smolagents-inference \
   --out-md /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_hf.md \
   --out-json /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/analysis/failure_taxonomy_hf.json
 ```
@@ -211,9 +246,9 @@ PYTHONPATH=/Users/quiznat/Desktop/Tree_of_Thought/phase2/code/src \
 python3 /Users/quiznat/Desktop/Tree_of_Thought/phase2/code/scripts/run_structured_lockset.py \
   --task-id subset-sum-demo \
   --panel-file /Users/quiznat/Desktop/Tree_of_Thought/phase2/benchmarks/panels/subset_sum_lockset_v1.json \
-  --provider hf \
+  --provider smolagents \
   --model-id Qwen/Qwen3-Coder-Next:novita \
-  --conditions single,cot,cot_sc,react,tot \
+  --conditions baseline_single_path_reasoning_only_v1,baseline_chain_of_thought_reasoning_only_v1,baseline_chain_of_thought_self_consistency_reasoning_only_v1,baseline_react_code_agent_with_task_tools_v1,baseline_tree_of_thoughts_search_reasoning_only_v1 \
   --limit 50 \
   --max-workers 8
 ```

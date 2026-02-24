@@ -19,6 +19,15 @@ class SubsetSumTaskTests(unittest.TestCase):
         self.assertFalse(self.task.evaluate("9,9", self.input_data))
         self.assertFalse(self.task.evaluate("2,4", self.input_data))
 
+    def test_subset_sum_extracts_answer_from_verbose_reasoning(self) -> None:
+        raw = (
+            "Try combinations.\n"
+            "2 + 4 + 7 = 13, this matches target.\n"
+            "Answer: 2,4,7"
+        )
+        extracted = self.task.extract_final_answer(raw)
+        self.assertTrue(self.task.evaluate(extracted, self.input_data))
+
 
 class Linear2TaskTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -33,6 +42,15 @@ class Linear2TaskTests(unittest.TestCase):
     def test_linear2_rejects_incorrect_solution(self) -> None:
         self.assertFalse(self.task.evaluate("x=1,y=1", self.input_data))
 
+    def test_linear2_extracts_xy_from_reasoning(self) -> None:
+        raw = (
+            "Equation 1 gives x + y = 5.\n"
+            "Equation 2 gives 2x - y = 1.\n"
+            "Therefore x = 2, y = 3."
+        )
+        extracted = self.task.extract_final_answer(raw)
+        self.assertTrue(self.task.evaluate(extracted, self.input_data))
+
 
 class DigitPermutationTaskTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -44,6 +62,29 @@ class DigitPermutationTaskTests(unittest.TestCase):
 
     def test_digit_permutation_rejects_non_optimal_valid_number(self) -> None:
         self.assertFalse(self.task.evaluate("5232", self.input_data))
+
+    def test_digit_permutation_extracts_integer_from_verbose_reasoning(self) -> None:
+        raw = (
+            "Check divisibility candidates: 5232, 5322, 5223.\n"
+            "Largest valid answer is 5322."
+        )
+        extracted = self.task.extract_final_answer(raw)
+        self.assertEqual(extracted, "5322")
+
+
+class Arithmetic24ExtractionTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.task = create_task("game24")
+        self.input_data = [4, 4, 10, 10]
+
+    def test_arithmetic24_extracts_expression_from_verbose_reasoning(self) -> None:
+        raw = (
+            "Try some options.\n"
+            "(10+10)+4+4 = 28 (too high)\n"
+            "Use (10*10-4)/4 = 24, so this works."
+        )
+        extracted = self.task.extract_final_answer(raw)
+        self.assertTrue(self.task.evaluate(extracted, self.input_data))
 
 
 class TaskRegistryTests(unittest.TestCase):

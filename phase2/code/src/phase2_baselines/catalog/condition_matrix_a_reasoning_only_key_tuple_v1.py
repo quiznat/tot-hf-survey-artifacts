@@ -1,0 +1,22 @@
+"""Canonical condition-key tuple for Matrix-A reasoning-only parity profile."""
+
+from .condition_key_baseline_chain_of_thought_reasoning_only_v1 import CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_REASONING_ONLY_V1
+from .condition_key_baseline_chain_of_thought_self_consistency_reasoning_only_v1 import (
+    CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_SELF_CONSISTENCY_REASONING_ONLY_V1,
+)
+from .condition_key_baseline_react_reasoning_text_loop_only_v1 import (
+    CONDITION_KEY_BASELINE_REACT_REASONING_TEXT_LOOP_ONLY_V1,
+)
+from .condition_key_baseline_single_path_reasoning_only_v1 import CONDITION_KEY_BASELINE_SINGLE_PATH_REASONING_ONLY_V1
+from .condition_key_baseline_tree_of_thoughts_search_reasoning_only_v1 import (
+    CONDITION_KEY_BASELINE_TREE_OF_THOUGHTS_SEARCH_REASONING_ONLY_V1,
+)
+
+
+MATRIX_A_REASONING_ONLY_CANONICAL_KEYS = (
+    CONDITION_KEY_BASELINE_SINGLE_PATH_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_CHAIN_OF_THOUGHT_SELF_CONSISTENCY_REASONING_ONLY_V1,
+    CONDITION_KEY_BASELINE_REACT_REASONING_TEXT_LOOP_ONLY_V1,
+    CONDITION_KEY_BASELINE_TREE_OF_THOUGHTS_SEARCH_REASONING_ONLY_V1,
+)

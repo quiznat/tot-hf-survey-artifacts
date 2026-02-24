@@ -84,19 +84,26 @@ def main() -> int:
         cond = _condition_map(payload.get("condition_summaries", []))
         pairs = payload.get("paired_comparison", [])
 
-        required = {
+        required_baselines = {
             "baseline-single-path",
             "baseline-cot",
             "baseline-cot-sc",
             "baseline-react",
-            "tot-prototype",
         }
-        if not required.issubset(set(cond.keys())):
+        if not required_baselines.issubset(set(cond.keys())):
+            continue
+        has_tot_legacy = "tot-prototype" in cond
+        has_tot_gen = "tot-gen" in cond
+        if not (has_tot_legacy or has_tot_gen):
             continue
 
         pair_tot_react = _pair_row(pairs, "tot-prototype", "baseline-react")
         pair_tot_cot = _pair_row(pairs, "tot-prototype", "baseline-cot")
         pair_tot_cotsc = _pair_row(pairs, "tot-prototype", "baseline-cot-sc")
+        pair_tot_gen_react = _pair_row(pairs, "tot-gen", "baseline-react")
+        pair_tot_gen_cot = _pair_row(pairs, "tot-gen", "baseline-cot")
+        pair_tot_gen_cotsc = _pair_row(pairs, "tot-gen", "baseline-cot-sc")
+        pair_tot_gen_tot = _pair_row(pairs, "tot-gen", "tot-prototype")
         pair_cotsc_cot = _pair_row(pairs, "baseline-cot-sc", "baseline-cot")
 
         records.append(
@@ -109,16 +116,26 @@ def main() -> int:
                 "cot_success_rate": cond["baseline-cot"].get("success_rate"),
                 "cot_sc_success_rate": cond["baseline-cot-sc"].get("success_rate"),
                 "react_success_rate": cond["baseline-react"].get("success_rate"),
-                "tot_success_rate": cond["tot-prototype"].get("success_rate"),
+                "tot_success_rate": cond.get("tot-prototype", {}).get("success_rate"),
+                "tot_gen_success_rate": cond.get("tot-gen", {}).get("success_rate"),
                 "tot_minus_react": (pair_tot_react or {}).get("delta_success_rate"),
                 "holm_p_tot_vs_react": (pair_tot_react or {}).get("mcnemar_p_holm"),
                 "tot_minus_cot": (pair_tot_cot or {}).get("delta_success_rate"),
                 "holm_p_tot_vs_cot": (pair_tot_cot or {}).get("mcnemar_p_holm"),
                 "tot_minus_cot_sc": (pair_tot_cotsc or {}).get("delta_success_rate"),
                 "holm_p_tot_vs_cot_sc": (pair_tot_cotsc or {}).get("mcnemar_p_holm"),
+                "tot_gen_minus_react": (pair_tot_gen_react or {}).get("delta_success_rate"),
+                "holm_p_tot_gen_vs_react": (pair_tot_gen_react or {}).get("mcnemar_p_holm"),
+                "tot_gen_minus_cot": (pair_tot_gen_cot or {}).get("delta_success_rate"),
+                "holm_p_tot_gen_vs_cot": (pair_tot_gen_cot or {}).get("mcnemar_p_holm"),
+                "tot_gen_minus_cot_sc": (pair_tot_gen_cotsc or {}).get("delta_success_rate"),
+                "holm_p_tot_gen_vs_cot_sc": (pair_tot_gen_cotsc or {}).get("mcnemar_p_holm"),
+                "tot_gen_minus_tot": (pair_tot_gen_tot or {}).get("delta_success_rate"),
+                "holm_p_tot_gen_vs_tot": (pair_tot_gen_tot or {}).get("mcnemar_p_holm"),
                 "cot_sc_minus_cot": (pair_cotsc_cot or {}).get("delta_success_rate"),
                 "holm_p_cot_sc_vs_cot": (pair_cotsc_cot or {}).get("mcnemar_p_holm"),
-                "tot_latency_ms_mean": cond["tot-prototype"].get("latency_ms_mean"),
+                "tot_latency_ms_mean": cond.get("tot-prototype", {}).get("latency_ms_mean"),
+                "tot_gen_latency_ms_mean": cond.get("tot-gen", {}).get("latency_ms_mean"),
                 "report_json": path,
             }
         )
@@ -135,13 +152,13 @@ def main() -> int:
         "",
         f"Reports aggregated: {len(records)}",
         "",
-        "| Task | Model | Single | CoT | CoT-SC | ReAct | ToT | ToT-ReAct | Holm p | ToT-CoT | Holm p | ToT-CoT-SC | Holm p | CoT-SC-CoT | Holm p |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "| Task | Model | Single | CoT | CoT-SC | ReAct | ToT(legacy) | ToT-gen | ToT(legacy)-ReAct | Holm p | ToT-gen-ReAct | Holm p | ToT-gen-ToT(legacy) | Holm p | CoT-SC-CoT | Holm p |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
 
     for row in records:
         lines.append(
-            "| {task} | {model} | {single} | {cot} | {cot_sc} | {react} | {tot} | {tr} | {ptr} | {tc} | {ptc} | {tcs} | {ptcs} | {csc} | {pcsc} |".format(
+            "| {task} | {model} | {single} | {cot} | {cot_sc} | {react} | {tot} | {tot_gen} | {tr} | {ptr} | {tgr} | {ptgr} | {tgt} | {ptgt} | {csc} | {pcsc} |".format(
                 task=row["task_id"],
                 model=row["model_id"],
                 single=_fmt(row["single_success_rate"]),
@@ -149,12 +166,13 @@ def main() -> int:
                 cot_sc=_fmt(row["cot_sc_success_rate"]),
                 react=_fmt(row["react_success_rate"]),
                 tot=_fmt(row["tot_success_rate"]),
+                tot_gen=_fmt(row["tot_gen_success_rate"]),
                 tr=_fmt(row["tot_minus_react"]),
                 ptr=_fmt_p(row["holm_p_tot_vs_react"]),
-                tc=_fmt(row["tot_minus_cot"]),
-                ptc=_fmt_p(row["holm_p_tot_vs_cot"]),
-                tcs=_fmt(row["tot_minus_cot_sc"]),
-                ptcs=_fmt_p(row["holm_p_tot_vs_cot_sc"]),
+                tgr=_fmt(row["tot_gen_minus_react"]),
+                ptgr=_fmt_p(row["holm_p_tot_gen_vs_react"]),
+                tgt=_fmt(row["tot_gen_minus_tot"]),
+                ptgt=_fmt_p(row["holm_p_tot_gen_vs_tot"]),
                 csc=_fmt(row["cot_sc_minus_cot"]),
                 pcsc=_fmt_p(row["holm_p_cot_sc_vs_cot"]),
             )

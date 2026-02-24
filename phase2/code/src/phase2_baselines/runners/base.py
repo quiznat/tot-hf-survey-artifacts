@@ -54,7 +54,12 @@ class BaseRunner(ABC):
         search_cfg = SearchConfig(**self.config.get("search_config", {}))
 
         manifest: Dict[str, Any] = {
-            "run_id": self.config.get("run_id", generate_run_id(prefix=self.runner_id.upper())),
+            "run_id": self.config.get(
+                "run_id",
+                generate_run_id(
+                    prefix=str(self.config.get("condition_id", self.runner_id)).upper()
+                ),
+            ),
             "timestamp_utc": utc_now_iso(),
             "task_id": self.task.task_id,
             "condition_id": self.config.get("condition_id", self.runner_id),
@@ -96,17 +101,30 @@ class BaseRunner(ABC):
             manifest["panel_id"] = self.config["panel_id"]
         for key in (
             "evaluator_mode",
+            "tot_mode",
+            "decomposition_rounds",
             "max_depth",
             "branch_factor",
             "frontier_width",
             "max_steps",
             "cot_sc_samples",
+            "cot_sc_parallel_workers",
+            "cot_answer_recovery",
             "hf_temperature",
             "hf_top_p",
             "react_enable_tools",
+            "react_strict_mode",
+            "react_execution_mode",
             "capability_parity_policy",
             "task_tools_available",
             "condition_tools_exposed",
+            "algorithm_id",
+            "algorithm_module_id",
+            "execution_surface_id",
+            "tool_surface_id",
+            "memory_surface_id",
+            "parity_profile_id",
+            "condition_key",
         ):
             if key in self.config:
                 manifest[key] = self.config[key]

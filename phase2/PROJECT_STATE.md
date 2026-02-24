@@ -1,13 +1,18 @@
 # Phase 2 Project State
 
-Status date: 2026-02-22
+Status date: 2026-02-24
 
 ## Current Phase
 - Phase 1 (survey): handled in a separate thread and intentionally excluded from this workspace update.
 - Phase 2 (novel implementation): protocol-v2 evidence is frozen; protocol-v3 locked matrix execution is complete with consolidated analysis artifacts.
 - Protocol-v3.1 diagnostics are completed (`2 tasks x 3 models x 4 profiles`, paired `react,tot`) with deep-analysis and parity artifacts generated.
 - Protocol-v4 confirmatory reset is completed (gates + full matrix + summary artifacts).
-- Protocol-v5 base-pattern expansion is now active (`single,cot,cot_sc,react,tot`) with v5/v5.1 execution tooling in place.
+- Protocol-v7 causal-clarity reset is now active with locked sequence:
+  - Matrix A first (reasoning-only canonical baseline),
+  - Matrix B second (tool-calling parity),
+  - Matrix C third (engineering-forward extension only after A/B stability).
+- Pre-v6 run corpus is frozen under `phase2/benchmarks/runs/_frozen/pre_v6_20260223T185128Z`.
+- Protocol-v6 smoke/matrix scaffolding is in place; full v6 smoke is completed for `Qwen/Qwen3-Coder-Next:novita` across all 4 tasks.
 - Canonical manuscript source: `phase2/manuscript/PREPAPER.md`.
 
 ## Gate Status
@@ -20,6 +25,51 @@ Status date: 2026-02-22
 - P2-G6 (Submission Package): not started
 
 ## Completed This Session
+- Implemented atomic condition catalog with unique algorithm IDs and capability surfaces:
+  - `phase2/code/src/phase2_baselines/catalog/condition_registry.py`
+  - `phase2/code/src/phase2_baselines/catalog/type_condition_spec.py`
+  - `phase2/code/src/phase2_baselines/catalog/algorithm_*.py`
+  - `phase2/code/src/phase2_baselines/catalog/condition_*.py`
+- Added Matrix A parity gate enforcement in lockset runner:
+  - `--parity-profile matrix_a_reasoning_only` hard-fails on execution/tool/memory mismatches.
+  - condition metadata (`algorithm_id`, module ID, surfaces) now propagates to manifests and reports.
+- Implemented text-loop ReAct mode for reasoning-only parity:
+  - `phase2/code/src/phase2_baselines/runners/react.py`
+  - `phase2/code/src/phase2_baselines/pipeline.py`
+- Normalized ReAct token metrics to estimator-based accounting for cross-condition parity; provider-reported token usage now retained as auxiliary manifest metadata.
+- Added protocol-v7 Matrix A launch scripts:
+  - `phase2/code/scripts/run_protocol_v7_smoke.py`
+  - `phase2/code/scripts/run_protocol_v7_matrix.py`
+- Added/updated tests for catalog and ReAct execution modes:
+  - `phase2/code/tests/test_condition_catalog.py`
+  - `phase2/code/tests/test_pipeline_hf.py`
+  - `phase2/code/tests/test_runner_smoke.py`
+- Locked causal-clarity execution sequence in planning/governance docs:
+  - Matrix A -> Matrix B -> Matrix C
+  - Matrix A designated as canonical baseline for primary causal claims
+- Added protocol-v7 benchmark governance artifacts:
+  - `phase2/benchmarks/evaluation-protocol-v7.md`
+  - `phase2/benchmarks/benchmark-matrix-v7.md`
+  - `phase2/benchmarks/protocol-v7-execution.md`
+- Frozen prior run artifacts for inferential quarantine:
+  - `phase2/benchmarks/runs/_frozen/pre_v6_20260223T185128Z/`
+  - manifest: `phase2/benchmarks/runs/_frozen/pre_v6_20260223T185128Z/FREEZE_MANIFEST.txt`
+- Added v6 orchestration and summary tooling:
+  - `phase2/code/scripts/run_protocol_v6_smoke.py`
+  - `phase2/code/scripts/run_protocol_v6_matrix.py`
+  - `phase2/code/scripts/build_protocol_v6_matrix_summary.py`
+- Completed protocol-v6 smoke execution (`4 tasks x 1 model x 6 conditions x 10 = 240` manifests):
+  - reports:
+    - `phase2/benchmarks/analysis/game24_demo_base_smoke_report_qwen_qwen3_coder_next_novita_v6.json`
+    - `phase2/benchmarks/analysis/subset_sum_demo_base_smoke_report_qwen_qwen3_coder_next_novita_v6.json`
+    - `phase2/benchmarks/analysis/linear2_demo_base_smoke_report_qwen_qwen3_coder_next_novita_v6.json`
+    - `phase2/benchmarks/analysis/digit_permutation_demo_base_smoke_report_qwen_qwen3_coder_next_novita_v6.json`
+  - consolidated summary:
+    - `phase2/benchmarks/analysis/protocol_v6_smoke_summary.md`
+    - `phase2/benchmarks/analysis/protocol_v6_smoke_summary.json`
+- Extended dashboard for v6 visibility:
+  - `phase2/dashboard/server.py`
+  - `phase2/dashboard/README.md`
 - Added base comparator support in core harness:
   - `baseline-cot` and `baseline-cot-sc` runners
   - lockset pipeline + manifest support for `cot_sc_samples`
@@ -110,7 +160,7 @@ Status date: 2026-02-22
   - `phase2/reproducibility/run-log-protocol-v3.md`
 - Extended tests for v3 task adapters:
   - `phase2/code/tests/test_tasks_v3.py`
-- Verified the full Phase 2 unit test suite remains green (`29` tests passing).
+- Verified the full Phase 2 unit test suite remains green (`51` tests passing).
 - Established Phase 2 planning and operating framework (`phase2/`).
 - Drafted benchmark matrix and run manifest schema for evaluation protocol.
 - Added reproducibility run log and first dry-run manifest artifact.
@@ -222,9 +272,9 @@ Status date: 2026-02-22
   - `phase2/manuscript/PREPAPER.md` (`Draft Manuscript Text: Results and Limitations (v0.1)`).
 
 ## Next 3 Tasks
-1. Run `run_protocol_v5_smoke.py` across all four tasks and verify five-condition coverage.
-2. Execute `run_protocol_v5_matrix.py` with locked models and `--max-workers 12`.
-3. Build `protocol_v5_matrix_summary` and then launch `run_protocol_v51_hybrid_matrix.py`.
+1. Execute Matrix A smoke (`n=10`) across all tasks/models via `run_protocol_v7_smoke.py`.
+2. Execute full Matrix A confirmatory matrix (`n=50`) via `run_protocol_v7_matrix.py`.
+3. Build consolidated Matrix A summary and update manuscript claim scope from Matrix A only.
 
 ## Risks / Dependencies
 - Provider/model behavior can drift over time; additional reruns may change latency and timeout rates even with locked settings.
@@ -232,8 +282,10 @@ Status date: 2026-02-22
 - Protocol-v3 evidence shows task-dependent ToT-vs-ReAct directionality, so overgeneralized claims remain a publication risk.
 - Protocol-v3.1 evidence shows broad ToT underperformance on `linear2` and `digit-permutation`; implementation changes are required before broader positive claims.
 - Manuscript framing must keep claims strictly evidence-bounded to avoid rejection on scope overreach.
+- Mixed capability surfaces (prompt-only vs code-executing agents) can invalidate causal interpretation if not blocked by protocol gates.
 
 ## Decision Log
+- 2026-02-24: Locked publication-grade sequence as Matrix A (reasoning-only) -> Matrix B (tool-calling parity) -> Matrix C (engineering extension), with Matrix A designated as the canonical baseline for primary causal claims.
 - 2026-02-20: Adopted gate-based roadmap for Phase 2 execution.
 - 2026-02-20: Set TMLR-quality reproducibility standard for this track.
 - 2026-02-20: Completed Gate P2-G0 bootstrap with benchmark/reproducibility scaffolding.

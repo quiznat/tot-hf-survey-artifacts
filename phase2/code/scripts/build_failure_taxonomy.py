@@ -26,7 +26,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--conditions",
-        default="baseline-single-path,baseline-react,tot-prototype",
+        default="baseline-single-path,baseline-react,tot-prototype,tot-gen",
         help="Comma-separated condition IDs to include",
     )
     parser.add_argument(
@@ -37,7 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--provider",
         default="",
-        help="Optional provider filter (e.g., huggingface-inference)",
+        help="Optional provider filter (e.g., smolagents-inference)",
     )
     parser.add_argument(
         "--out-md",

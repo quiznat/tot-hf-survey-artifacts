@@ -103,7 +103,7 @@ class ToTRunnerTests(unittest.TestCase):
         def generator(node, input_data, k):
             del node, input_data, k
             # First candidate is much farther from 24 than second candidate.
-            return ["(10*10-4*4)", "(10+10)+4+4"]
+            return ["FINAL: (10*10-4*4)", "FINAL: (10+10)+4+4"]
 
         runner = ToTRunner(model=model, model_name="tot-test")
         runner.prepare(
@@ -118,11 +118,12 @@ class ToTRunnerTests(unittest.TestCase):
                 },
                 "tool_config": [],
                 "budget": {"token_budget": 1000, "time_budget_ms": 5000, "cost_budget_usd": 0.0},
-                "max_depth": 1,
+                "max_depth": 0,
                 "branch_factor": 2,
                 "frontier_width": 1,
                 "candidate_generator": generator,
                 "evaluator_mode": "rule_based",
+                "tot_mode": "model_decompose_search",
             },
         )
 
@@ -134,7 +135,7 @@ class ToTRunnerTests(unittest.TestCase):
     def test_model_self_eval_mode_uses_model_scores(self) -> None:
         model = ScriptedModel(
             responses=[
-                "CANDIDATE: (10+10)+4+4\nCANDIDATE: (10+10+4)-4",
+                "FINAL: (10+10)+4+4\nFINAL: (10+10+4)-4",
                 "0.1",
                 "0.9",
             ]
@@ -153,10 +154,11 @@ class ToTRunnerTests(unittest.TestCase):
                 },
                 "tool_config": [],
                 "budget": {"token_budget": 1000, "time_budget_ms": 5000, "cost_budget_usd": 0.0},
-                "max_depth": 1,
+                "max_depth": 0,
                 "branch_factor": 2,
                 "frontier_width": 1,
                 "evaluator_mode": "model_self_eval",
+                "tot_mode": "model_decompose_search",
             },
         )
 
@@ -165,10 +167,34 @@ class ToTRunnerTests(unittest.TestCase):
         self.assertEqual(manifest["error_type"], "depth_limit")
         self.assertEqual(manifest["final_answer"], "(10+10+4)-4")
 
+    def test_legacy_mode_is_disabled(self) -> None:
+        model = ScriptedModel(responses=[])
+        runner = ToTRunner(model=model, model_name="tot-test")
+        runner.prepare(
+            self.task,
+            {
+                "condition_id": "tot-prototype",
+                "search_config": {
+                    "depth": 1,
+                    "breadth": 1,
+                    "pruning": "topk_cumulative_score",
+                    "stop_policy": "depth_limit",
+                },
+                "tool_config": [],
+                "budget": {"token_budget": 1000, "time_budget_ms": 5000, "cost_budget_usd": 0.0},
+                "max_depth": 1,
+                "branch_factor": 1,
+                "frontier_width": 1,
+                "tot_mode": "legacy_candidate_search",
+            },
+        )
+        with self.assertRaises(RuntimeError):
+            runner.run(self.numbers)
+
     def test_task_specific_candidate_prompt_linear2(self) -> None:
         task = create_task("linear2")
         input_data = {"equations": [[1, 0, 2], [0, 1, 3]]}
-        model = RecordingScriptedModel(responses=["x=2,y=3"])
+        model = RecordingScriptedModel(responses=["FINAL: x=2,y=3"])
 
         runner = ToTRunner(model=model, model_name="tot-test")
         runner.prepare(
@@ -187,6 +213,7 @@ class ToTRunnerTests(unittest.TestCase):
                 "branch_factor": 1,
                 "frontier_width": 1,
                 "evaluator_mode": "rule_based",
+                "tot_mode": "model_decompose_search",
             },
         )
 
@@ -198,7 +225,7 @@ class ToTRunnerTests(unittest.TestCase):
     def test_task_specific_candidate_prompt_digit_permutation(self) -> None:
         task = create_task("digit-permutation")
         input_data = {"digits": [5, 3, 2, 2], "divisor": 3, "oracle_max": 5322}
-        model = RecordingScriptedModel(responses=["5322"])
+        model = RecordingScriptedModel(responses=["FINAL: 5322"])
 
         runner = ToTRunner(model=model, model_name="tot-test")
         runner.prepare(
@@ -217,13 +244,54 @@ class ToTRunnerTests(unittest.TestCase):
                 "branch_factor": 1,
                 "frontier_width": 1,
                 "evaluator_mode": "rule_based",
+                "tot_mode": "model_decompose_search",
             },
         )
 
         manifest = runner.run(input_data)
         self.assertEqual(manifest["outcome"], "success")
-        self.assertIn("single 4-digit integer", model.prompts[0])
+        self.assertIn("largest possible 4-digit integer", model.prompts[0])
         self.assertNotIn("arithmetic expressions", model.prompts[0])
+
+    def test_general_mode_uses_decomposition_then_expansion(self) -> None:
+        task = create_task("linear2")
+        input_data = {"equations": [[1, 0, 2], [0, 1, 3]]}
+        model = RecordingScriptedModel(
+            responses=[
+                "DECOMP: isolate one variable first",
+                "FINAL: x=2,y=3",
+            ]
+        )
+
+        runner = ToTRunner(model=model, model_name="tot-test")
+        runner.prepare(
+            task,
+            {
+                "condition_id": "tot-prototype",
+                "search_config": {
+                    "depth": 1,
+                    "breadth": 1,
+                    "pruning": "topk_cumulative_score",
+                    "stop_policy": "first_terminal_or_depth_limit",
+                },
+                "tool_config": [],
+                "budget": {"token_budget": 500, "time_budget_ms": 5000, "cost_budget_usd": 0.0},
+                "max_depth": 1,
+                "branch_factor": 1,
+                "frontier_width": 1,
+                "evaluator_mode": "rule_based",
+                "tot_mode": "model_decompose_search",
+                "decomposition_rounds": 1,
+            },
+        )
+
+        manifest = runner.run(input_data)
+        self.assertEqual(manifest["outcome"], "success")
+        self.assertEqual(manifest["final_answer"], "x=2,y=3")
+        self.assertIn("initializing a Tree-of-Thought search", model.prompts[0])
+        self.assertIn("DECOMP: insight=<core contributor insight>; subnodes=", model.prompts[0])
+        self.assertIn("expanding a Tree-of-Thought reasoning path", model.prompts[1])
+        self.assertIn("recombine=<how to combine subnode outputs>", model.prompts[1])
 
 
 if __name__ == "__main__":

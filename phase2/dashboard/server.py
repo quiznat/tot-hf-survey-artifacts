@@ -51,9 +51,12 @@ SERIES_VERSION_LABELS = {
     "v4_matrix": "v4-matrix",
     "v5_smoke": "v5-smoke",
     "v5_matrix": "v5-matrix",
+    "v6_smoke": "v6-smoke",
+    "v6_matrix": "v6-matrix",
     "v51_matrix": "v5.1-hybrid",
     "v4": "v4",
     "v5": "v5",
+    "v6": "v6",
     "v51": "v5.1",
 }
 DIAGNOSTIC_TASKS = {
@@ -116,6 +119,7 @@ V5_CONDITIONS = (
     "baseline-cot-sc",
     "baseline-react",
     "tot-prototype",
+    "tot-gen",
 )
 V51_PROFILES = [
     "tot_model_self_eval",
@@ -123,6 +127,10 @@ V51_PROFILES = [
     "tot_rule_based_eval",
     "tot_deep_search",
 ]
+V6_TASKS = V5_TASKS
+V6_SMOKE_MODELS = V5_SMOKE_MODELS
+V6_MATRIX_MODELS = V5_MATRIX_MODELS
+V6_CONDITIONS = V5_CONDITIONS
 
 
 def utc_now() -> str:
@@ -359,6 +367,24 @@ def compute_diagnostic_progress_all() -> Dict[str, Dict[str, Any]]:
             conditions=V5_CONDITIONS,
             panel_limit=50,
         ),
+        "v6_smoke": compute_series_progress(
+            series_id="protocol_v6_smoke",
+            report_version_id="v6_smoke",
+            tasks=V6_TASKS,
+            models=V6_SMOKE_MODELS,
+            profiles=[""],
+            conditions=V6_CONDITIONS,
+            panel_limit=10,
+        ),
+        "v6_matrix": compute_series_progress(
+            series_id="protocol_v6_matrix",
+            report_version_id="v6_matrix",
+            tasks=V6_TASKS,
+            models=V6_MATRIX_MODELS,
+            profiles=[""],
+            conditions=V6_CONDITIONS,
+            panel_limit=50,
+        ),
         "v51_matrix": compute_series_progress(
             series_id="protocol_v51_hybrid_matrix",
             report_version_id="v51_matrix",
@@ -403,6 +429,14 @@ def _pair_row(rows: List[Dict[str, Any]], a: str, b: str) -> Dict[str, Any] | No
     return None
 
 
+def _primary_tot_condition_id(cond: Dict[str, Dict[str, Any]]) -> str:
+    if "tot-gen" in cond:
+        return "tot-gen"
+    if "tot-prototype" in cond:
+        return "tot-prototype"
+    return "tot-prototype"
+
+
 def _infer_report_tag(path: Path) -> tuple[str, str]:
     match = re.search(r"_(v[0-9][0-9a-z]*(?:_[0-9a-z]+)*)$", path.stem)
     if not match:
@@ -414,6 +448,10 @@ def _infer_report_tag(path: Path) -> tuple[str, str]:
 
 def _infer_report_version(path: Path) -> tuple[str, str, str]:
     stem = path.stem
+    if "_base_report_" in stem and stem.endswith("_v6"):
+        return ("v6_matrix", SERIES_VERSION_LABELS.get("v6_matrix", "v6_matrix"), "v6")
+    if "_base_smoke_report_" in stem and stem.endswith("_v6"):
+        return ("v6_smoke", SERIES_VERSION_LABELS.get("v6_smoke", "v6_smoke"), "v6")
     if "_base_report_" in stem and stem.endswith("_v5"):
         return ("v5_matrix", SERIES_VERSION_LABELS.get("v5_matrix", "v5_matrix"), "v5")
     if "_base_smoke_report_" in stem and stem.endswith("_v5"):
@@ -448,6 +486,8 @@ def _infer_profile_id(path: Path) -> str:
 def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[str, Any]]:
     paths: List[Path] = []
     paths.extend(ANALYSIS_DIR.glob("*_diag_report_*.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_base_report_*_v6.json"))
+    paths.extend(ANALYSIS_DIR.glob("*_base_smoke_report_*_v6.json"))
     paths.extend(ANALYSIS_DIR.glob("*_base_report_*_v5.json"))
     paths.extend(ANALYSIS_DIR.glob("*_base_smoke_report_*_v5.json"))
     paths.extend(ANALYSIS_DIR.glob("*_hybrid_report_*_v51.json"))
@@ -469,9 +509,14 @@ def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[st
         if not isinstance(paired_rows, list):
             paired_rows = []
         cond = _condition_map([row for row in condition_rows if isinstance(row, dict)])
+        tot_condition_id = _primary_tot_condition_id(cond)
         react = cond.get("baseline-react", {})
-        tot = cond.get("tot-prototype", {})
-        pair_tr = _pair_row([row for row in paired_rows if isinstance(row, dict)], "tot-prototype", "baseline-react")
+        tot = cond.get(tot_condition_id, {})
+        tot_legacy = cond.get("tot-prototype", {})
+        tot_gen = cond.get("tot-gen", {})
+        pair_rows = [row for row in paired_rows if isinstance(row, dict)]
+        pair_tr = _pair_row(pair_rows, tot_condition_id, "baseline-react")
+        pair_tot_gen_vs_tot = _pair_row(pair_rows, "tot-gen", "tot-prototype")
         profile_id = _infer_profile_id(path)
         md_path = path.with_suffix(".md")
         rows.append(
@@ -485,9 +530,13 @@ def list_series_reports(report_versions: set[str] | None = None) -> List[Dict[st
                 "profile_label": PROFILE_LABELS.get(profile_id, profile_id),
                 "items_evaluated": payload.get("items_evaluated"),
                 "runs_executed": payload.get("runs_executed"),
+                "tot_condition_id": tot_condition_id,
                 "react_success_rate": react.get("success_rate"),
                 "tot_success_rate": tot.get("success_rate"),
                 "tot_minus_react": (pair_tr or {}).get("delta_success_rate"),
+                "tot_legacy_success_rate": tot_legacy.get("success_rate"),
+                "tot_gen_success_rate": tot_gen.get("success_rate"),
+                "tot_gen_minus_tot": (pair_tot_gen_vs_tot or {}).get("delta_success_rate"),
                 "holm_p_tot_vs_react": (pair_tr or {}).get("mcnemar_p_holm"),
                 "mcnemar_p_tot_vs_react": (pair_tr or {}).get("mcnemar_p_value"),
                 "react_latency_ms_mean": react.get("latency_ms_mean"),
@@ -527,9 +576,13 @@ def load_series_detail(report_path: Path) -> Dict[str, Any] | None:
     paired_rows.sort(key=lambda row: (str(row.get("condition_a", "")), str(row.get("condition_b", ""))))
 
     cond = _condition_map(condition_rows)
+    tot_condition_id = _primary_tot_condition_id(cond)
     react = cond.get("baseline-react", {})
-    tot = cond.get("tot-prototype", {})
-    pair_tr = _pair_row(paired_rows, "tot-prototype", "baseline-react")
+    tot = cond.get(tot_condition_id, {})
+    tot_legacy = cond.get("tot-prototype", {})
+    tot_gen = cond.get("tot-gen", {})
+    pair_tr = _pair_row(paired_rows, tot_condition_id, "baseline-react")
+    pair_tot_gen_vs_tot = _pair_row(paired_rows, "tot-gen", "tot-prototype")
 
     return {
         "report_version_id": version_id,
@@ -551,9 +604,13 @@ def load_series_detail(report_path: Path) -> Dict[str, Any] | None:
         "seed_policy": payload.get("seed_policy"),
         "bootstrap_samples": payload.get("bootstrap_samples"),
         "confidence_level": payload.get("confidence_level"),
+        "tot_condition_id": tot_condition_id,
         "react_success_rate": react.get("success_rate"),
         "tot_success_rate": tot.get("success_rate"),
         "tot_minus_react": (pair_tr or {}).get("delta_success_rate"),
+        "tot_legacy_success_rate": tot_legacy.get("success_rate"),
+        "tot_gen_success_rate": tot_gen.get("success_rate"),
+        "tot_gen_minus_tot": (pair_tot_gen_vs_tot or {}).get("delta_success_rate"),
         "condition_summaries": condition_rows,
         "paired_comparison": paired_rows,
         "report_json_path": str(report_path),
@@ -692,7 +749,9 @@ def diagnose_access() -> Dict[str, Any]:
 
 def build_overview() -> Dict[str, Any]:
     diagnostic_progress = compute_diagnostic_progress_all()
-    series_reports = list_series_reports({"v31", "v32", "v4_smoke", "v4_matrix", "v5_smoke", "v5_matrix", "v51_matrix"})
+    series_reports = list_series_reports(
+        {"v31", "v32", "v4_smoke", "v4_matrix", "v5_smoke", "v5_matrix", "v6_smoke", "v6_matrix", "v51_matrix"}
+    )
     return {
         "generated_utc": utc_now(),
         "access": diagnose_access(),
@@ -704,6 +763,8 @@ def build_overview() -> Dict[str, Any]:
         "v4_matrix_progress": diagnostic_progress.get("v4_matrix", {}),
         "v5_smoke_progress": diagnostic_progress.get("v5_smoke", {}),
         "v5_matrix_progress": diagnostic_progress.get("v5_matrix", {}),
+        "v6_smoke_progress": diagnostic_progress.get("v6_smoke", {}),
+        "v6_matrix_progress": diagnostic_progress.get("v6_matrix", {}),
         "v51_matrix_progress": diagnostic_progress.get("v51_matrix", {}),
         "v3_summary": load_v3_summary(),
         "v4_gate_status": load_v4_gate_status(),
@@ -865,7 +926,9 @@ def html_template() -> str:
             <option value="v4_smoke">v4-smoke</option>
             <option value="v4_matrix">v4-matrix</option>
             <option value="v5_smoke">v5-smoke</option>
-            <option value="v5_matrix" selected>v5-matrix</option>
+            <option value="v5_matrix">v5-matrix</option>
+            <option value="v6_smoke">v6-smoke</option>
+            <option value="v6_matrix" selected>v6-matrix</option>
             <option value="v51_matrix">v5.1-hybrid</option>
           </select>
         </div>
@@ -908,7 +971,7 @@ def html_template() -> str:
 
       <div class="split">
         <div class="card">
-          <h2>Series Results (v3 + v4)</h2>
+          <h2>Series Results (v3-v6)</h2>
           <div class="controls">
             <input id="seriesSearch" type="text" placeholder="Search task/model/profile...">
             <select id="seriesVersionFilter"><option value="">All versions</option></select>
@@ -1101,6 +1164,7 @@ def html_template() -> str:
         "Items: <code>" + esc(detail.items_evaluated) + "</code>",
         "Runs: <code>" + esc(detail.runs_executed) + "</code>",
         "Evaluator: <code>" + esc(detail.tot_evaluator_mode) + "</code>",
+        "ToT condition: <code>" + esc(detail.tot_condition_id || "tot-prototype") + "</code>",
         "ToT config: <code>d=" + esc(detail.tot_max_depth) + " b=" + esc(detail.tot_branch_factor) + " w=" + esc(detail.tot_frontier_width) + "</code>",
         "ToT - ReAct Δ: <code>" + esc(fmtNum(detail.tot_minus_react, 3)) + "</code>",
         "Generated: <code>" + esc(detail.generated_utc) + "</code>"
@@ -1197,6 +1261,8 @@ def html_template() -> str:
       const p4Matrix = diag.v4_matrix || data.v4_matrix_progress || {};
       const p5Smoke = diag.v5_smoke || data.v5_smoke_progress || {};
       const p5Matrix = diag.v5_matrix || data.v5_matrix_progress || {};
+      const p6Smoke = diag.v6_smoke || data.v6_smoke_progress || {};
+      const p6Matrix = diag.v6_matrix || data.v6_matrix_progress || {};
       const p51Matrix = diag.v51_matrix || data.v51_matrix_progress || {};
       const p31Pairs = Number(p31.present_pairs || 0);
       const p31Total = Number(p31.total_pairs || 0);
@@ -1216,6 +1282,12 @@ def html_template() -> str:
       const p5MatrixPairs = Number(p5Matrix.present_pairs || 0);
       const p5MatrixTotal = Number(p5Matrix.total_pairs || 0);
       const p5MatrixPct = p5MatrixTotal > 0 ? Math.round((p5MatrixPairs / p5MatrixTotal) * 100) : 0;
+      const p6SmokePairs = Number(p6Smoke.present_pairs || 0);
+      const p6SmokeTotal = Number(p6Smoke.total_pairs || 0);
+      const p6SmokePct = p6SmokeTotal > 0 ? Math.round((p6SmokePairs / p6SmokeTotal) * 100) : 0;
+      const p6MatrixPairs = Number(p6Matrix.present_pairs || 0);
+      const p6MatrixTotal = Number(p6Matrix.total_pairs || 0);
+      const p6MatrixPct = p6MatrixTotal > 0 ? Math.round((p6MatrixPairs / p6MatrixTotal) * 100) : 0;
       const p51MatrixPairs = Number(p51Matrix.present_pairs || 0);
       const p51MatrixTotal = Number(p51Matrix.total_pairs || 0);
       const p51MatrixPct = p51MatrixTotal > 0 ? Math.round((p51MatrixPairs / p51MatrixTotal) * 100) : 0;
@@ -1230,6 +1302,8 @@ def html_template() -> str:
       const procCount = (data.runtime_processes || []).filter(p => p.alive).length;
 
       document.getElementById("topCards").innerHTML = [
+        '<div class="card"><h2>v6 Matrix Pairs</h2><div class="metric">' + p6MatrixPairs + '/' + p6MatrixTotal + '</div><div class="small">' + p6MatrixPct + '% complete</div></div>',
+        '<div class="card"><h2>v6 Smoke Pairs</h2><div class="metric">' + p6SmokePairs + '/' + p6SmokeTotal + '</div><div class="small">' + p6SmokePct + '% complete</div></div>',
         '<div class="card"><h2>v4 Matrix Pairs</h2><div class="metric">' + p4MatrixPairs + '/' + p4MatrixTotal + '</div><div class="small">' + p4MatrixPct + '% complete</div></div>',
         '<div class="card"><h2>v4 Smoke Pairs</h2><div class="metric">' + p4SmokePairs + '/' + p4SmokeTotal + '</div><div class="small">' + p4SmokePct + '% complete</div></div>',
         '<div class="card"><h2>v5 Matrix Pairs</h2><div class="metric">' + p5MatrixPairs + '/' + p5MatrixTotal + '</div><div class="small">' + p5MatrixPct + '% complete</div></div>',
@@ -1243,7 +1317,7 @@ def html_template() -> str:
       ].join("");
 
       const progressFilter = document.getElementById("progressVersionFilter");
-      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v5_matrix";
+      const selectedVersion = progressFilter && progressFilter.value ? progressFilter.value : "v6_matrix";
       const byVersion = {
         "v31": p31,
         "v32": p32,
@@ -1251,6 +1325,8 @@ def html_template() -> str:
         "v4_matrix": p4Matrix,
         "v5_smoke": p5Smoke,
         "v5_matrix": p5Matrix,
+        "v6_smoke": p6Smoke,
+        "v6_matrix": p6Matrix,
         "v51_matrix": p51Matrix
       };
       const active = byVersion[selectedVersion] || {};
@@ -1264,6 +1340,8 @@ def html_template() -> str:
         "v4_matrix":"v4-matrix",
         "v5_smoke":"v5-smoke",
         "v5_matrix":"v5-matrix",
+        "v6_smoke":"v6-smoke",
+        "v6_matrix":"v6-matrix",
         "v51_matrix":"v5.1-hybrid"
       })[selectedVersion] || selectedVersion;
       const activeDone = Number(active.done_blocks || 0);
